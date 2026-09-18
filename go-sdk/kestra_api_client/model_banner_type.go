@@ -1,0 +1,111 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// BannerType the model 'BannerType'
+type BannerType string
+
+// List of Banner.Type
+const (
+	BANNERTYPE_INFO BannerType = "INFO"
+	BANNERTYPE_WARNING BannerType = "WARNING"
+	BANNERTYPE_ERROR BannerType = "ERROR"
+)
+
+// All allowed values of BannerType enum
+var AllowedBannerTypeEnumValues = []BannerType{
+	"INFO",
+	"WARNING",
+	"ERROR",
+}
+
+func (v *BannerType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := BannerType(value)
+	for _, existing := range AllowedBannerTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid BannerType", value)
+}
+
+// NewBannerTypeFromValue returns a pointer to a valid BannerType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewBannerTypeFromValue(v string) (*BannerType, error) {
+	ev := BannerType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for BannerType: valid values are %v", v, AllowedBannerTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v BannerType) IsValid() bool {
+	for _, existing := range AllowedBannerTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Banner.Type value
+func (v BannerType) Ptr() *BannerType {
+	return &v
+}
+
+type NullableBannerType struct {
+	value *BannerType
+	isSet bool
+}
+
+func (v NullableBannerType) Get() *BannerType {
+	return v.value
+}
+
+func (v *NullableBannerType) Set(val *BannerType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableBannerType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableBannerType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableBannerType(val *BannerType) *NullableBannerType {
+	return &NullableBannerType{value: val, isSet: true}
+}
+
+func (v NullableBannerType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableBannerType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

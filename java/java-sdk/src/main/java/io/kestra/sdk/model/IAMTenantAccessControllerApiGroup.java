@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMTenantAccessControllerApiGroup
+ */
+@JsonPropertyOrder({
+  IAMTenantAccessControllerApiGroup.JSON_PROPERTY_ID,
+  IAMTenantAccessControllerApiGroup.JSON_PROPERTY_NAME,
+  IAMTenantAccessControllerApiGroup.JSON_PROPERTY_EXTERNAL
+})
+@JsonTypeName("IAMTenantAccessController.ApiGroup")
+public class IAMTenantAccessControllerApiGroup {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_EXTERNAL = "external";
+  @jakarta.annotation.Nullable  private Boolean external;
+
+  public IAMTenantAccessControllerApiGroup() {
+  }
+
+  public IAMTenantAccessControllerApiGroup id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMTenantAccessControllerApiGroup name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public IAMTenantAccessControllerApiGroup external(@jakarta.annotation.Nullable Boolean external) {
+    
+    this.external = external;
+    return this;
+  }
+
+  /**
+   * Get external
+   * @return external
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getExternal() {
+    return external;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternal(@jakarta.annotation.Nullable Boolean external) {
+    this.external = external;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMTenantAccessControllerApiGroup iaMTenantAccessControllerApiGroup = (IAMTenantAccessControllerApiGroup) o;
+    return Objects.equals(this.id, iaMTenantAccessControllerApiGroup.id) &&
+        Objects.equals(this.name, iaMTenantAccessControllerApiGroup.name) &&
+        Objects.equals(this.external, iaMTenantAccessControllerApiGroup.external);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, external);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMTenantAccessControllerApiGroup {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    external: ").append(toIndentedString(external)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

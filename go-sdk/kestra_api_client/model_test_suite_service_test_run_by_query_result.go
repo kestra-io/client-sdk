@@ -1,0 +1,301 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the TestSuiteServiceTestRunByQueryResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestSuiteServiceTestRunByQueryResult{}
+
+// TestSuiteServiceTestRunByQueryResult struct for TestSuiteServiceTestRunByQueryResult
+type TestSuiteServiceTestRunByQueryResult struct {
+	RequestMade *TestSuiteServiceRunByQueryRequest `json:"requestMade,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	NumberOfTestSuitesToBeRun *int32 `json:"numberOfTestSuitesToBeRun,omitempty"`
+	NumberOfTestCasesToBeRun *int32 `json:"numberOfTestCasesToBeRun,omitempty"`
+	Results []TestSuiteRunResult `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TestSuiteServiceTestRunByQueryResult TestSuiteServiceTestRunByQueryResult
+
+// NewTestSuiteServiceTestRunByQueryResult instantiates a new TestSuiteServiceTestRunByQueryResult object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTestSuiteServiceTestRunByQueryResult() *TestSuiteServiceTestRunByQueryResult {
+	this := TestSuiteServiceTestRunByQueryResult{}
+	return &this
+}
+
+// NewTestSuiteServiceTestRunByQueryResultWithDefaults instantiates a new TestSuiteServiceTestRunByQueryResult object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTestSuiteServiceTestRunByQueryResultWithDefaults() *TestSuiteServiceTestRunByQueryResult {
+	this := TestSuiteServiceTestRunByQueryResult{}
+	return &this
+}
+
+// GetRequestMade returns the RequestMade field value if set, zero value otherwise.
+func (o *TestSuiteServiceTestRunByQueryResult) GetRequestMade() TestSuiteServiceRunByQueryRequest {
+	if o == nil || IsNil(o.RequestMade) {
+		var ret TestSuiteServiceRunByQueryRequest
+		return ret
+	}
+	return *o.RequestMade
+}
+
+// GetRequestMadeOk returns a tuple with the RequestMade field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) GetRequestMadeOk() (*TestSuiteServiceRunByQueryRequest, bool) {
+	if o == nil || IsNil(o.RequestMade) {
+		return nil, false
+	}
+	return o.RequestMade, true
+}
+
+// HasRequestMade returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasRequestMade() bool {
+	if o != nil && !IsNil(o.RequestMade) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestMade gets a reference to the given TestSuiteServiceRunByQueryRequest and assigns it to the RequestMade field.
+func (o *TestSuiteServiceTestRunByQueryResult) SetRequestMade(v TestSuiteServiceRunByQueryRequest) {
+	o.RequestMade = &v
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
+func (o *TestSuiteServiceTestRunByQueryResult) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) GetTenantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TenantId) {
+		return nil, false
+	}
+	return o.TenantId, true
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+func (o *TestSuiteServiceTestRunByQueryResult) SetTenantId(v string) {
+	o.TenantId = &v
+}
+
+// GetNumberOfTestSuitesToBeRun returns the NumberOfTestSuitesToBeRun field value if set, zero value otherwise.
+func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestSuitesToBeRun() int32 {
+	if o == nil || IsNil(o.NumberOfTestSuitesToBeRun) {
+		var ret int32
+		return ret
+	}
+	return *o.NumberOfTestSuitesToBeRun
+}
+
+// GetNumberOfTestSuitesToBeRunOk returns a tuple with the NumberOfTestSuitesToBeRun field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestSuitesToBeRunOk() (*int32, bool) {
+	if o == nil || IsNil(o.NumberOfTestSuitesToBeRun) {
+		return nil, false
+	}
+	return o.NumberOfTestSuitesToBeRun, true
+}
+
+// HasNumberOfTestSuitesToBeRun returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestSuitesToBeRun() bool {
+	if o != nil && !IsNil(o.NumberOfTestSuitesToBeRun) {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberOfTestSuitesToBeRun gets a reference to the given int32 and assigns it to the NumberOfTestSuitesToBeRun field.
+func (o *TestSuiteServiceTestRunByQueryResult) SetNumberOfTestSuitesToBeRun(v int32) {
+	o.NumberOfTestSuitesToBeRun = &v
+}
+
+// GetNumberOfTestCasesToBeRun returns the NumberOfTestCasesToBeRun field value if set, zero value otherwise.
+func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestCasesToBeRun() int32 {
+	if o == nil || IsNil(o.NumberOfTestCasesToBeRun) {
+		var ret int32
+		return ret
+	}
+	return *o.NumberOfTestCasesToBeRun
+}
+
+// GetNumberOfTestCasesToBeRunOk returns a tuple with the NumberOfTestCasesToBeRun field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestCasesToBeRunOk() (*int32, bool) {
+	if o == nil || IsNil(o.NumberOfTestCasesToBeRun) {
+		return nil, false
+	}
+	return o.NumberOfTestCasesToBeRun, true
+}
+
+// HasNumberOfTestCasesToBeRun returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestCasesToBeRun() bool {
+	if o != nil && !IsNil(o.NumberOfTestCasesToBeRun) {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberOfTestCasesToBeRun gets a reference to the given int32 and assigns it to the NumberOfTestCasesToBeRun field.
+func (o *TestSuiteServiceTestRunByQueryResult) SetNumberOfTestCasesToBeRun(v int32) {
+	o.NumberOfTestCasesToBeRun = &v
+}
+
+// GetResults returns the Results field value if set, zero value otherwise.
+func (o *TestSuiteServiceTestRunByQueryResult) GetResults() []TestSuiteRunResult {
+	if o == nil || IsNil(o.Results) {
+		var ret []TestSuiteRunResult
+		return ret
+	}
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) GetResultsOk() ([]TestSuiteRunResult, bool) {
+	if o == nil || IsNil(o.Results) {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// HasResults returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasResults() bool {
+	if o != nil && !IsNil(o.Results) {
+		return true
+	}
+
+	return false
+}
+
+// SetResults gets a reference to the given []TestSuiteRunResult and assigns it to the Results field.
+func (o *TestSuiteServiceTestRunByQueryResult) SetResults(v []TestSuiteRunResult) {
+	o.Results = v
+}
+
+func (o TestSuiteServiceTestRunByQueryResult) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestSuiteServiceTestRunByQueryResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RequestMade) {
+		toSerialize["requestMade"] = o.RequestMade
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.NumberOfTestSuitesToBeRun) {
+		toSerialize["numberOfTestSuitesToBeRun"] = o.NumberOfTestSuitesToBeRun
+	}
+	if !IsNil(o.NumberOfTestCasesToBeRun) {
+		toSerialize["numberOfTestCasesToBeRun"] = o.NumberOfTestCasesToBeRun
+	}
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TestSuiteServiceTestRunByQueryResult) UnmarshalJSON(data []byte) (err error) {
+	varTestSuiteServiceTestRunByQueryResult := _TestSuiteServiceTestRunByQueryResult{}
+
+	err = json.Unmarshal(data, &varTestSuiteServiceTestRunByQueryResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestSuiteServiceTestRunByQueryResult(varTestSuiteServiceTestRunByQueryResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requestMade")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "numberOfTestSuitesToBeRun")
+		delete(additionalProperties, "numberOfTestCasesToBeRun")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTestSuiteServiceTestRunByQueryResult struct {
+	value *TestSuiteServiceTestRunByQueryResult
+	isSet bool
+}
+
+func (v NullableTestSuiteServiceTestRunByQueryResult) Get() *TestSuiteServiceTestRunByQueryResult {
+	return v.value
+}
+
+func (v *NullableTestSuiteServiceTestRunByQueryResult) Set(val *TestSuiteServiceTestRunByQueryResult) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTestSuiteServiceTestRunByQueryResult) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTestSuiteServiceTestRunByQueryResult) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTestSuiteServiceTestRunByQueryResult(val *TestSuiteServiceTestRunByQueryResult) *NullableTestSuiteServiceTestRunByQueryResult {
+	return &NullableTestSuiteServiceTestRunByQueryResult{value: val, isSet: true}
+}
+
+func (v NullableTestSuiteServiceTestRunByQueryResult) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTestSuiteServiceTestRunByQueryResult) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

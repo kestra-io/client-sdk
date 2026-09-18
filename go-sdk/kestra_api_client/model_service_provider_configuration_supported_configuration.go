@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ServiceProviderConfigurationSupportedConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceProviderConfigurationSupportedConfiguration{}
+
+// ServiceProviderConfigurationSupportedConfiguration struct for ServiceProviderConfigurationSupportedConfiguration
+type ServiceProviderConfigurationSupportedConfiguration struct {
+	Supported *bool `json:"supported,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceProviderConfigurationSupportedConfiguration ServiceProviderConfigurationSupportedConfiguration
+
+// NewServiceProviderConfigurationSupportedConfiguration instantiates a new ServiceProviderConfigurationSupportedConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceProviderConfigurationSupportedConfiguration() *ServiceProviderConfigurationSupportedConfiguration {
+	this := ServiceProviderConfigurationSupportedConfiguration{}
+	return &this
+}
+
+// NewServiceProviderConfigurationSupportedConfigurationWithDefaults instantiates a new ServiceProviderConfigurationSupportedConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceProviderConfigurationSupportedConfigurationWithDefaults() *ServiceProviderConfigurationSupportedConfiguration {
+	this := ServiceProviderConfigurationSupportedConfiguration{}
+	return &this
+}
+
+// GetSupported returns the Supported field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationSupportedConfiguration) GetSupported() bool {
+	if o == nil || IsNil(o.Supported) {
+		var ret bool
+		return ret
+	}
+	return *o.Supported
+}
+
+// GetSupportedOk returns a tuple with the Supported field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationSupportedConfiguration) GetSupportedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Supported) {
+		return nil, false
+	}
+	return o.Supported, true
+}
+
+// HasSupported returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationSupportedConfiguration) HasSupported() bool {
+	if o != nil && !IsNil(o.Supported) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupported gets a reference to the given bool and assigns it to the Supported field.
+func (o *ServiceProviderConfigurationSupportedConfiguration) SetSupported(v bool) {
+	o.Supported = &v
+}
+
+func (o ServiceProviderConfigurationSupportedConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceProviderConfigurationSupportedConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Supported) {
+		toSerialize["supported"] = o.Supported
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfigurationSupportedConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varServiceProviderConfigurationSupportedConfiguration := _ServiceProviderConfigurationSupportedConfiguration{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfigurationSupportedConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfigurationSupportedConfiguration(varServiceProviderConfigurationSupportedConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "supported")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceProviderConfigurationSupportedConfiguration struct {
+	value *ServiceProviderConfigurationSupportedConfiguration
+	isSet bool
+}
+
+func (v NullableServiceProviderConfigurationSupportedConfiguration) Get() *ServiceProviderConfigurationSupportedConfiguration {
+	return v.value
+}
+
+func (v *NullableServiceProviderConfigurationSupportedConfiguration) Set(val *ServiceProviderConfigurationSupportedConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceProviderConfigurationSupportedConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceProviderConfigurationSupportedConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceProviderConfigurationSupportedConfiguration(val *ServiceProviderConfigurationSupportedConfiguration) *NullableServiceProviderConfigurationSupportedConfiguration {
+	return &NullableServiceProviderConfigurationSupportedConfiguration{value: val, isSet: true}
+}
+
+func (v NullableServiceProviderConfigurationSupportedConfiguration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceProviderConfigurationSupportedConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,98 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMUserControllerApiPatchRestrictedRequest
+ */
+@JsonPropertyOrder({
+  IAMUserControllerApiPatchRestrictedRequest.JSON_PROPERTY_RESTRICTED
+})
+@JsonTypeName("IAMUserController.ApiPatchRestrictedRequest")
+public class IAMUserControllerApiPatchRestrictedRequest {
+  public static final String JSON_PROPERTY_RESTRICTED = "restricted";
+  @jakarta.annotation.Nonnull  private Boolean restricted;
+
+  public IAMUserControllerApiPatchRestrictedRequest() {
+  }
+
+  public IAMUserControllerApiPatchRestrictedRequest restricted(@jakarta.annotation.Nonnull Boolean restricted) {
+    
+    this.restricted = restricted;
+    return this;
+  }
+
+  /**
+   * Get restricted
+   * @return restricted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getRestricted() {
+    return restricted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRestricted(@jakarta.annotation.Nonnull Boolean restricted) {
+    this.restricted = restricted;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest = (IAMUserControllerApiPatchRestrictedRequest) o;
+    return Objects.equals(this.restricted, iaMUserControllerApiPatchRestrictedRequest.restricted);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(restricted);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMUserControllerApiPatchRestrictedRequest {\n");
+    sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

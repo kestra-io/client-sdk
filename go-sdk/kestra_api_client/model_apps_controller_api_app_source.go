@@ -1,0 +1,413 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the AppsControllerApiAppSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppsControllerApiAppSource{}
+
+// AppsControllerApiAppSource struct for AppsControllerApiAppSource
+type AppsControllerApiAppSource struct {
+	Uid *string `json:"uid,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	Source *string `json:"source,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AppsControllerApiAppSource AppsControllerApiAppSource
+
+// NewAppsControllerApiAppSource instantiates a new AppsControllerApiAppSource object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAppsControllerApiAppSource() *AppsControllerApiAppSource {
+	this := AppsControllerApiAppSource{}
+	return &this
+}
+
+// NewAppsControllerApiAppSourceWithDefaults instantiates a new AppsControllerApiAppSource object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAppsControllerApiAppSourceWithDefaults() *AppsControllerApiAppSource {
+	this := AppsControllerApiAppSource{}
+	return &this
+}
+
+// GetUid returns the Uid field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetUid() string {
+	if o == nil || IsNil(o.Uid) {
+		var ret string
+		return ret
+	}
+	return *o.Uid
+}
+
+// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetUidOk() (*string, bool) {
+	if o == nil || IsNil(o.Uid) {
+		return nil, false
+	}
+	return o.Uid, true
+}
+
+// HasUid returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasUid() bool {
+	if o != nil && !IsNil(o.Uid) {
+		return true
+	}
+
+	return false
+}
+
+// SetUid gets a reference to the given string and assigns it to the Uid field.
+func (o *AppsControllerApiAppSource) SetUid(v string) {
+	o.Uid = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AppsControllerApiAppSource) SetName(v string) {
+	o.Name = &v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *AppsControllerApiAppSource) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetTags() []string {
+	if o == nil || IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *AppsControllerApiAppSource) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetDisabled() bool {
+	if o == nil || IsNil(o.Disabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetDisabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Disabled) {
+		return nil, false
+	}
+	return o.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+func (o *AppsControllerApiAppSource) SetDisabled(v bool) {
+	o.Disabled = &v
+}
+
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *AppsControllerApiAppSource) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetCreated() time.Time {
+	if o == nil || IsNil(o.Created) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetCreatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+func (o *AppsControllerApiAppSource) SetCreated(v time.Time) {
+	o.Created = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *AppsControllerApiAppSource) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppsControllerApiAppSource) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *AppsControllerApiAppSource) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *AppsControllerApiAppSource) SetUpdated(v time.Time) {
+	o.Updated = &v
+}
+
+func (o AppsControllerApiAppSource) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppsControllerApiAppSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uid) {
+		toSerialize["uid"] = o.Uid
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AppsControllerApiAppSource) UnmarshalJSON(data []byte) (err error) {
+	varAppsControllerApiAppSource := _AppsControllerApiAppSource{}
+
+	err = json.Unmarshal(data, &varAppsControllerApiAppSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppsControllerApiAppSource(varAppsControllerApiAppSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAppsControllerApiAppSource struct {
+	value *AppsControllerApiAppSource
+	isSet bool
+}
+
+func (v NullableAppsControllerApiAppSource) Get() *AppsControllerApiAppSource {
+	return v.value
+}
+
+func (v *NullableAppsControllerApiAppSource) Set(val *AppsControllerApiAppSource) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAppsControllerApiAppSource) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAppsControllerApiAppSource) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAppsControllerApiAppSource(val *AppsControllerApiAppSource) *NullableAppsControllerApiAppSource {
+	return &NullableAppsControllerApiAppSource{value: val, isSet: true}
+}
+
+func (v NullableAppsControllerApiAppSource) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAppsControllerApiAppSource) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

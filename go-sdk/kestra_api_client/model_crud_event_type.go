@@ -1,0 +1,123 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// CrudEventType the model 'CrudEventType'
+type CrudEventType string
+
+// List of CrudEventType
+const (
+	CRUDEVENTTYPE_READ CrudEventType = "READ"
+	CRUDEVENTTYPE_CREATE CrudEventType = "CREATE"
+	CRUDEVENTTYPE_UPDATE CrudEventType = "UPDATE"
+	CRUDEVENTTYPE_DELETE CrudEventType = "DELETE"
+	CRUDEVENTTYPE_LOGIN CrudEventType = "LOGIN"
+	CRUDEVENTTYPE_LOGOUT CrudEventType = "LOGOUT"
+	CRUDEVENTTYPE_IMPERSONATE CrudEventType = "IMPERSONATE"
+	CRUDEVENTTYPE_LOGIN_FAILURE CrudEventType = "LOGIN_FAILURE"
+	CRUDEVENTTYPE_ACCOUNT_LOCKED CrudEventType = "ACCOUNT_LOCKED"
+)
+
+// All allowed values of CrudEventType enum
+var AllowedCrudEventTypeEnumValues = []CrudEventType{
+	"READ",
+	"CREATE",
+	"UPDATE",
+	"DELETE",
+	"LOGIN",
+	"LOGOUT",
+	"IMPERSONATE",
+	"LOGIN_FAILURE",
+	"ACCOUNT_LOCKED",
+}
+
+func (v *CrudEventType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := CrudEventType(value)
+	for _, existing := range AllowedCrudEventTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid CrudEventType", value)
+}
+
+// NewCrudEventTypeFromValue returns a pointer to a valid CrudEventType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewCrudEventTypeFromValue(v string) (*CrudEventType, error) {
+	ev := CrudEventType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for CrudEventType: valid values are %v", v, AllowedCrudEventTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v CrudEventType) IsValid() bool {
+	for _, existing := range AllowedCrudEventTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to CrudEventType value
+func (v CrudEventType) Ptr() *CrudEventType {
+	return &v
+}
+
+type NullableCrudEventType struct {
+	value *CrudEventType
+	isSet bool
+}
+
+func (v NullableCrudEventType) Get() *CrudEventType {
+	return v.value
+}
+
+func (v *NullableCrudEventType) Set(val *CrudEventType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCrudEventType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCrudEventType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCrudEventType(val *CrudEventType) *NullableCrudEventType {
+	return &NullableCrudEventType{value: val, isSet: true}
+}
+
+func (v NullableCrudEventType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableCrudEventType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

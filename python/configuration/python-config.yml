@@ -1,0 +1,24 @@
+generatorName: python
+inputSpec: /local/kestra-ee.sanitized.yml
+outputDir: /local/python/python-sdk
+
+globalProperties:
+  apiTests: false
+  modelTests: false
+  apiDocs: true
+  modelDocs: true
+  skipFormModel: false
+hideGenerationTimestamp: true
+
+additionalProperties:
+  packageName: kestrapy
+  projectName: "@kestra-io/kestrapy"
+  packageAuthorEmail: "contact@kestra.io"
+  disallowAdditionalPropertiesIfNotPresent: false
+  customEmail: "contact@kestra.io"
+  customAuthor: "Kestra.io"
+  customDescription: "Kestra Python SDK"
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'
+  REFACTOR_ALLOF_WITH_PROPERTIES_ONLY: true

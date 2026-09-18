@@ -1,0 +1,109 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMUserGroupControllerApiUpdateUserGroupsRequest
+ */
+@JsonPropertyOrder({
+  IAMUserGroupControllerApiUpdateUserGroupsRequest.JSON_PROPERTY_GROUP_IDS
+})
+@JsonTypeName("IAMUserGroupController.ApiUpdateUserGroupsRequest")
+public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
+  public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
+  @jakarta.annotation.Nullable  private List<String> groupIds = new ArrayList<>();
+
+  public IAMUserGroupControllerApiUpdateUserGroupsRequest() {
+  }
+
+  public IAMUserGroupControllerApiUpdateUserGroupsRequest groupIds(@jakarta.annotation.Nullable List<String> groupIds) {
+    
+    this.groupIds = groupIds;
+    return this;
+  }
+
+  public IAMUserGroupControllerApiUpdateUserGroupsRequest addGroupIdsItem(String groupIdsItem) {
+    if (this.groupIds == null) {
+      this.groupIds = new ArrayList<>();
+    }
+    this.groupIds.add(groupIdsItem);
+    return this;
+  }
+
+  /**
+   * Get groupIds
+   * @return groupIds
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGroupIds() {
+    return groupIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupIds(@jakarta.annotation.Nullable List<String> groupIds) {
+    this.groupIds = groupIds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest = (IAMUserGroupControllerApiUpdateUserGroupsRequest) o;
+    return Objects.equals(this.groupIds, iaMUserGroupControllerApiUpdateUserGroupsRequest.groupIds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupIds);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMUserGroupControllerApiUpdateUserGroupsRequest {\n");
+    sb.append("    groupIds: ").append(toIndentedString(groupIds)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

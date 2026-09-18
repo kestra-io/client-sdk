@@ -1,0 +1,98 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMTenantAccessControllerApiCreateTenantAccessRequest
+ */
+@JsonPropertyOrder({
+  IAMTenantAccessControllerApiCreateTenantAccessRequest.JSON_PROPERTY_EMAIL
+})
+@JsonTypeName("IAMTenantAccessController.ApiCreateTenantAccessRequest")
+public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nonnull  private String email;
+
+  public IAMTenantAccessControllerApiCreateTenantAccessRequest() {
+  }
+
+  public IAMTenantAccessControllerApiCreateTenantAccessRequest email(@jakarta.annotation.Nonnull String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
+    this.email = email;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMTenantAccessControllerApiCreateTenantAccessRequest iaMTenantAccessControllerApiCreateTenantAccessRequest = (IAMTenantAccessControllerApiCreateTenantAccessRequest) o;
+    return Objects.equals(this.email, iaMTenantAccessControllerApiCreateTenantAccessRequest.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(email);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMTenantAccessControllerApiCreateTenantAccessRequest {\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

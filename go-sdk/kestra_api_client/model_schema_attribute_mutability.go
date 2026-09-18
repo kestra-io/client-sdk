@@ -1,0 +1,113 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// SchemaAttributeMutability the model 'SchemaAttributeMutability'
+type SchemaAttributeMutability string
+
+// List of Schema.Attribute.Mutability
+const (
+	SCHEMAATTRIBUTEMUTABILITY_IMMUTABLE SchemaAttributeMutability = "IMMUTABLE"
+	SCHEMAATTRIBUTEMUTABILITY_READ_ONLY SchemaAttributeMutability = "READ_ONLY"
+	SCHEMAATTRIBUTEMUTABILITY_READ_WRITE SchemaAttributeMutability = "READ_WRITE"
+	SCHEMAATTRIBUTEMUTABILITY_WRITE_ONLY SchemaAttributeMutability = "WRITE_ONLY"
+)
+
+// All allowed values of SchemaAttributeMutability enum
+var AllowedSchemaAttributeMutabilityEnumValues = []SchemaAttributeMutability{
+	"IMMUTABLE",
+	"READ_ONLY",
+	"READ_WRITE",
+	"WRITE_ONLY",
+}
+
+func (v *SchemaAttributeMutability) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := SchemaAttributeMutability(value)
+	for _, existing := range AllowedSchemaAttributeMutabilityEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SchemaAttributeMutability", value)
+}
+
+// NewSchemaAttributeMutabilityFromValue returns a pointer to a valid SchemaAttributeMutability
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewSchemaAttributeMutabilityFromValue(v string) (*SchemaAttributeMutability, error) {
+	ev := SchemaAttributeMutability(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for SchemaAttributeMutability: valid values are %v", v, AllowedSchemaAttributeMutabilityEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v SchemaAttributeMutability) IsValid() bool {
+	for _, existing := range AllowedSchemaAttributeMutabilityEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Schema.Attribute.Mutability value
+func (v SchemaAttributeMutability) Ptr() *SchemaAttributeMutability {
+	return &v
+}
+
+type NullableSchemaAttributeMutability struct {
+	value *SchemaAttributeMutability
+	isSet bool
+}
+
+func (v NullableSchemaAttributeMutability) Get() *SchemaAttributeMutability {
+	return v.value
+}
+
+func (v *NullableSchemaAttributeMutability) Set(val *SchemaAttributeMutability) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSchemaAttributeMutability) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSchemaAttributeMutability) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSchemaAttributeMutability(val *SchemaAttributeMutability) *NullableSchemaAttributeMutability {
+	return &NullableSchemaAttributeMutability{value: val, isSet: true}
+}
+
+func (v NullableSchemaAttributeMutability) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSchemaAttributeMutability) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

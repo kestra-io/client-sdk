@@ -1,0 +1,111 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// BlueprintControllerKind the model 'BlueprintControllerKind'
+type BlueprintControllerKind string
+
+// List of BlueprintController.Kind
+const (
+	BLUEPRINTCONTROLLERKIND_APP BlueprintControllerKind = "APP"
+	BLUEPRINTCONTROLLERKIND_DASHBOARD BlueprintControllerKind = "DASHBOARD"
+	BLUEPRINTCONTROLLERKIND_FLOW BlueprintControllerKind = "FLOW"
+)
+
+// All allowed values of BlueprintControllerKind enum
+var AllowedBlueprintControllerKindEnumValues = []BlueprintControllerKind{
+	"APP",
+	"DASHBOARD",
+	"FLOW",
+}
+
+func (v *BlueprintControllerKind) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := BlueprintControllerKind(value)
+	for _, existing := range AllowedBlueprintControllerKindEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid BlueprintControllerKind", value)
+}
+
+// NewBlueprintControllerKindFromValue returns a pointer to a valid BlueprintControllerKind
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewBlueprintControllerKindFromValue(v string) (*BlueprintControllerKind, error) {
+	ev := BlueprintControllerKind(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for BlueprintControllerKind: valid values are %v", v, AllowedBlueprintControllerKindEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v BlueprintControllerKind) IsValid() bool {
+	for _, existing := range AllowedBlueprintControllerKindEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to BlueprintController.Kind value
+func (v BlueprintControllerKind) Ptr() *BlueprintControllerKind {
+	return &v
+}
+
+type NullableBlueprintControllerKind struct {
+	value *BlueprintControllerKind
+	isSet bool
+}
+
+func (v NullableBlueprintControllerKind) Get() *BlueprintControllerKind {
+	return v.value
+}
+
+func (v *NullableBlueprintControllerKind) Set(val *BlueprintControllerKind) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableBlueprintControllerKind) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableBlueprintControllerKind) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableBlueprintControllerKind(val *BlueprintControllerKind) *NullableBlueprintControllerKind {
+	return &NullableBlueprintControllerKind{value: val, isSet: true}
+}
+
+func (v NullableBlueprintControllerKind) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableBlueprintControllerKind) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

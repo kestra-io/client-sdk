@@ -1,0 +1,152 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from kestrapy.models.assets_declaration import AssetsDeclaration
+from kestrapy.models.level import Level
+from kestrapy.models.state_type import StateType
+from kestrapy.models.the_labels_to_pass_to_the_execution_created import TheLabelsToPassToTheExecutionCreated
+from kestrapy.models.worker_selector import WorkerSelector
+from typing import Optional, Set
+from typing_extensions import Self
+
+class AbstractTrigger(BaseModel):
+    """
+    AbstractTrigger
+    """ # noqa: E501
+    id: Annotated[str, Field(min_length=1, strict=True, max_length=256)]
+    type: Annotated[str, Field(min_length=1, strict=True)]
+    version: Optional[StrictStr] = Field(default=None, description="Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). ")
+    description: Optional[StrictStr] = None
+    when: StrictStr = Field(description="A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.")
+    disabled: Optional[StrictBool] = False
+    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this trigger.", alias="workerSelector")
+    policy_refs: Optional[List[StrictStr]] = Field(default=None, description="Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition; ignored in the open-source edition).", alias="policyRefs")
+    log_level: Optional[Level] = Field(default=None, alias="logLevel")
+    labels: Optional[TheLabelsToPassToTheExecutionCreated] = None
+    stop_after: Optional[List[StateType]] = Field(default=None, alias="stopAfter")
+    log_to_file: Optional[StrictBool] = Field(default=None, alias="logToFile")
+    fail_on_trigger_error: Optional[StrictBool] = Field(default=None, alias="failOnTriggerError")
+    allow_concurrent: Optional[StrictBool] = Field(default=None, alias="allowConcurrent")
+    assets: Optional[AssetsDeclaration] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "type", "version", "description", "when", "disabled", "workerSelector", "policyRefs", "logLevel", "labels", "stopAfter", "logToFile", "failOnTriggerError", "allowConcurrent", "assets"]
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9_-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9_-]*/")
+        return value
+
+    @field_validator('type')
+    def type_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$/")
+        return value
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of AbstractTrigger from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of worker_selector
+        if self.worker_selector:
+            _dict['workerSelector'] = self.worker_selector.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of labels
+        if self.labels:
+            _dict['labels'] = self.labels.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of assets
+        if self.assets:
+            _dict['assets'] = self.assets.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of AbstractTrigger from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "type": obj.get("type"),
+            "version": obj.get("version"),
+            "description": obj.get("description"),
+            "when": obj.get("when"),
+            "disabled": obj.get("disabled") if obj.get("disabled") is not None else False,
+            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "policyRefs": obj.get("policyRefs"),
+            "logLevel": obj.get("logLevel"),
+            "labels": TheLabelsToPassToTheExecutionCreated.from_dict(obj["labels"]) if obj.get("labels") is not None else None,
+            "stopAfter": obj.get("stopAfter"),
+            "logToFile": obj.get("logToFile"),
+            "failOnTriggerError": obj.get("failOnTriggerError"),
+            "allowConcurrent": obj.get("allowConcurrent"),
+            "assets": AssetsDeclaration.from_dict(obj["assets"]) if obj.get("assets") is not None else None
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

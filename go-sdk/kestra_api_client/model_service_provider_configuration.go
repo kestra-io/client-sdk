@@ -1,0 +1,684 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ServiceProviderConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceProviderConfiguration{}
+
+// ServiceProviderConfiguration struct for ServiceProviderConfiguration
+type ServiceProviderConfiguration struct {
+	Schemas []string `json:"schemas,omitempty"`
+	BaseUrn *string `json:"baseUrn,omitempty"`
+	Extensions *map[string]ScimExtension `json:"extensions,omitempty"`
+	Meta Meta `json:"meta"`
+	Id *string `json:"id,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	ResourceType *string `json:"resourceType,omitempty"`
+	DocumentationUrl *string `json:"documentationUrl,omitempty"`
+	Patch *ServiceProviderConfigurationSupportedConfiguration `json:"patch,omitempty"`
+	Bulk *ServiceProviderConfigurationBulkConfiguration `json:"bulk,omitempty"`
+	Filter *ServiceProviderConfigurationFilterConfiguration `json:"filter,omitempty"`
+	ChangePassword *ServiceProviderConfigurationSupportedConfiguration `json:"changePassword,omitempty"`
+	Sort *ServiceProviderConfigurationSupportedConfiguration `json:"sort,omitempty"`
+	Etag *ServiceProviderConfigurationSupportedConfiguration `json:"etag,omitempty"`
+	AuthenticationSchemes []ServiceProviderConfigurationAuthenticationSchema `json:"authenticationSchemes,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceProviderConfiguration ServiceProviderConfiguration
+
+// NewServiceProviderConfiguration instantiates a new ServiceProviderConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceProviderConfiguration(meta Meta) *ServiceProviderConfiguration {
+	this := ServiceProviderConfiguration{}
+	this.Meta = meta
+	return &this
+}
+
+// NewServiceProviderConfigurationWithDefaults instantiates a new ServiceProviderConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceProviderConfigurationWithDefaults() *ServiceProviderConfiguration {
+	this := ServiceProviderConfiguration{}
+	return &this
+}
+
+// GetSchemas returns the Schemas field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetSchemas() []string {
+	if o == nil || IsNil(o.Schemas) {
+		var ret []string
+		return ret
+	}
+	return o.Schemas
+}
+
+// GetSchemasOk returns a tuple with the Schemas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetSchemasOk() ([]string, bool) {
+	if o == nil || IsNil(o.Schemas) {
+		return nil, false
+	}
+	return o.Schemas, true
+}
+
+// HasSchemas returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasSchemas() bool {
+	if o != nil && !IsNil(o.Schemas) {
+		return true
+	}
+
+	return false
+}
+
+// SetSchemas gets a reference to the given []string and assigns it to the Schemas field.
+func (o *ServiceProviderConfiguration) SetSchemas(v []string) {
+	o.Schemas = v
+}
+
+// GetBaseUrn returns the BaseUrn field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetBaseUrn() string {
+	if o == nil || IsNil(o.BaseUrn) {
+		var ret string
+		return ret
+	}
+	return *o.BaseUrn
+}
+
+// GetBaseUrnOk returns a tuple with the BaseUrn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetBaseUrnOk() (*string, bool) {
+	if o == nil || IsNil(o.BaseUrn) {
+		return nil, false
+	}
+	return o.BaseUrn, true
+}
+
+// HasBaseUrn returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasBaseUrn() bool {
+	if o != nil && !IsNil(o.BaseUrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetBaseUrn gets a reference to the given string and assigns it to the BaseUrn field.
+func (o *ServiceProviderConfiguration) SetBaseUrn(v string) {
+	o.BaseUrn = &v
+}
+
+// GetExtensions returns the Extensions field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetExtensions() map[string]ScimExtension {
+	if o == nil || IsNil(o.Extensions) {
+		var ret map[string]ScimExtension
+		return ret
+	}
+	return *o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetExtensionsOk() (*map[string]ScimExtension, bool) {
+	if o == nil || IsNil(o.Extensions) {
+		return nil, false
+	}
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasExtensions() bool {
+	if o != nil && !IsNil(o.Extensions) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given map[string]ScimExtension and assigns it to the Extensions field.
+func (o *ServiceProviderConfiguration) SetExtensions(v map[string]ScimExtension) {
+	o.Extensions = &v
+}
+
+// GetMeta returns the Meta field value
+func (o *ServiceProviderConfiguration) GetMeta() Meta {
+	if o == nil {
+		var ret Meta
+		return ret
+	}
+
+	return o.Meta
+}
+
+// GetMetaOk returns a tuple with the Meta field value
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetMetaOk() (*Meta, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Meta, true
+}
+
+// SetMeta sets field value
+func (o *ServiceProviderConfiguration) SetMeta(v Meta) {
+	o.Meta = v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ServiceProviderConfiguration) SetId(v string) {
+	o.Id = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *ServiceProviderConfiguration) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetResourceType() string {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceType) {
+		return nil, false
+	}
+	return o.ResourceType, true
+}
+
+// HasResourceType returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *ServiceProviderConfiguration) SetResourceType(v string) {
+	o.ResourceType = &v
+}
+
+// GetDocumentationUrl returns the DocumentationUrl field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetDocumentationUrl() string {
+	if o == nil || IsNil(o.DocumentationUrl) {
+		var ret string
+		return ret
+	}
+	return *o.DocumentationUrl
+}
+
+// GetDocumentationUrlOk returns a tuple with the DocumentationUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetDocumentationUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.DocumentationUrl) {
+		return nil, false
+	}
+	return o.DocumentationUrl, true
+}
+
+// HasDocumentationUrl returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasDocumentationUrl() bool {
+	if o != nil && !IsNil(o.DocumentationUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetDocumentationUrl gets a reference to the given string and assigns it to the DocumentationUrl field.
+func (o *ServiceProviderConfiguration) SetDocumentationUrl(v string) {
+	o.DocumentationUrl = &v
+}
+
+// GetPatch returns the Patch field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetPatch() ServiceProviderConfigurationSupportedConfiguration {
+	if o == nil || IsNil(o.Patch) {
+		var ret ServiceProviderConfigurationSupportedConfiguration
+		return ret
+	}
+	return *o.Patch
+}
+
+// GetPatchOk returns a tuple with the Patch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetPatchOk() (*ServiceProviderConfigurationSupportedConfiguration, bool) {
+	if o == nil || IsNil(o.Patch) {
+		return nil, false
+	}
+	return o.Patch, true
+}
+
+// HasPatch returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasPatch() bool {
+	if o != nil && !IsNil(o.Patch) {
+		return true
+	}
+
+	return false
+}
+
+// SetPatch gets a reference to the given ServiceProviderConfigurationSupportedConfiguration and assigns it to the Patch field.
+func (o *ServiceProviderConfiguration) SetPatch(v ServiceProviderConfigurationSupportedConfiguration) {
+	o.Patch = &v
+}
+
+// GetBulk returns the Bulk field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetBulk() ServiceProviderConfigurationBulkConfiguration {
+	if o == nil || IsNil(o.Bulk) {
+		var ret ServiceProviderConfigurationBulkConfiguration
+		return ret
+	}
+	return *o.Bulk
+}
+
+// GetBulkOk returns a tuple with the Bulk field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetBulkOk() (*ServiceProviderConfigurationBulkConfiguration, bool) {
+	if o == nil || IsNil(o.Bulk) {
+		return nil, false
+	}
+	return o.Bulk, true
+}
+
+// HasBulk returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasBulk() bool {
+	if o != nil && !IsNil(o.Bulk) {
+		return true
+	}
+
+	return false
+}
+
+// SetBulk gets a reference to the given ServiceProviderConfigurationBulkConfiguration and assigns it to the Bulk field.
+func (o *ServiceProviderConfiguration) SetBulk(v ServiceProviderConfigurationBulkConfiguration) {
+	o.Bulk = &v
+}
+
+// GetFilter returns the Filter field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetFilter() ServiceProviderConfigurationFilterConfiguration {
+	if o == nil || IsNil(o.Filter) {
+		var ret ServiceProviderConfigurationFilterConfiguration
+		return ret
+	}
+	return *o.Filter
+}
+
+// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetFilterOk() (*ServiceProviderConfigurationFilterConfiguration, bool) {
+	if o == nil || IsNil(o.Filter) {
+		return nil, false
+	}
+	return o.Filter, true
+}
+
+// HasFilter returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasFilter() bool {
+	if o != nil && !IsNil(o.Filter) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilter gets a reference to the given ServiceProviderConfigurationFilterConfiguration and assigns it to the Filter field.
+func (o *ServiceProviderConfiguration) SetFilter(v ServiceProviderConfigurationFilterConfiguration) {
+	o.Filter = &v
+}
+
+// GetChangePassword returns the ChangePassword field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetChangePassword() ServiceProviderConfigurationSupportedConfiguration {
+	if o == nil || IsNil(o.ChangePassword) {
+		var ret ServiceProviderConfigurationSupportedConfiguration
+		return ret
+	}
+	return *o.ChangePassword
+}
+
+// GetChangePasswordOk returns a tuple with the ChangePassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetChangePasswordOk() (*ServiceProviderConfigurationSupportedConfiguration, bool) {
+	if o == nil || IsNil(o.ChangePassword) {
+		return nil, false
+	}
+	return o.ChangePassword, true
+}
+
+// HasChangePassword returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasChangePassword() bool {
+	if o != nil && !IsNil(o.ChangePassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangePassword gets a reference to the given ServiceProviderConfigurationSupportedConfiguration and assigns it to the ChangePassword field.
+func (o *ServiceProviderConfiguration) SetChangePassword(v ServiceProviderConfigurationSupportedConfiguration) {
+	o.ChangePassword = &v
+}
+
+// GetSort returns the Sort field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetSort() ServiceProviderConfigurationSupportedConfiguration {
+	if o == nil || IsNil(o.Sort) {
+		var ret ServiceProviderConfigurationSupportedConfiguration
+		return ret
+	}
+	return *o.Sort
+}
+
+// GetSortOk returns a tuple with the Sort field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetSortOk() (*ServiceProviderConfigurationSupportedConfiguration, bool) {
+	if o == nil || IsNil(o.Sort) {
+		return nil, false
+	}
+	return o.Sort, true
+}
+
+// HasSort returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasSort() bool {
+	if o != nil && !IsNil(o.Sort) {
+		return true
+	}
+
+	return false
+}
+
+// SetSort gets a reference to the given ServiceProviderConfigurationSupportedConfiguration and assigns it to the Sort field.
+func (o *ServiceProviderConfiguration) SetSort(v ServiceProviderConfigurationSupportedConfiguration) {
+	o.Sort = &v
+}
+
+// GetEtag returns the Etag field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetEtag() ServiceProviderConfigurationSupportedConfiguration {
+	if o == nil || IsNil(o.Etag) {
+		var ret ServiceProviderConfigurationSupportedConfiguration
+		return ret
+	}
+	return *o.Etag
+}
+
+// GetEtagOk returns a tuple with the Etag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetEtagOk() (*ServiceProviderConfigurationSupportedConfiguration, bool) {
+	if o == nil || IsNil(o.Etag) {
+		return nil, false
+	}
+	return o.Etag, true
+}
+
+// HasEtag returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasEtag() bool {
+	if o != nil && !IsNil(o.Etag) {
+		return true
+	}
+
+	return false
+}
+
+// SetEtag gets a reference to the given ServiceProviderConfigurationSupportedConfiguration and assigns it to the Etag field.
+func (o *ServiceProviderConfiguration) SetEtag(v ServiceProviderConfigurationSupportedConfiguration) {
+	o.Etag = &v
+}
+
+// GetAuthenticationSchemes returns the AuthenticationSchemes field value if set, zero value otherwise.
+func (o *ServiceProviderConfiguration) GetAuthenticationSchemes() []ServiceProviderConfigurationAuthenticationSchema {
+	if o == nil || IsNil(o.AuthenticationSchemes) {
+		var ret []ServiceProviderConfigurationAuthenticationSchema
+		return ret
+	}
+	return o.AuthenticationSchemes
+}
+
+// GetAuthenticationSchemesOk returns a tuple with the AuthenticationSchemes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfiguration) GetAuthenticationSchemesOk() ([]ServiceProviderConfigurationAuthenticationSchema, bool) {
+	if o == nil || IsNil(o.AuthenticationSchemes) {
+		return nil, false
+	}
+	return o.AuthenticationSchemes, true
+}
+
+// HasAuthenticationSchemes returns a boolean if a field has been set.
+func (o *ServiceProviderConfiguration) HasAuthenticationSchemes() bool {
+	if o != nil && !IsNil(o.AuthenticationSchemes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthenticationSchemes gets a reference to the given []ServiceProviderConfigurationAuthenticationSchema and assigns it to the AuthenticationSchemes field.
+func (o *ServiceProviderConfiguration) SetAuthenticationSchemes(v []ServiceProviderConfigurationAuthenticationSchema) {
+	o.AuthenticationSchemes = v
+}
+
+func (o ServiceProviderConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceProviderConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Schemas) {
+		toSerialize["schemas"] = o.Schemas
+	}
+	if !IsNil(o.BaseUrn) {
+		toSerialize["baseUrn"] = o.BaseUrn
+	}
+	if !IsNil(o.Extensions) {
+		toSerialize["extensions"] = o.Extensions
+	}
+	toSerialize["meta"] = o.Meta
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["externalId"] = o.ExternalId
+	}
+	if !IsNil(o.ResourceType) {
+		toSerialize["resourceType"] = o.ResourceType
+	}
+	if !IsNil(o.DocumentationUrl) {
+		toSerialize["documentationUrl"] = o.DocumentationUrl
+	}
+	if !IsNil(o.Patch) {
+		toSerialize["patch"] = o.Patch
+	}
+	if !IsNil(o.Bulk) {
+		toSerialize["bulk"] = o.Bulk
+	}
+	if !IsNil(o.Filter) {
+		toSerialize["filter"] = o.Filter
+	}
+	if !IsNil(o.ChangePassword) {
+		toSerialize["changePassword"] = o.ChangePassword
+	}
+	if !IsNil(o.Sort) {
+		toSerialize["sort"] = o.Sort
+	}
+	if !IsNil(o.Etag) {
+		toSerialize["etag"] = o.Etag
+	}
+	if !IsNil(o.AuthenticationSchemes) {
+		toSerialize["authenticationSchemes"] = o.AuthenticationSchemes
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"meta",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceProviderConfiguration := _ServiceProviderConfiguration{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfiguration(varServiceProviderConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "baseUrn")
+		delete(additionalProperties, "extensions")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "documentationUrl")
+		delete(additionalProperties, "patch")
+		delete(additionalProperties, "bulk")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "changePassword")
+		delete(additionalProperties, "sort")
+		delete(additionalProperties, "etag")
+		delete(additionalProperties, "authenticationSchemes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceProviderConfiguration struct {
+	value *ServiceProviderConfiguration
+	isSet bool
+}
+
+func (v NullableServiceProviderConfiguration) Get() *ServiceProviderConfiguration {
+	return v.value
+}
+
+func (v *NullableServiceProviderConfiguration) Set(val *ServiceProviderConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceProviderConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceProviderConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceProviderConfiguration(val *ServiceProviderConfiguration) *NullableServiceProviderConfiguration {
+	return &NullableServiceProviderConfiguration{value: val, isSet: true}
+}
+
+func (v NullableServiceProviderConfiguration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceProviderConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

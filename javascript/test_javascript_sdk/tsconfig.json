@@ -1,0 +1,14 @@
+{
+  "include": ["**/*.ts", "../javascript-sdk/tsdown.config.ts"],
+  "compilerOptions": {
+    // Tells TypeScript to read JS files, as
+    // normally they are ignored as source files
+    "moduleResolution": "nodenext",
+    "target": "esnext",
+    "module": "nodenext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "noEmit": true
+  }
+}

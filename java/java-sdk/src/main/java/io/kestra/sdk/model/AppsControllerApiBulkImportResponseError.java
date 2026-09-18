@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AppsControllerApiBulkImportResponseError
+ */
+@JsonPropertyOrder({
+  AppsControllerApiBulkImportResponseError.JSON_PROPERTY_SOURCE,
+  AppsControllerApiBulkImportResponseError.JSON_PROPERTY_MESSAGE
+})
+@JsonTypeName("AppsController.ApiBulkImportResponse.Error")
+public class AppsControllerApiBulkImportResponseError {
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  @jakarta.annotation.Nullable  private String message;
+
+  public AppsControllerApiBulkImportResponseError() {
+  }
+
+  public AppsControllerApiBulkImportResponseError source(@jakarta.annotation.Nullable String source) {
+    
+    this.source = source;
+    return this;
+  }
+
+  /**
+   * Get source
+   * @return source
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
+    this.source = source;
+  }
+
+  public AppsControllerApiBulkImportResponseError message(@jakarta.annotation.Nullable String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * Get message
+   * @return message
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessage(@jakarta.annotation.Nullable String message) {
+    this.message = message;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AppsControllerApiBulkImportResponseError appsControllerApiBulkImportResponseError = (AppsControllerApiBulkImportResponseError) o;
+    return Objects.equals(this.source, appsControllerApiBulkImportResponseError.source) &&
+        Objects.equals(this.message, appsControllerApiBulkImportResponseError.message);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(source, message);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AppsControllerApiBulkImportResponseError {\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

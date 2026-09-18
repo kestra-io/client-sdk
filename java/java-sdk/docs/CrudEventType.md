@@ -1,0 +1,29 @@
+
+
+# CrudEventType
+
+## Enum
+
+
+* `READ` (value: `"READ"`)
+
+* `CREATE` (value: `"CREATE"`)
+
+* `UPDATE` (value: `"UPDATE"`)
+
+* `DELETE` (value: `"DELETE"`)
+
+* `LOGIN` (value: `"LOGIN"`)
+
+* `LOGOUT` (value: `"LOGOUT"`)
+
+* `IMPERSONATE` (value: `"IMPERSONATE"`)
+
+* `LOGIN_FAILURE` (value: `"LOGIN_FAILURE"`)
+
+* `ACCOUNT_LOCKED` (value: `"ACCOUNT_LOCKED"`)
+
+* `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
+
+
+

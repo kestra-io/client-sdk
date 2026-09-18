@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InputType
+ */
+@JsonPropertyOrder({
+  InputType.JSON_PROPERTY_TYPE,
+  InputType.JSON_PROPERTY_CLS
+})
+public class InputType {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_CLS = "cls";
+  @jakarta.annotation.Nullable  private String cls;
+
+  public InputType() {
+  }
+
+  public InputType type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public InputType cls(@jakarta.annotation.Nullable String cls) {
+    
+    this.cls = cls;
+    return this;
+  }
+
+  /**
+   * Get cls
+   * @return cls
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCls() {
+    return cls;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCls(@jakarta.annotation.Nullable String cls) {
+    this.cls = cls;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InputType inputType = (InputType) o;
+    return Objects.equals(this.type, inputType.type) &&
+        Objects.equals(this.cls, inputType.cls);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, cls);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InputType {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    cls: ").append(toIndentedString(cls)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

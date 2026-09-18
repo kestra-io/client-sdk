@@ -1,0 +1,300 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Label;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Backfill
+ */
+@JsonPropertyOrder({
+  Backfill.JSON_PROPERTY_START,
+  Backfill.JSON_PROPERTY_END,
+  Backfill.JSON_PROPERTY_CURRENT_DATE,
+  Backfill.JSON_PROPERTY_PAUSED,
+  Backfill.JSON_PROPERTY_INPUTS,
+  Backfill.JSON_PROPERTY_LABELS,
+  Backfill.JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE
+})
+public class Backfill {
+  public static final String JSON_PROPERTY_START = "start";
+  @jakarta.annotation.Nonnull  private OffsetDateTime start;
+
+  public static final String JSON_PROPERTY_END = "end";
+  @jakarta.annotation.Nullable  private OffsetDateTime end;
+
+  public static final String JSON_PROPERTY_CURRENT_DATE = "currentDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime currentDate;
+
+  public static final String JSON_PROPERTY_PAUSED = "paused";
+  @jakarta.annotation.Nullable  private Boolean paused;
+
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE = "previousNextExecutionDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime previousNextExecutionDate;
+
+  public Backfill() {
+  }
+
+  public Backfill start(@jakarta.annotation.Nonnull OffsetDateTime start) {
+    
+    this.start = start;
+    return this;
+  }
+
+  /**
+   * Get start
+   * @return start
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getStart() {
+    return start;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStart(@jakarta.annotation.Nonnull OffsetDateTime start) {
+    this.start = start;
+  }
+
+  public Backfill end(@jakarta.annotation.Nullable OffsetDateTime end) {
+    
+    this.end = end;
+    return this;
+  }
+
+  /**
+   * Get end
+   * @return end
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getEnd() {
+    return end;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnd(@jakarta.annotation.Nullable OffsetDateTime end) {
+    this.end = end;
+  }
+
+  public Backfill currentDate(@jakarta.annotation.Nullable OffsetDateTime currentDate) {
+    
+    this.currentDate = currentDate;
+    return this;
+  }
+
+  /**
+   * Get currentDate
+   * @return currentDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CURRENT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCurrentDate() {
+    return currentDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CURRENT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCurrentDate(@jakarta.annotation.Nullable OffsetDateTime currentDate) {
+    this.currentDate = currentDate;
+  }
+
+  public Backfill paused(@jakarta.annotation.Nullable Boolean paused) {
+    
+    this.paused = paused;
+    return this;
+  }
+
+  /**
+   * Get paused
+   * @return paused
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAUSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPaused() {
+    return paused;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAUSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPaused(@jakarta.annotation.Nullable Boolean paused) {
+    this.paused = paused;
+  }
+
+  public Backfill inputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  public Backfill putInputsItem(String key, Object inputsItem) {
+    if (this.inputs == null) {
+      this.inputs = new HashMap<>();
+    }
+    this.inputs.put(key, inputsItem);
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
+    this.inputs = inputs;
+  }
+
+  public Backfill labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public Backfill addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
+  }
+
+  public Backfill previousNextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
+    
+    this.previousNextExecutionDate = previousNextExecutionDate;
+    return this;
+  }
+
+  /**
+   * Get previousNextExecutionDate
+   * @return previousNextExecutionDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getPreviousNextExecutionDate() {
+    return previousNextExecutionDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreviousNextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
+    this.previousNextExecutionDate = previousNextExecutionDate;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Backfill backfill = (Backfill) o;
+    return Objects.equals(this.start, backfill.start) &&
+        Objects.equals(this.end, backfill.end) &&
+        Objects.equals(this.currentDate, backfill.currentDate) &&
+        Objects.equals(this.paused, backfill.paused) &&
+        Objects.equals(this.inputs, backfill.inputs) &&
+        Objects.equals(this.labels, backfill.labels) &&
+        Objects.equals(this.previousNextExecutionDate, backfill.previousNextExecutionDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(start, end, currentDate, paused, inputs, labels, previousNextExecutionDate);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Backfill {\n");
+    sb.append("    start: ").append(toIndentedString(start)).append("\n");
+    sb.append("    end: ").append(toIndentedString(end)).append("\n");
+    sb.append("    currentDate: ").append(toIndentedString(currentDate)).append("\n");
+    sb.append("    paused: ").append(toIndentedString(paused)).append("\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    previousNextExecutionDate: ").append(toIndentedString(previousNextExecutionDate)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

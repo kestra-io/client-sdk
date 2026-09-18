@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PluginSchema;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * DocumentationWithSchema
+ */
+@JsonPropertyOrder({
+  DocumentationWithSchema.JSON_PROPERTY_MARKDOWN,
+  DocumentationWithSchema.JSON_PROPERTY_SCHEMA
+})
+public class DocumentationWithSchema {
+  public static final String JSON_PROPERTY_MARKDOWN = "markdown";
+  @jakarta.annotation.Nullable  private String markdown;
+
+  public static final String JSON_PROPERTY_SCHEMA = "schema";
+  @jakarta.annotation.Nullable  private PluginSchema schema;
+
+  public DocumentationWithSchema() {
+  }
+
+  public DocumentationWithSchema markdown(@jakarta.annotation.Nullable String markdown) {
+    
+    this.markdown = markdown;
+    return this;
+  }
+
+  /**
+   * Get markdown
+   * @return markdown
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MARKDOWN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMarkdown() {
+    return markdown;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MARKDOWN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMarkdown(@jakarta.annotation.Nullable String markdown) {
+    this.markdown = markdown;
+  }
+
+  public DocumentationWithSchema schema(@jakarta.annotation.Nullable PluginSchema schema) {
+    
+    this.schema = schema;
+    return this;
+  }
+
+  /**
+   * Get schema
+   * @return schema
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PluginSchema getSchema() {
+    return schema;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchema(@jakarta.annotation.Nullable PluginSchema schema) {
+    this.schema = schema;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DocumentationWithSchema documentationWithSchema = (DocumentationWithSchema) o;
+    return Objects.equals(this.markdown, documentationWithSchema.markdown) &&
+        Objects.equals(this.schema, documentationWithSchema.schema);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(markdown, schema);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DocumentationWithSchema {\n");
+    sb.append("    markdown: ").append(toIndentedString(markdown)).append("\n");
+    sb.append("    schema: ").append(toIndentedString(schema)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

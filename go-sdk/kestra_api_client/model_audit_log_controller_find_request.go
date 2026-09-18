@@ -1,0 +1,237 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the AuditLogControllerFindRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuditLogControllerFindRequest{}
+
+// AuditLogControllerFindRequest struct for AuditLogControllerFindRequest
+type AuditLogControllerFindRequest struct {
+	Resource *Resource `json:"resource,omitempty"`
+	Type NullableCrudEventType `json:"type,omitempty"`
+	Detail map[string]interface{} `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AuditLogControllerFindRequest AuditLogControllerFindRequest
+
+// NewAuditLogControllerFindRequest instantiates a new AuditLogControllerFindRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest {
+	this := AuditLogControllerFindRequest{}
+	return &this
+}
+
+// NewAuditLogControllerFindRequestWithDefaults instantiates a new AuditLogControllerFindRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAuditLogControllerFindRequestWithDefaults() *AuditLogControllerFindRequest {
+	this := AuditLogControllerFindRequest{}
+	return &this
+}
+
+// GetResource returns the Resource field value if set, zero value otherwise.
+func (o *AuditLogControllerFindRequest) GetResource() Resource {
+	if o == nil || IsNil(o.Resource) {
+		var ret Resource
+		return ret
+	}
+	return *o.Resource
+}
+
+// GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogControllerFindRequest) GetResourceOk() (*Resource, bool) {
+	if o == nil || IsNil(o.Resource) {
+		return nil, false
+	}
+	return o.Resource, true
+}
+
+// HasResource returns a boolean if a field has been set.
+func (o *AuditLogControllerFindRequest) HasResource() bool {
+	if o != nil && !IsNil(o.Resource) {
+		return true
+	}
+
+	return false
+}
+
+// SetResource gets a reference to the given Resource and assigns it to the Resource field.
+func (o *AuditLogControllerFindRequest) SetResource(v Resource) {
+	o.Resource = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogControllerFindRequest) GetType() CrudEventType {
+	if o == nil || IsNil(o.Type.Get()) {
+		var ret CrudEventType
+		return ret
+	}
+	return *o.Type.Get()
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogControllerFindRequest) GetTypeOk() (*CrudEventType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Type.Get(), o.Type.IsSet()
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *AuditLogControllerFindRequest) HasType() bool {
+	if o != nil && o.Type.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given NullableCrudEventType and assigns it to the Type field.
+func (o *AuditLogControllerFindRequest) SetType(v CrudEventType) {
+	o.Type.Set(&v)
+}
+// SetTypeNil sets the value for Type to be an explicit nil
+func (o *AuditLogControllerFindRequest) SetTypeNil() {
+	o.Type.Set(nil)
+}
+
+// UnsetType ensures that no value is present for Type, not even an explicit nil
+func (o *AuditLogControllerFindRequest) UnsetType() {
+	o.Type.Unset()
+}
+
+// GetDetail returns the Detail field value if set, zero value otherwise.
+func (o *AuditLogControllerFindRequest) GetDetail() map[string]interface{} {
+	if o == nil || IsNil(o.Detail) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Detail
+}
+
+// GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogControllerFindRequest) GetDetailOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Detail) {
+		return map[string]interface{}{}, false
+	}
+	return o.Detail, true
+}
+
+// HasDetail returns a boolean if a field has been set.
+func (o *AuditLogControllerFindRequest) HasDetail() bool {
+	if o != nil && !IsNil(o.Detail) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetail gets a reference to the given map[string]interface{} and assigns it to the Detail field.
+func (o *AuditLogControllerFindRequest) SetDetail(v map[string]interface{}) {
+	o.Detail = v
+}
+
+func (o AuditLogControllerFindRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuditLogControllerFindRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	if o.Type.IsSet() {
+		toSerialize["type"] = o.Type.Get()
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AuditLogControllerFindRequest) UnmarshalJSON(data []byte) (err error) {
+	varAuditLogControllerFindRequest := _AuditLogControllerFindRequest{}
+
+	err = json.Unmarshal(data, &varAuditLogControllerFindRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuditLogControllerFindRequest(varAuditLogControllerFindRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAuditLogControllerFindRequest struct {
+	value *AuditLogControllerFindRequest
+	isSet bool
+}
+
+func (v NullableAuditLogControllerFindRequest) Get() *AuditLogControllerFindRequest {
+	return v.value
+}
+
+func (v *NullableAuditLogControllerFindRequest) Set(val *AuditLogControllerFindRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAuditLogControllerFindRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAuditLogControllerFindRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAuditLogControllerFindRequest(val *AuditLogControllerFindRequest) *NullableAuditLogControllerFindRequest {
+	return &NullableAuditLogControllerFindRequest{value: val, isSet: true}
+}
+
+func (v NullableAuditLogControllerFindRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAuditLogControllerFindRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

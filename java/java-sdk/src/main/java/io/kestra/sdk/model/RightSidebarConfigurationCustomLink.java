@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * RightSidebarConfigurationCustomLink
+ */
+@JsonPropertyOrder({
+  RightSidebarConfigurationCustomLink.JSON_PROPERTY_TITLE,
+  RightSidebarConfigurationCustomLink.JSON_PROPERTY_URL
+})
+@JsonTypeName("RightSidebarConfiguration.CustomLink")
+public class RightSidebarConfigurationCustomLink {
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_URL = "url";
+  @jakarta.annotation.Nullable  private String url;
+
+  public RightSidebarConfigurationCustomLink() {
+  }
+
+  public RightSidebarConfigurationCustomLink title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public RightSidebarConfigurationCustomLink url(@jakarta.annotation.Nullable String url) {
+    
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   * @return url
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUrl() {
+    return url;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable String url) {
+    this.url = url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RightSidebarConfigurationCustomLink rightSidebarConfigurationCustomLink = (RightSidebarConfigurationCustomLink) o;
+    return Objects.equals(this.title, rightSidebarConfigurationCustomLink.title) &&
+        Objects.equals(this.url, rightSidebarConfigurationCustomLink.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, url);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RightSidebarConfigurationCustomLink {\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,110 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TestSuiteControllerTestSuiteApiId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteControllerSearchTestsLastResult
+ */
+@JsonPropertyOrder({
+  TestSuiteControllerSearchTestsLastResult.JSON_PROPERTY_TEST_SUITE_IDS
+})
+@JsonTypeName("TestSuiteController.SearchTestsLastResult")
+public class TestSuiteControllerSearchTestsLastResult {
+  public static final String JSON_PROPERTY_TEST_SUITE_IDS = "testSuiteIds";
+  @jakarta.annotation.Nullable  private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
+
+  public TestSuiteControllerSearchTestsLastResult() {
+  }
+
+  public TestSuiteControllerSearchTestsLastResult testSuiteIds(@jakarta.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+    
+    this.testSuiteIds = testSuiteIds;
+    return this;
+  }
+
+  public TestSuiteControllerSearchTestsLastResult addTestSuiteIdsItem(TestSuiteControllerTestSuiteApiId testSuiteIdsItem) {
+    if (this.testSuiteIds == null) {
+      this.testSuiteIds = new ArrayList<>();
+    }
+    this.testSuiteIds.add(testSuiteIdsItem);
+    return this;
+  }
+
+  /**
+   * Get testSuiteIds
+   * @return testSuiteIds
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TestSuiteControllerTestSuiteApiId> getTestSuiteIds() {
+    return testSuiteIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTestSuiteIds(@jakarta.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+    this.testSuiteIds = testSuiteIds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteControllerSearchTestsLastResult testSuiteControllerSearchTestsLastResult = (TestSuiteControllerSearchTestsLastResult) o;
+    return Objects.equals(this.testSuiteIds, testSuiteControllerSearchTestsLastResult.testSuiteIds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(testSuiteIds);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteControllerSearchTestsLastResult {\n");
+    sb.append("    testSuiteIds: ").append(toIndentedString(testSuiteIds)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,167 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TriggerFixture
+ */
+@JsonPropertyOrder({
+  TriggerFixture.JSON_PROPERTY_ID,
+  TriggerFixture.JSON_PROPERTY_TYPE,
+  TriggerFixture.JSON_PROPERTY_VARIABLES
+})
+public class TriggerFixture {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
+
+  public TriggerFixture() {
+  }
+
+  public TriggerFixture id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public TriggerFixture type(@jakarta.annotation.Nonnull String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public TriggerFixture variables(@jakarta.annotation.Nullable Map<String, Object> variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  public TriggerFixture putVariablesItem(String key, Object variablesItem) {
+    if (this.variables == null) {
+      this.variables = new HashMap<>();
+    }
+    this.variables.put(key, variablesItem);
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Map<String, Object> variables) {
+    this.variables = variables;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TriggerFixture triggerFixture = (TriggerFixture) o;
+    return Objects.equals(this.id, triggerFixture.id) &&
+        Objects.equals(this.type, triggerFixture.type) &&
+        Objects.equals(this.variables, triggerFixture.variables);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, variables);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TriggerFixture {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

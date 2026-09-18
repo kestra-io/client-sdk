@@ -1,0 +1,301 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the PluginArtifactMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PluginArtifactMetadata{}
+
+// PluginArtifactMetadata struct for PluginArtifactMetadata
+type PluginArtifactMetadata struct {
+	Uri *string `json:"uri,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Size *int64 `json:"size,omitempty"`
+	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty"`
+	CreationTime *int64 `json:"creationTime,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _PluginArtifactMetadata PluginArtifactMetadata
+
+// NewPluginArtifactMetadata instantiates a new PluginArtifactMetadata object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPluginArtifactMetadata() *PluginArtifactMetadata {
+	this := PluginArtifactMetadata{}
+	return &this
+}
+
+// NewPluginArtifactMetadataWithDefaults instantiates a new PluginArtifactMetadata object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPluginArtifactMetadataWithDefaults() *PluginArtifactMetadata {
+	this := PluginArtifactMetadata{}
+	return &this
+}
+
+// GetUri returns the Uri field value if set, zero value otherwise.
+func (o *PluginArtifactMetadata) GetUri() string {
+	if o == nil || IsNil(o.Uri) {
+		var ret string
+		return ret
+	}
+	return *o.Uri
+}
+
+// GetUriOk returns a tuple with the Uri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifactMetadata) GetUriOk() (*string, bool) {
+	if o == nil || IsNil(o.Uri) {
+		return nil, false
+	}
+	return o.Uri, true
+}
+
+// HasUri returns a boolean if a field has been set.
+func (o *PluginArtifactMetadata) HasUri() bool {
+	if o != nil && !IsNil(o.Uri) {
+		return true
+	}
+
+	return false
+}
+
+// SetUri gets a reference to the given string and assigns it to the Uri field.
+func (o *PluginArtifactMetadata) SetUri(v string) {
+	o.Uri = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *PluginArtifactMetadata) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifactMetadata) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *PluginArtifactMetadata) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *PluginArtifactMetadata) SetName(v string) {
+	o.Name = &v
+}
+
+// GetSize returns the Size field value if set, zero value otherwise.
+func (o *PluginArtifactMetadata) GetSize() int64 {
+	if o == nil || IsNil(o.Size) {
+		var ret int64
+		return ret
+	}
+	return *o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifactMetadata) GetSizeOk() (*int64, bool) {
+	if o == nil || IsNil(o.Size) {
+		return nil, false
+	}
+	return o.Size, true
+}
+
+// HasSize returns a boolean if a field has been set.
+func (o *PluginArtifactMetadata) HasSize() bool {
+	if o != nil && !IsNil(o.Size) {
+		return true
+	}
+
+	return false
+}
+
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *PluginArtifactMetadata) SetSize(v int64) {
+	o.Size = &v
+}
+
+// GetLastModifiedTime returns the LastModifiedTime field value if set, zero value otherwise.
+func (o *PluginArtifactMetadata) GetLastModifiedTime() int64 {
+	if o == nil || IsNil(o.LastModifiedTime) {
+		var ret int64
+		return ret
+	}
+	return *o.LastModifiedTime
+}
+
+// GetLastModifiedTimeOk returns a tuple with the LastModifiedTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifactMetadata) GetLastModifiedTimeOk() (*int64, bool) {
+	if o == nil || IsNil(o.LastModifiedTime) {
+		return nil, false
+	}
+	return o.LastModifiedTime, true
+}
+
+// HasLastModifiedTime returns a boolean if a field has been set.
+func (o *PluginArtifactMetadata) HasLastModifiedTime() bool {
+	if o != nil && !IsNil(o.LastModifiedTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedTime gets a reference to the given int64 and assigns it to the LastModifiedTime field.
+func (o *PluginArtifactMetadata) SetLastModifiedTime(v int64) {
+	o.LastModifiedTime = &v
+}
+
+// GetCreationTime returns the CreationTime field value if set, zero value otherwise.
+func (o *PluginArtifactMetadata) GetCreationTime() int64 {
+	if o == nil || IsNil(o.CreationTime) {
+		var ret int64
+		return ret
+	}
+	return *o.CreationTime
+}
+
+// GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifactMetadata) GetCreationTimeOk() (*int64, bool) {
+	if o == nil || IsNil(o.CreationTime) {
+		return nil, false
+	}
+	return o.CreationTime, true
+}
+
+// HasCreationTime returns a boolean if a field has been set.
+func (o *PluginArtifactMetadata) HasCreationTime() bool {
+	if o != nil && !IsNil(o.CreationTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreationTime gets a reference to the given int64 and assigns it to the CreationTime field.
+func (o *PluginArtifactMetadata) SetCreationTime(v int64) {
+	o.CreationTime = &v
+}
+
+func (o PluginArtifactMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PluginArtifactMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uri) {
+		toSerialize["uri"] = o.Uri
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Size) {
+		toSerialize["size"] = o.Size
+	}
+	if !IsNil(o.LastModifiedTime) {
+		toSerialize["lastModifiedTime"] = o.LastModifiedTime
+	}
+	if !IsNil(o.CreationTime) {
+		toSerialize["creationTime"] = o.CreationTime
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *PluginArtifactMetadata) UnmarshalJSON(data []byte) (err error) {
+	varPluginArtifactMetadata := _PluginArtifactMetadata{}
+
+	err = json.Unmarshal(data, &varPluginArtifactMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginArtifactMetadata(varPluginArtifactMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uri")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "lastModifiedTime")
+		delete(additionalProperties, "creationTime")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullablePluginArtifactMetadata struct {
+	value *PluginArtifactMetadata
+	isSet bool
+}
+
+func (v NullablePluginArtifactMetadata) Get() *PluginArtifactMetadata {
+	return v.value
+}
+
+func (v *NullablePluginArtifactMetadata) Set(val *PluginArtifactMetadata) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePluginArtifactMetadata) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePluginArtifactMetadata) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePluginArtifactMetadata(val *PluginArtifactMetadata) *NullablePluginArtifactMetadata {
+	return &NullablePluginArtifactMetadata{value: val, isSet: true}
+}
+
+func (v NullablePluginArtifactMetadata) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePluginArtifactMetadata) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

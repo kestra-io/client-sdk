@@ -1,0 +1,218 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URI;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PluginArtifactMetadata
+ */
+@JsonPropertyOrder({
+  PluginArtifactMetadata.JSON_PROPERTY_URI,
+  PluginArtifactMetadata.JSON_PROPERTY_NAME,
+  PluginArtifactMetadata.JSON_PROPERTY_SIZE,
+  PluginArtifactMetadata.JSON_PROPERTY_LAST_MODIFIED_TIME,
+  PluginArtifactMetadata.JSON_PROPERTY_CREATION_TIME
+})
+public class PluginArtifactMetadata {
+  public static final String JSON_PROPERTY_URI = "uri";
+  @jakarta.annotation.Nullable  private URI uri;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_SIZE = "size";
+  @jakarta.annotation.Nullable  private Long size;
+
+  public static final String JSON_PROPERTY_LAST_MODIFIED_TIME = "lastModifiedTime";
+  @jakarta.annotation.Nullable  private Long lastModifiedTime;
+
+  public static final String JSON_PROPERTY_CREATION_TIME = "creationTime";
+  @jakarta.annotation.Nullable  private Long creationTime;
+
+  public PluginArtifactMetadata() {
+  }
+
+  public PluginArtifactMetadata uri(@jakarta.annotation.Nullable URI uri) {
+    
+    this.uri = uri;
+    return this;
+  }
+
+  /**
+   * Get uri
+   * @return uri
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public URI getUri() {
+    return uri;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUri(@jakarta.annotation.Nullable URI uri) {
+    this.uri = uri;
+  }
+
+  public PluginArtifactMetadata name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public PluginArtifactMetadata size(@jakarta.annotation.Nullable Long size) {
+    
+    this.size = size;
+    return this;
+  }
+
+  /**
+   * Get size
+   * @return size
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getSize() {
+    return size;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSize(@jakarta.annotation.Nullable Long size) {
+    this.size = size;
+  }
+
+  public PluginArtifactMetadata lastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
+    
+    this.lastModifiedTime = lastModifiedTime;
+    return this;
+  }
+
+  /**
+   * Get lastModifiedTime
+   * @return lastModifiedTime
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getLastModifiedTime() {
+    return lastModifiedTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
+    this.lastModifiedTime = lastModifiedTime;
+  }
+
+  public PluginArtifactMetadata creationTime(@jakarta.annotation.Nullable Long creationTime) {
+    
+    this.creationTime = creationTime;
+    return this;
+  }
+
+  /**
+   * Get creationTime
+   * @return creationTime
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getCreationTime() {
+    return creationTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreationTime(@jakarta.annotation.Nullable Long creationTime) {
+    this.creationTime = creationTime;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PluginArtifactMetadata pluginArtifactMetadata = (PluginArtifactMetadata) o;
+    return Objects.equals(this.uri, pluginArtifactMetadata.uri) &&
+        Objects.equals(this.name, pluginArtifactMetadata.name) &&
+        Objects.equals(this.size, pluginArtifactMetadata.size) &&
+        Objects.equals(this.lastModifiedTime, pluginArtifactMetadata.lastModifiedTime) &&
+        Objects.equals(this.creationTime, pluginArtifactMetadata.creationTime);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uri, name, size, lastModifiedTime, creationTime);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PluginArtifactMetadata {\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("    lastModifiedTime: ").append(toIndentedString(lastModifiedTime)).append("\n");
+    sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

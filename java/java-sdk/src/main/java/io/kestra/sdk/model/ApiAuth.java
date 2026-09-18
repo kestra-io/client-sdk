@@ -1,0 +1,157 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiAuth
+ */
+@JsonPropertyOrder({
+  ApiAuth.JSON_PROPERTY_UID,
+  ApiAuth.JSON_PROPERTY_TYPE,
+  ApiAuth.JSON_PROPERTY_NAME
+})
+public class ApiAuth {
+  public static final String JSON_PROPERTY_UID = "uid";
+  @jakarta.annotation.Nullable  private String uid;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public ApiAuth() {
+  }
+
+  public ApiAuth uid(@jakarta.annotation.Nullable String uid) {
+    
+    this.uid = uid;
+    return this;
+  }
+
+  /**
+   * Get uid
+   * @return uid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUid() {
+    return uid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
+    this.uid = uid;
+  }
+
+  public ApiAuth type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public ApiAuth name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiAuth apiAuth = (ApiAuth) o;
+    return Objects.equals(this.uid, apiAuth.uid) &&
+        Objects.equals(this.type, apiAuth.type) &&
+        Objects.equals(this.name, apiAuth.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uid, type, name);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiAuth {\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

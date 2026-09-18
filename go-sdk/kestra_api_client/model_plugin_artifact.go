@@ -1,0 +1,338 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the PluginArtifact type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PluginArtifact{}
+
+// PluginArtifact struct for PluginArtifact
+type PluginArtifact struct {
+	GroupId *string `json:"groupId,omitempty"`
+	ArtifactId *string `json:"artifactId,omitempty"`
+	Extension *string `json:"extension,omitempty"`
+	Classifier *string `json:"classifier,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Uri *string `json:"uri,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _PluginArtifact PluginArtifact
+
+// NewPluginArtifact instantiates a new PluginArtifact object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPluginArtifact() *PluginArtifact {
+	this := PluginArtifact{}
+	return &this
+}
+
+// NewPluginArtifactWithDefaults instantiates a new PluginArtifact object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPluginArtifactWithDefaults() *PluginArtifact {
+	this := PluginArtifact{}
+	return &this
+}
+
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
+func (o *PluginArtifact) GetGroupId() string {
+	if o == nil || IsNil(o.GroupId) {
+		var ret string
+		return ret
+	}
+	return *o.GroupId
+}
+
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetGroupIdOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupId) {
+		return nil, false
+	}
+	return o.GroupId, true
+}
+
+// HasGroupId returns a boolean if a field has been set.
+func (o *PluginArtifact) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
+func (o *PluginArtifact) SetGroupId(v string) {
+	o.GroupId = &v
+}
+
+// GetArtifactId returns the ArtifactId field value if set, zero value otherwise.
+func (o *PluginArtifact) GetArtifactId() string {
+	if o == nil || IsNil(o.ArtifactId) {
+		var ret string
+		return ret
+	}
+	return *o.ArtifactId
+}
+
+// GetArtifactIdOk returns a tuple with the ArtifactId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetArtifactIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ArtifactId) {
+		return nil, false
+	}
+	return o.ArtifactId, true
+}
+
+// HasArtifactId returns a boolean if a field has been set.
+func (o *PluginArtifact) HasArtifactId() bool {
+	if o != nil && !IsNil(o.ArtifactId) {
+		return true
+	}
+
+	return false
+}
+
+// SetArtifactId gets a reference to the given string and assigns it to the ArtifactId field.
+func (o *PluginArtifact) SetArtifactId(v string) {
+	o.ArtifactId = &v
+}
+
+// GetExtension returns the Extension field value if set, zero value otherwise.
+func (o *PluginArtifact) GetExtension() string {
+	if o == nil || IsNil(o.Extension) {
+		var ret string
+		return ret
+	}
+	return *o.Extension
+}
+
+// GetExtensionOk returns a tuple with the Extension field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetExtensionOk() (*string, bool) {
+	if o == nil || IsNil(o.Extension) {
+		return nil, false
+	}
+	return o.Extension, true
+}
+
+// HasExtension returns a boolean if a field has been set.
+func (o *PluginArtifact) HasExtension() bool {
+	if o != nil && !IsNil(o.Extension) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtension gets a reference to the given string and assigns it to the Extension field.
+func (o *PluginArtifact) SetExtension(v string) {
+	o.Extension = &v
+}
+
+// GetClassifier returns the Classifier field value if set, zero value otherwise.
+func (o *PluginArtifact) GetClassifier() string {
+	if o == nil || IsNil(o.Classifier) {
+		var ret string
+		return ret
+	}
+	return *o.Classifier
+}
+
+// GetClassifierOk returns a tuple with the Classifier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetClassifierOk() (*string, bool) {
+	if o == nil || IsNil(o.Classifier) {
+		return nil, false
+	}
+	return o.Classifier, true
+}
+
+// HasClassifier returns a boolean if a field has been set.
+func (o *PluginArtifact) HasClassifier() bool {
+	if o != nil && !IsNil(o.Classifier) {
+		return true
+	}
+
+	return false
+}
+
+// SetClassifier gets a reference to the given string and assigns it to the Classifier field.
+func (o *PluginArtifact) SetClassifier(v string) {
+	o.Classifier = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *PluginArtifact) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *PluginArtifact) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *PluginArtifact) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetUri returns the Uri field value if set, zero value otherwise.
+func (o *PluginArtifact) GetUri() string {
+	if o == nil || IsNil(o.Uri) {
+		var ret string
+		return ret
+	}
+	return *o.Uri
+}
+
+// GetUriOk returns a tuple with the Uri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginArtifact) GetUriOk() (*string, bool) {
+	if o == nil || IsNil(o.Uri) {
+		return nil, false
+	}
+	return o.Uri, true
+}
+
+// HasUri returns a boolean if a field has been set.
+func (o *PluginArtifact) HasUri() bool {
+	if o != nil && !IsNil(o.Uri) {
+		return true
+	}
+
+	return false
+}
+
+// SetUri gets a reference to the given string and assigns it to the Uri field.
+func (o *PluginArtifact) SetUri(v string) {
+	o.Uri = &v
+}
+
+func (o PluginArtifact) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PluginArtifact) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
+	}
+	if !IsNil(o.ArtifactId) {
+		toSerialize["artifactId"] = o.ArtifactId
+	}
+	if !IsNil(o.Extension) {
+		toSerialize["extension"] = o.Extension
+	}
+	if !IsNil(o.Classifier) {
+		toSerialize["classifier"] = o.Classifier
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Uri) {
+		toSerialize["uri"] = o.Uri
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *PluginArtifact) UnmarshalJSON(data []byte) (err error) {
+	varPluginArtifact := _PluginArtifact{}
+
+	err = json.Unmarshal(data, &varPluginArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginArtifact(varPluginArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groupId")
+		delete(additionalProperties, "artifactId")
+		delete(additionalProperties, "extension")
+		delete(additionalProperties, "classifier")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "uri")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullablePluginArtifact struct {
+	value *PluginArtifact
+	isSet bool
+}
+
+func (v NullablePluginArtifact) Get() *PluginArtifact {
+	return v.value
+}
+
+func (v *NullablePluginArtifact) Set(val *PluginArtifact) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePluginArtifact) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePluginArtifact) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePluginArtifact(val *PluginArtifact) *NullablePluginArtifact {
+	return &NullablePluginArtifact{value: val, isSet: true}
+}
+
+func (v NullablePluginArtifact) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePluginArtifact) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

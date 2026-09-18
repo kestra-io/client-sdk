@@ -1,0 +1,490 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.Label;
+import io.kestra.sdk.model.Output;
+import io.kestra.sdk.model.WorkerSelector;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AbstractFlow
+ */
+@JsonPropertyOrder({
+  AbstractFlow.JSON_PROPERTY_ID,
+  AbstractFlow.JSON_PROPERTY_NAMESPACE,
+  AbstractFlow.JSON_PROPERTY_REVISION,
+  AbstractFlow.JSON_PROPERTY_UPDATED,
+  AbstractFlow.JSON_PROPERTY_DESCRIPTION,
+  AbstractFlow.JSON_PROPERTY_INPUTS,
+  AbstractFlow.JSON_PROPERTY_OUTPUTS,
+  AbstractFlow.JSON_PROPERTY_DISABLED,
+  AbstractFlow.JSON_PROPERTY_LABELS,
+  AbstractFlow.JSON_PROPERTY_VARIABLES,
+  AbstractFlow.JSON_PROPERTY_WORKER_SELECTOR,
+  AbstractFlow.JSON_PROPERTY_DELETED,
+  AbstractFlow.JSON_PROPERTY_DRAFT
+})
+public class AbstractFlow {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nonnull  private Boolean disabled;
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Object variables;
+
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nonnull  private Boolean draft;
+
+  public AbstractFlow() {
+  }
+
+  public AbstractFlow id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public AbstractFlow namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public AbstractFlow revision(@jakarta.annotation.Nullable Integer revision) {
+    
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * minimum: 1
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRevision() {
+    return revision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
+  }
+
+  public AbstractFlow updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * The timestamp when this revision was created or last updated.
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
+  }
+
+  public AbstractFlow description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public AbstractFlow inputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  public AbstractFlow addInputsItem(InputObject inputsItem) {
+    if (this.inputs == null) {
+      this.inputs = new ArrayList<>();
+    }
+    this.inputs.add(inputsItem);
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<InputObject> getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
+    this.inputs = inputs;
+  }
+
+  public AbstractFlow outputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  public AbstractFlow addOutputsItem(Output outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new ArrayList<>();
+    }
+    this.outputs.add(outputsItem);
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Output> getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    this.outputs = outputs;
+  }
+
+  public AbstractFlow disabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public AbstractFlow labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public AbstractFlow addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
+  }
+
+  public AbstractFlow variables(@jakarta.annotation.Nullable Object variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Object variables) {
+    this.variables = variables;
+  }
+
+  public AbstractFlow workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    
+    this.workerSelector = workerSelector;
+    return this;
+  }
+
+  /**
+   * Get workerSelector
+   * @return workerSelector
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
+  }
+
+  public AbstractFlow deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public AbstractFlow draft(@jakarta.annotation.Nonnull Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
+    this.draft = draft;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AbstractFlow abstractFlow = (AbstractFlow) o;
+    return Objects.equals(this.id, abstractFlow.id) &&
+        Objects.equals(this.namespace, abstractFlow.namespace) &&
+        Objects.equals(this.revision, abstractFlow.revision) &&
+        Objects.equals(this.updated, abstractFlow.updated) &&
+        Objects.equals(this.description, abstractFlow.description) &&
+        Objects.equals(this.inputs, abstractFlow.inputs) &&
+        Objects.equals(this.outputs, abstractFlow.outputs) &&
+        Objects.equals(this.disabled, abstractFlow.disabled) &&
+        Objects.equals(this.labels, abstractFlow.labels) &&
+        Objects.equals(this.variables, abstractFlow.variables) &&
+        Objects.equals(this.workerSelector, abstractFlow.workerSelector) &&
+        Objects.equals(this.deleted, abstractFlow.deleted) &&
+        Objects.equals(this.draft, abstractFlow.draft);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, draft);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AbstractFlow {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

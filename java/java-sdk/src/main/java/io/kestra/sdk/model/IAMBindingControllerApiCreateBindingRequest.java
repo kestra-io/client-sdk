@@ -1,0 +1,211 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.BindingType;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMBindingControllerApiCreateBindingRequest
+ */
+@JsonPropertyOrder({
+  IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_TYPE,
+  IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_EXTERNAL_ID,
+  IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_ROLE_ID,
+  IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_NAMESPACE_ID
+})
+@JsonTypeName("IAMBindingController.ApiCreateBindingRequest")
+public class IAMBindingControllerApiCreateBindingRequest {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private BindingType type;
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nonnull  private String externalId;
+
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  @jakarta.annotation.Nonnull  private String roleId;
+
+  public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> namespaceId = JsonNullable.<String>undefined();
+
+  public IAMBindingControllerApiCreateBindingRequest() {
+  }
+
+  public IAMBindingControllerApiCreateBindingRequest type(@jakarta.annotation.Nonnull BindingType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BindingType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull BindingType type) {
+    this.type = type;
+  }
+
+  public IAMBindingControllerApiCreateBindingRequest externalId(@jakarta.annotation.Nonnull String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExternalId(@jakarta.annotation.Nonnull String externalId) {
+    this.externalId = externalId;
+  }
+
+  public IAMBindingControllerApiCreateBindingRequest roleId(@jakarta.annotation.Nonnull String roleId) {
+    
+    this.roleId = roleId;
+    return this;
+  }
+
+  /**
+   * Get roleId
+   * @return roleId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getRoleId() {
+    return roleId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRoleId(@jakarta.annotation.Nonnull String roleId) {
+    this.roleId = roleId;
+  }
+
+  public IAMBindingControllerApiCreateBindingRequest namespaceId(@jakarta.annotation.Nullable String namespaceId) {
+    this.namespaceId = JsonNullable.<String>of(namespaceId);
+    
+    return this;
+  }
+
+  /**
+   * Get namespaceId
+   * @return namespaceId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getNamespaceId() {
+        return namespaceId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getNamespaceId_JsonNullable() {
+    return namespaceId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  public void setNamespaceId_JsonNullable(JsonNullable<String> namespaceId) {
+    this.namespaceId = namespaceId;
+  }
+
+  public void setNamespaceId(@jakarta.annotation.Nullable String namespaceId) {
+    this.namespaceId = JsonNullable.<String>of(namespaceId);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMBindingControllerApiCreateBindingRequest iaMBindingControllerApiCreateBindingRequest = (IAMBindingControllerApiCreateBindingRequest) o;
+    return Objects.equals(this.type, iaMBindingControllerApiCreateBindingRequest.type) &&
+        Objects.equals(this.externalId, iaMBindingControllerApiCreateBindingRequest.externalId) &&
+        Objects.equals(this.roleId, iaMBindingControllerApiCreateBindingRequest.roleId) &&
+        equalsNullable(this.namespaceId, iaMBindingControllerApiCreateBindingRequest.namespaceId);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, externalId, roleId, hashCodeNullable(namespaceId));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMBindingControllerApiCreateBindingRequest {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
+    sb.append("    namespaceId: ").append(toIndentedString(namespaceId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

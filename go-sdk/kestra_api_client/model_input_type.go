@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the InputType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InputType{}
+
+// InputType struct for InputType
+type InputType struct {
+	Type *string `json:"type,omitempty"`
+	Cls *string `json:"cls,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _InputType InputType
+
+// NewInputType instantiates a new InputType object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInputType() *InputType {
+	this := InputType{}
+	return &this
+}
+
+// NewInputTypeWithDefaults instantiates a new InputType object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInputTypeWithDefaults() *InputType {
+	this := InputType{}
+	return &this
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *InputType) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputType) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *InputType) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *InputType) SetType(v string) {
+	o.Type = &v
+}
+
+// GetCls returns the Cls field value if set, zero value otherwise.
+func (o *InputType) GetCls() string {
+	if o == nil || IsNil(o.Cls) {
+		var ret string
+		return ret
+	}
+	return *o.Cls
+}
+
+// GetClsOk returns a tuple with the Cls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputType) GetClsOk() (*string, bool) {
+	if o == nil || IsNil(o.Cls) {
+		return nil, false
+	}
+	return o.Cls, true
+}
+
+// HasCls returns a boolean if a field has been set.
+func (o *InputType) HasCls() bool {
+	if o != nil && !IsNil(o.Cls) {
+		return true
+	}
+
+	return false
+}
+
+// SetCls gets a reference to the given string and assigns it to the Cls field.
+func (o *InputType) SetCls(v string) {
+	o.Cls = &v
+}
+
+func (o InputType) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InputType) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Cls) {
+		toSerialize["cls"] = o.Cls
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *InputType) UnmarshalJSON(data []byte) (err error) {
+	varInputType := _InputType{}
+
+	err = json.Unmarshal(data, &varInputType)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InputType(varInputType)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "cls")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableInputType struct {
+	value *InputType
+	isSet bool
+}
+
+func (v NullableInputType) Get() *InputType {
+	return v.value
+}
+
+func (v *NullableInputType) Set(val *InputType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInputType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInputType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInputType(val *InputType) *NullableInputType {
+	return &NullableInputType{value: val, isSet: true}
+}
+
+func (v NullableInputType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableInputType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

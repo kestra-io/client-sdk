@@ -1,0 +1,261 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMTenantAccessControllerApiUserPermission;
+import io.kestra.sdk.model.RBACServiceRoleAssignmentRoleOrigin;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMTenantAccessControllerApiRoleAssignment
+ */
+@JsonPropertyOrder({
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_ID,
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_NAME,
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_NAMESPACE,
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_ORIGIN,
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_SOURCE_ID,
+  IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_PERMISSIONS
+})
+@JsonTypeName("IAMTenantAccessController.ApiRoleAssignment")
+public class IAMTenantAccessControllerApiRoleAssignment {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_ORIGIN = "origin";
+  @jakarta.annotation.Nullable  private RBACServiceRoleAssignmentRoleOrigin origin;
+
+  public static final String JSON_PROPERTY_SOURCE_ID = "sourceId";
+  @jakarta.annotation.Nullable  private String sourceId;
+
+  public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiUserPermission> permissions = new ArrayList<>();
+
+  public IAMTenantAccessControllerApiRoleAssignment() {
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment origin(@jakarta.annotation.Nullable RBACServiceRoleAssignmentRoleOrigin origin) {
+    
+    this.origin = origin;
+    return this;
+  }
+
+  /**
+   * Get origin
+   * @return origin
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ORIGIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RBACServiceRoleAssignmentRoleOrigin getOrigin() {
+    return origin;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ORIGIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrigin(@jakarta.annotation.Nullable RBACServiceRoleAssignmentRoleOrigin origin) {
+    this.origin = origin;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment sourceId(@jakarta.annotation.Nullable String sourceId) {
+    
+    this.sourceId = sourceId;
+    return this;
+  }
+
+  /**
+   * Get sourceId
+   * @return sourceId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSourceId() {
+    return sourceId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSourceId(@jakarta.annotation.Nullable String sourceId) {
+    this.sourceId = sourceId;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment permissions(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiUserPermission> permissions) {
+    
+    this.permissions = permissions;
+    return this;
+  }
+
+  public IAMTenantAccessControllerApiRoleAssignment addPermissionsItem(IAMTenantAccessControllerApiUserPermission permissionsItem) {
+    if (this.permissions == null) {
+      this.permissions = new ArrayList<>();
+    }
+    this.permissions.add(permissionsItem);
+    return this;
+  }
+
+  /**
+   * Get permissions
+   * @return permissions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMTenantAccessControllerApiUserPermission> getPermissions() {
+    return permissions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiUserPermission> permissions) {
+    this.permissions = permissions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMTenantAccessControllerApiRoleAssignment iaMTenantAccessControllerApiRoleAssignment = (IAMTenantAccessControllerApiRoleAssignment) o;
+    return Objects.equals(this.id, iaMTenantAccessControllerApiRoleAssignment.id) &&
+        Objects.equals(this.name, iaMTenantAccessControllerApiRoleAssignment.name) &&
+        Objects.equals(this.namespace, iaMTenantAccessControllerApiRoleAssignment.namespace) &&
+        Objects.equals(this.origin, iaMTenantAccessControllerApiRoleAssignment.origin) &&
+        Objects.equals(this.sourceId, iaMTenantAccessControllerApiRoleAssignment.sourceId) &&
+        Objects.equals(this.permissions, iaMTenantAccessControllerApiRoleAssignment.permissions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, namespace, origin, sourceId, permissions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMTenantAccessControllerApiRoleAssignment {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    origin: ").append(toIndentedString(origin)).append("\n");
+    sb.append("    sourceId: ").append(toIndentedString(sourceId)).append("\n");
+    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

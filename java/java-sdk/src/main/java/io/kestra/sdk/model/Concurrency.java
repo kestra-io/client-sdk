@@ -1,0 +1,129 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ConcurrencyBehavior;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Concurrency
+ */
+@JsonPropertyOrder({
+  Concurrency.JSON_PROPERTY_LIMIT,
+  Concurrency.JSON_PROPERTY_BEHAVIOR
+})
+public class Concurrency {
+  public static final String JSON_PROPERTY_LIMIT = "limit";
+  @jakarta.annotation.Nonnull  private Integer limit;
+
+  public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
+  @jakarta.annotation.Nonnull  private ConcurrencyBehavior behavior;
+
+  public Concurrency() {
+  }
+
+  public Concurrency limit(@jakarta.annotation.Nonnull Integer limit) {
+    
+    this.limit = limit;
+    return this;
+  }
+
+  /**
+   * Get limit
+   * minimum: 1
+   * @return limit
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Integer getLimit() {
+    return limit;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLimit(@jakarta.annotation.Nonnull Integer limit) {
+    this.limit = limit;
+  }
+
+  public Concurrency behavior(@jakarta.annotation.Nonnull ConcurrencyBehavior behavior) {
+    
+    this.behavior = behavior;
+    return this;
+  }
+
+  /**
+   * Get behavior
+   * @return behavior
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ConcurrencyBehavior getBehavior() {
+    return behavior;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setBehavior(@jakarta.annotation.Nonnull ConcurrencyBehavior behavior) {
+    this.behavior = behavior;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Concurrency concurrency = (Concurrency) o;
+    return Objects.equals(this.limit, concurrency.limit) &&
+        Objects.equals(this.behavior, concurrency.behavior);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(limit, behavior);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Concurrency {\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

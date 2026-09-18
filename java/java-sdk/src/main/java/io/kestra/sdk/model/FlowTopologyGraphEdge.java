@@ -1,0 +1,159 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.FlowRelation;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowTopologyGraphEdge
+ */
+@JsonPropertyOrder({
+  FlowTopologyGraphEdge.JSON_PROPERTY_SOURCE,
+  FlowTopologyGraphEdge.JSON_PROPERTY_TARGET,
+  FlowTopologyGraphEdge.JSON_PROPERTY_RELATION
+})
+@JsonTypeName("FlowTopologyGraph.Edge")
+public class FlowTopologyGraphEdge {
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_TARGET = "target";
+  @jakarta.annotation.Nullable  private String target;
+
+  public static final String JSON_PROPERTY_RELATION = "relation";
+  @jakarta.annotation.Nullable  private FlowRelation relation;
+
+  public FlowTopologyGraphEdge() {
+  }
+
+  public FlowTopologyGraphEdge source(@jakarta.annotation.Nullable String source) {
+    
+    this.source = source;
+    return this;
+  }
+
+  /**
+   * Get source
+   * @return source
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
+    this.source = source;
+  }
+
+  public FlowTopologyGraphEdge target(@jakarta.annotation.Nullable String target) {
+    
+    this.target = target;
+    return this;
+  }
+
+  /**
+   * Get target
+   * @return target
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TARGET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTarget() {
+    return target;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TARGET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTarget(@jakarta.annotation.Nullable String target) {
+    this.target = target;
+  }
+
+  public FlowTopologyGraphEdge relation(@jakarta.annotation.Nullable FlowRelation relation) {
+    
+    this.relation = relation;
+    return this;
+  }
+
+  /**
+   * Get relation
+   * @return relation
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public FlowRelation getRelation() {
+    return relation;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RELATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRelation(@jakarta.annotation.Nullable FlowRelation relation) {
+    this.relation = relation;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowTopologyGraphEdge flowTopologyGraphEdge = (FlowTopologyGraphEdge) o;
+    return Objects.equals(this.source, flowTopologyGraphEdge.source) &&
+        Objects.equals(this.target, flowTopologyGraphEdge.target) &&
+        Objects.equals(this.relation, flowTopologyGraphEdge.relation);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(source, target, relation);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowTopologyGraphEdge {\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    target: ").append(toIndentedString(target)).append("\n");
+    sb.append("    relation: ").append(toIndentedString(relation)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

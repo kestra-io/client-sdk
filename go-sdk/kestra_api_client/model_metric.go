@@ -1,0 +1,338 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the Metric type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Metric{}
+
+// Metric struct for Metric
+type Metric struct {
+	Name *string `json:"name,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Description *string `json:"description,omitempty"`
+	BaseUnit *string `json:"baseUnit,omitempty"`
+	Tags []MetricTag `json:"tags,omitempty"`
+	Value *float32 `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Metric Metric
+
+// NewMetric instantiates a new Metric object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMetric() *Metric {
+	this := Metric{}
+	return &this
+}
+
+// NewMetricWithDefaults instantiates a new Metric object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMetricWithDefaults() *Metric {
+	this := Metric{}
+	return &this
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Metric) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Metric) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Metric) SetName(v string) {
+	o.Name = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Metric) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Metric) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Metric) SetType(v string) {
+	o.Type = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Metric) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Metric) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Metric) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetBaseUnit returns the BaseUnit field value if set, zero value otherwise.
+func (o *Metric) GetBaseUnit() string {
+	if o == nil || IsNil(o.BaseUnit) {
+		var ret string
+		return ret
+	}
+	return *o.BaseUnit
+}
+
+// GetBaseUnitOk returns a tuple with the BaseUnit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetBaseUnitOk() (*string, bool) {
+	if o == nil || IsNil(o.BaseUnit) {
+		return nil, false
+	}
+	return o.BaseUnit, true
+}
+
+// HasBaseUnit returns a boolean if a field has been set.
+func (o *Metric) HasBaseUnit() bool {
+	if o != nil && !IsNil(o.BaseUnit) {
+		return true
+	}
+
+	return false
+}
+
+// SetBaseUnit gets a reference to the given string and assigns it to the BaseUnit field.
+func (o *Metric) SetBaseUnit(v string) {
+	o.BaseUnit = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Metric) GetTags() []MetricTag {
+	if o == nil || IsNil(o.Tags) {
+		var ret []MetricTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetTagsOk() ([]MetricTag, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Metric) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []MetricTag and assigns it to the Tags field.
+func (o *Metric) SetTags(v []MetricTag) {
+	o.Tags = v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *Metric) GetValue() float32 {
+	if o == nil || IsNil(o.Value) {
+		var ret float32
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metric) GetValueOk() (*float32, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *Metric) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given float32 and assigns it to the Value field.
+func (o *Metric) SetValue(v float32) {
+	o.Value = &v
+}
+
+func (o Metric) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Metric) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.BaseUnit) {
+		toSerialize["baseUnit"] = o.BaseUnit
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Metric) UnmarshalJSON(data []byte) (err error) {
+	varMetric := _Metric{}
+
+	err = json.Unmarshal(data, &varMetric)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Metric(varMetric)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "baseUnit")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMetric struct {
+	value *Metric
+	isSet bool
+}
+
+func (v NullableMetric) Get() *Metric {
+	return v.value
+}
+
+func (v *NullableMetric) Set(val *Metric) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMetric) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMetric) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMetric(val *Metric) *NullableMetric {
+	return &NullableMetric{value: val, isSet: true}
+}
+
+func (v NullableMetric) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMetric) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

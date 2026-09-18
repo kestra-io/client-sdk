@@ -1,0 +1,536 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AbstractUserTenantIdentityProvider;
+import io.kestra.sdk.model.ApiAuth;
+import io.kestra.sdk.model.GroupIdentifier;
+import io.kestra.sdk.model.UserType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiUser
+ */
+@JsonPropertyOrder({
+  ApiUser.JSON_PROPERTY_TYPE,
+  ApiUser.JSON_PROPERTY_GROUP_LIST,
+  ApiUser.JSON_PROPERTY_GROUPS,
+  ApiUser.JSON_PROPERTY_USERNAME,
+  ApiUser.JSON_PROPERTY_EMAIL,
+  ApiUser.JSON_PROPERTY_INSTANCE_OWNER,
+  ApiUser.JSON_PROPERTY_ID,
+  ApiUser.JSON_PROPERTY_NAME,
+  ApiUser.JSON_PROPERTY_DESCRIPTION,
+  ApiUser.JSON_PROPERTY_FIRST_NAME,
+  ApiUser.JSON_PROPERTY_LAST_NAME,
+  ApiUser.JSON_PROPERTY_PROVIDERS,
+  ApiUser.JSON_PROPERTY_AUTHS
+})
+public class ApiUser {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private UserType type;
+
+  public static final String JSON_PROPERTY_GROUP_LIST = "groupList";
+  @jakarta.annotation.Nullable  private List<GroupIdentifier> groupList = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<Object> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_USERNAME = "username";
+  @jakarta.annotation.Nonnull  private String username;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nonnull  private String email;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
+  @jakarta.annotation.Nullable  private String firstName;
+
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
+  @jakarta.annotation.Nullable  private String lastName;
+
+  public static final String JSON_PROPERTY_PROVIDERS = "providers";
+  @jakarta.annotation.Nullable  private List<AbstractUserTenantIdentityProvider> providers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_AUTHS = "auths";
+  @jakarta.annotation.Nullable  private List<ApiAuth> auths = new ArrayList<>();
+
+  public ApiUser() {
+  }
+
+  public ApiUser type(@jakarta.annotation.Nonnull UserType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public UserType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull UserType type) {
+    this.type = type;
+  }
+
+  public ApiUser groupList(@jakarta.annotation.Nullable List<GroupIdentifier> groupList) {
+    
+    this.groupList = groupList;
+    return this;
+  }
+
+  public ApiUser addGroupListItem(GroupIdentifier groupListItem) {
+    if (this.groupList == null) {
+      this.groupList = new ArrayList<>();
+    }
+    this.groupList.add(groupListItem);
+    return this;
+  }
+
+  /**
+   * Get groupList
+   * @return groupList
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<GroupIdentifier> getGroupList() {
+    return groupList;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupList(@jakarta.annotation.Nullable List<GroupIdentifier> groupList) {
+    this.groupList = groupList;
+  }
+
+  public ApiUser groups(@jakarta.annotation.Nullable List<Object> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public ApiUser addGroupsItem(Object groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Object> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<Object> groups) {
+    this.groups = groups;
+  }
+
+  public ApiUser username(@jakarta.annotation.Nonnull String username) {
+    
+    this.username = username;
+    return this;
+  }
+
+  /**
+   * Get username
+   * @return username
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUsername() {
+    return username;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@jakarta.annotation.Nonnull String username) {
+    this.username = username;
+  }
+
+  public ApiUser email(@jakarta.annotation.Nonnull String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
+    this.email = email;
+  }
+
+  public ApiUser instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public ApiUser id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public ApiUser name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public ApiUser description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public ApiUser firstName(@jakarta.annotation.Nullable String firstName) {
+    
+    this.firstName = firstName;
+    return this;
+  }
+
+  /**
+   * Get firstName
+   * @return firstName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFirstName(@jakarta.annotation.Nullable String firstName) {
+    this.firstName = firstName;
+  }
+
+  public ApiUser lastName(@jakarta.annotation.Nullable String lastName) {
+    
+    this.lastName = lastName;
+    return this;
+  }
+
+  /**
+   * Get lastName
+   * @return lastName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLastName() {
+    return lastName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastName(@jakarta.annotation.Nullable String lastName) {
+    this.lastName = lastName;
+  }
+
+  public ApiUser providers(@jakarta.annotation.Nullable List<AbstractUserTenantIdentityProvider> providers) {
+    
+    this.providers = providers;
+    return this;
+  }
+
+  public ApiUser addProvidersItem(AbstractUserTenantIdentityProvider providersItem) {
+    if (this.providers == null) {
+      this.providers = new ArrayList<>();
+    }
+    this.providers.add(providersItem);
+    return this;
+  }
+
+  /**
+   * Get providers
+   * @return providers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROVIDERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AbstractUserTenantIdentityProvider> getProviders() {
+    return providers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROVIDERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProviders(@jakarta.annotation.Nullable List<AbstractUserTenantIdentityProvider> providers) {
+    this.providers = providers;
+  }
+
+  public ApiUser auths(@jakarta.annotation.Nullable List<ApiAuth> auths) {
+    
+    this.auths = auths;
+    return this;
+  }
+
+  public ApiUser addAuthsItem(ApiAuth authsItem) {
+    if (this.auths == null) {
+      this.auths = new ArrayList<>();
+    }
+    this.auths.add(authsItem);
+    return this;
+  }
+
+  /**
+   * Get auths
+   * @return auths
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ApiAuth> getAuths() {
+    return auths;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuths(@jakarta.annotation.Nullable List<ApiAuth> auths) {
+    this.auths = auths;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public ApiUser superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiUser apiUser = (ApiUser) o;
+    return Objects.equals(this.type, apiUser.type) &&
+        Objects.equals(this.groupList, apiUser.groupList) &&
+        Objects.equals(this.groups, apiUser.groups) &&
+        Objects.equals(this.username, apiUser.username) &&
+        Objects.equals(this.email, apiUser.email) &&
+        Objects.equals(this.instanceOwner, apiUser.instanceOwner) &&
+        Objects.equals(this.id, apiUser.id) &&
+        Objects.equals(this.name, apiUser.name) &&
+        Objects.equals(this.description, apiUser.description) &&
+        Objects.equals(this.firstName, apiUser.firstName) &&
+        Objects.equals(this.lastName, apiUser.lastName) &&
+        Objects.equals(this.providers, apiUser.providers) &&
+        Objects.equals(this.auths, apiUser.auths);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, groupList, groups, username, email, instanceOwner, id, name, description, firstName, lastName, providers, auths);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiUser {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    groupList: ").append(toIndentedString(groupList)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
+    sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

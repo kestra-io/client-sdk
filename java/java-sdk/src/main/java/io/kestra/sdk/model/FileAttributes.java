@@ -1,0 +1,258 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.FileAttributesFileType;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FileAttributes
+ */
+@JsonPropertyOrder({
+  FileAttributes.JSON_PROPERTY_FILE_NAME,
+  FileAttributes.JSON_PROPERTY_LAST_MODIFIED_TIME,
+  FileAttributes.JSON_PROPERTY_CREATION_TIME,
+  FileAttributes.JSON_PROPERTY_TYPE,
+  FileAttributes.JSON_PROPERTY_SIZE,
+  FileAttributes.JSON_PROPERTY_METADATA
+})
+public class FileAttributes {
+  public static final String JSON_PROPERTY_FILE_NAME = "fileName";
+  @jakarta.annotation.Nullable  private String fileName;
+
+  public static final String JSON_PROPERTY_LAST_MODIFIED_TIME = "lastModifiedTime";
+  @jakarta.annotation.Nullable  private Long lastModifiedTime;
+
+  public static final String JSON_PROPERTY_CREATION_TIME = "creationTime";
+  @jakarta.annotation.Nullable  private Long creationTime;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private FileAttributesFileType type;
+
+  public static final String JSON_PROPERTY_SIZE = "size";
+  @jakarta.annotation.Nullable  private Long size;
+
+  public static final String JSON_PROPERTY_METADATA = "metadata";
+  @jakarta.annotation.Nullable  private Map<String, String> metadata = new HashMap<>();
+
+  public FileAttributes() {
+  }
+
+  public FileAttributes fileName(@jakarta.annotation.Nullable String fileName) {
+    
+    this.fileName = fileName;
+    return this;
+  }
+
+  /**
+   * Get fileName
+   * @return fileName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFileName() {
+    return fileName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFileName(@jakarta.annotation.Nullable String fileName) {
+    this.fileName = fileName;
+  }
+
+  public FileAttributes lastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
+    
+    this.lastModifiedTime = lastModifiedTime;
+    return this;
+  }
+
+  /**
+   * Get lastModifiedTime
+   * @return lastModifiedTime
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getLastModifiedTime() {
+    return lastModifiedTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
+    this.lastModifiedTime = lastModifiedTime;
+  }
+
+  public FileAttributes creationTime(@jakarta.annotation.Nullable Long creationTime) {
+    
+    this.creationTime = creationTime;
+    return this;
+  }
+
+  /**
+   * Get creationTime
+   * @return creationTime
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getCreationTime() {
+    return creationTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreationTime(@jakarta.annotation.Nullable Long creationTime) {
+    this.creationTime = creationTime;
+  }
+
+  public FileAttributes type(@jakarta.annotation.Nullable FileAttributesFileType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public FileAttributesFileType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable FileAttributesFileType type) {
+    this.type = type;
+  }
+
+  public FileAttributes size(@jakarta.annotation.Nullable Long size) {
+    
+    this.size = size;
+    return this;
+  }
+
+  /**
+   * Get size
+   * @return size
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getSize() {
+    return size;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSize(@jakarta.annotation.Nullable Long size) {
+    this.size = size;
+  }
+
+  public FileAttributes metadata(@jakarta.annotation.Nullable Map<String, String> metadata) {
+    
+    this.metadata = metadata;
+    return this;
+  }
+
+  public FileAttributes putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null) {
+      this.metadata = new HashMap<>();
+    }
+    this.metadata.put(key, metadataItem);
+    return this;
+  }
+
+  /**
+   * Get metadata
+   * @return metadata
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, String> getMetadata() {
+    return metadata;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetadata(@jakarta.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = metadata;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FileAttributes fileAttributes = (FileAttributes) o;
+    return Objects.equals(this.fileName, fileAttributes.fileName) &&
+        Objects.equals(this.lastModifiedTime, fileAttributes.lastModifiedTime) &&
+        Objects.equals(this.creationTime, fileAttributes.creationTime) &&
+        Objects.equals(this.type, fileAttributes.type) &&
+        Objects.equals(this.size, fileAttributes.size) &&
+        Objects.equals(this.metadata, fileAttributes.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fileName, lastModifiedTime, creationTime, type, size, metadata);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FileAttributes {\n");
+    sb.append("    fileName: ").append(toIndentedString(fileName)).append("\n");
+    sb.append("    lastModifiedTime: ").append(toIndentedString(lastModifiedTime)).append("\n");
+    sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

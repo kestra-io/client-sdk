@@ -1,0 +1,47 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import json
+from enum import Enum
+from typing_extensions import Self
+
+
+class PluginSubGroupPluginCategory(str, Enum):
+    """
+    PluginSubGroupPluginCategory
+    """
+
+    """
+    allowed enum values
+    """
+    DATABASE = 'DATABASE'
+    MESSAGING = 'MESSAGING'
+    SCRIPT = 'SCRIPT'
+    TRANSFORMATION = 'TRANSFORMATION'
+    BATCH = 'BATCH'
+    ALERTING = 'ALERTING'
+    CLOUD = 'CLOUD'
+    STORAGE = 'STORAGE'
+    OTHER = 'OTHER'
+    TOOL = 'TOOL'
+    AI = 'AI'
+    CORE = 'CORE'
+    INGESTION = 'INGESTION'
+    BI = 'BI'
+    BUSINESS = 'BUSINESS'
+    DATA = 'DATA'
+    INFRASTRUCTURE = 'INFRASTRUCTURE'
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Create an instance of PluginSubGroupPluginCategory from a JSON string"""
+        return cls(json.loads(json_str))
+
+

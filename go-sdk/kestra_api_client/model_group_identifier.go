@@ -1,0 +1,274 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the GroupIdentifier type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupIdentifier{}
+
+// GroupIdentifier struct for GroupIdentifier
+type GroupIdentifier struct {
+	TenantId NullableString `json:"tenantId,omitempty"`
+	GroupId *string `json:"groupId,omitempty"`
+	Membership *GroupIdentifierMembership `json:"membership,omitempty"`
+	ManagedExternally *bool `json:"managedExternally,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _GroupIdentifier GroupIdentifier
+
+// NewGroupIdentifier instantiates a new GroupIdentifier object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGroupIdentifier() *GroupIdentifier {
+	this := GroupIdentifier{}
+	return &this
+}
+
+// NewGroupIdentifierWithDefaults instantiates a new GroupIdentifier object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGroupIdentifierWithDefaults() *GroupIdentifier {
+	this := GroupIdentifier{}
+	return &this
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *GroupIdentifier) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId.Get()
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GroupIdentifier) GetTenantIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TenantId.Get(), o.TenantId.IsSet()
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasTenantId() bool {
+	if o != nil && o.TenantId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given NullableString and assigns it to the TenantId field.
+func (o *GroupIdentifier) SetTenantId(v string) {
+	o.TenantId.Set(&v)
+}
+// SetTenantIdNil sets the value for TenantId to be an explicit nil
+func (o *GroupIdentifier) SetTenantIdNil() {
+	o.TenantId.Set(nil)
+}
+
+// UnsetTenantId ensures that no value is present for TenantId, not even an explicit nil
+func (o *GroupIdentifier) UnsetTenantId() {
+	o.TenantId.Unset()
+}
+
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
+func (o *GroupIdentifier) GetGroupId() string {
+	if o == nil || IsNil(o.GroupId) {
+		var ret string
+		return ret
+	}
+	return *o.GroupId
+}
+
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupIdentifier) GetGroupIdOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupId) {
+		return nil, false
+	}
+	return o.GroupId, true
+}
+
+// HasGroupId returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
+func (o *GroupIdentifier) SetGroupId(v string) {
+	o.GroupId = &v
+}
+
+// GetMembership returns the Membership field value if set, zero value otherwise.
+func (o *GroupIdentifier) GetMembership() GroupIdentifierMembership {
+	if o == nil || IsNil(o.Membership) {
+		var ret GroupIdentifierMembership
+		return ret
+	}
+	return *o.Membership
+}
+
+// GetMembershipOk returns a tuple with the Membership field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupIdentifier) GetMembershipOk() (*GroupIdentifierMembership, bool) {
+	if o == nil || IsNil(o.Membership) {
+		return nil, false
+	}
+	return o.Membership, true
+}
+
+// HasMembership returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasMembership() bool {
+	if o != nil && !IsNil(o.Membership) {
+		return true
+	}
+
+	return false
+}
+
+// SetMembership gets a reference to the given GroupIdentifierMembership and assigns it to the Membership field.
+func (o *GroupIdentifier) SetMembership(v GroupIdentifierMembership) {
+	o.Membership = &v
+}
+
+// GetManagedExternally returns the ManagedExternally field value if set, zero value otherwise.
+func (o *GroupIdentifier) GetManagedExternally() bool {
+	if o == nil || IsNil(o.ManagedExternally) {
+		var ret bool
+		return ret
+	}
+	return *o.ManagedExternally
+}
+
+// GetManagedExternallyOk returns a tuple with the ManagedExternally field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupIdentifier) GetManagedExternallyOk() (*bool, bool) {
+	if o == nil || IsNil(o.ManagedExternally) {
+		return nil, false
+	}
+	return o.ManagedExternally, true
+}
+
+// HasManagedExternally returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasManagedExternally() bool {
+	if o != nil && !IsNil(o.ManagedExternally) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedExternally gets a reference to the given bool and assigns it to the ManagedExternally field.
+func (o *GroupIdentifier) SetManagedExternally(v bool) {
+	o.ManagedExternally = &v
+}
+
+func (o GroupIdentifier) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupIdentifier) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.TenantId.IsSet() {
+		toSerialize["tenantId"] = o.TenantId.Get()
+	}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
+	}
+	if !IsNil(o.Membership) {
+		toSerialize["membership"] = o.Membership
+	}
+	if !IsNil(o.ManagedExternally) {
+		toSerialize["managedExternally"] = o.ManagedExternally
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *GroupIdentifier) UnmarshalJSON(data []byte) (err error) {
+	varGroupIdentifier := _GroupIdentifier{}
+
+	err = json.Unmarshal(data, &varGroupIdentifier)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GroupIdentifier(varGroupIdentifier)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "groupId")
+		delete(additionalProperties, "membership")
+		delete(additionalProperties, "managedExternally")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableGroupIdentifier struct {
+	value *GroupIdentifier
+	isSet bool
+}
+
+func (v NullableGroupIdentifier) Get() *GroupIdentifier {
+	return v.value
+}
+
+func (v *NullableGroupIdentifier) Set(val *GroupIdentifier) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableGroupIdentifier) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableGroupIdentifier) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableGroupIdentifier(val *GroupIdentifier) *NullableGroupIdentifier {
+	return &NullableGroupIdentifier{value: val, isSet: true}
+}
+
+func (v NullableGroupIdentifier) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableGroupIdentifier) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

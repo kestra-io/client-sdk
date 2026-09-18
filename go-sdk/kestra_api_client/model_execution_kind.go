@@ -1,0 +1,113 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// ExecutionKind the model 'ExecutionKind'
+type ExecutionKind string
+
+// List of ExecutionKind
+const (
+	EXECUTIONKIND_NORMAL ExecutionKind = "NORMAL"
+	EXECUTIONKIND_TEST ExecutionKind = "TEST"
+	EXECUTIONKIND_PLAYGROUND ExecutionKind = "PLAYGROUND"
+	EXECUTIONKIND_LOOP ExecutionKind = "LOOP"
+)
+
+// All allowed values of ExecutionKind enum
+var AllowedExecutionKindEnumValues = []ExecutionKind{
+	"NORMAL",
+	"TEST",
+	"PLAYGROUND",
+	"LOOP",
+}
+
+func (v *ExecutionKind) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := ExecutionKind(value)
+	for _, existing := range AllowedExecutionKindEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ExecutionKind", value)
+}
+
+// NewExecutionKindFromValue returns a pointer to a valid ExecutionKind
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewExecutionKindFromValue(v string) (*ExecutionKind, error) {
+	ev := ExecutionKind(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for ExecutionKind: valid values are %v", v, AllowedExecutionKindEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v ExecutionKind) IsValid() bool {
+	for _, existing := range AllowedExecutionKindEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to ExecutionKind value
+func (v ExecutionKind) Ptr() *ExecutionKind {
+	return &v
+}
+
+type NullableExecutionKind struct {
+	value *ExecutionKind
+	isSet bool
+}
+
+func (v NullableExecutionKind) Get() *ExecutionKind {
+	return v.value
+}
+
+func (v *NullableExecutionKind) Set(val *ExecutionKind) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableExecutionKind) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableExecutionKind) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableExecutionKind(val *ExecutionKind) *NullableExecutionKind {
+	return &NullableExecutionKind{value: val, isSet: true}
+}
+
+func (v NullableExecutionKind) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableExecutionKind) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

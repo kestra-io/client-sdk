@@ -1,0 +1,64 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import json
+from enum import Enum
+from typing_extensions import Self
+
+
+class Action(str, Enum):
+    """
+    Action
+    """
+
+    """
+    allowed enum values
+    """
+    VIEW = 'VIEW'
+    LIST = 'LIST'
+    CREATE = 'CREATE'
+    UPDATE = 'UPDATE'
+    DELETE = 'DELETE'
+    EXECUTE = 'EXECUTE'
+    RESTART = 'RESTART'
+    KILL = 'KILL'
+    REPLAY = 'REPLAY'
+    PAUSE = 'PAUSE'
+    RESUME = 'RESUME'
+    UNQUEUE = 'UNQUEUE'
+    FORCE_RUN = 'FORCE_RUN'
+    FOLLOW = 'FOLLOW'
+    TEMPLATE = 'TEMPLATE'
+    CHANGE_LABELS = 'CHANGE_LABELS'
+    ACCESS_LOGS = 'ACCESS_LOGS'
+    ACCESS_OUTPUTS = 'ACCESS_OUTPUTS'
+    ACCESS_FILES = 'ACCESS_FILES'
+    EXPORT = 'EXPORT'
+    IMPORT = 'IMPORT'
+    DISABLE = 'DISABLE'
+    ENABLE = 'ENABLE'
+    VALIDATE = 'VALIDATE'
+    UNLOCK = 'UNLOCK'
+    LOCK = 'LOCK'
+    BACKFILL = 'BACKFILL'
+    PROMOTE = 'PROMOTE'
+    MANAGE_FILES = 'MANAGE_FILES'
+    MANAGE_MEMBERS = 'MANAGE_MEMBERS'
+    MANAGE_GROUP_MEMBERSHIP = 'MANAGE_GROUP_MEMBERSHIP'
+    USE = 'USE'
+    IMPERSONATE = 'IMPERSONATE'
+    UNKNOWN = 'UNKNOWN'
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Create an instance of Action from a JSON string"""
+        return cls(json.loads(json_str))
+
+

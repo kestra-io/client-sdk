@@ -1,0 +1,310 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AuditLogDetail;
+import io.kestra.sdk.model.CrudEventType;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * BaseAuditLog
+ */
+@JsonPropertyOrder({
+  BaseAuditLog.JSON_PROPERTY_TENANT_ID,
+  BaseAuditLog.JSON_PROPERTY_ID,
+  BaseAuditLog.JSON_PROPERTY_TYPE,
+  BaseAuditLog.JSON_PROPERTY_DETAIL,
+  BaseAuditLog.JSON_PROPERTY_DATE,
+  BaseAuditLog.JSON_PROPERTY_USER_ID,
+  BaseAuditLog.JSON_PROPERTY_IP_ADDRESS,
+  BaseAuditLog.JSON_PROPERTY_IMPERSONATED_BY
+})
+public class BaseAuditLog {
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private String tenantId;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private CrudEventType type;
+
+  public static final String JSON_PROPERTY_DETAIL = "detail";
+  @jakarta.annotation.Nonnull  private AuditLogDetail detail;
+
+  public static final String JSON_PROPERTY_DATE = "date";
+  @jakarta.annotation.Nonnull  private OffsetDateTime date;
+
+  public static final String JSON_PROPERTY_USER_ID = "userId";
+  @jakarta.annotation.Nonnull  private String userId;
+
+  public static final String JSON_PROPERTY_IP_ADDRESS = "ipAddress";
+  @jakarta.annotation.Nullable  private String ipAddress;
+
+  public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
+  @jakarta.annotation.Nullable  private String impersonatedBy;
+
+  public BaseAuditLog() {
+  }
+
+  public BaseAuditLog tenantId(@jakarta.annotation.Nullable String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public BaseAuditLog id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public BaseAuditLog type(@jakarta.annotation.Nonnull CrudEventType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public CrudEventType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull CrudEventType type) {
+    this.type = type;
+  }
+
+  public BaseAuditLog detail(@jakarta.annotation.Nonnull AuditLogDetail detail) {
+    
+    this.detail = detail;
+    return this;
+  }
+
+  /**
+   * Get detail
+   * @return detail
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AuditLogDetail getDetail() {
+    return detail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDetail(@jakarta.annotation.Nonnull AuditLogDetail detail) {
+    this.detail = detail;
+  }
+
+  public BaseAuditLog date(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getDate() {
+    return date;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDate(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    this.date = date;
+  }
+
+  public BaseAuditLog userId(@jakarta.annotation.Nonnull String userId) {
+    
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   * @return userId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUserId() {
+    return userId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUserId(@jakarta.annotation.Nonnull String userId) {
+    this.userId = userId;
+  }
+
+  public BaseAuditLog ipAddress(@jakarta.annotation.Nullable String ipAddress) {
+    
+    this.ipAddress = ipAddress;
+    return this;
+  }
+
+  /**
+   * Get ipAddress
+   * @return ipAddress
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIpAddress() {
+    return ipAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpAddress(@jakarta.annotation.Nullable String ipAddress) {
+    this.ipAddress = ipAddress;
+  }
+
+  public BaseAuditLog impersonatedBy(@jakarta.annotation.Nullable String impersonatedBy) {
+    
+    this.impersonatedBy = impersonatedBy;
+    return this;
+  }
+
+  /**
+   * Get impersonatedBy
+   * @return impersonatedBy
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getImpersonatedBy() {
+    return impersonatedBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setImpersonatedBy(@jakarta.annotation.Nullable String impersonatedBy) {
+    this.impersonatedBy = impersonatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BaseAuditLog baseAuditLog = (BaseAuditLog) o;
+    return Objects.equals(this.tenantId, baseAuditLog.tenantId) &&
+        Objects.equals(this.id, baseAuditLog.id) &&
+        Objects.equals(this.type, baseAuditLog.type) &&
+        Objects.equals(this.detail, baseAuditLog.detail) &&
+        Objects.equals(this.date, baseAuditLog.date) &&
+        Objects.equals(this.userId, baseAuditLog.userId) &&
+        Objects.equals(this.ipAddress, baseAuditLog.ipAddress) &&
+        Objects.equals(this.impersonatedBy, baseAuditLog.impersonatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class BaseAuditLog {\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
+    sb.append("    impersonatedBy: ").append(toIndentedString(impersonatedBy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

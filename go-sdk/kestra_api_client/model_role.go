@@ -1,0 +1,372 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Role type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Role{}
+
+// Role struct for Role
+type Role struct {
+	IsManaged bool `json:"isManaged"`
+	Permissions *ListPermissions200Response `json:"permissions,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	IsDefault *bool `json:"isDefault,omitempty"`
+	Deleted bool `json:"deleted"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Role Role
+
+// NewRole instantiates a new Role object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewRole(isManaged bool, name string, deleted bool) *Role {
+	this := Role{}
+	this.IsManaged = isManaged
+	this.Name = name
+	this.Deleted = deleted
+	return &this
+}
+
+// NewRoleWithDefaults instantiates a new Role object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewRoleWithDefaults() *Role {
+	this := Role{}
+	return &this
+}
+
+// GetIsManaged returns the IsManaged field value
+func (o *Role) GetIsManaged() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsManaged
+}
+
+// GetIsManagedOk returns a tuple with the IsManaged field value
+// and a boolean to check if the value has been set.
+func (o *Role) GetIsManagedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsManaged, true
+}
+
+// SetIsManaged sets field value
+func (o *Role) SetIsManaged(v bool) {
+	o.IsManaged = v
+}
+
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
+func (o *Role) GetPermissions() ListPermissions200Response {
+	if o == nil || IsNil(o.Permissions) {
+		var ret ListPermissions200Response
+		return ret
+	}
+	return *o.Permissions
+}
+
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Role) GetPermissionsOk() (*ListPermissions200Response, bool) {
+	if o == nil || IsNil(o.Permissions) {
+		return nil, false
+	}
+	return o.Permissions, true
+}
+
+// HasPermissions returns a boolean if a field has been set.
+func (o *Role) HasPermissions() bool {
+	if o != nil && !IsNil(o.Permissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given ListPermissions200Response and assigns it to the Permissions field.
+func (o *Role) SetPermissions(v ListPermissions200Response) {
+	o.Permissions = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Role) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Role) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Role) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Role) SetId(v string) {
+	o.Id = &v
+}
+
+// GetName returns the Name field value
+func (o *Role) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *Role) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *Role) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Role) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Role) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Role) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Role) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
+func (o *Role) GetIsDefault() bool {
+	if o == nil || IsNil(o.IsDefault) {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefault
+}
+
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Role) GetIsDefaultOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsDefault) {
+		return nil, false
+	}
+	return o.IsDefault, true
+}
+
+// HasIsDefault returns a boolean if a field has been set.
+func (o *Role) HasIsDefault() bool {
+	if o != nil && !IsNil(o.IsDefault) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
+func (o *Role) SetIsDefault(v bool) {
+	o.IsDefault = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *Role) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *Role) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *Role) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+func (o Role) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Role) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["isManaged"] = o.IsManaged
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.IsDefault) {
+		toSerialize["isDefault"] = o.IsDefault
+	}
+	toSerialize["deleted"] = o.Deleted
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Role) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"isManaged",
+		"name",
+		"deleted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRole := _Role{}
+
+	err = json.Unmarshal(data, &varRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Role(varRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "isManaged")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isDefault")
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableRole struct {
+	value *Role
+	isSet bool
+}
+
+func (v NullableRole) Get() *Role {
+	return v.value
+}
+
+func (v *NullableRole) Set(val *Role) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableRole) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableRole) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableRole(val *Role) *NullableRole {
+	return &NullableRole{value: val, isSet: true}
+}
+
+func (v NullableRole) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableRole) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

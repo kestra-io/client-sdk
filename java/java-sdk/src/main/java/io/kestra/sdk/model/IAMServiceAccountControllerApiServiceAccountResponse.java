@@ -1,0 +1,270 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMServiceAccountControllerApiGroup;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * A User Service Account.
+ */
+@JsonPropertyOrder({
+  IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_ID,
+  IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_NAME,
+  IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_DESCRIPTION,
+  IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_GROUPS,
+  IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_INSTANCE_OWNER
+})
+@JsonTypeName("IAMServiceAccountController.ApiServiceAccountResponse")
+public class IAMServiceAccountControllerApiServiceAccountResponse {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<IAMServiceAccountControllerApiGroup> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public IAMServiceAccountControllerApiServiceAccountResponse() {
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * the identifier of this service account.
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * the name of this service account.
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * the description of this service account.
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse groups(@jakarta.annotation.Nullable List<IAMServiceAccountControllerApiGroup> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse addGroupsItem(IAMServiceAccountControllerApiGroup groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMServiceAccountControllerApiGroup> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<IAMServiceAccountControllerApiGroup> groups) {
+    this.groups = groups;
+  }
+
+  public IAMServiceAccountControllerApiServiceAccountResponse instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMServiceAccountControllerApiServiceAccountResponse superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMServiceAccountControllerApiServiceAccountResponse iaMServiceAccountControllerApiServiceAccountResponse = (IAMServiceAccountControllerApiServiceAccountResponse) o;
+    return Objects.equals(this.id, iaMServiceAccountControllerApiServiceAccountResponse.id) &&
+        Objects.equals(this.name, iaMServiceAccountControllerApiServiceAccountResponse.name) &&
+        Objects.equals(this.description, iaMServiceAccountControllerApiServiceAccountResponse.description) &&
+        Objects.equals(this.groups, iaMServiceAccountControllerApiServiceAccountResponse.groups) &&
+        Objects.equals(this.instanceOwner, iaMServiceAccountControllerApiServiceAccountResponse.instanceOwner);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description, groups, instanceOwner);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMServiceAccountControllerApiServiceAccountResponse {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

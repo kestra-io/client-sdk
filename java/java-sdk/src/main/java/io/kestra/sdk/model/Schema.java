@@ -1,0 +1,230 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Meta;
+import io.kestra.sdk.model.SchemaAttribute;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Schema
+ */
+@JsonPropertyOrder({
+  Schema.JSON_PROPERTY_ATTRIBUTES,
+  Schema.JSON_PROPERTY_ID,
+  Schema.JSON_PROPERTY_NAME,
+  Schema.JSON_PROPERTY_DESCRIPTION,
+  Schema.JSON_PROPERTY_META
+})
+public class Schema {
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  @jakarta.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_META = "meta";
+  @jakarta.annotation.Nullable  private Meta meta;
+
+  public Schema() {
+  }
+
+  public Schema attributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
+    
+    this.attributes = attributes;
+    return this;
+  }
+
+  public Schema addAttributesItem(SchemaAttribute attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new ArrayList<>();
+    }
+    this.attributes.add(attributesItem);
+    return this;
+  }
+
+  /**
+   * Get attributes
+   * @return attributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SchemaAttribute> getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
+    this.attributes = attributes;
+  }
+
+  public Schema id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public Schema name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public Schema description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public Schema meta(@jakarta.annotation.Nullable Meta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+  /**
+   * Get meta
+   * @return meta
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Meta getMeta() {
+    return meta;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMeta(@jakarta.annotation.Nullable Meta meta) {
+    this.meta = meta;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Schema schema = (Schema) o;
+    return Objects.equals(this.attributes, schema.attributes) &&
+        Objects.equals(this.id, schema.id) &&
+        Objects.equals(this.name, schema.name) &&
+        Objects.equals(this.description, schema.description) &&
+        Objects.equals(this.meta, schema.meta);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attributes, id, name, description, meta);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Schema {\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

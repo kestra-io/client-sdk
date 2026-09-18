@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the PluginControllerApiPluginVersions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PluginControllerApiPluginVersions{}
+
+// PluginControllerApiPluginVersions struct for PluginControllerApiPluginVersions
+type PluginControllerApiPluginVersions struct {
+	Type *string `json:"type,omitempty"`
+	Versions []string `json:"versions,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _PluginControllerApiPluginVersions PluginControllerApiPluginVersions
+
+// NewPluginControllerApiPluginVersions instantiates a new PluginControllerApiPluginVersions object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPluginControllerApiPluginVersions() *PluginControllerApiPluginVersions {
+	this := PluginControllerApiPluginVersions{}
+	return &this
+}
+
+// NewPluginControllerApiPluginVersionsWithDefaults instantiates a new PluginControllerApiPluginVersions object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPluginControllerApiPluginVersionsWithDefaults() *PluginControllerApiPluginVersions {
+	this := PluginControllerApiPluginVersions{}
+	return &this
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PluginControllerApiPluginVersions) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginControllerApiPluginVersions) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *PluginControllerApiPluginVersions) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PluginControllerApiPluginVersions) SetType(v string) {
+	o.Type = &v
+}
+
+// GetVersions returns the Versions field value if set, zero value otherwise.
+func (o *PluginControllerApiPluginVersions) GetVersions() []string {
+	if o == nil || IsNil(o.Versions) {
+		var ret []string
+		return ret
+	}
+	return o.Versions
+}
+
+// GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginControllerApiPluginVersions) GetVersionsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Versions) {
+		return nil, false
+	}
+	return o.Versions, true
+}
+
+// HasVersions returns a boolean if a field has been set.
+func (o *PluginControllerApiPluginVersions) HasVersions() bool {
+	if o != nil && !IsNil(o.Versions) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersions gets a reference to the given []string and assigns it to the Versions field.
+func (o *PluginControllerApiPluginVersions) SetVersions(v []string) {
+	o.Versions = v
+}
+
+func (o PluginControllerApiPluginVersions) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PluginControllerApiPluginVersions) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Versions) {
+		toSerialize["versions"] = o.Versions
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *PluginControllerApiPluginVersions) UnmarshalJSON(data []byte) (err error) {
+	varPluginControllerApiPluginVersions := _PluginControllerApiPluginVersions{}
+
+	err = json.Unmarshal(data, &varPluginControllerApiPluginVersions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginControllerApiPluginVersions(varPluginControllerApiPluginVersions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "versions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullablePluginControllerApiPluginVersions struct {
+	value *PluginControllerApiPluginVersions
+	isSet bool
+}
+
+func (v NullablePluginControllerApiPluginVersions) Get() *PluginControllerApiPluginVersions {
+	return v.value
+}
+
+func (v *NullablePluginControllerApiPluginVersions) Set(val *PluginControllerApiPluginVersions) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePluginControllerApiPluginVersions) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePluginControllerApiPluginVersions) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePluginControllerApiPluginVersions(val *PluginControllerApiPluginVersions) *NullablePluginControllerApiPluginVersions {
+	return &NullablePluginControllerApiPluginVersions{value: val, isSet: true}
+}
+
+func (v NullablePluginControllerApiPluginVersions) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePluginControllerApiPluginVersions) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

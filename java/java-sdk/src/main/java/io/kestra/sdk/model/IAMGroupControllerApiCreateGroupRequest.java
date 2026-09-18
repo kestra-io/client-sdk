@@ -1,0 +1,169 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMGroupControllerApiCreateGroupRequest
+ */
+@JsonPropertyOrder({
+  IAMGroupControllerApiCreateGroupRequest.JSON_PROPERTY_NAME,
+  IAMGroupControllerApiCreateGroupRequest.JSON_PROPERTY_DESCRIPTION,
+  IAMGroupControllerApiCreateGroupRequest.JSON_PROPERTY_MEMBERS_ID
+})
+@JsonTypeName("IAMGroupController.ApiCreateGroupRequest")
+public class IAMGroupControllerApiCreateGroupRequest {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_MEMBERS_ID = "membersId";
+  @jakarta.annotation.Nullable  private List<String> membersId = new ArrayList<>();
+
+  public IAMGroupControllerApiCreateGroupRequest() {
+  }
+
+  public IAMGroupControllerApiCreateGroupRequest name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public IAMGroupControllerApiCreateGroupRequest description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public IAMGroupControllerApiCreateGroupRequest membersId(@jakarta.annotation.Nullable List<String> membersId) {
+    
+    this.membersId = membersId;
+    return this;
+  }
+
+  public IAMGroupControllerApiCreateGroupRequest addMembersIdItem(String membersIdItem) {
+    if (this.membersId == null) {
+      this.membersId = new ArrayList<>();
+    }
+    this.membersId.add(membersIdItem);
+    return this;
+  }
+
+  /**
+   * Get membersId
+   * @return membersId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getMembersId() {
+    return membersId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMembersId(@jakarta.annotation.Nullable List<String> membersId) {
+    this.membersId = membersId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest = (IAMGroupControllerApiCreateGroupRequest) o;
+    return Objects.equals(this.name, iaMGroupControllerApiCreateGroupRequest.name) &&
+        Objects.equals(this.description, iaMGroupControllerApiCreateGroupRequest.description) &&
+        Objects.equals(this.membersId, iaMGroupControllerApiCreateGroupRequest.membersId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, description, membersId);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMGroupControllerApiCreateGroupRequest {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    membersId: ").append(toIndentedString(membersId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

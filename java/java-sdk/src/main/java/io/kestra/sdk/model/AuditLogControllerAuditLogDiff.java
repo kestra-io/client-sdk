@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AuditLogControllerAuditLogDiff
+ */
+@JsonPropertyOrder({
+  AuditLogControllerAuditLogDiff.JSON_PROPERTY_BEFORE,
+  AuditLogControllerAuditLogDiff.JSON_PROPERTY_AFTER
+})
+@JsonTypeName("AuditLogController.AuditLogDiff")
+public class AuditLogControllerAuditLogDiff {
+  public static final String JSON_PROPERTY_BEFORE = "before";
+  @jakarta.annotation.Nullable  private String before;
+
+  public static final String JSON_PROPERTY_AFTER = "after";
+  @jakarta.annotation.Nullable  private String after;
+
+  public AuditLogControllerAuditLogDiff() {
+  }
+
+  public AuditLogControllerAuditLogDiff before(@jakarta.annotation.Nullable String before) {
+    
+    this.before = before;
+    return this;
+  }
+
+  /**
+   * Get before
+   * @return before
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BEFORE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBefore() {
+    return before;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BEFORE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBefore(@jakarta.annotation.Nullable String before) {
+    this.before = before;
+  }
+
+  public AuditLogControllerAuditLogDiff after(@jakarta.annotation.Nullable String after) {
+    
+    this.after = after;
+    return this;
+  }
+
+  /**
+   * Get after
+   * @return after
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAfter() {
+    return after;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AFTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAfter(@jakarta.annotation.Nullable String after) {
+    this.after = after;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AuditLogControllerAuditLogDiff auditLogControllerAuditLogDiff = (AuditLogControllerAuditLogDiff) o;
+    return Objects.equals(this.before, auditLogControllerAuditLogDiff.before) &&
+        Objects.equals(this.after, auditLogControllerAuditLogDiff.after);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(before, after);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AuditLogControllerAuditLogDiff {\n");
+    sb.append("    before: ").append(toIndentedString(before)).append("\n");
+    sb.append("    after: ").append(toIndentedString(after)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

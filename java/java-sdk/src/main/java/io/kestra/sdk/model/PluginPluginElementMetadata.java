@@ -1,0 +1,188 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PluginPluginElementMetadata
+ */
+@JsonPropertyOrder({
+  PluginPluginElementMetadata.JSON_PROPERTY_CLS,
+  PluginPluginElementMetadata.JSON_PROPERTY_DEPRECATED,
+  PluginPluginElementMetadata.JSON_PROPERTY_TITLE,
+  PluginPluginElementMetadata.JSON_PROPERTY_DESCRIPTION
+})
+@JsonTypeName("Plugin.PluginElementMetadata")
+public class PluginPluginElementMetadata {
+  public static final String JSON_PROPERTY_CLS = "cls";
+  @jakarta.annotation.Nullable  private String cls;
+
+  public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
+  @jakarta.annotation.Nullable  private Boolean deprecated;
+
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public PluginPluginElementMetadata() {
+  }
+
+  public PluginPluginElementMetadata cls(@jakarta.annotation.Nullable String cls) {
+    
+    this.cls = cls;
+    return this;
+  }
+
+  /**
+   * Get cls
+   * @return cls
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCls() {
+    return cls;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCls(@jakarta.annotation.Nullable String cls) {
+    this.cls = cls;
+  }
+
+  public PluginPluginElementMetadata deprecated(@jakarta.annotation.Nullable Boolean deprecated) {
+    
+    this.deprecated = deprecated;
+    return this;
+  }
+
+  /**
+   * Get deprecated
+   * @return deprecated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPRECATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDeprecated() {
+    return deprecated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEPRECATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeprecated(@jakarta.annotation.Nullable Boolean deprecated) {
+    this.deprecated = deprecated;
+  }
+
+  public PluginPluginElementMetadata title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public PluginPluginElementMetadata description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PluginPluginElementMetadata pluginPluginElementMetadata = (PluginPluginElementMetadata) o;
+    return Objects.equals(this.cls, pluginPluginElementMetadata.cls) &&
+        Objects.equals(this.deprecated, pluginPluginElementMetadata.deprecated) &&
+        Objects.equals(this.title, pluginPluginElementMetadata.title) &&
+        Objects.equals(this.description, pluginPluginElementMetadata.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cls, deprecated, title, description);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PluginPluginElementMetadata {\n");
+    sb.append("    cls: ").append(toIndentedString(cls)).append("\n");
+    sb.append("    deprecated: ").append(toIndentedString(deprecated)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

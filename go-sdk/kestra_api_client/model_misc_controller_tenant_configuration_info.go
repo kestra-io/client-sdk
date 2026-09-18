@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the MiscControllerTenantConfigurationInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MiscControllerTenantConfigurationInfo{}
+
+// MiscControllerTenantConfigurationInfo struct for MiscControllerTenantConfigurationInfo
+type MiscControllerTenantConfigurationInfo struct {
+	StorageByTenant *bool `json:"storageByTenant,omitempty"`
+	SecretByTenant *bool `json:"secretByTenant,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MiscControllerTenantConfigurationInfo MiscControllerTenantConfigurationInfo
+
+// NewMiscControllerTenantConfigurationInfo instantiates a new MiscControllerTenantConfigurationInfo object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMiscControllerTenantConfigurationInfo() *MiscControllerTenantConfigurationInfo {
+	this := MiscControllerTenantConfigurationInfo{}
+	return &this
+}
+
+// NewMiscControllerTenantConfigurationInfoWithDefaults instantiates a new MiscControllerTenantConfigurationInfo object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMiscControllerTenantConfigurationInfoWithDefaults() *MiscControllerTenantConfigurationInfo {
+	this := MiscControllerTenantConfigurationInfo{}
+	return &this
+}
+
+// GetStorageByTenant returns the StorageByTenant field value if set, zero value otherwise.
+func (o *MiscControllerTenantConfigurationInfo) GetStorageByTenant() bool {
+	if o == nil || IsNil(o.StorageByTenant) {
+		var ret bool
+		return ret
+	}
+	return *o.StorageByTenant
+}
+
+// GetStorageByTenantOk returns a tuple with the StorageByTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerTenantConfigurationInfo) GetStorageByTenantOk() (*bool, bool) {
+	if o == nil || IsNil(o.StorageByTenant) {
+		return nil, false
+	}
+	return o.StorageByTenant, true
+}
+
+// HasStorageByTenant returns a boolean if a field has been set.
+func (o *MiscControllerTenantConfigurationInfo) HasStorageByTenant() bool {
+	if o != nil && !IsNil(o.StorageByTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageByTenant gets a reference to the given bool and assigns it to the StorageByTenant field.
+func (o *MiscControllerTenantConfigurationInfo) SetStorageByTenant(v bool) {
+	o.StorageByTenant = &v
+}
+
+// GetSecretByTenant returns the SecretByTenant field value if set, zero value otherwise.
+func (o *MiscControllerTenantConfigurationInfo) GetSecretByTenant() bool {
+	if o == nil || IsNil(o.SecretByTenant) {
+		var ret bool
+		return ret
+	}
+	return *o.SecretByTenant
+}
+
+// GetSecretByTenantOk returns a tuple with the SecretByTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerTenantConfigurationInfo) GetSecretByTenantOk() (*bool, bool) {
+	if o == nil || IsNil(o.SecretByTenant) {
+		return nil, false
+	}
+	return o.SecretByTenant, true
+}
+
+// HasSecretByTenant returns a boolean if a field has been set.
+func (o *MiscControllerTenantConfigurationInfo) HasSecretByTenant() bool {
+	if o != nil && !IsNil(o.SecretByTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretByTenant gets a reference to the given bool and assigns it to the SecretByTenant field.
+func (o *MiscControllerTenantConfigurationInfo) SetSecretByTenant(v bool) {
+	o.SecretByTenant = &v
+}
+
+func (o MiscControllerTenantConfigurationInfo) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MiscControllerTenantConfigurationInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StorageByTenant) {
+		toSerialize["storageByTenant"] = o.StorageByTenant
+	}
+	if !IsNil(o.SecretByTenant) {
+		toSerialize["secretByTenant"] = o.SecretByTenant
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MiscControllerTenantConfigurationInfo) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerTenantConfigurationInfo := _MiscControllerTenantConfigurationInfo{}
+
+	err = json.Unmarshal(data, &varMiscControllerTenantConfigurationInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerTenantConfigurationInfo(varMiscControllerTenantConfigurationInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "storageByTenant")
+		delete(additionalProperties, "secretByTenant")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMiscControllerTenantConfigurationInfo struct {
+	value *MiscControllerTenantConfigurationInfo
+	isSet bool
+}
+
+func (v NullableMiscControllerTenantConfigurationInfo) Get() *MiscControllerTenantConfigurationInfo {
+	return v.value
+}
+
+func (v *NullableMiscControllerTenantConfigurationInfo) Set(val *MiscControllerTenantConfigurationInfo) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMiscControllerTenantConfigurationInfo) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMiscControllerTenantConfigurationInfo) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMiscControllerTenantConfigurationInfo(val *MiscControllerTenantConfigurationInfo) *NullableMiscControllerTenantConfigurationInfo {
+	return &NullableMiscControllerTenantConfigurationInfo{value: val, isSet: true}
+}
+
+func (v NullableMiscControllerTenantConfigurationInfo) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMiscControllerTenantConfigurationInfo) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

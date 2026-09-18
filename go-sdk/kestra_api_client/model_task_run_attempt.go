@@ -1,0 +1,260 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the TaskRunAttempt type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TaskRunAttempt{}
+
+// TaskRunAttempt struct for TaskRunAttempt
+type TaskRunAttempt struct {
+	State State `json:"state"`
+	WorkerId NullableString `json:"workerId,omitempty"`
+	LogFile NullableString `json:"logFile,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TaskRunAttempt TaskRunAttempt
+
+// NewTaskRunAttempt instantiates a new TaskRunAttempt object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTaskRunAttempt(state State) *TaskRunAttempt {
+	this := TaskRunAttempt{}
+	this.State = state
+	return &this
+}
+
+// NewTaskRunAttemptWithDefaults instantiates a new TaskRunAttempt object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTaskRunAttemptWithDefaults() *TaskRunAttempt {
+	this := TaskRunAttempt{}
+	return &this
+}
+
+// GetState returns the State field value
+func (o *TaskRunAttempt) GetState() State {
+	if o == nil {
+		var ret State
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *TaskRunAttempt) GetStateOk() (*State, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *TaskRunAttempt) SetState(v State) {
+	o.State = v
+}
+
+// GetWorkerId returns the WorkerId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TaskRunAttempt) GetWorkerId() string {
+	if o == nil || IsNil(o.WorkerId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.WorkerId.Get()
+}
+
+// GetWorkerIdOk returns a tuple with the WorkerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TaskRunAttempt) GetWorkerIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WorkerId.Get(), o.WorkerId.IsSet()
+}
+
+// HasWorkerId returns a boolean if a field has been set.
+func (o *TaskRunAttempt) HasWorkerId() bool {
+	if o != nil && o.WorkerId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerId gets a reference to the given NullableString and assigns it to the WorkerId field.
+func (o *TaskRunAttempt) SetWorkerId(v string) {
+	o.WorkerId.Set(&v)
+}
+// SetWorkerIdNil sets the value for WorkerId to be an explicit nil
+func (o *TaskRunAttempt) SetWorkerIdNil() {
+	o.WorkerId.Set(nil)
+}
+
+// UnsetWorkerId ensures that no value is present for WorkerId, not even an explicit nil
+func (o *TaskRunAttempt) UnsetWorkerId() {
+	o.WorkerId.Unset()
+}
+
+// GetLogFile returns the LogFile field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TaskRunAttempt) GetLogFile() string {
+	if o == nil || IsNil(o.LogFile.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.LogFile.Get()
+}
+
+// GetLogFileOk returns a tuple with the LogFile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TaskRunAttempt) GetLogFileOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LogFile.Get(), o.LogFile.IsSet()
+}
+
+// HasLogFile returns a boolean if a field has been set.
+func (o *TaskRunAttempt) HasLogFile() bool {
+	if o != nil && o.LogFile.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLogFile gets a reference to the given NullableString and assigns it to the LogFile field.
+func (o *TaskRunAttempt) SetLogFile(v string) {
+	o.LogFile.Set(&v)
+}
+// SetLogFileNil sets the value for LogFile to be an explicit nil
+func (o *TaskRunAttempt) SetLogFileNil() {
+	o.LogFile.Set(nil)
+}
+
+// UnsetLogFile ensures that no value is present for LogFile, not even an explicit nil
+func (o *TaskRunAttempt) UnsetLogFile() {
+	o.LogFile.Unset()
+}
+
+func (o TaskRunAttempt) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TaskRunAttempt) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["state"] = o.State
+	if o.WorkerId.IsSet() {
+		toSerialize["workerId"] = o.WorkerId.Get()
+	}
+	if o.LogFile.IsSet() {
+		toSerialize["logFile"] = o.LogFile.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TaskRunAttempt) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTaskRunAttempt := _TaskRunAttempt{}
+
+	err = json.Unmarshal(data, &varTaskRunAttempt)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TaskRunAttempt(varTaskRunAttempt)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "workerId")
+		delete(additionalProperties, "logFile")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTaskRunAttempt struct {
+	value *TaskRunAttempt
+	isSet bool
+}
+
+func (v NullableTaskRunAttempt) Get() *TaskRunAttempt {
+	return v.value
+}
+
+func (v *NullableTaskRunAttempt) Set(val *TaskRunAttempt) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTaskRunAttempt) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTaskRunAttempt) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTaskRunAttempt(val *TaskRunAttempt) *NullableTaskRunAttempt {
+	return &NullableTaskRunAttempt{value: val, isSet: true}
+}
+
+func (v NullableTaskRunAttempt) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTaskRunAttempt) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

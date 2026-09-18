@@ -1,0 +1,197 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IdentityProvider
+ */
+@JsonPropertyOrder({
+  IdentityProvider.JSON_PROPERTY_ATTRIBUTES,
+  IdentityProvider.JSON_PROPERTY_EXTERNAL_ID,
+  IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_ID,
+  IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_NAME
+})
+public class IdentityProvider {
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  @jakarta.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nullable  private String externalId;
+
+  public static final String JSON_PROPERTY_SECURITY_INTEGRATION_ID = "securityIntegrationId";
+  @jakarta.annotation.Nullable  private String securityIntegrationId;
+
+  public static final String JSON_PROPERTY_SECURITY_INTEGRATION_NAME = "securityIntegrationName";
+  @jakarta.annotation.Nullable  private String securityIntegrationName;
+
+  public IdentityProvider() {
+  }
+
+  public IdentityProvider attributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
+    
+    this.attributes = attributes;
+    return this;
+  }
+
+  public IdentityProvider putAttributesItem(String key, Object attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new HashMap<>();
+    }
+    this.attributes.put(key, attributesItem);
+    return this;
+  }
+
+  /**
+   * Get attributes
+   * @return attributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
+    this.attributes = attributes;
+  }
+
+  public IdentityProvider externalId(@jakarta.annotation.Nullable String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
+  public IdentityProvider securityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
+    
+    this.securityIntegrationId = securityIntegrationId;
+    return this;
+  }
+
+  /**
+   * Get securityIntegrationId
+   * @return securityIntegrationId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSecurityIntegrationId() {
+    return securityIntegrationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecurityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
+    this.securityIntegrationId = securityIntegrationId;
+  }
+
+  public IdentityProvider securityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
+    
+    this.securityIntegrationName = securityIntegrationName;
+    return this;
+  }
+
+  /**
+   * Get securityIntegrationName
+   * @return securityIntegrationName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSecurityIntegrationName() {
+    return securityIntegrationName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecurityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
+    this.securityIntegrationName = securityIntegrationName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IdentityProvider identityProvider = (IdentityProvider) o;
+    return Objects.equals(this.attributes, identityProvider.attributes) &&
+        Objects.equals(this.externalId, identityProvider.externalId) &&
+        Objects.equals(this.securityIntegrationId, identityProvider.securityIntegrationId) &&
+        Objects.equals(this.securityIntegrationName, identityProvider.securityIntegrationName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attributes, externalId, securityIntegrationId, securityIntegrationName);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IdentityProvider {\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    securityIntegrationId: ").append(toIndentedString(securityIntegrationId)).append("\n");
+    sb.append("    securityIntegrationName: ").append(toIndentedString(securityIntegrationName)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

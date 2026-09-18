@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the MiscControllerPluginIdAndVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MiscControllerPluginIdAndVersion{}
+
+// MiscControllerPluginIdAndVersion struct for MiscControllerPluginIdAndVersion
+type MiscControllerPluginIdAndVersion struct {
+	Id *string `json:"id,omitempty"`
+	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MiscControllerPluginIdAndVersion MiscControllerPluginIdAndVersion
+
+// NewMiscControllerPluginIdAndVersion instantiates a new MiscControllerPluginIdAndVersion object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMiscControllerPluginIdAndVersion() *MiscControllerPluginIdAndVersion {
+	this := MiscControllerPluginIdAndVersion{}
+	return &this
+}
+
+// NewMiscControllerPluginIdAndVersionWithDefaults instantiates a new MiscControllerPluginIdAndVersion object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMiscControllerPluginIdAndVersionWithDefaults() *MiscControllerPluginIdAndVersion {
+	this := MiscControllerPluginIdAndVersion{}
+	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *MiscControllerPluginIdAndVersion) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerPluginIdAndVersion) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *MiscControllerPluginIdAndVersion) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *MiscControllerPluginIdAndVersion) SetId(v string) {
+	o.Id = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *MiscControllerPluginIdAndVersion) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerPluginIdAndVersion) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *MiscControllerPluginIdAndVersion) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *MiscControllerPluginIdAndVersion) SetVersion(v string) {
+	o.Version = &v
+}
+
+func (o MiscControllerPluginIdAndVersion) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MiscControllerPluginIdAndVersion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MiscControllerPluginIdAndVersion) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerPluginIdAndVersion := _MiscControllerPluginIdAndVersion{}
+
+	err = json.Unmarshal(data, &varMiscControllerPluginIdAndVersion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerPluginIdAndVersion(varMiscControllerPluginIdAndVersion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMiscControllerPluginIdAndVersion struct {
+	value *MiscControllerPluginIdAndVersion
+	isSet bool
+}
+
+func (v NullableMiscControllerPluginIdAndVersion) Get() *MiscControllerPluginIdAndVersion {
+	return v.value
+}
+
+func (v *NullableMiscControllerPluginIdAndVersion) Set(val *MiscControllerPluginIdAndVersion) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMiscControllerPluginIdAndVersion) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMiscControllerPluginIdAndVersion) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMiscControllerPluginIdAndVersion(val *MiscControllerPluginIdAndVersion) *NullableMiscControllerPluginIdAndVersion {
+	return &NullableMiscControllerPluginIdAndVersion{value: val, isSet: true}
+}
+
+func (v NullableMiscControllerPluginIdAndVersion) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMiscControllerPluginIdAndVersion) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

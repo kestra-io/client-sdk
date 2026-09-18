@@ -1,0 +1,232 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ChartChartOption type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChartChartOption{}
+
+// ChartChartOption struct for ChartChartOption
+type ChartChartOption struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
+	ChartOptions map[string]interface{} `json:"chartOptions,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ChartChartOption ChartChartOption
+
+// NewChartChartOption instantiates a new ChartChartOption object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewChartChartOption(id string, type_ string) *ChartChartOption {
+	this := ChartChartOption{}
+	this.Id = id
+	this.Type = type_
+	return &this
+}
+
+// NewChartChartOptionWithDefaults instantiates a new ChartChartOption object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewChartChartOptionWithDefaults() *ChartChartOption {
+	this := ChartChartOption{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *ChartChartOption) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ChartChartOption) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ChartChartOption) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *ChartChartOption) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ChartChartOption) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ChartChartOption) SetType(v string) {
+	o.Type = v
+}
+
+// GetChartOptions returns the ChartOptions field value if set, zero value otherwise.
+func (o *ChartChartOption) GetChartOptions() map[string]interface{} {
+	if o == nil || IsNil(o.ChartOptions) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.ChartOptions
+}
+
+// GetChartOptionsOk returns a tuple with the ChartOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ChartChartOption) GetChartOptionsOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.ChartOptions) {
+		return map[string]interface{}{}, false
+	}
+	return o.ChartOptions, true
+}
+
+// HasChartOptions returns a boolean if a field has been set.
+func (o *ChartChartOption) HasChartOptions() bool {
+	if o != nil && !IsNil(o.ChartOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetChartOptions gets a reference to the given map[string]interface{} and assigns it to the ChartOptions field.
+func (o *ChartChartOption) SetChartOptions(v map[string]interface{}) {
+	o.ChartOptions = v
+}
+
+func (o ChartChartOption) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ChartChartOption) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	if !IsNil(o.ChartOptions) {
+		toSerialize["chartOptions"] = o.ChartOptions
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ChartChartOption) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChartChartOption := _ChartChartOption{}
+
+	err = json.Unmarshal(data, &varChartChartOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChartChartOption(varChartChartOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "chartOptions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableChartChartOption struct {
+	value *ChartChartOption
+	isSet bool
+}
+
+func (v NullableChartChartOption) Get() *ChartChartOption {
+	return v.value
+}
+
+func (v *NullableChartChartOption) Set(val *ChartChartOption) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableChartChartOption) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableChartChartOption) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableChartChartOption(val *ChartChartOption) *NullableChartChartOption {
+	return &NullableChartChartOption{value: val, isSet: true}
+}
+
+func (v NullableChartChartOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableChartChartOption) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

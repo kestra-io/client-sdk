@@ -1,0 +1,188 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.State;
+import java.net.URI;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TaskRunAttempt
+ */
+@JsonPropertyOrder({
+  TaskRunAttempt.JSON_PROPERTY_STATE,
+  TaskRunAttempt.JSON_PROPERTY_WORKER_ID,
+  TaskRunAttempt.JSON_PROPERTY_LOG_FILE
+})
+public class TaskRunAttempt {
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private State state;
+
+  public static final String JSON_PROPERTY_WORKER_ID = "workerId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_LOG_FILE = "logFile";
+  @jakarta.annotation.Nullable  private JsonNullable<URI> logFile = JsonNullable.<URI>undefined();
+
+  public TaskRunAttempt() {
+  }
+
+  public TaskRunAttempt state(@jakarta.annotation.Nonnull State state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public State getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull State state) {
+    this.state = state;
+  }
+
+  public TaskRunAttempt workerId(@jakarta.annotation.Nullable String workerId) {
+    this.workerId = JsonNullable.<String>of(workerId);
+    
+    return this;
+  }
+
+  /**
+   * Get workerId
+   * @return workerId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getWorkerId() {
+        return workerId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getWorkerId_JsonNullable() {
+    return workerId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  public void setWorkerId_JsonNullable(JsonNullable<String> workerId) {
+    this.workerId = workerId;
+  }
+
+  public void setWorkerId(@jakarta.annotation.Nullable String workerId) {
+    this.workerId = JsonNullable.<String>of(workerId);
+  }
+
+  public TaskRunAttempt logFile(@jakarta.annotation.Nullable URI logFile) {
+    this.logFile = JsonNullable.<URI>of(logFile);
+    
+    return this;
+  }
+
+  /**
+   * Get logFile
+   * @return logFile
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public URI getLogFile() {
+        return logFile.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<URI> getLogFile_JsonNullable() {
+    return logFile;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  public void setLogFile_JsonNullable(JsonNullable<URI> logFile) {
+    this.logFile = logFile;
+  }
+
+  public void setLogFile(@jakarta.annotation.Nullable URI logFile) {
+    this.logFile = JsonNullable.<URI>of(logFile);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TaskRunAttempt taskRunAttempt = (TaskRunAttempt) o;
+    return Objects.equals(this.state, taskRunAttempt.state) &&
+        equalsNullable(this.workerId, taskRunAttempt.workerId) &&
+        equalsNullable(this.logFile, taskRunAttempt.logFile);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(state, hashCodeNullable(workerId), hashCodeNullable(logFile));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TaskRunAttempt {\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    workerId: ").append(toIndentedString(workerId)).append("\n");
+    sb.append("    logFile: ").append(toIndentedString(logFile)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

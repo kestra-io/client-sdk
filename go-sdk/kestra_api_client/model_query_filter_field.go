@@ -1,0 +1,170 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// QueryFilterField the model 'QueryFilterField'
+type QueryFilterField string
+
+// List of QueryFilter.Field
+//
+// The values are the backend's Jackson wire names (the @JsonProperty on each
+// io.kestra.core.models.QueryFilter.Field constant), which are lowerCamelCase —
+// NOT the SCREAMING_CASE Java constant names. The QueryFilter body is
+// (de)serialized on `field` by that wire name, so an UPPERCASE value here is
+// rejected by the server with 422 "Invalid JSON" on filters[].field and fails to
+// decode a QueryFilter returned in a response.
+const (
+	QUERYFILTERFIELD_QUERY                QueryFilterField = "q"
+	QUERYFILTERFIELD_SCOPE                QueryFilterField = "scope"
+	QUERYFILTERFIELD_NAMESPACE            QueryFilterField = "namespace"
+	QUERYFILTERFIELD_KIND                 QueryFilterField = "kind"
+	QUERYFILTERFIELD_LABELS               QueryFilterField = "labels"
+	QUERYFILTERFIELD_METADATA             QueryFilterField = "metadata"
+	QUERYFILTERFIELD_FLOW_ID              QueryFilterField = "flowId"
+	QUERYFILTERFIELD_FLOW_REVISION        QueryFilterField = "flowRevision"
+	QUERYFILTERFIELD_ID                   QueryFilterField = "id"
+	QUERYFILTERFIELD_ASSET_ID             QueryFilterField = "assetId"
+	QUERYFILTERFIELD_TYPE                 QueryFilterField = "type"
+	QUERYFILTERFIELD_CREATED              QueryFilterField = "created"
+	QUERYFILTERFIELD_UPDATED              QueryFilterField = "updated"
+	QUERYFILTERFIELD_START_DATE           QueryFilterField = "startDate"
+	QUERYFILTERFIELD_END_DATE             QueryFilterField = "endDate"
+	QUERYFILTERFIELD_STATE                QueryFilterField = "state"
+	QUERYFILTERFIELD_TIME_RANGE           QueryFilterField = "timeRange"
+	QUERYFILTERFIELD_TRIGGER_EXECUTION_ID QueryFilterField = "triggerExecutionId"
+	QUERYFILTERFIELD_TRIGGER_ID           QueryFilterField = "triggerId"
+	QUERYFILTERFIELD_TRIGGER_STATE        QueryFilterField = "triggerState"
+	QUERYFILTERFIELD_EXECUTION_ID         QueryFilterField = "executionId"
+	QUERYFILTERFIELD_TASK_ID              QueryFilterField = "taskId"
+	QUERYFILTERFIELD_TASK_RUN_ID          QueryFilterField = "taskRunId"
+	QUERYFILTERFIELD_CHILD_FILTER         QueryFilterField = "childFilter"
+	QUERYFILTERFIELD_WORKER_ID            QueryFilterField = "workerId"
+	QUERYFILTERFIELD_EXISTING_ONLY        QueryFilterField = "existingOnly"
+	QUERYFILTERFIELD_MIN_LEVEL            QueryFilterField = "level"
+	QUERYFILTERFIELD_PATH                 QueryFilterField = "path"
+	QUERYFILTERFIELD_PARENT_PATH          QueryFilterField = "parentPath"
+	QUERYFILTERFIELD_VERSION              QueryFilterField = "version"
+)
+
+// All allowed values of QueryFilterField enum
+var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
+	"q",
+	"scope",
+	"namespace",
+	"kind",
+	"labels",
+	"metadata",
+	"flowId",
+	"flowRevision",
+	"id",
+	"assetId",
+	"type",
+	"created",
+	"updated",
+	"startDate",
+	"endDate",
+	"state",
+	"timeRange",
+	"triggerExecutionId",
+	"triggerId",
+	"triggerState",
+	"executionId",
+	"taskId",
+	"taskRunId",
+	"childFilter",
+	"workerId",
+	"existingOnly",
+	"level",
+	"path",
+	"parentPath",
+	"version",
+}
+
+func (v *QueryFilterField) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := QueryFilterField(value)
+	for _, existing := range AllowedQueryFilterFieldEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid QueryFilterField", value)
+}
+
+// NewQueryFilterFieldFromValue returns a pointer to a valid QueryFilterField
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewQueryFilterFieldFromValue(v string) (*QueryFilterField, error) {
+	ev := QueryFilterField(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for QueryFilterField: valid values are %v", v, AllowedQueryFilterFieldEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v QueryFilterField) IsValid() bool {
+	for _, existing := range AllowedQueryFilterFieldEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to QueryFilter.Field value
+func (v QueryFilterField) Ptr() *QueryFilterField {
+	return &v
+}
+
+type NullableQueryFilterField struct {
+	value *QueryFilterField
+	isSet bool
+}
+
+func (v NullableQueryFilterField) Get() *QueryFilterField {
+	return v.value
+}
+
+func (v *NullableQueryFilterField) Set(val *QueryFilterField) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableQueryFilterField) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableQueryFilterField) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableQueryFilterField(val *QueryFilterField) *NullableQueryFilterField {
+	return &NullableQueryFilterField{value: val, isSet: true}
+}
+
+func (v NullableQueryFilterField) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableQueryFilterField) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

@@ -1,0 +1,800 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Breakpoint;
+import io.kestra.sdk.model.ExecutionKind;
+import io.kestra.sdk.model.ExecutionMetadata;
+import io.kestra.sdk.model.ExecutionTrigger;
+import io.kestra.sdk.model.Label;
+import io.kestra.sdk.model.LoopRun;
+import io.kestra.sdk.model.State;
+import io.kestra.sdk.model.TaskFixture;
+import io.kestra.sdk.model.TaskRun;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Execution
+ */
+@JsonPropertyOrder({
+  Execution.JSON_PROPERTY_LABELS,
+  Execution.JSON_PROPERTY_ID,
+  Execution.JSON_PROPERTY_NAMESPACE,
+  Execution.JSON_PROPERTY_FLOW_ID,
+  Execution.JSON_PROPERTY_FLOW_REVISION,
+  Execution.JSON_PROPERTY_TASK_RUN_LIST,
+  Execution.JSON_PROPERTY_INPUTS,
+  Execution.JSON_PROPERTY_OUTPUTS,
+  Execution.JSON_PROPERTY_VARIABLES,
+  Execution.JSON_PROPERTY_STATE,
+  Execution.JSON_PROPERTY_PARENT_ID,
+  Execution.JSON_PROPERTY_ORIGINAL_ID,
+  Execution.JSON_PROPERTY_TRIGGER,
+  Execution.JSON_PROPERTY_DELETED,
+  Execution.JSON_PROPERTY_METADATA,
+  Execution.JSON_PROPERTY_SCHEDULE_DATE,
+  Execution.JSON_PROPERTY_TRACE_PARENT,
+  Execution.JSON_PROPERTY_FIXTURES,
+  Execution.JSON_PROPERTY_KIND,
+  Execution.JSON_PROPERTY_BREAKPOINTS,
+  Execution.JSON_PROPERTY_LOOP_RUN
+})
+public class Execution {
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_FLOW_REVISION = "flowRevision";
+  @jakarta.annotation.Nonnull  private Integer flowRevision;
+
+  public static final String JSON_PROPERTY_TASK_RUN_LIST = "taskRunList";
+  @jakarta.annotation.Nullable  private List<TaskRun> taskRunList = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private Object inputs;
+
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private Object outputs;
+
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Object variables;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private State state;
+
+  public static final String JSON_PROPERTY_PARENT_ID = "parentId";
+  @jakarta.annotation.Nullable  private String parentId;
+
+  public static final String JSON_PROPERTY_ORIGINAL_ID = "originalId";
+  @jakarta.annotation.Nonnull  private String originalId;
+
+  public static final String JSON_PROPERTY_TRIGGER = "trigger";
+  @jakarta.annotation.Nullable  private ExecutionTrigger trigger;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_METADATA = "metadata";
+  @jakarta.annotation.Nonnull  private ExecutionMetadata metadata;
+
+  public static final String JSON_PROPERTY_SCHEDULE_DATE = "scheduleDate";
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> scheduleDate = JsonNullable.<OffsetDateTime>undefined();
+
+  public static final String JSON_PROPERTY_TRACE_PARENT = "traceParent";
+  @jakarta.annotation.Nullable  private String traceParent;
+
+  public static final String JSON_PROPERTY_FIXTURES = "fixtures";
+  @jakarta.annotation.Nullable  private JsonNullable<List<TaskFixture>> fixtures = JsonNullable.<List<TaskFixture>>undefined();
+
+  public static final String JSON_PROPERTY_KIND = "kind";
+  @jakarta.annotation.Nullable  private JsonNullable<ExecutionKind> kind = JsonNullable.<ExecutionKind>undefined();
+
+  public static final String JSON_PROPERTY_BREAKPOINTS = "breakpoints";
+  @jakarta.annotation.Nullable  private JsonNullable<List<Breakpoint>> breakpoints = JsonNullable.<List<Breakpoint>>undefined();
+
+  public static final String JSON_PROPERTY_LOOP_RUN = "loopRun";
+  @jakarta.annotation.Nullable  private JsonNullable<LoopRun> loopRun = JsonNullable.<LoopRun>undefined();
+
+  public Execution() {
+  }
+
+  public Execution labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public Execution addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
+  }
+
+  public Execution id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public Execution namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public Execution flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public Execution flowRevision(@jakarta.annotation.Nonnull Integer flowRevision) {
+    
+    this.flowRevision = flowRevision;
+    return this;
+  }
+
+  /**
+   * Get flowRevision
+   * @return flowRevision
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Integer getFlowRevision() {
+    return flowRevision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowRevision(@jakarta.annotation.Nonnull Integer flowRevision) {
+    this.flowRevision = flowRevision;
+  }
+
+  public Execution taskRunList(@jakarta.annotation.Nullable List<TaskRun> taskRunList) {
+    
+    this.taskRunList = taskRunList;
+    return this;
+  }
+
+  public Execution addTaskRunListItem(TaskRun taskRunListItem) {
+    if (this.taskRunList == null) {
+      this.taskRunList = new ArrayList<>();
+    }
+    this.taskRunList.add(taskRunListItem);
+    return this;
+  }
+
+  /**
+   * Get taskRunList
+   * @return taskRunList
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskRun> getTaskRunList() {
+    return taskRunList;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskRunList(@jakarta.annotation.Nullable List<TaskRun> taskRunList) {
+    this.taskRunList = taskRunList;
+  }
+
+  public Execution inputs(@jakarta.annotation.Nullable Object inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable Object inputs) {
+    this.inputs = inputs;
+  }
+
+  public Execution outputs(@jakarta.annotation.Nullable Object outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable Object outputs) {
+    this.outputs = outputs;
+  }
+
+  public Execution variables(@jakarta.annotation.Nullable Object variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Object variables) {
+    this.variables = variables;
+  }
+
+  public Execution state(@jakarta.annotation.Nonnull State state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public State getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull State state) {
+    this.state = state;
+  }
+
+  public Execution parentId(@jakarta.annotation.Nullable String parentId) {
+    
+    this.parentId = parentId;
+    return this;
+  }
+
+  /**
+   * Get parentId
+   * @return parentId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getParentId() {
+    return parentId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PARENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParentId(@jakarta.annotation.Nullable String parentId) {
+    this.parentId = parentId;
+  }
+
+  public Execution originalId(@jakarta.annotation.Nonnull String originalId) {
+    
+    this.originalId = originalId;
+    return this;
+  }
+
+  /**
+   * Get originalId
+   * @return originalId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getOriginalId() {
+    return originalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOriginalId(@jakarta.annotation.Nonnull String originalId) {
+    this.originalId = originalId;
+  }
+
+  public Execution trigger(@jakarta.annotation.Nullable ExecutionTrigger trigger) {
+    
+    this.trigger = trigger;
+    return this;
+  }
+
+  /**
+   * Get trigger
+   * @return trigger
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ExecutionTrigger getTrigger() {
+    return trigger;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrigger(@jakarta.annotation.Nullable ExecutionTrigger trigger) {
+    this.trigger = trigger;
+  }
+
+  public Execution deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public Execution metadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
+    
+    this.metadata = metadata;
+    return this;
+  }
+
+  /**
+   * Get metadata
+   * @return metadata
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ExecutionMetadata getMetadata() {
+    return metadata;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
+    this.metadata = metadata;
+  }
+
+  public Execution scheduleDate(@jakarta.annotation.Nullable OffsetDateTime scheduleDate) {
+    this.scheduleDate = JsonNullable.<OffsetDateTime>of(scheduleDate);
+    
+    return this;
+  }
+
+  /**
+   * Get scheduleDate
+   * @return scheduleDate
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public OffsetDateTime getScheduleDate() {
+        return scheduleDate.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_SCHEDULE_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<OffsetDateTime> getScheduleDate_JsonNullable() {
+    return scheduleDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_SCHEDULE_DATE)
+  public void setScheduleDate_JsonNullable(JsonNullable<OffsetDateTime> scheduleDate) {
+    this.scheduleDate = scheduleDate;
+  }
+
+  public void setScheduleDate(@jakarta.annotation.Nullable OffsetDateTime scheduleDate) {
+    this.scheduleDate = JsonNullable.<OffsetDateTime>of(scheduleDate);
+  }
+
+  public Execution traceParent(@jakarta.annotation.Nullable String traceParent) {
+    
+    this.traceParent = traceParent;
+    return this;
+  }
+
+  /**
+   * Get traceParent
+   * @return traceParent
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTraceParent() {
+    return traceParent;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTraceParent(@jakarta.annotation.Nullable String traceParent) {
+    this.traceParent = traceParent;
+  }
+
+  public Execution fixtures(@jakarta.annotation.Nullable List<TaskFixture> fixtures) {
+    this.fixtures = JsonNullable.<List<TaskFixture>>of(fixtures);
+    
+    return this;
+  }
+
+  public Execution addFixturesItem(TaskFixture fixturesItem) {
+    if (this.fixtures == null || !this.fixtures.isPresent()) {
+      this.fixtures = JsonNullable.<List<TaskFixture>>of(new ArrayList<>());
+    }
+    try {
+      this.fixtures.get().add(fixturesItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
+  /**
+   * Get fixtures
+   * @return fixtures
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public List<TaskFixture> getFixtures() {
+        return fixtures.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<List<TaskFixture>> getFixtures_JsonNullable() {
+    return fixtures;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  public void setFixtures_JsonNullable(JsonNullable<List<TaskFixture>> fixtures) {
+    this.fixtures = fixtures;
+  }
+
+  public void setFixtures(@jakarta.annotation.Nullable List<TaskFixture> fixtures) {
+    this.fixtures = JsonNullable.<List<TaskFixture>>of(fixtures);
+  }
+
+  public Execution kind(@jakarta.annotation.Nullable ExecutionKind kind) {
+    this.kind = JsonNullable.<ExecutionKind>of(kind);
+    
+    return this;
+  }
+
+  /**
+   * Get kind
+   * @return kind
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public ExecutionKind getKind() {
+        return kind.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_KIND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<ExecutionKind> getKind_JsonNullable() {
+    return kind;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_KIND)
+  public void setKind_JsonNullable(JsonNullable<ExecutionKind> kind) {
+    this.kind = kind;
+  }
+
+  public void setKind(@jakarta.annotation.Nullable ExecutionKind kind) {
+    this.kind = JsonNullable.<ExecutionKind>of(kind);
+  }
+
+  public Execution breakpoints(@jakarta.annotation.Nullable List<Breakpoint> breakpoints) {
+    this.breakpoints = JsonNullable.<List<Breakpoint>>of(breakpoints);
+    
+    return this;
+  }
+
+  public Execution addBreakpointsItem(Breakpoint breakpointsItem) {
+    if (this.breakpoints == null || !this.breakpoints.isPresent()) {
+      this.breakpoints = JsonNullable.<List<Breakpoint>>of(new ArrayList<>());
+    }
+    try {
+      this.breakpoints.get().add(breakpointsItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
+  /**
+   * Get breakpoints
+   * @return breakpoints
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public List<Breakpoint> getBreakpoints() {
+        return breakpoints.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_BREAKPOINTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<List<Breakpoint>> getBreakpoints_JsonNullable() {
+    return breakpoints;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_BREAKPOINTS)
+  public void setBreakpoints_JsonNullable(JsonNullable<List<Breakpoint>> breakpoints) {
+    this.breakpoints = breakpoints;
+  }
+
+  public void setBreakpoints(@jakarta.annotation.Nullable List<Breakpoint> breakpoints) {
+    this.breakpoints = JsonNullable.<List<Breakpoint>>of(breakpoints);
+  }
+
+  public Execution loopRun(@jakarta.annotation.Nullable LoopRun loopRun) {
+    this.loopRun = JsonNullable.<LoopRun>of(loopRun);
+    
+    return this;
+  }
+
+  /**
+   * Get loopRun
+   * @return loopRun
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public LoopRun getLoopRun() {
+        return loopRun.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_LOOP_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<LoopRun> getLoopRun_JsonNullable() {
+    return loopRun;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_LOOP_RUN)
+  public void setLoopRun_JsonNullable(JsonNullable<LoopRun> loopRun) {
+    this.loopRun = loopRun;
+  }
+
+  public void setLoopRun(@jakarta.annotation.Nullable LoopRun loopRun) {
+    this.loopRun = JsonNullable.<LoopRun>of(loopRun);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Execution execution = (Execution) o;
+    return Objects.equals(this.labels, execution.labels) &&
+        Objects.equals(this.id, execution.id) &&
+        Objects.equals(this.namespace, execution.namespace) &&
+        Objects.equals(this.flowId, execution.flowId) &&
+        Objects.equals(this.flowRevision, execution.flowRevision) &&
+        Objects.equals(this.taskRunList, execution.taskRunList) &&
+        Objects.equals(this.inputs, execution.inputs) &&
+        Objects.equals(this.outputs, execution.outputs) &&
+        Objects.equals(this.variables, execution.variables) &&
+        Objects.equals(this.state, execution.state) &&
+        Objects.equals(this.parentId, execution.parentId) &&
+        Objects.equals(this.originalId, execution.originalId) &&
+        Objects.equals(this.trigger, execution.trigger) &&
+        Objects.equals(this.deleted, execution.deleted) &&
+        Objects.equals(this.metadata, execution.metadata) &&
+        equalsNullable(this.scheduleDate, execution.scheduleDate) &&
+        Objects.equals(this.traceParent, execution.traceParent) &&
+        equalsNullable(this.fixtures, execution.fixtures) &&
+        equalsNullable(this.kind, execution.kind) &&
+        equalsNullable(this.breakpoints, execution.breakpoints) &&
+        equalsNullable(this.loopRun, execution.loopRun);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, hashCodeNullable(scheduleDate), traceParent, hashCodeNullable(fixtures), hashCodeNullable(kind), hashCodeNullable(breakpoints), hashCodeNullable(loopRun));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Execution {\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    flowRevision: ").append(toIndentedString(flowRevision)).append("\n");
+    sb.append("    taskRunList: ").append(toIndentedString(taskRunList)).append("\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+    sb.append("    originalId: ").append(toIndentedString(originalId)).append("\n");
+    sb.append("    trigger: ").append(toIndentedString(trigger)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    scheduleDate: ").append(toIndentedString(scheduleDate)).append("\n");
+    sb.append("    traceParent: ").append(toIndentedString(traceParent)).append("\n");
+    sb.append("    fixtures: ").append(toIndentedString(fixtures)).append("\n");
+    sb.append("    kind: ").append(toIndentedString(kind)).append("\n");
+    sb.append("    breakpoints: ").append(toIndentedString(breakpoints)).append("\n");
+    sb.append("    loopRun: ").append(toIndentedString(loopRun)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

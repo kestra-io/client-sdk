@@ -1,14 +1,20 @@
 # Java SDK
 
-## Steps to generate the SDK
+## History: how the SDK was originally generated (before #222)
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
+> **This SDK is hand-written since #222.** `./generate-sdks.sh` refuses to run
+> for it, and the generator apparatus (templates, `.openapi-generator/`
+> metadata, embedded spec copy) has been removed from this repository. Edit
+> the sources under `java/java-sdk` directly. The steps below describe how the
+> SDK was generated before that change, kept for historical context only.
 
-   - As of 09/06/25, a custom `kestra-ee.yml` is used to generate the Java SDK, where we did set the tenant as mandatory instead of optional.
+1. The `kestra-ee.yml` was updated as needed with the latest openapi spec changes.
+
+   - As of 09/06/25, a custom `kestra-ee.yml` was used to generate the Java SDK, where we did set the tenant as mandatory instead of optional.
    - Last `kestra-ee.yml` was generated with micronaut openapi `6.15`, for the next make sure to use the most recent version of it who should fixe 2 bugs.
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+2. The SDK was generated using the (now-removed) `generate-sdks.sh` templating step, which used the openapi-generator-cli docker image.
 
-3. Then multiples files changes are needed to be done manually in the generated SDK:
+3. Then multiples files changes had to be done manually in the generated SDK:
   - Remove all `classifier` from the build.gradle file.
   - Add this dependency in the build.gradle file:
     ```groovy
@@ -41,6 +47,14 @@
         return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
       }
       ```
+
+### More informations (historical)
+
+- SSE methods were injected from templates (now removed)
+- Openapi spec was modified during generation through a custom TS script
+- KestraClient is manually written to gather all API clients in one client
+- ApiClient & build.gradle were fixed through the templates (now removed)
+- Method with Multipart form need an annotation on Kestra side to generate properly the SDK method
 
 ## Step to use
 

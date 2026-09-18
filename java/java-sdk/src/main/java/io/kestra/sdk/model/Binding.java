@@ -1,0 +1,248 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.BindingType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Binding
+ */
+@JsonPropertyOrder({
+  Binding.JSON_PROPERTY_ID,
+  Binding.JSON_PROPERTY_TYPE,
+  Binding.JSON_PROPERTY_EXTERNAL_ID,
+  Binding.JSON_PROPERTY_ROLE_ID,
+  Binding.JSON_PROPERTY_NAMESPACE_ID,
+  Binding.JSON_PROPERTY_DELETED
+})
+public class Binding {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private BindingType type;
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nonnull  private String externalId;
+
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  @jakarta.annotation.Nonnull  private String roleId;
+
+  public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
+  @jakarta.annotation.Nullable  private String namespaceId;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public Binding() {
+  }
+
+  public Binding id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public Binding type(@jakarta.annotation.Nonnull BindingType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BindingType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull BindingType type) {
+    this.type = type;
+  }
+
+  public Binding externalId(@jakarta.annotation.Nonnull String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExternalId(@jakarta.annotation.Nonnull String externalId) {
+    this.externalId = externalId;
+  }
+
+  public Binding roleId(@jakarta.annotation.Nonnull String roleId) {
+    
+    this.roleId = roleId;
+    return this;
+  }
+
+  /**
+   * Get roleId
+   * @return roleId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getRoleId() {
+    return roleId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRoleId(@jakarta.annotation.Nonnull String roleId) {
+    this.roleId = roleId;
+  }
+
+  public Binding namespaceId(@jakarta.annotation.Nullable String namespaceId) {
+    
+    this.namespaceId = namespaceId;
+    return this;
+  }
+
+  /**
+   * Get namespaceId
+   * @return namespaceId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespaceId() {
+    return namespaceId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespaceId(@jakarta.annotation.Nullable String namespaceId) {
+    this.namespaceId = namespaceId;
+  }
+
+  public Binding deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Binding binding = (Binding) o;
+    return Objects.equals(this.id, binding.id) &&
+        Objects.equals(this.type, binding.type) &&
+        Objects.equals(this.externalId, binding.externalId) &&
+        Objects.equals(this.roleId, binding.roleId) &&
+        Objects.equals(this.namespaceId, binding.namespaceId) &&
+        Objects.equals(this.deleted, binding.deleted);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, externalId, roleId, namespaceId, deleted);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Binding {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
+    sb.append("    namespaceId: ").append(toIndentedString(namespaceId)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

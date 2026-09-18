@@ -1,0 +1,396 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the KVEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KVEntry{}
+
+// KVEntry struct for KVEntry
+type KVEntry struct {
+	Namespace *string `json:"namespace,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	CreationDate *time.Time `json:"creationDate,omitempty"`
+	UpdateDate *time.Time `json:"updateDate,omitempty"`
+	ExpirationDate NullableTime `json:"expirationDate,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _KVEntry KVEntry
+
+// NewKVEntry instantiates a new KVEntry object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewKVEntry() *KVEntry {
+	this := KVEntry{}
+	return &this
+}
+
+// NewKVEntryWithDefaults instantiates a new KVEntry object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewKVEntryWithDefaults() *KVEntry {
+	this := KVEntry{}
+	return &this
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *KVEntry) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVEntry) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *KVEntry) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *KVEntry) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetKey returns the Key field value if set, zero value otherwise.
+func (o *KVEntry) GetKey() string {
+	if o == nil || IsNil(o.Key) {
+		var ret string
+		return ret
+	}
+	return *o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVEntry) GetKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.Key) {
+		return nil, false
+	}
+	return o.Key, true
+}
+
+// HasKey returns a boolean if a field has been set.
+func (o *KVEntry) HasKey() bool {
+	if o != nil && !IsNil(o.Key) {
+		return true
+	}
+
+	return false
+}
+
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *KVEntry) SetKey(v string) {
+	o.Key = &v
+}
+
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *KVEntry) GetRevision() int32 {
+	if o == nil || IsNil(o.Revision) {
+		var ret int32
+		return ret
+	}
+	return *o.Revision
+}
+
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVEntry) GetRevisionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Revision) {
+		return nil, false
+	}
+	return o.Revision, true
+}
+
+// HasRevision returns a boolean if a field has been set.
+func (o *KVEntry) HasRevision() bool {
+	if o != nil && !IsNil(o.Revision) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevision gets a reference to the given int32 and assigns it to the Revision field.
+func (o *KVEntry) SetRevision(v int32) {
+	o.Revision = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *KVEntry) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *KVEntry) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *KVEntry) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *KVEntry) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *KVEntry) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *KVEntry) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetCreationDate returns the CreationDate field value if set, zero value otherwise.
+func (o *KVEntry) GetCreationDate() time.Time {
+	if o == nil || IsNil(o.CreationDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreationDate
+}
+
+// GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVEntry) GetCreationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreationDate) {
+		return nil, false
+	}
+	return o.CreationDate, true
+}
+
+// HasCreationDate returns a boolean if a field has been set.
+func (o *KVEntry) HasCreationDate() bool {
+	if o != nil && !IsNil(o.CreationDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *KVEntry) SetCreationDate(v time.Time) {
+	o.CreationDate = &v
+}
+
+// GetUpdateDate returns the UpdateDate field value if set, zero value otherwise.
+func (o *KVEntry) GetUpdateDate() time.Time {
+	if o == nil || IsNil(o.UpdateDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdateDate
+}
+
+// GetUpdateDateOk returns a tuple with the UpdateDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVEntry) GetUpdateDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.UpdateDate) {
+		return nil, false
+	}
+	return o.UpdateDate, true
+}
+
+// HasUpdateDate returns a boolean if a field has been set.
+func (o *KVEntry) HasUpdateDate() bool {
+	if o != nil && !IsNil(o.UpdateDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdateDate gets a reference to the given time.Time and assigns it to the UpdateDate field.
+func (o *KVEntry) SetUpdateDate(v time.Time) {
+	o.UpdateDate = &v
+}
+
+// GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *KVEntry) GetExpirationDate() time.Time {
+	if o == nil || IsNil(o.ExpirationDate.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpirationDate.Get()
+}
+
+// GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *KVEntry) GetExpirationDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExpirationDate.Get(), o.ExpirationDate.IsSet()
+}
+
+// HasExpirationDate returns a boolean if a field has been set.
+func (o *KVEntry) HasExpirationDate() bool {
+	if o != nil && o.ExpirationDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExpirationDate gets a reference to the given NullableTime and assigns it to the ExpirationDate field.
+func (o *KVEntry) SetExpirationDate(v time.Time) {
+	o.ExpirationDate.Set(&v)
+}
+// SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil
+func (o *KVEntry) SetExpirationDateNil() {
+	o.ExpirationDate.Set(nil)
+}
+
+// UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil
+func (o *KVEntry) UnsetExpirationDate() {
+	o.ExpirationDate.Unset()
+}
+
+func (o KVEntry) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KVEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
+	if !IsNil(o.Revision) {
+		toSerialize["revision"] = o.Revision
+	}
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
+	if !IsNil(o.CreationDate) {
+		toSerialize["creationDate"] = o.CreationDate
+	}
+	if !IsNil(o.UpdateDate) {
+		toSerialize["updateDate"] = o.UpdateDate
+	}
+	if o.ExpirationDate.IsSet() {
+		toSerialize["expirationDate"] = o.ExpirationDate.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *KVEntry) UnmarshalJSON(data []byte) (err error) {
+	varKVEntry := _KVEntry{}
+
+	err = json.Unmarshal(data, &varKVEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KVEntry(varKVEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "creationDate")
+		delete(additionalProperties, "updateDate")
+		delete(additionalProperties, "expirationDate")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableKVEntry struct {
+	value *KVEntry
+	isSet bool
+}
+
+func (v NullableKVEntry) Get() *KVEntry {
+	return v.value
+}
+
+func (v *NullableKVEntry) Set(val *KVEntry) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableKVEntry) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableKVEntry) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableKVEntry(val *KVEntry) *NullableKVEntry {
+	return &NullableKVEntry{value: val, isSet: true}
+}
+
+func (v NullableKVEntry) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableKVEntry) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

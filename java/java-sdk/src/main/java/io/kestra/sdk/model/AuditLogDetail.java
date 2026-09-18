@@ -1,0 +1,184 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ *
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AuditLogDetail
+ */
+@JsonPropertyOrder({
+  AuditLogDetail.JSON_PROPERTY_RESOURCE,
+  AuditLogDetail.JSON_PROPERTY_RESOURCE_TYPE,
+  AuditLogDetail.JSON_PROPERTY_TYPE,
+  AuditLogDetail.JSON_PROPERTY_ID
+})
+public class AuditLogDetail {
+  public static final String JSON_PROPERTY_RESOURCE = "resource";
+  @jakarta.annotation.Nullable  private Resource resource;
+
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @jakarta.annotation.Nullable  private Resource resourceType;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public AuditLogDetail() {
+  }
+
+  public AuditLogDetail resource(@jakarta.annotation.Nullable Resource resource) {
+
+    this.resource = resource;
+    return this;
+  }
+
+  /**
+   * Get resource
+   * @return resource
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Resource getResource() {
+    return resource;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResource(@jakarta.annotation.Nullable Resource resource) {
+    this.resource = resource;
+  }
+
+  public AuditLogDetail resourceType(@jakarta.annotation.Nullable Resource resourceType) {
+
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Resource getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable Resource resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  public AuditLogDetail type(@jakarta.annotation.Nonnull String type) {
+
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public AuditLogDetail id(@jakarta.annotation.Nullable String id) {
+
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AuditLogDetail auditLogDetail = (AuditLogDetail) o;
+    return Objects.equals(this.resource, auditLogDetail.resource) &&
+        Objects.equals(this.resourceType, auditLogDetail.resourceType) &&
+        Objects.equals(this.type, auditLogDetail.type) &&
+        Objects.equals(this.id, auditLogDetail.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(resource, resourceType, type, id);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AuditLogDetail {\n");
+    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,367 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMUserControllerApiCreateOrUpdateUserRequest
+ */
+@JsonPropertyOrder({
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_TENANTS,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_GROUPS,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_FIRST_NAME,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_LAST_NAME,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_EMAIL,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_PASSWORD,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_INSTANCE_OWNER,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_RESTRICTED
+})
+@JsonTypeName("IAMUserController.ApiCreateOrUpdateUserRequest")
+public class IAMUserControllerApiCreateOrUpdateUserRequest {
+  public static final String JSON_PROPERTY_TENANTS = "tenants";
+  @jakarta.annotation.Nullable  private List<String> tenants = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<String> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
+  @jakarta.annotation.Nullable  private String firstName;
+
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
+  @jakarta.annotation.Nullable  private String lastName;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nonnull  private String email;
+
+  public static final String JSON_PROPERTY_PASSWORD = "password";
+  @jakarta.annotation.Nullable  private String password;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_RESTRICTED = "restricted";
+  @jakarta.annotation.Nullable  private Boolean restricted;
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest() {
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest tenants(@jakarta.annotation.Nullable List<String> tenants) {
+    
+    this.tenants = tenants;
+    return this;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest addTenantsItem(String tenantsItem) {
+    if (this.tenants == null) {
+      this.tenants = new ArrayList<>();
+    }
+    this.tenants.add(tenantsItem);
+    return this;
+  }
+
+  /**
+   * Get tenants
+   * @return tenants
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTenants() {
+    return tenants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenants(@jakarta.annotation.Nullable List<String> tenants) {
+    this.tenants = tenants;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest groups(@jakarta.annotation.Nullable List<String> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<String> groups) {
+    this.groups = groups;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest firstName(@jakarta.annotation.Nullable String firstName) {
+    
+    this.firstName = firstName;
+    return this;
+  }
+
+  /**
+   * Get firstName
+   * @return firstName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFirstName(@jakarta.annotation.Nullable String firstName) {
+    this.firstName = firstName;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest lastName(@jakarta.annotation.Nullable String lastName) {
+    
+    this.lastName = lastName;
+    return this;
+  }
+
+  /**
+   * Get lastName
+   * @return lastName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLastName() {
+    return lastName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastName(@jakarta.annotation.Nullable String lastName) {
+    this.lastName = lastName;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest email(@jakarta.annotation.Nonnull String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
+    this.email = email;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest password(@jakarta.annotation.Nullable String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+  /**
+   * Get password
+   * @return password
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(@jakarta.annotation.Nullable String password) {
+    this.password = password;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public IAMUserControllerApiCreateOrUpdateUserRequest restricted(@jakarta.annotation.Nullable Boolean restricted) {
+    
+    this.restricted = restricted;
+    return this;
+  }
+
+  /**
+   * Get restricted
+   * @return restricted
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRestricted() {
+    return restricted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRestricted(@jakarta.annotation.Nullable Boolean restricted) {
+    this.restricted = restricted;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMUserControllerApiCreateOrUpdateUserRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = (IAMUserControllerApiCreateOrUpdateUserRequest) o;
+    return Objects.equals(this.tenants, iaMUserControllerApiCreateOrUpdateUserRequest.tenants) &&
+        Objects.equals(this.groups, iaMUserControllerApiCreateOrUpdateUserRequest.groups) &&
+        Objects.equals(this.firstName, iaMUserControllerApiCreateOrUpdateUserRequest.firstName) &&
+        Objects.equals(this.lastName, iaMUserControllerApiCreateOrUpdateUserRequest.lastName) &&
+        Objects.equals(this.email, iaMUserControllerApiCreateOrUpdateUserRequest.email) &&
+        Objects.equals(this.password, iaMUserControllerApiCreateOrUpdateUserRequest.password) &&
+        Objects.equals(this.instanceOwner, iaMUserControllerApiCreateOrUpdateUserRequest.instanceOwner) &&
+        Objects.equals(this.restricted, iaMUserControllerApiCreateOrUpdateUserRequest.restricted);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tenants, groups, firstName, lastName, email, password, instanceOwner, restricted);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMUserControllerApiCreateOrUpdateUserRequest {\n");
+    sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

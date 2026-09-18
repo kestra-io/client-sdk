@@ -1,0 +1,550 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Binding;
+import io.kestra.sdk.model.InvitationInvitationStatus;
+import io.kestra.sdk.model.UserType;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Invitation
+ */
+@JsonPropertyOrder({
+  Invitation.JSON_PROPERTY_IS_EXPIRED,
+  Invitation.JSON_PROPERTY_EMAIL,
+  Invitation.JSON_PROPERTY_ID,
+  Invitation.JSON_PROPERTY_BINDINGS,
+  Invitation.JSON_PROPERTY_GROUP_IDS,
+  Invitation.JSON_PROPERTY_TENANT_ID,
+  Invitation.JSON_PROPERTY_STATUS,
+  Invitation.JSON_PROPERTY_SENT_AT,
+  Invitation.JSON_PROPERTY_EXPIRED_AT,
+  Invitation.JSON_PROPERTY_ACCEPTED_AT,
+  Invitation.JSON_PROPERTY_DELETED,
+  Invitation.JSON_PROPERTY_USER_TYPE,
+  Invitation.JSON_PROPERTY_INSTANCE_OWNER,
+  Invitation.JSON_PROPERTY_LINK
+})
+public class Invitation {
+  public static final String JSON_PROPERTY_IS_EXPIRED = "isExpired";
+  @jakarta.annotation.Nullable  private Boolean isExpired;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nonnull  private String email;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_BINDINGS = "bindings";
+  @jakarta.annotation.Nullable  private List<Binding> bindings = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
+  @jakarta.annotation.Nullable  private List<String> groupIds = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private String tenantId;
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @jakarta.annotation.Nullable  private InvitationInvitationStatus status;
+
+  public static final String JSON_PROPERTY_SENT_AT = "sentAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime sentAt;
+
+  public static final String JSON_PROPERTY_EXPIRED_AT = "expiredAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime expiredAt;
+
+  public static final String JSON_PROPERTY_ACCEPTED_AT = "acceptedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime acceptedAt;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_USER_TYPE = "userType";
+  @jakarta.annotation.Nullable  private UserType userType;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_LINK = "link";
+  @jakarta.annotation.Nullable  private String link;
+
+  public Invitation() {
+  }
+
+  public Invitation isExpired(@jakarta.annotation.Nullable Boolean isExpired) {
+    
+    this.isExpired = isExpired;
+    return this;
+  }
+
+  /**
+   * Get isExpired
+   * @return isExpired
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_EXPIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsExpired() {
+    return isExpired;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_EXPIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsExpired(@jakarta.annotation.Nullable Boolean isExpired) {
+    this.isExpired = isExpired;
+  }
+
+  public Invitation email(@jakarta.annotation.Nonnull String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
+    this.email = email;
+  }
+
+  public Invitation id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public Invitation bindings(@jakarta.annotation.Nullable List<Binding> bindings) {
+    
+    this.bindings = bindings;
+    return this;
+  }
+
+  public Invitation addBindingsItem(Binding bindingsItem) {
+    if (this.bindings == null) {
+      this.bindings = new ArrayList<>();
+    }
+    this.bindings.add(bindingsItem);
+    return this;
+  }
+
+  /**
+   * Get bindings
+   * @return bindings
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BINDINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Binding> getBindings() {
+    return bindings;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BINDINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBindings(@jakarta.annotation.Nullable List<Binding> bindings) {
+    this.bindings = bindings;
+  }
+
+  public Invitation groupIds(@jakarta.annotation.Nullable List<String> groupIds) {
+    
+    this.groupIds = groupIds;
+    return this;
+  }
+
+  public Invitation addGroupIdsItem(String groupIdsItem) {
+    if (this.groupIds == null) {
+      this.groupIds = new ArrayList<>();
+    }
+    this.groupIds.add(groupIdsItem);
+    return this;
+  }
+
+  /**
+   * Get groupIds
+   * @return groupIds
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGroupIds() {
+    return groupIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupIds(@jakarta.annotation.Nullable List<String> groupIds) {
+    this.groupIds = groupIds;
+  }
+
+  public Invitation tenantId(@jakarta.annotation.Nullable String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public Invitation status(@jakarta.annotation.Nullable InvitationInvitationStatus status) {
+    
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InvitationInvitationStatus getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(@jakarta.annotation.Nullable InvitationInvitationStatus status) {
+    this.status = status;
+  }
+
+  public Invitation sentAt(@jakarta.annotation.Nullable OffsetDateTime sentAt) {
+    
+    this.sentAt = sentAt;
+    return this;
+  }
+
+  /**
+   * Get sentAt
+   * @return sentAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SENT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getSentAt() {
+    return sentAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SENT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSentAt(@jakarta.annotation.Nullable OffsetDateTime sentAt) {
+    this.sentAt = sentAt;
+  }
+
+  public Invitation expiredAt(@jakarta.annotation.Nullable OffsetDateTime expiredAt) {
+    
+    this.expiredAt = expiredAt;
+    return this;
+  }
+
+  /**
+   * Get expiredAt
+   * @return expiredAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getExpiredAt() {
+    return expiredAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpiredAt(@jakarta.annotation.Nullable OffsetDateTime expiredAt) {
+    this.expiredAt = expiredAt;
+  }
+
+  public Invitation acceptedAt(@jakarta.annotation.Nullable OffsetDateTime acceptedAt) {
+    
+    this.acceptedAt = acceptedAt;
+    return this;
+  }
+
+  /**
+   * Get acceptedAt
+   * @return acceptedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getAcceptedAt() {
+    return acceptedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptedAt(@jakarta.annotation.Nullable OffsetDateTime acceptedAt) {
+    this.acceptedAt = acceptedAt;
+  }
+
+  public Invitation deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public Invitation userType(@jakarta.annotation.Nullable UserType userType) {
+    
+    this.userType = userType;
+    return this;
+  }
+
+  /**
+   * Get userType
+   * @return userType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UserType getUserType() {
+    return userType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserType(@jakarta.annotation.Nullable UserType userType) {
+    this.userType = userType;
+  }
+
+  public Invitation instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public Invitation link(@jakarta.annotation.Nullable String link) {
+    
+    this.link = link;
+    return this;
+  }
+
+  /**
+   * Get link
+   * @return link
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLink() {
+    return link;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLink(@jakarta.annotation.Nullable String link) {
+    this.link = link;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public Invitation superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Invitation invitation = (Invitation) o;
+    return Objects.equals(this.isExpired, invitation.isExpired) &&
+        Objects.equals(this.email, invitation.email) &&
+        Objects.equals(this.id, invitation.id) &&
+        Objects.equals(this.bindings, invitation.bindings) &&
+        Objects.equals(this.groupIds, invitation.groupIds) &&
+        Objects.equals(this.tenantId, invitation.tenantId) &&
+        Objects.equals(this.status, invitation.status) &&
+        Objects.equals(this.sentAt, invitation.sentAt) &&
+        Objects.equals(this.expiredAt, invitation.expiredAt) &&
+        Objects.equals(this.acceptedAt, invitation.acceptedAt) &&
+        Objects.equals(this.deleted, invitation.deleted) &&
+        Objects.equals(this.userType, invitation.userType) &&
+        Objects.equals(this.instanceOwner, invitation.instanceOwner) &&
+        Objects.equals(this.link, invitation.link);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, instanceOwner, link);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Invitation {\n");
+    sb.append("    isExpired: ").append(toIndentedString(isExpired)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    bindings: ").append(toIndentedString(bindings)).append("\n");
+    sb.append("    groupIds: ").append(toIndentedString(groupIds)).append("\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
+    sb.append("    expiredAt: ").append(toIndentedString(expiredAt)).append("\n");
+    sb.append("    acceptedAt: ").append(toIndentedString(acceptedAt)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    userType: ").append(toIndentedString(userType)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    link: ").append(toIndentedString(link)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

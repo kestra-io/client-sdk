@@ -1,0 +1,119 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// SchemaType the model 'SchemaType'
+type SchemaType string
+
+// List of SchemaType
+const (
+	SCHEMATYPE_FLOW SchemaType = "FLOW"
+	SCHEMATYPE_TASK SchemaType = "TASK"
+	SCHEMATYPE_TRIGGER SchemaType = "TRIGGER"
+	SCHEMATYPE_PLUGINDEFAULT SchemaType = "PLUGINDEFAULT"
+	SCHEMATYPE_APPS SchemaType = "APPS"
+	SCHEMATYPE_TESTSUITES SchemaType = "TESTSUITES"
+	SCHEMATYPE_DASHBOARD SchemaType = "DASHBOARD"
+)
+
+// All allowed values of SchemaType enum
+var AllowedSchemaTypeEnumValues = []SchemaType{
+	"FLOW",
+	"TASK",
+	"TRIGGER",
+	"PLUGINDEFAULT",
+	"APPS",
+	"TESTSUITES",
+	"DASHBOARD",
+}
+
+func (v *SchemaType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := SchemaType(value)
+	for _, existing := range AllowedSchemaTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SchemaType", value)
+}
+
+// NewSchemaTypeFromValue returns a pointer to a valid SchemaType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewSchemaTypeFromValue(v string) (*SchemaType, error) {
+	ev := SchemaType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for SchemaType: valid values are %v", v, AllowedSchemaTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v SchemaType) IsValid() bool {
+	for _, existing := range AllowedSchemaTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to SchemaType value
+func (v SchemaType) Ptr() *SchemaType {
+	return &v
+}
+
+type NullableSchemaType struct {
+	value *SchemaType
+	isSet bool
+}
+
+func (v NullableSchemaType) Get() *SchemaType {
+	return v.value
+}
+
+func (v *NullableSchemaType) Set(val *SchemaType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSchemaType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSchemaType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSchemaType(val *SchemaType) *NullableSchemaType {
+	return &NullableSchemaType{value: val, isSet: true}
+}
+
+func (v NullableSchemaType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSchemaType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

@@ -1,0 +1,143 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.edition_provider_edition import EditionProviderEdition
+from kestrapy.models.misc_controller_environment import MiscControllerEnvironment
+from kestrapy.models.misc_controller_preview import MiscControllerPreview
+from typing import Optional, Set
+from typing_extensions import Self
+
+class MiscControllerConfiguration(BaseModel):
+    """
+    MiscControllerConfiguration
+    """ # noqa: E501
+    uuid: Optional[StrictStr] = None
+    version: Optional[StrictStr] = None
+    edition: Optional[EditionProviderEdition] = None
+    commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
+    chart_default_duration: Optional[StrictStr] = Field(default=None, alias="chartDefaultDuration")
+    flow_template: Optional[StrictStr] = Field(default=None, alias="flowTemplate")
+    commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
+    is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
+    is_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isAnonymousUsageEnabled")
+    is_ui_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isUiAnonymousUsageEnabled")
+    environment: Optional[MiscControllerEnvironment] = None
+    url: Optional[StrictStr] = None
+    preview: Optional[MiscControllerPreview] = None
+    system_namespace: Optional[StrictStr] = Field(default=None, alias="systemNamespace")
+    hidden_labels_prefixes: Optional[List[StrictStr]] = Field(default=None, alias="hiddenLabelsPrefixes")
+    is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
+    is_ai_api_key_configured: Optional[StrictBool] = Field(default=None, alias="isAiApiKeyConfigured")
+    is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
+    plugins_hash: Optional[StrictInt] = Field(default=None, alias="pluginsHash")
+    is_plugin_auto_install_enabled: Optional[StrictBool] = Field(default=None, alias="isPluginAutoInstallEnabled")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "flowTemplate", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isAiApiKeyConfigured", "isBasicAuthInitialized", "pluginsHash", "isPluginAutoInstallEnabled"]
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of MiscControllerConfiguration from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of environment
+        if self.environment:
+            _dict['environment'] = self.environment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of preview
+        if self.preview:
+            _dict['preview'] = self.preview.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of MiscControllerConfiguration from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "uuid": obj.get("uuid"),
+            "version": obj.get("version"),
+            "edition": obj.get("edition"),
+            "commitId": obj.get("commitId"),
+            "chartDefaultDuration": obj.get("chartDefaultDuration"),
+            "flowTemplate": obj.get("flowTemplate"),
+            "commitDate": obj.get("commitDate"),
+            "isCustomDashboardsEnabled": obj.get("isCustomDashboardsEnabled"),
+            "isAnonymousUsageEnabled": obj.get("isAnonymousUsageEnabled"),
+            "isUiAnonymousUsageEnabled": obj.get("isUiAnonymousUsageEnabled"),
+            "environment": MiscControllerEnvironment.from_dict(obj["environment"]) if obj.get("environment") is not None else None,
+            "url": obj.get("url"),
+            "preview": MiscControllerPreview.from_dict(obj["preview"]) if obj.get("preview") is not None else None,
+            "systemNamespace": obj.get("systemNamespace"),
+            "hiddenLabelsPrefixes": obj.get("hiddenLabelsPrefixes"),
+            "isAiEnabled": obj.get("isAiEnabled"),
+            "isAiApiKeyConfigured": obj.get("isAiApiKeyConfigured"),
+            "isBasicAuthInitialized": obj.get("isBasicAuthInitialized"),
+            "pluginsHash": obj.get("pluginsHash"),
+            "isPluginAutoInstallEnabled": obj.get("isPluginAutoInstallEnabled")
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

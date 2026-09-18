@@ -1,0 +1,129 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ServiceType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiActiveService
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiActiveService.JSON_PROPERTY_TYPE,
+  InstanceControllerApiActiveService.JSON_PROPERTY_TOTAL
+})
+@JsonTypeName("InstanceController.ApiActiveService")
+public class InstanceControllerApiActiveService {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private ServiceType type;
+
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @jakarta.annotation.Nullable  private Long total;
+
+  public InstanceControllerApiActiveService() {
+  }
+
+  public InstanceControllerApiActiveService type(@jakarta.annotation.Nullable ServiceType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable ServiceType type) {
+    this.type = type;
+  }
+
+  public InstanceControllerApiActiveService total(@jakarta.annotation.Nullable Long total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Long total) {
+    this.total = total;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiActiveService instanceControllerApiActiveService = (InstanceControllerApiActiveService) o;
+    return Objects.equals(this.type, instanceControllerApiActiveService.type) &&
+        Objects.equals(this.total, instanceControllerApiActiveService.total);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiActiveService {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

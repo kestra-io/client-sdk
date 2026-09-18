@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MeControllerApiUserDetailsRequest
+ */
+@JsonPropertyOrder({
+  MeControllerApiUserDetailsRequest.JSON_PROPERTY_FIRST_NAME,
+  MeControllerApiUserDetailsRequest.JSON_PROPERTY_LAST_NAME,
+  MeControllerApiUserDetailsRequest.JSON_PROPERTY_EMAIL
+})
+@JsonTypeName("MeController.ApiUserDetailsRequest")
+public class MeControllerApiUserDetailsRequest {
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
+  @jakarta.annotation.Nullable  private String firstName;
+
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
+  @jakarta.annotation.Nullable  private String lastName;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nullable  private String email;
+
+  public MeControllerApiUserDetailsRequest() {
+  }
+
+  public MeControllerApiUserDetailsRequest firstName(@jakarta.annotation.Nullable String firstName) {
+    
+    this.firstName = firstName;
+    return this;
+  }
+
+  /**
+   * Get firstName
+   * @return firstName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFirstName(@jakarta.annotation.Nullable String firstName) {
+    this.firstName = firstName;
+  }
+
+  public MeControllerApiUserDetailsRequest lastName(@jakarta.annotation.Nullable String lastName) {
+    
+    this.lastName = lastName;
+    return this;
+  }
+
+  /**
+   * Get lastName
+   * @return lastName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLastName() {
+    return lastName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastName(@jakarta.annotation.Nullable String lastName) {
+    this.lastName = lastName;
+  }
+
+  public MeControllerApiUserDetailsRequest email(@jakarta.annotation.Nullable String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmail(@jakarta.annotation.Nullable String email) {
+    this.email = email;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest = (MeControllerApiUserDetailsRequest) o;
+    return Objects.equals(this.firstName, meControllerApiUserDetailsRequest.firstName) &&
+        Objects.equals(this.lastName, meControllerApiUserDetailsRequest.lastName) &&
+        Objects.equals(this.email, meControllerApiUserDetailsRequest.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(firstName, lastName, email);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MeControllerApiUserDetailsRequest {\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the Isolation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Isolation{}
+
+// Isolation struct for Isolation
+type Isolation struct {
+	DeniedServices []ServiceType `json:"deniedServices,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Isolation Isolation
+
+// NewIsolation instantiates a new Isolation object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIsolation() *Isolation {
+	this := Isolation{}
+	return &this
+}
+
+// NewIsolationWithDefaults instantiates a new Isolation object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIsolationWithDefaults() *Isolation {
+	this := Isolation{}
+	return &this
+}
+
+// GetDeniedServices returns the DeniedServices field value if set, zero value otherwise.
+func (o *Isolation) GetDeniedServices() []ServiceType {
+	if o == nil || IsNil(o.DeniedServices) {
+		var ret []ServiceType
+		return ret
+	}
+	return o.DeniedServices
+}
+
+// GetDeniedServicesOk returns a tuple with the DeniedServices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Isolation) GetDeniedServicesOk() ([]ServiceType, bool) {
+	if o == nil || IsNil(o.DeniedServices) {
+		return nil, false
+	}
+	return o.DeniedServices, true
+}
+
+// HasDeniedServices returns a boolean if a field has been set.
+func (o *Isolation) HasDeniedServices() bool {
+	if o != nil && !IsNil(o.DeniedServices) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeniedServices gets a reference to the given []ServiceType and assigns it to the DeniedServices field.
+func (o *Isolation) SetDeniedServices(v []ServiceType) {
+	o.DeniedServices = v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *Isolation) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Isolation) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *Isolation) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *Isolation) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+func (o Isolation) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Isolation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DeniedServices) {
+		toSerialize["deniedServices"] = o.DeniedServices
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Isolation) UnmarshalJSON(data []byte) (err error) {
+	varIsolation := _Isolation{}
+
+	err = json.Unmarshal(data, &varIsolation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Isolation(varIsolation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deniedServices")
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIsolation struct {
+	value *Isolation
+	isSet bool
+}
+
+func (v NullableIsolation) Get() *Isolation {
+	return v.value
+}
+
+func (v *NullableIsolation) Set(val *Isolation) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIsolation) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIsolation) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIsolation(val *Isolation) *NullableIsolation {
+	return &NullableIsolation{value: val, isSet: true}
+}
+
+func (v NullableIsolation) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIsolation) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

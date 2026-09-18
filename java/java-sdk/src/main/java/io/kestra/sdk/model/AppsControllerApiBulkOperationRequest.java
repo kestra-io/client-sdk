@@ -1,0 +1,109 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AppsControllerApiBulkOperationRequest
+ */
+@JsonPropertyOrder({
+  AppsControllerApiBulkOperationRequest.JSON_PROPERTY_UIDS
+})
+@JsonTypeName("AppsController.ApiBulkOperationRequest")
+public class AppsControllerApiBulkOperationRequest {
+  public static final String JSON_PROPERTY_UIDS = "uids";
+  @jakarta.annotation.Nullable  private List<String> uids = new ArrayList<>();
+
+  public AppsControllerApiBulkOperationRequest() {
+  }
+
+  public AppsControllerApiBulkOperationRequest uids(@jakarta.annotation.Nullable List<String> uids) {
+    
+    this.uids = uids;
+    return this;
+  }
+
+  public AppsControllerApiBulkOperationRequest addUidsItem(String uidsItem) {
+    if (this.uids == null) {
+      this.uids = new ArrayList<>();
+    }
+    this.uids.add(uidsItem);
+    return this;
+  }
+
+  /**
+   * Get uids
+   * @return uids
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UIDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getUids() {
+    return uids;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UIDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUids(@jakarta.annotation.Nullable List<String> uids) {
+    this.uids = uids;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AppsControllerApiBulkOperationRequest appsControllerApiBulkOperationRequest = (AppsControllerApiBulkOperationRequest) o;
+    return Objects.equals(this.uids, appsControllerApiBulkOperationRequest.uids);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uids);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AppsControllerApiBulkOperationRequest {\n");
+    sb.append("    uids: ").append(toIndentedString(uids)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

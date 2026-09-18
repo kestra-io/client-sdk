@@ -1,0 +1,461 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ApiGroupSummary;
+import io.kestra.sdk.model.ApiRoleSummary;
+import io.kestra.sdk.model.InvitationInvitationStatus;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMInvitationControllerApiInvitationDetail
+ */
+@JsonPropertyOrder({
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_ID,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_ROLES,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_GROUPS,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_TENANT_ID,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_EMAIL,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_STATUS,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_SENT_AT,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_EXPIRED_AT,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_ACCEPTED_AT,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_INSTANCE_OWNER,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_LINK
+})
+@JsonTypeName("IAMInvitationController.ApiInvitationDetail")
+public class IAMInvitationControllerApiInvitationDetail {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_ROLES = "roles";
+  @jakarta.annotation.Nullable  private List<ApiRoleSummary> roles = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<ApiGroupSummary> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private String tenantId;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nullable  private String email;
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @jakarta.annotation.Nullable  private InvitationInvitationStatus status;
+
+  public static final String JSON_PROPERTY_SENT_AT = "sentAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime sentAt;
+
+  public static final String JSON_PROPERTY_EXPIRED_AT = "expiredAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime expiredAt;
+
+  public static final String JSON_PROPERTY_ACCEPTED_AT = "acceptedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime acceptedAt;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_LINK = "link";
+  @jakarta.annotation.Nullable  private String link;
+
+  public IAMInvitationControllerApiInvitationDetail() {
+  }
+
+  public IAMInvitationControllerApiInvitationDetail id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail roles(@jakarta.annotation.Nullable List<ApiRoleSummary> roles) {
+    
+    this.roles = roles;
+    return this;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail addRolesItem(ApiRoleSummary rolesItem) {
+    if (this.roles == null) {
+      this.roles = new ArrayList<>();
+    }
+    this.roles.add(rolesItem);
+    return this;
+  }
+
+  /**
+   * Get roles
+   * @return roles
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ApiRoleSummary> getRoles() {
+    return roles;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoles(@jakarta.annotation.Nullable List<ApiRoleSummary> roles) {
+    this.roles = roles;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail groups(@jakarta.annotation.Nullable List<ApiGroupSummary> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail addGroupsItem(ApiGroupSummary groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ApiGroupSummary> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<ApiGroupSummary> groups) {
+    this.groups = groups;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail tenantId(@jakarta.annotation.Nullable String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail email(@jakarta.annotation.Nullable String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmail(@jakarta.annotation.Nullable String email) {
+    this.email = email;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail status(@jakarta.annotation.Nullable InvitationInvitationStatus status) {
+    
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InvitationInvitationStatus getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(@jakarta.annotation.Nullable InvitationInvitationStatus status) {
+    this.status = status;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail sentAt(@jakarta.annotation.Nullable OffsetDateTime sentAt) {
+    
+    this.sentAt = sentAt;
+    return this;
+  }
+
+  /**
+   * Get sentAt
+   * @return sentAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SENT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getSentAt() {
+    return sentAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SENT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSentAt(@jakarta.annotation.Nullable OffsetDateTime sentAt) {
+    this.sentAt = sentAt;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail expiredAt(@jakarta.annotation.Nullable OffsetDateTime expiredAt) {
+    
+    this.expiredAt = expiredAt;
+    return this;
+  }
+
+  /**
+   * Get expiredAt
+   * @return expiredAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getExpiredAt() {
+    return expiredAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpiredAt(@jakarta.annotation.Nullable OffsetDateTime expiredAt) {
+    this.expiredAt = expiredAt;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail acceptedAt(@jakarta.annotation.Nullable OffsetDateTime acceptedAt) {
+    
+    this.acceptedAt = acceptedAt;
+    return this;
+  }
+
+  /**
+   * Get acceptedAt
+   * @return acceptedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getAcceptedAt() {
+    return acceptedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptedAt(@jakarta.annotation.Nullable OffsetDateTime acceptedAt) {
+    this.acceptedAt = acceptedAt;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public IAMInvitationControllerApiInvitationDetail link(@jakarta.annotation.Nullable String link) {
+    
+    this.link = link;
+    return this;
+  }
+
+  /**
+   * Get link
+   * @return link
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLink() {
+    return link;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LINK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLink(@jakarta.annotation.Nullable String link) {
+    this.link = link;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMInvitationControllerApiInvitationDetail superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMInvitationControllerApiInvitationDetail iaMInvitationControllerApiInvitationDetail = (IAMInvitationControllerApiInvitationDetail) o;
+    return Objects.equals(this.id, iaMInvitationControllerApiInvitationDetail.id) &&
+        Objects.equals(this.roles, iaMInvitationControllerApiInvitationDetail.roles) &&
+        Objects.equals(this.groups, iaMInvitationControllerApiInvitationDetail.groups) &&
+        Objects.equals(this.tenantId, iaMInvitationControllerApiInvitationDetail.tenantId) &&
+        Objects.equals(this.email, iaMInvitationControllerApiInvitationDetail.email) &&
+        Objects.equals(this.status, iaMInvitationControllerApiInvitationDetail.status) &&
+        Objects.equals(this.sentAt, iaMInvitationControllerApiInvitationDetail.sentAt) &&
+        Objects.equals(this.expiredAt, iaMInvitationControllerApiInvitationDetail.expiredAt) &&
+        Objects.equals(this.acceptedAt, iaMInvitationControllerApiInvitationDetail.acceptedAt) &&
+        Objects.equals(this.instanceOwner, iaMInvitationControllerApiInvitationDetail.instanceOwner) &&
+        Objects.equals(this.link, iaMInvitationControllerApiInvitationDetail.link);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, instanceOwner, link);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMInvitationControllerApiInvitationDetail {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
+    sb.append("    expiredAt: ").append(toIndentedString(expiredAt)).append("\n");
+    sb.append("    acceptedAt: ").append(toIndentedString(acceptedAt)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    link: ").append(toIndentedString(link)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,418 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the InputObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InputObject{}
+
+// InputObject struct for InputObject
+type InputObject struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Type Type `json:"type"`
+	Description *string `json:"description,omitempty"`
+	DependsOn *DependsOn `json:"dependsOn,omitempty"`
+	Required *bool `json:"required,omitempty"`
+	Defaults *string `json:"defaults,omitempty"`
+	// Optional UI hint for pre-filling the input. Cannot be used together with a default value.
+	Prefill *string `json:"prefill,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _InputObject InputObject
+
+// NewInputObject instantiates a new InputObject object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInputObject(id string, type_ Type) *InputObject {
+	this := InputObject{}
+	this.Id = id
+	this.Type = type_
+	return &this
+}
+
+// NewInputObjectWithDefaults instantiates a new InputObject object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInputObjectWithDefaults() *InputObject {
+	this := InputObject{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *InputObject) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *InputObject) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *InputObject) GetType() Type {
+	if o == nil {
+		var ret Type
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetTypeOk() (*Type, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *InputObject) SetType(v Type) {
+	o.Type = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *InputObject) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *InputObject) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *InputObject) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetDependsOn returns the DependsOn field value if set, zero value otherwise.
+func (o *InputObject) GetDependsOn() DependsOn {
+	if o == nil || IsNil(o.DependsOn) {
+		var ret DependsOn
+		return ret
+	}
+	return *o.DependsOn
+}
+
+// GetDependsOnOk returns a tuple with the DependsOn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetDependsOnOk() (*DependsOn, bool) {
+	if o == nil || IsNil(o.DependsOn) {
+		return nil, false
+	}
+	return o.DependsOn, true
+}
+
+// HasDependsOn returns a boolean if a field has been set.
+func (o *InputObject) HasDependsOn() bool {
+	if o != nil && !IsNil(o.DependsOn) {
+		return true
+	}
+
+	return false
+}
+
+// SetDependsOn gets a reference to the given DependsOn and assigns it to the DependsOn field.
+func (o *InputObject) SetDependsOn(v DependsOn) {
+	o.DependsOn = &v
+}
+
+// GetRequired returns the Required field value if set, zero value otherwise.
+func (o *InputObject) GetRequired() bool {
+	if o == nil || IsNil(o.Required) {
+		var ret bool
+		return ret
+	}
+	return *o.Required
+}
+
+// GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetRequiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Required) {
+		return nil, false
+	}
+	return o.Required, true
+}
+
+// HasRequired returns a boolean if a field has been set.
+func (o *InputObject) HasRequired() bool {
+	if o != nil && !IsNil(o.Required) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequired gets a reference to the given bool and assigns it to the Required field.
+func (o *InputObject) SetRequired(v bool) {
+	o.Required = &v
+}
+
+// GetDefaults returns the Defaults field value if set, zero value otherwise.
+func (o *InputObject) GetDefaults() string {
+	if o == nil || IsNil(o.Defaults) {
+		var ret string
+		return ret
+	}
+	return *o.Defaults
+}
+
+// GetDefaultsOk returns a tuple with the Defaults field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetDefaultsOk() (*string, bool) {
+	if o == nil || IsNil(o.Defaults) {
+		return nil, false
+	}
+	return o.Defaults, true
+}
+
+// HasDefaults returns a boolean if a field has been set.
+func (o *InputObject) HasDefaults() bool {
+	if o != nil && !IsNil(o.Defaults) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaults gets a reference to the given string and assigns it to the Defaults field.
+func (o *InputObject) SetDefaults(v string) {
+	o.Defaults = &v
+}
+
+// GetPrefill returns the Prefill field value if set, zero value otherwise.
+func (o *InputObject) GetPrefill() string {
+	if o == nil || IsNil(o.Prefill) {
+		var ret string
+		return ret
+	}
+	return *o.Prefill
+}
+
+// GetPrefillOk returns a tuple with the Prefill field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetPrefillOk() (*string, bool) {
+	if o == nil || IsNil(o.Prefill) {
+		return nil, false
+	}
+	return o.Prefill, true
+}
+
+// HasPrefill returns a boolean if a field has been set.
+func (o *InputObject) HasPrefill() bool {
+	if o != nil && !IsNil(o.Prefill) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefill gets a reference to the given string and assigns it to the Prefill field.
+func (o *InputObject) SetPrefill(v string) {
+	o.Prefill = &v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *InputObject) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InputObject) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *InputObject) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *InputObject) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+func (o InputObject) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InputObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.DependsOn) {
+		toSerialize["dependsOn"] = o.DependsOn
+	}
+	if !IsNil(o.Required) {
+		toSerialize["required"] = o.Required
+	}
+	if !IsNil(o.Defaults) {
+		toSerialize["defaults"] = o.Defaults
+	}
+	if !IsNil(o.Prefill) {
+		toSerialize["prefill"] = o.Prefill
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *InputObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInputObject := _InputObject{}
+
+	err = json.Unmarshal(data, &varInputObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InputObject(varInputObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "dependsOn")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "defaults")
+		delete(additionalProperties, "prefill")
+		delete(additionalProperties, "displayName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableInputObject struct {
+	value *InputObject
+	isSet bool
+}
+
+func (v NullableInputObject) Get() *InputObject {
+	return v.value
+}
+
+func (v *NullableInputObject) Set(val *InputObject) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInputObject) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInputObject) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInputObject(val *InputObject) *NullableInputObject {
+	return &NullableInputObject{value: val, isSet: true}
+}
+
+func (v NullableInputObject) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableInputObject) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,252 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from kestrapy.models.abstract_trigger import AbstractTrigger
+from kestrapy.models.check import Check
+from kestrapy.models.concurrency import Concurrency
+from kestrapy.models.input_object import InputObject
+from kestrapy.models.label import Label
+from kestrapy.models.output import Output
+from kestrapy.models.quota import Quota
+from kestrapy.models.sla import SLA
+from kestrapy.models.task import Task
+from kestrapy.models.worker_selector import WorkerSelector
+from typing import Optional, Set
+from typing_extensions import Self
+
+class FlowWithSource(BaseModel):
+    """
+    FlowWithSource
+    """ # noqa: E501
+    id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
+    namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
+    revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    updated: Optional[datetime] = Field(default=None, description="The timestamp when this revision was created or last updated.")
+    description: Optional[StrictStr] = None
+    inputs: Optional[List[InputObject]] = None
+    outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
+    disabled: StrictBool = Field(description="A disabled flow does not run: its triggers are paused and new executions are rejected.")
+    draft: StrictBool = Field(description="Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.")
+    labels: Optional[List[Label]] = None
+    variables: Optional[Dict[str, Any]] = None
+    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
+    deleted: StrictBool
+    var_finally: Optional[List[Task]] = Field(default=None, alias="finally")
+    tasks: Annotated[List[Task], Field(min_length=1)]
+    errors: Optional[List[Task]] = None
+    after_execution: Optional[List[Task]] = Field(default=None, alias="afterExecution")
+    triggers: Optional[List[AbstractTrigger]] = None
+    policy_refs: Optional[List[StrictStr]] = Field(default=None, description="Identifiers of `enforcement: REFERENCE` policies to attach to this flow, resolved within the flow's tenant/namespace scope chain. Enterprise Edition only; parsed but ignored in the open-source edition.", alias="policyRefs")
+    concurrency: Optional[Concurrency] = Field(default=None, description="Limits the number of concurrent executions of the flow.")
+    retry: Optional[Dict[str, Any]] = Field(default=None, description="Retry policy applied when the flow fails.")
+    sla: Optional[List[SLA]] = None
+    checks: Optional[List[Check]] = Field(default=None, description="A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally.")
+    quotas: Optional[List[Quota]] = Field(default=None, description="A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally. Quotas can also be defined at the namespace and tenant level.")
+    source: Optional[StrictStr] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "draft", "labels", "variables", "workerSelector", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "policyRefs", "concurrency", "retry", "sla", "checks", "quotas", "source"]
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9._-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9._-]*/")
+        return value
+
+    @field_validator('namespace')
+    def namespace_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-z0-9][a-z0-9._-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-z0-9][a-z0-9._-]*/")
+        return value
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of FlowWithSource from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of each item in inputs (list)
+        _items = []
+        if self.inputs:
+            for _item_inputs in self.inputs:
+                if _item_inputs:
+                    _items.append(_item_inputs.to_dict())
+            _dict['inputs'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in outputs (list)
+        _items = []
+        if self.outputs:
+            for _item_outputs in self.outputs:
+                if _item_outputs:
+                    _items.append(_item_outputs.to_dict())
+            _dict['outputs'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in labels (list)
+        _items = []
+        if self.labels:
+            for _item_labels in self.labels:
+                if _item_labels:
+                    _items.append(_item_labels.to_dict())
+            _dict['labels'] = _items
+        # override the default output from pydantic by calling `to_dict()` of worker_selector
+        if self.worker_selector:
+            _dict['workerSelector'] = self.worker_selector.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in var_finally (list)
+        _items = []
+        if self.var_finally:
+            for _item_var_finally in self.var_finally:
+                if _item_var_finally:
+                    _items.append(_item_var_finally.to_dict())
+            _dict['finally'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in tasks (list)
+        _items = []
+        if self.tasks:
+            for _item_tasks in self.tasks:
+                if _item_tasks:
+                    _items.append(_item_tasks.to_dict())
+            _dict['tasks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in errors (list)
+        _items = []
+        if self.errors:
+            for _item_errors in self.errors:
+                if _item_errors:
+                    _items.append(_item_errors.to_dict())
+            _dict['errors'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in after_execution (list)
+        _items = []
+        if self.after_execution:
+            for _item_after_execution in self.after_execution:
+                if _item_after_execution:
+                    _items.append(_item_after_execution.to_dict())
+            _dict['afterExecution'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in triggers (list)
+        _items = []
+        if self.triggers:
+            for _item_triggers in self.triggers:
+                if _item_triggers:
+                    _items.append(_item_triggers.to_dict())
+            _dict['triggers'] = _items
+        # override the default output from pydantic by calling `to_dict()` of concurrency
+        if self.concurrency:
+            _dict['concurrency'] = self.concurrency.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in sla (list)
+        _items = []
+        if self.sla:
+            for _item_sla in self.sla:
+                if _item_sla:
+                    _items.append(_item_sla.to_dict())
+            _dict['sla'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in checks (list)
+        _items = []
+        if self.checks:
+            for _item_checks in self.checks:
+                if _item_checks:
+                    _items.append(_item_checks.to_dict())
+            _dict['checks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in quotas (list)
+        _items = []
+        if self.quotas:
+            for _item_quotas in self.quotas:
+                if _item_quotas:
+                    _items.append(_item_quotas.to_dict())
+            _dict['quotas'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of FlowWithSource from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "namespace": obj.get("namespace"),
+            "revision": obj.get("revision"),
+            "updated": obj.get("updated"),
+            "description": obj.get("description"),
+            "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
+            "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
+            "disabled": obj.get("disabled"),
+            "draft": obj.get("draft"),
+            "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
+            "variables": obj.get("variables"),
+            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "deleted": obj.get("deleted"),
+            "finally": [Task.from_dict(_item) for _item in obj["finally"]] if obj.get("finally") is not None else None,
+            "tasks": [Task.from_dict(_item) for _item in obj["tasks"]] if obj.get("tasks") is not None else None,
+            "errors": [Task.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
+            "afterExecution": [Task.from_dict(_item) for _item in obj["afterExecution"]] if obj.get("afterExecution") is not None else None,
+            "triggers": [AbstractTrigger.from_dict(_item) for _item in obj["triggers"]] if obj.get("triggers") is not None else None,
+            "policyRefs": obj.get("policyRefs"),
+            "concurrency": Concurrency.from_dict(obj["concurrency"]) if obj.get("concurrency") is not None else None,
+            "retry": obj.get("retry"),
+            "sla": [SLA.from_dict(_item) for _item in obj["sla"]] if obj.get("sla") is not None else None,
+            "checks": [Check.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
+            "quotas": [Quota.from_dict(_item) for _item in obj["quotas"]] if obj.get("quotas") is not None else None,
+            "source": obj.get("source")
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

@@ -1,0 +1,252 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.InstanceControllerApiServerInstance;
+import io.kestra.sdk.model.ServiceServiceState;
+import io.kestra.sdk.model.ServiceType;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiServiceInstance
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_ID,
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_TYPE,
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_STATE,
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_SERVER,
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_CREATED_AT,
+  InstanceControllerApiServiceInstance.JSON_PROPERTY_UPDATED_AT
+})
+@JsonTypeName("InstanceController.ApiServiceInstance")
+public class InstanceControllerApiServiceInstance {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private ServiceType type;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nullable  private ServiceServiceState state;
+
+  public static final String JSON_PROPERTY_SERVER = "server";
+  @jakarta.annotation.Nullable  private InstanceControllerApiServerInstance server;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime updatedAt;
+
+  public InstanceControllerApiServiceInstance() {
+  }
+
+  public InstanceControllerApiServiceInstance id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public InstanceControllerApiServiceInstance type(@jakarta.annotation.Nullable ServiceType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable ServiceType type) {
+    this.type = type;
+  }
+
+  public InstanceControllerApiServiceInstance state(@jakarta.annotation.Nullable ServiceServiceState state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceServiceState getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@jakarta.annotation.Nullable ServiceServiceState state) {
+    this.state = state;
+  }
+
+  public InstanceControllerApiServiceInstance server(@jakarta.annotation.Nullable InstanceControllerApiServerInstance server) {
+    
+    this.server = server;
+    return this;
+  }
+
+  /**
+   * Get server
+   * @return server
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SERVER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InstanceControllerApiServerInstance getServer() {
+    return server;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SERVER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServer(@jakarta.annotation.Nullable InstanceControllerApiServerInstance server) {
+    this.server = server;
+  }
+
+  public InstanceControllerApiServiceInstance createdAt(@jakarta.annotation.Nullable OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  /**
+   * Get createdAt
+   * @return createdAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(@jakarta.annotation.Nullable OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public InstanceControllerApiServiceInstance updatedAt(@jakarta.annotation.Nullable OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  /**
+   * Get updatedAt
+   * @return updatedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(@jakarta.annotation.Nullable OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiServiceInstance instanceControllerApiServiceInstance = (InstanceControllerApiServiceInstance) o;
+    return Objects.equals(this.id, instanceControllerApiServiceInstance.id) &&
+        Objects.equals(this.type, instanceControllerApiServiceInstance.type) &&
+        Objects.equals(this.state, instanceControllerApiServiceInstance.state) &&
+        Objects.equals(this.server, instanceControllerApiServiceInstance.server) &&
+        Objects.equals(this.createdAt, instanceControllerApiServiceInstance.createdAt) &&
+        Objects.equals(this.updatedAt, instanceControllerApiServiceInstance.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, state, server, createdAt, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiServiceInstance {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    server: ").append(toIndentedString(server)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

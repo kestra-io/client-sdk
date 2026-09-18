@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the KVControllerApiDeleteBulkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KVControllerApiDeleteBulkResponse{}
+
+// KVControllerApiDeleteBulkResponse struct for KVControllerApiDeleteBulkResponse
+type KVControllerApiDeleteBulkResponse struct {
+	Keys []string `json:"keys,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _KVControllerApiDeleteBulkResponse KVControllerApiDeleteBulkResponse
+
+// NewKVControllerApiDeleteBulkResponse instantiates a new KVControllerApiDeleteBulkResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewKVControllerApiDeleteBulkResponse() *KVControllerApiDeleteBulkResponse {
+	this := KVControllerApiDeleteBulkResponse{}
+	return &this
+}
+
+// NewKVControllerApiDeleteBulkResponseWithDefaults instantiates a new KVControllerApiDeleteBulkResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewKVControllerApiDeleteBulkResponseWithDefaults() *KVControllerApiDeleteBulkResponse {
+	this := KVControllerApiDeleteBulkResponse{}
+	return &this
+}
+
+// GetKeys returns the Keys field value if set, zero value otherwise.
+func (o *KVControllerApiDeleteBulkResponse) GetKeys() []string {
+	if o == nil || IsNil(o.Keys) {
+		var ret []string
+		return ret
+	}
+	return o.Keys
+}
+
+// GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KVControllerApiDeleteBulkResponse) GetKeysOk() ([]string, bool) {
+	if o == nil || IsNil(o.Keys) {
+		return nil, false
+	}
+	return o.Keys, true
+}
+
+// HasKeys returns a boolean if a field has been set.
+func (o *KVControllerApiDeleteBulkResponse) HasKeys() bool {
+	if o != nil && !IsNil(o.Keys) {
+		return true
+	}
+
+	return false
+}
+
+// SetKeys gets a reference to the given []string and assigns it to the Keys field.
+func (o *KVControllerApiDeleteBulkResponse) SetKeys(v []string) {
+	o.Keys = v
+}
+
+func (o KVControllerApiDeleteBulkResponse) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KVControllerApiDeleteBulkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Keys) {
+		toSerialize["keys"] = o.Keys
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *KVControllerApiDeleteBulkResponse) UnmarshalJSON(data []byte) (err error) {
+	varKVControllerApiDeleteBulkResponse := _KVControllerApiDeleteBulkResponse{}
+
+	err = json.Unmarshal(data, &varKVControllerApiDeleteBulkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KVControllerApiDeleteBulkResponse(varKVControllerApiDeleteBulkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "keys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableKVControllerApiDeleteBulkResponse struct {
+	value *KVControllerApiDeleteBulkResponse
+	isSet bool
+}
+
+func (v NullableKVControllerApiDeleteBulkResponse) Get() *KVControllerApiDeleteBulkResponse {
+	return v.value
+}
+
+func (v *NullableKVControllerApiDeleteBulkResponse) Set(val *KVControllerApiDeleteBulkResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableKVControllerApiDeleteBulkResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableKVControllerApiDeleteBulkResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableKVControllerApiDeleteBulkResponse(val *KVControllerApiDeleteBulkResponse) *NullableKVControllerApiDeleteBulkResponse {
+	return &NullableKVControllerApiDeleteBulkResponse{value: val, isSet: true}
+}
+
+func (v NullableKVControllerApiDeleteBulkResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableKVControllerApiDeleteBulkResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

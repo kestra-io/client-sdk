@@ -1,0 +1,139 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// StateType the model 'StateType'
+type StateType string
+
+// List of State.Type
+const (
+	STATETYPE_CREATED StateType = "CREATED"
+	STATETYPE_SUBMITTED StateType = "SUBMITTED"
+	STATETYPE_RUNNING StateType = "RUNNING"
+	STATETYPE_PAUSED StateType = "PAUSED"
+	STATETYPE_RESTARTED StateType = "RESTARTED"
+	STATETYPE_KILLING StateType = "KILLING"
+	STATETYPE_SUCCESS StateType = "SUCCESS"
+	STATETYPE_WARNING StateType = "WARNING"
+	STATETYPE_FAILED StateType = "FAILED"
+	STATETYPE_KILLED StateType = "KILLED"
+	STATETYPE_CANCELLED StateType = "CANCELLED"
+	STATETYPE_QUEUED StateType = "QUEUED"
+	STATETYPE_RETRYING StateType = "RETRYING"
+	STATETYPE_RETRIED StateType = "RETRIED"
+	STATETYPE_SKIPPED StateType = "SKIPPED"
+	STATETYPE_BREAKPOINT StateType = "BREAKPOINT"
+	STATETYPE_RESUBMITTED StateType = "RESUBMITTED"
+)
+
+// All allowed values of StateType enum
+var AllowedStateTypeEnumValues = []StateType{
+	"CREATED",
+	"SUBMITTED",
+	"RUNNING",
+	"PAUSED",
+	"RESTARTED",
+	"KILLING",
+	"SUCCESS",
+	"WARNING",
+	"FAILED",
+	"KILLED",
+	"CANCELLED",
+	"QUEUED",
+	"RETRYING",
+	"RETRIED",
+	"SKIPPED",
+	"BREAKPOINT",
+	"RESUBMITTED",
+}
+
+func (v *StateType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := StateType(value)
+	for _, existing := range AllowedStateTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid StateType", value)
+}
+
+// NewStateTypeFromValue returns a pointer to a valid StateType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewStateTypeFromValue(v string) (*StateType, error) {
+	ev := StateType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for StateType: valid values are %v", v, AllowedStateTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v StateType) IsValid() bool {
+	for _, existing := range AllowedStateTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to State.Type value
+func (v StateType) Ptr() *StateType {
+	return &v
+}
+
+type NullableStateType struct {
+	value *StateType
+	isSet bool
+}
+
+func (v NullableStateType) Get() *StateType {
+	return v.value
+}
+
+func (v *NullableStateType) Set(val *StateType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableStateType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableStateType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableStateType(val *StateType) *NullableStateType {
+	return &NullableStateType{value: val, isSet: true}
+}
+
+func (v NullableStateType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableStateType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

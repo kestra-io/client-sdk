@@ -1,0 +1,111 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// WorkerGroupFallback the model 'WorkerGroupFallback'
+type WorkerGroupFallback string
+
+// List of WorkerGroup.Fallback
+const (
+	WORKERGROUPFALLBACK_FAIL WorkerGroupFallback = "FAIL"
+	WORKERGROUPFALLBACK_WAIT WorkerGroupFallback = "WAIT"
+	WORKERGROUPFALLBACK_CANCEL WorkerGroupFallback = "CANCEL"
+)
+
+// All allowed values of WorkerGroupFallback enum
+var AllowedWorkerGroupFallbackEnumValues = []WorkerGroupFallback{
+	"FAIL",
+	"WAIT",
+	"CANCEL",
+}
+
+func (v *WorkerGroupFallback) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := WorkerGroupFallback(value)
+	for _, existing := range AllowedWorkerGroupFallbackEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid WorkerGroupFallback", value)
+}
+
+// NewWorkerGroupFallbackFromValue returns a pointer to a valid WorkerGroupFallback
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewWorkerGroupFallbackFromValue(v string) (*WorkerGroupFallback, error) {
+	ev := WorkerGroupFallback(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for WorkerGroupFallback: valid values are %v", v, AllowedWorkerGroupFallbackEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v WorkerGroupFallback) IsValid() bool {
+	for _, existing := range AllowedWorkerGroupFallbackEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to WorkerGroup.Fallback value
+func (v WorkerGroupFallback) Ptr() *WorkerGroupFallback {
+	return &v
+}
+
+type NullableWorkerGroupFallback struct {
+	value *WorkerGroupFallback
+	isSet bool
+}
+
+func (v NullableWorkerGroupFallback) Get() *WorkerGroupFallback {
+	return v.value
+}
+
+func (v *NullableWorkerGroupFallback) Set(val *WorkerGroupFallback) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableWorkerGroupFallback) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableWorkerGroupFallback) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableWorkerGroupFallback(val *WorkerGroupFallback) *NullableWorkerGroupFallback {
+	return &NullableWorkerGroupFallback{value: val, isSet: true}
+}
+
+func (v NullableWorkerGroupFallback) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableWorkerGroupFallback) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

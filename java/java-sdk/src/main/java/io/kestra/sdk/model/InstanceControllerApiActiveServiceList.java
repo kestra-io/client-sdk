@@ -1,0 +1,140 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.InstanceControllerApiActiveService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiActiveServiceList
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiActiveServiceList.JSON_PROPERTY_TOTAL,
+  InstanceControllerApiActiveServiceList.JSON_PROPERTY_SERVICES
+})
+@JsonTypeName("InstanceController.ApiActiveServiceList")
+public class InstanceControllerApiActiveServiceList {
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @jakarta.annotation.Nullable  private Integer total;
+
+  public static final String JSON_PROPERTY_SERVICES = "services";
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiActiveService> services = new ArrayList<>();
+
+  public InstanceControllerApiActiveServiceList() {
+  }
+
+  public InstanceControllerApiActiveServiceList total(@jakarta.annotation.Nullable Integer total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Integer total) {
+    this.total = total;
+  }
+
+  public InstanceControllerApiActiveServiceList services(@jakarta.annotation.Nullable List<InstanceControllerApiActiveService> services) {
+    
+    this.services = services;
+    return this;
+  }
+
+  public InstanceControllerApiActiveServiceList addServicesItem(InstanceControllerApiActiveService servicesItem) {
+    if (this.services == null) {
+      this.services = new ArrayList<>();
+    }
+    this.services.add(servicesItem);
+    return this;
+  }
+
+  /**
+   * Get services
+   * @return services
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<InstanceControllerApiActiveService> getServices() {
+    return services;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServices(@jakarta.annotation.Nullable List<InstanceControllerApiActiveService> services) {
+    this.services = services;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiActiveServiceList instanceControllerApiActiveServiceList = (InstanceControllerApiActiveServiceList) o;
+    return Objects.equals(this.total, instanceControllerApiActiveServiceList.total) &&
+        Objects.equals(this.services, instanceControllerApiActiveServiceList.services);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(total, services);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiActiveServiceList {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    services: ").append(toIndentedString(services)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

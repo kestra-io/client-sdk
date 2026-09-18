@@ -1,0 +1,309 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerLicenseInfo
+ */
+@JsonPropertyOrder({
+  MiscControllerLicenseInfo.JSON_PROPERTY_TYPE,
+  MiscControllerLicenseInfo.JSON_PROPERTY_EXPIRY,
+  MiscControllerLicenseInfo.JSON_PROPERTY_EXPIRED,
+  MiscControllerLicenseInfo.JSON_PROPERTY_MAX_SERVERS,
+  MiscControllerLicenseInfo.JSON_PROPERTY_STANDALONE,
+  MiscControllerLicenseInfo.JSON_PROPERTY_WORKER_GROUPS,
+  MiscControllerLicenseInfo.JSON_PROPERTY_ONLINE,
+  MiscControllerLicenseInfo.JSON_PROPERTY_GRACE_PERIOD
+})
+@JsonTypeName("MiscController.LicenseInfo")
+public class MiscControllerLicenseInfo {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_EXPIRY = "expiry";
+  @jakarta.annotation.Nullable  private OffsetDateTime expiry;
+
+  public static final String JSON_PROPERTY_EXPIRED = "expired";
+  @jakarta.annotation.Nullable  private Boolean expired;
+
+  public static final String JSON_PROPERTY_MAX_SERVERS = "maxServers";
+  @jakarta.annotation.Nullable  private Integer maxServers;
+
+  public static final String JSON_PROPERTY_STANDALONE = "standalone";
+  @jakarta.annotation.Nullable  private Boolean standalone;
+
+  public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
+  @jakarta.annotation.Nullable  private Boolean workerGroups;
+
+  public static final String JSON_PROPERTY_ONLINE = "online";
+  @jakarta.annotation.Nullable  private Boolean online;
+
+  public static final String JSON_PROPERTY_GRACE_PERIOD = "gracePeriod";
+  @jakarta.annotation.Nullable  private OffsetDateTime gracePeriod;
+
+  public MiscControllerLicenseInfo() {
+  }
+
+  public MiscControllerLicenseInfo type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public MiscControllerLicenseInfo expiry(@jakarta.annotation.Nullable OffsetDateTime expiry) {
+    
+    this.expiry = expiry;
+    return this;
+  }
+
+  /**
+   * Get expiry
+   * @return expiry
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getExpiry() {
+    return expiry;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPIRY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpiry(@jakarta.annotation.Nullable OffsetDateTime expiry) {
+    this.expiry = expiry;
+  }
+
+  public MiscControllerLicenseInfo expired(@jakarta.annotation.Nullable Boolean expired) {
+    
+    this.expired = expired;
+    return this;
+  }
+
+  /**
+   * Get expired
+   * @return expired
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getExpired() {
+    return expired;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpired(@jakarta.annotation.Nullable Boolean expired) {
+    this.expired = expired;
+  }
+
+  public MiscControllerLicenseInfo maxServers(@jakarta.annotation.Nullable Integer maxServers) {
+    
+    this.maxServers = maxServers;
+    return this;
+  }
+
+  /**
+   * Get maxServers
+   * @return maxServers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxServers() {
+    return maxServers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxServers(@jakarta.annotation.Nullable Integer maxServers) {
+    this.maxServers = maxServers;
+  }
+
+  public MiscControllerLicenseInfo standalone(@jakarta.annotation.Nullable Boolean standalone) {
+    
+    this.standalone = standalone;
+    return this;
+  }
+
+  /**
+   * Get standalone
+   * @return standalone
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STANDALONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getStandalone() {
+    return standalone;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STANDALONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStandalone(@jakarta.annotation.Nullable Boolean standalone) {
+    this.standalone = standalone;
+  }
+
+  public MiscControllerLicenseInfo workerGroups(@jakarta.annotation.Nullable Boolean workerGroups) {
+    
+    this.workerGroups = workerGroups;
+    return this;
+  }
+
+  /**
+   * Get workerGroups
+   * @return workerGroups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getWorkerGroups() {
+    return workerGroups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerGroups(@jakarta.annotation.Nullable Boolean workerGroups) {
+    this.workerGroups = workerGroups;
+  }
+
+  public MiscControllerLicenseInfo online(@jakarta.annotation.Nullable Boolean online) {
+    
+    this.online = online;
+    return this;
+  }
+
+  /**
+   * Get online
+   * @return online
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ONLINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getOnline() {
+    return online;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ONLINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOnline(@jakarta.annotation.Nullable Boolean online) {
+    this.online = online;
+  }
+
+  public MiscControllerLicenseInfo gracePeriod(@jakarta.annotation.Nullable OffsetDateTime gracePeriod) {
+    
+    this.gracePeriod = gracePeriod;
+    return this;
+  }
+
+  /**
+   * Get gracePeriod
+   * @return gracePeriod
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GRACE_PERIOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getGracePeriod() {
+    return gracePeriod;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GRACE_PERIOD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGracePeriod(@jakarta.annotation.Nullable OffsetDateTime gracePeriod) {
+    this.gracePeriod = gracePeriod;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerLicenseInfo miscControllerLicenseInfo = (MiscControllerLicenseInfo) o;
+    return Objects.equals(this.type, miscControllerLicenseInfo.type) &&
+        Objects.equals(this.expiry, miscControllerLicenseInfo.expiry) &&
+        Objects.equals(this.expired, miscControllerLicenseInfo.expired) &&
+        Objects.equals(this.maxServers, miscControllerLicenseInfo.maxServers) &&
+        Objects.equals(this.standalone, miscControllerLicenseInfo.standalone) &&
+        Objects.equals(this.workerGroups, miscControllerLicenseInfo.workerGroups) &&
+        Objects.equals(this.online, miscControllerLicenseInfo.online) &&
+        Objects.equals(this.gracePeriod, miscControllerLicenseInfo.gracePeriod);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, expiry, expired, maxServers, standalone, workerGroups, online, gracePeriod);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerLicenseInfo {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    expiry: ").append(toIndentedString(expiry)).append("\n");
+    sb.append("    expired: ").append(toIndentedString(expired)).append("\n");
+    sb.append("    maxServers: ").append(toIndentedString(maxServers)).append("\n");
+    sb.append("    standalone: ").append(toIndentedString(standalone)).append("\n");
+    sb.append("    workerGroups: ").append(toIndentedString(workerGroups)).append("\n");
+    sb.append("    online: ").append(toIndentedString(online)).append("\n");
+    sb.append("    gracePeriod: ").append(toIndentedString(gracePeriod)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

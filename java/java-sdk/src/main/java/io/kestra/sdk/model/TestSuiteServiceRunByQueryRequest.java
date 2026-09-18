@@ -1,0 +1,187 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteServiceRunByQueryRequest
+ */
+@JsonPropertyOrder({
+  TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_NAMESPACE,
+  TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_FLOW_ID,
+  TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES
+})
+@JsonTypeName("TestSuiteService.RunByQueryRequest")
+public class TestSuiteServiceRunByQueryRequest {
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES = "includeChildNamespaces";
+  @jakarta.annotation.Nonnull  private Boolean includeChildNamespaces = true;
+
+  public TestSuiteServiceRunByQueryRequest() {
+  }
+
+  public TestSuiteServiceRunByQueryRequest namespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+    
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getNamespace() {
+        return namespace.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getNamespace_JsonNullable() {
+    return namespace;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
+    this.namespace = namespace;
+  }
+
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+  }
+
+  public TestSuiteServiceRunByQueryRequest flowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = JsonNullable.<String>of(flowId);
+    
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getFlowId() {
+        return flowId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getFlowId_JsonNullable() {
+    return flowId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  public void setFlowId_JsonNullable(JsonNullable<String> flowId) {
+    this.flowId = flowId;
+  }
+
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = JsonNullable.<String>of(flowId);
+  }
+
+  public TestSuiteServiceRunByQueryRequest includeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
+    
+    this.includeChildNamespaces = includeChildNamespaces;
+    return this;
+  }
+
+  /**
+   * Should child namespaces be included or not
+   * @return includeChildNamespaces
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIncludeChildNamespaces() {
+    return includeChildNamespaces;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIncludeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
+    this.includeChildNamespaces = includeChildNamespaces;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest = (TestSuiteServiceRunByQueryRequest) o;
+    return equalsNullable(this.namespace, testSuiteServiceRunByQueryRequest.namespace) &&
+        equalsNullable(this.flowId, testSuiteServiceRunByQueryRequest.flowId) &&
+        Objects.equals(this.includeChildNamespaces, testSuiteServiceRunByQueryRequest.includeChildNamespaces);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hashCodeNullable(namespace), hashCodeNullable(flowId), includeChildNamespaces);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteServiceRunByQueryRequest {\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    includeChildNamespaces: ").append(toIndentedString(includeChildNamespaces)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,389 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AuditLogDetail;
+import io.kestra.sdk.model.CrudEventType;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AuditLog
+ */
+@JsonPropertyOrder({
+  AuditLog.JSON_PROPERTY_TENANT_ID,
+  AuditLog.JSON_PROPERTY_ID,
+  AuditLog.JSON_PROPERTY_TYPE,
+  AuditLog.JSON_PROPERTY_DETAIL,
+  AuditLog.JSON_PROPERTY_DATE,
+  AuditLog.JSON_PROPERTY_USER_ID,
+  AuditLog.JSON_PROPERTY_IP_ADDRESS,
+  AuditLog.JSON_PROPERTY_IMPERSONATED_BY,
+  AuditLog.JSON_PROPERTY_APPLIED_PATCH,
+  AuditLog.JSON_PROPERTY_REVERT_PATCH
+})
+public class AuditLog {
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private String tenantId;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private CrudEventType type;
+
+  public static final String JSON_PROPERTY_DETAIL = "detail";
+  @jakarta.annotation.Nonnull  private AuditLogDetail detail;
+
+  public static final String JSON_PROPERTY_DATE = "date";
+  @jakarta.annotation.Nonnull  private OffsetDateTime date;
+
+  public static final String JSON_PROPERTY_USER_ID = "userId";
+  @jakarta.annotation.Nonnull  private String userId;
+
+  public static final String JSON_PROPERTY_IP_ADDRESS = "ipAddress";
+  @jakarta.annotation.Nullable  private String ipAddress;
+
+  public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
+  @jakarta.annotation.Nullable  private String impersonatedBy;
+
+  public static final String JSON_PROPERTY_APPLIED_PATCH = "appliedPatch";
+  @jakarta.annotation.Nullable  private List<Object> appliedPatch = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_REVERT_PATCH = "revertPatch";
+  @jakarta.annotation.Nullable  private List<Object> revertPatch = new ArrayList<>();
+
+  public AuditLog() {
+  }
+
+  public AuditLog tenantId(@jakarta.annotation.Nullable String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public AuditLog id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public AuditLog type(@jakarta.annotation.Nonnull CrudEventType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public CrudEventType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull CrudEventType type) {
+    this.type = type;
+  }
+
+  public AuditLog detail(@jakarta.annotation.Nonnull AuditLogDetail detail) {
+    
+    this.detail = detail;
+    return this;
+  }
+
+  /**
+   * Get detail
+   * @return detail
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AuditLogDetail getDetail() {
+    return detail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDetail(@jakarta.annotation.Nonnull AuditLogDetail detail) {
+    this.detail = detail;
+  }
+
+  public AuditLog date(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getDate() {
+    return date;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDate(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    this.date = date;
+  }
+
+  public AuditLog userId(@jakarta.annotation.Nonnull String userId) {
+    
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   * @return userId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUserId() {
+    return userId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUserId(@jakarta.annotation.Nonnull String userId) {
+    this.userId = userId;
+  }
+
+  public AuditLog ipAddress(@jakarta.annotation.Nullable String ipAddress) {
+    
+    this.ipAddress = ipAddress;
+    return this;
+  }
+
+  /**
+   * Get ipAddress
+   * @return ipAddress
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIpAddress() {
+    return ipAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpAddress(@jakarta.annotation.Nullable String ipAddress) {
+    this.ipAddress = ipAddress;
+  }
+
+  public AuditLog impersonatedBy(@jakarta.annotation.Nullable String impersonatedBy) {
+    
+    this.impersonatedBy = impersonatedBy;
+    return this;
+  }
+
+  /**
+   * Get impersonatedBy
+   * @return impersonatedBy
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getImpersonatedBy() {
+    return impersonatedBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setImpersonatedBy(@jakarta.annotation.Nullable String impersonatedBy) {
+    this.impersonatedBy = impersonatedBy;
+  }
+
+  public AuditLog appliedPatch(@jakarta.annotation.Nullable List<Object> appliedPatch) {
+    
+    this.appliedPatch = appliedPatch;
+    return this;
+  }
+
+  public AuditLog addAppliedPatchItem(Object appliedPatchItem) {
+    if (this.appliedPatch == null) {
+      this.appliedPatch = new ArrayList<>();
+    }
+    this.appliedPatch.add(appliedPatchItem);
+    return this;
+  }
+
+  /**
+   * Get appliedPatch
+   * @return appliedPatch
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APPLIED_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Object> getAppliedPatch() {
+    return appliedPatch;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APPLIED_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppliedPatch(@jakarta.annotation.Nullable List<Object> appliedPatch) {
+    this.appliedPatch = appliedPatch;
+  }
+
+  public AuditLog revertPatch(@jakarta.annotation.Nullable List<Object> revertPatch) {
+    
+    this.revertPatch = revertPatch;
+    return this;
+  }
+
+  public AuditLog addRevertPatchItem(Object revertPatchItem) {
+    if (this.revertPatch == null) {
+      this.revertPatch = new ArrayList<>();
+    }
+    this.revertPatch.add(revertPatchItem);
+    return this;
+  }
+
+  /**
+   * Get revertPatch
+   * @return revertPatch
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVERT_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Object> getRevertPatch() {
+    return revertPatch;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVERT_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevertPatch(@jakarta.annotation.Nullable List<Object> revertPatch) {
+    this.revertPatch = revertPatch;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AuditLog auditLog = (AuditLog) o;
+    return Objects.equals(this.tenantId, auditLog.tenantId) &&
+        Objects.equals(this.id, auditLog.id) &&
+        Objects.equals(this.type, auditLog.type) &&
+        Objects.equals(this.detail, auditLog.detail) &&
+        Objects.equals(this.date, auditLog.date) &&
+        Objects.equals(this.userId, auditLog.userId) &&
+        Objects.equals(this.ipAddress, auditLog.ipAddress) &&
+        Objects.equals(this.impersonatedBy, auditLog.impersonatedBy) &&
+        Objects.equals(this.appliedPatch, auditLog.appliedPatch) &&
+        Objects.equals(this.revertPatch, auditLog.revertPatch);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, appliedPatch, revertPatch);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AuditLog {\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
+    sb.append("    impersonatedBy: ").append(toIndentedString(impersonatedBy)).append("\n");
+    sb.append("    appliedPatch: ").append(toIndentedString(appliedPatch)).append("\n");
+    sb.append("    revertPatch: ").append(toIndentedString(revertPatch)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

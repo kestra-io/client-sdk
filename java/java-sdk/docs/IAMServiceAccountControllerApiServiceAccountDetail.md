@@ -1,0 +1,18 @@
+
+
+# IAMServiceAccountControllerApiServiceAccountDetail
+
+A User Service Account.
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**id** | **String** | the identifier of this service account. |  [optional] |
+|**name** | **String** | the name of this service account. |  |
+|**description** | **String** | the description of this service account. |  [optional] |
+|**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
+
+
+

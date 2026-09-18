@@ -1,0 +1,195 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ExecutionControllerStateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExecutionControllerStateRequest{}
+
+// ExecutionControllerStateRequest struct for ExecutionControllerStateRequest
+type ExecutionControllerStateRequest struct {
+	TaskRunId string `json:"taskRunId"`
+	State StateType `json:"state"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ExecutionControllerStateRequest ExecutionControllerStateRequest
+
+// NewExecutionControllerStateRequest instantiates a new ExecutionControllerStateRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewExecutionControllerStateRequest(taskRunId string, state StateType) *ExecutionControllerStateRequest {
+	this := ExecutionControllerStateRequest{}
+	this.TaskRunId = taskRunId
+	this.State = state
+	return &this
+}
+
+// NewExecutionControllerStateRequestWithDefaults instantiates a new ExecutionControllerStateRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewExecutionControllerStateRequestWithDefaults() *ExecutionControllerStateRequest {
+	this := ExecutionControllerStateRequest{}
+	return &this
+}
+
+// GetTaskRunId returns the TaskRunId field value
+func (o *ExecutionControllerStateRequest) GetTaskRunId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TaskRunId
+}
+
+// GetTaskRunIdOk returns a tuple with the TaskRunId field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerStateRequest) GetTaskRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TaskRunId, true
+}
+
+// SetTaskRunId sets field value
+func (o *ExecutionControllerStateRequest) SetTaskRunId(v string) {
+	o.TaskRunId = v
+}
+
+// GetState returns the State field value
+func (o *ExecutionControllerStateRequest) GetState() StateType {
+	if o == nil {
+		var ret StateType
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerStateRequest) GetStateOk() (*StateType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *ExecutionControllerStateRequest) SetState(v StateType) {
+	o.State = v
+}
+
+func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ExecutionControllerStateRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["taskRunId"] = o.TaskRunId
+	toSerialize["state"] = o.State
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ExecutionControllerStateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"taskRunId",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExecutionControllerStateRequest := _ExecutionControllerStateRequest{}
+
+	err = json.Unmarshal(data, &varExecutionControllerStateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutionControllerStateRequest(varExecutionControllerStateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "taskRunId")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableExecutionControllerStateRequest struct {
+	value *ExecutionControllerStateRequest
+	isSet bool
+}
+
+func (v NullableExecutionControllerStateRequest) Get() *ExecutionControllerStateRequest {
+	return v.value
+}
+
+func (v *NullableExecutionControllerStateRequest) Set(val *ExecutionControllerStateRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableExecutionControllerStateRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableExecutionControllerStateRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableExecutionControllerStateRequest(val *ExecutionControllerStateRequest) *NullableExecutionControllerStateRequest {
+	return &NullableExecutionControllerStateRequest{value: val, isSet: true}
+}
+
+func (v NullableExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableExecutionControllerStateRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

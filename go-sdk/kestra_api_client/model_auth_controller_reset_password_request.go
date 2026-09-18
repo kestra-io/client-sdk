@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the AuthControllerResetPasswordRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthControllerResetPasswordRequest{}
+
+// AuthControllerResetPasswordRequest struct for AuthControllerResetPasswordRequest
+type AuthControllerResetPasswordRequest struct {
+	Token *string `json:"token,omitempty"`
+	Password *string `json:"password,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AuthControllerResetPasswordRequest AuthControllerResetPasswordRequest
+
+// NewAuthControllerResetPasswordRequest instantiates a new AuthControllerResetPasswordRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAuthControllerResetPasswordRequest() *AuthControllerResetPasswordRequest {
+	this := AuthControllerResetPasswordRequest{}
+	return &this
+}
+
+// NewAuthControllerResetPasswordRequestWithDefaults instantiates a new AuthControllerResetPasswordRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAuthControllerResetPasswordRequestWithDefaults() *AuthControllerResetPasswordRequest {
+	this := AuthControllerResetPasswordRequest{}
+	return &this
+}
+
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *AuthControllerResetPasswordRequest) GetToken() string {
+	if o == nil || IsNil(o.Token) {
+		var ret string
+		return ret
+	}
+	return *o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthControllerResetPasswordRequest) GetTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.Token) {
+		return nil, false
+	}
+	return o.Token, true
+}
+
+// HasToken returns a boolean if a field has been set.
+func (o *AuthControllerResetPasswordRequest) HasToken() bool {
+	if o != nil && !IsNil(o.Token) {
+		return true
+	}
+
+	return false
+}
+
+// SetToken gets a reference to the given string and assigns it to the Token field.
+func (o *AuthControllerResetPasswordRequest) SetToken(v string) {
+	o.Token = &v
+}
+
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *AuthControllerResetPasswordRequest) GetPassword() string {
+	if o == nil || IsNil(o.Password) {
+		var ret string
+		return ret
+	}
+	return *o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthControllerResetPasswordRequest) GetPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.Password) {
+		return nil, false
+	}
+	return o.Password, true
+}
+
+// HasPassword returns a boolean if a field has been set.
+func (o *AuthControllerResetPasswordRequest) HasPassword() bool {
+	if o != nil && !IsNil(o.Password) {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *AuthControllerResetPasswordRequest) SetPassword(v string) {
+	o.Password = &v
+}
+
+func (o AuthControllerResetPasswordRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthControllerResetPasswordRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Token) {
+		toSerialize["token"] = o.Token
+	}
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AuthControllerResetPasswordRequest) UnmarshalJSON(data []byte) (err error) {
+	varAuthControllerResetPasswordRequest := _AuthControllerResetPasswordRequest{}
+
+	err = json.Unmarshal(data, &varAuthControllerResetPasswordRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthControllerResetPasswordRequest(varAuthControllerResetPasswordRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "password")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAuthControllerResetPasswordRequest struct {
+	value *AuthControllerResetPasswordRequest
+	isSet bool
+}
+
+func (v NullableAuthControllerResetPasswordRequest) Get() *AuthControllerResetPasswordRequest {
+	return v.value
+}
+
+func (v *NullableAuthControllerResetPasswordRequest) Set(val *AuthControllerResetPasswordRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAuthControllerResetPasswordRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAuthControllerResetPasswordRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAuthControllerResetPasswordRequest(val *AuthControllerResetPasswordRequest) *NullableAuthControllerResetPasswordRequest {
+	return &NullableAuthControllerResetPasswordRequest{value: val, isSet: true}
+}
+
+func (v NullableAuthControllerResetPasswordRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAuthControllerResetPasswordRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,238 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AbstractGraph;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowGraphCluster
+ */
+@JsonPropertyOrder({
+  FlowGraphCluster.JSON_PROPERTY_CLUSTER,
+  FlowGraphCluster.JSON_PROPERTY_NODES,
+  FlowGraphCluster.JSON_PROPERTY_PARENTS,
+  FlowGraphCluster.JSON_PROPERTY_START,
+  FlowGraphCluster.JSON_PROPERTY_END
+})
+@JsonTypeName("FlowGraph.Cluster")
+public class FlowGraphCluster {
+  public static final String JSON_PROPERTY_CLUSTER = "cluster";
+  @jakarta.annotation.Nullable  private AbstractGraph cluster;
+
+  public static final String JSON_PROPERTY_NODES = "nodes";
+  @jakarta.annotation.Nullable  private List<String> nodes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PARENTS = "parents";
+  @jakarta.annotation.Nullable  private List<String> parents = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_START = "start";
+  @jakarta.annotation.Nullable  private String start;
+
+  public static final String JSON_PROPERTY_END = "end";
+  @jakarta.annotation.Nullable  private String end;
+
+  public FlowGraphCluster() {
+  }
+
+  public FlowGraphCluster cluster(@jakarta.annotation.Nullable AbstractGraph cluster) {
+    
+    this.cluster = cluster;
+    return this;
+  }
+
+  /**
+   * Get cluster
+   * @return cluster
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AbstractGraph getCluster() {
+    return cluster;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLUSTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCluster(@jakarta.annotation.Nullable AbstractGraph cluster) {
+    this.cluster = cluster;
+  }
+
+  public FlowGraphCluster nodes(@jakarta.annotation.Nullable List<String> nodes) {
+    
+    this.nodes = nodes;
+    return this;
+  }
+
+  public FlowGraphCluster addNodesItem(String nodesItem) {
+    if (this.nodes == null) {
+      this.nodes = new ArrayList<>();
+    }
+    this.nodes.add(nodesItem);
+    return this;
+  }
+
+  /**
+   * Get nodes
+   * @return nodes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getNodes() {
+    return nodes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNodes(@jakarta.annotation.Nullable List<String> nodes) {
+    this.nodes = nodes;
+  }
+
+  public FlowGraphCluster parents(@jakarta.annotation.Nullable List<String> parents) {
+    
+    this.parents = parents;
+    return this;
+  }
+
+  public FlowGraphCluster addParentsItem(String parentsItem) {
+    if (this.parents == null) {
+      this.parents = new ArrayList<>();
+    }
+    this.parents.add(parentsItem);
+    return this;
+  }
+
+  /**
+   * Get parents
+   * @return parents
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getParents() {
+    return parents;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PARENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParents(@jakarta.annotation.Nullable List<String> parents) {
+    this.parents = parents;
+  }
+
+  public FlowGraphCluster start(@jakarta.annotation.Nullable String start) {
+    
+    this.start = start;
+    return this;
+  }
+
+  /**
+   * Get start
+   * @return start
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStart() {
+    return start;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStart(@jakarta.annotation.Nullable String start) {
+    this.start = start;
+  }
+
+  public FlowGraphCluster end(@jakarta.annotation.Nullable String end) {
+    
+    this.end = end;
+    return this;
+  }
+
+  /**
+   * Get end
+   * @return end
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEnd() {
+    return end;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnd(@jakarta.annotation.Nullable String end) {
+    this.end = end;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowGraphCluster flowGraphCluster = (FlowGraphCluster) o;
+    return Objects.equals(this.cluster, flowGraphCluster.cluster) &&
+        Objects.equals(this.nodes, flowGraphCluster.nodes) &&
+        Objects.equals(this.parents, flowGraphCluster.parents) &&
+        Objects.equals(this.start, flowGraphCluster.start) &&
+        Objects.equals(this.end, flowGraphCluster.end);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cluster, nodes, parents, start, end);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowGraphCluster {\n");
+    sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+    sb.append("    nodes: ").append(toIndentedString(nodes)).append("\n");
+    sb.append("    parents: ").append(toIndentedString(parents)).append("\n");
+    sb.append("    start: ").append(toIndentedString(start)).append("\n");
+    sb.append("    end: ").append(toIndentedString(end)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

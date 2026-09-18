@@ -1,0 +1,338 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the FileAttributes type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileAttributes{}
+
+// FileAttributes struct for FileAttributes
+type FileAttributes struct {
+	FileName *string `json:"fileName,omitempty"`
+	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty"`
+	CreationTime *int64 `json:"creationTime,omitempty"`
+	Type *FileAttributesFileType `json:"type,omitempty"`
+	Size *int64 `json:"size,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FileAttributes FileAttributes
+
+// NewFileAttributes instantiates a new FileAttributes object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFileAttributes() *FileAttributes {
+	this := FileAttributes{}
+	return &this
+}
+
+// NewFileAttributesWithDefaults instantiates a new FileAttributes object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFileAttributesWithDefaults() *FileAttributes {
+	this := FileAttributes{}
+	return &this
+}
+
+// GetFileName returns the FileName field value if set, zero value otherwise.
+func (o *FileAttributes) GetFileName() string {
+	if o == nil || IsNil(o.FileName) {
+		var ret string
+		return ret
+	}
+	return *o.FileName
+}
+
+// GetFileNameOk returns a tuple with the FileName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetFileNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FileName) {
+		return nil, false
+	}
+	return o.FileName, true
+}
+
+// HasFileName returns a boolean if a field has been set.
+func (o *FileAttributes) HasFileName() bool {
+	if o != nil && !IsNil(o.FileName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFileName gets a reference to the given string and assigns it to the FileName field.
+func (o *FileAttributes) SetFileName(v string) {
+	o.FileName = &v
+}
+
+// GetLastModifiedTime returns the LastModifiedTime field value if set, zero value otherwise.
+func (o *FileAttributes) GetLastModifiedTime() int64 {
+	if o == nil || IsNil(o.LastModifiedTime) {
+		var ret int64
+		return ret
+	}
+	return *o.LastModifiedTime
+}
+
+// GetLastModifiedTimeOk returns a tuple with the LastModifiedTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetLastModifiedTimeOk() (*int64, bool) {
+	if o == nil || IsNil(o.LastModifiedTime) {
+		return nil, false
+	}
+	return o.LastModifiedTime, true
+}
+
+// HasLastModifiedTime returns a boolean if a field has been set.
+func (o *FileAttributes) HasLastModifiedTime() bool {
+	if o != nil && !IsNil(o.LastModifiedTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedTime gets a reference to the given int64 and assigns it to the LastModifiedTime field.
+func (o *FileAttributes) SetLastModifiedTime(v int64) {
+	o.LastModifiedTime = &v
+}
+
+// GetCreationTime returns the CreationTime field value if set, zero value otherwise.
+func (o *FileAttributes) GetCreationTime() int64 {
+	if o == nil || IsNil(o.CreationTime) {
+		var ret int64
+		return ret
+	}
+	return *o.CreationTime
+}
+
+// GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetCreationTimeOk() (*int64, bool) {
+	if o == nil || IsNil(o.CreationTime) {
+		return nil, false
+	}
+	return o.CreationTime, true
+}
+
+// HasCreationTime returns a boolean if a field has been set.
+func (o *FileAttributes) HasCreationTime() bool {
+	if o != nil && !IsNil(o.CreationTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreationTime gets a reference to the given int64 and assigns it to the CreationTime field.
+func (o *FileAttributes) SetCreationTime(v int64) {
+	o.CreationTime = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *FileAttributes) GetType() FileAttributesFileType {
+	if o == nil || IsNil(o.Type) {
+		var ret FileAttributesFileType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetTypeOk() (*FileAttributesFileType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *FileAttributes) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given FileAttributesFileType and assigns it to the Type field.
+func (o *FileAttributes) SetType(v FileAttributesFileType) {
+	o.Type = &v
+}
+
+// GetSize returns the Size field value if set, zero value otherwise.
+func (o *FileAttributes) GetSize() int64 {
+	if o == nil || IsNil(o.Size) {
+		var ret int64
+		return ret
+	}
+	return *o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetSizeOk() (*int64, bool) {
+	if o == nil || IsNil(o.Size) {
+		return nil, false
+	}
+	return o.Size, true
+}
+
+// HasSize returns a boolean if a field has been set.
+func (o *FileAttributes) HasSize() bool {
+	if o != nil && !IsNil(o.Size) {
+		return true
+	}
+
+	return false
+}
+
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *FileAttributes) SetSize(v int64) {
+	o.Size = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *FileAttributes) GetMetadata() map[string]string {
+	if o == nil || IsNil(o.Metadata) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FileAttributes) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FileAttributes) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *FileAttributes) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
+func (o FileAttributes) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FileAttributes) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FileName) {
+		toSerialize["fileName"] = o.FileName
+	}
+	if !IsNil(o.LastModifiedTime) {
+		toSerialize["lastModifiedTime"] = o.LastModifiedTime
+	}
+	if !IsNil(o.CreationTime) {
+		toSerialize["creationTime"] = o.CreationTime
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Size) {
+		toSerialize["size"] = o.Size
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FileAttributes) UnmarshalJSON(data []byte) (err error) {
+	varFileAttributes := _FileAttributes{}
+
+	err = json.Unmarshal(data, &varFileAttributes)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FileAttributes(varFileAttributes)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fileName")
+		delete(additionalProperties, "lastModifiedTime")
+		delete(additionalProperties, "creationTime")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFileAttributes struct {
+	value *FileAttributes
+	isSet bool
+}
+
+func (v NullableFileAttributes) Get() *FileAttributes {
+	return v.value
+}
+
+func (v *NullableFileAttributes) Set(val *FileAttributes) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFileAttributes) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFileAttributes) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFileAttributes(val *FileAttributes) *NullableFileAttributes {
+	return &NullableFileAttributes{value: val, isSet: true}
+}
+
+func (v NullableFileAttributes) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFileAttributes) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

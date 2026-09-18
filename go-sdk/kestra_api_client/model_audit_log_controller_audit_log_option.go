@@ -1,0 +1,228 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the AuditLogControllerAuditLogOption type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuditLogControllerAuditLogOption{}
+
+// AuditLogControllerAuditLogOption struct for AuditLogControllerAuditLogOption
+type AuditLogControllerAuditLogOption struct {
+	Id *string `json:"id,omitempty"`
+	Date *time.Time `json:"date,omitempty"`
+	Username *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AuditLogControllerAuditLogOption AuditLogControllerAuditLogOption
+
+// NewAuditLogControllerAuditLogOption instantiates a new AuditLogControllerAuditLogOption object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAuditLogControllerAuditLogOption() *AuditLogControllerAuditLogOption {
+	this := AuditLogControllerAuditLogOption{}
+	return &this
+}
+
+// NewAuditLogControllerAuditLogOptionWithDefaults instantiates a new AuditLogControllerAuditLogOption object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAuditLogControllerAuditLogOptionWithDefaults() *AuditLogControllerAuditLogOption {
+	this := AuditLogControllerAuditLogOption{}
+	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *AuditLogControllerAuditLogOption) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogControllerAuditLogOption) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *AuditLogControllerAuditLogOption) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *AuditLogControllerAuditLogOption) SetId(v string) {
+	o.Id = &v
+}
+
+// GetDate returns the Date field value if set, zero value otherwise.
+func (o *AuditLogControllerAuditLogOption) GetDate() time.Time {
+	if o == nil || IsNil(o.Date) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Date
+}
+
+// GetDateOk returns a tuple with the Date field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogControllerAuditLogOption) GetDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Date) {
+		return nil, false
+	}
+	return o.Date, true
+}
+
+// HasDate returns a boolean if a field has been set.
+func (o *AuditLogControllerAuditLogOption) HasDate() bool {
+	if o != nil && !IsNil(o.Date) {
+		return true
+	}
+
+	return false
+}
+
+// SetDate gets a reference to the given time.Time and assigns it to the Date field.
+func (o *AuditLogControllerAuditLogOption) SetDate(v time.Time) {
+	o.Date = &v
+}
+
+// GetUsername returns the Username field value if set, zero value otherwise.
+func (o *AuditLogControllerAuditLogOption) GetUsername() string {
+	if o == nil || IsNil(o.Username) {
+		var ret string
+		return ret
+	}
+	return *o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogControllerAuditLogOption) GetUsernameOk() (*string, bool) {
+	if o == nil || IsNil(o.Username) {
+		return nil, false
+	}
+	return o.Username, true
+}
+
+// HasUsername returns a boolean if a field has been set.
+func (o *AuditLogControllerAuditLogOption) HasUsername() bool {
+	if o != nil && !IsNil(o.Username) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsername gets a reference to the given string and assigns it to the Username field.
+func (o *AuditLogControllerAuditLogOption) SetUsername(v string) {
+	o.Username = &v
+}
+
+func (o AuditLogControllerAuditLogOption) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuditLogControllerAuditLogOption) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Date) {
+		toSerialize["date"] = o.Date
+	}
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AuditLogControllerAuditLogOption) UnmarshalJSON(data []byte) (err error) {
+	varAuditLogControllerAuditLogOption := _AuditLogControllerAuditLogOption{}
+
+	err = json.Unmarshal(data, &varAuditLogControllerAuditLogOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuditLogControllerAuditLogOption(varAuditLogControllerAuditLogOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAuditLogControllerAuditLogOption struct {
+	value *AuditLogControllerAuditLogOption
+	isSet bool
+}
+
+func (v NullableAuditLogControllerAuditLogOption) Get() *AuditLogControllerAuditLogOption {
+	return v.value
+}
+
+func (v *NullableAuditLogControllerAuditLogOption) Set(val *AuditLogControllerAuditLogOption) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAuditLogControllerAuditLogOption) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAuditLogControllerAuditLogOption) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAuditLogControllerAuditLogOption(val *AuditLogControllerAuditLogOption) *NullableAuditLogControllerAuditLogOption {
+	return &NullableAuditLogControllerAuditLogOption{value: val, isSet: true}
+}
+
+func (v NullableAuditLogControllerAuditLogOption) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAuditLogControllerAuditLogOption) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

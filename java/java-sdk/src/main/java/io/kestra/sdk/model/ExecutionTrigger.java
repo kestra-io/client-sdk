@@ -1,0 +1,198 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutionTrigger
+ */
+@JsonPropertyOrder({
+  ExecutionTrigger.JSON_PROPERTY_ID,
+  ExecutionTrigger.JSON_PROPERTY_TYPE,
+  ExecutionTrigger.JSON_PROPERTY_VARIABLES,
+  ExecutionTrigger.JSON_PROPERTY_LOG_FILE
+})
+public class ExecutionTrigger {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
+
+  public static final String JSON_PROPERTY_LOG_FILE = "logFile";
+  @jakarta.annotation.Nullable  private URI logFile;
+
+  public ExecutionTrigger() {
+  }
+
+  public ExecutionTrigger id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ExecutionTrigger type(@jakarta.annotation.Nonnull String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public ExecutionTrigger variables(@jakarta.annotation.Nullable Map<String, Object> variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  public ExecutionTrigger putVariablesItem(String key, Object variablesItem) {
+    if (this.variables == null) {
+      this.variables = new HashMap<>();
+    }
+    this.variables.put(key, variablesItem);
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Map<String, Object> variables) {
+    this.variables = variables;
+  }
+
+  public ExecutionTrigger logFile(@jakarta.annotation.Nullable URI logFile) {
+    
+    this.logFile = logFile;
+    return this;
+  }
+
+  /**
+   * Get logFile
+   * @return logFile
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public URI getLogFile() {
+    return logFile;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogFile(@jakarta.annotation.Nullable URI logFile) {
+    this.logFile = logFile;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionTrigger executionTrigger = (ExecutionTrigger) o;
+    return Objects.equals(this.id, executionTrigger.id) &&
+        Objects.equals(this.type, executionTrigger.type) &&
+        Objects.equals(this.variables, executionTrigger.variables) &&
+        Objects.equals(this.logFile, executionTrigger.logFile);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, variables, logFile);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionTrigger {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
+    sb.append("    logFile: ").append(toIndentedString(logFile)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

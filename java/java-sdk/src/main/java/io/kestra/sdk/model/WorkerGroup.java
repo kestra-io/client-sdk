@@ -1,0 +1,135 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.WorkerGroupFallback;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * WorkerGroup
+ */
+@JsonPropertyOrder({
+  WorkerGroup.JSON_PROPERTY_KEY,
+  WorkerGroup.JSON_PROPERTY_FALLBACK
+})
+/**
+ * @deprecated Kestra 2.0 replaced worker groups with worker selectors on flows, tasks,
+ *             triggers, namespaces and tenants. Use {@link WorkerSelector}. This type is
+ *             no longer produced or consumed by any endpoint and is kept only so existing
+ *             code keeps linking.
+ */
+@Deprecated
+public class WorkerGroup {
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nullable  private String key;
+
+  public static final String JSON_PROPERTY_FALLBACK = "fallback";
+  @jakarta.annotation.Nullable  private WorkerGroupFallback fallback;
+
+  public WorkerGroup() {
+  }
+
+  public WorkerGroup key(@jakarta.annotation.Nullable String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKey(@jakarta.annotation.Nullable String key) {
+    this.key = key;
+  }
+
+  public WorkerGroup fallback(@jakarta.annotation.Nullable WorkerGroupFallback fallback) {
+    
+    this.fallback = fallback;
+    return this;
+  }
+
+  /**
+   * Get fallback
+   * @return fallback
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WorkerGroupFallback getFallback() {
+    return fallback;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFallback(@jakarta.annotation.Nullable WorkerGroupFallback fallback) {
+    this.fallback = fallback;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    WorkerGroup workerGroup = (WorkerGroup) o;
+    return Objects.equals(this.key, workerGroup.key) &&
+        Objects.equals(this.fallback, workerGroup.fallback);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, fallback);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class WorkerGroup {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    fallback: ").append(toIndentedString(fallback)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,329 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.BlueprintTemplate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * BlueprintControllerApiFlowBlueprint
+ */
+@JsonPropertyOrder({
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_ID,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_TITLE,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_DESCRIPTION,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_INCLUDED_TASKS,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_TAGS,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_SOURCE,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_PUBLISHED_AT,
+  BlueprintControllerApiFlowBlueprint.JSON_PROPERTY_TEMPLATE
+})
+@JsonTypeName("BlueprintController.ApiFlowBlueprint")
+public class BlueprintControllerApiFlowBlueprint {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
+  @jakarta.annotation.Nullable  private List<String> includedTasks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime publishedAt;
+
+  public static final String JSON_PROPERTY_TEMPLATE = "template";
+  @jakarta.annotation.Nullable  private BlueprintTemplate template;
+
+  public BlueprintControllerApiFlowBlueprint() {
+  }
+
+  public BlueprintControllerApiFlowBlueprint id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public BlueprintControllerApiFlowBlueprint title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public BlueprintControllerApiFlowBlueprint description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public BlueprintControllerApiFlowBlueprint includedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
+    
+    this.includedTasks = includedTasks;
+    return this;
+  }
+
+  public BlueprintControllerApiFlowBlueprint addIncludedTasksItem(String includedTasksItem) {
+    if (this.includedTasks == null) {
+      this.includedTasks = new ArrayList<>();
+    }
+    this.includedTasks.add(includedTasksItem);
+    return this;
+  }
+
+  /**
+   * Get includedTasks
+   * @return includedTasks
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getIncludedTasks() {
+    return includedTasks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIncludedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
+    this.includedTasks = includedTasks;
+  }
+
+  public BlueprintControllerApiFlowBlueprint tags(@jakarta.annotation.Nullable List<String> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public BlueprintControllerApiFlowBlueprint addTagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
+    this.tags = tags;
+  }
+
+  public BlueprintControllerApiFlowBlueprint source(@jakarta.annotation.Nullable String source) {
+    
+    this.source = source;
+    return this;
+  }
+
+  /**
+   * Get source
+   * @return source
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
+    this.source = source;
+  }
+
+  public BlueprintControllerApiFlowBlueprint publishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    
+    this.publishedAt = publishedAt;
+    return this;
+  }
+
+  /**
+   * Get publishedAt
+   * @return publishedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getPublishedAt() {
+    return publishedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    this.publishedAt = publishedAt;
+  }
+
+  public BlueprintControllerApiFlowBlueprint template(@jakarta.annotation.Nullable BlueprintTemplate template) {
+    
+    this.template = template;
+    return this;
+  }
+
+  /**
+   * Get template
+   * @return template
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEMPLATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BlueprintTemplate getTemplate() {
+    return template;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEMPLATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTemplate(@jakarta.annotation.Nullable BlueprintTemplate template) {
+    this.template = template;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BlueprintControllerApiFlowBlueprint blueprintControllerApiFlowBlueprint = (BlueprintControllerApiFlowBlueprint) o;
+    return Objects.equals(this.id, blueprintControllerApiFlowBlueprint.id) &&
+        Objects.equals(this.title, blueprintControllerApiFlowBlueprint.title) &&
+        Objects.equals(this.description, blueprintControllerApiFlowBlueprint.description) &&
+        Objects.equals(this.includedTasks, blueprintControllerApiFlowBlueprint.includedTasks) &&
+        Objects.equals(this.tags, blueprintControllerApiFlowBlueprint.tags) &&
+        Objects.equals(this.source, blueprintControllerApiFlowBlueprint.source) &&
+        Objects.equals(this.publishedAt, blueprintControllerApiFlowBlueprint.publishedAt) &&
+        Objects.equals(this.template, blueprintControllerApiFlowBlueprint.template);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, title, description, includedTasks, tags, source, publishedAt, template);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class BlueprintControllerApiFlowBlueprint {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    includedTasks: ").append(toIndentedString(includedTasks)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
+    sb.append("    template: ").append(toIndentedString(template)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the IAMTenantAccessControllerApiUserPermission type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IAMTenantAccessControllerApiUserPermission{}
+
+// IAMTenantAccessControllerApiUserPermission struct for IAMTenantAccessControllerApiUserPermission
+type IAMTenantAccessControllerApiUserPermission struct {
+	Resource *Resource `json:"resource,omitempty"`
+	Actions []Action `json:"actions,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _IAMTenantAccessControllerApiUserPermission IAMTenantAccessControllerApiUserPermission
+
+// NewIAMTenantAccessControllerApiUserPermission instantiates a new IAMTenantAccessControllerApiUserPermission object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIAMTenantAccessControllerApiUserPermission() *IAMTenantAccessControllerApiUserPermission {
+	this := IAMTenantAccessControllerApiUserPermission{}
+	return &this
+}
+
+// NewIAMTenantAccessControllerApiUserPermissionWithDefaults instantiates a new IAMTenantAccessControllerApiUserPermission object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIAMTenantAccessControllerApiUserPermissionWithDefaults() *IAMTenantAccessControllerApiUserPermission {
+	this := IAMTenantAccessControllerApiUserPermission{}
+	return &this
+}
+
+// GetResource returns the Resource field value if set, zero value otherwise.
+func (o *IAMTenantAccessControllerApiUserPermission) GetResource() Resource {
+	if o == nil || IsNil(o.Resource) {
+		var ret Resource
+		return ret
+	}
+	return *o.Resource
+}
+
+// GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) GetResourceOk() (*Resource, bool) {
+	if o == nil || IsNil(o.Resource) {
+		return nil, false
+	}
+	return o.Resource, true
+}
+
+// HasResource returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) HasResource() bool {
+	if o != nil && !IsNil(o.Resource) {
+		return true
+	}
+
+	return false
+}
+
+// SetResource gets a reference to the given Resource and assigns it to the Resource field.
+func (o *IAMTenantAccessControllerApiUserPermission) SetResource(v Resource) {
+	o.Resource = &v
+}
+
+// GetActions returns the Actions field value if set, zero value otherwise.
+func (o *IAMTenantAccessControllerApiUserPermission) GetActions() []Action {
+	if o == nil || IsNil(o.Actions) {
+		var ret []Action
+		return ret
+	}
+	return o.Actions
+}
+
+// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) GetActionsOk() ([]Action, bool) {
+	if o == nil || IsNil(o.Actions) {
+		return nil, false
+	}
+	return o.Actions, true
+}
+
+// HasActions returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) HasActions() bool {
+	if o != nil && !IsNil(o.Actions) {
+		return true
+	}
+
+	return false
+}
+
+// SetActions gets a reference to the given []Action and assigns it to the Actions field.
+func (o *IAMTenantAccessControllerApiUserPermission) SetActions(v []Action) {
+	o.Actions = v
+}
+
+func (o IAMTenantAccessControllerApiUserPermission) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IAMTenantAccessControllerApiUserPermission) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	if !IsNil(o.Actions) {
+		toSerialize["actions"] = o.Actions
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *IAMTenantAccessControllerApiUserPermission) UnmarshalJSON(data []byte) (err error) {
+	varIAMTenantAccessControllerApiUserPermission := _IAMTenantAccessControllerApiUserPermission{}
+
+	err = json.Unmarshal(data, &varIAMTenantAccessControllerApiUserPermission)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IAMTenantAccessControllerApiUserPermission(varIAMTenantAccessControllerApiUserPermission)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "actions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIAMTenantAccessControllerApiUserPermission struct {
+	value *IAMTenantAccessControllerApiUserPermission
+	isSet bool
+}
+
+func (v NullableIAMTenantAccessControllerApiUserPermission) Get() *IAMTenantAccessControllerApiUserPermission {
+	return v.value
+}
+
+func (v *NullableIAMTenantAccessControllerApiUserPermission) Set(val *IAMTenantAccessControllerApiUserPermission) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIAMTenantAccessControllerApiUserPermission) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIAMTenantAccessControllerApiUserPermission) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIAMTenantAccessControllerApiUserPermission(val *IAMTenantAccessControllerApiUserPermission) *NullableIAMTenantAccessControllerApiUserPermission {
+	return &NullableIAMTenantAccessControllerApiUserPermission{value: val, isSet: true}
+}
+
+func (v NullableIAMTenantAccessControllerApiUserPermission) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIAMTenantAccessControllerApiUserPermission) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

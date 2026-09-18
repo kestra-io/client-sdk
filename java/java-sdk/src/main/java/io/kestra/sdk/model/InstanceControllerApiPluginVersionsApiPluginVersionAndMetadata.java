@@ -1,0 +1,129 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PluginArtifactMetadata;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.JSON_PROPERTY_VERSION,
+  InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.JSON_PROPERTY_METADATA
+})
+@JsonTypeName("InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata")
+public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_METADATA = "metadata";
+  @jakarta.annotation.Nullable  private PluginArtifactMetadata metadata;
+
+  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata() {
+  }
+
+  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata metadata(@jakarta.annotation.Nullable PluginArtifactMetadata metadata) {
+    
+    this.metadata = metadata;
+    return this;
+  }
+
+  /**
+   * Get metadata
+   * @return metadata
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PluginArtifactMetadata getMetadata() {
+    return metadata;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetadata(@jakarta.annotation.Nullable PluginArtifactMetadata metadata) {
+    this.metadata = metadata;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata instanceControllerApiPluginVersionsApiPluginVersionAndMetadata = (InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) o;
+    return Objects.equals(this.version, instanceControllerApiPluginVersionsApiPluginVersionAndMetadata.version) &&
+        Objects.equals(this.metadata, instanceControllerApiPluginVersionsApiPluginVersionAndMetadata.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(version, metadata);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

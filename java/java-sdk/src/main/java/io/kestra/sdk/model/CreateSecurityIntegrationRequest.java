@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.SecurityIntegrationType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Create SecurityIntegration Request
+ */
+@JsonPropertyOrder({
+  CreateSecurityIntegrationRequest.JSON_PROPERTY_NAME,
+  CreateSecurityIntegrationRequest.JSON_PROPERTY_DESCRIPTION,
+  CreateSecurityIntegrationRequest.JSON_PROPERTY_TYPE
+})
+public class CreateSecurityIntegrationRequest {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nonnull  private String description;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private SecurityIntegrationType type;
+
+  public CreateSecurityIntegrationRequest() {
+  }
+
+  public CreateSecurityIntegrationRequest name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * The name of security integration.
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public CreateSecurityIntegrationRequest description(@jakarta.annotation.Nonnull String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * The description of security integration.
+   * @return description
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@jakarta.annotation.Nonnull String description) {
+    this.description = description;
+  }
+
+  public CreateSecurityIntegrationRequest type(@jakarta.annotation.Nonnull SecurityIntegrationType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public SecurityIntegrationType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull SecurityIntegrationType type) {
+    this.type = type;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateSecurityIntegrationRequest createSecurityIntegrationRequest = (CreateSecurityIntegrationRequest) o;
+    return Objects.equals(this.name, createSecurityIntegrationRequest.name) &&
+        Objects.equals(this.description, createSecurityIntegrationRequest.description) &&
+        Objects.equals(this.type, createSecurityIntegrationRequest.type);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, description, type);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateSecurityIntegrationRequest {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

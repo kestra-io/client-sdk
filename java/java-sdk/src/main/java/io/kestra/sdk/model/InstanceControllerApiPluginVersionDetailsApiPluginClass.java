@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginVersionDetailsApiPluginClass
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginVersionDetailsApiPluginClass.JSON_PROPERTY_NAME,
+  InstanceControllerApiPluginVersionDetailsApiPluginClass.JSON_PROPERTY_ICON
+})
+@JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClass")
+public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_ICON = "icon";
+  @jakarta.annotation.Nullable  private String icon;
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass() {
+  }
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@jakarta.annotation.Nullable String icon) {
+    
+    this.icon = icon;
+    return this;
+  }
+
+  /**
+   * Get icon
+   * @return icon
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIcon() {
+    return icon;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
+    this.icon = icon;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginVersionDetailsApiPluginClass instanceControllerApiPluginVersionDetailsApiPluginClass = (InstanceControllerApiPluginVersionDetailsApiPluginClass) o;
+    return Objects.equals(this.name, instanceControllerApiPluginVersionDetailsApiPluginClass.name) &&
+        Objects.equals(this.icon, instanceControllerApiPluginVersionDetailsApiPluginClass.icon);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, icon);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginVersionDetailsApiPluginClass {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

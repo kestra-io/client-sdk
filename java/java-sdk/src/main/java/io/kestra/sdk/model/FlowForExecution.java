@@ -1,0 +1,674 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AbstractTriggerForExecution;
+import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.Output;
+import io.kestra.sdk.model.TaskForExecution;
+import io.kestra.sdk.model.WorkerSelector;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import io.kestra.sdk.model.Label;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowForExecution
+ */
+@JsonPropertyOrder({
+  FlowForExecution.JSON_PROPERTY_ID,
+  FlowForExecution.JSON_PROPERTY_NAMESPACE,
+  FlowForExecution.JSON_PROPERTY_REVISION,
+  FlowForExecution.JSON_PROPERTY_UPDATED,
+  FlowForExecution.JSON_PROPERTY_DESCRIPTION,
+  FlowForExecution.JSON_PROPERTY_INPUTS,
+  FlowForExecution.JSON_PROPERTY_OUTPUTS,
+  FlowForExecution.JSON_PROPERTY_DISABLED,
+  FlowForExecution.JSON_PROPERTY_LABELS,
+  FlowForExecution.JSON_PROPERTY_VARIABLES,
+  FlowForExecution.JSON_PROPERTY_WORKER_SELECTOR,
+  FlowForExecution.JSON_PROPERTY_DELETED,
+  FlowForExecution.JSON_PROPERTY_TASKS,
+  FlowForExecution.JSON_PROPERTY_ERRORS,
+  FlowForExecution.JSON_PROPERTY_FINALLY,
+  FlowForExecution.JSON_PROPERTY_AFTER_EXECUTION,
+  FlowForExecution.JSON_PROPERTY_TRIGGERS,
+  FlowForExecution.JSON_PROPERTY_DRAFT
+})
+public class FlowForExecution {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nonnull  private Boolean disabled;
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels;
+
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Object variables;
+
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_TASKS = "tasks";
+  @jakarta.annotation.Nonnull  private List<TaskForExecution> tasks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  @jakarta.annotation.Nullable  private List<TaskForExecution> errors = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_FINALLY = "finally";
+  @jakarta.annotation.Nullable  private List<TaskForExecution> _finally = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_AFTER_EXECUTION = "afterExecution";
+  @jakarta.annotation.Nullable  private List<TaskForExecution> afterExecution = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TRIGGERS = "triggers";
+  @jakarta.annotation.Nullable  private List<AbstractTriggerForExecution> triggers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nonnull  private Boolean draft;
+
+  public FlowForExecution() {
+  }
+
+  public FlowForExecution id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public FlowForExecution namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public FlowForExecution revision(@jakarta.annotation.Nullable Integer revision) {
+    
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * minimum: 1
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRevision() {
+    return revision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
+  }
+
+  public FlowForExecution updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * The timestamp when this revision was created or last updated.
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
+  }
+
+  public FlowForExecution description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public FlowForExecution inputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  public FlowForExecution addInputsItem(InputObject inputsItem) {
+    if (this.inputs == null) {
+      this.inputs = new ArrayList<>();
+    }
+    this.inputs.add(inputsItem);
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<InputObject> getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
+    this.inputs = inputs;
+  }
+
+  public FlowForExecution outputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  public FlowForExecution addOutputsItem(Output outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new ArrayList<>();
+    }
+    this.outputs.add(outputsItem);
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Output> getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    this.outputs = outputs;
+  }
+
+  public FlowForExecution disabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public FlowForExecution labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
+  }
+
+  public FlowForExecution variables(@jakarta.annotation.Nullable Object variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Object variables) {
+    this.variables = variables;
+  }
+
+  public FlowForExecution workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    
+    this.workerSelector = workerSelector;
+    return this;
+  }
+
+  /**
+   * Get workerSelector
+   * @return workerSelector
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
+  }
+
+  public FlowForExecution deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public FlowForExecution tasks(@jakarta.annotation.Nonnull List<TaskForExecution> tasks) {
+    
+    this.tasks = tasks;
+    return this;
+  }
+
+  public FlowForExecution addTasksItem(TaskForExecution tasksItem) {
+    if (this.tasks == null) {
+      this.tasks = new ArrayList<>();
+    }
+    this.tasks.add(tasksItem);
+    return this;
+  }
+
+  /**
+   * Get tasks
+   * @return tasks
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<TaskForExecution> getTasks() {
+    return tasks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTasks(@jakarta.annotation.Nonnull List<TaskForExecution> tasks) {
+    this.tasks = tasks;
+  }
+
+  public FlowForExecution errors(@jakarta.annotation.Nullable List<TaskForExecution> errors) {
+    
+    this.errors = errors;
+    return this;
+  }
+
+  public FlowForExecution addErrorsItem(TaskForExecution errorsItem) {
+    if (this.errors == null) {
+      this.errors = new ArrayList<>();
+    }
+    this.errors.add(errorsItem);
+    return this;
+  }
+
+  /**
+   * Get errors
+   * @return errors
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskForExecution> getErrors() {
+    return errors;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrors(@jakarta.annotation.Nullable List<TaskForExecution> errors) {
+    this.errors = errors;
+  }
+
+  public FlowForExecution _finally(@jakarta.annotation.Nullable List<TaskForExecution> _finally) {
+    
+    this._finally = _finally;
+    return this;
+  }
+
+  public FlowForExecution addFinallyItem(TaskForExecution _finallyItem) {
+    if (this._finally == null) {
+      this._finally = new ArrayList<>();
+    }
+    this._finally.add(_finallyItem);
+    return this;
+  }
+
+  /**
+   * Get _finally
+   * @return _finally
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FINALLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskForExecution> getFinally() {
+    return _finally;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FINALLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFinally(@jakarta.annotation.Nullable List<TaskForExecution> _finally) {
+    this._finally = _finally;
+  }
+
+  public FlowForExecution afterExecution(@jakarta.annotation.Nullable List<TaskForExecution> afterExecution) {
+    
+    this.afterExecution = afterExecution;
+    return this;
+  }
+
+  public FlowForExecution addAfterExecutionItem(TaskForExecution afterExecutionItem) {
+    if (this.afterExecution == null) {
+      this.afterExecution = new ArrayList<>();
+    }
+    this.afterExecution.add(afterExecutionItem);
+    return this;
+  }
+
+  /**
+   * Get afterExecution
+   * @return afterExecution
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskForExecution> getAfterExecution() {
+    return afterExecution;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAfterExecution(@jakarta.annotation.Nullable List<TaskForExecution> afterExecution) {
+    this.afterExecution = afterExecution;
+  }
+
+  public FlowForExecution triggers(@jakarta.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
+    
+    this.triggers = triggers;
+    return this;
+  }
+
+  public FlowForExecution addTriggersItem(AbstractTriggerForExecution triggersItem) {
+    if (this.triggers == null) {
+      this.triggers = new ArrayList<>();
+    }
+    this.triggers.add(triggersItem);
+    return this;
+  }
+
+  /**
+   * Get triggers
+   * @return triggers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AbstractTriggerForExecution> getTriggers() {
+    return triggers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTriggers(@jakarta.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
+    this.triggers = triggers;
+  }
+
+  public FlowForExecution draft(@jakarta.annotation.Nonnull Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
+    this.draft = draft;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowForExecution flowForExecution = (FlowForExecution) o;
+    return Objects.equals(this.id, flowForExecution.id) &&
+        Objects.equals(this.namespace, flowForExecution.namespace) &&
+        Objects.equals(this.revision, flowForExecution.revision) &&
+        Objects.equals(this.updated, flowForExecution.updated) &&
+        Objects.equals(this.description, flowForExecution.description) &&
+        Objects.equals(this.inputs, flowForExecution.inputs) &&
+        Objects.equals(this.outputs, flowForExecution.outputs) &&
+        Objects.equals(this.disabled, flowForExecution.disabled) &&
+        Objects.equals(this.labels, flowForExecution.labels) &&
+        Objects.equals(this.variables, flowForExecution.variables) &&
+        Objects.equals(this.workerSelector, flowForExecution.workerSelector) &&
+        Objects.equals(this.deleted, flowForExecution.deleted) &&
+        Objects.equals(this.tasks, flowForExecution.tasks) &&
+        Objects.equals(this.errors, flowForExecution.errors) &&
+        Objects.equals(this._finally, flowForExecution._finally) &&
+        Objects.equals(this.afterExecution, flowForExecution.afterExecution) &&
+        Objects.equals(this.triggers, flowForExecution.triggers) &&
+        Objects.equals(this.draft, flowForExecution.draft);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, tasks, errors, _finally, afterExecution, triggers, draft);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowForExecution {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
+    sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
+    sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

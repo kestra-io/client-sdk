@@ -1,0 +1,626 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the LogEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogEntry{}
+
+// LogEntry struct for LogEntry
+type LogEntry struct {
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId NullableString `json:"taskId,omitempty"`
+	ExecutionId NullableString `json:"executionId,omitempty"`
+	TaskRunId NullableString `json:"taskRunId,omitempty"`
+	AttemptNumber NullableInt32 `json:"attemptNumber,omitempty"`
+	TriggerId NullableString `json:"triggerId,omitempty"`
+	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Level *Level `json:"level,omitempty"`
+	Thread *string `json:"thread,omitempty"`
+	Message *string `json:"message,omitempty"`
+	ExecutionKind NullableExecutionKind `json:"executionKind,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _LogEntry LogEntry
+
+// NewLogEntry instantiates a new LogEntry object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewLogEntry(namespace string, flowId string) *LogEntry {
+	this := LogEntry{}
+	this.Namespace = namespace
+	this.FlowId = flowId
+	return &this
+}
+
+// NewLogEntryWithDefaults instantiates a new LogEntry object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewLogEntryWithDefaults() *LogEntry {
+	this := LogEntry{}
+	return &this
+}
+
+// GetNamespace returns the Namespace field value
+func (o *LogEntry) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *LogEntry) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetFlowId returns the FlowId field value
+func (o *LogEntry) GetFlowId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlowId, true
+}
+
+// SetFlowId sets field value
+func (o *LogEntry) SetFlowId(v string) {
+	o.FlowId = v
+}
+
+// GetTaskId returns the TaskId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetTaskId() string {
+	if o == nil || IsNil(o.TaskId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TaskId.Get()
+}
+
+// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetTaskIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TaskId.Get(), o.TaskId.IsSet()
+}
+
+// HasTaskId returns a boolean if a field has been set.
+func (o *LogEntry) HasTaskId() bool {
+	if o != nil && o.TaskId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskId gets a reference to the given NullableString and assigns it to the TaskId field.
+func (o *LogEntry) SetTaskId(v string) {
+	o.TaskId.Set(&v)
+}
+// SetTaskIdNil sets the value for TaskId to be an explicit nil
+func (o *LogEntry) SetTaskIdNil() {
+	o.TaskId.Set(nil)
+}
+
+// UnsetTaskId ensures that no value is present for TaskId, not even an explicit nil
+func (o *LogEntry) UnsetTaskId() {
+	o.TaskId.Unset()
+}
+
+// GetExecutionId returns the ExecutionId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetExecutionId() string {
+	if o == nil || IsNil(o.ExecutionId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExecutionId.Get()
+}
+
+// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetExecutionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExecutionId.Get(), o.ExecutionId.IsSet()
+}
+
+// HasExecutionId returns a boolean if a field has been set.
+func (o *LogEntry) HasExecutionId() bool {
+	if o != nil && o.ExecutionId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionId gets a reference to the given NullableString and assigns it to the ExecutionId field.
+func (o *LogEntry) SetExecutionId(v string) {
+	o.ExecutionId.Set(&v)
+}
+// SetExecutionIdNil sets the value for ExecutionId to be an explicit nil
+func (o *LogEntry) SetExecutionIdNil() {
+	o.ExecutionId.Set(nil)
+}
+
+// UnsetExecutionId ensures that no value is present for ExecutionId, not even an explicit nil
+func (o *LogEntry) UnsetExecutionId() {
+	o.ExecutionId.Unset()
+}
+
+// GetTaskRunId returns the TaskRunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetTaskRunId() string {
+	if o == nil || IsNil(o.TaskRunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TaskRunId.Get()
+}
+
+// GetTaskRunIdOk returns a tuple with the TaskRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetTaskRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TaskRunId.Get(), o.TaskRunId.IsSet()
+}
+
+// HasTaskRunId returns a boolean if a field has been set.
+func (o *LogEntry) HasTaskRunId() bool {
+	if o != nil && o.TaskRunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskRunId gets a reference to the given NullableString and assigns it to the TaskRunId field.
+func (o *LogEntry) SetTaskRunId(v string) {
+	o.TaskRunId.Set(&v)
+}
+// SetTaskRunIdNil sets the value for TaskRunId to be an explicit nil
+func (o *LogEntry) SetTaskRunIdNil() {
+	o.TaskRunId.Set(nil)
+}
+
+// UnsetTaskRunId ensures that no value is present for TaskRunId, not even an explicit nil
+func (o *LogEntry) UnsetTaskRunId() {
+	o.TaskRunId.Unset()
+}
+
+// GetAttemptNumber returns the AttemptNumber field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetAttemptNumber() int32 {
+	if o == nil || IsNil(o.AttemptNumber.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.AttemptNumber.Get()
+}
+
+// GetAttemptNumberOk returns a tuple with the AttemptNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetAttemptNumberOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AttemptNumber.Get(), o.AttemptNumber.IsSet()
+}
+
+// HasAttemptNumber returns a boolean if a field has been set.
+func (o *LogEntry) HasAttemptNumber() bool {
+	if o != nil && o.AttemptNumber.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAttemptNumber gets a reference to the given NullableInt32 and assigns it to the AttemptNumber field.
+func (o *LogEntry) SetAttemptNumber(v int32) {
+	o.AttemptNumber.Set(&v)
+}
+// SetAttemptNumberNil sets the value for AttemptNumber to be an explicit nil
+func (o *LogEntry) SetAttemptNumberNil() {
+	o.AttemptNumber.Set(nil)
+}
+
+// UnsetAttemptNumber ensures that no value is present for AttemptNumber, not even an explicit nil
+func (o *LogEntry) UnsetAttemptNumber() {
+	o.AttemptNumber.Unset()
+}
+
+// GetTriggerId returns the TriggerId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetTriggerId() string {
+	if o == nil || IsNil(o.TriggerId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TriggerId.Get()
+}
+
+// GetTriggerIdOk returns a tuple with the TriggerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetTriggerIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TriggerId.Get(), o.TriggerId.IsSet()
+}
+
+// HasTriggerId returns a boolean if a field has been set.
+func (o *LogEntry) HasTriggerId() bool {
+	if o != nil && o.TriggerId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerId gets a reference to the given NullableString and assigns it to the TriggerId field.
+func (o *LogEntry) SetTriggerId(v string) {
+	o.TriggerId.Set(&v)
+}
+// SetTriggerIdNil sets the value for TriggerId to be an explicit nil
+func (o *LogEntry) SetTriggerIdNil() {
+	o.TriggerId.Set(nil)
+}
+
+// UnsetTriggerId ensures that no value is present for TriggerId, not even an explicit nil
+func (o *LogEntry) UnsetTriggerId() {
+	o.TriggerId.Unset()
+}
+
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *LogEntry) GetTimestamp() time.Time {
+	if o == nil || IsNil(o.Timestamp) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetTimestampOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Timestamp) {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *LogEntry) HasTimestamp() bool {
+	if o != nil && !IsNil(o.Timestamp) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
+func (o *LogEntry) SetTimestamp(v time.Time) {
+	o.Timestamp = &v
+}
+
+// GetLevel returns the Level field value if set, zero value otherwise.
+func (o *LogEntry) GetLevel() Level {
+	if o == nil || IsNil(o.Level) {
+		var ret Level
+		return ret
+	}
+	return *o.Level
+}
+
+// GetLevelOk returns a tuple with the Level field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetLevelOk() (*Level, bool) {
+	if o == nil || IsNil(o.Level) {
+		return nil, false
+	}
+	return o.Level, true
+}
+
+// HasLevel returns a boolean if a field has been set.
+func (o *LogEntry) HasLevel() bool {
+	if o != nil && !IsNil(o.Level) {
+		return true
+	}
+
+	return false
+}
+
+// SetLevel gets a reference to the given Level and assigns it to the Level field.
+func (o *LogEntry) SetLevel(v Level) {
+	o.Level = &v
+}
+
+// GetThread returns the Thread field value if set, zero value otherwise.
+func (o *LogEntry) GetThread() string {
+	if o == nil || IsNil(o.Thread) {
+		var ret string
+		return ret
+	}
+	return *o.Thread
+}
+
+// GetThreadOk returns a tuple with the Thread field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetThreadOk() (*string, bool) {
+	if o == nil || IsNil(o.Thread) {
+		return nil, false
+	}
+	return o.Thread, true
+}
+
+// HasThread returns a boolean if a field has been set.
+func (o *LogEntry) HasThread() bool {
+	if o != nil && !IsNil(o.Thread) {
+		return true
+	}
+
+	return false
+}
+
+// SetThread gets a reference to the given string and assigns it to the Thread field.
+func (o *LogEntry) SetThread(v string) {
+	o.Thread = &v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *LogEntry) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogEntry) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *LogEntry) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *LogEntry) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetExecutionKind returns the ExecutionKind field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogEntry) GetExecutionKind() ExecutionKind {
+	if o == nil || IsNil(o.ExecutionKind.Get()) {
+		var ret ExecutionKind
+		return ret
+	}
+	return *o.ExecutionKind.Get()
+}
+
+// GetExecutionKindOk returns a tuple with the ExecutionKind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogEntry) GetExecutionKindOk() (*ExecutionKind, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExecutionKind.Get(), o.ExecutionKind.IsSet()
+}
+
+// HasExecutionKind returns a boolean if a field has been set.
+func (o *LogEntry) HasExecutionKind() bool {
+	if o != nil && o.ExecutionKind.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionKind gets a reference to the given NullableExecutionKind and assigns it to the ExecutionKind field.
+func (o *LogEntry) SetExecutionKind(v ExecutionKind) {
+	o.ExecutionKind.Set(&v)
+}
+// SetExecutionKindNil sets the value for ExecutionKind to be an explicit nil
+func (o *LogEntry) SetExecutionKindNil() {
+	o.ExecutionKind.Set(nil)
+}
+
+// UnsetExecutionKind ensures that no value is present for ExecutionKind, not even an explicit nil
+func (o *LogEntry) UnsetExecutionKind() {
+	o.ExecutionKind.Unset()
+}
+
+func (o LogEntry) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	if o.TaskId.IsSet() {
+		toSerialize["taskId"] = o.TaskId.Get()
+	}
+	if o.ExecutionId.IsSet() {
+		toSerialize["executionId"] = o.ExecutionId.Get()
+	}
+	if o.TaskRunId.IsSet() {
+		toSerialize["taskRunId"] = o.TaskRunId.Get()
+	}
+	if o.AttemptNumber.IsSet() {
+		toSerialize["attemptNumber"] = o.AttemptNumber.Get()
+	}
+	if o.TriggerId.IsSet() {
+		toSerialize["triggerId"] = o.TriggerId.Get()
+	}
+	if !IsNil(o.Timestamp) {
+		toSerialize["timestamp"] = o.Timestamp
+	}
+	if !IsNil(o.Level) {
+		toSerialize["level"] = o.Level
+	}
+	if !IsNil(o.Thread) {
+		toSerialize["thread"] = o.Thread
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if o.ExecutionKind.IsSet() {
+		toSerialize["executionKind"] = o.ExecutionKind.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *LogEntry) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"namespace",
+		"flowId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLogEntry := _LogEntry{}
+
+	err = json.Unmarshal(data, &varLogEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LogEntry(varLogEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "taskRunId")
+		delete(additionalProperties, "attemptNumber")
+		delete(additionalProperties, "triggerId")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "thread")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "executionKind")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableLogEntry struct {
+	value *LogEntry
+	isSet bool
+}
+
+func (v NullableLogEntry) Get() *LogEntry {
+	return v.value
+}
+
+func (v *NullableLogEntry) Set(val *LogEntry) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableLogEntry) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableLogEntry) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableLogEntry(val *LogEntry) *NullableLogEntry {
+	return &NullableLogEntry{value: val, isSet: true}
+}
+
+func (v NullableLogEntry) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableLogEntry) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

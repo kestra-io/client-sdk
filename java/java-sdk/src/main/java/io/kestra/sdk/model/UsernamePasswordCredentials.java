@@ -1,0 +1,216 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * UsernamePasswordCredentials
+ */
+@JsonPropertyOrder({
+  UsernamePasswordCredentials.JSON_PROPERTY_USERNAME,
+  UsernamePasswordCredentials.JSON_PROPERTY_PASSWORD,
+  UsernamePasswordCredentials.JSON_PROPERTY_IDENTITY,
+  UsernamePasswordCredentials.JSON_PROPERTY_SECRET
+})
+public class UsernamePasswordCredentials {
+  public static final String JSON_PROPERTY_USERNAME = "username";
+  @jakarta.annotation.Nullable  private String username;
+
+  public static final String JSON_PROPERTY_PASSWORD = "password";
+  @jakarta.annotation.Nullable  private String password;
+
+  public static final String JSON_PROPERTY_IDENTITY = "identity";
+  @jakarta.annotation.Nullable  private JsonNullable<String> identity = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_SECRET = "secret";
+  @jakarta.annotation.Nullable  private JsonNullable<String> secret = JsonNullable.<String>undefined();
+
+  public UsernamePasswordCredentials() {
+  }
+
+  public UsernamePasswordCredentials username(@jakarta.annotation.Nullable String username) {
+    
+    this.username = username;
+    return this;
+  }
+
+  /**
+   * Get username
+   * @return username
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUsername() {
+    return username;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@jakarta.annotation.Nullable String username) {
+    this.username = username;
+  }
+
+  public UsernamePasswordCredentials password(@jakarta.annotation.Nullable String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+  /**
+   * Get password
+   * @return password
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPassword(@jakarta.annotation.Nullable String password) {
+    this.password = password;
+  }
+
+  public UsernamePasswordCredentials identity(@jakarta.annotation.Nullable String identity) {
+    this.identity = JsonNullable.<String>of(identity);
+    
+    return this;
+  }
+
+  /**
+   * Get identity
+   * @return identity
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getIdentity() {
+        return identity.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getIdentity_JsonNullable() {
+    return identity;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  public void setIdentity_JsonNullable(JsonNullable<String> identity) {
+    this.identity = identity;
+  }
+
+  public void setIdentity(@jakarta.annotation.Nullable String identity) {
+    this.identity = JsonNullable.<String>of(identity);
+  }
+
+  public UsernamePasswordCredentials secret(@jakarta.annotation.Nullable String secret) {
+    this.secret = JsonNullable.<String>of(secret);
+    
+    return this;
+  }
+
+  /**
+   * Get secret
+   * @return secret
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getSecret() {
+        return secret.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_SECRET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getSecret_JsonNullable() {
+    return secret;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_SECRET)
+  public void setSecret_JsonNullable(JsonNullable<String> secret) {
+    this.secret = secret;
+  }
+
+  public void setSecret(@jakarta.annotation.Nullable String secret) {
+    this.secret = JsonNullable.<String>of(secret);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UsernamePasswordCredentials usernamePasswordCredentials = (UsernamePasswordCredentials) o;
+    return Objects.equals(this.username, usernamePasswordCredentials.username) &&
+        Objects.equals(this.password, usernamePasswordCredentials.password) &&
+        equalsNullable(this.identity, usernamePasswordCredentials.identity) &&
+        equalsNullable(this.secret, usernamePasswordCredentials.secret);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(username, password, hashCodeNullable(identity), hashCodeNullable(secret));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UsernamePasswordCredentials {\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
+    sb.append("    secret: ").append(toIndentedString(secret)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

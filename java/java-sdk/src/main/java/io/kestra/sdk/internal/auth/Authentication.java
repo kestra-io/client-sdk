@@ -1,0 +1,26 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.internal.auth;
+
+import io.kestra.sdk.internal.Pair;
+
+import java.util.Map;
+import java.util.List;
+
+public interface Authentication {
+    /**
+     * Apply authentication settings to header and query params.
+     *
+     * @param queryParams List of query parameters
+     * @param headerParams Map of header parameters
+     * @param cookieParams Map of cookie parameters
+     */
+    void applyToParams(List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams);
+}

@@ -1,0 +1,195 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Concurrency type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Concurrency{}
+
+// Concurrency struct for Concurrency
+type Concurrency struct {
+	Limit int32 `json:"limit"`
+	Behavior ConcurrencyBehavior `json:"behavior"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Concurrency Concurrency
+
+// NewConcurrency instantiates a new Concurrency object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewConcurrency(limit int32, behavior ConcurrencyBehavior) *Concurrency {
+	this := Concurrency{}
+	this.Limit = limit
+	this.Behavior = behavior
+	return &this
+}
+
+// NewConcurrencyWithDefaults instantiates a new Concurrency object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewConcurrencyWithDefaults() *Concurrency {
+	this := Concurrency{}
+	return &this
+}
+
+// GetLimit returns the Limit field value
+func (o *Concurrency) GetLimit() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field value
+// and a boolean to check if the value has been set.
+func (o *Concurrency) GetLimitOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Limit, true
+}
+
+// SetLimit sets field value
+func (o *Concurrency) SetLimit(v int32) {
+	o.Limit = v
+}
+
+// GetBehavior returns the Behavior field value
+func (o *Concurrency) GetBehavior() ConcurrencyBehavior {
+	if o == nil {
+		var ret ConcurrencyBehavior
+		return ret
+	}
+
+	return o.Behavior
+}
+
+// GetBehaviorOk returns a tuple with the Behavior field value
+// and a boolean to check if the value has been set.
+func (o *Concurrency) GetBehaviorOk() (*ConcurrencyBehavior, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Behavior, true
+}
+
+// SetBehavior sets field value
+func (o *Concurrency) SetBehavior(v ConcurrencyBehavior) {
+	o.Behavior = v
+}
+
+func (o Concurrency) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Concurrency) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["limit"] = o.Limit
+	toSerialize["behavior"] = o.Behavior
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Concurrency) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"limit",
+		"behavior",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varConcurrency := _Concurrency{}
+
+	err = json.Unmarshal(data, &varConcurrency)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Concurrency(varConcurrency)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "behavior")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableConcurrency struct {
+	value *Concurrency
+	isSet bool
+}
+
+func (v NullableConcurrency) Get() *Concurrency {
+	return v.value
+}
+
+func (v *NullableConcurrency) Set(val *Concurrency) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableConcurrency) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableConcurrency) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableConcurrency(val *Concurrency) *NullableConcurrency {
+	return &NullableConcurrency{value: val, isSet: true}
+}
+
+func (v NullableConcurrency) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableConcurrency) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,269 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMTenantAccessControllerApiAuthentication;
+import io.kestra.sdk.model.IAMTenantAccessControllerApiGroup;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMTenantAccessControllerApiUserTenantAccess
+ */
+@JsonPropertyOrder({
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_ID,
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_USERNAME,
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_DISPLAY_NAME,
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_DESCRIPTION,
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_GROUPS,
+  IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_AUTHS
+})
+@JsonTypeName("IAMTenantAccessController.ApiUserTenantAccess")
+public class IAMTenantAccessControllerApiUserTenantAccess {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_USERNAME = "username";
+  @jakarta.annotation.Nullable  private String username;
+
+  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+  @jakarta.annotation.Nullable  private String displayName;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_AUTHS = "auths";
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
+
+  public IAMTenantAccessControllerApiUserTenantAccess() {
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess username(@jakarta.annotation.Nullable String username) {
+    
+    this.username = username;
+    return this;
+  }
+
+  /**
+   * Get username
+   * @return username
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUsername() {
+    return username;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@jakarta.annotation.Nullable String username) {
+    this.username = username;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess displayName(@jakarta.annotation.Nullable String displayName) {
+    
+    this.displayName = displayName;
+    return this;
+  }
+
+  /**
+   * Get displayName
+   * @return displayName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDisplayName() {
+    return displayName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
+    this.displayName = displayName;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess groups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess addGroupsItem(IAMTenantAccessControllerApiGroup groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMTenantAccessControllerApiGroup> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
+    this.groups = groups;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess auths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+    
+    this.auths = auths;
+    return this;
+  }
+
+  public IAMTenantAccessControllerApiUserTenantAccess addAuthsItem(IAMTenantAccessControllerApiAuthentication authsItem) {
+    if (this.auths == null) {
+      this.auths = new ArrayList<>();
+    }
+    this.auths.add(authsItem);
+    return this;
+  }
+
+  /**
+   * Get auths
+   * @return auths
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
+    return auths;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+    this.auths = auths;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMTenantAccessControllerApiUserTenantAccess iaMTenantAccessControllerApiUserTenantAccess = (IAMTenantAccessControllerApiUserTenantAccess) o;
+    return Objects.equals(this.id, iaMTenantAccessControllerApiUserTenantAccess.id) &&
+        Objects.equals(this.username, iaMTenantAccessControllerApiUserTenantAccess.username) &&
+        Objects.equals(this.displayName, iaMTenantAccessControllerApiUserTenantAccess.displayName) &&
+        Objects.equals(this.description, iaMTenantAccessControllerApiUserTenantAccess.description) &&
+        Objects.equals(this.groups, iaMTenantAccessControllerApiUserTenantAccess.groups) &&
+        Objects.equals(this.auths, iaMTenantAccessControllerApiUserTenantAccess.auths);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username, displayName, description, groups, auths);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMTenantAccessControllerApiUserTenantAccess {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

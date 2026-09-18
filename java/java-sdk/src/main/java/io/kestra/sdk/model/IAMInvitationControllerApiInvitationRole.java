@@ -1,0 +1,139 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMInvitationControllerApiInvitationRole
+ */
+@JsonPropertyOrder({
+  IAMInvitationControllerApiInvitationRole.JSON_PROPERTY_ID,
+  IAMInvitationControllerApiInvitationRole.JSON_PROPERTY_NAMESPACES
+})
+@JsonTypeName("IAMInvitationController.ApiInvitationRole")
+public class IAMInvitationControllerApiInvitationRole {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
+  @jakarta.annotation.Nullable  private List<String> namespaces = new ArrayList<>();
+
+  public IAMInvitationControllerApiInvitationRole() {
+  }
+
+  public IAMInvitationControllerApiInvitationRole id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public IAMInvitationControllerApiInvitationRole namespaces(@jakarta.annotation.Nullable List<String> namespaces) {
+    
+    this.namespaces = namespaces;
+    return this;
+  }
+
+  public IAMInvitationControllerApiInvitationRole addNamespacesItem(String namespacesItem) {
+    if (this.namespaces == null) {
+      this.namespaces = new ArrayList<>();
+    }
+    this.namespaces.add(namespacesItem);
+    return this;
+  }
+
+  /**
+   * Get namespaces
+   * @return namespaces
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getNamespaces() {
+    return namespaces;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespaces(@jakarta.annotation.Nullable List<String> namespaces) {
+    this.namespaces = namespaces;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMInvitationControllerApiInvitationRole iaMInvitationControllerApiInvitationRole = (IAMInvitationControllerApiInvitationRole) o;
+    return Objects.equals(this.id, iaMInvitationControllerApiInvitationRole.id) &&
+        Objects.equals(this.namespaces, iaMInvitationControllerApiInvitationRole.namespaces);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, namespaces);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMInvitationControllerApiInvitationRole {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    namespaces: ").append(toIndentedString(namespaces)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

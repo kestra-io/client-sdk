@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the SortRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SortRequest{}
+
+// SortRequest struct for SortRequest
+type SortRequest struct {
+	SortBy *AttributeReference `json:"sortBy,omitempty"`
+	SortOrder *SortOrder `json:"sortOrder,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _SortRequest SortRequest
+
+// NewSortRequest instantiates a new SortRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSortRequest() *SortRequest {
+	this := SortRequest{}
+	return &this
+}
+
+// NewSortRequestWithDefaults instantiates a new SortRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSortRequestWithDefaults() *SortRequest {
+	this := SortRequest{}
+	return &this
+}
+
+// GetSortBy returns the SortBy field value if set, zero value otherwise.
+func (o *SortRequest) GetSortBy() AttributeReference {
+	if o == nil || IsNil(o.SortBy) {
+		var ret AttributeReference
+		return ret
+	}
+	return *o.SortBy
+}
+
+// GetSortByOk returns a tuple with the SortBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SortRequest) GetSortByOk() (*AttributeReference, bool) {
+	if o == nil || IsNil(o.SortBy) {
+		return nil, false
+	}
+	return o.SortBy, true
+}
+
+// HasSortBy returns a boolean if a field has been set.
+func (o *SortRequest) HasSortBy() bool {
+	if o != nil && !IsNil(o.SortBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetSortBy gets a reference to the given AttributeReference and assigns it to the SortBy field.
+func (o *SortRequest) SetSortBy(v AttributeReference) {
+	o.SortBy = &v
+}
+
+// GetSortOrder returns the SortOrder field value if set, zero value otherwise.
+func (o *SortRequest) GetSortOrder() SortOrder {
+	if o == nil || IsNil(o.SortOrder) {
+		var ret SortOrder
+		return ret
+	}
+	return *o.SortOrder
+}
+
+// GetSortOrderOk returns a tuple with the SortOrder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SortRequest) GetSortOrderOk() (*SortOrder, bool) {
+	if o == nil || IsNil(o.SortOrder) {
+		return nil, false
+	}
+	return o.SortOrder, true
+}
+
+// HasSortOrder returns a boolean if a field has been set.
+func (o *SortRequest) HasSortOrder() bool {
+	if o != nil && !IsNil(o.SortOrder) {
+		return true
+	}
+
+	return false
+}
+
+// SetSortOrder gets a reference to the given SortOrder and assigns it to the SortOrder field.
+func (o *SortRequest) SetSortOrder(v SortOrder) {
+	o.SortOrder = &v
+}
+
+func (o SortRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SortRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SortBy) {
+		toSerialize["sortBy"] = o.SortBy
+	}
+	if !IsNil(o.SortOrder) {
+		toSerialize["sortOrder"] = o.SortOrder
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *SortRequest) UnmarshalJSON(data []byte) (err error) {
+	varSortRequest := _SortRequest{}
+
+	err = json.Unmarshal(data, &varSortRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SortRequest(varSortRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sortBy")
+		delete(additionalProperties, "sortOrder")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableSortRequest struct {
+	value *SortRequest
+	isSet bool
+}
+
+func (v NullableSortRequest) Get() *SortRequest {
+	return v.value
+}
+
+func (v *NullableSortRequest) Set(val *SortRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSortRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSortRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSortRequest(val *SortRequest) *NullableSortRequest {
+	return &NullableSortRequest{value: val, isSet: true}
+}
+
+func (v NullableSortRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSortRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

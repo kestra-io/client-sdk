@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MeControllerApiUpdatePasswordRequest
+ */
+@JsonPropertyOrder({
+  MeControllerApiUpdatePasswordRequest.JSON_PROPERTY_OLD_PASSWORD,
+  MeControllerApiUpdatePasswordRequest.JSON_PROPERTY_NEW_PASSWORD
+})
+@JsonTypeName("MeController.ApiUpdatePasswordRequest")
+public class MeControllerApiUpdatePasswordRequest {
+  public static final String JSON_PROPERTY_OLD_PASSWORD = "oldPassword";
+  @jakarta.annotation.Nullable  private String oldPassword;
+
+  public static final String JSON_PROPERTY_NEW_PASSWORD = "newPassword";
+  @jakarta.annotation.Nullable  private String newPassword;
+
+  public MeControllerApiUpdatePasswordRequest() {
+  }
+
+  public MeControllerApiUpdatePasswordRequest oldPassword(@jakarta.annotation.Nullable String oldPassword) {
+    
+    this.oldPassword = oldPassword;
+    return this;
+  }
+
+  /**
+   * Get oldPassword
+   * @return oldPassword
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getOldPassword() {
+    return oldPassword;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOldPassword(@jakarta.annotation.Nullable String oldPassword) {
+    this.oldPassword = oldPassword;
+  }
+
+  public MeControllerApiUpdatePasswordRequest newPassword(@jakarta.annotation.Nullable String newPassword) {
+    
+    this.newPassword = newPassword;
+    return this;
+  }
+
+  /**
+   * Get newPassword
+   * @return newPassword
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNewPassword() {
+    return newPassword;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNewPassword(@jakarta.annotation.Nullable String newPassword) {
+    this.newPassword = newPassword;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest = (MeControllerApiUpdatePasswordRequest) o;
+    return Objects.equals(this.oldPassword, meControllerApiUpdatePasswordRequest.oldPassword) &&
+        Objects.equals(this.newPassword, meControllerApiUpdatePasswordRequest.newPassword);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(oldPassword, newPassword);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MeControllerApiUpdatePasswordRequest {\n");
+    sb.append("    oldPassword: ").append(toIndentedString(oldPassword)).append("\n");
+    sb.append("    newPassword: ").append(toIndentedString(newPassword)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

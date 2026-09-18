@@ -1,0 +1,140 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TriggerControllerApiTriggerId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TriggerControllerSetDisabledRequest
+ */
+@JsonPropertyOrder({
+  TriggerControllerSetDisabledRequest.JSON_PROPERTY_TRIGGERS,
+  TriggerControllerSetDisabledRequest.JSON_PROPERTY_DISABLED
+})
+@JsonTypeName("TriggerController.SetDisabledRequest")
+public class TriggerControllerSetDisabledRequest {
+  public static final String JSON_PROPERTY_TRIGGERS = "triggers";
+  @jakarta.annotation.Nonnull  private List<TriggerControllerApiTriggerId> triggers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nonnull  private Boolean disabled;
+
+  public TriggerControllerSetDisabledRequest() {
+  }
+
+  public TriggerControllerSetDisabledRequest triggers(@jakarta.annotation.Nonnull List<TriggerControllerApiTriggerId> triggers) {
+    
+    this.triggers = triggers;
+    return this;
+  }
+
+  public TriggerControllerSetDisabledRequest addTriggersItem(TriggerControllerApiTriggerId triggersItem) {
+    if (this.triggers == null) {
+      this.triggers = new ArrayList<>();
+    }
+    this.triggers.add(triggersItem);
+    return this;
+  }
+
+  /**
+   * Get triggers
+   * @return triggers
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<TriggerControllerApiTriggerId> getTriggers() {
+    return triggers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTriggers(@jakarta.annotation.Nonnull List<TriggerControllerApiTriggerId> triggers) {
+    this.triggers = triggers;
+  }
+
+  public TriggerControllerSetDisabledRequest disabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest = (TriggerControllerSetDisabledRequest) o;
+    return Objects.equals(this.triggers, triggerControllerSetDisabledRequest.triggers) &&
+        Objects.equals(this.disabled, triggerControllerSetDisabledRequest.disabled);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(triggers, disabled);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TriggerControllerSetDisabledRequest {\n");
+    sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

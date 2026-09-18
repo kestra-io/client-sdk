@@ -1,0 +1,121 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// SchemaAttributeType the model 'SchemaAttributeType'
+type SchemaAttributeType string
+
+// List of Schema.Attribute.Type
+const (
+	SCHEMAATTRIBUTETYPE_BINARY SchemaAttributeType = "BINARY"
+	SCHEMAATTRIBUTETYPE_BOOLEAN SchemaAttributeType = "BOOLEAN"
+	SCHEMAATTRIBUTETYPE_COMPLEX SchemaAttributeType = "COMPLEX"
+	SCHEMAATTRIBUTETYPE_DATE_TIME SchemaAttributeType = "DATE_TIME"
+	SCHEMAATTRIBUTETYPE_DECIMAL SchemaAttributeType = "DECIMAL"
+	SCHEMAATTRIBUTETYPE_INTEGER SchemaAttributeType = "INTEGER"
+	SCHEMAATTRIBUTETYPE_REFERENCE SchemaAttributeType = "REFERENCE"
+	SCHEMAATTRIBUTETYPE_STRING SchemaAttributeType = "STRING"
+)
+
+// All allowed values of SchemaAttributeType enum
+var AllowedSchemaAttributeTypeEnumValues = []SchemaAttributeType{
+	"BINARY",
+	"BOOLEAN",
+	"COMPLEX",
+	"DATE_TIME",
+	"DECIMAL",
+	"INTEGER",
+	"REFERENCE",
+	"STRING",
+}
+
+func (v *SchemaAttributeType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := SchemaAttributeType(value)
+	for _, existing := range AllowedSchemaAttributeTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SchemaAttributeType", value)
+}
+
+// NewSchemaAttributeTypeFromValue returns a pointer to a valid SchemaAttributeType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewSchemaAttributeTypeFromValue(v string) (*SchemaAttributeType, error) {
+	ev := SchemaAttributeType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for SchemaAttributeType: valid values are %v", v, AllowedSchemaAttributeTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v SchemaAttributeType) IsValid() bool {
+	for _, existing := range AllowedSchemaAttributeTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Schema.Attribute.Type value
+func (v SchemaAttributeType) Ptr() *SchemaAttributeType {
+	return &v
+}
+
+type NullableSchemaAttributeType struct {
+	value *SchemaAttributeType
+	isSet bool
+}
+
+func (v NullableSchemaAttributeType) Get() *SchemaAttributeType {
+	return v.value
+}
+
+func (v *NullableSchemaAttributeType) Set(val *SchemaAttributeType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSchemaAttributeType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSchemaAttributeType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSchemaAttributeType(val *SchemaAttributeType) *NullableSchemaAttributeType {
+	return &NullableSchemaAttributeType{value: val, isSet: true}
+}
+
+func (v NullableSchemaAttributeType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSchemaAttributeType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

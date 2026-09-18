@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServiceProviderConfigurationBulkConfiguration
+ */
+@JsonPropertyOrder({
+  ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_SUPPORTED,
+  ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_MAX_OPERATIONS,
+  ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_MAX_PAYLOAD_SIZE
+})
+@JsonTypeName("ServiceProviderConfiguration.BulkConfiguration")
+public class ServiceProviderConfigurationBulkConfiguration {
+  public static final String JSON_PROPERTY_SUPPORTED = "supported";
+  @jakarta.annotation.Nullable  private Boolean supported;
+
+  public static final String JSON_PROPERTY_MAX_OPERATIONS = "maxOperations";
+  @jakarta.annotation.Nullable  private Integer maxOperations;
+
+  public static final String JSON_PROPERTY_MAX_PAYLOAD_SIZE = "maxPayloadSize";
+  @jakarta.annotation.Nullable  private Integer maxPayloadSize;
+
+  public ServiceProviderConfigurationBulkConfiguration() {
+  }
+
+  public ServiceProviderConfigurationBulkConfiguration supported(@jakarta.annotation.Nullable Boolean supported) {
+    
+    this.supported = supported;
+    return this;
+  }
+
+  /**
+   * Get supported
+   * @return supported
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSupported() {
+    return supported;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSupported(@jakarta.annotation.Nullable Boolean supported) {
+    this.supported = supported;
+  }
+
+  public ServiceProviderConfigurationBulkConfiguration maxOperations(@jakarta.annotation.Nullable Integer maxOperations) {
+    
+    this.maxOperations = maxOperations;
+    return this;
+  }
+
+  /**
+   * Get maxOperations
+   * @return maxOperations
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxOperations() {
+    return maxOperations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxOperations(@jakarta.annotation.Nullable Integer maxOperations) {
+    this.maxOperations = maxOperations;
+  }
+
+  public ServiceProviderConfigurationBulkConfiguration maxPayloadSize(@jakarta.annotation.Nullable Integer maxPayloadSize) {
+    
+    this.maxPayloadSize = maxPayloadSize;
+    return this;
+  }
+
+  /**
+   * Get maxPayloadSize
+   * @return maxPayloadSize
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxPayloadSize() {
+    return maxPayloadSize;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxPayloadSize(@jakarta.annotation.Nullable Integer maxPayloadSize) {
+    this.maxPayloadSize = maxPayloadSize;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceProviderConfigurationBulkConfiguration serviceProviderConfigurationBulkConfiguration = (ServiceProviderConfigurationBulkConfiguration) o;
+    return Objects.equals(this.supported, serviceProviderConfigurationBulkConfiguration.supported) &&
+        Objects.equals(this.maxOperations, serviceProviderConfigurationBulkConfiguration.maxOperations) &&
+        Objects.equals(this.maxPayloadSize, serviceProviderConfigurationBulkConfiguration.maxPayloadSize);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(supported, maxOperations, maxPayloadSize);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceProviderConfigurationBulkConfiguration {\n");
+    sb.append("    supported: ").append(toIndentedString(supported)).append("\n");
+    sb.append("    maxOperations: ").append(toIndentedString(maxOperations)).append("\n");
+    sb.append("    maxPayloadSize: ").append(toIndentedString(maxPayloadSize)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

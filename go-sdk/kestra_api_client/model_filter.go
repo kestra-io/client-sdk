@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the Filter type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Filter{}
+
+// Filter struct for Filter
+type Filter struct {
+	Filter *string `json:"filter,omitempty"`
+	Expression map[string]interface{} `json:"expression,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Filter Filter
+
+// NewFilter instantiates a new Filter object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFilter() *Filter {
+	this := Filter{}
+	return &this
+}
+
+// NewFilterWithDefaults instantiates a new Filter object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFilterWithDefaults() *Filter {
+	this := Filter{}
+	return &this
+}
+
+// GetFilter returns the Filter field value if set, zero value otherwise.
+func (o *Filter) GetFilter() string {
+	if o == nil || IsNil(o.Filter) {
+		var ret string
+		return ret
+	}
+	return *o.Filter
+}
+
+// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filter) GetFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.Filter) {
+		return nil, false
+	}
+	return o.Filter, true
+}
+
+// HasFilter returns a boolean if a field has been set.
+func (o *Filter) HasFilter() bool {
+	if o != nil && !IsNil(o.Filter) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilter gets a reference to the given string and assigns it to the Filter field.
+func (o *Filter) SetFilter(v string) {
+	o.Filter = &v
+}
+
+// GetExpression returns the Expression field value if set, zero value otherwise.
+func (o *Filter) GetExpression() map[string]interface{} {
+	if o == nil || IsNil(o.Expression) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Expression
+}
+
+// GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filter) GetExpressionOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Expression) {
+		return map[string]interface{}{}, false
+	}
+	return o.Expression, true
+}
+
+// HasExpression returns a boolean if a field has been set.
+func (o *Filter) HasExpression() bool {
+	if o != nil && !IsNil(o.Expression) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpression gets a reference to the given map[string]interface{} and assigns it to the Expression field.
+func (o *Filter) SetExpression(v map[string]interface{}) {
+	o.Expression = v
+}
+
+func (o Filter) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Filter) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Filter) {
+		toSerialize["filter"] = o.Filter
+	}
+	if !IsNil(o.Expression) {
+		toSerialize["expression"] = o.Expression
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Filter) UnmarshalJSON(data []byte) (err error) {
+	varFilter := _Filter{}
+
+	err = json.Unmarshal(data, &varFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Filter(varFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "expression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFilter struct {
+	value *Filter
+	isSet bool
+}
+
+func (v NullableFilter) Get() *Filter {
+	return v.value
+}
+
+func (v *NullableFilter) Set(val *Filter) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFilter) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFilter) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFilter(val *Filter) *NullableFilter {
+	return &NullableFilter{value: val, isSet: true}
+}
+
+func (v NullableFilter) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFilter) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

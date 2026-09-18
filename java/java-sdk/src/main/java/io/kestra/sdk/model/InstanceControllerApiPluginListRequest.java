@@ -1,0 +1,109 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginListRequest
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginListRequest.JSON_PROPERTY_PLUGINS
+})
+@JsonTypeName("InstanceController.ApiPluginListRequest")
+public class InstanceControllerApiPluginListRequest {
+  public static final String JSON_PROPERTY_PLUGINS = "plugins";
+  @jakarta.annotation.Nullable  private List<String> plugins = new ArrayList<>();
+
+  public InstanceControllerApiPluginListRequest() {
+  }
+
+  public InstanceControllerApiPluginListRequest plugins(@jakarta.annotation.Nullable List<String> plugins) {
+    
+    this.plugins = plugins;
+    return this;
+  }
+
+  public InstanceControllerApiPluginListRequest addPluginsItem(String pluginsItem) {
+    if (this.plugins == null) {
+      this.plugins = new ArrayList<>();
+    }
+    this.plugins.add(pluginsItem);
+    return this;
+  }
+
+  /**
+   * Get plugins
+   * @return plugins
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getPlugins() {
+    return plugins;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPlugins(@jakarta.annotation.Nullable List<String> plugins) {
+    this.plugins = plugins;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginListRequest instanceControllerApiPluginListRequest = (InstanceControllerApiPluginListRequest) o;
+    return Objects.equals(this.plugins, instanceControllerApiPluginListRequest.plugins);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(plugins);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginListRequest {\n");
+    sb.append("    plugins: ").append(toIndentedString(plugins)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

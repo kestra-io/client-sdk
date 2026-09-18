@@ -1,0 +1,199 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ApiSecretTag;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiSecretMetaEE
+ */
+@JsonPropertyOrder({
+  ApiSecretMetaEE.JSON_PROPERTY_KEY,
+  ApiSecretMetaEE.JSON_PROPERTY_NAMESPACE,
+  ApiSecretMetaEE.JSON_PROPERTY_DESCRIPTION,
+  ApiSecretMetaEE.JSON_PROPERTY_TAGS
+})
+public class ApiSecretMetaEE {
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nonnull  private String key;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nonnull  private List<ApiSecretTag> tags = new ArrayList<>();
+
+  public ApiSecretMetaEE() {
+  }
+
+  public ApiSecretMetaEE key(@jakarta.annotation.Nonnull String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@jakarta.annotation.Nonnull String key) {
+    this.key = key;
+  }
+
+  public ApiSecretMetaEE namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ApiSecretMetaEE description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public ApiSecretMetaEE tags(@jakarta.annotation.Nonnull List<ApiSecretTag> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public ApiSecretMetaEE addTagsItem(ApiSecretTag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<ApiSecretTag> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTags(@jakarta.annotation.Nonnull List<ApiSecretTag> tags) {
+    this.tags = tags;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiSecretMetaEE apiSecretMetaEE = (ApiSecretMetaEE) o;
+    return Objects.equals(this.key, apiSecretMetaEE.key) &&
+        Objects.equals(this.namespace, apiSecretMetaEE.namespace) &&
+        Objects.equals(this.description, apiSecretMetaEE.description) &&
+        Objects.equals(this.tags, apiSecretMetaEE.tags);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, namespace, description, tags);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiSecretMetaEE {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

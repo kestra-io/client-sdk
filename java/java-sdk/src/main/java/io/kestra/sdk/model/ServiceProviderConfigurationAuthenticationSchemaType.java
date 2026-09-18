@@ -1,0 +1,63 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * Gets or Sets ServiceProviderConfiguration.AuthenticationSchema.Type
+ */
+public enum ServiceProviderConfigurationAuthenticationSchemaType {
+  
+  OAUTH("OAUTH"),
+  
+  OAUTH2("OAUTH2"),
+  
+  OAUTH_BEARER("OAUTH_BEARER"),
+  
+  HTTP_BASIC("HTTP_BASIC"),
+  
+  HTTP_DIGEST("HTTP_DIGEST"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+
+  private String value;
+
+  ServiceProviderConfigurationAuthenticationSchemaType(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static ServiceProviderConfigurationAuthenticationSchemaType fromValue(String value) {
+    for (ServiceProviderConfigurationAuthenticationSchemaType b : ServiceProviderConfigurationAuthenticationSchemaType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
+  }
+}
+

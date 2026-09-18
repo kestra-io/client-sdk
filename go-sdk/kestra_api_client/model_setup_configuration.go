@@ -1,0 +1,375 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the SetupConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SetupConfiguration{}
+
+// SetupConfiguration struct for SetupConfiguration
+type SetupConfiguration struct {
+	Done *bool `json:"done,omitempty"`
+	RepositoryType *string `json:"repositoryType,omitempty"`
+	QueueType *string `json:"queueType,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	PasswordConfiguration *PasswordConfiguration `json:"passwordConfiguration,omitempty"`
+	HaveAuthNotBasic *bool `json:"haveAuthNotBasic,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _SetupConfiguration SetupConfiguration
+
+// NewSetupConfiguration instantiates a new SetupConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSetupConfiguration() *SetupConfiguration {
+	this := SetupConfiguration{}
+	return &this
+}
+
+// NewSetupConfigurationWithDefaults instantiates a new SetupConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSetupConfigurationWithDefaults() *SetupConfiguration {
+	this := SetupConfiguration{}
+	return &this
+}
+
+// GetDone returns the Done field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetDone() bool {
+	if o == nil || IsNil(o.Done) {
+		var ret bool
+		return ret
+	}
+	return *o.Done
+}
+
+// GetDoneOk returns a tuple with the Done field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetDoneOk() (*bool, bool) {
+	if o == nil || IsNil(o.Done) {
+		return nil, false
+	}
+	return o.Done, true
+}
+
+// HasDone returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasDone() bool {
+	if o != nil && !IsNil(o.Done) {
+		return true
+	}
+
+	return false
+}
+
+// SetDone gets a reference to the given bool and assigns it to the Done field.
+func (o *SetupConfiguration) SetDone(v bool) {
+	o.Done = &v
+}
+
+// GetRepositoryType returns the RepositoryType field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetRepositoryType() string {
+	if o == nil || IsNil(o.RepositoryType) {
+		var ret string
+		return ret
+	}
+	return *o.RepositoryType
+}
+
+// GetRepositoryTypeOk returns a tuple with the RepositoryType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetRepositoryTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RepositoryType) {
+		return nil, false
+	}
+	return o.RepositoryType, true
+}
+
+// HasRepositoryType returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasRepositoryType() bool {
+	if o != nil && !IsNil(o.RepositoryType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryType gets a reference to the given string and assigns it to the RepositoryType field.
+func (o *SetupConfiguration) SetRepositoryType(v string) {
+	o.RepositoryType = &v
+}
+
+// GetQueueType returns the QueueType field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetQueueType() string {
+	if o == nil || IsNil(o.QueueType) {
+		var ret string
+		return ret
+	}
+	return *o.QueueType
+}
+
+// GetQueueTypeOk returns a tuple with the QueueType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetQueueTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.QueueType) {
+		return nil, false
+	}
+	return o.QueueType, true
+}
+
+// HasQueueType returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasQueueType() bool {
+	if o != nil && !IsNil(o.QueueType) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueueType gets a reference to the given string and assigns it to the QueueType field.
+func (o *SetupConfiguration) SetQueueType(v string) {
+	o.QueueType = &v
+}
+
+// GetStorageType returns the StorageType field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetStorageType() string {
+	if o == nil || IsNil(o.StorageType) {
+		var ret string
+		return ret
+	}
+	return *o.StorageType
+}
+
+// GetStorageTypeOk returns a tuple with the StorageType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetStorageTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.StorageType) {
+		return nil, false
+	}
+	return o.StorageType, true
+}
+
+// HasStorageType returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasStorageType() bool {
+	if o != nil && !IsNil(o.StorageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageType gets a reference to the given string and assigns it to the StorageType field.
+func (o *SetupConfiguration) SetStorageType(v string) {
+	o.StorageType = &v
+}
+
+// GetSecretType returns the SecretType field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetSecretType() string {
+	if o == nil || IsNil(o.SecretType) {
+		var ret string
+		return ret
+	}
+	return *o.SecretType
+}
+
+// GetSecretTypeOk returns a tuple with the SecretType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetSecretTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.SecretType) {
+		return nil, false
+	}
+	return o.SecretType, true
+}
+
+// HasSecretType returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasSecretType() bool {
+	if o != nil && !IsNil(o.SecretType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretType gets a reference to the given string and assigns it to the SecretType field.
+func (o *SetupConfiguration) SetSecretType(v string) {
+	o.SecretType = &v
+}
+
+// GetPasswordConfiguration returns the PasswordConfiguration field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetPasswordConfiguration() PasswordConfiguration {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		var ret PasswordConfiguration
+		return ret
+	}
+	return *o.PasswordConfiguration
+}
+
+// GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool) {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		return nil, false
+	}
+	return o.PasswordConfiguration, true
+}
+
+// HasPasswordConfiguration returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasPasswordConfiguration() bool {
+	if o != nil && !IsNil(o.PasswordConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordConfiguration gets a reference to the given PasswordConfiguration and assigns it to the PasswordConfiguration field.
+func (o *SetupConfiguration) SetPasswordConfiguration(v PasswordConfiguration) {
+	o.PasswordConfiguration = &v
+}
+
+// GetHaveAuthNotBasic returns the HaveAuthNotBasic field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetHaveAuthNotBasic() bool {
+	if o == nil || IsNil(o.HaveAuthNotBasic) {
+		var ret bool
+		return ret
+	}
+	return *o.HaveAuthNotBasic
+}
+
+// GetHaveAuthNotBasicOk returns a tuple with the HaveAuthNotBasic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SetupConfiguration) GetHaveAuthNotBasicOk() (*bool, bool) {
+	if o == nil || IsNil(o.HaveAuthNotBasic) {
+		return nil, false
+	}
+	return o.HaveAuthNotBasic, true
+}
+
+// HasHaveAuthNotBasic returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasHaveAuthNotBasic() bool {
+	if o != nil && !IsNil(o.HaveAuthNotBasic) {
+		return true
+	}
+
+	return false
+}
+
+// SetHaveAuthNotBasic gets a reference to the given bool and assigns it to the HaveAuthNotBasic field.
+func (o *SetupConfiguration) SetHaveAuthNotBasic(v bool) {
+	o.HaveAuthNotBasic = &v
+}
+
+func (o SetupConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SetupConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Done) {
+		toSerialize["done"] = o.Done
+	}
+	if !IsNil(o.RepositoryType) {
+		toSerialize["repositoryType"] = o.RepositoryType
+	}
+	if !IsNil(o.QueueType) {
+		toSerialize["queueType"] = o.QueueType
+	}
+	if !IsNil(o.StorageType) {
+		toSerialize["storageType"] = o.StorageType
+	}
+	if !IsNil(o.SecretType) {
+		toSerialize["secretType"] = o.SecretType
+	}
+	if !IsNil(o.PasswordConfiguration) {
+		toSerialize["passwordConfiguration"] = o.PasswordConfiguration
+	}
+	if !IsNil(o.HaveAuthNotBasic) {
+		toSerialize["haveAuthNotBasic"] = o.HaveAuthNotBasic
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *SetupConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varSetupConfiguration := _SetupConfiguration{}
+
+	err = json.Unmarshal(data, &varSetupConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SetupConfiguration(varSetupConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "done")
+		delete(additionalProperties, "repositoryType")
+		delete(additionalProperties, "queueType")
+		delete(additionalProperties, "storageType")
+		delete(additionalProperties, "secretType")
+		delete(additionalProperties, "passwordConfiguration")
+		delete(additionalProperties, "haveAuthNotBasic")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableSetupConfiguration struct {
+	value *SetupConfiguration
+	isSet bool
+}
+
+func (v NullableSetupConfiguration) Get() *SetupConfiguration {
+	return v.value
+}
+
+func (v *NullableSetupConfiguration) Set(val *SetupConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSetupConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSetupConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSetupConfiguration(val *SetupConfiguration) *NullableSetupConfiguration {
+	return &NullableSetupConfiguration{value: val, isSet: true}
+}
+
+func (v NullableSetupConfiguration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSetupConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

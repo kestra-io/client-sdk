@@ -1,0 +1,238 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ApiAutocomplete type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiAutocomplete{}
+
+// ApiAutocomplete struct for ApiAutocomplete
+type ApiAutocomplete struct {
+	Q NullableString `json:"q,omitempty"`
+	Ids []string `json:"ids,omitempty"`
+	ExistingOnly *bool `json:"existingOnly,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiAutocomplete ApiAutocomplete
+
+// NewApiAutocomplete instantiates a new ApiAutocomplete object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiAutocomplete() *ApiAutocomplete {
+	this := ApiAutocomplete{}
+	return &this
+}
+
+// NewApiAutocompleteWithDefaults instantiates a new ApiAutocomplete object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiAutocompleteWithDefaults() *ApiAutocomplete {
+	this := ApiAutocomplete{}
+	return &this
+}
+
+// GetQ returns the Q field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApiAutocomplete) GetQ() string {
+	if o == nil || IsNil(o.Q.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Q.Get()
+}
+
+// GetQOk returns a tuple with the Q field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApiAutocomplete) GetQOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Q.Get(), o.Q.IsSet()
+}
+
+// HasQ returns a boolean if a field has been set.
+func (o *ApiAutocomplete) HasQ() bool {
+	if o != nil && o.Q.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetQ gets a reference to the given NullableString and assigns it to the Q field.
+func (o *ApiAutocomplete) SetQ(v string) {
+	o.Q.Set(&v)
+}
+// SetQNil sets the value for Q to be an explicit nil
+func (o *ApiAutocomplete) SetQNil() {
+	o.Q.Set(nil)
+}
+
+// UnsetQ ensures that no value is present for Q, not even an explicit nil
+func (o *ApiAutocomplete) UnsetQ() {
+	o.Q.Unset()
+}
+
+// GetIds returns the Ids field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApiAutocomplete) GetIds() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.Ids
+}
+
+// GetIdsOk returns a tuple with the Ids field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApiAutocomplete) GetIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Ids) {
+		return nil, false
+	}
+	return o.Ids, true
+}
+
+// HasIds returns a boolean if a field has been set.
+func (o *ApiAutocomplete) HasIds() bool {
+	if o != nil && !IsNil(o.Ids) {
+		return true
+	}
+
+	return false
+}
+
+// SetIds gets a reference to the given []string and assigns it to the Ids field.
+func (o *ApiAutocomplete) SetIds(v []string) {
+	o.Ids = v
+}
+
+// GetExistingOnly returns the ExistingOnly field value if set, zero value otherwise.
+func (o *ApiAutocomplete) GetExistingOnly() bool {
+	if o == nil || IsNil(o.ExistingOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.ExistingOnly
+}
+
+// GetExistingOnlyOk returns a tuple with the ExistingOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiAutocomplete) GetExistingOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExistingOnly) {
+		return nil, false
+	}
+	return o.ExistingOnly, true
+}
+
+// HasExistingOnly returns a boolean if a field has been set.
+func (o *ApiAutocomplete) HasExistingOnly() bool {
+	if o != nil && !IsNil(o.ExistingOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetExistingOnly gets a reference to the given bool and assigns it to the ExistingOnly field.
+func (o *ApiAutocomplete) SetExistingOnly(v bool) {
+	o.ExistingOnly = &v
+}
+
+func (o ApiAutocomplete) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiAutocomplete) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Q.IsSet() {
+		toSerialize["q"] = o.Q.Get()
+	}
+	if o.Ids != nil {
+		toSerialize["ids"] = o.Ids
+	}
+	if !IsNil(o.ExistingOnly) {
+		toSerialize["existingOnly"] = o.ExistingOnly
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiAutocomplete) UnmarshalJSON(data []byte) (err error) {
+	varApiAutocomplete := _ApiAutocomplete{}
+
+	err = json.Unmarshal(data, &varApiAutocomplete)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiAutocomplete(varApiAutocomplete)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "q")
+		delete(additionalProperties, "ids")
+		delete(additionalProperties, "existingOnly")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiAutocomplete struct {
+	value *ApiAutocomplete
+	isSet bool
+}
+
+func (v NullableApiAutocomplete) Get() *ApiAutocomplete {
+	return v.value
+}
+
+func (v *NullableApiAutocomplete) Set(val *ApiAutocomplete) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiAutocomplete) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiAutocomplete) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiAutocomplete(val *ApiAutocomplete) *NullableApiAutocomplete {
+	return &NullableApiAutocomplete{value: val, isSet: true}
+}
+
+func (v NullableApiAutocomplete) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiAutocomplete) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,218 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.State;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutionStatusEvent
+ */
+@JsonPropertyOrder({
+  ExecutionStatusEvent.JSON_PROPERTY_EXECUTION_ID,
+  ExecutionStatusEvent.JSON_PROPERTY_TENANT_ID,
+  ExecutionStatusEvent.JSON_PROPERTY_NAMESPACE,
+  ExecutionStatusEvent.JSON_PROPERTY_FLOW_ID,
+  ExecutionStatusEvent.JSON_PROPERTY_STATE
+})
+public class ExecutionStatusEvent {
+  public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
+  @jakarta.annotation.Nonnull  private String executionId;
+
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nonnull  private String tenantId;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private State state;
+
+  public ExecutionStatusEvent() {
+  }
+
+  public ExecutionStatusEvent executionId(@jakarta.annotation.Nonnull String executionId) {
+    
+    this.executionId = executionId;
+    return this;
+  }
+
+  /**
+   * Get executionId
+   * @return executionId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getExecutionId() {
+    return executionId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionId(@jakarta.annotation.Nonnull String executionId) {
+    this.executionId = executionId;
+  }
+
+  public ExecutionStatusEvent tenantId(@jakarta.annotation.Nonnull String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenantId(@jakarta.annotation.Nonnull String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public ExecutionStatusEvent namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ExecutionStatusEvent flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public ExecutionStatusEvent state(@jakarta.annotation.Nonnull State state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public State getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull State state) {
+    this.state = state;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionStatusEvent executionStatusEvent = (ExecutionStatusEvent) o;
+    return Objects.equals(this.executionId, executionStatusEvent.executionId) &&
+        Objects.equals(this.tenantId, executionStatusEvent.tenantId) &&
+        Objects.equals(this.namespace, executionStatusEvent.namespace) &&
+        Objects.equals(this.flowId, executionStatusEvent.flowId) &&
+        Objects.equals(this.state, executionStatusEvent.state);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(executionId, tenantId, namespace, flowId, state);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionStatusEvent {\n");
+    sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

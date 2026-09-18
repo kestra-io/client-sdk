@@ -1,0 +1,139 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.MetricAggregation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MetricAggregations
+ */
+@JsonPropertyOrder({
+  MetricAggregations.JSON_PROPERTY_GROUP_BY,
+  MetricAggregations.JSON_PROPERTY_AGGREGATIONS
+})
+public class MetricAggregations {
+  public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
+  @jakarta.annotation.Nonnull  private String groupBy;
+
+  public static final String JSON_PROPERTY_AGGREGATIONS = "aggregations";
+  @jakarta.annotation.Nonnull  private List<MetricAggregation> aggregations = new ArrayList<>();
+
+  public MetricAggregations() {
+  }
+
+  public MetricAggregations groupBy(@jakarta.annotation.Nonnull String groupBy) {
+    
+    this.groupBy = groupBy;
+    return this;
+  }
+
+  /**
+   * Get groupBy
+   * @return groupBy
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGroupBy() {
+    return groupBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGroupBy(@jakarta.annotation.Nonnull String groupBy) {
+    this.groupBy = groupBy;
+  }
+
+  public MetricAggregations aggregations(@jakarta.annotation.Nonnull List<MetricAggregation> aggregations) {
+    
+    this.aggregations = aggregations;
+    return this;
+  }
+
+  public MetricAggregations addAggregationsItem(MetricAggregation aggregationsItem) {
+    if (this.aggregations == null) {
+      this.aggregations = new ArrayList<>();
+    }
+    this.aggregations.add(aggregationsItem);
+    return this;
+  }
+
+  /**
+   * Get aggregations
+   * @return aggregations
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<MetricAggregation> getAggregations() {
+    return aggregations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAggregations(@jakarta.annotation.Nonnull List<MetricAggregation> aggregations) {
+    this.aggregations = aggregations;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MetricAggregations metricAggregations = (MetricAggregations) o;
+    return Objects.equals(this.groupBy, metricAggregations.groupBy) &&
+        Objects.equals(this.aggregations, metricAggregations.aggregations);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupBy, aggregations);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MetricAggregations {\n");
+    sb.append("    groupBy: ").append(toIndentedString(groupBy)).append("\n");
+    sb.append("    aggregations: ").append(toIndentedString(aggregations)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,300 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.QueryFilter;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ChartFiltersOverrides
+ */
+@JsonPropertyOrder({
+  ChartFiltersOverrides.JSON_PROPERTY_START_DATE,
+  ChartFiltersOverrides.JSON_PROPERTY_END_DATE,
+  ChartFiltersOverrides.JSON_PROPERTY_PAGE_SIZE,
+  ChartFiltersOverrides.JSON_PROPERTY_PAGE_NUMBER,
+  ChartFiltersOverrides.JSON_PROPERTY_NAMESPACE,
+  ChartFiltersOverrides.JSON_PROPERTY_LABELS,
+  ChartFiltersOverrides.JSON_PROPERTY_FILTERS
+})
+public class ChartFiltersOverrides {
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
+
+  public static final String JSON_PROPERTY_END_DATE = "endDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime endDate;
+
+  public static final String JSON_PROPERTY_PAGE_SIZE = "pageSize";
+  @jakarta.annotation.Nullable  private Integer pageSize;
+
+  public static final String JSON_PROPERTY_PAGE_NUMBER = "pageNumber";
+  @jakarta.annotation.Nullable  private Integer pageNumber;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private Map<String, String> labels = new HashMap<>();
+
+  public static final String JSON_PROPERTY_FILTERS = "filters";
+  @jakarta.annotation.Nullable  private List<QueryFilter> filters = new ArrayList<>();
+
+  public ChartFiltersOverrides() {
+  }
+
+  public ChartFiltersOverrides startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+    
+    this.startDate = startDate;
+    return this;
+  }
+
+  /**
+   * Get startDate
+   * @return startDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartDate() {
+    return startDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+    this.startDate = startDate;
+  }
+
+  public ChartFiltersOverrides endDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+    
+    this.endDate = endDate;
+    return this;
+  }
+
+  /**
+   * Get endDate
+   * @return endDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getEndDate() {
+    return endDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEndDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+    this.endDate = endDate;
+  }
+
+  public ChartFiltersOverrides pageSize(@jakarta.annotation.Nullable Integer pageSize) {
+    
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  /**
+   * Get pageSize
+   * @return pageSize
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getPageSize() {
+    return pageSize;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPageSize(@jakarta.annotation.Nullable Integer pageSize) {
+    this.pageSize = pageSize;
+  }
+
+  public ChartFiltersOverrides pageNumber(@jakarta.annotation.Nullable Integer pageNumber) {
+    
+    this.pageNumber = pageNumber;
+    return this;
+  }
+
+  /**
+   * Get pageNumber
+   * @return pageNumber
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getPageNumber() {
+    return pageNumber;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPageNumber(@jakarta.annotation.Nullable Integer pageNumber) {
+    this.pageNumber = pageNumber;
+  }
+
+  public ChartFiltersOverrides namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ChartFiltersOverrides labels(@jakarta.annotation.Nullable Map<String, String> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public ChartFiltersOverrides putLabelsItem(String key, String labelsItem) {
+    if (this.labels == null) {
+      this.labels = new HashMap<>();
+    }
+    this.labels.put(key, labelsItem);
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, String> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable Map<String, String> labels) {
+    this.labels = labels;
+  }
+
+  public ChartFiltersOverrides filters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
+    
+    this.filters = filters;
+    return this;
+  }
+
+  public ChartFiltersOverrides addFiltersItem(QueryFilter filtersItem) {
+    if (this.filters == null) {
+      this.filters = new ArrayList<>();
+    }
+    this.filters.add(filtersItem);
+    return this;
+  }
+
+  /**
+   * Get filters
+   * @return filters
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<QueryFilter> getFilters() {
+    return filters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
+    this.filters = filters;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ChartFiltersOverrides chartFiltersOverrides = (ChartFiltersOverrides) o;
+    return Objects.equals(this.startDate, chartFiltersOverrides.startDate) &&
+        Objects.equals(this.endDate, chartFiltersOverrides.endDate) &&
+        Objects.equals(this.pageSize, chartFiltersOverrides.pageSize) &&
+        Objects.equals(this.pageNumber, chartFiltersOverrides.pageNumber) &&
+        Objects.equals(this.namespace, chartFiltersOverrides.namespace) &&
+        Objects.equals(this.labels, chartFiltersOverrides.labels) &&
+        Objects.equals(this.filters, chartFiltersOverrides.filters);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(startDate, endDate, pageSize, pageNumber, namespace, labels, filters);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ChartFiltersOverrides {\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+    sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
+    sb.append("    pageNumber: ").append(toIndentedString(pageNumber)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

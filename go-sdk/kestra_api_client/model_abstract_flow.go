@@ -1,0 +1,582 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+	"time"
+)
+
+// checks if the AbstractFlow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AbstractFlow{}
+
+// AbstractFlow struct for AbstractFlow
+type AbstractFlow struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision *int32 `json:"revision,omitempty"`
+	// The timestamp when this revision was created or last updated.
+	Updated *time.Time `json:"updated,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Inputs []InputObject `json:"inputs,omitempty"`
+	Outputs []Output `json:"outputs,omitempty"`
+	// A disabled flow does not run: its triggers are paused and new executions are rejected.
+	Disabled bool `json:"disabled"`
+	// Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+	Draft bool `json:"draft"`
+	// Labels as a list of Label (key/value pairs) or as a map of string to string.
+	Labels *MapObjectObject `json:"labels,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	// Routing requirements (tags + fallback) for this flow.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	Deleted bool `json:"deleted"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AbstractFlow AbstractFlow
+
+// NewAbstractFlow instantiates a new AbstractFlow object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAbstractFlow(id string, namespace string, disabled bool, draft bool, deleted bool) *AbstractFlow {
+	this := AbstractFlow{}
+	this.Id = id
+	this.Namespace = namespace
+	this.Disabled = disabled
+	this.Draft = draft
+	this.Deleted = deleted
+	return &this
+}
+
+// NewAbstractFlowWithDefaults instantiates a new AbstractFlow object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAbstractFlowWithDefaults() *AbstractFlow {
+	this := AbstractFlow{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *AbstractFlow) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AbstractFlow) SetId(v string) {
+	o.Id = v
+}
+
+// GetNamespace returns the Namespace field value
+func (o *AbstractFlow) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *AbstractFlow) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *AbstractFlow) GetRevision() int32 {
+	if o == nil || IsNil(o.Revision) {
+		var ret int32
+		return ret
+	}
+	return *o.Revision
+}
+
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetRevisionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Revision) {
+		return nil, false
+	}
+	return o.Revision, true
+}
+
+// HasRevision returns a boolean if a field has been set.
+func (o *AbstractFlow) HasRevision() bool {
+	if o != nil && !IsNil(o.Revision) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevision gets a reference to the given int32 and assigns it to the Revision field.
+func (o *AbstractFlow) SetRevision(v int32) {
+	o.Revision = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *AbstractFlow) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *AbstractFlow) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *AbstractFlow) SetUpdated(v time.Time) {
+	o.Updated = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AbstractFlow) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AbstractFlow) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AbstractFlow) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetInputs returns the Inputs field value if set, zero value otherwise.
+func (o *AbstractFlow) GetInputs() []InputObject {
+	if o == nil || IsNil(o.Inputs) {
+		var ret []InputObject
+		return ret
+	}
+	return o.Inputs
+}
+
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetInputsOk() ([]InputObject, bool) {
+	if o == nil || IsNil(o.Inputs) {
+		return nil, false
+	}
+	return o.Inputs, true
+}
+
+// HasInputs returns a boolean if a field has been set.
+func (o *AbstractFlow) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given []InputObject and assigns it to the Inputs field.
+func (o *AbstractFlow) SetInputs(v []InputObject) {
+	o.Inputs = v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
+func (o *AbstractFlow) GetOutputs() []Output {
+	if o == nil || IsNil(o.Outputs) {
+		var ret []Output
+		return ret
+	}
+	return o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetOutputsOk() ([]Output, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *AbstractFlow) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given []Output and assigns it to the Outputs field.
+func (o *AbstractFlow) SetOutputs(v []Output) {
+	o.Outputs = v
+}
+
+// GetDisabled returns the Disabled field value
+func (o *AbstractFlow) GetDisabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetDisabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Disabled, true
+}
+
+// SetDisabled sets field value
+func (o *AbstractFlow) SetDisabled(v bool) {
+	o.Disabled = v
+}
+
+// GetDraft returns the Draft field value
+func (o *AbstractFlow) GetDraft() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetDraftOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Draft, true
+}
+
+// SetDraft sets field value
+func (o *AbstractFlow) SetDraft(v bool) {
+	o.Draft = v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *AbstractFlow) GetLabels() MapObjectObject {
+	if o == nil || IsNil(o.Labels) {
+		var ret MapObjectObject
+		return ret
+	}
+	return *o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetLabelsOk() (*MapObjectObject, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *AbstractFlow) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given MapObjectObject and assigns it to the Labels field.
+func (o *AbstractFlow) SetLabels(v MapObjectObject) {
+	o.Labels = &v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *AbstractFlow) GetVariables() map[string]interface{} {
+	if o == nil || IsNil(o.Variables) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetVariablesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return map[string]interface{}{}, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *AbstractFlow) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *AbstractFlow) SetVariables(v map[string]interface{}) {
+	o.Variables = v
+}
+
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *AbstractFlow) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
+		return ret
+	}
+	return *o.WorkerSelector
+}
+
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
+		return nil, false
+	}
+	return o.WorkerSelector, true
+}
+
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *AbstractFlow) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractFlow) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *AbstractFlow) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *AbstractFlow) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+func (o AbstractFlow) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AbstractFlow) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["namespace"] = o.Namespace
+	if !IsNil(o.Revision) {
+		toSerialize["revision"] = o.Revision
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Inputs) {
+		toSerialize["inputs"] = o.Inputs
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+	toSerialize["disabled"] = o.Disabled
+	toSerialize["draft"] = o.Draft
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
+	}
+	toSerialize["deleted"] = o.Deleted
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AbstractFlow) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"namespace",
+		"disabled",
+		"draft",
+		"deleted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAbstractFlow := _AbstractFlow{}
+
+	err = json.Unmarshal(data, &varAbstractFlow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractFlow(varAbstractFlow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "draft")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerSelector")
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAbstractFlow struct {
+	value *AbstractFlow
+	isSet bool
+}
+
+func (v NullableAbstractFlow) Get() *AbstractFlow {
+	return v.value
+}
+
+func (v *NullableAbstractFlow) Set(val *AbstractFlow) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAbstractFlow) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAbstractFlow) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAbstractFlow(val *AbstractFlow) *NullableAbstractFlow {
+	return &NullableAbstractFlow{value: val, isSet: true}
+}
+
+func (v NullableAbstractFlow) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAbstractFlow) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

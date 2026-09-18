@@ -1,0 +1,139 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginArtifactListPluginArtifact
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginArtifactListPluginArtifact.JSON_PROPERTY_TOTAL,
+  InstanceControllerApiPluginArtifactListPluginArtifact.JSON_PROPERTY_RESULTS
+})
+@JsonTypeName("InstanceController.ApiPluginArtifactList_PluginArtifact_")
+public class InstanceControllerApiPluginArtifactListPluginArtifact {
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @jakarta.annotation.Nullable  private Integer total;
+
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nullable  private List<Object> results = new ArrayList<>();
+
+  public InstanceControllerApiPluginArtifactListPluginArtifact() {
+  }
+
+  public InstanceControllerApiPluginArtifactListPluginArtifact total(@jakarta.annotation.Nullable Integer total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Integer total) {
+    this.total = total;
+  }
+
+  public InstanceControllerApiPluginArtifactListPluginArtifact results(@jakarta.annotation.Nullable List<Object> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public InstanceControllerApiPluginArtifactListPluginArtifact addResultsItem(Object resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Object> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<Object> results) {
+    this.results = results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginArtifactListPluginArtifact instanceControllerApiPluginArtifactListPluginArtifact = (InstanceControllerApiPluginArtifactListPluginArtifact) o;
+    return Objects.equals(this.total, instanceControllerApiPluginArtifactListPluginArtifact.total) &&
+        Objects.equals(this.results, instanceControllerApiPluginArtifactListPluginArtifact.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(total, results);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginArtifactListPluginArtifact {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

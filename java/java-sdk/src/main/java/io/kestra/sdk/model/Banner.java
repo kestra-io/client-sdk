@@ -1,0 +1,315 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.BannerType;
+import java.time.OffsetDateTime;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Banner
+ */
+@JsonPropertyOrder({
+  Banner.JSON_PROPERTY_ID,
+  Banner.JSON_PROPERTY_MESSAGE,
+  Banner.JSON_PROPERTY_TYPE,
+  Banner.JSON_PROPERTY_START_DATE,
+  Banner.JSON_PROPERTY_END_DATE,
+  Banner.JSON_PROPERTY_TENANT_ID,
+  Banner.JSON_PROPERTY_ACTIVE
+})
+public class Banner {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  @jakarta.annotation.Nonnull  private String message;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private BannerType type;
+
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> startDate = JsonNullable.<OffsetDateTime>undefined();
+
+  public static final String JSON_PROPERTY_END_DATE = "endDate";
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
+
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ACTIVE = "active";
+  @jakarta.annotation.Nullable  private Boolean active;
+
+  public Banner() {
+  }
+
+  public Banner id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public Banner message(@jakarta.annotation.Nonnull String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * Get message
+   * @return message
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMessage(@jakarta.annotation.Nonnull String message) {
+    this.message = message;
+  }
+
+  public Banner type(@jakarta.annotation.Nullable BannerType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BannerType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable BannerType type) {
+    this.type = type;
+  }
+
+  public Banner startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+    this.startDate = JsonNullable.<OffsetDateTime>of(startDate);
+    
+    return this;
+  }
+
+  /**
+   * Get startDate
+   * @return startDate
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public OffsetDateTime getStartDate() {
+        return startDate.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<OffsetDateTime> getStartDate_JsonNullable() {
+    return startDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  public void setStartDate_JsonNullable(JsonNullable<OffsetDateTime> startDate) {
+    this.startDate = startDate;
+  }
+
+  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+    this.startDate = JsonNullable.<OffsetDateTime>of(startDate);
+  }
+
+  public Banner endDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+    this.endDate = JsonNullable.<OffsetDateTime>of(endDate);
+    
+    return this;
+  }
+
+  /**
+   * Get endDate
+   * @return endDate
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public OffsetDateTime getEndDate() {
+        return endDate.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
+    return endDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  public void setEndDate_JsonNullable(JsonNullable<OffsetDateTime> endDate) {
+    this.endDate = endDate;
+  }
+
+  public void setEndDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+    this.endDate = JsonNullable.<OffsetDateTime>of(endDate);
+  }
+
+  public Banner tenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
+    
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getTenantId() {
+        return tenantId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getTenantId_JsonNullable() {
+    return tenantId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  public void setTenantId_JsonNullable(JsonNullable<String> tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
+  }
+
+  public Banner active(@jakarta.annotation.Nullable Boolean active) {
+    
+    this.active = active;
+    return this;
+  }
+
+  /**
+   * Get active
+   * @return active
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getActive() {
+    return active;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActive(@jakarta.annotation.Nullable Boolean active) {
+    this.active = active;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Banner banner = (Banner) o;
+    return Objects.equals(this.id, banner.id) &&
+        Objects.equals(this.message, banner.message) &&
+        Objects.equals(this.type, banner.type) &&
+        equalsNullable(this.startDate, banner.startDate) &&
+        equalsNullable(this.endDate, banner.endDate) &&
+        equalsNullable(this.tenantId, banner.tenantId) &&
+        Objects.equals(this.active, banner.active);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, message, type, hashCodeNullable(startDate), hashCodeNullable(endDate), hashCodeNullable(tenantId), active);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Banner {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    active: ").append(toIndentedString(active)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

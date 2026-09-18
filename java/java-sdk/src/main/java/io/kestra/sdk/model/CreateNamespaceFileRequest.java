@@ -1,0 +1,99 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.File;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * CreateNamespaceFileRequest
+ */
+@JsonPropertyOrder({
+  CreateNamespaceFileRequest.JSON_PROPERTY_FILE_CONTENT
+})
+@JsonTypeName("createNamespaceFile_request")
+public class CreateNamespaceFileRequest {
+  public static final String JSON_PROPERTY_FILE_CONTENT = "fileContent";
+  @jakarta.annotation.Nullable  private File fileContent;
+
+  public CreateNamespaceFileRequest() {
+  }
+
+  public CreateNamespaceFileRequest fileContent(@jakarta.annotation.Nullable File fileContent) {
+    
+    this.fileContent = fileContent;
+    return this;
+  }
+
+  /**
+   * The file to upload
+   * @return fileContent
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_CONTENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public File getFileContent() {
+    return fileContent;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILE_CONTENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFileContent(@jakarta.annotation.Nullable File fileContent) {
+    this.fileContent = fileContent;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateNamespaceFileRequest createNamespaceFileRequest = (CreateNamespaceFileRequest) o;
+    return Objects.equals(this.fileContent, createNamespaceFileRequest.fileContent);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fileContent);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateNamespaceFileRequest {\n");
+    sb.append("    fileContent: ").append(toIndentedString(fileContent)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

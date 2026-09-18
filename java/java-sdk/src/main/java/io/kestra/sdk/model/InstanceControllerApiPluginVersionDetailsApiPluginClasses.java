@@ -1,0 +1,140 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.InstanceControllerApiPluginVersionDetailsApiPluginClass;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginVersionDetailsApiPluginClasses
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginVersionDetailsApiPluginClasses.JSON_PROPERTY_TYPE,
+  InstanceControllerApiPluginVersionDetailsApiPluginClasses.JSON_PROPERTY_CLASSES
+})
+@JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClasses")
+public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_CLASSES = "classes";
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes = new ArrayList<>();
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses() {
+  }
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses classes(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
+    
+    this.classes = classes;
+    return this;
+  }
+
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses addClassesItem(InstanceControllerApiPluginVersionDetailsApiPluginClass classesItem) {
+    if (this.classes == null) {
+      this.classes = new ArrayList<>();
+    }
+    this.classes.add(classesItem);
+    return this;
+  }
+
+  /**
+   * Get classes
+   * @return classes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<InstanceControllerApiPluginVersionDetailsApiPluginClass> getClasses() {
+    return classes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLASSES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClasses(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
+    this.classes = classes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginVersionDetailsApiPluginClasses instanceControllerApiPluginVersionDetailsApiPluginClasses = (InstanceControllerApiPluginVersionDetailsApiPluginClasses) o;
+    return Objects.equals(this.type, instanceControllerApiPluginVersionDetailsApiPluginClasses.type) &&
+        Objects.equals(this.classes, instanceControllerApiPluginVersionDetailsApiPluginClasses.classes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, classes);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginVersionDetailsApiPluginClasses {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    classes: ").append(toIndentedString(classes)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

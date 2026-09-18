@@ -1,0 +1,125 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * Gets or Sets Permission
+ */
+public enum Permission {
+  
+  FLOW("FLOW"),
+  
+  BLUEPRINT("BLUEPRINT"),
+  
+  NAMESPACE("NAMESPACE"),
+  
+  EXECUTION("EXECUTION"),
+  
+  USER("USER"),
+  
+  GROUP("GROUP"),
+  
+  ROLE("ROLE"),
+  
+  BINDING("BINDING"),
+  
+  AUDITLOG("AUDITLOG"),
+  
+  SECRET("SECRET"),
+  
+  KVSTORE("KVSTORE"),
+  
+  APP("APP"),
+  
+  ASSET("ASSET"),
+  
+  DASHBOARD("DASHBOARD"),
+  
+  TENANT_ACCESS("TENANT_ACCESS"),
+  
+  SERVICE_ACCOUNT("SERVICE_ACCOUNT"),
+  
+  INVITATION("INVITATION"),
+  
+  CREDENTIAL("CREDENTIAL"),
+  
+  TRIGGER("TRIGGER"),
+  
+  REUSABLE_INPUTS("REUSABLE_INPUTS"),
+  
+  SYSTEM_SETTINGS("SYSTEM_SETTINGS"),
+  
+  TENANT_SETTINGS("TENANT_SETTINGS"),
+  
+  TESTSUITE("TESTSUITE"),
+  
+  COPILOT("COPILOT"),
+  
+  MCP_SERVER("MCP_SERVER"),
+  
+  APP_EXECUTION("APP_EXECUTION"),
+  
+  NAMESPACE_FILE("NAMESPACE_FILE"),
+  
+  TESTSUITE_RUN("TESTSUITE_RUN"),
+  
+  SECURITY_INTEGRATION("SECURITY_INTEGRATION"),
+  
+  KILL_SWITCH("KILL_SWITCH"),
+  
+  TENANT("TENANT"),
+  
+  VERSIONED_PLUGIN("VERSIONED_PLUGIN"),
+  
+  WORKER_GROUP("WORKER_GROUP"),
+  
+  WORKER_QUEUE("WORKER_QUEUE"),
+  
+  INSTANCE("INSTANCE"),
+  
+  UNKNOWN("UNKNOWN"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+
+  private String value;
+
+  Permission(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static Permission fromValue(String value) {
+    for (Permission b : Permission.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
+  }
+}
+

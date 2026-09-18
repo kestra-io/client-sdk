@@ -1,0 +1,180 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutableTaskSubflowId
+ */
+@JsonPropertyOrder({
+  ExecutableTaskSubflowId.JSON_PROPERTY_NAMESPACE,
+  ExecutableTaskSubflowId.JSON_PROPERTY_FLOW_ID,
+  ExecutableTaskSubflowId.JSON_PROPERTY_REVISION
+})
+@JsonTypeName("ExecutableTask.SubflowId")
+public class ExecutableTaskSubflowId {
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nullable  private String flowId;
+
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private JsonNullable<Integer> revision = JsonNullable.<Integer>undefined();
+
+  public ExecutableTaskSubflowId() {
+  }
+
+  public ExecutableTaskSubflowId namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ExecutableTaskSubflowId flowId(@jakarta.annotation.Nullable String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = flowId;
+  }
+
+  public ExecutableTaskSubflowId revision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = JsonNullable.<Integer>of(revision);
+    
+    return this;
+  }
+
+  /**
+   * Get revision
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public Integer getRevision() {
+        return revision.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<Integer> getRevision_JsonNullable() {
+    return revision;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  public void setRevision_JsonNullable(JsonNullable<Integer> revision) {
+    this.revision = revision;
+  }
+
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = JsonNullable.<Integer>of(revision);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutableTaskSubflowId executableTaskSubflowId = (ExecutableTaskSubflowId) o;
+    return Objects.equals(this.namespace, executableTaskSubflowId.namespace) &&
+        Objects.equals(this.flowId, executableTaskSubflowId.flowId) &&
+        equalsNullable(this.revision, executableTaskSubflowId.revision);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(namespace, flowId, hashCodeNullable(revision));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutableTaskSubflowId {\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

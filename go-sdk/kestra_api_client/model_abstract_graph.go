@@ -1,0 +1,227 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the AbstractGraph type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AbstractGraph{}
+
+// AbstractGraph struct for AbstractGraph
+type AbstractGraph struct {
+	Uid *string `json:"uid,omitempty"`
+	Type *string `json:"type,omitempty"`
+	BranchType *AbstractGraphBranchType `json:"branchType,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AbstractGraph AbstractGraph
+
+// NewAbstractGraph instantiates a new AbstractGraph object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAbstractGraph() *AbstractGraph {
+	this := AbstractGraph{}
+	return &this
+}
+
+// NewAbstractGraphWithDefaults instantiates a new AbstractGraph object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAbstractGraphWithDefaults() *AbstractGraph {
+	this := AbstractGraph{}
+	return &this
+}
+
+// GetUid returns the Uid field value if set, zero value otherwise.
+func (o *AbstractGraph) GetUid() string {
+	if o == nil || IsNil(o.Uid) {
+		var ret string
+		return ret
+	}
+	return *o.Uid
+}
+
+// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractGraph) GetUidOk() (*string, bool) {
+	if o == nil || IsNil(o.Uid) {
+		return nil, false
+	}
+	return o.Uid, true
+}
+
+// HasUid returns a boolean if a field has been set.
+func (o *AbstractGraph) HasUid() bool {
+	if o != nil && !IsNil(o.Uid) {
+		return true
+	}
+
+	return false
+}
+
+// SetUid gets a reference to the given string and assigns it to the Uid field.
+func (o *AbstractGraph) SetUid(v string) {
+	o.Uid = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *AbstractGraph) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractGraph) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *AbstractGraph) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *AbstractGraph) SetType(v string) {
+	o.Type = &v
+}
+
+// GetBranchType returns the BranchType field value if set, zero value otherwise.
+func (o *AbstractGraph) GetBranchType() AbstractGraphBranchType {
+	if o == nil || IsNil(o.BranchType) {
+		var ret AbstractGraphBranchType
+		return ret
+	}
+	return *o.BranchType
+}
+
+// GetBranchTypeOk returns a tuple with the BranchType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractGraph) GetBranchTypeOk() (*AbstractGraphBranchType, bool) {
+	if o == nil || IsNil(o.BranchType) {
+		return nil, false
+	}
+	return o.BranchType, true
+}
+
+// HasBranchType returns a boolean if a field has been set.
+func (o *AbstractGraph) HasBranchType() bool {
+	if o != nil && !IsNil(o.BranchType) {
+		return true
+	}
+
+	return false
+}
+
+// SetBranchType gets a reference to the given AbstractGraphBranchType and assigns it to the BranchType field.
+func (o *AbstractGraph) SetBranchType(v AbstractGraphBranchType) {
+	o.BranchType = &v
+}
+
+func (o AbstractGraph) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AbstractGraph) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uid) {
+		toSerialize["uid"] = o.Uid
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.BranchType) {
+		toSerialize["branchType"] = o.BranchType
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AbstractGraph) UnmarshalJSON(data []byte) (err error) {
+	varAbstractGraph := _AbstractGraph{}
+
+	err = json.Unmarshal(data, &varAbstractGraph)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractGraph(varAbstractGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "branchType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAbstractGraph struct {
+	value *AbstractGraph
+	isSet bool
+}
+
+func (v NullableAbstractGraph) Get() *AbstractGraph {
+	return v.value
+}
+
+func (v *NullableAbstractGraph) Set(val *AbstractGraph) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAbstractGraph) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAbstractGraph) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAbstractGraph(val *AbstractGraph) *NullableAbstractGraph {
+	return &NullableAbstractGraph{value: val, isSet: true}
+}
+
+func (v NullableAbstractGraph) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAbstractGraph) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

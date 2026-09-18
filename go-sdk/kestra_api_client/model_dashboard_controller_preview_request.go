@@ -1,0 +1,213 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the DashboardControllerPreviewRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DashboardControllerPreviewRequest{}
+
+// DashboardControllerPreviewRequest struct for DashboardControllerPreviewRequest
+type DashboardControllerPreviewRequest struct {
+	Chart string `json:"chart"`
+	GlobalFilter NullableChartFiltersOverrides `json:"globalFilter,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _DashboardControllerPreviewRequest DashboardControllerPreviewRequest
+
+// NewDashboardControllerPreviewRequest instantiates a new DashboardControllerPreviewRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewDashboardControllerPreviewRequest(chart string) *DashboardControllerPreviewRequest {
+	this := DashboardControllerPreviewRequest{}
+	this.Chart = chart
+	return &this
+}
+
+// NewDashboardControllerPreviewRequestWithDefaults instantiates a new DashboardControllerPreviewRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewDashboardControllerPreviewRequestWithDefaults() *DashboardControllerPreviewRequest {
+	this := DashboardControllerPreviewRequest{}
+	return &this
+}
+
+// GetChart returns the Chart field value
+func (o *DashboardControllerPreviewRequest) GetChart() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Chart
+}
+
+// GetChartOk returns a tuple with the Chart field value
+// and a boolean to check if the value has been set.
+func (o *DashboardControllerPreviewRequest) GetChartOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Chart, true
+}
+
+// SetChart sets field value
+func (o *DashboardControllerPreviewRequest) SetChart(v string) {
+	o.Chart = v
+}
+
+// GetGlobalFilter returns the GlobalFilter field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DashboardControllerPreviewRequest) GetGlobalFilter() ChartFiltersOverrides {
+	if o == nil || IsNil(o.GlobalFilter.Get()) {
+		var ret ChartFiltersOverrides
+		return ret
+	}
+	return *o.GlobalFilter.Get()
+}
+
+// GetGlobalFilterOk returns a tuple with the GlobalFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DashboardControllerPreviewRequest) GetGlobalFilterOk() (*ChartFiltersOverrides, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.GlobalFilter.Get(), o.GlobalFilter.IsSet()
+}
+
+// HasGlobalFilter returns a boolean if a field has been set.
+func (o *DashboardControllerPreviewRequest) HasGlobalFilter() bool {
+	if o != nil && o.GlobalFilter.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetGlobalFilter gets a reference to the given NullableChartFiltersOverrides and assigns it to the GlobalFilter field.
+func (o *DashboardControllerPreviewRequest) SetGlobalFilter(v ChartFiltersOverrides) {
+	o.GlobalFilter.Set(&v)
+}
+// SetGlobalFilterNil sets the value for GlobalFilter to be an explicit nil
+func (o *DashboardControllerPreviewRequest) SetGlobalFilterNil() {
+	o.GlobalFilter.Set(nil)
+}
+
+// UnsetGlobalFilter ensures that no value is present for GlobalFilter, not even an explicit nil
+func (o *DashboardControllerPreviewRequest) UnsetGlobalFilter() {
+	o.GlobalFilter.Unset()
+}
+
+func (o DashboardControllerPreviewRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DashboardControllerPreviewRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["chart"] = o.Chart
+	if o.GlobalFilter.IsSet() {
+		toSerialize["globalFilter"] = o.GlobalFilter.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *DashboardControllerPreviewRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"chart",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDashboardControllerPreviewRequest := _DashboardControllerPreviewRequest{}
+
+	err = json.Unmarshal(data, &varDashboardControllerPreviewRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DashboardControllerPreviewRequest(varDashboardControllerPreviewRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "chart")
+		delete(additionalProperties, "globalFilter")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableDashboardControllerPreviewRequest struct {
+	value *DashboardControllerPreviewRequest
+	isSet bool
+}
+
+func (v NullableDashboardControllerPreviewRequest) Get() *DashboardControllerPreviewRequest {
+	return v.value
+}
+
+func (v *NullableDashboardControllerPreviewRequest) Set(val *DashboardControllerPreviewRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableDashboardControllerPreviewRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableDashboardControllerPreviewRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableDashboardControllerPreviewRequest(val *DashboardControllerPreviewRequest) *NullableDashboardControllerPreviewRequest {
+	return &NullableDashboardControllerPreviewRequest{value: val, isSet: true}
+}
+
+func (v NullableDashboardControllerPreviewRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableDashboardControllerPreviewRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

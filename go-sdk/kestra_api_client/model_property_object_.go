@@ -1,0 +1,169 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+	"gopkg.in/validator.v2"
+)
+
+// PropertyObject - struct for PropertyObject
+type PropertyObject struct {
+	MapmapOfStringAny *map[string]interface{}
+	String *string
+}
+
+// map[string]interface{}AsPropertyObject is a convenience function that returns map[string]interface{} wrapped in PropertyObject
+func MapmapOfStringAnyAsPropertyObject(v *map[string]interface{}) PropertyObject {
+	return PropertyObject{
+		MapmapOfStringAny: v,
+	}
+}
+
+// stringAsPropertyObject is a convenience function that returns string wrapped in PropertyObject
+func StringAsPropertyObject(v *string) PropertyObject {
+	return PropertyObject{
+		String: v,
+	}
+}
+
+
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *PropertyObject) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into MapmapOfStringAny
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringAny)
+	if err == nil {
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
+		} else {
+			if err = validator.Validate(dst.MapmapOfStringAny); err != nil {
+				dst.MapmapOfStringAny = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MapmapOfStringAny = nil
+	}
+
+	// try to unmarshal data into String
+	err = newStrictDecoder(data).Decode(&dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			if err = validator.Validate(dst.String); err != nil {
+				dst.String = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.String = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.MapmapOfStringAny = nil
+		dst.String = nil
+
+		return fmt.Errorf("data matches more than one schema in oneOf(PropertyObject)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(PropertyObject)")
+	}
+}
+
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src PropertyObject) MarshalJSON() ([]byte, error) {
+	if src.MapmapOfStringAny != nil {
+		return json.Marshal(&src.MapmapOfStringAny)
+	}
+
+	if src.String != nil {
+		return json.Marshal(&src.String)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *PropertyObject) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.MapmapOfStringAny != nil {
+		return obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj PropertyObject) GetActualInstanceValue() (interface{}) {
+	if obj.MapmapOfStringAny != nil {
+		return *obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return *obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+type NullablePropertyObject struct {
+	value *PropertyObject
+	isSet bool
+}
+
+func (v NullablePropertyObject) Get() *PropertyObject {
+	return v.value
+}
+
+func (v *NullablePropertyObject) Set(val *PropertyObject) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePropertyObject) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePropertyObject) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePropertyObject(val *PropertyObject) *NullablePropertyObject {
+	return &NullablePropertyObject{value: val, isSet: true}
+}
+
+func (v NullablePropertyObject) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePropertyObject) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,229 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * InstanceControllerApiPluginArtifact
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiPluginArtifact.JSON_PROPERTY_TITLE,
+  InstanceControllerApiPluginArtifact.JSON_PROPERTY_ICON,
+  InstanceControllerApiPluginArtifact.JSON_PROPERTY_GROUP_ID,
+  InstanceControllerApiPluginArtifact.JSON_PROPERTY_ARTIFACT_ID,
+  InstanceControllerApiPluginArtifact.JSON_PROPERTY_VERSIONS
+})
+@JsonTypeName("InstanceController.ApiPluginArtifact")
+public class InstanceControllerApiPluginArtifact {
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_ICON = "icon";
+  @jakarta.annotation.Nullable  private String icon;
+
+  public static final String JSON_PROPERTY_GROUP_ID = "groupId";
+  @jakarta.annotation.Nullable  private String groupId;
+
+  public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
+  @jakarta.annotation.Nullable  private String artifactId;
+
+  public static final String JSON_PROPERTY_VERSIONS = "versions";
+  @jakarta.annotation.Nullable  private List<String> versions = new ArrayList<>();
+
+  public InstanceControllerApiPluginArtifact() {
+  }
+
+  public InstanceControllerApiPluginArtifact title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public InstanceControllerApiPluginArtifact icon(@jakarta.annotation.Nullable String icon) {
+    
+    this.icon = icon;
+    return this;
+  }
+
+  /**
+   * Get icon
+   * @return icon
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIcon() {
+    return icon;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
+    this.icon = icon;
+  }
+
+  public InstanceControllerApiPluginArtifact groupId(@jakarta.annotation.Nullable String groupId) {
+    
+    this.groupId = groupId;
+    return this;
+  }
+
+  /**
+   * Get groupId
+   * @return groupId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGroupId() {
+    return groupId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupId(@jakarta.annotation.Nullable String groupId) {
+    this.groupId = groupId;
+  }
+
+  public InstanceControllerApiPluginArtifact artifactId(@jakarta.annotation.Nullable String artifactId) {
+    
+    this.artifactId = artifactId;
+    return this;
+  }
+
+  /**
+   * Get artifactId
+   * @return artifactId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getArtifactId() {
+    return artifactId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setArtifactId(@jakarta.annotation.Nullable String artifactId) {
+    this.artifactId = artifactId;
+  }
+
+  public InstanceControllerApiPluginArtifact versions(@jakarta.annotation.Nullable List<String> versions) {
+    
+    this.versions = versions;
+    return this;
+  }
+
+  public InstanceControllerApiPluginArtifact addVersionsItem(String versionsItem) {
+    if (this.versions == null) {
+      this.versions = new ArrayList<>();
+    }
+    this.versions.add(versionsItem);
+    return this;
+  }
+
+  /**
+   * Get versions
+   * @return versions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getVersions() {
+    return versions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersions(@jakarta.annotation.Nullable List<String> versions) {
+    this.versions = versions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiPluginArtifact instanceControllerApiPluginArtifact = (InstanceControllerApiPluginArtifact) o;
+    return Objects.equals(this.title, instanceControllerApiPluginArtifact.title) &&
+        Objects.equals(this.icon, instanceControllerApiPluginArtifact.icon) &&
+        Objects.equals(this.groupId, instanceControllerApiPluginArtifact.groupId) &&
+        Objects.equals(this.artifactId, instanceControllerApiPluginArtifact.artifactId) &&
+        Objects.equals(this.versions, instanceControllerApiPluginArtifact.versions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, icon, groupId, artifactId, versions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiPluginArtifact {\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
+    sb.append("    artifactId: ").append(toIndentedString(artifactId)).append("\n");
+    sb.append("    versions: ").append(toIndentedString(versions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

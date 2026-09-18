@@ -1,0 +1,187 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiRoleSummary
+ */
+@JsonPropertyOrder({
+  ApiRoleSummary.JSON_PROPERTY_ID,
+  ApiRoleSummary.JSON_PROPERTY_NAME,
+  ApiRoleSummary.JSON_PROPERTY_IS_DEFAULT,
+  ApiRoleSummary.JSON_PROPERTY_IS_MANAGED
+})
+public class ApiRoleSummary {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
+  @jakarta.annotation.Nullable  private Boolean isDefault;
+
+  public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
+  @jakarta.annotation.Nullable  private Boolean isManaged;
+
+  public ApiRoleSummary() {
+  }
+
+  public ApiRoleSummary id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ApiRoleSummary name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public ApiRoleSummary isDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    
+    this.isDefault = isDefault;
+    return this;
+  }
+
+  /**
+   * Get isDefault
+   * @return isDefault
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    this.isDefault = isDefault;
+  }
+
+  public ApiRoleSummary isManaged(@jakarta.annotation.Nullable Boolean isManaged) {
+    
+    this.isManaged = isManaged;
+    return this;
+  }
+
+  /**
+   * Get isManaged
+   * @return isManaged
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsManaged() {
+    return isManaged;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsManaged(@jakarta.annotation.Nullable Boolean isManaged) {
+    this.isManaged = isManaged;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiRoleSummary apiRoleSummary = (ApiRoleSummary) o;
+    return Objects.equals(this.id, apiRoleSummary.id) &&
+        Objects.equals(this.name, apiRoleSummary.name) &&
+        Objects.equals(this.isDefault, apiRoleSummary.isDefault) &&
+        Objects.equals(this.isManaged, apiRoleSummary.isManaged);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, isDefault, isManaged);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiRoleSummary {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
+    sb.append("    isManaged: ").append(toIndentedString(isManaged)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

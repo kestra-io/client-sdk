@@ -1,0 +1,172 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"bytes"
+	"encoding/json"
+)
+
+// checks if the MapObjectObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MapObjectObject{}
+
+// MapObjectObject struct for MapObjectObject
+type MapObjectObject struct {
+	Empty *bool `json:"empty,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MapObjectObject MapObjectObject
+
+// NewMapObjectObject instantiates a new MapObjectObject object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMapObjectObject() *MapObjectObject {
+	this := MapObjectObject{}
+	return &this
+}
+
+// NewMapObjectObjectWithDefaults instantiates a new MapObjectObject object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMapObjectObjectWithDefaults() *MapObjectObject {
+	this := MapObjectObject{}
+	return &this
+}
+
+// GetEmpty returns the Empty field value if set, zero value otherwise.
+func (o *MapObjectObject) GetEmpty() bool {
+	if o == nil || IsNil(o.Empty) {
+		var ret bool
+		return ret
+	}
+	return *o.Empty
+}
+
+// GetEmptyOk returns a tuple with the Empty field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MapObjectObject) GetEmptyOk() (*bool, bool) {
+	if o == nil || IsNil(o.Empty) {
+		return nil, false
+	}
+	return o.Empty, true
+}
+
+// HasEmpty returns a boolean if a field has been set.
+func (o *MapObjectObject) HasEmpty() bool {
+	if o != nil && !IsNil(o.Empty) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmpty gets a reference to the given bool and assigns it to the Empty field.
+func (o *MapObjectObject) SetEmpty(v bool) {
+	o.Empty = &v
+}
+
+func (o MapObjectObject) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MapObjectObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Empty) {
+		toSerialize["empty"] = o.Empty
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+// UnmarshalJSON accepts both shapes the server uses for a label map. Kestra 2.0
+// serializes labels as a list of {key, value} pairs, while the spec only
+// declares the map form; both are normalized into AdditionalProperties.
+func (o *MapObjectObject) UnmarshalJSON(data []byte) (err error) {
+	if trimmed := bytes.TrimLeft(data, " \t\r\n"); len(trimmed) > 0 && trimmed[0] == '[' {
+		var pairs []struct {
+			Key   string      `json:"key"`
+			Value interface{} `json:"value"`
+		}
+		if err = json.Unmarshal(data, &pairs); err != nil {
+			return err
+		}
+		o.AdditionalProperties = make(map[string]interface{}, len(pairs))
+		for _, pair := range pairs {
+			o.AdditionalProperties[pair.Key] = pair.Value
+		}
+		return nil
+	}
+
+	varMapObjectObject := _MapObjectObject{}
+
+	err = json.Unmarshal(data, &varMapObjectObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MapObjectObject(varMapObjectObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "empty")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMapObjectObject struct {
+	value *MapObjectObject
+	isSet bool
+}
+
+func (v NullableMapObjectObject) Get() *MapObjectObject {
+	return v.value
+}
+
+func (v *NullableMapObjectObject) Set(val *MapObjectObject) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMapObjectObject) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMapObjectObject) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMapObjectObject(val *MapObjectObject) *NullableMapObjectObject {
+	return &NullableMapObjectObject{value: val, isSet: true}
+}
+
+func (v NullableMapObjectObject) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMapObjectObject) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

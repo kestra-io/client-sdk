@@ -4,23 +4,96 @@ on:
   push:
     branches:
       - main
-
+      - "releases/v*"
+    paths:
+      - 'go-sdk/**'
+      - 'README.md'
+      - 'test-utils/**'
   pull_request:
     branches:
       - main
+      - "releases/v*"
+    paths:
+      - 'go-sdk/**'
+      - 'README.md'
+      - 'test-utils/**'
+  workflow_dispatch:
+    inputs:
+      skip-test:
+        description: "Skip test"
+        required: false
+        type: choice
+        options:
+          - "true"
+          - "false"
+        default: "false"
 
 jobs:
-  build:
+  test:
+    name: Test GO SDK
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
         working-directory: ./go-sdk
-
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-go@v5
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
+
+      - uses: actions/setup-go@v7
 
       - name: build
         id: build
-        run: go build .
+        run: go build ./...
+
+      # JDK for the single-file snippet injector (no build tool needed).
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      # Static doc check — runs the JDK single-file tool (no Kestra container
+      # needed, so it fails fast). Guarantees the README Go usage snippet is
+      # identical to the CI-tested example (basic_sdk_usage_example.go). #144.
+      - name: Check README example is in sync with its tested source
+        run: java ../test-utils/EmbedSnippets.java --check ../README.md
+
+      - name: GCP - Auth with github service account
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Select license file
+        id: license
+        uses: ./.github/actions/set-license-file
+        with:
+          kestra_version: ${{ steps.version.outputs.kestra_version }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
+      - name: Build local SDK and test it in an example project
+        if: inputs.skip-test != 'true'
+        env:
+          # Target Kestra 2.0: 'develop' is the 2.0-ee line. Release branches (releases/v*)
+          # still resolve to their own version via compute-version.
+          KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
+        run: |
+          echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          sh run-tests.sh $KESTRA_VERSION
+
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Go SDK

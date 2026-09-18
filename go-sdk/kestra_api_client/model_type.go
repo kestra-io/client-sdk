@@ -1,0 +1,145 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// Type the model 'Type'
+type Type string
+
+// List of Type
+const (
+	TYPE_STRING Type = "STRING"
+	TYPE_SELECT Type = "SELECT"
+	TYPE_INT Type = "INT"
+	TYPE_FLOAT Type = "FLOAT"
+	TYPE_BOOL Type = "BOOL"
+	TYPE_DATETIME Type = "DATETIME"
+	TYPE_DATE Type = "DATE"
+	TYPE_TIME Type = "TIME"
+	TYPE_DURATION Type = "DURATION"
+	TYPE_FILE Type = "FILE"
+	TYPE_JSON Type = "JSON"
+	TYPE_ION Type = "ION"
+	TYPE_URI Type = "URI"
+	TYPE_SECRET Type = "SECRET"
+	TYPE_ARRAY Type = "ARRAY"
+	TYPE_MULTISELECT Type = "MULTISELECT"
+	TYPE_YAML Type = "YAML"
+	TYPE_EMAIL Type = "EMAIL"
+	TYPE_FORM Type = "FORM"
+	TYPE_REUSABLE_INPUTS Type = "REUSABLE_INPUTS"
+)
+
+// All allowed values of Type enum
+var AllowedTypeEnumValues = []Type{
+	"STRING",
+	"SELECT",
+	"INT",
+	"FLOAT",
+	"BOOL",
+	"DATETIME",
+	"DATE",
+	"TIME",
+	"DURATION",
+	"FILE",
+	"JSON",
+	"ION",
+	"URI",
+	"SECRET",
+	"ARRAY",
+	"MULTISELECT",
+	"YAML",
+	"EMAIL",
+	"FORM",
+	"REUSABLE_INPUTS",
+}
+
+func (v *Type) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := Type(value)
+	for _, existing := range AllowedTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Type", value)
+}
+
+// NewTypeFromValue returns a pointer to a valid Type
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewTypeFromValue(v string) (*Type, error) {
+	ev := Type(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for Type: valid values are %v", v, AllowedTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v Type) IsValid() bool {
+	for _, existing := range AllowedTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Type value
+func (v Type) Ptr() *Type {
+	return &v
+}
+
+type NullableType struct {
+	value *Type
+	isSet bool
+}
+
+func (v NullableType) Get() *Type {
+	return v.value
+}
+
+func (v *NullableType) Set(val *Type) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableType(val *Type) *NullableType {
+	return &NullableType{value: val, isSet: true}
+}
+
+func (v NullableType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the PageRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PageRequest{}
+
+// PageRequest struct for PageRequest
+type PageRequest struct {
+	StartIndex *int32 `json:"startIndex,omitempty"`
+	Count *int32 `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _PageRequest PageRequest
+
+// NewPageRequest instantiates a new PageRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPageRequest() *PageRequest {
+	this := PageRequest{}
+	return &this
+}
+
+// NewPageRequestWithDefaults instantiates a new PageRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPageRequestWithDefaults() *PageRequest {
+	this := PageRequest{}
+	return &this
+}
+
+// GetStartIndex returns the StartIndex field value if set, zero value otherwise.
+func (o *PageRequest) GetStartIndex() int32 {
+	if o == nil || IsNil(o.StartIndex) {
+		var ret int32
+		return ret
+	}
+	return *o.StartIndex
+}
+
+// GetStartIndexOk returns a tuple with the StartIndex field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageRequest) GetStartIndexOk() (*int32, bool) {
+	if o == nil || IsNil(o.StartIndex) {
+		return nil, false
+	}
+	return o.StartIndex, true
+}
+
+// HasStartIndex returns a boolean if a field has been set.
+func (o *PageRequest) HasStartIndex() bool {
+	if o != nil && !IsNil(o.StartIndex) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartIndex gets a reference to the given int32 and assigns it to the StartIndex field.
+func (o *PageRequest) SetStartIndex(v int32) {
+	o.StartIndex = &v
+}
+
+// GetCount returns the Count field value if set, zero value otherwise.
+func (o *PageRequest) GetCount() int32 {
+	if o == nil || IsNil(o.Count) {
+		var ret int32
+		return ret
+	}
+	return *o.Count
+}
+
+// GetCountOk returns a tuple with the Count field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageRequest) GetCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.Count) {
+		return nil, false
+	}
+	return o.Count, true
+}
+
+// HasCount returns a boolean if a field has been set.
+func (o *PageRequest) HasCount() bool {
+	if o != nil && !IsNil(o.Count) {
+		return true
+	}
+
+	return false
+}
+
+// SetCount gets a reference to the given int32 and assigns it to the Count field.
+func (o *PageRequest) SetCount(v int32) {
+	o.Count = &v
+}
+
+func (o PageRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PageRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StartIndex) {
+		toSerialize["startIndex"] = o.StartIndex
+	}
+	if !IsNil(o.Count) {
+		toSerialize["count"] = o.Count
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *PageRequest) UnmarshalJSON(data []byte) (err error) {
+	varPageRequest := _PageRequest{}
+
+	err = json.Unmarshal(data, &varPageRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PageRequest(varPageRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "startIndex")
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullablePageRequest struct {
+	value *PageRequest
+	isSet bool
+}
+
+func (v NullablePageRequest) Get() *PageRequest {
+	return v.value
+}
+
+func (v *NullablePageRequest) Set(val *PageRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePageRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePageRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePageRequest(val *PageRequest) *NullablePageRequest {
+	return &NullablePageRequest{value: val, isSet: true}
+}
+
+func (v NullablePageRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePageRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

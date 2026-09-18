@@ -1,0 +1,605 @@
+// TestSuitesApi.spec.js
+
+import { describe, it, expect } from 'vitest';
+import { randomId } from './_utils.js';
+import { tenantId } from './_setup.js';
+import * as Flows from '@kestra-io/kestra-sdk/flows';
+import * as TestSuites from '@kestra-io/kestra-sdk/test-suites';
+import type { TestSuite } from '@kestra-io/kestra-sdk';
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// ---------------- YAML templates ----------------
+
+const SIMPLE_TEST_SUITE = `
+id: %testSuiteId%
+namespace: %namespace%
+description: assert flow is returning the input value as output
+flowId: %flowId%
+testCases:
+  - id: test_case_1
+    description: test_case_1 description
+    type: io.kestra.core.tests.flow.UnitTest
+    fixtures:
+      inputs:
+        inputA: "Hi there"
+    assertions:
+      - value: "{{ outputs.return.value }}"
+        equalTo: 'Hi there'
+`;
+
+const INVALID_TEST_SUITE = `
+id: %testSuiteId%
+namespace: %namespace%
+description: assert flow is returning the input value as output
+# missing flow id
+# missing test cases
+`;
+
+const FAILING_SIMPLE_TEST_SUITE = `
+id: %testSuiteId%
+namespace: %namespace%
+description: assert flow is returning the input value as output
+flowId: %flowId%
+testCases:
+  - id: test_case_1
+    description: test_case_1 description
+    type: io.kestra.core.tests.flow.UnitTest
+    fixtures:
+      inputs:
+        inputA: "another value"
+    assertions:
+      - value: "{{ outputs.return.value }}"
+        description: 'making this assertion always false'
+        equalTo: 'Hi there'
+`;
+
+const LOG_FLOW = (id: string, ns: string) => `
+id: ${id}
+namespace: ${ns}
+
+inputs:
+  - id: inputA
+    type: STRING
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "inputA: {{ inputs.inputA }}"
+
+  - id: return
+    type: io.kestra.plugin.core.debug.Return
+    format: "{{ inputs.inputA }}"
+
+outputs:
+  - id: "outputA"
+    type: STRING
+    value: "{{ outputs.return.value }}"
+`;
+
+// ---------------- helpers ----------------
+
+function getTestSuiteYaml(template: string, testSuiteId: string, namespace: string, flowId: string): string {
+    return template
+        .replace('%testSuiteId%', testSuiteId)
+        .replace('%namespace%', namespace)
+        .replace('%flowId%', flowId);
+}
+
+async function createSimpleFlow(flowId: string, namespace: string) {
+    return createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
+}
+
+async function createSimpleFlowFromBody(flowBody: string) {
+    const flow = await Flows.createFlow({ body: flowBody });
+    // small delay like the Java helper did
+    await sleep(200);
+    return flow;
+}
+
+async function assertTestSuiteExists(testSuite: TestSuite) {
+    await expect(
+        TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: tenantId })
+    ).resolves.toBeTruthy();
+}
+
+async function assertTestSuiteDoesNotExist(testSuite: TestSuite) {
+    try {
+        await TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: tenantId });
+        throw new Error('Expected 404 but request succeeded');
+    } catch (err: any) {
+        const status = err?.status ?? err?.response?.status ?? err?.code ?? err?.data?.code;
+        expect(status).toBe(404);
+    }
+}
+
+async function isTestSuiteDisabled(testSuite: TestSuite): Promise<boolean> {
+    const ts = await TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: tenantId });
+    return !!ts?.disabled;
+}
+
+// ---------------- tests ----------------
+
+describe('TestSuitesApiTest', () => {
+    it('createTestSuiteTest', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        const yaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        const resp = await TestSuites.createTestSuite({ body: yaml, tenant: tenantId });
+
+        expect(resp.id).toBe(testSuiteId);
+        expect(resp.flowId).toBe(flowId);
+        expect(resp.namespace).toBe(namespace);
+        expect(resp.description).toBe('assert flow is returning the input value as output');
+
+        const testCaseIds = (resp.testCases ?? []).map((tc) => tc.id);
+        expect(testCaseIds).toEqual(['test_case_1']);
+
+        const first = (resp.testCases ?? [])[0];
+        expect(first?.description).toBe('test_case_1 description');
+        expect(first?.type).toBe('io.kestra.core.tests.flow.UnitTest');
+        expect(first?.disabled).toBe(false);
+        expect(first?.fixtures?.inputs).toEqual({ inputA: 'Hi there' });
+
+        const assertion = (first?.assertions ?? [])[0];
+        expect(assertion?.equalTo).toBe('Hi there');
+        expect(assertion?.value).toBe('{{ outputs.return.value }}');
+    });
+
+    it('getTestSuiteTest', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        const yaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        await TestSuites.createTestSuite({ body: yaml, tenant: tenantId });
+        const fetched = await TestSuites.testSuite({ namespace, id: testSuiteId, tenant: tenantId });
+
+        expect(fetched.id).toBe(testSuiteId);
+        expect(fetched.flowId).toBe(flowId);
+        expect(fetched.namespace).toBe(namespace);
+        expect(fetched.description).toBe('assert flow is returning the input value as output');
+    });
+
+    it('deleteTestSuiteTest', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        const yaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        const created = await TestSuites.createTestSuite({ body: yaml, tenant: tenantId });
+        await assertTestSuiteExists(created);
+
+        await TestSuites.deleteTestSuite({ namespace, id: testSuiteId, tenant: tenantId });
+        await assertTestSuiteDoesNotExist(created);
+    });
+
+    it('updateTestSuiteTest', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        let yaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        const created = await TestSuites.createTestSuite({ body: yaml, tenant: tenantId });
+        await assertTestSuiteExists(created);
+
+        yaml = yaml
+            .replace('assert flow is returning the input value as output', 'updated testsuite description')
+            .replace('test_case_1 description', 'updated testcase description');
+
+        await TestSuites.updateTestSuite({ namespace, id: testSuiteId, body: yaml, tenant: tenantId });
+        const fetched = await TestSuites.testSuite({ namespace, id: testSuiteId, tenant: tenantId });
+
+        expect(fetched.id).toBe(testSuiteId);
+        expect(fetched.description).toBe('updated testsuite description');
+        expect((fetched.testCases ?? [])[0]?.description).toBe('updated testcase description');
+    });
+
+    it('validateTestSuiteTest_ok', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        const yaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        const vr = await TestSuites.validateTestSuite({ body: yaml, tenant: tenantId });
+
+        expect(vr?.warnings ?? []).toHaveLength(0);
+        expect(vr?.infos ?? []).toHaveLength(0);
+        expect(vr?.deprecationPaths ?? []).toHaveLength(0);
+        expect(vr?.constraints ?? null).toBeNull();
+    });
+
+    it('validateTestSuiteTest_invalid', async () => {
+        const testSuiteId = randomId();
+        const namespace = randomId();
+        const flowId = randomId();
+        const yaml = getTestSuiteYaml(INVALID_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        await createSimpleFlow(flowId, namespace);
+
+        const vr = await TestSuites.validateTestSuite({ body: yaml, tenant: tenantId });
+
+        // Normalize to an array of strings
+        const constraintsRaw = vr?.constraints ?? [];
+        const constraints = Array.isArray(constraintsRaw)
+            ? constraintsRaw
+            : String(constraintsRaw)
+                .split(/\r?\n/)
+                .map(s => s.trim())
+                .filter(Boolean);
+
+        // Assert only that these messages are present (order/extra lines ignored)
+        expect(constraints).toEqual(
+            expect.arrayContaining([
+                expect.stringMatching(/testCases:\s*must not be empty/i),
+                expect.stringMatching(/flowId:\s*must not be null/i),
+            ])
+        );
+    });
+
+    it('deleteTestSuiteByIdsTest', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts3 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+
+        await assertTestSuiteExists(ts2);
+        await assertTestSuiteExists(ts1);
+        await assertTestSuiteExists(ts3);
+
+        const idsToDelete = [
+            { id: ts1.id, namespace: ts1.namespace },
+            { id: ts3.id, namespace: ts3.namespace },
+        ];
+        await TestSuites.deleteTestSuitesByIds({ ids: idsToDelete, tenant: tenantId });
+
+        await assertTestSuiteExists(ts2);
+        await assertTestSuiteDoesNotExist(ts1);
+        await assertTestSuiteDoesNotExist(ts3);
+    });
+
+    it('disableTestSuiteByIdsTest', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts3 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+
+        expect(await isTestSuiteDisabled(ts1)).toBe(false);
+        expect(await isTestSuiteDisabled(ts2)).toBe(false);
+        expect(await isTestSuiteDisabled(ts3)).toBe(false);
+
+        const idsToDisable = [
+            { id: ts1.id, namespace: ts1.namespace },
+            { id: ts3.id, namespace: ts3.namespace },
+        ];
+        await TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: tenantId });
+
+        expect(await isTestSuiteDisabled(ts1)).toBe(true);
+        expect(await isTestSuiteDisabled(ts2)).toBe(false);
+        expect(await isTestSuiteDisabled(ts3)).toBe(true);
+    });
+
+    it('enableTestSuiteByIdsTest', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+        const ts3 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
+            tenant: tenantId,
+        });
+
+        // ensure initially not disabled
+        expect(await isTestSuiteDisabled(ts1)).toBe(false);
+        expect(await isTestSuiteDisabled(ts2)).toBe(false);
+        expect(await isTestSuiteDisabled(ts3)).toBe(false);
+
+        // disable ts1 & ts3
+        const idsToDisable = [
+            { id: ts1.id, namespace: ts1.namespace },
+            { id: ts3.id, namespace: ts3.namespace },
+        ];
+        await TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: tenantId });
+
+        expect(await isTestSuiteDisabled(ts1)).toBe(true);
+        expect(await isTestSuiteDisabled(ts2)).toBe(false);
+        expect(await isTestSuiteDisabled(ts3)).toBe(true);
+
+        // enable ts1
+        const idsToEnable = [{ id: ts1.id, namespace: ts1.namespace }];
+        await TestSuites.enableTestSuitesByIds({ ids: idsToEnable, tenant: tenantId });
+
+        expect(await isTestSuiteDisabled(ts1)).toBe(false);
+        expect(await isTestSuiteDisabled(ts2)).toBe(false);
+        expect(await isTestSuiteDisabled(ts3)).toBe(true);
+    }, 12000);
+
+    it('searchTestSuiteTest', async () => {
+        const namespaceXXX = `namespacexxx_${randomId()}`;
+        const namespaceYYY = `namespaceyyy_${randomId()}`;
+
+        const flowAAA = await createSimpleFlowFromBody(LOG_FLOW(`flowaaa_${randomId()}`, namespaceXXX));
+        const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
+        const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
+            tenant: tenantId,
+        });
+        const ts4 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
+            tenant: tenantId,
+        });
+
+        const page = 1;
+        const size = 1000;
+        const includeChildNamespaces = false;
+
+        // by flowId
+        {
+            const flowIdToSearch = flowAAA.id;
+            const res = await TestSuites.searchTestSuites({
+                page, size, includeChildNamespaces, tenant: tenantId, flowId: flowIdToSearch,
+            });
+            const gotIds = (res?.results ?? []).map((r) => r.id).sort();
+            expect(gotIds).toEqual([ts1.id, ts2.id].sort());
+        }
+
+        // by namespace
+        {
+            const namespaceToSearch = namespaceYYY;
+            const res = await TestSuites.searchTestSuites({
+                page, size, includeChildNamespaces, tenant: tenantId, namespace: namespaceToSearch,
+            });
+            const gotIds = (res?.results ?? []).map((r) => r.id).sort();
+            expect(gotIds).toEqual([ts4.id].sort());
+        }
+    });
+
+    it('runTestSuiteTest', async () => {
+        const namespace = randomId();
+        const flowId = randomId();
+        await createSimpleFlow(flowId, namespace);
+
+        const ts = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
+            tenant: tenantId,
+        });
+
+        const run = await TestSuites.runTestSuite({ namespace, id: ts.id, tenant: tenantId });
+
+        expect(run.testSuiteId).toBe(ts.id);
+        expect(run.state).toBe('SUCCESS');
+        expect(run.endDate).toBeTruthy();
+    });
+
+    it('runTestSuiteTest_failed', async () => {
+        const namespace = randomId();
+        const flowId = randomId();
+        await createSimpleFlow(flowId, namespace);
+
+        const ts = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(FAILING_SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
+            tenant: tenantId,
+        });
+
+        const run = await TestSuites.runTestSuite({ namespace, id: ts.id, tenant: tenantId });
+
+        expect(run.testSuiteId).toBe(ts.id);
+        expect(run.state).toBe('FAILED');
+        expect(run.results ?? []).toHaveLength(1);
+
+        const first = (run.results ?? [])[0];
+        expect(first?.testId).toBe('test_case_1');
+        const a = (first?.assertionResults ?? [])[0];
+        expect(a?.expected).toBe('Hi there');
+        expect(a?.actual).toBe('another value');
+        expect(a?.operator).toBe('equalTo');
+        expect(a?.isSuccess).toBe(false);
+    });
+
+    it('runTestSuiteByQueryTest', async () => {
+        const namespaceXXX = `namespacexxx_${randomId()}`;
+        const namespaceYYY = `namespaceyyy_${randomId()}`;
+
+        const flowAAA = await createSimpleFlowFromBody(LOG_FLOW(`flowaaa_${randomId()}`, namespaceXXX));
+        const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
+        const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
+            tenant: tenantId,
+        });
+        const ts4 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
+            tenant: tenantId,
+        });
+
+        // by flowId
+        {
+            const res = await TestSuites.runTestSuitesByQuery({
+                flowId: flowAAA.id,
+                includeChildNamespaces: false,
+                tenant: tenantId,
+            });
+            const gotIds = (res?.results ?? []).map((r) => r.testSuiteId).sort();
+            expect(gotIds).toEqual([ts1.id, ts2.id].sort());
+        }
+
+        // by namespace
+        {
+            const res = await TestSuites.runTestSuitesByQuery({
+                namespace: namespaceYYY,
+                includeChildNamespaces: false,
+                tenant: tenantId,
+            });
+            const gotIds = (res?.results ?? []).map((r) => r.testSuiteId).sort();
+            expect(gotIds).toEqual([ts4.id].sort());
+        }
+    });
+
+    it('searchTestSuitesResultsTest', async () => {
+        const namespaceXXX = `namespacexxx_${randomId()}`;
+        const namespaceYYY = `namespaceyyy_${randomId()}`;
+
+        const flowAAA = await createSimpleFlowFromBody(LOG_FLOW(`flowaaa_${randomId()}`, namespaceXXX));
+        const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
+        const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
+
+        const ts1 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        const ts2 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
+            tenant: tenantId,
+        });
+        const ts3 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
+            tenant: tenantId,
+        });
+        const ts4 = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
+            tenant: tenantId,
+        });
+
+        await TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: tenantId });
+        await TestSuites.runTestSuite({ namespace: ts2.namespace, id: ts2.id, tenant: tenantId });
+        await TestSuites.runTestSuite({ namespace: ts4.namespace, id: ts4.id, tenant: tenantId });
+
+        const page = 1;
+        const size = 1000;
+
+        // by testSuiteId
+        {
+            const res = await TestSuites.searchTestSuitesResults({
+                page, size, tenant: tenantId, testSuiteId: ts1.id,
+            });
+            const results = res?.results ?? [];
+            expect(results.every((r) => r.testSuiteId === ts1.id)).toBe(true);
+            expect(results).toHaveLength(1);
+        }
+
+        // by flowId
+        {
+            const res = await TestSuites.searchTestSuitesResults({
+                page, size, tenant: tenantId, flowId: flowAAA.id,
+            });
+            const results = res?.results ?? [];
+            expect(results.every((r) => r.flowId === flowAAA.id)).toBe(true);
+            const ids = results.map((r) => r.testSuiteId).sort();
+            expect(ids).toEqual([ts1.id, ts2.id].sort());
+        }
+
+        // by namespace
+        {
+            const res = await TestSuites.searchTestSuitesResults({
+                page, size, tenant: tenantId, namespace: namespaceYYY,
+            });
+            const results = res?.results ?? [];
+            expect(results.every((r) => r.namespace === namespaceYYY)).toBe(true);
+            const ids = results.map((r) => r.testSuiteId).sort();
+            expect(ids).toEqual([ts4.id].sort());
+        }
+    }, 18000);
+
+    it('getTestResult', async () => {
+        const namespace = randomId();
+        const flowId = randomId();
+        await createSimpleFlow(flowId, namespace);
+
+        const ts = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
+            tenant: tenantId,
+        });
+
+        const run = await TestSuites.runTestSuite({ namespace, id: ts.id, tenant: tenantId });
+
+        const fetched = await TestSuites.testResult({ id: run.id, tenant: tenantId });
+        expect(fetched.id).toBe(run.id);
+    });
+
+    it('getTestsLastResultTest', async () => {
+        const namespace = randomId();
+        const flowId = randomId();
+        await createSimpleFlow(flowId, namespace);
+
+        const ts = await TestSuites.createTestSuite({
+            body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
+            tenant: tenantId,
+        });
+
+        const r1 = await TestSuites.runTestSuite({ namespace, id: ts.id, tenant: tenantId });
+        const r2 = await TestSuites.runTestSuite({ namespace, id: ts.id, tenant: tenantId });
+
+        const fetched = await TestSuites.testsLastResult({
+            testSuiteIds: [{ id: ts.id, namespace: ts.namespace }],
+            tenant: tenantId,
+        });
+
+        const got = (fetched?.results ?? [])[0];
+        expect(got?.id).toBe(r2.id);
+        // ensure the latest is returned (not r1)
+        expect(got?.id).not.toBe(r1.id);
+    });
+});

@@ -1,0 +1,703 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Isolation;
+import io.kestra.sdk.model.SDKAuth;
+import io.kestra.sdk.model.TenantAppCatalogConfig;
+import io.kestra.sdk.model.TenantPreferencesSettings;
+import io.kestra.sdk.model.WorkerSelector;
+import java.util.HashMap;
+import java.util.Map;
+import io.kestra.sdk.model.Concurrency;
+import io.kestra.sdk.model.Quota;
+import io.kestra.sdk.model.SecretConfigurationWorkerSecretManagerMode;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiTenant
+ */
+@JsonPropertyOrder({
+  ApiTenant.JSON_PROPERTY_STORAGE_ISOLATION,
+  ApiTenant.JSON_PROPERTY_SECRET_ISOLATION,
+  ApiTenant.JSON_PROPERTY_ID,
+  ApiTenant.JSON_PROPERTY_NAME,
+  ApiTenant.JSON_PROPERTY_DELETED,
+  ApiTenant.JSON_PROPERTY_DEFAULT_WORKER_SELECTOR,
+  ApiTenant.JSON_PROPERTY_STORAGE_TYPE,
+  ApiTenant.JSON_PROPERTY_STORAGE_CONFIGURATION,
+  ApiTenant.JSON_PROPERTY_SECRET_TYPE,
+  ApiTenant.JSON_PROPERTY_SECRET_READ_ONLY,
+  ApiTenant.JSON_PROPERTY_SECRET_CONFIGURATION,
+  ApiTenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
+  ApiTenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
+  ApiTenant.JSON_PROPERTY_APP_CATALOG_CONFIG,
+  ApiTenant.JSON_PROPERTY_SETTINGS,
+  ApiTenant.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION,
+  ApiTenant.JSON_PROPERTY_LOGO,
+  ApiTenant.JSON_PROPERTY_CONCURRENCY,
+  ApiTenant.JSON_PROPERTY_QUOTAS,
+  ApiTenant.JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE
+})
+public class ApiTenant {
+  public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
+  @jakarta.annotation.Nullable  private Isolation storageIsolation;
+
+  public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
+  @jakarta.annotation.Nullable  private Isolation secretIsolation;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_DEFAULT_WORKER_SELECTOR = "defaultWorkerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector defaultWorkerSelector;
+
+  public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
+  @jakarta.annotation.Nullable  private String storageType;
+
+  public static final String JSON_PROPERTY_STORAGE_CONFIGURATION = "storageConfiguration";
+  @jakarta.annotation.Nullable  private Map<String, Object> storageConfiguration = new HashMap<>();
+
+  public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
+  @jakarta.annotation.Nullable  private String secretType;
+
+  public static final String JSON_PROPERTY_SECRET_READ_ONLY = "secretReadOnly";
+  @jakarta.annotation.Nullable  private Boolean secretReadOnly;
+
+  public static final String JSON_PROPERTY_SECRET_CONFIGURATION = "secretConfiguration";
+  @jakarta.annotation.Nullable  private Map<String, Object> secretConfiguration = new HashMap<>();
+
+  public static final String JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE = "requireExistingNamespace";
+  @jakarta.annotation.Nullable  private Boolean requireExistingNamespace;
+
+  public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
+  @jakarta.annotation.Nullable  private Boolean outputsInInternalStorage;
+
+  public static final String JSON_PROPERTY_APP_CATALOG_CONFIG = "appCatalogConfig";
+  @jakarta.annotation.Nullable  private TenantAppCatalogConfig appCatalogConfig;
+
+  public static final String JSON_PROPERTY_SETTINGS = "settings";
+  @jakarta.annotation.Nullable  private TenantPreferencesSettings settings;
+
+  public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
+  @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
+
+  public static final String JSON_PROPERTY_LOGO = "logo";
+  @jakarta.annotation.Nullable  private String logo;
+
+  public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
+  @jakarta.annotation.Nullable  private Concurrency concurrency;
+
+  public static final String JSON_PROPERTY_QUOTAS = "quotas";
+  @jakarta.annotation.Nullable  private List<Quota> quotas;
+
+  public static final String JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE = "workerSecretManagerMode";
+  @jakarta.annotation.Nullable  private SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode;
+
+  public ApiTenant() {
+  }
+
+  public ApiTenant storageIsolation(@jakarta.annotation.Nullable Isolation storageIsolation) {
+    
+    this.storageIsolation = storageIsolation;
+    return this;
+  }
+
+  /**
+   * Get storageIsolation
+   * @return storageIsolation
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Isolation getStorageIsolation() {
+    return storageIsolation;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageIsolation(@jakarta.annotation.Nullable Isolation storageIsolation) {
+    this.storageIsolation = storageIsolation;
+  }
+
+  public ApiTenant secretIsolation(@jakarta.annotation.Nullable Isolation secretIsolation) {
+    
+    this.secretIsolation = secretIsolation;
+    return this;
+  }
+
+  /**
+   * Get secretIsolation
+   * @return secretIsolation
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Isolation getSecretIsolation() {
+    return secretIsolation;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretIsolation(@jakarta.annotation.Nullable Isolation secretIsolation) {
+    this.secretIsolation = secretIsolation;
+  }
+
+  public ApiTenant id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ApiTenant name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public ApiTenant deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public ApiTenant defaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
+    
+    this.defaultWorkerSelector = defaultWorkerSelector;
+    return this;
+  }
+
+  /**
+   * Get defaultWorkerSelector
+   * @return defaultWorkerSelector
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WorkerSelector getDefaultWorkerSelector() {
+    return defaultWorkerSelector;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDefaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
+    this.defaultWorkerSelector = defaultWorkerSelector;
+  }
+
+  public ApiTenant storageType(@jakarta.annotation.Nullable String storageType) {
+    
+    this.storageType = storageType;
+    return this;
+  }
+
+  /**
+   * Get storageType
+   * @return storageType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStorageType() {
+    return storageType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageType(@jakarta.annotation.Nullable String storageType) {
+    this.storageType = storageType;
+  }
+
+  public ApiTenant storageConfiguration(@jakarta.annotation.Nullable Map<String, Object> storageConfiguration) {
+    
+    this.storageConfiguration = storageConfiguration;
+    return this;
+  }
+
+  public ApiTenant putStorageConfigurationItem(String key, Object storageConfigurationItem) {
+    if (this.storageConfiguration == null) {
+      this.storageConfiguration = new HashMap<>();
+    }
+    this.storageConfiguration.put(key, storageConfigurationItem);
+    return this;
+  }
+
+  /**
+   * Get storageConfiguration
+   * @return storageConfiguration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getStorageConfiguration() {
+    return storageConfiguration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageConfiguration(@jakarta.annotation.Nullable Map<String, Object> storageConfiguration) {
+    this.storageConfiguration = storageConfiguration;
+  }
+
+  public ApiTenant secretType(@jakarta.annotation.Nullable String secretType) {
+    
+    this.secretType = secretType;
+    return this;
+  }
+
+  /**
+   * Get secretType
+   * @return secretType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSecretType() {
+    return secretType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretType(@jakarta.annotation.Nullable String secretType) {
+    this.secretType = secretType;
+  }
+
+  public ApiTenant secretReadOnly(@jakarta.annotation.Nullable Boolean secretReadOnly) {
+    
+    this.secretReadOnly = secretReadOnly;
+    return this;
+  }
+
+  /**
+   * Get secretReadOnly
+   * @return secretReadOnly
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSecretReadOnly() {
+    return secretReadOnly;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretReadOnly(@jakarta.annotation.Nullable Boolean secretReadOnly) {
+    this.secretReadOnly = secretReadOnly;
+  }
+
+  public ApiTenant secretConfiguration(@jakarta.annotation.Nullable Map<String, Object> secretConfiguration) {
+    
+    this.secretConfiguration = secretConfiguration;
+    return this;
+  }
+
+  public ApiTenant putSecretConfigurationItem(String key, Object secretConfigurationItem) {
+    if (this.secretConfiguration == null) {
+      this.secretConfiguration = new HashMap<>();
+    }
+    this.secretConfiguration.put(key, secretConfigurationItem);
+    return this;
+  }
+
+  /**
+   * Get secretConfiguration
+   * @return secretConfiguration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getSecretConfiguration() {
+    return secretConfiguration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretConfiguration(@jakarta.annotation.Nullable Map<String, Object> secretConfiguration) {
+    this.secretConfiguration = secretConfiguration;
+  }
+
+  public ApiTenant requireExistingNamespace(@jakarta.annotation.Nullable Boolean requireExistingNamespace) {
+    
+    this.requireExistingNamespace = requireExistingNamespace;
+    return this;
+  }
+
+  /**
+   * Get requireExistingNamespace
+   * @return requireExistingNamespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequireExistingNamespace() {
+    return requireExistingNamespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequireExistingNamespace(@jakarta.annotation.Nullable Boolean requireExistingNamespace) {
+    this.requireExistingNamespace = requireExistingNamespace;
+  }
+
+  public ApiTenant outputsInInternalStorage(@jakarta.annotation.Nullable Boolean outputsInInternalStorage) {
+    
+    this.outputsInInternalStorage = outputsInInternalStorage;
+    return this;
+  }
+
+  /**
+   * Get outputsInInternalStorage
+   * @return outputsInInternalStorage
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getOutputsInInternalStorage() {
+    return outputsInInternalStorage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputsInInternalStorage(@jakarta.annotation.Nullable Boolean outputsInInternalStorage) {
+    this.outputsInInternalStorage = outputsInInternalStorage;
+  }
+
+  public ApiTenant appCatalogConfig(@jakarta.annotation.Nullable TenantAppCatalogConfig appCatalogConfig) {
+    
+    this.appCatalogConfig = appCatalogConfig;
+    return this;
+  }
+
+  /**
+   * Get appCatalogConfig
+   * @return appCatalogConfig
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_CATALOG_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TenantAppCatalogConfig getAppCatalogConfig() {
+    return appCatalogConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APP_CATALOG_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppCatalogConfig(@jakarta.annotation.Nullable TenantAppCatalogConfig appCatalogConfig) {
+    this.appCatalogConfig = appCatalogConfig;
+  }
+
+  public ApiTenant settings(@jakarta.annotation.Nullable TenantPreferencesSettings settings) {
+    
+    this.settings = settings;
+    return this;
+  }
+
+  /**
+   * Get settings
+   * @return settings
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TenantPreferencesSettings getSettings() {
+    return settings;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSettings(@jakarta.annotation.Nullable TenantPreferencesSettings settings) {
+    this.settings = settings;
+  }
+
+  public ApiTenant sdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+    return this;
+  }
+
+  /**
+   * Get sdkDefaultAuthentication
+   * @return sdkDefaultAuthentication
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SDKAuth getSdkDefaultAuthentication() {
+    return sdkDefaultAuthentication;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+  }
+
+  public ApiTenant logo(@jakarta.annotation.Nullable String logo) {
+    
+    this.logo = logo;
+    return this;
+  }
+
+  /**
+   * Get logo
+   * @return logo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLogo() {
+    return logo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogo(@jakarta.annotation.Nullable String logo) {
+    this.logo = logo;
+  }
+
+  public ApiTenant concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    
+    this.concurrency = concurrency;
+    return this;
+  }
+
+  /**
+   * Get concurrency
+   * @return concurrency
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Concurrency getConcurrency() {
+    return concurrency;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConcurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    this.concurrency = concurrency;
+  }
+
+  public ApiTenant quotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    
+    this.quotas = quotas;
+    return this;
+  }
+
+  public ApiTenant addQuotasItem(Quota quotasItem) {
+    if (this.quotas == null) {
+      this.quotas = new ArrayList<>();
+    }
+    this.quotas.add(quotasItem);
+    return this;
+  }
+
+  /**
+   * Get quotas
+   * @return quotas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Quota> getQuotas() {
+    return quotas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQuotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    this.quotas = quotas;
+  }
+
+  public ApiTenant workerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    
+    this.workerSecretManagerMode = workerSecretManagerMode;
+    return this;
+  }
+
+  /**
+   * Get workerSecretManagerMode
+   * @return workerSecretManagerMode
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SecretConfigurationWorkerSecretManagerMode getWorkerSecretManagerMode() {
+    return workerSecretManagerMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    this.workerSecretManagerMode = workerSecretManagerMode;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiTenant apiTenant = (ApiTenant) o;
+    return Objects.equals(this.storageIsolation, apiTenant.storageIsolation) &&
+        Objects.equals(this.secretIsolation, apiTenant.secretIsolation) &&
+        Objects.equals(this.id, apiTenant.id) &&
+        Objects.equals(this.name, apiTenant.name) &&
+        Objects.equals(this.deleted, apiTenant.deleted) &&
+        Objects.equals(this.defaultWorkerSelector, apiTenant.defaultWorkerSelector) &&
+        Objects.equals(this.storageType, apiTenant.storageType) &&
+        Objects.equals(this.storageConfiguration, apiTenant.storageConfiguration) &&
+        Objects.equals(this.secretType, apiTenant.secretType) &&
+        Objects.equals(this.secretReadOnly, apiTenant.secretReadOnly) &&
+        Objects.equals(this.secretConfiguration, apiTenant.secretConfiguration) &&
+        Objects.equals(this.requireExistingNamespace, apiTenant.requireExistingNamespace) &&
+        Objects.equals(this.outputsInInternalStorage, apiTenant.outputsInInternalStorage) &&
+        Objects.equals(this.appCatalogConfig, apiTenant.appCatalogConfig) &&
+        Objects.equals(this.settings, apiTenant.settings) &&
+        Objects.equals(this.sdkDefaultAuthentication, apiTenant.sdkDefaultAuthentication) &&
+        Objects.equals(this.logo, apiTenant.logo) &&
+        Objects.equals(this.concurrency, apiTenant.concurrency) &&
+        Objects.equals(this.quotas, apiTenant.quotas) &&
+        Objects.equals(this.workerSecretManagerMode, apiTenant.workerSecretManagerMode);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, logo, concurrency, quotas, workerSecretManagerMode);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiTenant {\n");
+    sb.append("    storageIsolation: ").append(toIndentedString(storageIsolation)).append("\n");
+    sb.append("    secretIsolation: ").append(toIndentedString(secretIsolation)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    defaultWorkerSelector: ").append(toIndentedString(defaultWorkerSelector)).append("\n");
+    sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
+    sb.append("    storageConfiguration: ").append(toIndentedString(storageConfiguration)).append("\n");
+    sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
+    sb.append("    secretReadOnly: ").append(toIndentedString(secretReadOnly)).append("\n");
+    sb.append("    secretConfiguration: ").append(toIndentedString(secretConfiguration)).append("\n");
+    sb.append("    requireExistingNamespace: ").append(toIndentedString(requireExistingNamespace)).append("\n");
+    sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
+    sb.append("    appCatalogConfig: ").append(toIndentedString(appCatalogConfig)).append("\n");
+    sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
+    sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
+    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+    sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
+    sb.append("    quotas: ").append(toIndentedString(quotas)).append("\n");
+    sb.append("    workerSecretManagerMode: ").append(toIndentedString(workerSecretManagerMode)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

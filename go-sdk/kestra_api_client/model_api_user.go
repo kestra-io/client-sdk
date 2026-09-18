@@ -1,0 +1,594 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ApiUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiUser{}
+
+// ApiUser struct for ApiUser
+type ApiUser struct {
+	Type UserType `json:"type"`
+	GroupList []GroupIdentifier `json:"groupList,omitempty"`
+	Groups []map[string]interface{} `json:"groups,omitempty"`
+	Username string `json:"username"`
+	Email string `json:"email"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Providers []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
+	Auths []ApiAuth `json:"auths,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiUser ApiUser
+
+// NewApiUser instantiates a new ApiUser object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiUser(type_ UserType, username string, email string) *ApiUser {
+	this := ApiUser{}
+	this.Type = type_
+	this.Username = username
+	this.Email = email
+	return &this
+}
+
+// NewApiUserWithDefaults instantiates a new ApiUser object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiUserWithDefaults() *ApiUser {
+	this := ApiUser{}
+	return &this
+}
+
+// GetType returns the Type field value
+func (o *ApiUser) GetType() UserType {
+	if o == nil {
+		var ret UserType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetTypeOk() (*UserType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ApiUser) SetType(v UserType) {
+	o.Type = v
+}
+
+// GetGroupList returns the GroupList field value if set, zero value otherwise.
+func (o *ApiUser) GetGroupList() []GroupIdentifier {
+	if o == nil || IsNil(o.GroupList) {
+		var ret []GroupIdentifier
+		return ret
+	}
+	return o.GroupList
+}
+
+// GetGroupListOk returns a tuple with the GroupList field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetGroupListOk() ([]GroupIdentifier, bool) {
+	if o == nil || IsNil(o.GroupList) {
+		return nil, false
+	}
+	return o.GroupList, true
+}
+
+// HasGroupList returns a boolean if a field has been set.
+func (o *ApiUser) HasGroupList() bool {
+	if o != nil && !IsNil(o.GroupList) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupList gets a reference to the given []GroupIdentifier and assigns it to the GroupList field.
+func (o *ApiUser) SetGroupList(v []GroupIdentifier) {
+	o.GroupList = v
+}
+
+// GetGroups returns the Groups field value if set, zero value otherwise.
+func (o *ApiUser) GetGroups() []map[string]interface{} {
+	if o == nil || IsNil(o.Groups) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.Groups
+}
+
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetGroupsOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Groups) {
+		return nil, false
+	}
+	return o.Groups, true
+}
+
+// HasGroups returns a boolean if a field has been set.
+func (o *ApiUser) HasGroups() bool {
+	if o != nil && !IsNil(o.Groups) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroups gets a reference to the given []map[string]interface{} and assigns it to the Groups field.
+func (o *ApiUser) SetGroups(v []map[string]interface{}) {
+	o.Groups = v
+}
+
+// GetUsername returns the Username field value
+func (o *ApiUser) GetUsername() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetUsernameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Username, true
+}
+
+// SetUsername sets field value
+func (o *ApiUser) SetUsername(v string) {
+	o.Username = v
+}
+
+// GetEmail returns the Email field value
+func (o *ApiUser) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *ApiUser) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *ApiUser) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
+		var ret bool
+		return ret
+	}
+	return *o.InstanceOwner
+}
+
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
+		return nil, false
+	}
+	return o.InstanceOwner, true
+}
+
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *ApiUser) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *ApiUser) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ApiUser) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ApiUser) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ApiUser) SetId(v string) {
+	o.Id = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *ApiUser) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *ApiUser) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *ApiUser) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ApiUser) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ApiUser) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ApiUser) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *ApiUser) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName) {
+		var ret string
+		return ret
+	}
+	return *o.FirstName
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetFirstNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FirstName) {
+		return nil, false
+	}
+	return o.FirstName, true
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *ApiUser) HasFirstName() bool {
+	if o != nil && !IsNil(o.FirstName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *ApiUser) SetFirstName(v string) {
+	o.FirstName = &v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *ApiUser) GetLastName() string {
+	if o == nil || IsNil(o.LastName) {
+		var ret string
+		return ret
+	}
+	return *o.LastName
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetLastNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LastName) {
+		return nil, false
+	}
+	return o.LastName, true
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *ApiUser) HasLastName() bool {
+	if o != nil && !IsNil(o.LastName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *ApiUser) SetLastName(v string) {
+	o.LastName = &v
+}
+
+// GetProviders returns the Providers field value if set, zero value otherwise.
+func (o *ApiUser) GetProviders() []AbstractUserTenantIdentityProvider {
+	if o == nil || IsNil(o.Providers) {
+		var ret []AbstractUserTenantIdentityProvider
+		return ret
+	}
+	return o.Providers
+}
+
+// GetProvidersOk returns a tuple with the Providers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetProvidersOk() ([]AbstractUserTenantIdentityProvider, bool) {
+	if o == nil || IsNil(o.Providers) {
+		return nil, false
+	}
+	return o.Providers, true
+}
+
+// HasProviders returns a boolean if a field has been set.
+func (o *ApiUser) HasProviders() bool {
+	if o != nil && !IsNil(o.Providers) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviders gets a reference to the given []AbstractUserTenantIdentityProvider and assigns it to the Providers field.
+func (o *ApiUser) SetProviders(v []AbstractUserTenantIdentityProvider) {
+	o.Providers = v
+}
+
+// GetAuths returns the Auths field value if set, zero value otherwise.
+func (o *ApiUser) GetAuths() []ApiAuth {
+	if o == nil || IsNil(o.Auths) {
+		var ret []ApiAuth
+		return ret
+	}
+	return o.Auths
+}
+
+// GetAuthsOk returns a tuple with the Auths field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiUser) GetAuthsOk() ([]ApiAuth, bool) {
+	if o == nil || IsNil(o.Auths) {
+		return nil, false
+	}
+	return o.Auths, true
+}
+
+// HasAuths returns a boolean if a field has been set.
+func (o *ApiUser) HasAuths() bool {
+	if o != nil && !IsNil(o.Auths) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuths gets a reference to the given []ApiAuth and assigns it to the Auths field.
+func (o *ApiUser) SetAuths(v []ApiAuth) {
+	o.Auths = v
+}
+
+func (o ApiUser) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.GroupList) {
+		toSerialize["groupList"] = o.GroupList
+	}
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
+	toSerialize["username"] = o.Username
+	toSerialize["email"] = o.Email
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
+	}
+	if !IsNil(o.Providers) {
+		toSerialize["providers"] = o.Providers
+	}
+	if !IsNil(o.Auths) {
+		toSerialize["auths"] = o.Auths
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"username",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiUser := _ApiUser{}
+
+	err = json.Unmarshal(data, &varApiUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiUser(varApiUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "groupList")
+		delete(additionalProperties, "groups")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "instanceOwner")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "providers")
+		delete(additionalProperties, "auths")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiUser struct {
+	value *ApiUser
+	isSet bool
+}
+
+func (v NullableApiUser) Get() *ApiUser {
+	return v.value
+}
+
+func (v *NullableApiUser) Set(val *ApiUser) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiUser) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiUser) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiUser(val *ApiUser) *NullableApiUser {
+	return &NullableApiUser{value: val, isSet: true}
+}
+
+func (v NullableApiUser) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiUser) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,130 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.StateType;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * StateHistory
+ */
+@JsonPropertyOrder({
+  StateHistory.JSON_PROPERTY_STATE,
+  StateHistory.JSON_PROPERTY_DATE
+})
+@JsonTypeName("State.History")
+public class StateHistory {
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private StateType state;
+
+  public static final String JSON_PROPERTY_DATE = "date";
+  @jakarta.annotation.Nonnull  private OffsetDateTime date;
+
+  public StateHistory() {
+  }
+
+  public StateHistory state(@jakarta.annotation.Nonnull StateType state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public StateType getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull StateType state) {
+    this.state = state;
+  }
+
+  public StateHistory date(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getDate() {
+    return date;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDate(@jakarta.annotation.Nonnull OffsetDateTime date) {
+    this.date = date;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    StateHistory stateHistory = (StateHistory) o;
+    return Objects.equals(this.state, stateHistory.state) &&
+        Objects.equals(this.date, stateHistory.date);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(state, date);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class StateHistory {\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

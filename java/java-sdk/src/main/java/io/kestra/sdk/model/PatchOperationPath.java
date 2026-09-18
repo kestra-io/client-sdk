@@ -1,0 +1,98 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ValuePathExpression;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PatchOperationPath
+ */
+@JsonPropertyOrder({
+  PatchOperationPath.JSON_PROPERTY_VALUE_PATH_EXPRESSION
+})
+public class PatchOperationPath {
+  public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
+  @jakarta.annotation.Nullable  private ValuePathExpression valuePathExpression;
+
+  public PatchOperationPath() {
+  }
+
+  public PatchOperationPath valuePathExpression(@jakarta.annotation.Nullable ValuePathExpression valuePathExpression) {
+    
+    this.valuePathExpression = valuePathExpression;
+    return this;
+  }
+
+  /**
+   * Get valuePathExpression
+   * @return valuePathExpression
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ValuePathExpression getValuePathExpression() {
+    return valuePathExpression;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValuePathExpression(@jakarta.annotation.Nullable ValuePathExpression valuePathExpression) {
+    this.valuePathExpression = valuePathExpression;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PatchOperationPath patchOperationPath = (PatchOperationPath) o;
+    return Objects.equals(this.valuePathExpression, patchOperationPath.valuePathExpression);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(valuePathExpression);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PatchOperationPath {\n");
+    sb.append("    valuePathExpression: ").append(toIndentedString(valuePathExpression)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

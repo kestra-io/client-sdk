@@ -1,0 +1,189 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMRoleControllerApiRoleCreateOrUpdateRequest
+ */
+@JsonPropertyOrder({
+  IAMRoleControllerApiRoleCreateOrUpdateRequest.JSON_PROPERTY_PERMISSIONS,
+  IAMRoleControllerApiRoleCreateOrUpdateRequest.JSON_PROPERTY_NAME,
+  IAMRoleControllerApiRoleCreateOrUpdateRequest.JSON_PROPERTY_DESCRIPTION,
+  IAMRoleControllerApiRoleCreateOrUpdateRequest.JSON_PROPERTY_IS_DEFAULT
+})
+@JsonTypeName("IAMRoleController.ApiRoleCreateOrUpdateRequest")
+public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
+  public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
+  @jakarta.annotation.Nonnull  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
+  @jakarta.annotation.Nullable  private Boolean isDefault;
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest() {
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest permissions(@jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    
+    this.permissions = permissions;
+    return this;
+  }
+
+  /**
+   * Get permissions
+   * @return permissions
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
+    return permissions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPermissions(@jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    this.permissions = permissions;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest isDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    
+    this.isDefault = isDefault;
+    return this;
+  }
+
+  /**
+   * Get isDefault
+   * @return isDefault
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    this.isDefault = isDefault;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest = (IAMRoleControllerApiRoleCreateOrUpdateRequest) o;
+    return Objects.equals(this.permissions, iaMRoleControllerApiRoleCreateOrUpdateRequest.permissions) &&
+        Objects.equals(this.name, iaMRoleControllerApiRoleCreateOrUpdateRequest.name) &&
+        Objects.equals(this.description, iaMRoleControllerApiRoleCreateOrUpdateRequest.description) &&
+        Objects.equals(this.isDefault, iaMRoleControllerApiRoleCreateOrUpdateRequest.isDefault);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(permissions, name, description, isDefault);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMRoleControllerApiRoleCreateOrUpdateRequest {\n");
+    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

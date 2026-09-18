@@ -1,0 +1,135 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.iam_tenant_access_controller_api_authentication import IAMTenantAccessControllerApiAuthentication
+from kestrapy.models.me_controller_api_owned_group import MeControllerApiOwnedGroup
+from kestrapy.models.me_controller_api_profile import MeControllerApiProfile
+from kestrapy.models.me_controller_api_tenant import MeControllerApiTenant
+from typing import Optional, Set
+from typing_extensions import Self
+
+class MeControllerApiMe(BaseModel):
+    """
+    MeControllerApiMe
+    """ # noqa: E501
+    id: Optional[StrictStr] = None
+    instance_owner: Optional[StrictBool] = Field(default=None, alias="instanceOwner")
+    restricted: Optional[StrictBool] = None
+    profile: Optional[MeControllerApiProfile] = None
+    auths: Optional[List[IAMTenantAccessControllerApiAuthentication]] = None
+    tenants: Optional[List[MeControllerApiTenant]] = None
+    owned_groups: Optional[List[MeControllerApiOwnedGroup]] = Field(default=None, alias="ownedGroups")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "instanceOwner", "restricted", "profile", "auths", "tenants", "ownedGroups"]
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of MeControllerApiMe from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of profile
+        if self.profile:
+            _dict['profile'] = self.profile.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in auths (list)
+        _items = []
+        if self.auths:
+            for _item_auths in self.auths:
+                if _item_auths:
+                    _items.append(_item_auths.to_dict())
+            _dict['auths'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in tenants (list)
+        _items = []
+        if self.tenants:
+            for _item_tenants in self.tenants:
+                if _item_tenants:
+                    _items.append(_item_tenants.to_dict())
+            _dict['tenants'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in owned_groups (list)
+        _items = []
+        if self.owned_groups:
+            for _item_owned_groups in self.owned_groups:
+                if _item_owned_groups:
+                    _items.append(_item_owned_groups.to_dict())
+            _dict['ownedGroups'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of MeControllerApiMe from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "instanceOwner": obj.get("instanceOwner"),
+            "restricted": obj.get("restricted"),
+            "profile": MeControllerApiProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
+            "auths": [IAMTenantAccessControllerApiAuthentication.from_dict(_item) for _item in obj["auths"]] if obj.get("auths") is not None else None,
+            "tenants": [MeControllerApiTenant.from_dict(_item) for _item in obj["tenants"]] if obj.get("tenants") is not None else None,
+            "ownedGroups": [MeControllerApiOwnedGroup.from_dict(_item) for _item in obj["ownedGroups"]] if obj.get("ownedGroups") is not None else None
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

@@ -1,0 +1,190 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.KVType;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * KVControllerKvDetail
+ */
+@JsonPropertyOrder({
+  KVControllerKvDetail.JSON_PROPERTY_TYPE,
+  KVControllerKvDetail.JSON_PROPERTY_VALUE,
+  KVControllerKvDetail.JSON_PROPERTY_REVISION,
+  KVControllerKvDetail.JSON_PROPERTY_UPDATED
+})
+@JsonTypeName("KVController.KvDetail")
+public class KVControllerKvDetail {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private KVType type;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nullable  private Object value;
+
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public KVControllerKvDetail() {
+  }
+
+  public KVControllerKvDetail type(@jakarta.annotation.Nullable KVType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public KVType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable KVType type) {
+    this.type = type;
+  }
+
+  public KVControllerKvDetail value(@jakarta.annotation.Nullable Object value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable Object value) {
+    this.value = value;
+  }
+
+  public KVControllerKvDetail revision(@jakarta.annotation.Nullable Integer revision) {
+    
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRevision() {
+    return revision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
+  }
+
+  public KVControllerKvDetail updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * Get updated
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    KVControllerKvDetail kvControllerKvDetail = (KVControllerKvDetail) o;
+    return Objects.equals(this.type, kvControllerKvDetail.type) &&
+        Objects.equals(this.value, kvControllerKvDetail.value) &&
+        Objects.equals(this.revision, kvControllerKvDetail.revision) &&
+        Objects.equals(this.updated, kvControllerKvDetail.updated);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, value, revision, updated);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class KVControllerKvDetail {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

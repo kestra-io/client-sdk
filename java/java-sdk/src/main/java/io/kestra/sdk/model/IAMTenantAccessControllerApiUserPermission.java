@@ -1,0 +1,141 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Action;
+import io.kestra.sdk.model.Permission;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMTenantAccessControllerApiUserPermission
+ */
+@JsonPropertyOrder({
+  IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_PERMISSION,
+  IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_ACTIONS
+})
+@JsonTypeName("IAMTenantAccessController.ApiUserPermission")
+public class IAMTenantAccessControllerApiUserPermission {
+  public static final String JSON_PROPERTY_PERMISSION = "permission";
+  @jakarta.annotation.Nullable  private Permission permission;
+
+  public static final String JSON_PROPERTY_ACTIONS = "actions";
+  @jakarta.annotation.Nullable  private List<Action> actions = new ArrayList<>();
+
+  public IAMTenantAccessControllerApiUserPermission() {
+  }
+
+  public IAMTenantAccessControllerApiUserPermission permission(@jakarta.annotation.Nullable Permission permission) {
+    
+    this.permission = permission;
+    return this;
+  }
+
+  /**
+   * Get permission
+   * @return permission
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Permission getPermission() {
+    return permission;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermission(@jakarta.annotation.Nullable Permission permission) {
+    this.permission = permission;
+  }
+
+  public IAMTenantAccessControllerApiUserPermission actions(@jakarta.annotation.Nullable List<Action> actions) {
+    
+    this.actions = actions;
+    return this;
+  }
+
+  public IAMTenantAccessControllerApiUserPermission addActionsItem(Action actionsItem) {
+    if (this.actions == null) {
+      this.actions = new ArrayList<>();
+    }
+    this.actions.add(actionsItem);
+    return this;
+  }
+
+  /**
+   * Get actions
+   * @return actions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Action> getActions() {
+    return actions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActions(@jakarta.annotation.Nullable List<Action> actions) {
+    this.actions = actions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMTenantAccessControllerApiUserPermission iaMTenantAccessControllerApiUserPermission = (IAMTenantAccessControllerApiUserPermission) o;
+    return Objects.equals(this.permission, iaMTenantAccessControllerApiUserPermission.permission) &&
+        Objects.equals(this.actions, iaMTenantAccessControllerApiUserPermission.actions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(permission, actions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMTenantAccessControllerApiUserPermission {\n");
+    sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
+    sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

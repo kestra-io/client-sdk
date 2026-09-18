@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AssertionRunError
+ */
+@JsonPropertyOrder({
+  AssertionRunError.JSON_PROPERTY_MESSAGE,
+  AssertionRunError.JSON_PROPERTY_DETAILS
+})
+public class AssertionRunError {
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  @jakarta.annotation.Nonnull  private String message;
+
+  public static final String JSON_PROPERTY_DETAILS = "details";
+  @jakarta.annotation.Nullable  private String details;
+
+  public AssertionRunError() {
+  }
+
+  public AssertionRunError message(@jakarta.annotation.Nonnull String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * Get message
+   * @return message
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMessage(@jakarta.annotation.Nonnull String message) {
+    this.message = message;
+  }
+
+  public AssertionRunError details(@jakarta.annotation.Nullable String details) {
+    
+    this.details = details;
+    return this;
+  }
+
+  /**
+   * Get details
+   * @return details
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDetails() {
+    return details;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetails(@jakarta.annotation.Nullable String details) {
+    this.details = details;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AssertionRunError assertionRunError = (AssertionRunError) o;
+    return Objects.equals(this.message, assertionRunError.message) &&
+        Objects.equals(this.details, assertionRunError.details);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(message, details);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AssertionRunError {\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

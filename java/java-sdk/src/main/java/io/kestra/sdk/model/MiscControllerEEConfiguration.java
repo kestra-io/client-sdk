@@ -1,0 +1,1262 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Banner;
+import io.kestra.sdk.model.EditionProviderEdition;
+import io.kestra.sdk.model.KillSwitch;
+import io.kestra.sdk.model.LeftSidebarConfiguration;
+import io.kestra.sdk.model.MiscControllerEnvironment;
+import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
+import io.kestra.sdk.model.MiscControllerPreview;
+import io.kestra.sdk.model.MiscControllerTenantConfigurationInfo;
+import io.kestra.sdk.model.PasswordConfiguration;
+import io.kestra.sdk.model.RightSidebarConfiguration;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerEEConfiguration
+ */
+@JsonPropertyOrder({
+  MiscControllerEEConfiguration.JSON_PROPERTY_UUID,
+  MiscControllerEEConfiguration.JSON_PROPERTY_VERSION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_EDITION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_ID,
+  MiscControllerEEConfiguration.JSON_PROPERTY_CHART_DEFAULT_DURATION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_DATE,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_ENVIRONMENT,
+  MiscControllerEEConfiguration.JSON_PROPERTY_URL,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PREVIEW,
+  MiscControllerEEConfiguration.JSON_PROPERTY_SYSTEM_NAMESPACE,
+  MiscControllerEEConfiguration.JSON_PROPERTY_HIDDEN_LABELS_PREFIXES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PLUGINS_HASH,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_TENANTS,
+  MiscControllerEEConfiguration.JSON_PROPERTY_SECRETS_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_SUPPORTED_STORAGES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_SUPPORTED_SECRETS,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_BANNER,
+  MiscControllerEEConfiguration.JSON_PROPERTY_MAIL_SERVICE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
+  MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_CONFIGURATION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORDLESS_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_AIRGAPPED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_FEATURE_GATING,
+  MiscControllerEEConfiguration.JSON_PROPERTY_FEATURES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_KILL_SWITCHES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_WORKER_AUTH_ENABLED
+})
+@JsonTypeName("MiscController.EEConfiguration")
+public class MiscControllerEEConfiguration {
+  public static final String JSON_PROPERTY_UUID = "uuid";
+  @jakarta.annotation.Nullable  private String uuid;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_EDITION = "edition";
+  @jakarta.annotation.Nullable  private EditionProviderEdition edition;
+
+  public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
+  @jakarta.annotation.Nullable  private String commitId;
+
+  public static final String JSON_PROPERTY_CHART_DEFAULT_DURATION = "chartDefaultDuration";
+  @jakarta.annotation.Nullable  private String chartDefaultDuration;
+
+  public static final String JSON_PROPERTY_COMMIT_DATE = "commitDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime commitDate;
+
+  public static final String JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED = "isCustomDashboardsEnabled";
+  @jakarta.annotation.Nullable  private Boolean isCustomDashboardsEnabled;
+
+  public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
+  @jakarta.annotation.Nullable  private Boolean isAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
+  @jakarta.annotation.Nullable  private Boolean isUiAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
+  @jakarta.annotation.Nullable  private MiscControllerEnvironment environment;
+
+  public static final String JSON_PROPERTY_URL = "url";
+  @jakarta.annotation.Nullable  private String url;
+
+  public static final String JSON_PROPERTY_PREVIEW = "preview";
+  @jakarta.annotation.Nullable  private MiscControllerPreview preview;
+
+  public static final String JSON_PROPERTY_SYSTEM_NAMESPACE = "systemNamespace";
+  @jakarta.annotation.Nullable  private String systemNamespace;
+
+  public static final String JSON_PROPERTY_HIDDEN_LABELS_PREFIXES = "hiddenLabelsPrefixes";
+  @jakarta.annotation.Nullable  private List<String> hiddenLabelsPrefixes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_IS_AI_ENABLED = "isAiEnabled";
+  @jakarta.annotation.Nullable  private Boolean isAiEnabled;
+
+  public static final String JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED = "isAiApiKeyConfigured";
+  @jakarta.annotation.Nullable  private Boolean isAiApiKeyConfigured;
+
+  public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
+  @jakarta.annotation.Nullable  private Boolean isBasicAuthInitialized;
+
+  public static final String JSON_PROPERTY_PLUGINS_HASH = "pluginsHash";
+  @jakarta.annotation.Nullable  private Long pluginsHash;
+
+  public static final String JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED = "isConcurrencyViewEnabled";
+  @jakarta.annotation.Nullable  private Boolean isConcurrencyViewEnabled;
+
+  public static final String JSON_PROPERTY_TENANTS = "tenants";
+  @jakarta.annotation.Nullable  private MiscControllerTenantConfigurationInfo tenants;
+
+  public static final String JSON_PROPERTY_SECRETS_ENABLED = "secretsEnabled";
+  @jakarta.annotation.Nullable  private Boolean secretsEnabled;
+
+  public static final String JSON_PROPERTY_SUPPORTED_STORAGES = "supportedStorages";
+  @jakarta.annotation.Nullable  private List<MiscControllerPluginIdAndVersion> supportedStorages = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_SUPPORTED_SECRETS = "supportedSecrets";
+  @jakarta.annotation.Nullable  private List<MiscControllerPluginIdAndVersion> supportedSecrets = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED = "pluginManagementEnabled";
+  @jakarta.annotation.Nullable  private Boolean pluginManagementEnabled;
+
+  public static final String JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED = "pluginCustomEnabled";
+  @jakarta.annotation.Nullable  private Boolean pluginCustomEnabled;
+
+  public static final String JSON_PROPERTY_BANNER = "banner";
+  @jakarta.annotation.Nullable  private Banner banner;
+
+  public static final String JSON_PROPERTY_MAIL_SERVICE_ENABLED = "mailServiceEnabled";
+  @jakarta.annotation.Nullable  private Boolean mailServiceEnabled;
+
+  public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED = "outputsInInternalStorageEnabled";
+  @jakarta.annotation.Nullable  private Boolean outputsInInternalStorageEnabled;
+
+  public static final String JSON_PROPERTY_LEFT_SIDEBAR = "leftSidebar";
+  @jakarta.annotation.Nullable  private LeftSidebarConfiguration leftSidebar;
+
+  public static final String JSON_PROPERTY_RIGHT_SIDEBAR = "rightSidebar";
+  @jakarta.annotation.Nullable  private RightSidebarConfiguration rightSidebar;
+
+  public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
+  @jakarta.annotation.Nullable  private Boolean inMaintenance;
+
+  public static final String JSON_PROPERTY_PASSWORD_CONFIGURATION = "passwordConfiguration";
+  @jakarta.annotation.Nullable  private PasswordConfiguration passwordConfiguration;
+
+  public static final String JSON_PROPERTY_PASSWORDLESS_ENABLED = "passwordlessEnabled";
+  @jakarta.annotation.Nullable  private Boolean passwordlessEnabled;
+
+  public static final String JSON_PROPERTY_AIRGAPPED = "airgapped";
+  @jakarta.annotation.Nullable  private Boolean airgapped;
+
+  public static final String JSON_PROPERTY_FEATURE_GATING = "featureGating";
+  @jakarta.annotation.Nullable  private Boolean featureGating;
+
+  public static final String JSON_PROPERTY_FEATURES = "features";
+  @jakarta.annotation.Nullable  private List<String> features = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_KILL_SWITCHES = "killSwitches";
+  @jakarta.annotation.Nullable  private List<KillSwitch> killSwitches = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_WORKER_AUTH_ENABLED = "workerAuthEnabled";
+  @jakarta.annotation.Nullable  private Boolean workerAuthEnabled;
+
+  public MiscControllerEEConfiguration() {
+  }
+
+  public MiscControllerEEConfiguration uuid(@jakarta.annotation.Nullable String uuid) {
+    
+    this.uuid = uuid;
+    return this;
+  }
+
+  /**
+   * Get uuid
+   * @return uuid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUuid() {
+    return uuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUuid(@jakarta.annotation.Nullable String uuid) {
+    this.uuid = uuid;
+  }
+
+  public MiscControllerEEConfiguration version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public MiscControllerEEConfiguration edition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
+    
+    this.edition = edition;
+    return this;
+  }
+
+  /**
+   * Get edition
+   * @return edition
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public EditionProviderEdition getEdition() {
+    return edition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
+    this.edition = edition;
+  }
+
+  public MiscControllerEEConfiguration commitId(@jakarta.annotation.Nullable String commitId) {
+    
+    this.commitId = commitId;
+    return this;
+  }
+
+  /**
+   * Get commitId
+   * @return commitId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCommitId() {
+    return commitId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCommitId(@jakarta.annotation.Nullable String commitId) {
+    this.commitId = commitId;
+  }
+
+  public MiscControllerEEConfiguration chartDefaultDuration(@jakarta.annotation.Nullable String chartDefaultDuration) {
+    
+    this.chartDefaultDuration = chartDefaultDuration;
+    return this;
+  }
+
+  /**
+   * Get chartDefaultDuration
+   * @return chartDefaultDuration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHART_DEFAULT_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getChartDefaultDuration() {
+    return chartDefaultDuration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHART_DEFAULT_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setChartDefaultDuration(@jakarta.annotation.Nullable String chartDefaultDuration) {
+    this.chartDefaultDuration = chartDefaultDuration;
+  }
+
+  public MiscControllerEEConfiguration commitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
+    
+    this.commitDate = commitDate;
+    return this;
+  }
+
+  /**
+   * Get commitDate
+   * @return commitDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCommitDate() {
+    return commitDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCommitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
+    this.commitDate = commitDate;
+  }
+
+  public MiscControllerEEConfiguration isCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+    
+    this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
+    return this;
+  }
+
+  /**
+   * Get isCustomDashboardsEnabled
+   * @return isCustomDashboardsEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsCustomDashboardsEnabled() {
+    return isCustomDashboardsEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+    this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
+  }
+
+  public MiscControllerEEConfiguration isAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+    
+    this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isAnonymousUsageEnabled
+   * @return isAnonymousUsageEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAnonymousUsageEnabled() {
+    return isAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+    this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+  }
+
+  public MiscControllerEEConfiguration isUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isUiAnonymousUsageEnabled
+   * @return isUiAnonymousUsageEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsUiAnonymousUsageEnabled() {
+    return isUiAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+  }
+
+  public MiscControllerEEConfiguration environment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
+    
+    this.environment = environment;
+    return this;
+  }
+
+  /**
+   * Get environment
+   * @return environment
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerEnvironment getEnvironment() {
+    return environment;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnvironment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
+    this.environment = environment;
+  }
+
+  public MiscControllerEEConfiguration url(@jakarta.annotation.Nullable String url) {
+    
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   * @return url
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUrl() {
+    return url;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable String url) {
+    this.url = url;
+  }
+
+  public MiscControllerEEConfiguration preview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
+    
+    this.preview = preview;
+    return this;
+  }
+
+  /**
+   * Get preview
+   * @return preview
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerPreview getPreview() {
+    return preview;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
+    this.preview = preview;
+  }
+
+  public MiscControllerEEConfiguration systemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
+    
+    this.systemNamespace = systemNamespace;
+    return this;
+  }
+
+  /**
+   * Get systemNamespace
+   * @return systemNamespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSystemNamespace() {
+    return systemNamespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSystemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
+    this.systemNamespace = systemNamespace;
+  }
+
+  public MiscControllerEEConfiguration hiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+    
+    this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addHiddenLabelsPrefixesItem(String hiddenLabelsPrefixesItem) {
+    if (this.hiddenLabelsPrefixes == null) {
+      this.hiddenLabelsPrefixes = new ArrayList<>();
+    }
+    this.hiddenLabelsPrefixes.add(hiddenLabelsPrefixesItem);
+    return this;
+  }
+
+  /**
+   * Get hiddenLabelsPrefixes
+   * @return hiddenLabelsPrefixes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getHiddenLabelsPrefixes() {
+    return hiddenLabelsPrefixes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+    this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
+  }
+
+  public MiscControllerEEConfiguration isAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
+    
+    this.isAiEnabled = isAiEnabled;
+    return this;
+  }
+
+  /**
+   * Get isAiEnabled
+   * @return isAiEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiEnabled() {
+    return isAiEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
+    this.isAiEnabled = isAiEnabled;
+  }
+
+  public MiscControllerEEConfiguration isAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+    return this;
+  }
+
+  /**
+   * Get isAiApiKeyConfigured
+   * @return isAiApiKeyConfigured
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiApiKeyConfigured() {
+    return isAiApiKeyConfigured;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+  }
+
+  public MiscControllerEEConfiguration isBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
+    
+    this.isBasicAuthInitialized = isBasicAuthInitialized;
+    return this;
+  }
+
+  /**
+   * Get isBasicAuthInitialized
+   * @return isBasicAuthInitialized
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsBasicAuthInitialized() {
+    return isBasicAuthInitialized;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
+    this.isBasicAuthInitialized = isBasicAuthInitialized;
+  }
+
+  public MiscControllerEEConfiguration pluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
+    
+    this.pluginsHash = pluginsHash;
+    return this;
+  }
+
+  /**
+   * Get pluginsHash
+   * @return pluginsHash
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getPluginsHash() {
+    return pluginsHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
+    this.pluginsHash = pluginsHash;
+  }
+
+  public MiscControllerEEConfiguration isConcurrencyViewEnabled(@jakarta.annotation.Nullable Boolean isConcurrencyViewEnabled) {
+    
+    this.isConcurrencyViewEnabled = isConcurrencyViewEnabled;
+    return this;
+  }
+
+  /**
+   * Get isConcurrencyViewEnabled
+   * @return isConcurrencyViewEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsConcurrencyViewEnabled() {
+    return isConcurrencyViewEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsConcurrencyViewEnabled(@jakarta.annotation.Nullable Boolean isConcurrencyViewEnabled) {
+    this.isConcurrencyViewEnabled = isConcurrencyViewEnabled;
+  }
+
+  public MiscControllerEEConfiguration tenants(@jakarta.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
+    
+    this.tenants = tenants;
+    return this;
+  }
+
+  /**
+   * Get tenants
+   * @return tenants
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerTenantConfigurationInfo getTenants() {
+    return tenants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenants(@jakarta.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
+    this.tenants = tenants;
+  }
+
+  public MiscControllerEEConfiguration secretsEnabled(@jakarta.annotation.Nullable Boolean secretsEnabled) {
+    
+    this.secretsEnabled = secretsEnabled;
+    return this;
+  }
+
+  /**
+   * Get secretsEnabled
+   * @return secretsEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSecretsEnabled() {
+    return secretsEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRETS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretsEnabled(@jakarta.annotation.Nullable Boolean secretsEnabled) {
+    this.secretsEnabled = secretsEnabled;
+  }
+
+  public MiscControllerEEConfiguration supportedStorages(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
+    
+    this.supportedStorages = supportedStorages;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addSupportedStoragesItem(MiscControllerPluginIdAndVersion supportedStoragesItem) {
+    if (this.supportedStorages == null) {
+      this.supportedStorages = new ArrayList<>();
+    }
+    this.supportedStorages.add(supportedStoragesItem);
+    return this;
+  }
+
+  /**
+   * Get supportedStorages
+   * @return supportedStorages
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED_STORAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<MiscControllerPluginIdAndVersion> getSupportedStorages() {
+    return supportedStorages;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_STORAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSupportedStorages(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
+    this.supportedStorages = supportedStorages;
+  }
+
+  public MiscControllerEEConfiguration supportedSecrets(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
+    
+    this.supportedSecrets = supportedSecrets;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addSupportedSecretsItem(MiscControllerPluginIdAndVersion supportedSecretsItem) {
+    if (this.supportedSecrets == null) {
+      this.supportedSecrets = new ArrayList<>();
+    }
+    this.supportedSecrets.add(supportedSecretsItem);
+    return this;
+  }
+
+  /**
+   * Get supportedSecrets
+   * @return supportedSecrets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED_SECRETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<MiscControllerPluginIdAndVersion> getSupportedSecrets() {
+    return supportedSecrets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_SECRETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSupportedSecrets(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
+    this.supportedSecrets = supportedSecrets;
+  }
+
+  public MiscControllerEEConfiguration pluginManagementEnabled(@jakarta.annotation.Nullable Boolean pluginManagementEnabled) {
+    
+    this.pluginManagementEnabled = pluginManagementEnabled;
+    return this;
+  }
+
+  /**
+   * Get pluginManagementEnabled
+   * @return pluginManagementEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPluginManagementEnabled() {
+    return pluginManagementEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginManagementEnabled(@jakarta.annotation.Nullable Boolean pluginManagementEnabled) {
+    this.pluginManagementEnabled = pluginManagementEnabled;
+  }
+
+  public MiscControllerEEConfiguration pluginCustomEnabled(@jakarta.annotation.Nullable Boolean pluginCustomEnabled) {
+    
+    this.pluginCustomEnabled = pluginCustomEnabled;
+    return this;
+  }
+
+  /**
+   * Get pluginCustomEnabled
+   * @return pluginCustomEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPluginCustomEnabled() {
+    return pluginCustomEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginCustomEnabled(@jakarta.annotation.Nullable Boolean pluginCustomEnabled) {
+    this.pluginCustomEnabled = pluginCustomEnabled;
+  }
+
+  public MiscControllerEEConfiguration banner(@jakarta.annotation.Nullable Banner banner) {
+    
+    this.banner = banner;
+    return this;
+  }
+
+  /**
+   * Get banner
+   * @return banner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BANNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Banner getBanner() {
+    return banner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BANNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBanner(@jakarta.annotation.Nullable Banner banner) {
+    this.banner = banner;
+  }
+
+  public MiscControllerEEConfiguration mailServiceEnabled(@jakarta.annotation.Nullable Boolean mailServiceEnabled) {
+    
+    this.mailServiceEnabled = mailServiceEnabled;
+    return this;
+  }
+
+  /**
+   * Get mailServiceEnabled
+   * @return mailServiceEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAIL_SERVICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMailServiceEnabled() {
+    return mailServiceEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAIL_SERVICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMailServiceEnabled(@jakarta.annotation.Nullable Boolean mailServiceEnabled) {
+    this.mailServiceEnabled = mailServiceEnabled;
+  }
+
+  public MiscControllerEEConfiguration outputsInInternalStorageEnabled(@jakarta.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
+    
+    this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
+    return this;
+  }
+
+  /**
+   * Get outputsInInternalStorageEnabled
+   * @return outputsInInternalStorageEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getOutputsInInternalStorageEnabled() {
+    return outputsInInternalStorageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputsInInternalStorageEnabled(@jakarta.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
+    this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
+  }
+
+  public MiscControllerEEConfiguration leftSidebar(@jakarta.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+    
+    this.leftSidebar = leftSidebar;
+    return this;
+  }
+
+  /**
+   * Get leftSidebar
+   * @return leftSidebar
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public LeftSidebarConfiguration getLeftSidebar() {
+    return leftSidebar;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLeftSidebar(@jakarta.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+    this.leftSidebar = leftSidebar;
+  }
+
+  public MiscControllerEEConfiguration rightSidebar(@jakarta.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    
+    this.rightSidebar = rightSidebar;
+    return this;
+  }
+
+  /**
+   * Get rightSidebar
+   * @return rightSidebar
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RightSidebarConfiguration getRightSidebar() {
+    return rightSidebar;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRightSidebar(@jakarta.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    this.rightSidebar = rightSidebar;
+  }
+
+  public MiscControllerEEConfiguration inMaintenance(@jakarta.annotation.Nullable Boolean inMaintenance) {
+    
+    this.inMaintenance = inMaintenance;
+    return this;
+  }
+
+  /**
+   * Get inMaintenance
+   * @return inMaintenance
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IN_MAINTENANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInMaintenance() {
+    return inMaintenance;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IN_MAINTENANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInMaintenance(@jakarta.annotation.Nullable Boolean inMaintenance) {
+    this.inMaintenance = inMaintenance;
+  }
+
+  public MiscControllerEEConfiguration passwordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    
+    this.passwordConfiguration = passwordConfiguration;
+    return this;
+  }
+
+  /**
+   * Get passwordConfiguration
+   * @return passwordConfiguration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PasswordConfiguration getPasswordConfiguration() {
+    return passwordConfiguration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    this.passwordConfiguration = passwordConfiguration;
+  }
+
+  public MiscControllerEEConfiguration passwordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
+    
+    this.passwordlessEnabled = passwordlessEnabled;
+    return this;
+  }
+
+  /**
+   * Get passwordlessEnabled
+   * @return passwordlessEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPasswordlessEnabled() {
+    return passwordlessEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORDLESS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
+    this.passwordlessEnabled = passwordlessEnabled;
+  }
+
+  public MiscControllerEEConfiguration airgapped(@jakarta.annotation.Nullable Boolean airgapped) {
+    
+    this.airgapped = airgapped;
+    return this;
+  }
+
+  /**
+   * Get airgapped
+   * @return airgapped
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AIRGAPPED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getAirgapped() {
+    return airgapped;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AIRGAPPED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAirgapped(@jakarta.annotation.Nullable Boolean airgapped) {
+    this.airgapped = airgapped;
+  }
+
+  public MiscControllerEEConfiguration featureGating(@jakarta.annotation.Nullable Boolean featureGating) {
+    
+    this.featureGating = featureGating;
+    return this;
+  }
+
+  /**
+   * Get featureGating
+   * @return featureGating
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FEATURE_GATING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFeatureGating() {
+    return featureGating;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEATURE_GATING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFeatureGating(@jakarta.annotation.Nullable Boolean featureGating) {
+    this.featureGating = featureGating;
+  }
+
+  public MiscControllerEEConfiguration features(@jakarta.annotation.Nullable List<String> features) {
+    
+    this.features = features;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addFeaturesItem(String featuresItem) {
+    if (this.features == null) {
+      this.features = new ArrayList<>();
+    }
+    this.features.add(featuresItem);
+    return this;
+  }
+
+  /**
+   * Get features
+   * @return features
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FEATURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getFeatures() {
+    return features;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEATURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFeatures(@jakarta.annotation.Nullable List<String> features) {
+    this.features = features;
+  }
+
+  public MiscControllerEEConfiguration killSwitches(@jakarta.annotation.Nullable List<KillSwitch> killSwitches) {
+    
+    this.killSwitches = killSwitches;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addKillSwitchesItem(KillSwitch killSwitchesItem) {
+    if (this.killSwitches == null) {
+      this.killSwitches = new ArrayList<>();
+    }
+    this.killSwitches.add(killSwitchesItem);
+    return this;
+  }
+
+  /**
+   * Get killSwitches
+   * @return killSwitches
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KILL_SWITCHES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<KillSwitch> getKillSwitches() {
+    return killSwitches;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KILL_SWITCHES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKillSwitches(@jakarta.annotation.Nullable List<KillSwitch> killSwitches) {
+    this.killSwitches = killSwitches;
+  }
+
+  public MiscControllerEEConfiguration workerAuthEnabled(@jakarta.annotation.Nullable Boolean workerAuthEnabled) {
+    
+    this.workerAuthEnabled = workerAuthEnabled;
+    return this;
+  }
+
+  /**
+   * Get workerAuthEnabled
+   * @return workerAuthEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_AUTH_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getWorkerAuthEnabled() {
+    return workerAuthEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_AUTH_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerAuthEnabled(@jakarta.annotation.Nullable Boolean workerAuthEnabled) {
+    this.workerAuthEnabled = workerAuthEnabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerEEConfiguration miscControllerEEConfiguration = (MiscControllerEEConfiguration) o;
+    return Objects.equals(this.uuid, miscControllerEEConfiguration.uuid) &&
+        Objects.equals(this.version, miscControllerEEConfiguration.version) &&
+        Objects.equals(this.edition, miscControllerEEConfiguration.edition) &&
+        Objects.equals(this.commitId, miscControllerEEConfiguration.commitId) &&
+        Objects.equals(this.chartDefaultDuration, miscControllerEEConfiguration.chartDefaultDuration) &&
+        Objects.equals(this.commitDate, miscControllerEEConfiguration.commitDate) &&
+        Objects.equals(this.isCustomDashboardsEnabled, miscControllerEEConfiguration.isCustomDashboardsEnabled) &&
+        Objects.equals(this.isAnonymousUsageEnabled, miscControllerEEConfiguration.isAnonymousUsageEnabled) &&
+        Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerEEConfiguration.isUiAnonymousUsageEnabled) &&
+        Objects.equals(this.environment, miscControllerEEConfiguration.environment) &&
+        Objects.equals(this.url, miscControllerEEConfiguration.url) &&
+        Objects.equals(this.preview, miscControllerEEConfiguration.preview) &&
+        Objects.equals(this.systemNamespace, miscControllerEEConfiguration.systemNamespace) &&
+        Objects.equals(this.hiddenLabelsPrefixes, miscControllerEEConfiguration.hiddenLabelsPrefixes) &&
+        Objects.equals(this.isAiEnabled, miscControllerEEConfiguration.isAiEnabled) &&
+        Objects.equals(this.isAiApiKeyConfigured, miscControllerEEConfiguration.isAiApiKeyConfigured) &&
+        Objects.equals(this.isBasicAuthInitialized, miscControllerEEConfiguration.isBasicAuthInitialized) &&
+        Objects.equals(this.pluginsHash, miscControllerEEConfiguration.pluginsHash) &&
+        Objects.equals(this.isConcurrencyViewEnabled, miscControllerEEConfiguration.isConcurrencyViewEnabled) &&
+        Objects.equals(this.tenants, miscControllerEEConfiguration.tenants) &&
+        Objects.equals(this.secretsEnabled, miscControllerEEConfiguration.secretsEnabled) &&
+        Objects.equals(this.supportedStorages, miscControllerEEConfiguration.supportedStorages) &&
+        Objects.equals(this.supportedSecrets, miscControllerEEConfiguration.supportedSecrets) &&
+        Objects.equals(this.pluginManagementEnabled, miscControllerEEConfiguration.pluginManagementEnabled) &&
+        Objects.equals(this.pluginCustomEnabled, miscControllerEEConfiguration.pluginCustomEnabled) &&
+        Objects.equals(this.banner, miscControllerEEConfiguration.banner) &&
+        Objects.equals(this.mailServiceEnabled, miscControllerEEConfiguration.mailServiceEnabled) &&
+        Objects.equals(this.outputsInInternalStorageEnabled, miscControllerEEConfiguration.outputsInInternalStorageEnabled) &&
+        Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
+        Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
+        Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
+        Objects.equals(this.passwordConfiguration, miscControllerEEConfiguration.passwordConfiguration) &&
+        Objects.equals(this.passwordlessEnabled, miscControllerEEConfiguration.passwordlessEnabled) &&
+        Objects.equals(this.airgapped, miscControllerEEConfiguration.airgapped) &&
+        Objects.equals(this.featureGating, miscControllerEEConfiguration.featureGating) &&
+        Objects.equals(this.features, miscControllerEEConfiguration.features) &&
+        Objects.equals(this.killSwitches, miscControllerEEConfiguration.killSwitches) &&
+        Objects.equals(this.workerAuthEnabled, miscControllerEEConfiguration.workerAuthEnabled);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordConfiguration, passwordlessEnabled, airgapped, featureGating, features, killSwitches, workerAuthEnabled);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerEEConfiguration {\n");
+    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
+    sb.append("    commitId: ").append(toIndentedString(commitId)).append("\n");
+    sb.append("    chartDefaultDuration: ").append(toIndentedString(chartDefaultDuration)).append("\n");
+    sb.append("    commitDate: ").append(toIndentedString(commitDate)).append("\n");
+    sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
+    sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
+    sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
+    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    preview: ").append(toIndentedString(preview)).append("\n");
+    sb.append("    systemNamespace: ").append(toIndentedString(systemNamespace)).append("\n");
+    sb.append("    hiddenLabelsPrefixes: ").append(toIndentedString(hiddenLabelsPrefixes)).append("\n");
+    sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
+    sb.append("    isAiApiKeyConfigured: ").append(toIndentedString(isAiApiKeyConfigured)).append("\n");
+    sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
+    sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
+    sb.append("    isConcurrencyViewEnabled: ").append(toIndentedString(isConcurrencyViewEnabled)).append("\n");
+    sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
+    sb.append("    secretsEnabled: ").append(toIndentedString(secretsEnabled)).append("\n");
+    sb.append("    supportedStorages: ").append(toIndentedString(supportedStorages)).append("\n");
+    sb.append("    supportedSecrets: ").append(toIndentedString(supportedSecrets)).append("\n");
+    sb.append("    pluginManagementEnabled: ").append(toIndentedString(pluginManagementEnabled)).append("\n");
+    sb.append("    pluginCustomEnabled: ").append(toIndentedString(pluginCustomEnabled)).append("\n");
+    sb.append("    banner: ").append(toIndentedString(banner)).append("\n");
+    sb.append("    mailServiceEnabled: ").append(toIndentedString(mailServiceEnabled)).append("\n");
+    sb.append("    outputsInInternalStorageEnabled: ").append(toIndentedString(outputsInInternalStorageEnabled)).append("\n");
+    sb.append("    leftSidebar: ").append(toIndentedString(leftSidebar)).append("\n");
+    sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
+    sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
+    sb.append("    passwordConfiguration: ").append(toIndentedString(passwordConfiguration)).append("\n");
+    sb.append("    passwordlessEnabled: ").append(toIndentedString(passwordlessEnabled)).append("\n");
+    sb.append("    airgapped: ").append(toIndentedString(airgapped)).append("\n");
+    sb.append("    featureGating: ").append(toIndentedString(featureGating)).append("\n");
+    sb.append("    features: ").append(toIndentedString(features)).append("\n");
+    sb.append("    killSwitches: ").append(toIndentedString(killSwitches)).append("\n");
+    sb.append("    workerAuthEnabled: ").append(toIndentedString(workerAuthEnabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

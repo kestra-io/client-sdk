@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
+ */
+@JsonPropertyOrder({
+  Label.JSON_PROPERTY_KEY,
+  Label.JSON_PROPERTY_VALUE
+})
+public class Label {
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nonnull  private String key;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nonnull  private String value;
+
+  public Label() {
+  }
+
+  public Label key(@jakarta.annotation.Nonnull String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@jakarta.annotation.Nonnull String key) {
+    this.key = key;
+  }
+
+  public Label value(@jakarta.annotation.Nonnull String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@jakarta.annotation.Nonnull String value) {
+    this.value = value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Label label = (Label) o;
+    return Objects.equals(this.key, label.key) &&
+        Objects.equals(this.value, label.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, value);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Label {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

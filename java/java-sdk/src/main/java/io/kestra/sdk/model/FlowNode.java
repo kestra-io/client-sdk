@@ -1,0 +1,157 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowNode
+ */
+@JsonPropertyOrder({
+  FlowNode.JSON_PROPERTY_UID,
+  FlowNode.JSON_PROPERTY_NAMESPACE,
+  FlowNode.JSON_PROPERTY_ID
+})
+public class FlowNode {
+  public static final String JSON_PROPERTY_UID = "uid";
+  @jakarta.annotation.Nonnull  private String uid;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public FlowNode() {
+  }
+
+  public FlowNode uid(@jakarta.annotation.Nonnull String uid) {
+    
+    this.uid = uid;
+    return this;
+  }
+
+  /**
+   * Get uid
+   * @return uid
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUid() {
+    return uid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUid(@jakarta.annotation.Nonnull String uid) {
+    this.uid = uid;
+  }
+
+  public FlowNode namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public FlowNode id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowNode flowNode = (FlowNode) o;
+    return Objects.equals(this.uid, flowNode.uid) &&
+        Objects.equals(this.namespace, flowNode.namespace) &&
+        Objects.equals(this.id, flowNode.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uid, namespace, id);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowNode {\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

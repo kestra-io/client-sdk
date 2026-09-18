@@ -1,0 +1,163 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from kestrapy.models.input_object import InputObject
+from kestrapy.models.label import Label
+from kestrapy.models.output import Output
+from kestrapy.models.worker_selector import WorkerSelector
+from typing import Optional, Set
+from typing_extensions import Self
+
+class AbstractFlow(BaseModel):
+    """
+    AbstractFlow
+    """ # noqa: E501
+    id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
+    namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
+    revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    updated: Optional[datetime] = Field(default=None, description="The timestamp when this revision was created or last updated.")
+    description: Optional[StrictStr] = None
+    inputs: Optional[List[InputObject]] = None
+    outputs: Optional[List[Output]] = None
+    disabled: StrictBool = Field(description="A disabled flow does not run: its triggers are paused and new executions are rejected.")
+    draft: StrictBool = Field(description="Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.")
+    labels: Optional[List[Label]] = None
+    variables: Optional[Dict[str, Any]] = None
+    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
+    deleted: StrictBool
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "draft", "labels", "variables", "workerSelector", "deleted"]
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9._-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9._-]*/")
+        return value
+
+    @field_validator('namespace')
+    def namespace_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-z0-9][a-z0-9._-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-z0-9][a-z0-9._-]*/")
+        return value
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of AbstractFlow from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of each item in inputs (list)
+        _items = []
+        if self.inputs:
+            for _item_inputs in self.inputs:
+                if _item_inputs:
+                    _items.append(_item_inputs.to_dict())
+            _dict['inputs'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in outputs (list)
+        _items = []
+        if self.outputs:
+            for _item_outputs in self.outputs:
+                if _item_outputs:
+                    _items.append(_item_outputs.to_dict())
+            _dict['outputs'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in labels (list)
+        _items = []
+        if self.labels:
+            for _item_labels in self.labels:
+                if _item_labels:
+                    _items.append(_item_labels.to_dict())
+            _dict['labels'] = _items
+        # override the default output from pydantic by calling `to_dict()` of worker_selector
+        if self.worker_selector:
+            _dict['workerSelector'] = self.worker_selector.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of AbstractFlow from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "namespace": obj.get("namespace"),
+            "revision": obj.get("revision"),
+            "updated": obj.get("updated"),
+            "description": obj.get("description"),
+            "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
+            "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
+            "disabled": obj.get("disabled"),
+            "draft": obj.get("draft"),
+            "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
+            "variables": obj.get("variables"),
+            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "deleted": obj.get("deleted")
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

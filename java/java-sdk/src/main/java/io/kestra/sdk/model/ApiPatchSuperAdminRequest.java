@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiPatchSuperAdminRequest
+ */
+@JsonPropertyOrder({
+  ApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN,
+  ApiPatchSuperAdminRequest.JSON_PROPERTY_INSTANCE_OWNER
+})
+public class ApiPatchSuperAdminRequest {
+  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
+  @jakarta.annotation.Nonnull  private Boolean superAdmin;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public ApiPatchSuperAdminRequest() {
+  }
+
+  public ApiPatchSuperAdminRequest superAdmin(@jakarta.annotation.Nonnull Boolean superAdmin) {
+    
+    this.superAdmin = superAdmin;
+    return this;
+  }
+
+  /**
+   * Get superAdmin
+   * @return superAdmin
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getSuperAdmin() {
+    return superAdmin;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSuperAdmin(@jakarta.annotation.Nonnull Boolean superAdmin) {
+    this.superAdmin = superAdmin;
+  }
+
+  public ApiPatchSuperAdminRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * The 2.0 field name. The endpoint accepts either; instanceOwner wins when both are set.
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = (ApiPatchSuperAdminRequest) o;
+    return Objects.equals(this.superAdmin, apiPatchSuperAdminRequest.superAdmin) &&
+        Objects.equals(this.instanceOwner, apiPatchSuperAdminRequest.instanceOwner);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(superAdmin, instanceOwner);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiPatchSuperAdminRequest {\n");
+    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

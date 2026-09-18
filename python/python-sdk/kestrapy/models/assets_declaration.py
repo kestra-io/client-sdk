@@ -1,0 +1,117 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.property_asset_failure_behavior import PropertyAssetFailureBehavior
+from kestrapy.models.property_boolean import PropertyBoolean
+from kestrapy.models.property_list_asset import PropertyListAsset
+from kestrapy.models.property_list_asset_identifier import PropertyListAssetIdentifier
+from typing import Optional, Set
+from typing_extensions import Self
+
+class AssetsDeclaration(BaseModel):
+    """
+    AssetsDeclaration
+    """ # noqa: E501
+    enable_auto: Optional[PropertyBoolean] = Field(default=None, alias="enableAuto")
+    inputs: Optional[PropertyListAssetIdentifier] = None
+    outputs: Optional[PropertyListAsset] = None
+    asset_failure_behavior: Optional[PropertyAssetFailureBehavior] = Field(default=None, description="Behavior applied to the task state when a declared asset fails to render, emit, or be persisted (e.g. a lock conflict): FAIL escalates it to FAILED, WARN (default) warns it if it would otherwise succeed, IGNORE leaves the state untouched.", alias="assetFailureBehavior")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["enableAuto", "inputs", "outputs", "assetFailureBehavior"]
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of AssetsDeclaration from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of enable_auto
+        if self.enable_auto:
+            _dict['enableAuto'] = self.enable_auto.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of inputs
+        if self.inputs:
+            _dict['inputs'] = self.inputs.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of outputs
+        if self.outputs:
+            _dict['outputs'] = self.outputs.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of asset_failure_behavior
+        if self.asset_failure_behavior:
+            _dict['assetFailureBehavior'] = self.asset_failure_behavior.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of AssetsDeclaration from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "enableAuto": PropertyBoolean.from_dict(obj["enableAuto"]) if obj.get("enableAuto") is not None else None,
+            "inputs": PropertyListAssetIdentifier.from_dict(obj["inputs"]) if obj.get("inputs") is not None else None,
+            "outputs": PropertyListAsset.from_dict(obj["outputs"]) if obj.get("outputs") is not None else None,
+            "assetFailureBehavior": PropertyAssetFailureBehavior.from_dict(obj["assetFailureBehavior"]) if obj.get("assetFailureBehavior") is not None else None
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

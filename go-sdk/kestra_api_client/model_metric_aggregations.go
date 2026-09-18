@@ -1,0 +1,195 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the MetricAggregations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetricAggregations{}
+
+// MetricAggregations struct for MetricAggregations
+type MetricAggregations struct {
+	GroupBy string `json:"groupBy"`
+	Aggregations []MetricAggregation `json:"aggregations"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MetricAggregations MetricAggregations
+
+// NewMetricAggregations instantiates a new MetricAggregations object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMetricAggregations(groupBy string, aggregations []MetricAggregation) *MetricAggregations {
+	this := MetricAggregations{}
+	this.GroupBy = groupBy
+	this.Aggregations = aggregations
+	return &this
+}
+
+// NewMetricAggregationsWithDefaults instantiates a new MetricAggregations object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMetricAggregationsWithDefaults() *MetricAggregations {
+	this := MetricAggregations{}
+	return &this
+}
+
+// GetGroupBy returns the GroupBy field value
+func (o *MetricAggregations) GetGroupBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GroupBy
+}
+
+// GetGroupByOk returns a tuple with the GroupBy field value
+// and a boolean to check if the value has been set.
+func (o *MetricAggregations) GetGroupByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GroupBy, true
+}
+
+// SetGroupBy sets field value
+func (o *MetricAggregations) SetGroupBy(v string) {
+	o.GroupBy = v
+}
+
+// GetAggregations returns the Aggregations field value
+func (o *MetricAggregations) GetAggregations() []MetricAggregation {
+	if o == nil {
+		var ret []MetricAggregation
+		return ret
+	}
+
+	return o.Aggregations
+}
+
+// GetAggregationsOk returns a tuple with the Aggregations field value
+// and a boolean to check if the value has been set.
+func (o *MetricAggregations) GetAggregationsOk() ([]MetricAggregation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Aggregations, true
+}
+
+// SetAggregations sets field value
+func (o *MetricAggregations) SetAggregations(v []MetricAggregation) {
+	o.Aggregations = v
+}
+
+func (o MetricAggregations) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MetricAggregations) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["groupBy"] = o.GroupBy
+	toSerialize["aggregations"] = o.Aggregations
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MetricAggregations) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"groupBy",
+		"aggregations",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMetricAggregations := _MetricAggregations{}
+
+	err = json.Unmarshal(data, &varMetricAggregations)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MetricAggregations(varMetricAggregations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "aggregations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMetricAggregations struct {
+	value *MetricAggregations
+	isSet bool
+}
+
+func (v NullableMetricAggregations) Get() *MetricAggregations {
+	return v.value
+}
+
+func (v *NullableMetricAggregations) Set(val *MetricAggregations) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMetricAggregations) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMetricAggregations) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMetricAggregations(val *MetricAggregations) *NullableMetricAggregations {
+	return &NullableMetricAggregations{value: val, isSet: true}
+}
+
+func (v NullableMetricAggregations) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMetricAggregations) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

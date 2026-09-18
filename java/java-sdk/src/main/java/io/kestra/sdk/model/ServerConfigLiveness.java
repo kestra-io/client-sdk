@@ -1,0 +1,218 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServerConfigLiveness
+ */
+@JsonPropertyOrder({
+  ServerConfigLiveness.JSON_PROPERTY_ENABLED,
+  ServerConfigLiveness.JSON_PROPERTY_INTERVAL,
+  ServerConfigLiveness.JSON_PROPERTY_TIMEOUT,
+  ServerConfigLiveness.JSON_PROPERTY_INITIAL_DELAY,
+  ServerConfigLiveness.JSON_PROPERTY_HEARTBEAT_INTERVAL
+})
+@JsonTypeName("ServerConfig.Liveness")
+public class ServerConfigLiveness {
+  public static final String JSON_PROPERTY_ENABLED = "enabled";
+  @jakarta.annotation.Nonnull  private Boolean enabled = true;
+
+  public static final String JSON_PROPERTY_INTERVAL = "interval";
+  @jakarta.annotation.Nonnull  private String interval = "5s";
+
+  public static final String JSON_PROPERTY_TIMEOUT = "timeout";
+  @jakarta.annotation.Nonnull  private String timeout = "45s";
+
+  public static final String JSON_PROPERTY_INITIAL_DELAY = "initialDelay";
+  @jakarta.annotation.Nonnull  private String initialDelay = "45s";
+
+  public static final String JSON_PROPERTY_HEARTBEAT_INTERVAL = "heartbeatInterval";
+  @jakarta.annotation.Nonnull  private String heartbeatInterval = "3s";
+
+  public ServerConfigLiveness() {
+  }
+
+  public ServerConfigLiveness enabled(@jakarta.annotation.Nonnull Boolean enabled) {
+    
+    this.enabled = enabled;
+    return this;
+  }
+
+  /**
+   * Get enabled
+   * @return enabled
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public ServerConfigLiveness interval(@jakarta.annotation.Nonnull String interval) {
+    
+    this.interval = interval;
+    return this;
+  }
+
+  /**
+   * Get interval
+   * @return interval
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INTERVAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getInterval() {
+    return interval;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INTERVAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInterval(@jakarta.annotation.Nonnull String interval) {
+    this.interval = interval;
+  }
+
+  public ServerConfigLiveness timeout(@jakarta.annotation.Nonnull String timeout) {
+    
+    this.timeout = timeout;
+    return this;
+  }
+
+  /**
+   * Get timeout
+   * @return timeout
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTimeout() {
+    return timeout;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTimeout(@jakarta.annotation.Nonnull String timeout) {
+    this.timeout = timeout;
+  }
+
+  public ServerConfigLiveness initialDelay(@jakarta.annotation.Nonnull String initialDelay) {
+    
+    this.initialDelay = initialDelay;
+    return this;
+  }
+
+  /**
+   * Get initialDelay
+   * @return initialDelay
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getInitialDelay() {
+    return initialDelay;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInitialDelay(@jakarta.annotation.Nonnull String initialDelay) {
+    this.initialDelay = initialDelay;
+  }
+
+  public ServerConfigLiveness heartbeatInterval(@jakarta.annotation.Nonnull String heartbeatInterval) {
+    
+    this.heartbeatInterval = heartbeatInterval;
+    return this;
+  }
+
+  /**
+   * Get heartbeatInterval
+   * @return heartbeatInterval
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getHeartbeatInterval() {
+    return heartbeatInterval;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHeartbeatInterval(@jakarta.annotation.Nonnull String heartbeatInterval) {
+    this.heartbeatInterval = heartbeatInterval;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServerConfigLiveness serverConfigLiveness = (ServerConfigLiveness) o;
+    return Objects.equals(this.enabled, serverConfigLiveness.enabled) &&
+        Objects.equals(this.interval, serverConfigLiveness.interval) &&
+        Objects.equals(this.timeout, serverConfigLiveness.timeout) &&
+        Objects.equals(this.initialDelay, serverConfigLiveness.initialDelay) &&
+        Objects.equals(this.heartbeatInterval, serverConfigLiveness.heartbeatInterval);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(enabled, interval, timeout, initialDelay, heartbeatInterval);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServerConfigLiveness {\n");
+    sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+    sb.append("    interval: ").append(toIndentedString(interval)).append("\n");
+    sb.append("    timeout: ").append(toIndentedString(timeout)).append("\n");
+    sb.append("    initialDelay: ").append(toIndentedString(initialDelay)).append("\n");
+    sb.append("    heartbeatInterval: ").append(toIndentedString(heartbeatInterval)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

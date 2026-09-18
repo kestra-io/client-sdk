@@ -1,0 +1,115 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// ServiceProviderConfigurationAuthenticationSchemaType the model 'ServiceProviderConfigurationAuthenticationSchemaType'
+type ServiceProviderConfigurationAuthenticationSchemaType string
+
+// List of ServiceProviderConfiguration.AuthenticationSchema.Type
+const (
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH2 ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH2"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH_BEARER ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH_BEARER"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_BASIC ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_BASIC"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_DIGEST ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_DIGEST"
+)
+
+// All allowed values of ServiceProviderConfigurationAuthenticationSchemaType enum
+var AllowedServiceProviderConfigurationAuthenticationSchemaTypeEnumValues = []ServiceProviderConfigurationAuthenticationSchemaType{
+	"OAUTH",
+	"OAUTH2",
+	"OAUTH_BEARER",
+	"HTTP_BASIC",
+	"HTTP_DIGEST",
+}
+
+func (v *ServiceProviderConfigurationAuthenticationSchemaType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := ServiceProviderConfigurationAuthenticationSchemaType(value)
+	for _, existing := range AllowedServiceProviderConfigurationAuthenticationSchemaTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ServiceProviderConfigurationAuthenticationSchemaType", value)
+}
+
+// NewServiceProviderConfigurationAuthenticationSchemaTypeFromValue returns a pointer to a valid ServiceProviderConfigurationAuthenticationSchemaType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewServiceProviderConfigurationAuthenticationSchemaTypeFromValue(v string) (*ServiceProviderConfigurationAuthenticationSchemaType, error) {
+	ev := ServiceProviderConfigurationAuthenticationSchemaType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for ServiceProviderConfigurationAuthenticationSchemaType: valid values are %v", v, AllowedServiceProviderConfigurationAuthenticationSchemaTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v ServiceProviderConfigurationAuthenticationSchemaType) IsValid() bool {
+	for _, existing := range AllowedServiceProviderConfigurationAuthenticationSchemaTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to ServiceProviderConfiguration.AuthenticationSchema.Type value
+func (v ServiceProviderConfigurationAuthenticationSchemaType) Ptr() *ServiceProviderConfigurationAuthenticationSchemaType {
+	return &v
+}
+
+type NullableServiceProviderConfigurationAuthenticationSchemaType struct {
+	value *ServiceProviderConfigurationAuthenticationSchemaType
+	isSet bool
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchemaType) Get() *ServiceProviderConfigurationAuthenticationSchemaType {
+	return v.value
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchemaType) Set(val *ServiceProviderConfigurationAuthenticationSchemaType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchemaType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchemaType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceProviderConfigurationAuthenticationSchemaType(val *ServiceProviderConfigurationAuthenticationSchemaType) *NullableServiceProviderConfigurationAuthenticationSchemaType {
+	return &NullableServiceProviderConfigurationAuthenticationSchemaType{value: val, isSet: true}
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchemaType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchemaType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

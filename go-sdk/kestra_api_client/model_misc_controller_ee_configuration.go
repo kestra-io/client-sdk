@@ -1,0 +1,1523 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the MiscControllerEEConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MiscControllerEEConfiguration{}
+
+// MiscControllerEEConfiguration struct for MiscControllerEEConfiguration
+type MiscControllerEEConfiguration struct {
+	Uuid *string `json:"uuid,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Edition *EditionProviderEdition `json:"edition,omitempty"`
+	CommitId *string `json:"commitId,omitempty"`
+	ChartDefaultDuration *string `json:"chartDefaultDuration,omitempty"`
+	CommitDate *time.Time `json:"commitDate,omitempty"`
+	IsCustomDashboardsEnabled *bool `json:"isCustomDashboardsEnabled,omitempty"`
+	IsAnonymousUsageEnabled *bool `json:"isAnonymousUsageEnabled,omitempty"`
+	IsUiAnonymousUsageEnabled *bool `json:"isUiAnonymousUsageEnabled,omitempty"`
+	Environment *MiscControllerEnvironment `json:"environment,omitempty"`
+	Url *string `json:"url,omitempty"`
+	Preview *MiscControllerPreview `json:"preview,omitempty"`
+	SystemNamespace *string `json:"systemNamespace,omitempty"`
+	HiddenLabelsPrefixes []string `json:"hiddenLabelsPrefixes,omitempty"`
+	IsAiEnabled *bool `json:"isAiEnabled,omitempty"`
+	IsAiApiKeyConfigured *bool `json:"isAiApiKeyConfigured,omitempty"`
+	IsBasicAuthInitialized *bool `json:"isBasicAuthInitialized,omitempty"`
+	PluginsHash *int64 `json:"pluginsHash,omitempty"`
+	IsConcurrencyViewEnabled *bool `json:"isConcurrencyViewEnabled,omitempty"`
+	Tenants *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
+	SecretsEnabled *bool `json:"secretsEnabled,omitempty"`
+	SupportedStorages []MiscControllerPluginIdAndVersion `json:"supportedStorages,omitempty"`
+	SupportedSecrets []MiscControllerPluginIdAndVersion `json:"supportedSecrets,omitempty"`
+	PluginManagementEnabled *bool `json:"pluginManagementEnabled,omitempty"`
+	PluginCustomEnabled *bool `json:"pluginCustomEnabled,omitempty"`
+	Banner *Banner `json:"banner,omitempty"`
+	MailServiceEnabled *bool `json:"mailServiceEnabled,omitempty"`
+	OutputsInInternalStorageEnabled *bool `json:"outputsInInternalStorageEnabled,omitempty"`
+	LeftSidebar *LeftSidebarConfiguration `json:"leftSidebar,omitempty"`
+	RightSidebar *RightSidebarConfiguration `json:"rightSidebar,omitempty"`
+	InMaintenance *bool `json:"inMaintenance,omitempty"`
+	PasswordConfiguration *PasswordConfiguration `json:"passwordConfiguration,omitempty"`
+	PasswordlessEnabled *bool `json:"passwordlessEnabled,omitempty"`
+	Airgapped *bool `json:"airgapped,omitempty"`
+	FeatureGating *bool `json:"featureGating,omitempty"`
+	Features []string `json:"features,omitempty"`
+	KillSwitches []KillSwitch `json:"killSwitches,omitempty"`
+	WorkerAuthEnabled *bool `json:"workerAuthEnabled,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MiscControllerEEConfiguration MiscControllerEEConfiguration
+
+// NewMiscControllerEEConfiguration instantiates a new MiscControllerEEConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMiscControllerEEConfiguration() *MiscControllerEEConfiguration {
+	this := MiscControllerEEConfiguration{}
+	return &this
+}
+
+// NewMiscControllerEEConfigurationWithDefaults instantiates a new MiscControllerEEConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMiscControllerEEConfigurationWithDefaults() *MiscControllerEEConfiguration {
+	this := MiscControllerEEConfiguration{}
+	return &this
+}
+
+// GetUuid returns the Uuid field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetUuid() string {
+	if o == nil || IsNil(o.Uuid) {
+		var ret string
+		return ret
+	}
+	return *o.Uuid
+}
+
+// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetUuidOk() (*string, bool) {
+	if o == nil || IsNil(o.Uuid) {
+		return nil, false
+	}
+	return o.Uuid, true
+}
+
+// HasUuid returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasUuid() bool {
+	if o != nil && !IsNil(o.Uuid) {
+		return true
+	}
+
+	return false
+}
+
+// SetUuid gets a reference to the given string and assigns it to the Uuid field.
+func (o *MiscControllerEEConfiguration) SetUuid(v string) {
+	o.Uuid = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *MiscControllerEEConfiguration) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetEdition returns the Edition field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetEdition() EditionProviderEdition {
+	if o == nil || IsNil(o.Edition) {
+		var ret EditionProviderEdition
+		return ret
+	}
+	return *o.Edition
+}
+
+// GetEditionOk returns a tuple with the Edition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetEditionOk() (*EditionProviderEdition, bool) {
+	if o == nil || IsNil(o.Edition) {
+		return nil, false
+	}
+	return o.Edition, true
+}
+
+// HasEdition returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasEdition() bool {
+	if o != nil && !IsNil(o.Edition) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdition gets a reference to the given EditionProviderEdition and assigns it to the Edition field.
+func (o *MiscControllerEEConfiguration) SetEdition(v EditionProviderEdition) {
+	o.Edition = &v
+}
+
+// GetCommitId returns the CommitId field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetCommitId() string {
+	if o == nil || IsNil(o.CommitId) {
+		var ret string
+		return ret
+	}
+	return *o.CommitId
+}
+
+// GetCommitIdOk returns a tuple with the CommitId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetCommitIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CommitId) {
+		return nil, false
+	}
+	return o.CommitId, true
+}
+
+// HasCommitId returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasCommitId() bool {
+	if o != nil && !IsNil(o.CommitId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommitId gets a reference to the given string and assigns it to the CommitId field.
+func (o *MiscControllerEEConfiguration) SetCommitId(v string) {
+	o.CommitId = &v
+}
+
+// GetChartDefaultDuration returns the ChartDefaultDuration field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetChartDefaultDuration() string {
+	if o == nil || IsNil(o.ChartDefaultDuration) {
+		var ret string
+		return ret
+	}
+	return *o.ChartDefaultDuration
+}
+
+// GetChartDefaultDurationOk returns a tuple with the ChartDefaultDuration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetChartDefaultDurationOk() (*string, bool) {
+	if o == nil || IsNil(o.ChartDefaultDuration) {
+		return nil, false
+	}
+	return o.ChartDefaultDuration, true
+}
+
+// HasChartDefaultDuration returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasChartDefaultDuration() bool {
+	if o != nil && !IsNil(o.ChartDefaultDuration) {
+		return true
+	}
+
+	return false
+}
+
+// SetChartDefaultDuration gets a reference to the given string and assigns it to the ChartDefaultDuration field.
+func (o *MiscControllerEEConfiguration) SetChartDefaultDuration(v string) {
+	o.ChartDefaultDuration = &v
+}
+
+// GetCommitDate returns the CommitDate field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetCommitDate() time.Time {
+	if o == nil || IsNil(o.CommitDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CommitDate
+}
+
+// GetCommitDateOk returns a tuple with the CommitDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetCommitDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CommitDate) {
+		return nil, false
+	}
+	return o.CommitDate, true
+}
+
+// HasCommitDate returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasCommitDate() bool {
+	if o != nil && !IsNil(o.CommitDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommitDate gets a reference to the given time.Time and assigns it to the CommitDate field.
+func (o *MiscControllerEEConfiguration) SetCommitDate(v time.Time) {
+	o.CommitDate = &v
+}
+
+// GetIsCustomDashboardsEnabled returns the IsCustomDashboardsEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsCustomDashboardsEnabled() bool {
+	if o == nil || IsNil(o.IsCustomDashboardsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsCustomDashboardsEnabled
+}
+
+// GetIsCustomDashboardsEnabledOk returns a tuple with the IsCustomDashboardsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsCustomDashboardsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsCustomDashboardsEnabled) {
+		return nil, false
+	}
+	return o.IsCustomDashboardsEnabled, true
+}
+
+// HasIsCustomDashboardsEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsCustomDashboardsEnabled() bool {
+	if o != nil && !IsNil(o.IsCustomDashboardsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCustomDashboardsEnabled gets a reference to the given bool and assigns it to the IsCustomDashboardsEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsCustomDashboardsEnabled(v bool) {
+	o.IsCustomDashboardsEnabled = &v
+}
+
+// GetIsAnonymousUsageEnabled returns the IsAnonymousUsageEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsAnonymousUsageEnabled() bool {
+	if o == nil || IsNil(o.IsAnonymousUsageEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAnonymousUsageEnabled
+}
+
+// GetIsAnonymousUsageEnabledOk returns a tuple with the IsAnonymousUsageEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsAnonymousUsageEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAnonymousUsageEnabled) {
+		return nil, false
+	}
+	return o.IsAnonymousUsageEnabled, true
+}
+
+// HasIsAnonymousUsageEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsAnonymousUsageEnabled() bool {
+	if o != nil && !IsNil(o.IsAnonymousUsageEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsAnonymousUsageEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsAnonymousUsageEnabled(v bool) {
+	o.IsAnonymousUsageEnabled = &v
+}
+
+// GetIsUiAnonymousUsageEnabled returns the IsUiAnonymousUsageEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabled() bool {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsUiAnonymousUsageEnabled
+}
+
+// GetIsUiAnonymousUsageEnabledOk returns a tuple with the IsUiAnonymousUsageEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		return nil, false
+	}
+	return o.IsUiAnonymousUsageEnabled, true
+}
+
+// HasIsUiAnonymousUsageEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsUiAnonymousUsageEnabled() bool {
+	if o != nil && !IsNil(o.IsUiAnonymousUsageEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsUiAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsUiAnonymousUsageEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsUiAnonymousUsageEnabled(v bool) {
+	o.IsUiAnonymousUsageEnabled = &v
+}
+
+// GetEnvironment returns the Environment field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetEnvironment() MiscControllerEnvironment {
+	if o == nil || IsNil(o.Environment) {
+		var ret MiscControllerEnvironment
+		return ret
+	}
+	return *o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetEnvironmentOk() (*MiscControllerEnvironment, bool) {
+	if o == nil || IsNil(o.Environment) {
+		return nil, false
+	}
+	return o.Environment, true
+}
+
+// HasEnvironment returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasEnvironment() bool {
+	if o != nil && !IsNil(o.Environment) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironment gets a reference to the given MiscControllerEnvironment and assigns it to the Environment field.
+func (o *MiscControllerEEConfiguration) SetEnvironment(v MiscControllerEnvironment) {
+	o.Environment = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *MiscControllerEEConfiguration) SetUrl(v string) {
+	o.Url = &v
+}
+
+// GetPreview returns the Preview field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPreview() MiscControllerPreview {
+	if o == nil || IsNil(o.Preview) {
+		var ret MiscControllerPreview
+		return ret
+	}
+	return *o.Preview
+}
+
+// GetPreviewOk returns a tuple with the Preview field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPreviewOk() (*MiscControllerPreview, bool) {
+	if o == nil || IsNil(o.Preview) {
+		return nil, false
+	}
+	return o.Preview, true
+}
+
+// HasPreview returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPreview() bool {
+	if o != nil && !IsNil(o.Preview) {
+		return true
+	}
+
+	return false
+}
+
+// SetPreview gets a reference to the given MiscControllerPreview and assigns it to the Preview field.
+func (o *MiscControllerEEConfiguration) SetPreview(v MiscControllerPreview) {
+	o.Preview = &v
+}
+
+// GetSystemNamespace returns the SystemNamespace field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetSystemNamespace() string {
+	if o == nil || IsNil(o.SystemNamespace) {
+		var ret string
+		return ret
+	}
+	return *o.SystemNamespace
+}
+
+// GetSystemNamespaceOk returns a tuple with the SystemNamespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetSystemNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.SystemNamespace) {
+		return nil, false
+	}
+	return o.SystemNamespace, true
+}
+
+// HasSystemNamespace returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasSystemNamespace() bool {
+	if o != nil && !IsNil(o.SystemNamespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetSystemNamespace gets a reference to the given string and assigns it to the SystemNamespace field.
+func (o *MiscControllerEEConfiguration) SetSystemNamespace(v string) {
+	o.SystemNamespace = &v
+}
+
+// GetHiddenLabelsPrefixes returns the HiddenLabelsPrefixes field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetHiddenLabelsPrefixes() []string {
+	if o == nil || IsNil(o.HiddenLabelsPrefixes) {
+		var ret []string
+		return ret
+	}
+	return o.HiddenLabelsPrefixes
+}
+
+// GetHiddenLabelsPrefixesOk returns a tuple with the HiddenLabelsPrefixes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetHiddenLabelsPrefixesOk() ([]string, bool) {
+	if o == nil || IsNil(o.HiddenLabelsPrefixes) {
+		return nil, false
+	}
+	return o.HiddenLabelsPrefixes, true
+}
+
+// HasHiddenLabelsPrefixes returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasHiddenLabelsPrefixes() bool {
+	if o != nil && !IsNil(o.HiddenLabelsPrefixes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHiddenLabelsPrefixes gets a reference to the given []string and assigns it to the HiddenLabelsPrefixes field.
+func (o *MiscControllerEEConfiguration) SetHiddenLabelsPrefixes(v []string) {
+	o.HiddenLabelsPrefixes = v
+}
+
+// GetIsAiEnabled returns the IsAiEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsAiEnabled() bool {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiEnabled
+}
+
+// GetIsAiEnabledOk returns a tuple with the IsAiEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsAiEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		return nil, false
+	}
+	return o.IsAiEnabled, true
+}
+
+// HasIsAiEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsAiEnabled() bool {
+	if o != nil && !IsNil(o.IsAiEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiEnabled gets a reference to the given bool and assigns it to the IsAiEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsAiEnabled(v bool) {
+	o.IsAiEnabled = &v
+}
+
+// GetIsAiApiKeyConfigured returns the IsAiApiKeyConfigured field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsAiApiKeyConfigured() bool {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiApiKeyConfigured
+}
+
+// GetIsAiApiKeyConfiguredOk returns a tuple with the IsAiApiKeyConfigured field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsAiApiKeyConfiguredOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		return nil, false
+	}
+	return o.IsAiApiKeyConfigured, true
+}
+
+// HasIsAiApiKeyConfigured returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsAiApiKeyConfigured() bool {
+	if o != nil && !IsNil(o.IsAiApiKeyConfigured) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiApiKeyConfigured gets a reference to the given bool and assigns it to the IsAiApiKeyConfigured field.
+func (o *MiscControllerEEConfiguration) SetIsAiApiKeyConfigured(v bool) {
+	o.IsAiApiKeyConfigured = &v
+}
+
+// GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsBasicAuthInitialized() bool {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		var ret bool
+		return ret
+	}
+	return *o.IsBasicAuthInitialized
+}
+
+// GetIsBasicAuthInitializedOk returns a tuple with the IsBasicAuthInitialized field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsBasicAuthInitializedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		return nil, false
+	}
+	return o.IsBasicAuthInitialized, true
+}
+
+// HasIsBasicAuthInitialized returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsBasicAuthInitialized() bool {
+	if o != nil && !IsNil(o.IsBasicAuthInitialized) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsBasicAuthInitialized gets a reference to the given bool and assigns it to the IsBasicAuthInitialized field.
+func (o *MiscControllerEEConfiguration) SetIsBasicAuthInitialized(v bool) {
+	o.IsBasicAuthInitialized = &v
+}
+
+// GetPluginsHash returns the PluginsHash field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPluginsHash() int64 {
+	if o == nil || IsNil(o.PluginsHash) {
+		var ret int64
+		return ret
+	}
+	return *o.PluginsHash
+}
+
+// GetPluginsHashOk returns a tuple with the PluginsHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPluginsHashOk() (*int64, bool) {
+	if o == nil || IsNil(o.PluginsHash) {
+		return nil, false
+	}
+	return o.PluginsHash, true
+}
+
+// HasPluginsHash returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPluginsHash() bool {
+	if o != nil && !IsNil(o.PluginsHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginsHash gets a reference to the given int64 and assigns it to the PluginsHash field.
+func (o *MiscControllerEEConfiguration) SetPluginsHash(v int64) {
+	o.PluginsHash = &v
+}
+
+// GetIsConcurrencyViewEnabled returns the IsConcurrencyViewEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsConcurrencyViewEnabled() bool {
+	if o == nil || IsNil(o.IsConcurrencyViewEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsConcurrencyViewEnabled
+}
+
+// GetIsConcurrencyViewEnabledOk returns a tuple with the IsConcurrencyViewEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsConcurrencyViewEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsConcurrencyViewEnabled) {
+		return nil, false
+	}
+	return o.IsConcurrencyViewEnabled, true
+}
+
+// HasIsConcurrencyViewEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsConcurrencyViewEnabled() bool {
+	if o != nil && !IsNil(o.IsConcurrencyViewEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsConcurrencyViewEnabled gets a reference to the given bool and assigns it to the IsConcurrencyViewEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsConcurrencyViewEnabled(v bool) {
+	o.IsConcurrencyViewEnabled = &v
+}
+
+// GetTenants returns the Tenants field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetTenants() MiscControllerTenantConfigurationInfo {
+	if o == nil || IsNil(o.Tenants) {
+		var ret MiscControllerTenantConfigurationInfo
+		return ret
+	}
+	return *o.Tenants
+}
+
+// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetTenantsOk() (*MiscControllerTenantConfigurationInfo, bool) {
+	if o == nil || IsNil(o.Tenants) {
+		return nil, false
+	}
+	return o.Tenants, true
+}
+
+// HasTenants returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasTenants() bool {
+	if o != nil && !IsNil(o.Tenants) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenants gets a reference to the given MiscControllerTenantConfigurationInfo and assigns it to the Tenants field.
+func (o *MiscControllerEEConfiguration) SetTenants(v MiscControllerTenantConfigurationInfo) {
+	o.Tenants = &v
+}
+
+// GetSecretsEnabled returns the SecretsEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetSecretsEnabled() bool {
+	if o == nil || IsNil(o.SecretsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.SecretsEnabled
+}
+
+// GetSecretsEnabledOk returns a tuple with the SecretsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetSecretsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.SecretsEnabled) {
+		return nil, false
+	}
+	return o.SecretsEnabled, true
+}
+
+// HasSecretsEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasSecretsEnabled() bool {
+	if o != nil && !IsNil(o.SecretsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretsEnabled gets a reference to the given bool and assigns it to the SecretsEnabled field.
+func (o *MiscControllerEEConfiguration) SetSecretsEnabled(v bool) {
+	o.SecretsEnabled = &v
+}
+
+// GetSupportedStorages returns the SupportedStorages field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetSupportedStorages() []MiscControllerPluginIdAndVersion {
+	if o == nil || IsNil(o.SupportedStorages) {
+		var ret []MiscControllerPluginIdAndVersion
+		return ret
+	}
+	return o.SupportedStorages
+}
+
+// GetSupportedStoragesOk returns a tuple with the SupportedStorages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetSupportedStoragesOk() ([]MiscControllerPluginIdAndVersion, bool) {
+	if o == nil || IsNil(o.SupportedStorages) {
+		return nil, false
+	}
+	return o.SupportedStorages, true
+}
+
+// HasSupportedStorages returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasSupportedStorages() bool {
+	if o != nil && !IsNil(o.SupportedStorages) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedStorages gets a reference to the given []MiscControllerPluginIdAndVersion and assigns it to the SupportedStorages field.
+func (o *MiscControllerEEConfiguration) SetSupportedStorages(v []MiscControllerPluginIdAndVersion) {
+	o.SupportedStorages = v
+}
+
+// GetSupportedSecrets returns the SupportedSecrets field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetSupportedSecrets() []MiscControllerPluginIdAndVersion {
+	if o == nil || IsNil(o.SupportedSecrets) {
+		var ret []MiscControllerPluginIdAndVersion
+		return ret
+	}
+	return o.SupportedSecrets
+}
+
+// GetSupportedSecretsOk returns a tuple with the SupportedSecrets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetSupportedSecretsOk() ([]MiscControllerPluginIdAndVersion, bool) {
+	if o == nil || IsNil(o.SupportedSecrets) {
+		return nil, false
+	}
+	return o.SupportedSecrets, true
+}
+
+// HasSupportedSecrets returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasSupportedSecrets() bool {
+	if o != nil && !IsNil(o.SupportedSecrets) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedSecrets gets a reference to the given []MiscControllerPluginIdAndVersion and assigns it to the SupportedSecrets field.
+func (o *MiscControllerEEConfiguration) SetSupportedSecrets(v []MiscControllerPluginIdAndVersion) {
+	o.SupportedSecrets = v
+}
+
+// GetPluginManagementEnabled returns the PluginManagementEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPluginManagementEnabled() bool {
+	if o == nil || IsNil(o.PluginManagementEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.PluginManagementEnabled
+}
+
+// GetPluginManagementEnabledOk returns a tuple with the PluginManagementEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPluginManagementEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.PluginManagementEnabled) {
+		return nil, false
+	}
+	return o.PluginManagementEnabled, true
+}
+
+// HasPluginManagementEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPluginManagementEnabled() bool {
+	if o != nil && !IsNil(o.PluginManagementEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginManagementEnabled gets a reference to the given bool and assigns it to the PluginManagementEnabled field.
+func (o *MiscControllerEEConfiguration) SetPluginManagementEnabled(v bool) {
+	o.PluginManagementEnabled = &v
+}
+
+// GetPluginCustomEnabled returns the PluginCustomEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPluginCustomEnabled() bool {
+	if o == nil || IsNil(o.PluginCustomEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.PluginCustomEnabled
+}
+
+// GetPluginCustomEnabledOk returns a tuple with the PluginCustomEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPluginCustomEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.PluginCustomEnabled) {
+		return nil, false
+	}
+	return o.PluginCustomEnabled, true
+}
+
+// HasPluginCustomEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPluginCustomEnabled() bool {
+	if o != nil && !IsNil(o.PluginCustomEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginCustomEnabled gets a reference to the given bool and assigns it to the PluginCustomEnabled field.
+func (o *MiscControllerEEConfiguration) SetPluginCustomEnabled(v bool) {
+	o.PluginCustomEnabled = &v
+}
+
+// GetBanner returns the Banner field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetBanner() Banner {
+	if o == nil || IsNil(o.Banner) {
+		var ret Banner
+		return ret
+	}
+	return *o.Banner
+}
+
+// GetBannerOk returns a tuple with the Banner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetBannerOk() (*Banner, bool) {
+	if o == nil || IsNil(o.Banner) {
+		return nil, false
+	}
+	return o.Banner, true
+}
+
+// HasBanner returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasBanner() bool {
+	if o != nil && !IsNil(o.Banner) {
+		return true
+	}
+
+	return false
+}
+
+// SetBanner gets a reference to the given Banner and assigns it to the Banner field.
+func (o *MiscControllerEEConfiguration) SetBanner(v Banner) {
+	o.Banner = &v
+}
+
+// GetMailServiceEnabled returns the MailServiceEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetMailServiceEnabled() bool {
+	if o == nil || IsNil(o.MailServiceEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.MailServiceEnabled
+}
+
+// GetMailServiceEnabledOk returns a tuple with the MailServiceEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetMailServiceEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.MailServiceEnabled) {
+		return nil, false
+	}
+	return o.MailServiceEnabled, true
+}
+
+// HasMailServiceEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasMailServiceEnabled() bool {
+	if o != nil && !IsNil(o.MailServiceEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetMailServiceEnabled gets a reference to the given bool and assigns it to the MailServiceEnabled field.
+func (o *MiscControllerEEConfiguration) SetMailServiceEnabled(v bool) {
+	o.MailServiceEnabled = &v
+}
+
+// GetOutputsInInternalStorageEnabled returns the OutputsInInternalStorageEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetOutputsInInternalStorageEnabled() bool {
+	if o == nil || IsNil(o.OutputsInInternalStorageEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.OutputsInInternalStorageEnabled
+}
+
+// GetOutputsInInternalStorageEnabledOk returns a tuple with the OutputsInInternalStorageEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetOutputsInInternalStorageEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.OutputsInInternalStorageEnabled) {
+		return nil, false
+	}
+	return o.OutputsInInternalStorageEnabled, true
+}
+
+// HasOutputsInInternalStorageEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasOutputsInInternalStorageEnabled() bool {
+	if o != nil && !IsNil(o.OutputsInInternalStorageEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputsInInternalStorageEnabled gets a reference to the given bool and assigns it to the OutputsInInternalStorageEnabled field.
+func (o *MiscControllerEEConfiguration) SetOutputsInInternalStorageEnabled(v bool) {
+	o.OutputsInInternalStorageEnabled = &v
+}
+
+// GetLeftSidebar returns the LeftSidebar field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetLeftSidebar() LeftSidebarConfiguration {
+	if o == nil || IsNil(o.LeftSidebar) {
+		var ret LeftSidebarConfiguration
+		return ret
+	}
+	return *o.LeftSidebar
+}
+
+// GetLeftSidebarOk returns a tuple with the LeftSidebar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetLeftSidebarOk() (*LeftSidebarConfiguration, bool) {
+	if o == nil || IsNil(o.LeftSidebar) {
+		return nil, false
+	}
+	return o.LeftSidebar, true
+}
+
+// HasLeftSidebar returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasLeftSidebar() bool {
+	if o != nil && !IsNil(o.LeftSidebar) {
+		return true
+	}
+
+	return false
+}
+
+// SetLeftSidebar gets a reference to the given LeftSidebarConfiguration and assigns it to the LeftSidebar field.
+func (o *MiscControllerEEConfiguration) SetLeftSidebar(v LeftSidebarConfiguration) {
+	o.LeftSidebar = &v
+}
+
+// GetRightSidebar returns the RightSidebar field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetRightSidebar() RightSidebarConfiguration {
+	if o == nil || IsNil(o.RightSidebar) {
+		var ret RightSidebarConfiguration
+		return ret
+	}
+	return *o.RightSidebar
+}
+
+// GetRightSidebarOk returns a tuple with the RightSidebar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetRightSidebarOk() (*RightSidebarConfiguration, bool) {
+	if o == nil || IsNil(o.RightSidebar) {
+		return nil, false
+	}
+	return o.RightSidebar, true
+}
+
+// HasRightSidebar returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasRightSidebar() bool {
+	if o != nil && !IsNil(o.RightSidebar) {
+		return true
+	}
+
+	return false
+}
+
+// SetRightSidebar gets a reference to the given RightSidebarConfiguration and assigns it to the RightSidebar field.
+func (o *MiscControllerEEConfiguration) SetRightSidebar(v RightSidebarConfiguration) {
+	o.RightSidebar = &v
+}
+
+// GetInMaintenance returns the InMaintenance field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetInMaintenance() bool {
+	if o == nil || IsNil(o.InMaintenance) {
+		var ret bool
+		return ret
+	}
+	return *o.InMaintenance
+}
+
+// GetInMaintenanceOk returns a tuple with the InMaintenance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetInMaintenanceOk() (*bool, bool) {
+	if o == nil || IsNil(o.InMaintenance) {
+		return nil, false
+	}
+	return o.InMaintenance, true
+}
+
+// HasInMaintenance returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasInMaintenance() bool {
+	if o != nil && !IsNil(o.InMaintenance) {
+		return true
+	}
+
+	return false
+}
+
+// SetInMaintenance gets a reference to the given bool and assigns it to the InMaintenance field.
+func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool) {
+	o.InMaintenance = &v
+}
+
+// GetPasswordConfiguration returns the PasswordConfiguration field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPasswordConfiguration() PasswordConfiguration {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		var ret PasswordConfiguration
+		return ret
+	}
+	return *o.PasswordConfiguration
+}
+
+// GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool) {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		return nil, false
+	}
+	return o.PasswordConfiguration, true
+}
+
+// HasPasswordConfiguration returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPasswordConfiguration() bool {
+	if o != nil && !IsNil(o.PasswordConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordConfiguration gets a reference to the given PasswordConfiguration and assigns it to the PasswordConfiguration field.
+func (o *MiscControllerEEConfiguration) SetPasswordConfiguration(v PasswordConfiguration) {
+	o.PasswordConfiguration = &v
+}
+
+// GetPasswordlessEnabled returns the PasswordlessEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPasswordlessEnabled() bool {
+	if o == nil || IsNil(o.PasswordlessEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.PasswordlessEnabled
+}
+
+// GetPasswordlessEnabledOk returns a tuple with the PasswordlessEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPasswordlessEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.PasswordlessEnabled) {
+		return nil, false
+	}
+	return o.PasswordlessEnabled, true
+}
+
+// HasPasswordlessEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPasswordlessEnabled() bool {
+	if o != nil && !IsNil(o.PasswordlessEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordlessEnabled gets a reference to the given bool and assigns it to the PasswordlessEnabled field.
+func (o *MiscControllerEEConfiguration) SetPasswordlessEnabled(v bool) {
+	o.PasswordlessEnabled = &v
+}
+
+// GetAirgapped returns the Airgapped field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetAirgapped() bool {
+	if o == nil || IsNil(o.Airgapped) {
+		var ret bool
+		return ret
+	}
+	return *o.Airgapped
+}
+
+// GetAirgappedOk returns a tuple with the Airgapped field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetAirgappedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Airgapped) {
+		return nil, false
+	}
+	return o.Airgapped, true
+}
+
+// HasAirgapped returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasAirgapped() bool {
+	if o != nil && !IsNil(o.Airgapped) {
+		return true
+	}
+
+	return false
+}
+
+// SetAirgapped gets a reference to the given bool and assigns it to the Airgapped field.
+func (o *MiscControllerEEConfiguration) SetAirgapped(v bool) {
+	o.Airgapped = &v
+}
+
+// GetFeatureGating returns the FeatureGating field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetFeatureGating() bool {
+	if o == nil || IsNil(o.FeatureGating) {
+		var ret bool
+		return ret
+	}
+	return *o.FeatureGating
+}
+
+// GetFeatureGatingOk returns a tuple with the FeatureGating field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetFeatureGatingOk() (*bool, bool) {
+	if o == nil || IsNil(o.FeatureGating) {
+		return nil, false
+	}
+	return o.FeatureGating, true
+}
+
+// HasFeatureGating returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasFeatureGating() bool {
+	if o != nil && !IsNil(o.FeatureGating) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatureGating gets a reference to the given bool and assigns it to the FeatureGating field.
+func (o *MiscControllerEEConfiguration) SetFeatureGating(v bool) {
+	o.FeatureGating = &v
+}
+
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetFeatures() []string {
+	if o == nil || IsNil(o.Features) {
+		var ret []string
+		return ret
+	}
+	return o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatures gets a reference to the given []string and assigns it to the Features field.
+func (o *MiscControllerEEConfiguration) SetFeatures(v []string) {
+	o.Features = v
+}
+
+// GetKillSwitches returns the KillSwitches field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetKillSwitches() []KillSwitch {
+	if o == nil || IsNil(o.KillSwitches) {
+		var ret []KillSwitch
+		return ret
+	}
+	return o.KillSwitches
+}
+
+// GetKillSwitchesOk returns a tuple with the KillSwitches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetKillSwitchesOk() ([]KillSwitch, bool) {
+	if o == nil || IsNil(o.KillSwitches) {
+		return nil, false
+	}
+	return o.KillSwitches, true
+}
+
+// HasKillSwitches returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasKillSwitches() bool {
+	if o != nil && !IsNil(o.KillSwitches) {
+		return true
+	}
+
+	return false
+}
+
+// SetKillSwitches gets a reference to the given []KillSwitch and assigns it to the KillSwitches field.
+func (o *MiscControllerEEConfiguration) SetKillSwitches(v []KillSwitch) {
+	o.KillSwitches = v
+}
+
+// GetWorkerAuthEnabled returns the WorkerAuthEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetWorkerAuthEnabled() bool {
+	if o == nil || IsNil(o.WorkerAuthEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.WorkerAuthEnabled
+}
+
+// GetWorkerAuthEnabledOk returns a tuple with the WorkerAuthEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetWorkerAuthEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.WorkerAuthEnabled) {
+		return nil, false
+	}
+	return o.WorkerAuthEnabled, true
+}
+
+// HasWorkerAuthEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasWorkerAuthEnabled() bool {
+	if o != nil && !IsNil(o.WorkerAuthEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerAuthEnabled gets a reference to the given bool and assigns it to the WorkerAuthEnabled field.
+func (o *MiscControllerEEConfiguration) SetWorkerAuthEnabled(v bool) {
+	o.WorkerAuthEnabled = &v
+}
+
+func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Edition) {
+		toSerialize["edition"] = o.Edition
+	}
+	if !IsNil(o.CommitId) {
+		toSerialize["commitId"] = o.CommitId
+	}
+	if !IsNil(o.ChartDefaultDuration) {
+		toSerialize["chartDefaultDuration"] = o.ChartDefaultDuration
+	}
+	if !IsNil(o.CommitDate) {
+		toSerialize["commitDate"] = o.CommitDate
+	}
+	if !IsNil(o.IsCustomDashboardsEnabled) {
+		toSerialize["isCustomDashboardsEnabled"] = o.IsCustomDashboardsEnabled
+	}
+	if !IsNil(o.IsAnonymousUsageEnabled) {
+		toSerialize["isAnonymousUsageEnabled"] = o.IsAnonymousUsageEnabled
+	}
+	if !IsNil(o.IsUiAnonymousUsageEnabled) {
+		toSerialize["isUiAnonymousUsageEnabled"] = o.IsUiAnonymousUsageEnabled
+	}
+	if !IsNil(o.Environment) {
+		toSerialize["environment"] = o.Environment
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Preview) {
+		toSerialize["preview"] = o.Preview
+	}
+	if !IsNil(o.SystemNamespace) {
+		toSerialize["systemNamespace"] = o.SystemNamespace
+	}
+	if !IsNil(o.HiddenLabelsPrefixes) {
+		toSerialize["hiddenLabelsPrefixes"] = o.HiddenLabelsPrefixes
+	}
+	if !IsNil(o.IsAiEnabled) {
+		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
+	if !IsNil(o.IsAiApiKeyConfigured) {
+		toSerialize["isAiApiKeyConfigured"] = o.IsAiApiKeyConfigured
+	}
+	if !IsNil(o.IsBasicAuthInitialized) {
+		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
+	}
+	if !IsNil(o.PluginsHash) {
+		toSerialize["pluginsHash"] = o.PluginsHash
+	}
+	if !IsNil(o.IsConcurrencyViewEnabled) {
+		toSerialize["isConcurrencyViewEnabled"] = o.IsConcurrencyViewEnabled
+	}
+	if !IsNil(o.Tenants) {
+		toSerialize["tenants"] = o.Tenants
+	}
+	if !IsNil(o.SecretsEnabled) {
+		toSerialize["secretsEnabled"] = o.SecretsEnabled
+	}
+	if !IsNil(o.SupportedStorages) {
+		toSerialize["supportedStorages"] = o.SupportedStorages
+	}
+	if !IsNil(o.SupportedSecrets) {
+		toSerialize["supportedSecrets"] = o.SupportedSecrets
+	}
+	if !IsNil(o.PluginManagementEnabled) {
+		toSerialize["pluginManagementEnabled"] = o.PluginManagementEnabled
+	}
+	if !IsNil(o.PluginCustomEnabled) {
+		toSerialize["pluginCustomEnabled"] = o.PluginCustomEnabled
+	}
+	if !IsNil(o.Banner) {
+		toSerialize["banner"] = o.Banner
+	}
+	if !IsNil(o.MailServiceEnabled) {
+		toSerialize["mailServiceEnabled"] = o.MailServiceEnabled
+	}
+	if !IsNil(o.OutputsInInternalStorageEnabled) {
+		toSerialize["outputsInInternalStorageEnabled"] = o.OutputsInInternalStorageEnabled
+	}
+	if !IsNil(o.LeftSidebar) {
+		toSerialize["leftSidebar"] = o.LeftSidebar
+	}
+	if !IsNil(o.RightSidebar) {
+		toSerialize["rightSidebar"] = o.RightSidebar
+	}
+	if !IsNil(o.InMaintenance) {
+		toSerialize["inMaintenance"] = o.InMaintenance
+	}
+	if !IsNil(o.PasswordConfiguration) {
+		toSerialize["passwordConfiguration"] = o.PasswordConfiguration
+	}
+	if !IsNil(o.PasswordlessEnabled) {
+		toSerialize["passwordlessEnabled"] = o.PasswordlessEnabled
+	}
+	if !IsNil(o.Airgapped) {
+		toSerialize["airgapped"] = o.Airgapped
+	}
+	if !IsNil(o.FeatureGating) {
+		toSerialize["featureGating"] = o.FeatureGating
+	}
+	if !IsNil(o.Features) {
+		toSerialize["features"] = o.Features
+	}
+	if !IsNil(o.KillSwitches) {
+		toSerialize["killSwitches"] = o.KillSwitches
+	}
+	if !IsNil(o.WorkerAuthEnabled) {
+		toSerialize["workerAuthEnabled"] = o.WorkerAuthEnabled
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerEEConfiguration := _MiscControllerEEConfiguration{}
+
+	err = json.Unmarshal(data, &varMiscControllerEEConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerEEConfiguration(varMiscControllerEEConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "edition")
+		delete(additionalProperties, "commitId")
+		delete(additionalProperties, "chartDefaultDuration")
+		delete(additionalProperties, "commitDate")
+		delete(additionalProperties, "isCustomDashboardsEnabled")
+		delete(additionalProperties, "isAnonymousUsageEnabled")
+		delete(additionalProperties, "isUiAnonymousUsageEnabled")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "preview")
+		delete(additionalProperties, "systemNamespace")
+		delete(additionalProperties, "hiddenLabelsPrefixes")
+		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "isAiApiKeyConfigured")
+		delete(additionalProperties, "isBasicAuthInitialized")
+		delete(additionalProperties, "pluginsHash")
+		delete(additionalProperties, "isConcurrencyViewEnabled")
+		delete(additionalProperties, "tenants")
+		delete(additionalProperties, "secretsEnabled")
+		delete(additionalProperties, "supportedStorages")
+		delete(additionalProperties, "supportedSecrets")
+		delete(additionalProperties, "pluginManagementEnabled")
+		delete(additionalProperties, "pluginCustomEnabled")
+		delete(additionalProperties, "banner")
+		delete(additionalProperties, "mailServiceEnabled")
+		delete(additionalProperties, "outputsInInternalStorageEnabled")
+		delete(additionalProperties, "leftSidebar")
+		delete(additionalProperties, "rightSidebar")
+		delete(additionalProperties, "inMaintenance")
+		delete(additionalProperties, "passwordConfiguration")
+		delete(additionalProperties, "passwordlessEnabled")
+		delete(additionalProperties, "airgapped")
+		delete(additionalProperties, "featureGating")
+		delete(additionalProperties, "features")
+		delete(additionalProperties, "killSwitches")
+		delete(additionalProperties, "workerAuthEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMiscControllerEEConfiguration struct {
+	value *MiscControllerEEConfiguration
+	isSet bool
+}
+
+func (v NullableMiscControllerEEConfiguration) Get() *MiscControllerEEConfiguration {
+	return v.value
+}
+
+func (v *NullableMiscControllerEEConfiguration) Set(val *MiscControllerEEConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMiscControllerEEConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMiscControllerEEConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMiscControllerEEConfiguration(val *MiscControllerEEConfiguration) *NullableMiscControllerEEConfiguration {
+	return &NullableMiscControllerEEConfiguration{value: val, isSet: true}
+}
+
+func (v NullableMiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMiscControllerEEConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

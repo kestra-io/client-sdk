@@ -1,0 +1,582 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PropertyBoolean;
+import io.kestra.sdk.model.PropertyDouble;
+import io.kestra.sdk.model.PropertyListString;
+import io.kestra.sdk.model.PropertyObject;
+import io.kestra.sdk.model.PropertyString;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Assertion
+ */
+@JsonPropertyOrder({
+  Assertion.JSON_PROPERTY_VALUE,
+  Assertion.JSON_PROPERTY_TASK_ID,
+  Assertion.JSON_PROPERTY_ERROR_MESSAGE,
+  Assertion.JSON_PROPERTY_DESCRIPTION,
+  Assertion.JSON_PROPERTY_ENDS_WITH,
+  Assertion.JSON_PROPERTY_STARTS_WITH,
+  Assertion.JSON_PROPERTY_CONTAINS,
+  Assertion.JSON_PROPERTY_EQUAL_TO,
+  Assertion.JSON_PROPERTY_NOT_EQUAL_TO,
+  Assertion.JSON_PROPERTY_GREATER_THAN,
+  Assertion.JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO,
+  Assertion.JSON_PROPERTY_LESS_THAN,
+  Assertion.JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO,
+  Assertion.JSON_PROPERTY_IN,
+  Assertion.JSON_PROPERTY_NOT_IN,
+  Assertion.JSON_PROPERTY_IS_NULL,
+  Assertion.JSON_PROPERTY_IS_NOT_NULL
+})
+public class Assertion {
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nonnull  private String value;
+
+  public static final String JSON_PROPERTY_TASK_ID = "taskId";
+  @jakarta.annotation.Nullable  private String taskId;
+
+  public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
+  @jakarta.annotation.Nullable  private String errorMessage;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_ENDS_WITH = "endsWith";
+  @jakarta.annotation.Nullable  private String endsWith;
+
+  public static final String JSON_PROPERTY_STARTS_WITH = "startsWith";
+  @jakarta.annotation.Nullable  private String startsWith;
+
+  public static final String JSON_PROPERTY_CONTAINS = "contains";
+  @jakarta.annotation.Nullable  private String contains;
+
+  public static final String JSON_PROPERTY_EQUAL_TO = "equalTo";
+  @jakarta.annotation.Nullable  private String equalTo;
+
+  public static final String JSON_PROPERTY_NOT_EQUAL_TO = "notEqualTo";
+  @jakarta.annotation.Nullable  private String notEqualTo;
+
+  public static final String JSON_PROPERTY_GREATER_THAN = "greaterThan";
+  @jakarta.annotation.Nullable  private String greaterThan;
+
+  public static final String JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO = "greaterThanOrEqualTo";
+  @jakarta.annotation.Nullable  private String greaterThanOrEqualTo;
+
+  public static final String JSON_PROPERTY_LESS_THAN = "lessThan";
+  @jakarta.annotation.Nullable  private String lessThan;
+
+  public static final String JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO = "lessThanOrEqualTo";
+  @jakarta.annotation.Nullable  private String lessThanOrEqualTo;
+
+  public static final String JSON_PROPERTY_IN = "in";
+  @jakarta.annotation.Nullable  private String in;
+
+  public static final String JSON_PROPERTY_NOT_IN = "notIn";
+  @jakarta.annotation.Nullable  private String notIn;
+
+  public static final String JSON_PROPERTY_IS_NULL = "isNull";
+  @jakarta.annotation.Nullable  private String isNull;
+
+  public static final String JSON_PROPERTY_IS_NOT_NULL = "isNotNull";
+  @jakarta.annotation.Nullable  private String isNotNull;
+
+  public Assertion() {
+  }
+
+  public Assertion value(@jakarta.annotation.Nonnull String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@jakarta.annotation.Nonnull String value) {
+    this.value = value;
+  }
+
+  public Assertion taskId(@jakarta.annotation.Nullable String taskId) {
+    
+    this.taskId = taskId;
+    return this;
+  }
+
+  /**
+   * Get taskId
+   * @return taskId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTaskId() {
+    return taskId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskId(@jakarta.annotation.Nullable String taskId) {
+    this.taskId = taskId;
+  }
+
+  public Assertion errorMessage(@jakarta.annotation.Nullable String errorMessage) {
+    
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  /**
+   * Get errorMessage
+   * @return errorMessage
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+  public Assertion description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public Assertion endsWith(@jakarta.annotation.Nullable String endsWith) {
+    
+    this.endsWith = endsWith;
+    return this;
+  }
+
+  /**
+   * Get endsWith
+   * @return endsWith
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENDS_WITH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEndsWith() {
+    return endsWith;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENDS_WITH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEndsWith(@jakarta.annotation.Nullable String endsWith) {
+    this.endsWith = endsWith;
+  }
+
+  public Assertion startsWith(@jakarta.annotation.Nullable String startsWith) {
+    
+    this.startsWith = startsWith;
+    return this;
+  }
+
+  /**
+   * Get startsWith
+   * @return startsWith
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STARTS_WITH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStartsWith() {
+    return startsWith;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STARTS_WITH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartsWith(@jakarta.annotation.Nullable String startsWith) {
+    this.startsWith = startsWith;
+  }
+
+  public Assertion contains(@jakarta.annotation.Nullable String contains) {
+    
+    this.contains = contains;
+    return this;
+  }
+
+  /**
+   * Get contains
+   * @return contains
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTAINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getContains() {
+    return contains;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONTAINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setContains(@jakarta.annotation.Nullable String contains) {
+    this.contains = contains;
+  }
+
+  public Assertion equalTo(@jakarta.annotation.Nullable String equalTo) {
+    
+    this.equalTo = equalTo;
+    return this;
+  }
+
+  /**
+   * Get equalTo
+   * @return equalTo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEqualTo() {
+    return equalTo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEqualTo(@jakarta.annotation.Nullable String equalTo) {
+    this.equalTo = equalTo;
+  }
+
+  public Assertion notEqualTo(@jakarta.annotation.Nullable String notEqualTo) {
+    
+    this.notEqualTo = notEqualTo;
+    return this;
+  }
+
+  /**
+   * Get notEqualTo
+   * @return notEqualTo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NOT_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNotEqualTo() {
+    return notEqualTo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NOT_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNotEqualTo(@jakarta.annotation.Nullable String notEqualTo) {
+    this.notEqualTo = notEqualTo;
+  }
+
+  public Assertion greaterThan(@jakarta.annotation.Nullable String greaterThan) {
+    
+    this.greaterThan = greaterThan;
+    return this;
+  }
+
+  /**
+   * Get greaterThan
+   * @return greaterThan
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GREATER_THAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGreaterThan() {
+    return greaterThan;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GREATER_THAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGreaterThan(@jakarta.annotation.Nullable String greaterThan) {
+    this.greaterThan = greaterThan;
+  }
+
+  public Assertion greaterThanOrEqualTo(@jakarta.annotation.Nullable String greaterThanOrEqualTo) {
+    
+    this.greaterThanOrEqualTo = greaterThanOrEqualTo;
+    return this;
+  }
+
+  /**
+   * Get greaterThanOrEqualTo
+   * @return greaterThanOrEqualTo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGreaterThanOrEqualTo() {
+    return greaterThanOrEqualTo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGreaterThanOrEqualTo(@jakarta.annotation.Nullable String greaterThanOrEqualTo) {
+    this.greaterThanOrEqualTo = greaterThanOrEqualTo;
+  }
+
+  public Assertion lessThan(@jakarta.annotation.Nullable String lessThan) {
+    
+    this.lessThan = lessThan;
+    return this;
+  }
+
+  /**
+   * Get lessThan
+   * @return lessThan
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LESS_THAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLessThan() {
+    return lessThan;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LESS_THAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLessThan(@jakarta.annotation.Nullable String lessThan) {
+    this.lessThan = lessThan;
+  }
+
+  public Assertion lessThanOrEqualTo(@jakarta.annotation.Nullable String lessThanOrEqualTo) {
+    
+    this.lessThanOrEqualTo = lessThanOrEqualTo;
+    return this;
+  }
+
+  /**
+   * Get lessThanOrEqualTo
+   * @return lessThanOrEqualTo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLessThanOrEqualTo() {
+    return lessThanOrEqualTo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLessThanOrEqualTo(@jakarta.annotation.Nullable String lessThanOrEqualTo) {
+    this.lessThanOrEqualTo = lessThanOrEqualTo;
+  }
+
+  public Assertion in(@jakarta.annotation.Nullable String in) {
+    
+    this.in = in;
+    return this;
+  }
+
+  /**
+   * Get in
+   * @return in
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIn() {
+    return in;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIn(@jakarta.annotation.Nullable String in) {
+    this.in = in;
+  }
+
+  public Assertion notIn(@jakarta.annotation.Nullable String notIn) {
+    
+    this.notIn = notIn;
+    return this;
+  }
+
+  /**
+   * Get notIn
+   * @return notIn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NOT_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNotIn() {
+    return notIn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NOT_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNotIn(@jakarta.annotation.Nullable String notIn) {
+    this.notIn = notIn;
+  }
+
+  public Assertion isNull(@jakarta.annotation.Nullable String isNull) {
+    
+    this.isNull = isNull;
+    return this;
+  }
+
+  /**
+   * Get isNull
+   * @return isNull
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_NULL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIsNull() {
+    return isNull;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_NULL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsNull(@jakarta.annotation.Nullable String isNull) {
+    this.isNull = isNull;
+  }
+
+  public Assertion isNotNull(@jakarta.annotation.Nullable String isNotNull) {
+    
+    this.isNotNull = isNotNull;
+    return this;
+  }
+
+  /**
+   * Get isNotNull
+   * @return isNotNull
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_NOT_NULL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIsNotNull() {
+    return isNotNull;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_NOT_NULL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsNotNull(@jakarta.annotation.Nullable String isNotNull) {
+    this.isNotNull = isNotNull;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Assertion assertion = (Assertion) o;
+    return Objects.equals(this.value, assertion.value) &&
+        Objects.equals(this.taskId, assertion.taskId) &&
+        Objects.equals(this.errorMessage, assertion.errorMessage) &&
+        Objects.equals(this.description, assertion.description) &&
+        Objects.equals(this.endsWith, assertion.endsWith) &&
+        Objects.equals(this.startsWith, assertion.startsWith) &&
+        Objects.equals(this.contains, assertion.contains) &&
+        Objects.equals(this.equalTo, assertion.equalTo) &&
+        Objects.equals(this.notEqualTo, assertion.notEqualTo) &&
+        Objects.equals(this.greaterThan, assertion.greaterThan) &&
+        Objects.equals(this.greaterThanOrEqualTo, assertion.greaterThanOrEqualTo) &&
+        Objects.equals(this.lessThan, assertion.lessThan) &&
+        Objects.equals(this.lessThanOrEqualTo, assertion.lessThanOrEqualTo) &&
+        Objects.equals(this.in, assertion.in) &&
+        Objects.equals(this.notIn, assertion.notIn) &&
+        Objects.equals(this.isNull, assertion.isNull) &&
+        Objects.equals(this.isNotNull, assertion.isNotNull);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, taskId, errorMessage, description, endsWith, startsWith, contains, equalTo, notEqualTo, greaterThan, greaterThanOrEqualTo, lessThan, lessThanOrEqualTo, in, notIn, isNull, isNotNull);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Assertion {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    endsWith: ").append(toIndentedString(endsWith)).append("\n");
+    sb.append("    startsWith: ").append(toIndentedString(startsWith)).append("\n");
+    sb.append("    contains: ").append(toIndentedString(contains)).append("\n");
+    sb.append("    equalTo: ").append(toIndentedString(equalTo)).append("\n");
+    sb.append("    notEqualTo: ").append(toIndentedString(notEqualTo)).append("\n");
+    sb.append("    greaterThan: ").append(toIndentedString(greaterThan)).append("\n");
+    sb.append("    greaterThanOrEqualTo: ").append(toIndentedString(greaterThanOrEqualTo)).append("\n");
+    sb.append("    lessThan: ").append(toIndentedString(lessThan)).append("\n");
+    sb.append("    lessThanOrEqualTo: ").append(toIndentedString(lessThanOrEqualTo)).append("\n");
+    sb.append("    in: ").append(toIndentedString(in)).append("\n");
+    sb.append("    notIn: ").append(toIndentedString(notIn)).append("\n");
+    sb.append("    isNull: ").append(toIndentedString(isNull)).append("\n");
+    sb.append("    isNotNull: ").append(toIndentedString(isNotNull)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

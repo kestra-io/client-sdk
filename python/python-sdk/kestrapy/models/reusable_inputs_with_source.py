@@ -1,0 +1,140 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from kestrapy.models.input_object import InputObject
+from typing import Optional, Set
+from typing_extensions import Self
+
+class ReusableInputsWithSource(BaseModel):
+    """
+    A stored reusable inputs block: its authorable shape plus the fields the server owns.
+    """ # noqa: E501
+    namespace: StrictStr = Field(description="Defaults to the namespace it is created in.")
+    id: Annotated[str, Field(strict=True)]
+    description: Optional[StrictStr] = None
+    inputs: Annotated[List[InputObject], Field(min_length=1)]
+    revision: StrictInt
+    last: Optional[StrictBool] = None
+    created: Optional[datetime] = None
+    updated: Optional[datetime] = None
+    deleted: Optional[StrictBool] = None
+    source: Optional[StrictStr] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["namespace", "id", "description", "inputs", "revision", "last", "created", "updated", "deleted", "source"]
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-zA-Z0-9][.a-zA-Z0-9_-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][.a-zA-Z0-9_-]*/")
+        return value
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of ReusableInputsWithSource from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of each item in inputs (list)
+        _items = []
+        if self.inputs:
+            for _item_inputs in self.inputs:
+                if _item_inputs:
+                    _items.append(_item_inputs.to_dict())
+            _dict['inputs'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        # set to None if created (nullable) is None
+        # and model_fields_set contains the field
+        if self.created is None and "created" in self.model_fields_set:
+            _dict['created'] = None
+
+        # set to None if updated (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated is None and "updated" in self.model_fields_set:
+            _dict['updated'] = None
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ReusableInputsWithSource from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "namespace": obj.get("namespace"),
+            "id": obj.get("id"),
+            "description": obj.get("description"),
+            "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
+            "revision": obj.get("revision"),
+            "last": obj.get("last"),
+            "created": obj.get("created"),
+            "updated": obj.get("updated"),
+            "deleted": obj.get("deleted"),
+            "source": obj.get("source")
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

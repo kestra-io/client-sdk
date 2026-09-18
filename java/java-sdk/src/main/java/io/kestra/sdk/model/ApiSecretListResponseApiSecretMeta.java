@@ -1,0 +1,170 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ApiSecretMetaEE;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiSecretListResponseApiSecretMeta
+ */
+@JsonPropertyOrder({
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_READ_ONLY,
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_RESULTS,
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_TOTAL
+})
+@JsonTypeName("ApiSecretListResponse_ApiSecretMeta_")
+public class ApiSecretListResponseApiSecretMeta {
+  public static final String JSON_PROPERTY_READ_ONLY = "readOnly";
+  @jakarta.annotation.Nonnull  private Boolean readOnly;
+
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nonnull  private List<ApiSecretMetaEE> results = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @jakarta.annotation.Nullable  private Long total;
+
+  public ApiSecretListResponseApiSecretMeta() {
+  }
+
+  public ApiSecretListResponseApiSecretMeta readOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
+    
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  /**
+   * Get readOnly
+   * @return readOnly
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setReadOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
+    this.readOnly = readOnly;
+  }
+
+  public ApiSecretListResponseApiSecretMeta results(@jakarta.annotation.Nonnull List<ApiSecretMetaEE> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public ApiSecretListResponseApiSecretMeta addResultsItem(ApiSecretMetaEE resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<ApiSecretMetaEE> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResults(@jakarta.annotation.Nonnull List<ApiSecretMetaEE> results) {
+    this.results = results;
+  }
+
+  public ApiSecretListResponseApiSecretMeta total(@jakarta.annotation.Nullable Long total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Long total) {
+    this.total = total;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiSecretListResponseApiSecretMeta apiSecretListResponseApiSecretMeta = (ApiSecretListResponseApiSecretMeta) o;
+    return Objects.equals(this.readOnly, apiSecretListResponseApiSecretMeta.readOnly) &&
+        Objects.equals(this.results, apiSecretListResponseApiSecretMeta.results) &&
+        Objects.equals(this.total, apiSecretListResponseApiSecretMeta.total);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(readOnly, results, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiSecretListResponseApiSecretMeta {\n");
+    sb.append("    readOnly: ").append(toIndentedString(readOnly)).append("\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

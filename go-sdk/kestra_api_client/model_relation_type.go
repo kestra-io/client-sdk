@@ -1,0 +1,119 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// RelationType the model 'RelationType'
+type RelationType string
+
+// List of RelationType
+const (
+	RELATIONTYPE_SEQUENTIAL RelationType = "SEQUENTIAL"
+	RELATIONTYPE_CHOICE RelationType = "CHOICE"
+	RELATIONTYPE_ERROR RelationType = "ERROR"
+	RELATIONTYPE_FINALLY RelationType = "FINALLY"
+	RELATIONTYPE_AFTER_EXECUTION RelationType = "AFTER_EXECUTION"
+	RELATIONTYPE_PARALLEL RelationType = "PARALLEL"
+	RELATIONTYPE_DYNAMIC RelationType = "DYNAMIC"
+)
+
+// All allowed values of RelationType enum
+var AllowedRelationTypeEnumValues = []RelationType{
+	"SEQUENTIAL",
+	"CHOICE",
+	"ERROR",
+	"FINALLY",
+	"AFTER_EXECUTION",
+	"PARALLEL",
+	"DYNAMIC",
+}
+
+func (v *RelationType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := RelationType(value)
+	for _, existing := range AllowedRelationTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RelationType", value)
+}
+
+// NewRelationTypeFromValue returns a pointer to a valid RelationType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewRelationTypeFromValue(v string) (*RelationType, error) {
+	ev := RelationType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for RelationType: valid values are %v", v, AllowedRelationTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v RelationType) IsValid() bool {
+	for _, existing := range AllowedRelationTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to RelationType value
+func (v RelationType) Ptr() *RelationType {
+	return &v
+}
+
+type NullableRelationType struct {
+	value *RelationType
+	isSet bool
+}
+
+func (v NullableRelationType) Get() *RelationType {
+	return v.value
+}
+
+func (v *NullableRelationType) Set(val *RelationType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableRelationType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableRelationType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableRelationType(val *RelationType) *NullableRelationType {
+	return &NullableRelationType{value: val, isSet: true}
+}
+
+func (v NullableRelationType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableRelationType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

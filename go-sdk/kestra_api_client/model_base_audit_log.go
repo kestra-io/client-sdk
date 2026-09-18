@@ -1,0 +1,394 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the BaseAuditLog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseAuditLog{}
+
+// BaseAuditLog struct for BaseAuditLog
+type BaseAuditLog struct {
+	TenantId *string `json:"tenantId,omitempty"`
+	Id string `json:"id"`
+	Type CrudEventType `json:"type"`
+	Detail AuditLogDetail `json:"detail"`
+	Date time.Time `json:"date"`
+	UserId string `json:"userId"`
+	IpAddress *string `json:"ipAddress,omitempty"`
+	ImpersonatedBy *string `json:"impersonatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _BaseAuditLog BaseAuditLog
+
+// NewBaseAuditLog instantiates a new BaseAuditLog object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewBaseAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string) *BaseAuditLog {
+	this := BaseAuditLog{}
+	this.Id = id
+	this.Type = type_
+	this.Detail = detail
+	this.Date = date
+	this.UserId = userId
+	return &this
+}
+
+// NewBaseAuditLogWithDefaults instantiates a new BaseAuditLog object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewBaseAuditLogWithDefaults() *BaseAuditLog {
+	this := BaseAuditLog{}
+	return &this
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
+func (o *BaseAuditLog) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetTenantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TenantId) {
+		return nil, false
+	}
+	return o.TenantId, true
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+func (o *BaseAuditLog) SetTenantId(v string) {
+	o.TenantId = &v
+}
+
+// GetId returns the Id field value
+func (o *BaseAuditLog) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *BaseAuditLog) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *BaseAuditLog) GetType() CrudEventType {
+	if o == nil {
+		var ret CrudEventType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetTypeOk() (*CrudEventType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *BaseAuditLog) SetType(v CrudEventType) {
+	o.Type = v
+}
+
+// GetDetail returns the Detail field value
+func (o *BaseAuditLog) GetDetail() AuditLogDetail {
+	if o == nil {
+		var ret AuditLogDetail
+		return ret
+	}
+
+	return o.Detail
+}
+
+// GetDetailOk returns a tuple with the Detail field value
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetDetailOk() (*AuditLogDetail, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Detail, true
+}
+
+// SetDetail sets field value
+func (o *BaseAuditLog) SetDetail(v AuditLogDetail) {
+	o.Detail = v
+}
+
+// GetDate returns the Date field value
+func (o *BaseAuditLog) GetDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Date
+}
+
+// GetDateOk returns a tuple with the Date field value
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Date, true
+}
+
+// SetDate sets field value
+func (o *BaseAuditLog) SetDate(v time.Time) {
+	o.Date = v
+}
+
+// GetUserId returns the UserId field value
+func (o *BaseAuditLog) GetUserId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UserId
+}
+
+// GetUserIdOk returns a tuple with the UserId field value
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UserId, true
+}
+
+// SetUserId sets field value
+func (o *BaseAuditLog) SetUserId(v string) {
+	o.UserId = v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *BaseAuditLog) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *BaseAuditLog) SetIpAddress(v string) {
+	o.IpAddress = &v
+}
+
+// GetImpersonatedBy returns the ImpersonatedBy field value if set, zero value otherwise.
+func (o *BaseAuditLog) GetImpersonatedBy() string {
+	if o == nil || IsNil(o.ImpersonatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ImpersonatedBy
+}
+
+// GetImpersonatedByOk returns a tuple with the ImpersonatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseAuditLog) GetImpersonatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ImpersonatedBy) {
+		return nil, false
+	}
+	return o.ImpersonatedBy, true
+}
+
+// HasImpersonatedBy returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasImpersonatedBy() bool {
+	if o != nil && !IsNil(o.ImpersonatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetImpersonatedBy gets a reference to the given string and assigns it to the ImpersonatedBy field.
+func (o *BaseAuditLog) SetImpersonatedBy(v string) {
+	o.ImpersonatedBy = &v
+}
+
+func (o BaseAuditLog) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseAuditLog) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["detail"] = o.Detail
+	toSerialize["date"] = o.Date
+	toSerialize["userId"] = o.UserId
+	if !IsNil(o.IpAddress) {
+		toSerialize["ipAddress"] = o.IpAddress
+	}
+	if !IsNil(o.ImpersonatedBy) {
+		toSerialize["impersonatedBy"] = o.ImpersonatedBy
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *BaseAuditLog) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"detail",
+		"date",
+		"userId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBaseAuditLog := _BaseAuditLog{}
+
+	err = json.Unmarshal(data, &varBaseAuditLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BaseAuditLog(varBaseAuditLog)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "detail")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "userId")
+		delete(additionalProperties, "ipAddress")
+		delete(additionalProperties, "impersonatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableBaseAuditLog struct {
+	value *BaseAuditLog
+	isSet bool
+}
+
+func (v NullableBaseAuditLog) Get() *BaseAuditLog {
+	return v.value
+}
+
+func (v *NullableBaseAuditLog) Set(val *BaseAuditLog) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableBaseAuditLog) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableBaseAuditLog) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableBaseAuditLog(val *BaseAuditLog) *NullableBaseAuditLog {
+	return &NullableBaseAuditLog{value: val, isSet: true}
+}
+
+func (v NullableBaseAuditLog) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableBaseAuditLog) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

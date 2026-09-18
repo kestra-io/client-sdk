@@ -1,0 +1,307 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * KVEntry
+ */
+@JsonPropertyOrder({
+  KVEntry.JSON_PROPERTY_NAMESPACE,
+  KVEntry.JSON_PROPERTY_KEY,
+  KVEntry.JSON_PROPERTY_REVISION,
+  KVEntry.JSON_PROPERTY_DESCRIPTION,
+  KVEntry.JSON_PROPERTY_CREATION_DATE,
+  KVEntry.JSON_PROPERTY_UPDATE_DATE,
+  KVEntry.JSON_PROPERTY_EXPIRATION_DATE
+})
+public class KVEntry {
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nullable  private String key;
+
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private JsonNullable<String> description = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_CREATION_DATE = "creationDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime creationDate;
+
+  public static final String JSON_PROPERTY_UPDATE_DATE = "updateDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime updateDate;
+
+  public static final String JSON_PROPERTY_EXPIRATION_DATE = "expirationDate";
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.<OffsetDateTime>undefined();
+
+  public KVEntry() {
+  }
+
+  public KVEntry namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public KVEntry key(@jakarta.annotation.Nullable String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKey(@jakarta.annotation.Nullable String key) {
+    this.key = key;
+  }
+
+  public KVEntry revision(@jakarta.annotation.Nullable Integer revision) {
+    
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRevision() {
+    return revision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
+  }
+
+  public KVEntry description(@jakarta.annotation.Nullable String description) {
+    this.description = JsonNullable.<String>of(description);
+    
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getDescription() {
+        return description.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getDescription_JsonNullable() {
+    return description;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  public void setDescription_JsonNullable(JsonNullable<String> description) {
+    this.description = description;
+  }
+
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = JsonNullable.<String>of(description);
+  }
+
+  public KVEntry creationDate(@jakarta.annotation.Nullable OffsetDateTime creationDate) {
+    
+    this.creationDate = creationDate;
+    return this;
+  }
+
+  /**
+   * Get creationDate
+   * @return creationDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreationDate() {
+    return creationDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreationDate(@jakarta.annotation.Nullable OffsetDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  public KVEntry updateDate(@jakarta.annotation.Nullable OffsetDateTime updateDate) {
+    
+    this.updateDate = updateDate;
+    return this;
+  }
+
+  /**
+   * Get updateDate
+   * @return updateDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATE_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdateDate() {
+    return updateDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATE_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdateDate(@jakarta.annotation.Nullable OffsetDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
+
+  public KVEntry expirationDate(@jakarta.annotation.Nullable OffsetDateTime expirationDate) {
+    this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
+    
+    return this;
+  }
+
+  /**
+   * Get expirationDate
+   * @return expirationDate
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public OffsetDateTime getExpirationDate() {
+        return expirationDate.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<OffsetDateTime> getExpirationDate_JsonNullable() {
+    return expirationDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
+  public void setExpirationDate_JsonNullable(JsonNullable<OffsetDateTime> expirationDate) {
+    this.expirationDate = expirationDate;
+  }
+
+  public void setExpirationDate(@jakarta.annotation.Nullable OffsetDateTime expirationDate) {
+    this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    KVEntry kvEntry = (KVEntry) o;
+    return Objects.equals(this.namespace, kvEntry.namespace) &&
+        Objects.equals(this.key, kvEntry.key) &&
+        Objects.equals(this.revision, kvEntry.revision) &&
+        equalsNullable(this.description, kvEntry.description) &&
+        Objects.equals(this.creationDate, kvEntry.creationDate) &&
+        Objects.equals(this.updateDate, kvEntry.updateDate) &&
+        equalsNullable(this.expirationDate, kvEntry.expirationDate);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(namespace, key, revision, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class KVEntry {\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+    sb.append("    updateDate: ").append(toIndentedString(updateDate)).append("\n");
+    sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

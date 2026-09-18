@@ -1,0 +1,552 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Meta;
+import io.kestra.sdk.model.ScimExtension;
+import io.kestra.sdk.model.ServiceProviderConfigurationAuthenticationSchema;
+import io.kestra.sdk.model.ServiceProviderConfigurationBulkConfiguration;
+import io.kestra.sdk.model.ServiceProviderConfigurationFilterConfiguration;
+import io.kestra.sdk.model.ServiceProviderConfigurationSupportedConfiguration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServiceProviderConfiguration
+ */
+@JsonPropertyOrder({
+  ServiceProviderConfiguration.JSON_PROPERTY_SCHEMAS,
+  ServiceProviderConfiguration.JSON_PROPERTY_BASE_URN,
+  ServiceProviderConfiguration.JSON_PROPERTY_EXTENSIONS,
+  ServiceProviderConfiguration.JSON_PROPERTY_META,
+  ServiceProviderConfiguration.JSON_PROPERTY_ID,
+  ServiceProviderConfiguration.JSON_PROPERTY_EXTERNAL_ID,
+  ServiceProviderConfiguration.JSON_PROPERTY_RESOURCE_TYPE,
+  ServiceProviderConfiguration.JSON_PROPERTY_DOCUMENTATION_URL,
+  ServiceProviderConfiguration.JSON_PROPERTY_PATCH,
+  ServiceProviderConfiguration.JSON_PROPERTY_BULK,
+  ServiceProviderConfiguration.JSON_PROPERTY_FILTER,
+  ServiceProviderConfiguration.JSON_PROPERTY_CHANGE_PASSWORD,
+  ServiceProviderConfiguration.JSON_PROPERTY_SORT,
+  ServiceProviderConfiguration.JSON_PROPERTY_ETAG,
+  ServiceProviderConfiguration.JSON_PROPERTY_AUTHENTICATION_SCHEMES
+})
+public class ServiceProviderConfiguration {
+  public static final String JSON_PROPERTY_SCHEMAS = "schemas";
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
+  @jakarta.annotation.Nullable  private String baseUrn;
+
+  public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
+  @jakarta.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_META = "meta";
+  @jakarta.annotation.Nonnull  private Meta meta;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nullable  private String externalId;
+
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @jakarta.annotation.Nullable  private String resourceType;
+
+  public static final String JSON_PROPERTY_DOCUMENTATION_URL = "documentationUrl";
+  @jakarta.annotation.Nullable  private String documentationUrl;
+
+  public static final String JSON_PROPERTY_PATCH = "patch";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration patch;
+
+  public static final String JSON_PROPERTY_BULK = "bulk";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationBulkConfiguration bulk;
+
+  public static final String JSON_PROPERTY_FILTER = "filter";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationFilterConfiguration filter;
+
+  public static final String JSON_PROPERTY_CHANGE_PASSWORD = "changePassword";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration changePassword;
+
+  public static final String JSON_PROPERTY_SORT = "sort";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration sort;
+
+  public static final String JSON_PROPERTY_ETAG = "etag";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration etag;
+
+  public static final String JSON_PROPERTY_AUTHENTICATION_SCHEMES = "authenticationSchemes";
+  @jakarta.annotation.Nullable  private List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes = new ArrayList<>();
+
+  public ServiceProviderConfiguration() {
+  }
+
+  public ServiceProviderConfiguration schemas(@jakarta.annotation.Nullable List<String> schemas) {
+    
+    this.schemas = schemas;
+    return this;
+  }
+
+  public ServiceProviderConfiguration addSchemasItem(String schemasItem) {
+    if (this.schemas == null) {
+      this.schemas = new ArrayList<>();
+    }
+    this.schemas.add(schemasItem);
+    return this;
+  }
+
+  /**
+   * Get schemas
+   * @return schemas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSchemas() {
+    return schemas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
+    this.schemas = schemas;
+  }
+
+  public ServiceProviderConfiguration baseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    
+    this.baseUrn = baseUrn;
+    return this;
+  }
+
+  /**
+   * Get baseUrn
+   * @return baseUrn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBaseUrn() {
+    return baseUrn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBaseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    this.baseUrn = baseUrn;
+  }
+
+  public ServiceProviderConfiguration extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    
+    this.extensions = extensions;
+    return this;
+  }
+
+  public ServiceProviderConfiguration putExtensionsItem(String key, ScimExtension extensionsItem) {
+    if (this.extensions == null) {
+      this.extensions = new HashMap<>();
+    }
+    this.extensions.put(key, extensionsItem);
+    return this;
+  }
+
+  /**
+   * Get extensions
+   * @return extensions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, ScimExtension> getExtensions() {
+    return extensions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExtensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    this.extensions = extensions;
+  }
+
+  public ServiceProviderConfiguration meta(@jakarta.annotation.Nonnull Meta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+  /**
+   * Get meta
+   * @return meta
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Meta getMeta() {
+    return meta;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMeta(@jakarta.annotation.Nonnull Meta meta) {
+    this.meta = meta;
+  }
+
+  public ServiceProviderConfiguration id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public ServiceProviderConfiguration externalId(@jakarta.annotation.Nullable String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
+  public ServiceProviderConfiguration resourceType(@jakarta.annotation.Nullable String resourceType) {
+    
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  public ServiceProviderConfiguration documentationUrl(@jakarta.annotation.Nullable String documentationUrl) {
+    
+    this.documentationUrl = documentationUrl;
+    return this;
+  }
+
+  /**
+   * Get documentationUrl
+   * @return documentationUrl
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDocumentationUrl() {
+    return documentationUrl;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDocumentationUrl(@jakarta.annotation.Nullable String documentationUrl) {
+    this.documentationUrl = documentationUrl;
+  }
+
+  public ServiceProviderConfiguration patch(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
+    
+    this.patch = patch;
+    return this;
+  }
+
+  /**
+   * Get patch
+   * @return patch
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationSupportedConfiguration getPatch() {
+    return patch;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PATCH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPatch(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
+    this.patch = patch;
+  }
+
+  public ServiceProviderConfiguration bulk(@jakarta.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
+    
+    this.bulk = bulk;
+    return this;
+  }
+
+  /**
+   * Get bulk
+   * @return bulk
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BULK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationBulkConfiguration getBulk() {
+    return bulk;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BULK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBulk(@jakarta.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
+    this.bulk = bulk;
+  }
+
+  public ServiceProviderConfiguration filter(@jakarta.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
+    
+    this.filter = filter;
+    return this;
+  }
+
+  /**
+   * Get filter
+   * @return filter
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationFilterConfiguration getFilter() {
+    return filter;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilter(@jakarta.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
+    this.filter = filter;
+  }
+
+  public ServiceProviderConfiguration changePassword(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
+    
+    this.changePassword = changePassword;
+    return this;
+  }
+
+  /**
+   * Get changePassword
+   * @return changePassword
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationSupportedConfiguration getChangePassword() {
+    return changePassword;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setChangePassword(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
+    this.changePassword = changePassword;
+  }
+
+  public ServiceProviderConfiguration sort(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
+    
+    this.sort = sort;
+    return this;
+  }
+
+  /**
+   * Get sort
+   * @return sort
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationSupportedConfiguration getSort() {
+    return sort;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSort(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
+    this.sort = sort;
+  }
+
+  public ServiceProviderConfiguration etag(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
+    
+    this.etag = etag;
+    return this;
+  }
+
+  /**
+   * Get etag
+   * @return etag
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ETAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationSupportedConfiguration getEtag() {
+    return etag;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ETAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEtag(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
+    this.etag = etag;
+  }
+
+  public ServiceProviderConfiguration authenticationSchemes(@jakarta.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
+    
+    this.authenticationSchemes = authenticationSchemes;
+    return this;
+  }
+
+  public ServiceProviderConfiguration addAuthenticationSchemesItem(ServiceProviderConfigurationAuthenticationSchema authenticationSchemesItem) {
+    if (this.authenticationSchemes == null) {
+      this.authenticationSchemes = new ArrayList<>();
+    }
+    this.authenticationSchemes.add(authenticationSchemesItem);
+    return this;
+  }
+
+  /**
+   * Get authenticationSchemes
+   * @return authenticationSchemes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ServiceProviderConfigurationAuthenticationSchema> getAuthenticationSchemes() {
+    return authenticationSchemes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuthenticationSchemes(@jakarta.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
+    this.authenticationSchemes = authenticationSchemes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceProviderConfiguration serviceProviderConfiguration = (ServiceProviderConfiguration) o;
+    return Objects.equals(this.schemas, serviceProviderConfiguration.schemas) &&
+        Objects.equals(this.baseUrn, serviceProviderConfiguration.baseUrn) &&
+        Objects.equals(this.extensions, serviceProviderConfiguration.extensions) &&
+        Objects.equals(this.meta, serviceProviderConfiguration.meta) &&
+        Objects.equals(this.id, serviceProviderConfiguration.id) &&
+        Objects.equals(this.externalId, serviceProviderConfiguration.externalId) &&
+        Objects.equals(this.resourceType, serviceProviderConfiguration.resourceType) &&
+        Objects.equals(this.documentationUrl, serviceProviderConfiguration.documentationUrl) &&
+        Objects.equals(this.patch, serviceProviderConfiguration.patch) &&
+        Objects.equals(this.bulk, serviceProviderConfiguration.bulk) &&
+        Objects.equals(this.filter, serviceProviderConfiguration.filter) &&
+        Objects.equals(this.changePassword, serviceProviderConfiguration.changePassword) &&
+        Objects.equals(this.sort, serviceProviderConfiguration.sort) &&
+        Objects.equals(this.etag, serviceProviderConfiguration.etag) &&
+        Objects.equals(this.authenticationSchemes, serviceProviderConfiguration.authenticationSchemes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas, baseUrn, extensions, meta, id, externalId, resourceType, documentationUrl, patch, bulk, filter, changePassword, sort, etag, authenticationSchemes);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceProviderConfiguration {\n");
+    sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
+    sb.append("    baseUrn: ").append(toIndentedString(baseUrn)).append("\n");
+    sb.append("    extensions: ").append(toIndentedString(extensions)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    documentationUrl: ").append(toIndentedString(documentationUrl)).append("\n");
+    sb.append("    patch: ").append(toIndentedString(patch)).append("\n");
+    sb.append("    bulk: ").append(toIndentedString(bulk)).append("\n");
+    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    changePassword: ").append(toIndentedString(changePassword)).append("\n");
+    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    authenticationSchemes: ").append(toIndentedString(authenticationSchemes)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

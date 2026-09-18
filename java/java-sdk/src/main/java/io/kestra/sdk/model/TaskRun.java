@@ -1,0 +1,493 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetsInOut;
+import io.kestra.sdk.model.State;
+import io.kestra.sdk.model.TaskRunAttempt;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TaskRun
+ */
+@JsonPropertyOrder({
+  TaskRun.JSON_PROPERTY_ID,
+  TaskRun.JSON_PROPERTY_EXECUTION_ID,
+  TaskRun.JSON_PROPERTY_NAMESPACE,
+  TaskRun.JSON_PROPERTY_FLOW_ID,
+  TaskRun.JSON_PROPERTY_TASK_ID,
+  TaskRun.JSON_PROPERTY_PARENT_TASK_RUN_ID,
+  TaskRun.JSON_PROPERTY_VALUE,
+  TaskRun.JSON_PROPERTY_ATTEMPTS,
+  TaskRun.JSON_PROPERTY_ASSETS,
+  TaskRun.JSON_PROPERTY_STATE,
+  TaskRun.JSON_PROPERTY_ITERATION,
+  TaskRun.JSON_PROPERTY_DYNAMIC,
+  TaskRun.JSON_PROPERTY_FORCE_EXECUTION
+})
+public class TaskRun {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
+  @jakarta.annotation.Nonnull  private String executionId;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_TASK_ID = "taskId";
+  @jakarta.annotation.Nonnull  private String taskId;
+
+  public static final String JSON_PROPERTY_PARENT_TASK_RUN_ID = "parentTaskRunId";
+  @jakarta.annotation.Nullable  private String parentTaskRunId;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nullable  private String value;
+
+  public static final String JSON_PROPERTY_ATTEMPTS = "attempts";
+  @jakarta.annotation.Nullable  private List<TaskRunAttempt> attempts = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private JsonNullable<AssetsInOut> assets = JsonNullable.<AssetsInOut>undefined();
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private State state;
+
+  public static final String JSON_PROPERTY_ITERATION = "iteration";
+  @jakarta.annotation.Nullable  private Integer iteration;
+
+  public static final String JSON_PROPERTY_DYNAMIC = "dynamic";
+  @jakarta.annotation.Nullable  private Boolean dynamic;
+
+  public static final String JSON_PROPERTY_FORCE_EXECUTION = "forceExecution";
+  @jakarta.annotation.Nullable  private Boolean forceExecution;
+
+  public TaskRun() {
+  }
+
+  public TaskRun id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public TaskRun executionId(@jakarta.annotation.Nonnull String executionId) {
+    
+    this.executionId = executionId;
+    return this;
+  }
+
+  /**
+   * Get executionId
+   * @return executionId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getExecutionId() {
+    return executionId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionId(@jakarta.annotation.Nonnull String executionId) {
+    this.executionId = executionId;
+  }
+
+  public TaskRun namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public TaskRun flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public TaskRun taskId(@jakarta.annotation.Nonnull String taskId) {
+    
+    this.taskId = taskId;
+    return this;
+  }
+
+  /**
+   * Get taskId
+   * @return taskId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTaskId() {
+    return taskId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTaskId(@jakarta.annotation.Nonnull String taskId) {
+    this.taskId = taskId;
+  }
+
+  public TaskRun parentTaskRunId(@jakarta.annotation.Nullable String parentTaskRunId) {
+    
+    this.parentTaskRunId = parentTaskRunId;
+    return this;
+  }
+
+  /**
+   * Get parentTaskRunId
+   * @return parentTaskRunId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENT_TASK_RUN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getParentTaskRunId() {
+    return parentTaskRunId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PARENT_TASK_RUN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParentTaskRunId(@jakarta.annotation.Nullable String parentTaskRunId) {
+    this.parentTaskRunId = parentTaskRunId;
+  }
+
+  public TaskRun value(@jakarta.annotation.Nullable String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable String value) {
+    this.value = value;
+  }
+
+  public TaskRun attempts(@jakarta.annotation.Nullable List<TaskRunAttempt> attempts) {
+    
+    this.attempts = attempts;
+    return this;
+  }
+
+  public TaskRun addAttemptsItem(TaskRunAttempt attemptsItem) {
+    if (this.attempts == null) {
+      this.attempts = new ArrayList<>();
+    }
+    this.attempts.add(attemptsItem);
+    return this;
+  }
+
+  /**
+   * Get attempts
+   * @return attempts
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskRunAttempt> getAttempts() {
+    return attempts;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTEMPTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttempts(@jakarta.annotation.Nullable List<TaskRunAttempt> attempts) {
+    this.attempts = attempts;
+  }
+
+  public TaskRun assets(@jakarta.annotation.Nullable AssetsInOut assets) {
+    this.assets = JsonNullable.<AssetsInOut>of(assets);
+    
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public AssetsInOut getAssets() {
+        return assets.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<AssetsInOut> getAssets_JsonNullable() {
+    return assets;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  public void setAssets_JsonNullable(JsonNullable<AssetsInOut> assets) {
+    this.assets = assets;
+  }
+
+  public void setAssets(@jakarta.annotation.Nullable AssetsInOut assets) {
+    this.assets = JsonNullable.<AssetsInOut>of(assets);
+  }
+
+  public TaskRun state(@jakarta.annotation.Nonnull State state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public State getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull State state) {
+    this.state = state;
+  }
+
+  public TaskRun iteration(@jakarta.annotation.Nullable Integer iteration) {
+    
+    this.iteration = iteration;
+    return this;
+  }
+
+  /**
+   * Get iteration
+   * @return iteration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ITERATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getIteration() {
+    return iteration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ITERATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIteration(@jakarta.annotation.Nullable Integer iteration) {
+    this.iteration = iteration;
+  }
+
+  public TaskRun dynamic(@jakarta.annotation.Nullable Boolean dynamic) {
+    
+    this.dynamic = dynamic;
+    return this;
+  }
+
+  /**
+   * Get dynamic
+   * @return dynamic
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DYNAMIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDynamic() {
+    return dynamic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DYNAMIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDynamic(@jakarta.annotation.Nullable Boolean dynamic) {
+    this.dynamic = dynamic;
+  }
+
+  public TaskRun forceExecution(@jakarta.annotation.Nullable Boolean forceExecution) {
+    
+    this.forceExecution = forceExecution;
+    return this;
+  }
+
+  /**
+   * Get forceExecution
+   * @return forceExecution
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FORCE_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getForceExecution() {
+    return forceExecution;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FORCE_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setForceExecution(@jakarta.annotation.Nullable Boolean forceExecution) {
+    this.forceExecution = forceExecution;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TaskRun taskRun = (TaskRun) o;
+    return Objects.equals(this.id, taskRun.id) &&
+        Objects.equals(this.executionId, taskRun.executionId) &&
+        Objects.equals(this.namespace, taskRun.namespace) &&
+        Objects.equals(this.flowId, taskRun.flowId) &&
+        Objects.equals(this.taskId, taskRun.taskId) &&
+        Objects.equals(this.parentTaskRunId, taskRun.parentTaskRunId) &&
+        Objects.equals(this.value, taskRun.value) &&
+        Objects.equals(this.attempts, taskRun.attempts) &&
+        equalsNullable(this.assets, taskRun.assets) &&
+        Objects.equals(this.state, taskRun.state) &&
+        Objects.equals(this.iteration, taskRun.iteration) &&
+        Objects.equals(this.dynamic, taskRun.dynamic) &&
+        Objects.equals(this.forceExecution, taskRun.forceExecution);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, hashCodeNullable(assets), state, iteration, dynamic, forceExecution);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TaskRun {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+    sb.append("    parentTaskRunId: ").append(toIndentedString(parentTaskRunId)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    attempts: ").append(toIndentedString(attempts)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    iteration: ").append(toIndentedString(iteration)).append("\n");
+    sb.append("    dynamic: ").append(toIndentedString(dynamic)).append("\n");
+    sb.append("    forceExecution: ").append(toIndentedString(forceExecution)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,503 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetsDeclaration;
+import io.kestra.sdk.model.Level;
+import io.kestra.sdk.model.StateType;
+import io.kestra.sdk.model.WorkerSelector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import io.kestra.sdk.model.Label;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AbstractTrigger
+ */
+@JsonPropertyOrder({
+  AbstractTrigger.JSON_PROPERTY_ID,
+  AbstractTrigger.JSON_PROPERTY_TYPE,
+  AbstractTrigger.JSON_PROPERTY_VERSION,
+  AbstractTrigger.JSON_PROPERTY_DESCRIPTION,
+  AbstractTrigger.JSON_PROPERTY_WHEN,
+  AbstractTrigger.JSON_PROPERTY_DISABLED,
+  AbstractTrigger.JSON_PROPERTY_WORKER_SELECTOR,
+  AbstractTrigger.JSON_PROPERTY_LOG_LEVEL,
+  AbstractTrigger.JSON_PROPERTY_LABELS,
+  AbstractTrigger.JSON_PROPERTY_STOP_AFTER,
+  AbstractTrigger.JSON_PROPERTY_LOG_TO_FILE,
+  AbstractTrigger.JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR,
+  AbstractTrigger.JSON_PROPERTY_ALLOW_CONCURRENT,
+  AbstractTrigger.JSON_PROPERTY_ASSETS
+})
+public class AbstractTrigger {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_WHEN = "when";
+  @jakarta.annotation.Nonnull  private String when;
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nullable  private Boolean disabled = false;
+
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
+
+  public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
+  @jakarta.annotation.Nullable  private Level logLevel;
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels;
+
+  public static final String JSON_PROPERTY_STOP_AFTER = "stopAfter";
+  @jakarta.annotation.Nullable  private List<StateType> stopAfter = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_LOG_TO_FILE = "logToFile";
+  @jakarta.annotation.Nullable  private Boolean logToFile;
+
+  public static final String JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR = "failOnTriggerError";
+  @jakarta.annotation.Nullable  private Boolean failOnTriggerError;
+
+  public static final String JSON_PROPERTY_ALLOW_CONCURRENT = "allowConcurrent";
+  @jakarta.annotation.Nullable  private Boolean allowConcurrent;
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private AssetsDeclaration assets;
+
+  public AbstractTrigger() {
+  }
+
+  public AbstractTrigger id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public AbstractTrigger type(@jakarta.annotation.Nonnull String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public AbstractTrigger version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;). 
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public AbstractTrigger description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public AbstractTrigger when(@jakarta.annotation.Nonnull String when) {
+    
+    this.when = when;
+    return this;
+  }
+
+  /**
+   * A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (&#x60;true&#x60;, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.
+   * @return when
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_WHEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getWhen() {
+    return when;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWhen(@jakarta.annotation.Nonnull String when) {
+    this.when = when;
+  }
+
+  public AbstractTrigger disabled(@jakarta.annotation.Nullable Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public AbstractTrigger workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    
+    this.workerSelector = workerSelector;
+    return this;
+  }
+
+  /**
+   * Get workerSelector
+   * @return workerSelector
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
+  }
+
+  public AbstractTrigger logLevel(@jakarta.annotation.Nullable Level logLevel) {
+    
+    this.logLevel = logLevel;
+    return this;
+  }
+
+  /**
+   * Get logLevel
+   * @return logLevel
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Level getLogLevel() {
+    return logLevel;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogLevel(@jakarta.annotation.Nullable Level logLevel) {
+    this.logLevel = logLevel;
+  }
+
+  public AbstractTrigger labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
+  }
+
+  public AbstractTrigger stopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
+    
+    this.stopAfter = stopAfter;
+    return this;
+  }
+
+  public AbstractTrigger addStopAfterItem(StateType stopAfterItem) {
+    if (this.stopAfter == null) {
+      this.stopAfter = new ArrayList<>();
+    }
+    this.stopAfter.add(stopAfterItem);
+    return this;
+  }
+
+  /**
+   * Get stopAfter
+   * @return stopAfter
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<StateType> getStopAfter() {
+    return stopAfter;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
+    this.stopAfter = stopAfter;
+  }
+
+  public AbstractTrigger logToFile(@jakarta.annotation.Nullable Boolean logToFile) {
+    
+    this.logToFile = logToFile;
+    return this;
+  }
+
+  /**
+   * Get logToFile
+   * @return logToFile
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getLogToFile() {
+    return logToFile;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogToFile(@jakarta.annotation.Nullable Boolean logToFile) {
+    this.logToFile = logToFile;
+  }
+
+  public AbstractTrigger failOnTriggerError(@jakarta.annotation.Nullable Boolean failOnTriggerError) {
+    
+    this.failOnTriggerError = failOnTriggerError;
+    return this;
+  }
+
+  /**
+   * Get failOnTriggerError
+   * @return failOnTriggerError
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFailOnTriggerError() {
+    return failOnTriggerError;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFailOnTriggerError(@jakarta.annotation.Nullable Boolean failOnTriggerError) {
+    this.failOnTriggerError = failOnTriggerError;
+  }
+
+  public AbstractTrigger allowConcurrent(@jakarta.annotation.Nullable Boolean allowConcurrent) {
+    
+    this.allowConcurrent = allowConcurrent;
+    return this;
+  }
+
+  /**
+   * Get allowConcurrent
+   * @return allowConcurrent
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOW_CONCURRENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getAllowConcurrent() {
+    return allowConcurrent;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ALLOW_CONCURRENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAllowConcurrent(@jakarta.annotation.Nullable Boolean allowConcurrent) {
+    this.allowConcurrent = allowConcurrent;
+  }
+
+  public AbstractTrigger assets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
+    
+    this.assets = assets;
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AssetsDeclaration getAssets() {
+    return assets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
+    this.assets = assets;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AbstractTrigger abstractTrigger = (AbstractTrigger) o;
+    return Objects.equals(this.id, abstractTrigger.id) &&
+        Objects.equals(this.type, abstractTrigger.type) &&
+        Objects.equals(this.version, abstractTrigger.version) &&
+        Objects.equals(this.description, abstractTrigger.description) &&
+        Objects.equals(this.when, abstractTrigger.when) &&
+        Objects.equals(this.disabled, abstractTrigger.disabled) &&
+        Objects.equals(this.workerSelector, abstractTrigger.workerSelector) &&
+        Objects.equals(this.logLevel, abstractTrigger.logLevel) &&
+        Objects.equals(this.labels, abstractTrigger.labels) &&
+        Objects.equals(this.stopAfter, abstractTrigger.stopAfter) &&
+        Objects.equals(this.logToFile, abstractTrigger.logToFile) &&
+        Objects.equals(this.failOnTriggerError, abstractTrigger.failOnTriggerError) &&
+        Objects.equals(this.allowConcurrent, abstractTrigger.allowConcurrent) &&
+        Objects.equals(this.assets, abstractTrigger.assets);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, version, description, when, disabled, workerSelector, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AbstractTrigger {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
+    sb.append("    logLevel: ").append(toIndentedString(logLevel)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    stopAfter: ").append(toIndentedString(stopAfter)).append("\n");
+    sb.append("    logToFile: ").append(toIndentedString(logToFile)).append("\n");
+    sb.append("    failOnTriggerError: ").append(toIndentedString(failOnTriggerError)).append("\n");
+    sb.append("    allowConcurrent: ").append(toIndentedString(allowConcurrent)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

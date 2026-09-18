@@ -1,0 +1,269 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the FlowGenerationPrompt type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FlowGenerationPrompt{}
+
+// FlowGenerationPrompt struct for FlowGenerationPrompt
+type FlowGenerationPrompt struct {
+	ConversationId string `json:"conversationId"`
+	UserPrompt string `json:"userPrompt"`
+	Yaml *string `json:"yaml,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FlowGenerationPrompt FlowGenerationPrompt
+
+// NewFlowGenerationPrompt instantiates a new FlowGenerationPrompt object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFlowGenerationPrompt(conversationId string, userPrompt string) *FlowGenerationPrompt {
+	this := FlowGenerationPrompt{}
+	this.ConversationId = conversationId
+	this.UserPrompt = userPrompt
+	return &this
+}
+
+// NewFlowGenerationPromptWithDefaults instantiates a new FlowGenerationPrompt object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFlowGenerationPromptWithDefaults() *FlowGenerationPrompt {
+	this := FlowGenerationPrompt{}
+	return &this
+}
+
+// GetConversationId returns the ConversationId field value
+func (o *FlowGenerationPrompt) GetConversationId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ConversationId
+}
+
+// GetConversationIdOk returns a tuple with the ConversationId field value
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetConversationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConversationId, true
+}
+
+// SetConversationId sets field value
+func (o *FlowGenerationPrompt) SetConversationId(v string) {
+	o.ConversationId = v
+}
+
+// GetUserPrompt returns the UserPrompt field value
+func (o *FlowGenerationPrompt) GetUserPrompt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UserPrompt
+}
+
+// GetUserPromptOk returns a tuple with the UserPrompt field value
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetUserPromptOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UserPrompt, true
+}
+
+// SetUserPrompt sets field value
+func (o *FlowGenerationPrompt) SetUserPrompt(v string) {
+	o.UserPrompt = v
+}
+
+// GetYaml returns the Yaml field value if set, zero value otherwise.
+func (o *FlowGenerationPrompt) GetYaml() string {
+	if o == nil || IsNil(o.Yaml) {
+		var ret string
+		return ret
+	}
+	return *o.Yaml
+}
+
+// GetYamlOk returns a tuple with the Yaml field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetYamlOk() (*string, bool) {
+	if o == nil || IsNil(o.Yaml) {
+		return nil, false
+	}
+	return o.Yaml, true
+}
+
+// HasYaml returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasYaml() bool {
+	if o != nil && !IsNil(o.Yaml) {
+		return true
+	}
+
+	return false
+}
+
+// SetYaml gets a reference to the given string and assigns it to the Yaml field.
+func (o *FlowGenerationPrompt) SetYaml(v string) {
+	o.Yaml = &v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *FlowGenerationPrompt) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *FlowGenerationPrompt) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+func (o FlowGenerationPrompt) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FlowGenerationPrompt) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["conversationId"] = o.ConversationId
+	toSerialize["userPrompt"] = o.UserPrompt
+	if !IsNil(o.Yaml) {
+		toSerialize["yaml"] = o.Yaml
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"conversationId",
+		"userPrompt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFlowGenerationPrompt := _FlowGenerationPrompt{}
+
+	err = json.Unmarshal(data, &varFlowGenerationPrompt)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowGenerationPrompt(varFlowGenerationPrompt)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "conversationId")
+		delete(additionalProperties, "userPrompt")
+		delete(additionalProperties, "yaml")
+		delete(additionalProperties, "namespace")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFlowGenerationPrompt struct {
+	value *FlowGenerationPrompt
+	isSet bool
+}
+
+func (v NullableFlowGenerationPrompt) Get() *FlowGenerationPrompt {
+	return v.value
+}
+
+func (v *NullableFlowGenerationPrompt) Set(val *FlowGenerationPrompt) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowGenerationPrompt) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowGenerationPrompt) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowGenerationPrompt(val *FlowGenerationPrompt) *NullableFlowGenerationPrompt {
+	return &NullableFlowGenerationPrompt{value: val, isSet: true}
+}
+
+func (v NullableFlowGenerationPrompt) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowGenerationPrompt) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

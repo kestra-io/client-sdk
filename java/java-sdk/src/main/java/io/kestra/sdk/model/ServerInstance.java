@@ -1,0 +1,267 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Metric;
+import io.kestra.sdk.model.ServerInstanceType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServerInstance
+ */
+@JsonPropertyOrder({
+  ServerInstance.JSON_PROPERTY_ID,
+  ServerInstance.JSON_PROPERTY_TYPE,
+  ServerInstance.JSON_PROPERTY_VERSION,
+  ServerInstance.JSON_PROPERTY_HOSTNAME,
+  ServerInstance.JSON_PROPERTY_PROPS,
+  ServerInstance.JSON_PROPERTY_METRICS
+})
+public class ServerInstance {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private ServerInstanceType type;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nonnull  private String version;
+
+  public static final String JSON_PROPERTY_HOSTNAME = "hostname";
+  @jakarta.annotation.Nonnull  private String hostname;
+
+  public static final String JSON_PROPERTY_PROPS = "props";
+  @jakarta.annotation.Nonnull  private Map<String, Object> props = new HashMap<>();
+
+  public static final String JSON_PROPERTY_METRICS = "metrics";
+  @jakarta.annotation.Nonnull  private List<Metric> metrics = new ArrayList<>();
+
+  public ServerInstance() {
+  }
+
+  public ServerInstance id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ServerInstance type(@jakarta.annotation.Nonnull ServerInstanceType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ServerInstanceType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull ServerInstanceType type) {
+    this.type = type;
+  }
+
+  public ServerInstance version(@jakarta.annotation.Nonnull String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersion(@jakarta.annotation.Nonnull String version) {
+    this.version = version;
+  }
+
+  public ServerInstance hostname(@jakarta.annotation.Nonnull String hostname) {
+    
+    this.hostname = hostname;
+    return this;
+  }
+
+  /**
+   * Get hostname
+   * @return hostname
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HOSTNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getHostname() {
+    return hostname;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HOSTNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHostname(@jakarta.annotation.Nonnull String hostname) {
+    this.hostname = hostname;
+  }
+
+  public ServerInstance props(@jakarta.annotation.Nonnull Map<String, Object> props) {
+    
+    this.props = props;
+    return this;
+  }
+
+  public ServerInstance putPropsItem(String key, Object propsItem) {
+    this.props.put(key, propsItem);
+    return this;
+  }
+
+  /**
+   * Get props
+   * @return props
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Map<String, Object> getProps() {
+    return props;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setProps(@jakarta.annotation.Nonnull Map<String, Object> props) {
+    this.props = props;
+  }
+
+  public ServerInstance metrics(@jakarta.annotation.Nonnull List<Metric> metrics) {
+    
+    this.metrics = metrics;
+    return this;
+  }
+
+  public ServerInstance addMetricsItem(Metric metricsItem) {
+    if (this.metrics == null) {
+      this.metrics = new ArrayList<>();
+    }
+    this.metrics.add(metricsItem);
+    return this;
+  }
+
+  /**
+   * Get metrics
+   * @return metrics
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<Metric> getMetrics() {
+    return metrics;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetrics(@jakarta.annotation.Nonnull List<Metric> metrics) {
+    this.metrics = metrics;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServerInstance serverInstance = (ServerInstance) o;
+    return Objects.equals(this.id, serverInstance.id) &&
+        Objects.equals(this.type, serverInstance.type) &&
+        Objects.equals(this.version, serverInstance.version) &&
+        Objects.equals(this.hostname, serverInstance.hostname) &&
+        Objects.equals(this.props, serverInstance.props) &&
+        Objects.equals(this.metrics, serverInstance.metrics);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, version, hostname, props, metrics);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServerInstance {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    hostname: ").append(toIndentedString(hostname)).append("\n");
+    sb.append("    props: ").append(toIndentedString(props)).append("\n");
+    sb.append("    metrics: ").append(toIndentedString(metrics)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

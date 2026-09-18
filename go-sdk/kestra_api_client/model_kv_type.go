@@ -1,0 +1,119 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// KVType the model 'KVType'
+type KVType string
+
+// List of KVType
+const (
+	KVTYPE_STRING KVType = "STRING"
+	KVTYPE_NUMBER KVType = "NUMBER"
+	KVTYPE_BOOLEAN KVType = "BOOLEAN"
+	KVTYPE_DATETIME KVType = "DATETIME"
+	KVTYPE_DATE KVType = "DATE"
+	KVTYPE_DURATION KVType = "DURATION"
+	KVTYPE_JSON KVType = "JSON"
+)
+
+// All allowed values of KVType enum
+var AllowedKVTypeEnumValues = []KVType{
+	"STRING",
+	"NUMBER",
+	"BOOLEAN",
+	"DATETIME",
+	"DATE",
+	"DURATION",
+	"JSON",
+}
+
+func (v *KVType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := KVType(value)
+	for _, existing := range AllowedKVTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid KVType", value)
+}
+
+// NewKVTypeFromValue returns a pointer to a valid KVType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewKVTypeFromValue(v string) (*KVType, error) {
+	ev := KVType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for KVType: valid values are %v", v, AllowedKVTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v KVType) IsValid() bool {
+	for _, existing := range AllowedKVTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to KVType value
+func (v KVType) Ptr() *KVType {
+	return &v
+}
+
+type NullableKVType struct {
+	value *KVType
+	isSet bool
+}
+
+func (v NullableKVType) Get() *KVType {
+	return v.value
+}
+
+func (v *NullableKVType) Set(val *KVType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableKVType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableKVType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableKVType(val *KVType) *NullableKVType {
+	return &NullableKVType{value: val, isSet: true}
+}
+
+func (v NullableKVType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableKVType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

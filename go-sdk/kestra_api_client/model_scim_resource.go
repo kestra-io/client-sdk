@@ -1,0 +1,388 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ScimResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScimResource{}
+
+// ScimResource struct for ScimResource
+type ScimResource struct {
+	Schemas []string `json:"schemas,omitempty"`
+	BaseUrn *string `json:"baseUrn,omitempty"`
+	Extensions *map[string]ScimExtension `json:"extensions,omitempty"`
+	Meta Meta `json:"meta"`
+	Id *string `json:"id,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	ResourceType *string `json:"resourceType,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ScimResource ScimResource
+
+// NewScimResource instantiates a new ScimResource object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewScimResource(meta Meta) *ScimResource {
+	this := ScimResource{}
+	this.Meta = meta
+	return &this
+}
+
+// NewScimResourceWithDefaults instantiates a new ScimResource object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewScimResourceWithDefaults() *ScimResource {
+	this := ScimResource{}
+	return &this
+}
+
+// GetSchemas returns the Schemas field value if set, zero value otherwise.
+func (o *ScimResource) GetSchemas() []string {
+	if o == nil || IsNil(o.Schemas) {
+		var ret []string
+		return ret
+	}
+	return o.Schemas
+}
+
+// GetSchemasOk returns a tuple with the Schemas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetSchemasOk() ([]string, bool) {
+	if o == nil || IsNil(o.Schemas) {
+		return nil, false
+	}
+	return o.Schemas, true
+}
+
+// HasSchemas returns a boolean if a field has been set.
+func (o *ScimResource) HasSchemas() bool {
+	if o != nil && !IsNil(o.Schemas) {
+		return true
+	}
+
+	return false
+}
+
+// SetSchemas gets a reference to the given []string and assigns it to the Schemas field.
+func (o *ScimResource) SetSchemas(v []string) {
+	o.Schemas = v
+}
+
+// GetBaseUrn returns the BaseUrn field value if set, zero value otherwise.
+func (o *ScimResource) GetBaseUrn() string {
+	if o == nil || IsNil(o.BaseUrn) {
+		var ret string
+		return ret
+	}
+	return *o.BaseUrn
+}
+
+// GetBaseUrnOk returns a tuple with the BaseUrn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetBaseUrnOk() (*string, bool) {
+	if o == nil || IsNil(o.BaseUrn) {
+		return nil, false
+	}
+	return o.BaseUrn, true
+}
+
+// HasBaseUrn returns a boolean if a field has been set.
+func (o *ScimResource) HasBaseUrn() bool {
+	if o != nil && !IsNil(o.BaseUrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetBaseUrn gets a reference to the given string and assigns it to the BaseUrn field.
+func (o *ScimResource) SetBaseUrn(v string) {
+	o.BaseUrn = &v
+}
+
+// GetExtensions returns the Extensions field value if set, zero value otherwise.
+func (o *ScimResource) GetExtensions() map[string]ScimExtension {
+	if o == nil || IsNil(o.Extensions) {
+		var ret map[string]ScimExtension
+		return ret
+	}
+	return *o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetExtensionsOk() (*map[string]ScimExtension, bool) {
+	if o == nil || IsNil(o.Extensions) {
+		return nil, false
+	}
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *ScimResource) HasExtensions() bool {
+	if o != nil && !IsNil(o.Extensions) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given map[string]ScimExtension and assigns it to the Extensions field.
+func (o *ScimResource) SetExtensions(v map[string]ScimExtension) {
+	o.Extensions = &v
+}
+
+// GetMeta returns the Meta field value
+func (o *ScimResource) GetMeta() Meta {
+	if o == nil {
+		var ret Meta
+		return ret
+	}
+
+	return o.Meta
+}
+
+// GetMetaOk returns a tuple with the Meta field value
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetMetaOk() (*Meta, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Meta, true
+}
+
+// SetMeta sets field value
+func (o *ScimResource) SetMeta(v Meta) {
+	o.Meta = v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ScimResource) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ScimResource) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ScimResource) SetId(v string) {
+	o.Id = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *ScimResource) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *ScimResource) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *ScimResource) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *ScimResource) GetResourceType() string {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimResource) GetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceType) {
+		return nil, false
+	}
+	return o.ResourceType, true
+}
+
+// HasResourceType returns a boolean if a field has been set.
+func (o *ScimResource) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *ScimResource) SetResourceType(v string) {
+	o.ResourceType = &v
+}
+
+func (o ScimResource) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScimResource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Schemas) {
+		toSerialize["schemas"] = o.Schemas
+	}
+	if !IsNil(o.BaseUrn) {
+		toSerialize["baseUrn"] = o.BaseUrn
+	}
+	if !IsNil(o.Extensions) {
+		toSerialize["extensions"] = o.Extensions
+	}
+	toSerialize["meta"] = o.Meta
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["externalId"] = o.ExternalId
+	}
+	if !IsNil(o.ResourceType) {
+		toSerialize["resourceType"] = o.ResourceType
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ScimResource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"meta",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varScimResource := _ScimResource{}
+
+	err = json.Unmarshal(data, &varScimResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScimResource(varScimResource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "baseUrn")
+		delete(additionalProperties, "extensions")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "resourceType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableScimResource struct {
+	value *ScimResource
+	isSet bool
+}
+
+func (v NullableScimResource) Get() *ScimResource {
+	return v.value
+}
+
+func (v *NullableScimResource) Set(val *ScimResource) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableScimResource) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableScimResource) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableScimResource(val *ScimResource) *NullableScimResource {
+	return &NullableScimResource{value: val, isSet: true}
+}
+
+func (v NullableScimResource) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableScimResource) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,71 +1,68 @@
 #!/bin/bash
+set -euo pipefail
 
-VERSION=$1
-LANGUAGES=$2
-TEMPLATE_FLAG=$3
+LANGUAGES=$1
+VERSION=${2:-}
 
-HOST_UID=$(id -u)
-HOST_GID=$(id -g)
+# if the language starts with "v" and a number or simply a number, it means that is the version
+# language and version have been inverted, so we need to swap them
+if [[ "$LANGUAGES" =~ ^v?[0-9]+[.+-] ]]; then
+  VERSION="$LANGUAGES"
+  LANGUAGES="${2:-}"
+  echo "Language and version have been inverted, swapping them. Language: $LANGUAGES, Version: $VERSION"
+fi
+
+# if version is not provided, use 0.0.0-dev as default
+if [ -z "$VERSION" ]; then
+  VERSION="0.0.0-dev"
+  echo "No version provided, using default: $VERSION"
+fi
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
-  echo "No languages specified. Please provide a comma-separated list of languages. Possible languages are: 'java', 'python', 'go' and 'javascript'"
+  echo "No language specified. The only generated SDK is 'javascript' (Java, Go and Python are hand-written)"
   exit 1
 fi
 
-BASE_PKG=io.kestra.sdk
-
-if [ -n "$TEMPLATE_FLAG" ]; then
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli author template -g "$LANGUAGES" -o /local/templates/python
-  exit 0
+if [[ "$LANGUAGES" == *,* ]]; then
+  echo "Multiple languages specified. Please provide exactly one language (no commas)."
+  exit 1
 fi
 
-# Generate Java SDK
+# Java SDK is hand-written and no longer generated
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
-rm -rf ./java-sdk/docs
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/api
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/internal
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/model
-
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
-     -c /local/configurations/java-config.yml --artifact-version $VERSION \
-      --skip-validate-spec
-
-find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
-echo "version=$VERSION" > ./java-sdk/gradle.properties
+  echo "ERROR: the Java SDK is hand-written (since #222);"
+  echo "edit the sources under java/java-sdk directly instead."
+  exit 1
 fi
 
-# Generate Python SDK
+# Go SDK is hand-written and no longer generated
+if [[ ",$LANGUAGES," == *",go,"* ]]; then
+  echo "ERROR: the Go SDK is hand-written (since #230);"
+  echo "edit the sources under go-sdk directly instead."
+  exit 1
+fi
+
+# Python SDK is hand-written and no longer generated
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
-    -c /local/configurations/python-config.yml \
-    --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/templates/python
-
-sed -i 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
-sed -i 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
-sed -i '/from kestra_api_client\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestra_api_client/api/executions_api.py
-grep -vF '{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}' python-sdk/kestra_api_client/models/task.py > temp_file && mv temp_file python-sdk/kestra_api_client/models/task.py
-echo "from kestra_api_client.kestra_client import KestraClient as KestraClient" >> python-sdk/kestra_api_client/__init__.py
+  echo "ERROR: the Python SDK is hand-written (since #237);"
+  echo "edit the sources under python/python-sdk directly instead."
+  exit 1
 fi
+
+KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF=$(readlink -f ./configurations/kestra-openapi-sdk-customizer.json)
+KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
+sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
+
+
+
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
-    -c /local/configurations/javascript-config.yml \
-    --skip-validate-spec \
-    --additional-properties=projectVersion=$VERSION
+cd javascript
+npm version $VERSION --no-git-tag-version --workspace @kestra-io/kestra-sdk --allow-same-version
+npm ci
+npm run build
+cd ..
 fi
 
-# Generate GoLang SDK
-if [[ ",$LANGUAGES," == *",go,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
-      -c /local/configurations/go-config.yml \
-      --skip-validate-spec \
-      --additional-properties=packageVersion=$VERSION
-# these generated structs collides between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed -i.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
-sed -i.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
-gofmt -w ./go-sdk
-fi

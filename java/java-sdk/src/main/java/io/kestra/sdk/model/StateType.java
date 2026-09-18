@@ -1,0 +1,87 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * Gets or Sets State.Type
+ */
+public enum StateType {
+  
+  CREATED("CREATED"),
+  
+  SUBMITTED("SUBMITTED"),
+  
+  RUNNING("RUNNING"),
+  
+  PAUSED("PAUSED"),
+  
+  RESTARTED("RESTARTED"),
+  
+  KILLING("KILLING"),
+  
+  SUCCESS("SUCCESS"),
+  
+  WARNING("WARNING"),
+  
+  FAILED("FAILED"),
+  
+  KILLED("KILLED"),
+  
+  CANCELLED("CANCELLED"),
+  
+  QUEUED("QUEUED"),
+  
+  RETRYING("RETRYING"),
+  
+  RETRIED("RETRIED"),
+  
+  SKIPPED("SKIPPED"),
+  
+  BREAKPOINT("BREAKPOINT"),
+  
+  RESUBMITTED("RESUBMITTED"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+
+  private String value;
+
+  StateType(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static StateType fromValue(String value) {
+    for (StateType b : StateType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
+  }
+}
+

@@ -1,0 +1,278 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMInvitationControllerApiInvitationRole;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMInvitationControllerApiInvitationCreateRequest
+ */
+@JsonPropertyOrder({
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST,
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_INSTANCE_OWNER,
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_ROLES,
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_GROUPS,
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_EMAIL
+})
+@JsonTypeName("IAMInvitationController.ApiInvitationCreateRequest")
+public class IAMInvitationControllerApiInvitationCreateRequest {
+  public static final String JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST = "createUserIfNotExist";
+  @jakarta.annotation.Nullable  private Boolean createUserIfNotExist;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_ROLES = "roles";
+  @jakarta.annotation.Nullable  private List<IAMInvitationControllerApiInvitationRole> roles = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<String> groups = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @jakarta.annotation.Nonnull  private String email;
+
+  public IAMInvitationControllerApiInvitationCreateRequest() {
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest createUserIfNotExist(@jakarta.annotation.Nullable Boolean createUserIfNotExist) {
+    
+    this.createUserIfNotExist = createUserIfNotExist;
+    return this;
+  }
+
+  /**
+   * Get createUserIfNotExist
+   * @return createUserIfNotExist
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCreateUserIfNotExist() {
+    return createUserIfNotExist;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreateUserIfNotExist(@jakarta.annotation.Nullable Boolean createUserIfNotExist) {
+    this.createUserIfNotExist = createUserIfNotExist;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest roles(@jakarta.annotation.Nullable List<IAMInvitationControllerApiInvitationRole> roles) {
+    
+    this.roles = roles;
+    return this;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest addRolesItem(IAMInvitationControllerApiInvitationRole rolesItem) {
+    if (this.roles == null) {
+      this.roles = new ArrayList<>();
+    }
+    this.roles.add(rolesItem);
+    return this;
+  }
+
+  /**
+   * Get roles
+   * @return roles
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMInvitationControllerApiInvitationRole> getRoles() {
+    return roles;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoles(@jakarta.annotation.Nullable List<IAMInvitationControllerApiInvitationRole> roles) {
+    this.roles = roles;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest groups(@jakarta.annotation.Nullable List<String> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<String> groups) {
+    this.groups = groups;
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest email(@jakarta.annotation.Nonnull String email) {
+    
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
+    this.email = email;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMInvitationControllerApiInvitationCreateRequest iaMInvitationControllerApiInvitationCreateRequest = (IAMInvitationControllerApiInvitationCreateRequest) o;
+    return Objects.equals(this.createUserIfNotExist, iaMInvitationControllerApiInvitationCreateRequest.createUserIfNotExist) &&
+        Objects.equals(this.instanceOwner, iaMInvitationControllerApiInvitationCreateRequest.instanceOwner) &&
+        Objects.equals(this.roles, iaMInvitationControllerApiInvitationCreateRequest.roles) &&
+        Objects.equals(this.groups, iaMInvitationControllerApiInvitationCreateRequest.groups) &&
+        Objects.equals(this.email, iaMInvitationControllerApiInvitationCreateRequest.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createUserIfNotExist, instanceOwner, roles, groups, email);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMInvitationControllerApiInvitationCreateRequest {\n");
+    sb.append("    createUserIfNotExist: ").append(toIndentedString(createUserIfNotExist)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

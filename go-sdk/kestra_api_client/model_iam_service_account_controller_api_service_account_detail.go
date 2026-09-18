@@ -1,0 +1,317 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the IAMServiceAccountControllerApiServiceAccountDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IAMServiceAccountControllerApiServiceAccountDetail{}
+
+// IAMServiceAccountControllerApiServiceAccountDetail A User Service Account.
+type IAMServiceAccountControllerApiServiceAccountDetail struct {
+	// the identifier of this service account.
+	Id *string `json:"id,omitempty"`
+	// the name of this service account.
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	// the description of this service account.
+	Description *string `json:"description,omitempty"`
+	Tenants []ApiTenantSummary `json:"tenants,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _IAMServiceAccountControllerApiServiceAccountDetail IAMServiceAccountControllerApiServiceAccountDetail
+
+// NewIAMServiceAccountControllerApiServiceAccountDetail instantiates a new IAMServiceAccountControllerApiServiceAccountDetail object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIAMServiceAccountControllerApiServiceAccountDetail(name string) *IAMServiceAccountControllerApiServiceAccountDetail {
+	this := IAMServiceAccountControllerApiServiceAccountDetail{}
+	this.Name = name
+	return &this
+}
+
+// NewIAMServiceAccountControllerApiServiceAccountDetailWithDefaults instantiates a new IAMServiceAccountControllerApiServiceAccountDetail object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIAMServiceAccountControllerApiServiceAccountDetailWithDefaults() *IAMServiceAccountControllerApiServiceAccountDetail {
+	this := IAMServiceAccountControllerApiServiceAccountDetail{}
+	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetId(v string) {
+	o.Id = &v
+}
+
+// GetName returns the Name field value
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTenants returns the Tenants field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetTenants() []ApiTenantSummary {
+	if o == nil || IsNil(o.Tenants) {
+		var ret []ApiTenantSummary
+		return ret
+	}
+	return o.Tenants
+}
+
+// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetTenantsOk() ([]ApiTenantSummary, bool) {
+	if o == nil || IsNil(o.Tenants) {
+		return nil, false
+	}
+	return o.Tenants, true
+}
+
+// HasTenants returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasTenants() bool {
+	if o != nil && !IsNil(o.Tenants) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenants gets a reference to the given []ApiTenantSummary and assigns it to the Tenants field.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetTenants(v []ApiTenantSummary) {
+	o.Tenants = v
+}
+
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
+		var ret bool
+		return ret
+	}
+	return *o.InstanceOwner
+}
+
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
+		return nil, false
+	}
+	return o.InstanceOwner, true
+}
+
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
+}
+
+func (o IAMServiceAccountControllerApiServiceAccountDetail) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IAMServiceAccountControllerApiServiceAccountDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Tenants) {
+		toSerialize["tenants"] = o.Tenants
+	}
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIAMServiceAccountControllerApiServiceAccountDetail := _IAMServiceAccountControllerApiServiceAccountDetail{}
+
+	err = json.Unmarshal(data, &varIAMServiceAccountControllerApiServiceAccountDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IAMServiceAccountControllerApiServiceAccountDetail(varIAMServiceAccountControllerApiServiceAccountDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "tenants")
+		delete(additionalProperties, "instanceOwner")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIAMServiceAccountControllerApiServiceAccountDetail struct {
+	value *IAMServiceAccountControllerApiServiceAccountDetail
+	isSet bool
+}
+
+func (v NullableIAMServiceAccountControllerApiServiceAccountDetail) Get() *IAMServiceAccountControllerApiServiceAccountDetail {
+	return v.value
+}
+
+func (v *NullableIAMServiceAccountControllerApiServiceAccountDetail) Set(val *IAMServiceAccountControllerApiServiceAccountDetail) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIAMServiceAccountControllerApiServiceAccountDetail) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIAMServiceAccountControllerApiServiceAccountDetail) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIAMServiceAccountControllerApiServiceAccountDetail(val *IAMServiceAccountControllerApiServiceAccountDetail) *NullableIAMServiceAccountControllerApiServiceAccountDetail {
+	return &NullableIAMServiceAccountControllerApiServiceAccountDetail{value: val, isSet: true}
+}
+
+func (v NullableIAMServiceAccountControllerApiServiceAccountDetail) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIAMServiceAccountControllerApiServiceAccountDetail) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,411 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the State type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &State{}
+
+// State struct for State
+type State struct {
+	Duration NullableString `json:"duration,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate NullableTime `json:"endDate,omitempty"`
+	Current StateType `json:"current"`
+	Histories []StateHistory `json:"histories"`
+	GetDuration_ string `json:"getDuration"`
+	GetStartDate_ time.Time `json:"getStartDate"`
+	GetEndDate_ time.Time `json:"getEndDate"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _State State
+
+// NewState instantiates a new State object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewState(current StateType, histories []StateHistory, getDuration string, getStartDate time.Time, getEndDate time.Time) *State {
+	this := State{}
+	this.Current = current
+	this.Histories = histories
+	this.GetDuration_ = getDuration
+	this.GetStartDate_ = getStartDate
+	this.GetEndDate_ = getEndDate
+	return &this
+}
+
+// NewStateWithDefaults instantiates a new State object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewStateWithDefaults() *State {
+	this := State{}
+	return &this
+}
+
+// GetDuration returns the Duration field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *State) GetDuration() string {
+	if o == nil || IsNil(o.Duration.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Duration.Get()
+}
+
+// GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *State) GetDurationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Duration.Get(), o.Duration.IsSet()
+}
+
+// HasDuration returns a boolean if a field has been set.
+func (o *State) HasDuration() bool {
+	if o != nil && o.Duration.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDuration gets a reference to the given NullableString and assigns it to the Duration field.
+func (o *State) SetDuration(v string) {
+	o.Duration.Set(&v)
+}
+// SetDurationNil sets the value for Duration to be an explicit nil
+func (o *State) SetDurationNil() {
+	o.Duration.Set(nil)
+}
+
+// UnsetDuration ensures that no value is present for Duration, not even an explicit nil
+func (o *State) UnsetDuration() {
+	o.Duration.Unset()
+}
+
+// GetStartDate returns the StartDate field value if set, zero value otherwise.
+func (o *State) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartDate
+}
+
+// GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *State) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
+		return nil, false
+	}
+	return o.StartDate, true
+}
+
+// HasStartDate returns a boolean if a field has been set.
+func (o *State) HasStartDate() bool {
+	if o != nil && !IsNil(o.StartDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *State) SetStartDate(v time.Time) {
+	o.StartDate = &v
+}
+
+// GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *State) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EndDate.Get()
+}
+
+// GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *State) GetEndDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.EndDate.Get(), o.EndDate.IsSet()
+}
+
+// HasEndDate returns a boolean if a field has been set.
+func (o *State) HasEndDate() bool {
+	if o != nil && o.EndDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEndDate gets a reference to the given NullableTime and assigns it to the EndDate field.
+func (o *State) SetEndDate(v time.Time) {
+	o.EndDate.Set(&v)
+}
+// SetEndDateNil sets the value for EndDate to be an explicit nil
+func (o *State) SetEndDateNil() {
+	o.EndDate.Set(nil)
+}
+
+// UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+func (o *State) UnsetEndDate() {
+	o.EndDate.Unset()
+}
+
+// GetCurrent returns the Current field value
+func (o *State) GetCurrent() StateType {
+	if o == nil {
+		var ret StateType
+		return ret
+	}
+
+	return o.Current
+}
+
+// GetCurrentOk returns a tuple with the Current field value
+// and a boolean to check if the value has been set.
+func (o *State) GetCurrentOk() (*StateType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Current, true
+}
+
+// SetCurrent sets field value
+func (o *State) SetCurrent(v StateType) {
+	o.Current = v
+}
+
+// GetHistories returns the Histories field value
+func (o *State) GetHistories() []StateHistory {
+	if o == nil {
+		var ret []StateHistory
+		return ret
+	}
+
+	return o.Histories
+}
+
+// GetHistoriesOk returns a tuple with the Histories field value
+// and a boolean to check if the value has been set.
+func (o *State) GetHistoriesOk() ([]StateHistory, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Histories, true
+}
+
+// SetHistories sets field value
+func (o *State) SetHistories(v []StateHistory) {
+	o.Histories = v
+}
+
+// GetGetDuration returns the GetDuration field value
+func (o *State) GetGetDuration() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GetDuration_
+}
+
+// GetGetDurationOk returns a tuple with the GetDuration field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetDurationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetDuration_, true
+}
+
+// SetGetDuration sets field value
+func (o *State) SetGetDuration(v string) {
+	o.GetDuration_ = v
+}
+
+// GetGetStartDate returns the GetStartDate field value
+func (o *State) GetGetStartDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.GetStartDate_
+}
+
+// GetGetStartDateOk returns a tuple with the GetStartDate field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetStartDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetStartDate_, true
+}
+
+// SetGetStartDate sets field value
+func (o *State) SetGetStartDate(v time.Time) {
+	o.GetStartDate_ = v
+}
+
+// GetGetEndDate returns the GetEndDate field value
+func (o *State) GetGetEndDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.GetEndDate_
+}
+
+// GetGetEndDateOk returns a tuple with the GetEndDate field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetEndDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetEndDate_, true
+}
+
+// SetGetEndDate sets field value
+func (o *State) SetGetEndDate(v time.Time) {
+	o.GetEndDate_ = v
+}
+
+func (o State) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o State) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Duration.IsSet() {
+		toSerialize["duration"] = o.Duration.Get()
+	}
+	if !IsNil(o.StartDate) {
+		toSerialize["startDate"] = o.StartDate
+	}
+	if o.EndDate.IsSet() {
+		toSerialize["endDate"] = o.EndDate.Get()
+	}
+	toSerialize["current"] = o.Current
+	toSerialize["histories"] = o.Histories
+	toSerialize["getDuration"] = o.GetDuration_
+	toSerialize["getStartDate"] = o.GetStartDate_
+	toSerialize["getEndDate"] = o.GetEndDate_
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *State) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"current",
+		"histories",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varState := _State{}
+
+	err = json.Unmarshal(data, &varState)
+
+	if err != nil {
+		return err
+	}
+
+	*o = State(varState)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "startDate")
+		delete(additionalProperties, "endDate")
+		delete(additionalProperties, "current")
+		delete(additionalProperties, "histories")
+		delete(additionalProperties, "getDuration")
+		delete(additionalProperties, "getStartDate")
+		delete(additionalProperties, "getEndDate")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableState struct {
+	value *State
+	isSet bool
+}
+
+func (v NullableState) Get() *State {
+	return v.value
+}
+
+func (v *NullableState) Set(val *State) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableState) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableState) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableState(val *State) *NullableState {
+	return &NullableState{value: val, isSet: true}
+}
+
+func (v NullableState) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableState) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ApiIds type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiIds{}
+
+// ApiIds struct for ApiIds
+type ApiIds struct {
+	Ids []string `json:"ids,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiIds ApiIds
+
+// NewApiIds instantiates a new ApiIds object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiIds() *ApiIds {
+	this := ApiIds{}
+	return &this
+}
+
+// NewApiIdsWithDefaults instantiates a new ApiIds object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiIdsWithDefaults() *ApiIds {
+	this := ApiIds{}
+	return &this
+}
+
+// GetIds returns the Ids field value if set, zero value otherwise.
+func (o *ApiIds) GetIds() []string {
+	if o == nil || IsNil(o.Ids) {
+		var ret []string
+		return ret
+	}
+	return o.Ids
+}
+
+// GetIdsOk returns a tuple with the Ids field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiIds) GetIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Ids) {
+		return nil, false
+	}
+	return o.Ids, true
+}
+
+// HasIds returns a boolean if a field has been set.
+func (o *ApiIds) HasIds() bool {
+	if o != nil && !IsNil(o.Ids) {
+		return true
+	}
+
+	return false
+}
+
+// SetIds gets a reference to the given []string and assigns it to the Ids field.
+func (o *ApiIds) SetIds(v []string) {
+	o.Ids = v
+}
+
+func (o ApiIds) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiIds) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Ids) {
+		toSerialize["ids"] = o.Ids
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiIds) UnmarshalJSON(data []byte) (err error) {
+	varApiIds := _ApiIds{}
+
+	err = json.Unmarshal(data, &varApiIds)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiIds(varApiIds)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiIds struct {
+	value *ApiIds
+	isSet bool
+}
+
+func (v NullableApiIds) Get() *ApiIds {
+	return v.value
+}
+
+func (v *NullableApiIds) Set(val *ApiIds) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiIds) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiIds) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiIds(val *ApiIds) *NullableApiIds {
+	return &NullableApiIds{value: val, isSet: true}
+}
+
+func (v NullableApiIds) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiIds) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,580 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the TaskRun type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TaskRun{}
+
+// TaskRun struct for TaskRun
+type TaskRun struct {
+	Id string `json:"id"`
+	ExecutionId string `json:"executionId"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId string `json:"taskId"`
+	ParentTaskRunId *string `json:"parentTaskRunId,omitempty"`
+	Value *string `json:"value,omitempty"`
+	Attempts []TaskRunAttempt `json:"attempts,omitempty"`
+	Assets NullableAssetsInOut `json:"assets,omitempty"`
+	State State `json:"state"`
+	Iteration *int32 `json:"iteration,omitempty"`
+	Dynamic *bool `json:"dynamic,omitempty"`
+	ForceExecution *bool `json:"forceExecution,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TaskRun TaskRun
+
+// NewTaskRun instantiates a new TaskRun object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTaskRun(id string, executionId string, namespace string, flowId string, taskId string, state State) *TaskRun {
+	this := TaskRun{}
+	this.Id = id
+	this.ExecutionId = executionId
+	this.Namespace = namespace
+	this.FlowId = flowId
+	this.TaskId = taskId
+	this.State = state
+	return &this
+}
+
+// NewTaskRunWithDefaults instantiates a new TaskRun object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTaskRunWithDefaults() *TaskRun {
+	this := TaskRun{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *TaskRun) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *TaskRun) SetId(v string) {
+	o.Id = v
+}
+
+// GetExecutionId returns the ExecutionId field value
+func (o *TaskRun) GetExecutionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ExecutionId
+}
+
+// GetExecutionIdOk returns a tuple with the ExecutionId field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetExecutionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExecutionId, true
+}
+
+// SetExecutionId sets field value
+func (o *TaskRun) SetExecutionId(v string) {
+	o.ExecutionId = v
+}
+
+// GetNamespace returns the Namespace field value
+func (o *TaskRun) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *TaskRun) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetFlowId returns the FlowId field value
+func (o *TaskRun) GetFlowId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlowId, true
+}
+
+// SetFlowId sets field value
+func (o *TaskRun) SetFlowId(v string) {
+	o.FlowId = v
+}
+
+// GetTaskId returns the TaskId field value
+func (o *TaskRun) GetTaskId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TaskId
+}
+
+// GetTaskIdOk returns a tuple with the TaskId field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetTaskIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TaskId, true
+}
+
+// SetTaskId sets field value
+func (o *TaskRun) SetTaskId(v string) {
+	o.TaskId = v
+}
+
+// GetParentTaskRunId returns the ParentTaskRunId field value if set, zero value otherwise.
+func (o *TaskRun) GetParentTaskRunId() string {
+	if o == nil || IsNil(o.ParentTaskRunId) {
+		var ret string
+		return ret
+	}
+	return *o.ParentTaskRunId
+}
+
+// GetParentTaskRunIdOk returns a tuple with the ParentTaskRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetParentTaskRunIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ParentTaskRunId) {
+		return nil, false
+	}
+	return o.ParentTaskRunId, true
+}
+
+// HasParentTaskRunId returns a boolean if a field has been set.
+func (o *TaskRun) HasParentTaskRunId() bool {
+	if o != nil && !IsNil(o.ParentTaskRunId) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentTaskRunId gets a reference to the given string and assigns it to the ParentTaskRunId field.
+func (o *TaskRun) SetParentTaskRunId(v string) {
+	o.ParentTaskRunId = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *TaskRun) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetValueOk() (*string, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *TaskRun) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *TaskRun) SetValue(v string) {
+	o.Value = &v
+}
+
+// GetAttempts returns the Attempts field value if set, zero value otherwise.
+func (o *TaskRun) GetAttempts() []TaskRunAttempt {
+	if o == nil || IsNil(o.Attempts) {
+		var ret []TaskRunAttempt
+		return ret
+	}
+	return o.Attempts
+}
+
+// GetAttemptsOk returns a tuple with the Attempts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetAttemptsOk() ([]TaskRunAttempt, bool) {
+	if o == nil || IsNil(o.Attempts) {
+		return nil, false
+	}
+	return o.Attempts, true
+}
+
+// HasAttempts returns a boolean if a field has been set.
+func (o *TaskRun) HasAttempts() bool {
+	if o != nil && !IsNil(o.Attempts) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttempts gets a reference to the given []TaskRunAttempt and assigns it to the Attempts field.
+func (o *TaskRun) SetAttempts(v []TaskRunAttempt) {
+	o.Attempts = v
+}
+
+// GetAssets returns the Assets field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TaskRun) GetAssets() AssetsInOut {
+	if o == nil || IsNil(o.Assets.Get()) {
+		var ret AssetsInOut
+		return ret
+	}
+	return *o.Assets.Get()
+}
+
+// GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TaskRun) GetAssetsOk() (*AssetsInOut, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Assets.Get(), o.Assets.IsSet()
+}
+
+// HasAssets returns a boolean if a field has been set.
+func (o *TaskRun) HasAssets() bool {
+	if o != nil && o.Assets.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAssets gets a reference to the given NullableAssetsInOut and assigns it to the Assets field.
+func (o *TaskRun) SetAssets(v AssetsInOut) {
+	o.Assets.Set(&v)
+}
+// SetAssetsNil sets the value for Assets to be an explicit nil
+func (o *TaskRun) SetAssetsNil() {
+	o.Assets.Set(nil)
+}
+
+// UnsetAssets ensures that no value is present for Assets, not even an explicit nil
+func (o *TaskRun) UnsetAssets() {
+	o.Assets.Unset()
+}
+
+// GetState returns the State field value
+func (o *TaskRun) GetState() State {
+	if o == nil {
+		var ret State
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetStateOk() (*State, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *TaskRun) SetState(v State) {
+	o.State = v
+}
+
+// GetIteration returns the Iteration field value if set, zero value otherwise.
+func (o *TaskRun) GetIteration() int32 {
+	if o == nil || IsNil(o.Iteration) {
+		var ret int32
+		return ret
+	}
+	return *o.Iteration
+}
+
+// GetIterationOk returns a tuple with the Iteration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetIterationOk() (*int32, bool) {
+	if o == nil || IsNil(o.Iteration) {
+		return nil, false
+	}
+	return o.Iteration, true
+}
+
+// HasIteration returns a boolean if a field has been set.
+func (o *TaskRun) HasIteration() bool {
+	if o != nil && !IsNil(o.Iteration) {
+		return true
+	}
+
+	return false
+}
+
+// SetIteration gets a reference to the given int32 and assigns it to the Iteration field.
+func (o *TaskRun) SetIteration(v int32) {
+	o.Iteration = &v
+}
+
+// GetDynamic returns the Dynamic field value if set, zero value otherwise.
+func (o *TaskRun) GetDynamic() bool {
+	if o == nil || IsNil(o.Dynamic) {
+		var ret bool
+		return ret
+	}
+	return *o.Dynamic
+}
+
+// GetDynamicOk returns a tuple with the Dynamic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetDynamicOk() (*bool, bool) {
+	if o == nil || IsNil(o.Dynamic) {
+		return nil, false
+	}
+	return o.Dynamic, true
+}
+
+// HasDynamic returns a boolean if a field has been set.
+func (o *TaskRun) HasDynamic() bool {
+	if o != nil && !IsNil(o.Dynamic) {
+		return true
+	}
+
+	return false
+}
+
+// SetDynamic gets a reference to the given bool and assigns it to the Dynamic field.
+func (o *TaskRun) SetDynamic(v bool) {
+	o.Dynamic = &v
+}
+
+// GetForceExecution returns the ForceExecution field value if set, zero value otherwise.
+func (o *TaskRun) GetForceExecution() bool {
+	if o == nil || IsNil(o.ForceExecution) {
+		var ret bool
+		return ret
+	}
+	return *o.ForceExecution
+}
+
+// GetForceExecutionOk returns a tuple with the ForceExecution field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskRun) GetForceExecutionOk() (*bool, bool) {
+	if o == nil || IsNil(o.ForceExecution) {
+		return nil, false
+	}
+	return o.ForceExecution, true
+}
+
+// HasForceExecution returns a boolean if a field has been set.
+func (o *TaskRun) HasForceExecution() bool {
+	if o != nil && !IsNil(o.ForceExecution) {
+		return true
+	}
+
+	return false
+}
+
+// SetForceExecution gets a reference to the given bool and assigns it to the ForceExecution field.
+func (o *TaskRun) SetForceExecution(v bool) {
+	o.ForceExecution = &v
+}
+
+func (o TaskRun) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TaskRun) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["executionId"] = o.ExecutionId
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	toSerialize["taskId"] = o.TaskId
+	if !IsNil(o.ParentTaskRunId) {
+		toSerialize["parentTaskRunId"] = o.ParentTaskRunId
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.Attempts) {
+		toSerialize["attempts"] = o.Attempts
+	}
+	if o.Assets.IsSet() {
+		toSerialize["assets"] = o.Assets.Get()
+	}
+	toSerialize["state"] = o.State
+	if !IsNil(o.Iteration) {
+		toSerialize["iteration"] = o.Iteration
+	}
+	if !IsNil(o.Dynamic) {
+		toSerialize["dynamic"] = o.Dynamic
+	}
+	if !IsNil(o.ForceExecution) {
+		toSerialize["forceExecution"] = o.ForceExecution
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TaskRun) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"executionId",
+		"namespace",
+		"flowId",
+		"taskId",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTaskRun := _TaskRun{}
+
+	err = json.Unmarshal(data, &varTaskRun)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TaskRun(varTaskRun)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "parentTaskRunId")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "attempts")
+		delete(additionalProperties, "assets")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "iteration")
+		delete(additionalProperties, "dynamic")
+		delete(additionalProperties, "forceExecution")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTaskRun struct {
+	value *TaskRun
+	isSet bool
+}
+
+func (v NullableTaskRun) Get() *TaskRun {
+	return v.value
+}
+
+func (v *NullableTaskRun) Set(val *TaskRun) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTaskRun) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTaskRun) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTaskRun(val *TaskRun) *NullableTaskRun {
+	return &NullableTaskRun{value: val, isSet: true}
+}
+
+func (v NullableTaskRun) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTaskRun) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

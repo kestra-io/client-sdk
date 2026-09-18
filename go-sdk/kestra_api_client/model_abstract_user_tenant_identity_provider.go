@@ -1,0 +1,311 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the AbstractUserTenantIdentityProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AbstractUserTenantIdentityProvider{}
+
+// AbstractUserTenantIdentityProvider struct for AbstractUserTenantIdentityProvider
+type AbstractUserTenantIdentityProvider struct {
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	SecurityIntegrationId *string `json:"securityIntegrationId,omitempty"`
+	SecurityIntegrationName *string `json:"securityIntegrationName,omitempty"`
+	TenantId NullableString `json:"tenantId,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AbstractUserTenantIdentityProvider AbstractUserTenantIdentityProvider
+
+// NewAbstractUserTenantIdentityProvider instantiates a new AbstractUserTenantIdentityProvider object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAbstractUserTenantIdentityProvider() *AbstractUserTenantIdentityProvider {
+	this := AbstractUserTenantIdentityProvider{}
+	return &this
+}
+
+// NewAbstractUserTenantIdentityProviderWithDefaults instantiates a new AbstractUserTenantIdentityProvider object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAbstractUserTenantIdentityProviderWithDefaults() *AbstractUserTenantIdentityProvider {
+	this := AbstractUserTenantIdentityProvider{}
+	return &this
+}
+
+// GetAttributes returns the Attributes field value if set, zero value otherwise.
+func (o *AbstractUserTenantIdentityProvider) GetAttributes() map[string]interface{} {
+	if o == nil || IsNil(o.Attributes) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Attributes
+}
+
+// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractUserTenantIdentityProvider) GetAttributesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Attributes) {
+		return map[string]interface{}{}, false
+	}
+	return o.Attributes, true
+}
+
+// HasAttributes returns a boolean if a field has been set.
+func (o *AbstractUserTenantIdentityProvider) HasAttributes() bool {
+	if o != nil && !IsNil(o.Attributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.
+func (o *AbstractUserTenantIdentityProvider) SetAttributes(v map[string]interface{}) {
+	o.Attributes = v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *AbstractUserTenantIdentityProvider) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractUserTenantIdentityProvider) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *AbstractUserTenantIdentityProvider) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *AbstractUserTenantIdentityProvider) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetSecurityIntegrationId returns the SecurityIntegrationId field value if set, zero value otherwise.
+func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationId() string {
+	if o == nil || IsNil(o.SecurityIntegrationId) {
+		var ret string
+		return ret
+	}
+	return *o.SecurityIntegrationId
+}
+
+// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SecurityIntegrationId) {
+		return nil, false
+	}
+	return o.SecurityIntegrationId, true
+}
+
+// HasSecurityIntegrationId returns a boolean if a field has been set.
+func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationId() bool {
+	if o != nil && !IsNil(o.SecurityIntegrationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityIntegrationId gets a reference to the given string and assigns it to the SecurityIntegrationId field.
+func (o *AbstractUserTenantIdentityProvider) SetSecurityIntegrationId(v string) {
+	o.SecurityIntegrationId = &v
+}
+
+// GetSecurityIntegrationName returns the SecurityIntegrationName field value if set, zero value otherwise.
+func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationName() string {
+	if o == nil || IsNil(o.SecurityIntegrationName) {
+		var ret string
+		return ret
+	}
+	return *o.SecurityIntegrationName
+}
+
+// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationNameOk() (*string, bool) {
+	if o == nil || IsNil(o.SecurityIntegrationName) {
+		return nil, false
+	}
+	return o.SecurityIntegrationName, true
+}
+
+// HasSecurityIntegrationName returns a boolean if a field has been set.
+func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationName() bool {
+	if o != nil && !IsNil(o.SecurityIntegrationName) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityIntegrationName gets a reference to the given string and assigns it to the SecurityIntegrationName field.
+func (o *AbstractUserTenantIdentityProvider) SetSecurityIntegrationName(v string) {
+	o.SecurityIntegrationName = &v
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AbstractUserTenantIdentityProvider) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId.Get()
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AbstractUserTenantIdentityProvider) GetTenantIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TenantId.Get(), o.TenantId.IsSet()
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *AbstractUserTenantIdentityProvider) HasTenantId() bool {
+	if o != nil && o.TenantId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given NullableString and assigns it to the TenantId field.
+func (o *AbstractUserTenantIdentityProvider) SetTenantId(v string) {
+	o.TenantId.Set(&v)
+}
+// SetTenantIdNil sets the value for TenantId to be an explicit nil
+func (o *AbstractUserTenantIdentityProvider) SetTenantIdNil() {
+	o.TenantId.Set(nil)
+}
+
+// UnsetTenantId ensures that no value is present for TenantId, not even an explicit nil
+func (o *AbstractUserTenantIdentityProvider) UnsetTenantId() {
+	o.TenantId.Unset()
+}
+
+func (o AbstractUserTenantIdentityProvider) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AbstractUserTenantIdentityProvider) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["externalId"] = o.ExternalId
+	}
+	if !IsNil(o.SecurityIntegrationId) {
+		toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
+	}
+	if !IsNil(o.SecurityIntegrationName) {
+		toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
+	}
+	if o.TenantId.IsSet() {
+		toSerialize["tenantId"] = o.TenantId.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AbstractUserTenantIdentityProvider) UnmarshalJSON(data []byte) (err error) {
+	varAbstractUserTenantIdentityProvider := _AbstractUserTenantIdentityProvider{}
+
+	err = json.Unmarshal(data, &varAbstractUserTenantIdentityProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractUserTenantIdentityProvider(varAbstractUserTenantIdentityProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "securityIntegrationId")
+		delete(additionalProperties, "securityIntegrationName")
+		delete(additionalProperties, "tenantId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAbstractUserTenantIdentityProvider struct {
+	value *AbstractUserTenantIdentityProvider
+	isSet bool
+}
+
+func (v NullableAbstractUserTenantIdentityProvider) Get() *AbstractUserTenantIdentityProvider {
+	return v.value
+}
+
+func (v *NullableAbstractUserTenantIdentityProvider) Set(val *AbstractUserTenantIdentityProvider) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAbstractUserTenantIdentityProvider) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAbstractUserTenantIdentityProvider) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAbstractUserTenantIdentityProvider(val *AbstractUserTenantIdentityProvider) *NullableAbstractUserTenantIdentityProvider {
+	return &NullableAbstractUserTenantIdentityProvider{value: val, isSet: true}
+}
+
+func (v NullableAbstractUserTenantIdentityProvider) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAbstractUserTenantIdentityProvider) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

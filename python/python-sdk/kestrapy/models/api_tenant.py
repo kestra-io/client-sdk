@@ -1,0 +1,177 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from kestrapy.models.concurrency import Concurrency
+from kestrapy.models.isolation import Isolation
+from kestrapy.models.quota import Quota
+from kestrapy.models.sdk_auth import SDKAuth
+from kestrapy.models.secret_configuration_worker_secret_manager_mode import SecretConfigurationWorkerSecretManagerMode
+from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
+from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings
+from kestrapy.models.worker_selector import WorkerSelector
+from typing import Optional, Set
+from typing_extensions import Self
+
+class ApiTenant(BaseModel):
+    """
+    ApiTenant
+    """ # noqa: E501
+    storage_isolation: Optional[Isolation] = Field(default=None, alias="storageIsolation")
+    secret_isolation: Optional[Isolation] = Field(default=None, alias="secretIsolation")
+    id: Annotated[str, Field(strict=True)]
+    name: StrictStr
+    deleted: StrictBool
+    default_worker_selector: Optional[WorkerSelector] = Field(default=None, alias="defaultWorkerSelector")
+    concurrency: Optional[Concurrency] = None
+    storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
+    storage_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="storageConfiguration")
+    secret_type: Optional[StrictStr] = Field(default=None, alias="secretType")
+    secret_read_only: Optional[StrictBool] = Field(default=None, alias="secretReadOnly")
+    secret_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="secretConfiguration")
+    worker_secret_manager_mode: Optional[SecretConfigurationWorkerSecretManagerMode] = Field(default=None, alias="workerSecretManagerMode")
+    require_existing_namespace: Optional[StrictBool] = Field(default=None, alias="requireExistingNamespace")
+    outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
+    app_catalog_config: Optional[TenantAppCatalogConfig] = Field(default=None, alias="appCatalogConfig")
+    settings: Optional[TenantPreferencesSettings] = None
+    sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
+    quotas: Optional[List[Quota]] = None
+    logo: Optional[StrictStr] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "defaultWorkerSelector", "concurrency", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "workerSecretManagerMode", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "settings", "sdkDefaultAuthentication", "quotas", "logo"]
+
+    @field_validator('id')
+    def id_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^[a-z0-9][a-z0-9_-]*", value):
+            raise ValueError(r"must validate the regular expression /^[a-z0-9][a-z0-9_-]*/")
+        return value
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of ApiTenant from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
+        """
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of storage_isolation
+        if self.storage_isolation:
+            _dict['storageIsolation'] = self.storage_isolation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of secret_isolation
+        if self.secret_isolation:
+            _dict['secretIsolation'] = self.secret_isolation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of default_worker_selector
+        if self.default_worker_selector:
+            _dict['defaultWorkerSelector'] = self.default_worker_selector.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of concurrency
+        if self.concurrency:
+            _dict['concurrency'] = self.concurrency.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of app_catalog_config
+        if self.app_catalog_config:
+            _dict['appCatalogConfig'] = self.app_catalog_config.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of settings
+        if self.settings:
+            _dict['settings'] = self.settings.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sdk_default_authentication
+        if self.sdk_default_authentication:
+            _dict['sdkDefaultAuthentication'] = self.sdk_default_authentication.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in quotas (list)
+        _items = []
+        if self.quotas:
+            for _item_quotas in self.quotas:
+                if _item_quotas:
+                    _items.append(_item_quotas.to_dict())
+            _dict['quotas'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ApiTenant from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "storageIsolation": Isolation.from_dict(obj["storageIsolation"]) if obj.get("storageIsolation") is not None else None,
+            "secretIsolation": Isolation.from_dict(obj["secretIsolation"]) if obj.get("secretIsolation") is not None else None,
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "deleted": obj.get("deleted"),
+            "defaultWorkerSelector": WorkerSelector.from_dict(obj["defaultWorkerSelector"]) if obj.get("defaultWorkerSelector") is not None else None,
+            "concurrency": Concurrency.from_dict(obj["concurrency"]) if obj.get("concurrency") is not None else None,
+            "storageType": obj.get("storageType"),
+            "storageConfiguration": obj.get("storageConfiguration"),
+            "secretType": obj.get("secretType"),
+            "secretReadOnly": obj.get("secretReadOnly"),
+            "secretConfiguration": obj.get("secretConfiguration"),
+            "workerSecretManagerMode": obj.get("workerSecretManagerMode"),
+            "requireExistingNamespace": obj.get("requireExistingNamespace"),
+            "outputsInInternalStorage": obj.get("outputsInInternalStorage"),
+            "appCatalogConfig": TenantAppCatalogConfig.from_dict(obj["appCatalogConfig"]) if obj.get("appCatalogConfig") is not None else None,
+            "settings": TenantPreferencesSettings.from_dict(obj["settings"]) if obj.get("settings") is not None else None,
+            "sdkDefaultAuthentication": SDKAuth.from_dict(obj["sdkDefaultAuthentication"]) if obj.get("sdkDefaultAuthentication") is not None else None,
+            "quotas": [Quota.from_dict(_item) for _item in obj["quotas"]] if obj.get("quotas") is not None else None,
+            "logo": obj.get("logo")
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj
+
+

@@ -1,0 +1,49 @@
+# ExecutionControllerExecutionResponse
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**labels** | [**List[Label]**](Label.md) |  | [optional] 
+**id** | **str** |  | 
+**namespace** | **str** |  | 
+**flow_id** | **str** |  | 
+**flow_revision** | **int** |  | 
+**task_run_list** | [**List[TaskRun]**](TaskRun.md) |  | [optional] 
+**inputs** | **object** |  | [optional] 
+**variables** | **object** |  | [optional] 
+**state** | [**State**](State.md) |  | 
+**parent_id** | **str** |  | [optional] 
+**original_id** | **str** |  | 
+**trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
+**deleted** | **bool** |  | 
+**metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | 
+**schedule_date** | **datetime** |  | [optional] 
+**trace_parent** | **str** |  | [optional] 
+**fixtures** | [**List[TaskFixture]**](TaskFixture.md) |  | [optional] 
+**kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
+**breakpoints** | [**List[Breakpoint]**](Breakpoint.md) |  | [optional] 
+**loop_run** | [**LoopRun**](LoopRun.md) |  | [optional] 
+**url** | **str** |  | [optional] 
+
+## Example
+
+```python
+from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ExecutionControllerExecutionResponse from a JSON string
+execution_controller_execution_response_instance = ExecutionControllerExecutionResponse.from_json(json)
+# print the JSON string representation of the object
+print(ExecutionControllerExecutionResponse.to_json())
+
+# convert the object into a dict
+execution_controller_execution_response_dict = execution_controller_execution_response_instance.to_dict()
+# create an instance of ExecutionControllerExecutionResponse from a dict
+execution_controller_execution_response_from_dict = ExecutionControllerExecutionResponse.from_dict(execution_controller_execution_response_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

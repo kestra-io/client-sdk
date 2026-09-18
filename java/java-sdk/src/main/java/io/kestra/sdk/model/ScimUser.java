@@ -1,0 +1,521 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Email;
+import io.kestra.sdk.model.Meta;
+import io.kestra.sdk.model.Name;
+import io.kestra.sdk.model.ScimExtension;
+import io.kestra.sdk.model.UserGroup;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Scim core schema.
+ */
+@JsonPropertyOrder({
+  ScimUser.JSON_PROPERTY_SCHEMAS,
+  ScimUser.JSON_PROPERTY_BASE_URN,
+  ScimUser.JSON_PROPERTY_EXTENSIONS,
+  ScimUser.JSON_PROPERTY_META,
+  ScimUser.JSON_PROPERTY_ID,
+  ScimUser.JSON_PROPERTY_EXTERNAL_ID,
+  ScimUser.JSON_PROPERTY_RESOURCE_TYPE,
+  ScimUser.JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS,
+  ScimUser.JSON_PROPERTY_ACTIVE,
+  ScimUser.JSON_PROPERTY_EMAILS,
+  ScimUser.JSON_PROPERTY_USER_NAME,
+  ScimUser.JSON_PROPERTY_NAME,
+  ScimUser.JSON_PROPERTY_GROUPS
+})
+public class ScimUser {
+  public static final String JSON_PROPERTY_SCHEMAS = "schemas";
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
+  @jakarta.annotation.Nullable  private String baseUrn;
+
+  public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
+  @jakarta.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_META = "meta";
+  @jakarta.annotation.Nonnull  private Meta meta;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nullable  private String externalId;
+
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @jakarta.annotation.Nullable  private String resourceType;
+
+  public static final String JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS = "primaryEmailAddress";
+  @jakarta.annotation.Nullable  private JsonNullable<Email> primaryEmailAddress = JsonNullable.<Email>undefined();
+
+  public static final String JSON_PROPERTY_ACTIVE = "active";
+  @jakarta.annotation.Nullable  private Boolean active;
+
+  public static final String JSON_PROPERTY_EMAILS = "emails";
+  @jakarta.annotation.Nullable  private List<Email> emails = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_USER_NAME = "userName";
+  @jakarta.annotation.Nullable  private String userName;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private Name name;
+
+  public static final String JSON_PROPERTY_GROUPS = "groups";
+  @jakarta.annotation.Nullable  private List<UserGroup> groups = new ArrayList<>();
+
+  public ScimUser() {
+  }
+
+  public ScimUser schemas(@jakarta.annotation.Nullable List<String> schemas) {
+    
+    this.schemas = schemas;
+    return this;
+  }
+
+  public ScimUser addSchemasItem(String schemasItem) {
+    if (this.schemas == null) {
+      this.schemas = new ArrayList<>();
+    }
+    this.schemas.add(schemasItem);
+    return this;
+  }
+
+  /**
+   * Get schemas
+   * @return schemas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSchemas() {
+    return schemas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
+    this.schemas = schemas;
+  }
+
+  public ScimUser baseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    
+    this.baseUrn = baseUrn;
+    return this;
+  }
+
+  /**
+   * Get baseUrn
+   * @return baseUrn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBaseUrn() {
+    return baseUrn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBaseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    this.baseUrn = baseUrn;
+  }
+
+  public ScimUser extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    
+    this.extensions = extensions;
+    return this;
+  }
+
+  public ScimUser putExtensionsItem(String key, ScimExtension extensionsItem) {
+    if (this.extensions == null) {
+      this.extensions = new HashMap<>();
+    }
+    this.extensions.put(key, extensionsItem);
+    return this;
+  }
+
+  /**
+   * Get extensions
+   * @return extensions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, ScimExtension> getExtensions() {
+    return extensions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExtensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    this.extensions = extensions;
+  }
+
+  public ScimUser meta(@jakarta.annotation.Nonnull Meta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+  /**
+   * Get meta
+   * @return meta
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Meta getMeta() {
+    return meta;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMeta(@jakarta.annotation.Nonnull Meta meta) {
+    this.meta = meta;
+  }
+
+  public ScimUser id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public ScimUser externalId(@jakarta.annotation.Nullable String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
+  public ScimUser resourceType(@jakarta.annotation.Nullable String resourceType) {
+    
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  public ScimUser primaryEmailAddress(@jakarta.annotation.Nullable Email primaryEmailAddress) {
+    this.primaryEmailAddress = JsonNullable.<Email>of(primaryEmailAddress);
+    
+    return this;
+  }
+
+  /**
+   * Get primaryEmailAddress
+   * @return primaryEmailAddress
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public Email getPrimaryEmailAddress() {
+        return primaryEmailAddress.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<Email> getPrimaryEmailAddress_JsonNullable() {
+    return primaryEmailAddress;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS)
+  public void setPrimaryEmailAddress_JsonNullable(JsonNullable<Email> primaryEmailAddress) {
+    this.primaryEmailAddress = primaryEmailAddress;
+  }
+
+  public void setPrimaryEmailAddress(@jakarta.annotation.Nullable Email primaryEmailAddress) {
+    this.primaryEmailAddress = JsonNullable.<Email>of(primaryEmailAddress);
+  }
+
+  public ScimUser active(@jakarta.annotation.Nullable Boolean active) {
+    
+    this.active = active;
+    return this;
+  }
+
+  /**
+   * Get active
+   * @return active
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getActive() {
+    return active;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActive(@jakarta.annotation.Nullable Boolean active) {
+    this.active = active;
+  }
+
+  public ScimUser emails(@jakarta.annotation.Nullable List<Email> emails) {
+    
+    this.emails = emails;
+    return this;
+  }
+
+  public ScimUser addEmailsItem(Email emailsItem) {
+    if (this.emails == null) {
+      this.emails = new ArrayList<>();
+    }
+    this.emails.add(emailsItem);
+    return this;
+  }
+
+  /**
+   * Get emails
+   * @return emails
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Email> getEmails() {
+    return emails;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmails(@jakarta.annotation.Nullable List<Email> emails) {
+    this.emails = emails;
+  }
+
+  public ScimUser userName(@jakarta.annotation.Nullable String userName) {
+    
+    this.userName = userName;
+    return this;
+  }
+
+  /**
+   * Get userName
+   * @return userName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUserName() {
+    return userName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserName(@jakarta.annotation.Nullable String userName) {
+    this.userName = userName;
+  }
+
+  public ScimUser name(@jakarta.annotation.Nullable Name name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Name getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable Name name) {
+    this.name = name;
+  }
+
+  public ScimUser groups(@jakarta.annotation.Nullable List<UserGroup> groups) {
+    
+    this.groups = groups;
+    return this;
+  }
+
+  public ScimUser addGroupsItem(UserGroup groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+  /**
+   * Get groups
+   * @return groups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<UserGroup> getGroups() {
+    return groups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<UserGroup> groups) {
+    this.groups = groups;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ScimUser scimUser = (ScimUser) o;
+    return Objects.equals(this.schemas, scimUser.schemas) &&
+        Objects.equals(this.baseUrn, scimUser.baseUrn) &&
+        Objects.equals(this.extensions, scimUser.extensions) &&
+        Objects.equals(this.meta, scimUser.meta) &&
+        Objects.equals(this.id, scimUser.id) &&
+        Objects.equals(this.externalId, scimUser.externalId) &&
+        Objects.equals(this.resourceType, scimUser.resourceType) &&
+        equalsNullable(this.primaryEmailAddress, scimUser.primaryEmailAddress) &&
+        Objects.equals(this.active, scimUser.active) &&
+        Objects.equals(this.emails, scimUser.emails) &&
+        Objects.equals(this.userName, scimUser.userName) &&
+        Objects.equals(this.name, scimUser.name) &&
+        Objects.equals(this.groups, scimUser.groups);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas, baseUrn, extensions, meta, id, externalId, resourceType, hashCodeNullable(primaryEmailAddress), active, emails, userName, name, groups);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ScimUser {\n");
+    sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
+    sb.append("    baseUrn: ").append(toIndentedString(baseUrn)).append("\n");
+    sb.append("    extensions: ").append(toIndentedString(extensions)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    primaryEmailAddress: ").append(toIndentedString(primaryEmailAddress)).append("\n");
+    sb.append("    active: ").append(toIndentedString(active)).append("\n");
+    sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

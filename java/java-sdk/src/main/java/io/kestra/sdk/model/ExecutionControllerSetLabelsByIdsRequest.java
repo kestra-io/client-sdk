@@ -1,0 +1,148 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Label;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutionControllerSetLabelsByIdsRequest
+ */
+@JsonPropertyOrder({
+  ExecutionControllerSetLabelsByIdsRequest.JSON_PROPERTY_EXECUTIONS_ID,
+  ExecutionControllerSetLabelsByIdsRequest.JSON_PROPERTY_EXECUTION_LABELS
+})
+@JsonTypeName("ExecutionController.SetLabelsByIdsRequest")
+public class ExecutionControllerSetLabelsByIdsRequest {
+  public static final String JSON_PROPERTY_EXECUTIONS_ID = "executionsId";
+  @jakarta.annotation.Nonnull  private List<String> executionsId = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EXECUTION_LABELS = "executionLabels";
+  @jakarta.annotation.Nonnull  private List<Label> executionLabels = new ArrayList<>();
+
+  public ExecutionControllerSetLabelsByIdsRequest() {
+  }
+
+  public ExecutionControllerSetLabelsByIdsRequest executionsId(@jakarta.annotation.Nonnull List<String> executionsId) {
+    
+    this.executionsId = executionsId;
+    return this;
+  }
+
+  public ExecutionControllerSetLabelsByIdsRequest addExecutionsIdItem(String executionsIdItem) {
+    if (this.executionsId == null) {
+      this.executionsId = new ArrayList<>();
+    }
+    this.executionsId.add(executionsIdItem);
+    return this;
+  }
+
+  /**
+   * Get executionsId
+   * @return executionsId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<String> getExecutionsId() {
+    return executionsId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionsId(@jakarta.annotation.Nonnull List<String> executionsId) {
+    this.executionsId = executionsId;
+  }
+
+  public ExecutionControllerSetLabelsByIdsRequest executionLabels(@jakarta.annotation.Nonnull List<Label> executionLabels) {
+    
+    this.executionLabels = executionLabels;
+    return this;
+  }
+
+  public ExecutionControllerSetLabelsByIdsRequest addExecutionLabelsItem(Label executionLabelsItem) {
+    if (this.executionLabels == null) {
+      this.executionLabels = new ArrayList<>();
+    }
+    this.executionLabels.add(executionLabelsItem);
+    return this;
+  }
+
+  /**
+   * Get executionLabels
+   * @return executionLabels
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<Label> getExecutionLabels() {
+    return executionLabels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionLabels(@jakarta.annotation.Nonnull List<Label> executionLabels) {
+    this.executionLabels = executionLabels;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = (ExecutionControllerSetLabelsByIdsRequest) o;
+    return Objects.equals(this.executionsId, executionControllerSetLabelsByIdsRequest.executionsId) &&
+        Objects.equals(this.executionLabels, executionControllerSetLabelsByIdsRequest.executionLabels);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(executionsId, executionLabels);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionControllerSetLabelsByIdsRequest {\n");
+    sb.append("    executionsId: ").append(toIndentedString(executionsId)).append("\n");
+    sb.append("    executionLabels: ").append(toIndentedString(executionLabels)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

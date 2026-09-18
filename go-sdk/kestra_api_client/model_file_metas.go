@@ -1,0 +1,166 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the FileMetas type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileMetas{}
+
+// FileMetas struct for FileMetas
+type FileMetas struct {
+	Size int64 `json:"size"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FileMetas FileMetas
+
+// NewFileMetas instantiates a new FileMetas object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFileMetas(size int64) *FileMetas {
+	this := FileMetas{}
+	this.Size = size
+	return &this
+}
+
+// NewFileMetasWithDefaults instantiates a new FileMetas object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFileMetasWithDefaults() *FileMetas {
+	this := FileMetas{}
+	return &this
+}
+
+// GetSize returns the Size field value
+func (o *FileMetas) GetSize() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value
+// and a boolean to check if the value has been set.
+func (o *FileMetas) GetSizeOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Size, true
+}
+
+// SetSize sets field value
+func (o *FileMetas) SetSize(v int64) {
+	o.Size = v
+}
+
+func (o FileMetas) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FileMetas) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["size"] = o.Size
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FileMetas) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"size",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFileMetas := _FileMetas{}
+
+	err = json.Unmarshal(data, &varFileMetas)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FileMetas(varFileMetas)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "size")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFileMetas struct {
+	value *FileMetas
+	isSet bool
+}
+
+func (v NullableFileMetas) Get() *FileMetas {
+	return v.value
+}
+
+func (v *NullableFileMetas) Set(val *FileMetas) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFileMetas) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFileMetas) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFileMetas(val *FileMetas) *NullableFileMetas {
+	return &NullableFileMetas{value: val, isSet: true}
+}
+
+func (v NullableFileMetas) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFileMetas) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

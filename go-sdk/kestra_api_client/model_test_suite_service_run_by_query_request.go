@@ -1,0 +1,263 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the TestSuiteServiceRunByQueryRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestSuiteServiceRunByQueryRequest{}
+
+// TestSuiteServiceRunByQueryRequest struct for TestSuiteServiceRunByQueryRequest
+type TestSuiteServiceRunByQueryRequest struct {
+	Namespace NullableString `json:"namespace,omitempty"`
+	FlowId NullableString `json:"flowId,omitempty"`
+	// Should child namespaces be included or not
+	IncludeChildNamespaces bool `json:"includeChildNamespaces"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TestSuiteServiceRunByQueryRequest TestSuiteServiceRunByQueryRequest
+
+// NewTestSuiteServiceRunByQueryRequest instantiates a new TestSuiteServiceRunByQueryRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTestSuiteServiceRunByQueryRequest(includeChildNamespaces bool) *TestSuiteServiceRunByQueryRequest {
+	this := TestSuiteServiceRunByQueryRequest{}
+	this.IncludeChildNamespaces = includeChildNamespaces
+	return &this
+}
+
+// NewTestSuiteServiceRunByQueryRequestWithDefaults instantiates a new TestSuiteServiceRunByQueryRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTestSuiteServiceRunByQueryRequestWithDefaults() *TestSuiteServiceRunByQueryRequest {
+	this := TestSuiteServiceRunByQueryRequest{}
+	var includeChildNamespaces bool = true
+	this.IncludeChildNamespaces = includeChildNamespaces
+	return &this
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TestSuiteServiceRunByQueryRequest) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace.Get()
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TestSuiteServiceRunByQueryRequest) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Namespace.Get(), o.Namespace.IsSet()
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *TestSuiteServiceRunByQueryRequest) HasNamespace() bool {
+	if o != nil && o.Namespace.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given NullableString and assigns it to the Namespace field.
+func (o *TestSuiteServiceRunByQueryRequest) SetNamespace(v string) {
+	o.Namespace.Set(&v)
+}
+// SetNamespaceNil sets the value for Namespace to be an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) SetNamespaceNil() {
+	o.Namespace.Set(nil)
+}
+
+// UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) UnsetNamespace() {
+	o.Namespace.Unset()
+}
+
+// GetFlowId returns the FlowId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TestSuiteServiceRunByQueryRequest) GetFlowId() string {
+	if o == nil || IsNil(o.FlowId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FlowId.Get()
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TestSuiteServiceRunByQueryRequest) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FlowId.Get(), o.FlowId.IsSet()
+}
+
+// HasFlowId returns a boolean if a field has been set.
+func (o *TestSuiteServiceRunByQueryRequest) HasFlowId() bool {
+	if o != nil && o.FlowId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowId gets a reference to the given NullableString and assigns it to the FlowId field.
+func (o *TestSuiteServiceRunByQueryRequest) SetFlowId(v string) {
+	o.FlowId.Set(&v)
+}
+// SetFlowIdNil sets the value for FlowId to be an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) SetFlowIdNil() {
+	o.FlowId.Set(nil)
+}
+
+// UnsetFlowId ensures that no value is present for FlowId, not even an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) UnsetFlowId() {
+	o.FlowId.Unset()
+}
+
+// GetIncludeChildNamespaces returns the IncludeChildNamespaces field value
+func (o *TestSuiteServiceRunByQueryRequest) GetIncludeChildNamespaces() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IncludeChildNamespaces
+}
+
+// GetIncludeChildNamespacesOk returns a tuple with the IncludeChildNamespaces field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteServiceRunByQueryRequest) GetIncludeChildNamespacesOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IncludeChildNamespaces, true
+}
+
+// SetIncludeChildNamespaces sets field value
+func (o *TestSuiteServiceRunByQueryRequest) SetIncludeChildNamespaces(v bool) {
+	o.IncludeChildNamespaces = v
+}
+
+func (o TestSuiteServiceRunByQueryRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestSuiteServiceRunByQueryRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Namespace.IsSet() {
+		toSerialize["namespace"] = o.Namespace.Get()
+	}
+	if o.FlowId.IsSet() {
+		toSerialize["flowId"] = o.FlowId.Get()
+	}
+	toSerialize["includeChildNamespaces"] = o.IncludeChildNamespaces
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TestSuiteServiceRunByQueryRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"includeChildNamespaces",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestSuiteServiceRunByQueryRequest := _TestSuiteServiceRunByQueryRequest{}
+
+	err = json.Unmarshal(data, &varTestSuiteServiceRunByQueryRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestSuiteServiceRunByQueryRequest(varTestSuiteServiceRunByQueryRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "includeChildNamespaces")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTestSuiteServiceRunByQueryRequest struct {
+	value *TestSuiteServiceRunByQueryRequest
+	isSet bool
+}
+
+func (v NullableTestSuiteServiceRunByQueryRequest) Get() *TestSuiteServiceRunByQueryRequest {
+	return v.value
+}
+
+func (v *NullableTestSuiteServiceRunByQueryRequest) Set(val *TestSuiteServiceRunByQueryRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTestSuiteServiceRunByQueryRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTestSuiteServiceRunByQueryRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTestSuiteServiceRunByQueryRequest(val *TestSuiteServiceRunByQueryRequest) *NullableTestSuiteServiceRunByQueryRequest {
+	return &NullableTestSuiteServiceRunByQueryRequest{value: val, isSet: true}
+}
+
+func (v NullableTestSuiteServiceRunByQueryRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTestSuiteServiceRunByQueryRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

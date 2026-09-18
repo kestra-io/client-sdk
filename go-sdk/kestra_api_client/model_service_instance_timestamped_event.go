@@ -1,0 +1,265 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the ServiceInstanceTimestampedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceInstanceTimestampedEvent{}
+
+// ServiceInstanceTimestampedEvent struct for ServiceInstanceTimestampedEvent
+type ServiceInstanceTimestampedEvent struct {
+	Ts *time.Time `json:"ts,omitempty"`
+	Value *string `json:"value,omitempty"`
+	Type *string `json:"type,omitempty"`
+	State *ServiceServiceState `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceInstanceTimestampedEvent ServiceInstanceTimestampedEvent
+
+// NewServiceInstanceTimestampedEvent instantiates a new ServiceInstanceTimestampedEvent object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceInstanceTimestampedEvent() *ServiceInstanceTimestampedEvent {
+	this := ServiceInstanceTimestampedEvent{}
+	return &this
+}
+
+// NewServiceInstanceTimestampedEventWithDefaults instantiates a new ServiceInstanceTimestampedEvent object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceInstanceTimestampedEventWithDefaults() *ServiceInstanceTimestampedEvent {
+	this := ServiceInstanceTimestampedEvent{}
+	return &this
+}
+
+// GetTs returns the Ts field value if set, zero value otherwise.
+func (o *ServiceInstanceTimestampedEvent) GetTs() time.Time {
+	if o == nil || IsNil(o.Ts) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Ts
+}
+
+// GetTsOk returns a tuple with the Ts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstanceTimestampedEvent) GetTsOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Ts) {
+		return nil, false
+	}
+	return o.Ts, true
+}
+
+// HasTs returns a boolean if a field has been set.
+func (o *ServiceInstanceTimestampedEvent) HasTs() bool {
+	if o != nil && !IsNil(o.Ts) {
+		return true
+	}
+
+	return false
+}
+
+// SetTs gets a reference to the given time.Time and assigns it to the Ts field.
+func (o *ServiceInstanceTimestampedEvent) SetTs(v time.Time) {
+	o.Ts = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *ServiceInstanceTimestampedEvent) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstanceTimestampedEvent) GetValueOk() (*string, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *ServiceInstanceTimestampedEvent) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *ServiceInstanceTimestampedEvent) SetValue(v string) {
+	o.Value = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ServiceInstanceTimestampedEvent) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstanceTimestampedEvent) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ServiceInstanceTimestampedEvent) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ServiceInstanceTimestampedEvent) SetType(v string) {
+	o.Type = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *ServiceInstanceTimestampedEvent) GetState() ServiceServiceState {
+	if o == nil || IsNil(o.State) {
+		var ret ServiceServiceState
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstanceTimestampedEvent) GetStateOk() (*ServiceServiceState, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *ServiceInstanceTimestampedEvent) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given ServiceServiceState and assigns it to the State field.
+func (o *ServiceInstanceTimestampedEvent) SetState(v ServiceServiceState) {
+	o.State = &v
+}
+
+func (o ServiceInstanceTimestampedEvent) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceInstanceTimestampedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Ts) {
+		toSerialize["ts"] = o.Ts
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceInstanceTimestampedEvent) UnmarshalJSON(data []byte) (err error) {
+	varServiceInstanceTimestampedEvent := _ServiceInstanceTimestampedEvent{}
+
+	err = json.Unmarshal(data, &varServiceInstanceTimestampedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceInstanceTimestampedEvent(varServiceInstanceTimestampedEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ts")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceInstanceTimestampedEvent struct {
+	value *ServiceInstanceTimestampedEvent
+	isSet bool
+}
+
+func (v NullableServiceInstanceTimestampedEvent) Get() *ServiceInstanceTimestampedEvent {
+	return v.value
+}
+
+func (v *NullableServiceInstanceTimestampedEvent) Set(val *ServiceInstanceTimestampedEvent) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceInstanceTimestampedEvent) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceInstanceTimestampedEvent) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceInstanceTimestampedEvent(val *ServiceInstanceTimestampedEvent) *NullableServiceInstanceTimestampedEvent {
+	return &NullableServiceInstanceTimestampedEvent{value: val, isSet: true}
+}
+
+func (v NullableServiceInstanceTimestampedEvent) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceInstanceTimestampedEvent) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

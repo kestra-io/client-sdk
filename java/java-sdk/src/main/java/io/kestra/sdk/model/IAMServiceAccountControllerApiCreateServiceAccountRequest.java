@@ -1,0 +1,239 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Request payload for updating service account details
+ */
+@JsonPropertyOrder({
+  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_NAME,
+  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_DESCRIPTION,
+  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_INSTANCE_OWNER,
+  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_TENANTS
+})
+@JsonTypeName("IAMServiceAccountController.ApiCreateServiceAccountRequest")
+public class IAMServiceAccountControllerApiCreateServiceAccountRequest {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_TENANTS = "tenants";
+  @jakarta.annotation.Nullable  private List<String> tenants = new ArrayList<>();
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest() {
+  }
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest tenants(@jakarta.annotation.Nullable List<String> tenants) {
+    
+    this.tenants = tenants;
+    return this;
+  }
+
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest addTenantsItem(String tenantsItem) {
+    if (this.tenants == null) {
+      this.tenants = new ArrayList<>();
+    }
+    this.tenants.add(tenantsItem);
+    return this;
+  }
+
+  /**
+   * Get tenants
+   * @return tenants
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTenants() {
+    return tenants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenants(@jakarta.annotation.Nullable List<String> tenants) {
+    this.tenants = tenants;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest = (IAMServiceAccountControllerApiCreateServiceAccountRequest) o;
+    return Objects.equals(this.name, iaMServiceAccountControllerApiCreateServiceAccountRequest.name) &&
+        Objects.equals(this.description, iaMServiceAccountControllerApiCreateServiceAccountRequest.description) &&
+        Objects.equals(this.instanceOwner, iaMServiceAccountControllerApiCreateServiceAccountRequest.instanceOwner) &&
+        Objects.equals(this.tenants, iaMServiceAccountControllerApiCreateServiceAccountRequest.tenants);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, description, instanceOwner, tenants);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMServiceAccountControllerApiCreateServiceAccountRequest {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

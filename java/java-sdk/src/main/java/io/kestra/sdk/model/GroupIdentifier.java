@@ -1,0 +1,210 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.GroupIdentifierMembership;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * GroupIdentifier
+ */
+@JsonPropertyOrder({
+  GroupIdentifier.JSON_PROPERTY_TENANT_ID,
+  GroupIdentifier.JSON_PROPERTY_GROUP_ID,
+  GroupIdentifier.JSON_PROPERTY_MEMBERSHIP,
+  GroupIdentifier.JSON_PROPERTY_MANAGED_EXTERNALLY
+})
+public class GroupIdentifier {
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_GROUP_ID = "groupId";
+  @jakarta.annotation.Nullable  private String groupId;
+
+  public static final String JSON_PROPERTY_MEMBERSHIP = "membership";
+  @jakarta.annotation.Nullable  private GroupIdentifierMembership membership;
+
+  public static final String JSON_PROPERTY_MANAGED_EXTERNALLY = "managedExternally";
+  @jakarta.annotation.Nullable  private Boolean managedExternally;
+
+  public GroupIdentifier() {
+  }
+
+  public GroupIdentifier tenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
+    
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getTenantId() {
+        return tenantId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getTenantId_JsonNullable() {
+    return tenantId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  public void setTenantId_JsonNullable(JsonNullable<String> tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
+  }
+
+  public GroupIdentifier groupId(@jakarta.annotation.Nullable String groupId) {
+    
+    this.groupId = groupId;
+    return this;
+  }
+
+  /**
+   * Get groupId
+   * @return groupId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGroupId() {
+    return groupId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupId(@jakarta.annotation.Nullable String groupId) {
+    this.groupId = groupId;
+  }
+
+  public GroupIdentifier membership(@jakarta.annotation.Nullable GroupIdentifierMembership membership) {
+    
+    this.membership = membership;
+    return this;
+  }
+
+  /**
+   * Get membership
+   * @return membership
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public GroupIdentifierMembership getMembership() {
+    return membership;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMembership(@jakarta.annotation.Nullable GroupIdentifierMembership membership) {
+    this.membership = membership;
+  }
+
+  public GroupIdentifier managedExternally(@jakarta.annotation.Nullable Boolean managedExternally) {
+    
+    this.managedExternally = managedExternally;
+    return this;
+  }
+
+  /**
+   * Get managedExternally
+   * @return managedExternally
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MANAGED_EXTERNALLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getManagedExternally() {
+    return managedExternally;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MANAGED_EXTERNALLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManagedExternally(@jakarta.annotation.Nullable Boolean managedExternally) {
+    this.managedExternally = managedExternally;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    GroupIdentifier groupIdentifier = (GroupIdentifier) o;
+    return equalsNullable(this.tenantId, groupIdentifier.tenantId) &&
+        Objects.equals(this.groupId, groupIdentifier.groupId) &&
+        Objects.equals(this.membership, groupIdentifier.membership) &&
+        Objects.equals(this.managedExternally, groupIdentifier.managedExternally);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hashCodeNullable(tenantId), groupId, membership, managedExternally);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class GroupIdentifier {\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
+    sb.append("    membership: ").append(toIndentedString(membership)).append("\n");
+    sb.append("    managedExternally: ").append(toIndentedString(managedExternally)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

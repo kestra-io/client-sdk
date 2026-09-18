@@ -1,0 +1,107 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// SecurityIntegrationType the model 'SecurityIntegrationType'
+type SecurityIntegrationType string
+
+// List of SecurityIntegration.Type
+const (
+	SECURITYINTEGRATIONTYPE_SCIM SecurityIntegrationType = "SCIM"
+)
+
+// All allowed values of SecurityIntegrationType enum
+var AllowedSecurityIntegrationTypeEnumValues = []SecurityIntegrationType{
+	"SCIM",
+}
+
+func (v *SecurityIntegrationType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := SecurityIntegrationType(value)
+	for _, existing := range AllowedSecurityIntegrationTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SecurityIntegrationType", value)
+}
+
+// NewSecurityIntegrationTypeFromValue returns a pointer to a valid SecurityIntegrationType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewSecurityIntegrationTypeFromValue(v string) (*SecurityIntegrationType, error) {
+	ev := SecurityIntegrationType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for SecurityIntegrationType: valid values are %v", v, AllowedSecurityIntegrationTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v SecurityIntegrationType) IsValid() bool {
+	for _, existing := range AllowedSecurityIntegrationTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to SecurityIntegration.Type value
+func (v SecurityIntegrationType) Ptr() *SecurityIntegrationType {
+	return &v
+}
+
+type NullableSecurityIntegrationType struct {
+	value *SecurityIntegrationType
+	isSet bool
+}
+
+func (v NullableSecurityIntegrationType) Get() *SecurityIntegrationType {
+	return v.value
+}
+
+func (v *NullableSecurityIntegrationType) Set(val *SecurityIntegrationType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSecurityIntegrationType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSecurityIntegrationType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSecurityIntegrationType(val *SecurityIntegrationType) *NullableSecurityIntegrationType {
+	return &NullableSecurityIntegrationType{value: val, isSet: true}
+}
+
+func (v NullableSecurityIntegrationType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSecurityIntegrationType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

@@ -1,0 +1,640 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the Invitation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Invitation{}
+
+// Invitation struct for Invitation
+type Invitation struct {
+	IsExpired *bool `json:"isExpired,omitempty"`
+	Email string `json:"email"`
+	Id *string `json:"id,omitempty"`
+	Bindings []Binding `json:"bindings,omitempty"`
+	GroupIds []string `json:"groupIds,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Status *InvitationInvitationStatus `json:"status,omitempty"`
+	SentAt *time.Time `json:"sentAt,omitempty"`
+	ExpiredAt *time.Time `json:"expiredAt,omitempty"`
+	AcceptedAt *time.Time `json:"acceptedAt,omitempty"`
+	Deleted bool `json:"deleted"`
+	UserType *UserType `json:"userType,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
+	Link *string `json:"link,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Invitation Invitation
+
+// NewInvitation instantiates a new Invitation object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInvitation(email string, deleted bool) *Invitation {
+	this := Invitation{}
+	this.Email = email
+	this.Deleted = deleted
+	return &this
+}
+
+// NewInvitationWithDefaults instantiates a new Invitation object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInvitationWithDefaults() *Invitation {
+	this := Invitation{}
+	return &this
+}
+
+// GetIsExpired returns the IsExpired field value if set, zero value otherwise.
+func (o *Invitation) GetIsExpired() bool {
+	if o == nil || IsNil(o.IsExpired) {
+		var ret bool
+		return ret
+	}
+	return *o.IsExpired
+}
+
+// GetIsExpiredOk returns a tuple with the IsExpired field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetIsExpiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsExpired) {
+		return nil, false
+	}
+	return o.IsExpired, true
+}
+
+// HasIsExpired returns a boolean if a field has been set.
+func (o *Invitation) HasIsExpired() bool {
+	if o != nil && !IsNil(o.IsExpired) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsExpired gets a reference to the given bool and assigns it to the IsExpired field.
+func (o *Invitation) SetIsExpired(v bool) {
+	o.IsExpired = &v
+}
+
+// GetEmail returns the Email field value
+func (o *Invitation) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *Invitation) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Invitation) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Invitation) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Invitation) SetId(v string) {
+	o.Id = &v
+}
+
+// GetBindings returns the Bindings field value if set, zero value otherwise.
+func (o *Invitation) GetBindings() []Binding {
+	if o == nil || IsNil(o.Bindings) {
+		var ret []Binding
+		return ret
+	}
+	return o.Bindings
+}
+
+// GetBindingsOk returns a tuple with the Bindings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetBindingsOk() ([]Binding, bool) {
+	if o == nil || IsNil(o.Bindings) {
+		return nil, false
+	}
+	return o.Bindings, true
+}
+
+// HasBindings returns a boolean if a field has been set.
+func (o *Invitation) HasBindings() bool {
+	if o != nil && !IsNil(o.Bindings) {
+		return true
+	}
+
+	return false
+}
+
+// SetBindings gets a reference to the given []Binding and assigns it to the Bindings field.
+func (o *Invitation) SetBindings(v []Binding) {
+	o.Bindings = v
+}
+
+// GetGroupIds returns the GroupIds field value if set, zero value otherwise.
+func (o *Invitation) GetGroupIds() []string {
+	if o == nil || IsNil(o.GroupIds) {
+		var ret []string
+		return ret
+	}
+	return o.GroupIds
+}
+
+// GetGroupIdsOk returns a tuple with the GroupIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetGroupIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.GroupIds) {
+		return nil, false
+	}
+	return o.GroupIds, true
+}
+
+// HasGroupIds returns a boolean if a field has been set.
+func (o *Invitation) HasGroupIds() bool {
+	if o != nil && !IsNil(o.GroupIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupIds gets a reference to the given []string and assigns it to the GroupIds field.
+func (o *Invitation) SetGroupIds(v []string) {
+	o.GroupIds = v
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
+func (o *Invitation) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetTenantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TenantId) {
+		return nil, false
+	}
+	return o.TenantId, true
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *Invitation) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+func (o *Invitation) SetTenantId(v string) {
+	o.TenantId = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Invitation) GetStatus() InvitationInvitationStatus {
+	if o == nil || IsNil(o.Status) {
+		var ret InvitationInvitationStatus
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetStatusOk() (*InvitationInvitationStatus, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Invitation) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given InvitationInvitationStatus and assigns it to the Status field.
+func (o *Invitation) SetStatus(v InvitationInvitationStatus) {
+	o.Status = &v
+}
+
+// GetSentAt returns the SentAt field value if set, zero value otherwise.
+func (o *Invitation) GetSentAt() time.Time {
+	if o == nil || IsNil(o.SentAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SentAt
+}
+
+// GetSentAtOk returns a tuple with the SentAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetSentAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SentAt) {
+		return nil, false
+	}
+	return o.SentAt, true
+}
+
+// HasSentAt returns a boolean if a field has been set.
+func (o *Invitation) HasSentAt() bool {
+	if o != nil && !IsNil(o.SentAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSentAt gets a reference to the given time.Time and assigns it to the SentAt field.
+func (o *Invitation) SetSentAt(v time.Time) {
+	o.SentAt = &v
+}
+
+// GetExpiredAt returns the ExpiredAt field value if set, zero value otherwise.
+func (o *Invitation) GetExpiredAt() time.Time {
+	if o == nil || IsNil(o.ExpiredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiredAt
+}
+
+// GetExpiredAtOk returns a tuple with the ExpiredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetExpiredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiredAt) {
+		return nil, false
+	}
+	return o.ExpiredAt, true
+}
+
+// HasExpiredAt returns a boolean if a field has been set.
+func (o *Invitation) HasExpiredAt() bool {
+	if o != nil && !IsNil(o.ExpiredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiredAt gets a reference to the given time.Time and assigns it to the ExpiredAt field.
+func (o *Invitation) SetExpiredAt(v time.Time) {
+	o.ExpiredAt = &v
+}
+
+// GetAcceptedAt returns the AcceptedAt field value if set, zero value otherwise.
+func (o *Invitation) GetAcceptedAt() time.Time {
+	if o == nil || IsNil(o.AcceptedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcceptedAt
+}
+
+// GetAcceptedAtOk returns a tuple with the AcceptedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetAcceptedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcceptedAt) {
+		return nil, false
+	}
+	return o.AcceptedAt, true
+}
+
+// HasAcceptedAt returns a boolean if a field has been set.
+func (o *Invitation) HasAcceptedAt() bool {
+	if o != nil && !IsNil(o.AcceptedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptedAt gets a reference to the given time.Time and assigns it to the AcceptedAt field.
+func (o *Invitation) SetAcceptedAt(v time.Time) {
+	o.AcceptedAt = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *Invitation) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *Invitation) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+// GetUserType returns the UserType field value if set, zero value otherwise.
+func (o *Invitation) GetUserType() UserType {
+	if o == nil || IsNil(o.UserType) {
+		var ret UserType
+		return ret
+	}
+	return *o.UserType
+}
+
+// GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetUserTypeOk() (*UserType, bool) {
+	if o == nil || IsNil(o.UserType) {
+		return nil, false
+	}
+	return o.UserType, true
+}
+
+// HasUserType returns a boolean if a field has been set.
+func (o *Invitation) HasUserType() bool {
+	if o != nil && !IsNil(o.UserType) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserType gets a reference to the given UserType and assigns it to the UserType field.
+func (o *Invitation) SetUserType(v UserType) {
+	o.UserType = &v
+}
+
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *Invitation) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
+		var ret bool
+		return ret
+	}
+	return *o.InstanceOwner
+}
+
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
+		return nil, false
+	}
+	return o.InstanceOwner, true
+}
+
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *Invitation) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *Invitation) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
+}
+
+// GetLink returns the Link field value if set, zero value otherwise.
+func (o *Invitation) GetLink() string {
+	if o == nil || IsNil(o.Link) {
+		var ret string
+		return ret
+	}
+	return *o.Link
+}
+
+// GetLinkOk returns a tuple with the Link field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invitation) GetLinkOk() (*string, bool) {
+	if o == nil || IsNil(o.Link) {
+		return nil, false
+	}
+	return o.Link, true
+}
+
+// HasLink returns a boolean if a field has been set.
+func (o *Invitation) HasLink() bool {
+	if o != nil && !IsNil(o.Link) {
+		return true
+	}
+
+	return false
+}
+
+// SetLink gets a reference to the given string and assigns it to the Link field.
+func (o *Invitation) SetLink(v string) {
+	o.Link = &v
+}
+
+func (o Invitation) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Invitation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.IsExpired) {
+		toSerialize["isExpired"] = o.IsExpired
+	}
+	toSerialize["email"] = o.Email
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Bindings) {
+		toSerialize["bindings"] = o.Bindings
+	}
+	if !IsNil(o.GroupIds) {
+		toSerialize["groupIds"] = o.GroupIds
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.SentAt) {
+		toSerialize["sentAt"] = o.SentAt
+	}
+	if !IsNil(o.ExpiredAt) {
+		toSerialize["expiredAt"] = o.ExpiredAt
+	}
+	if !IsNil(o.AcceptedAt) {
+		toSerialize["acceptedAt"] = o.AcceptedAt
+	}
+	toSerialize["deleted"] = o.Deleted
+	if !IsNil(o.UserType) {
+		toSerialize["userType"] = o.UserType
+	}
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
+	}
+	if !IsNil(o.Link) {
+		toSerialize["link"] = o.Link
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Invitation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"email",
+		"deleted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInvitation := _Invitation{}
+
+	err = json.Unmarshal(data, &varInvitation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Invitation(varInvitation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "isExpired")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "bindings")
+		delete(additionalProperties, "groupIds")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "sentAt")
+		delete(additionalProperties, "expiredAt")
+		delete(additionalProperties, "acceptedAt")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "userType")
+		delete(additionalProperties, "instanceOwner")
+		delete(additionalProperties, "link")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableInvitation struct {
+	value *Invitation
+	isSet bool
+}
+
+func (v NullableInvitation) Get() *Invitation {
+	return v.value
+}
+
+func (v *NullableInvitation) Set(val *Invitation) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInvitation) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInvitation) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInvitation(val *Invitation) *NullableInvitation {
+	return &NullableInvitation{value: val, isSet: true}
+}
+
+func (v NullableInvitation) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableInvitation) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

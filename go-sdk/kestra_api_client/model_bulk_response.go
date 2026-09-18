@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the BulkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkResponse{}
+
+// BulkResponse struct for BulkResponse
+type BulkResponse struct {
+	Count *int32 `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _BulkResponse BulkResponse
+
+// NewBulkResponse instantiates a new BulkResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewBulkResponse() *BulkResponse {
+	this := BulkResponse{}
+	return &this
+}
+
+// NewBulkResponseWithDefaults instantiates a new BulkResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewBulkResponseWithDefaults() *BulkResponse {
+	this := BulkResponse{}
+	return &this
+}
+
+// GetCount returns the Count field value if set, zero value otherwise.
+func (o *BulkResponse) GetCount() int32 {
+	if o == nil || IsNil(o.Count) {
+		var ret int32
+		return ret
+	}
+	return *o.Count
+}
+
+// GetCountOk returns a tuple with the Count field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkResponse) GetCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.Count) {
+		return nil, false
+	}
+	return o.Count, true
+}
+
+// HasCount returns a boolean if a field has been set.
+func (o *BulkResponse) HasCount() bool {
+	if o != nil && !IsNil(o.Count) {
+		return true
+	}
+
+	return false
+}
+
+// SetCount gets a reference to the given int32 and assigns it to the Count field.
+func (o *BulkResponse) SetCount(v int32) {
+	o.Count = &v
+}
+
+func (o BulkResponse) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Count) {
+		toSerialize["count"] = o.Count
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *BulkResponse) UnmarshalJSON(data []byte) (err error) {
+	varBulkResponse := _BulkResponse{}
+
+	err = json.Unmarshal(data, &varBulkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BulkResponse(varBulkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableBulkResponse struct {
+	value *BulkResponse
+	isSet bool
+}
+
+func (v NullableBulkResponse) Get() *BulkResponse {
+	return v.value
+}
+
+func (v *NullableBulkResponse) Set(val *BulkResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableBulkResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableBulkResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableBulkResponse(val *BulkResponse) *NullableBulkResponse {
+	return &NullableBulkResponse{value: val, isSet: true}
+}
+
+func (v NullableBulkResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableBulkResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,227 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ServiceProviderConfigurationBulkConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceProviderConfigurationBulkConfiguration{}
+
+// ServiceProviderConfigurationBulkConfiguration struct for ServiceProviderConfigurationBulkConfiguration
+type ServiceProviderConfigurationBulkConfiguration struct {
+	Supported *bool `json:"supported,omitempty"`
+	MaxOperations *int32 `json:"maxOperations,omitempty"`
+	MaxPayloadSize *int32 `json:"maxPayloadSize,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceProviderConfigurationBulkConfiguration ServiceProviderConfigurationBulkConfiguration
+
+// NewServiceProviderConfigurationBulkConfiguration instantiates a new ServiceProviderConfigurationBulkConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceProviderConfigurationBulkConfiguration() *ServiceProviderConfigurationBulkConfiguration {
+	this := ServiceProviderConfigurationBulkConfiguration{}
+	return &this
+}
+
+// NewServiceProviderConfigurationBulkConfigurationWithDefaults instantiates a new ServiceProviderConfigurationBulkConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceProviderConfigurationBulkConfigurationWithDefaults() *ServiceProviderConfigurationBulkConfiguration {
+	this := ServiceProviderConfigurationBulkConfiguration{}
+	return &this
+}
+
+// GetSupported returns the Supported field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetSupported() bool {
+	if o == nil || IsNil(o.Supported) {
+		var ret bool
+		return ret
+	}
+	return *o.Supported
+}
+
+// GetSupportedOk returns a tuple with the Supported field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetSupportedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Supported) {
+		return nil, false
+	}
+	return o.Supported, true
+}
+
+// HasSupported returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) HasSupported() bool {
+	if o != nil && !IsNil(o.Supported) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupported gets a reference to the given bool and assigns it to the Supported field.
+func (o *ServiceProviderConfigurationBulkConfiguration) SetSupported(v bool) {
+	o.Supported = &v
+}
+
+// GetMaxOperations returns the MaxOperations field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetMaxOperations() int32 {
+	if o == nil || IsNil(o.MaxOperations) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxOperations
+}
+
+// GetMaxOperationsOk returns a tuple with the MaxOperations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetMaxOperationsOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxOperations) {
+		return nil, false
+	}
+	return o.MaxOperations, true
+}
+
+// HasMaxOperations returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) HasMaxOperations() bool {
+	if o != nil && !IsNil(o.MaxOperations) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxOperations gets a reference to the given int32 and assigns it to the MaxOperations field.
+func (o *ServiceProviderConfigurationBulkConfiguration) SetMaxOperations(v int32) {
+	o.MaxOperations = &v
+}
+
+// GetMaxPayloadSize returns the MaxPayloadSize field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetMaxPayloadSize() int32 {
+	if o == nil || IsNil(o.MaxPayloadSize) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxPayloadSize
+}
+
+// GetMaxPayloadSizeOk returns a tuple with the MaxPayloadSize field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) GetMaxPayloadSizeOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxPayloadSize) {
+		return nil, false
+	}
+	return o.MaxPayloadSize, true
+}
+
+// HasMaxPayloadSize returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationBulkConfiguration) HasMaxPayloadSize() bool {
+	if o != nil && !IsNil(o.MaxPayloadSize) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxPayloadSize gets a reference to the given int32 and assigns it to the MaxPayloadSize field.
+func (o *ServiceProviderConfigurationBulkConfiguration) SetMaxPayloadSize(v int32) {
+	o.MaxPayloadSize = &v
+}
+
+func (o ServiceProviderConfigurationBulkConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceProviderConfigurationBulkConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Supported) {
+		toSerialize["supported"] = o.Supported
+	}
+	if !IsNil(o.MaxOperations) {
+		toSerialize["maxOperations"] = o.MaxOperations
+	}
+	if !IsNil(o.MaxPayloadSize) {
+		toSerialize["maxPayloadSize"] = o.MaxPayloadSize
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfigurationBulkConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varServiceProviderConfigurationBulkConfiguration := _ServiceProviderConfigurationBulkConfiguration{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfigurationBulkConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfigurationBulkConfiguration(varServiceProviderConfigurationBulkConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "supported")
+		delete(additionalProperties, "maxOperations")
+		delete(additionalProperties, "maxPayloadSize")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceProviderConfigurationBulkConfiguration struct {
+	value *ServiceProviderConfigurationBulkConfiguration
+	isSet bool
+}
+
+func (v NullableServiceProviderConfigurationBulkConfiguration) Get() *ServiceProviderConfigurationBulkConfiguration {
+	return v.value
+}
+
+func (v *NullableServiceProviderConfigurationBulkConfiguration) Set(val *ServiceProviderConfigurationBulkConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceProviderConfigurationBulkConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceProviderConfigurationBulkConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceProviderConfigurationBulkConfiguration(val *ServiceProviderConfigurationBulkConfiguration) *NullableServiceProviderConfigurationBulkConfiguration {
+	return &NullableServiceProviderConfigurationBulkConfiguration{value: val, isSet: true}
+}
+
+func (v NullableServiceProviderConfigurationBulkConfiguration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceProviderConfigurationBulkConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

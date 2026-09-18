@@ -1,0 +1,157 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * DashboardGenerationPrompt
+ */
+@JsonPropertyOrder({
+  DashboardGenerationPrompt.JSON_PROPERTY_CONVERSATION_ID,
+  DashboardGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
+  DashboardGenerationPrompt.JSON_PROPERTY_YAML
+})
+public class DashboardGenerationPrompt {
+  public static final String JSON_PROPERTY_CONVERSATION_ID = "conversationId";
+  @jakarta.annotation.Nonnull  private String conversationId;
+
+  public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
+  @jakarta.annotation.Nonnull  private String userPrompt;
+
+  public static final String JSON_PROPERTY_YAML = "yaml";
+  @jakarta.annotation.Nullable  private String yaml;
+
+  public DashboardGenerationPrompt() {
+  }
+
+  public DashboardGenerationPrompt conversationId(@jakarta.annotation.Nonnull String conversationId) {
+    
+    this.conversationId = conversationId;
+    return this;
+  }
+
+  /**
+   * Get conversationId
+   * @return conversationId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getConversationId() {
+    return conversationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setConversationId(@jakarta.annotation.Nonnull String conversationId) {
+    this.conversationId = conversationId;
+  }
+
+  public DashboardGenerationPrompt userPrompt(@jakarta.annotation.Nonnull String userPrompt) {
+    
+    this.userPrompt = userPrompt;
+    return this;
+  }
+
+  /**
+   * Get userPrompt
+   * @return userPrompt
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUserPrompt() {
+    return userPrompt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUserPrompt(@jakarta.annotation.Nonnull String userPrompt) {
+    this.userPrompt = userPrompt;
+  }
+
+  public DashboardGenerationPrompt yaml(@jakarta.annotation.Nullable String yaml) {
+    
+    this.yaml = yaml;
+    return this;
+  }
+
+  /**
+   * Get yaml
+   * @return yaml
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_YAML)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getYaml() {
+    return yaml;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_YAML)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setYaml(@jakarta.annotation.Nullable String yaml) {
+    this.yaml = yaml;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DashboardGenerationPrompt dashboardGenerationPrompt = (DashboardGenerationPrompt) o;
+    return Objects.equals(this.conversationId, dashboardGenerationPrompt.conversationId) &&
+        Objects.equals(this.userPrompt, dashboardGenerationPrompt.userPrompt) &&
+        Objects.equals(this.yaml, dashboardGenerationPrompt.yaml);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(conversationId, userPrompt, yaml);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DashboardGenerationPrompt {\n");
+    sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
+    sb.append("    userPrompt: ").append(toIndentedString(userPrompt)).append("\n");
+    sb.append("    yaml: ").append(toIndentedString(yaml)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

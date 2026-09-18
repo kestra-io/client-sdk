@@ -1,0 +1,283 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the ExecutionControllerLastExecutionResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExecutionControllerLastExecutionResponse{}
+
+// ExecutionControllerLastExecutionResponse struct for ExecutionControllerLastExecutionResponse
+type ExecutionControllerLastExecutionResponse struct {
+	Id string `json:"id"`
+	FlowId string `json:"flowId"`
+	Namespace string `json:"namespace"`
+	StartDate time.Time `json:"startDate"`
+	Status StateType `json:"status"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ExecutionControllerLastExecutionResponse ExecutionControllerLastExecutionResponse
+
+// NewExecutionControllerLastExecutionResponse instantiates a new ExecutionControllerLastExecutionResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewExecutionControllerLastExecutionResponse(id string, flowId string, namespace string, startDate time.Time, status StateType) *ExecutionControllerLastExecutionResponse {
+	this := ExecutionControllerLastExecutionResponse{}
+	this.Id = id
+	this.FlowId = flowId
+	this.Namespace = namespace
+	this.StartDate = startDate
+	this.Status = status
+	return &this
+}
+
+// NewExecutionControllerLastExecutionResponseWithDefaults instantiates a new ExecutionControllerLastExecutionResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewExecutionControllerLastExecutionResponseWithDefaults() *ExecutionControllerLastExecutionResponse {
+	this := ExecutionControllerLastExecutionResponse{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *ExecutionControllerLastExecutionResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerLastExecutionResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ExecutionControllerLastExecutionResponse) SetId(v string) {
+	o.Id = v
+}
+
+// GetFlowId returns the FlowId field value
+func (o *ExecutionControllerLastExecutionResponse) GetFlowId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerLastExecutionResponse) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlowId, true
+}
+
+// SetFlowId sets field value
+func (o *ExecutionControllerLastExecutionResponse) SetFlowId(v string) {
+	o.FlowId = v
+}
+
+// GetNamespace returns the Namespace field value
+func (o *ExecutionControllerLastExecutionResponse) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerLastExecutionResponse) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *ExecutionControllerLastExecutionResponse) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetStartDate returns the StartDate field value
+func (o *ExecutionControllerLastExecutionResponse) GetStartDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.StartDate
+}
+
+// GetStartDateOk returns a tuple with the StartDate field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerLastExecutionResponse) GetStartDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StartDate, true
+}
+
+// SetStartDate sets field value
+func (o *ExecutionControllerLastExecutionResponse) SetStartDate(v time.Time) {
+	o.StartDate = v
+}
+
+// GetStatus returns the Status field value
+func (o *ExecutionControllerLastExecutionResponse) GetStatus() StateType {
+	if o == nil {
+		var ret StateType
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *ExecutionControllerLastExecutionResponse) GetStatusOk() (*StateType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *ExecutionControllerLastExecutionResponse) SetStatus(v StateType) {
+	o.Status = v
+}
+
+func (o ExecutionControllerLastExecutionResponse) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ExecutionControllerLastExecutionResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["flowId"] = o.FlowId
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ExecutionControllerLastExecutionResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"flowId",
+		"namespace",
+		"startDate",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExecutionControllerLastExecutionResponse := _ExecutionControllerLastExecutionResponse{}
+
+	err = json.Unmarshal(data, &varExecutionControllerLastExecutionResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutionControllerLastExecutionResponse(varExecutionControllerLastExecutionResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "startDate")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableExecutionControllerLastExecutionResponse struct {
+	value *ExecutionControllerLastExecutionResponse
+	isSet bool
+}
+
+func (v NullableExecutionControllerLastExecutionResponse) Get() *ExecutionControllerLastExecutionResponse {
+	return v.value
+}
+
+func (v *NullableExecutionControllerLastExecutionResponse) Set(val *ExecutionControllerLastExecutionResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableExecutionControllerLastExecutionResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableExecutionControllerLastExecutionResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableExecutionControllerLastExecutionResponse(val *ExecutionControllerLastExecutionResponse) *NullableExecutionControllerLastExecutionResponse {
+	return &NullableExecutionControllerLastExecutionResponse{value: val, isSet: true}
+}
+
+func (v NullableExecutionControllerLastExecutionResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableExecutionControllerLastExecutionResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,462 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ValidateConstraintViolation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValidateConstraintViolation{}
+
+// ValidateConstraintViolation struct for ValidateConstraintViolation
+type ValidateConstraintViolation struct {
+	Index int32 `json:"index"`
+	Filename *string `json:"filename,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Flow *string `json:"flow,omitempty"`
+	Constraints *string `json:"constraints,omitempty"`
+	Outdated *bool `json:"outdated,omitempty"`
+	DeprecationPaths []string `json:"deprecationPaths,omitempty"`
+	Warnings []string `json:"warnings,omitempty"`
+	Infos []string `json:"infos,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ValidateConstraintViolation ValidateConstraintViolation
+
+// NewValidateConstraintViolation instantiates a new ValidateConstraintViolation object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewValidateConstraintViolation(index int32) *ValidateConstraintViolation {
+	this := ValidateConstraintViolation{}
+	this.Index = index
+	return &this
+}
+
+// NewValidateConstraintViolationWithDefaults instantiates a new ValidateConstraintViolation object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewValidateConstraintViolationWithDefaults() *ValidateConstraintViolation {
+	this := ValidateConstraintViolation{}
+	return &this
+}
+
+// GetIndex returns the Index field value
+func (o *ValidateConstraintViolation) GetIndex() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Index
+}
+
+// GetIndexOk returns a tuple with the Index field value
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetIndexOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Index, true
+}
+
+// SetIndex sets field value
+func (o *ValidateConstraintViolation) SetIndex(v int32) {
+	o.Index = v
+}
+
+// GetFilename returns the Filename field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetFilename() string {
+	if o == nil || IsNil(o.Filename) {
+		var ret string
+		return ret
+	}
+	return *o.Filename
+}
+
+// GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetFilenameOk() (*string, bool) {
+	if o == nil || IsNil(o.Filename) {
+		return nil, false
+	}
+	return o.Filename, true
+}
+
+// HasFilename returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasFilename() bool {
+	if o != nil && !IsNil(o.Filename) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilename gets a reference to the given string and assigns it to the Filename field.
+func (o *ValidateConstraintViolation) SetFilename(v string) {
+	o.Filename = &v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *ValidateConstraintViolation) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetFlow returns the Flow field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetFlow() string {
+	if o == nil || IsNil(o.Flow) {
+		var ret string
+		return ret
+	}
+	return *o.Flow
+}
+
+// GetFlowOk returns a tuple with the Flow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool) {
+	if o == nil || IsNil(o.Flow) {
+		return nil, false
+	}
+	return o.Flow, true
+}
+
+// HasFlow returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasFlow() bool {
+	if o != nil && !IsNil(o.Flow) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlow gets a reference to the given string and assigns it to the Flow field.
+func (o *ValidateConstraintViolation) SetFlow(v string) {
+	o.Flow = &v
+}
+
+// GetConstraints returns the Constraints field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetConstraints() string {
+	if o == nil || IsNil(o.Constraints) {
+		var ret string
+		return ret
+	}
+	return *o.Constraints
+}
+
+// GetConstraintsOk returns a tuple with the Constraints field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetConstraintsOk() (*string, bool) {
+	if o == nil || IsNil(o.Constraints) {
+		return nil, false
+	}
+	return o.Constraints, true
+}
+
+// HasConstraints returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasConstraints() bool {
+	if o != nil && !IsNil(o.Constraints) {
+		return true
+	}
+
+	return false
+}
+
+// SetConstraints gets a reference to the given string and assigns it to the Constraints field.
+func (o *ValidateConstraintViolation) SetConstraints(v string) {
+	o.Constraints = &v
+}
+
+// GetOutdated returns the Outdated field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetOutdated() bool {
+	if o == nil || IsNil(o.Outdated) {
+		var ret bool
+		return ret
+	}
+	return *o.Outdated
+}
+
+// GetOutdatedOk returns a tuple with the Outdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetOutdatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Outdated) {
+		return nil, false
+	}
+	return o.Outdated, true
+}
+
+// HasOutdated returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasOutdated() bool {
+	if o != nil && !IsNil(o.Outdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutdated gets a reference to the given bool and assigns it to the Outdated field.
+func (o *ValidateConstraintViolation) SetOutdated(v bool) {
+	o.Outdated = &v
+}
+
+// GetDeprecationPaths returns the DeprecationPaths field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetDeprecationPaths() []string {
+	if o == nil || IsNil(o.DeprecationPaths) {
+		var ret []string
+		return ret
+	}
+	return o.DeprecationPaths
+}
+
+// GetDeprecationPathsOk returns a tuple with the DeprecationPaths field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetDeprecationPathsOk() ([]string, bool) {
+	if o == nil || IsNil(o.DeprecationPaths) {
+		return nil, false
+	}
+	return o.DeprecationPaths, true
+}
+
+// HasDeprecationPaths returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasDeprecationPaths() bool {
+	if o != nil && !IsNil(o.DeprecationPaths) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeprecationPaths gets a reference to the given []string and assigns it to the DeprecationPaths field.
+func (o *ValidateConstraintViolation) SetDeprecationPaths(v []string) {
+	o.DeprecationPaths = v
+}
+
+// GetWarnings returns the Warnings field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetWarnings() []string {
+	if o == nil || IsNil(o.Warnings) {
+		var ret []string
+		return ret
+	}
+	return o.Warnings
+}
+
+// GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetWarningsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Warnings) {
+		return nil, false
+	}
+	return o.Warnings, true
+}
+
+// HasWarnings returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasWarnings() bool {
+	if o != nil && !IsNil(o.Warnings) {
+		return true
+	}
+
+	return false
+}
+
+// SetWarnings gets a reference to the given []string and assigns it to the Warnings field.
+func (o *ValidateConstraintViolation) SetWarnings(v []string) {
+	o.Warnings = v
+}
+
+// GetInfos returns the Infos field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetInfos() []string {
+	if o == nil || IsNil(o.Infos) {
+		var ret []string
+		return ret
+	}
+	return o.Infos
+}
+
+// GetInfosOk returns a tuple with the Infos field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetInfosOk() ([]string, bool) {
+	if o == nil || IsNil(o.Infos) {
+		return nil, false
+	}
+	return o.Infos, true
+}
+
+// HasInfos returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasInfos() bool {
+	if o != nil && !IsNil(o.Infos) {
+		return true
+	}
+
+	return false
+}
+
+// SetInfos gets a reference to the given []string and assigns it to the Infos field.
+func (o *ValidateConstraintViolation) SetInfos(v []string) {
+	o.Infos = v
+}
+
+func (o ValidateConstraintViolation) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ValidateConstraintViolation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["index"] = o.Index
+	if !IsNil(o.Filename) {
+		toSerialize["filename"] = o.Filename
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Flow) {
+		toSerialize["flow"] = o.Flow
+	}
+	if !IsNil(o.Constraints) {
+		toSerialize["constraints"] = o.Constraints
+	}
+	if !IsNil(o.Outdated) {
+		toSerialize["outdated"] = o.Outdated
+	}
+	if !IsNil(o.DeprecationPaths) {
+		toSerialize["deprecationPaths"] = o.DeprecationPaths
+	}
+	if !IsNil(o.Warnings) {
+		toSerialize["warnings"] = o.Warnings
+	}
+	if !IsNil(o.Infos) {
+		toSerialize["infos"] = o.Infos
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ValidateConstraintViolation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"index",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varValidateConstraintViolation := _ValidateConstraintViolation{}
+
+	err = json.Unmarshal(data, &varValidateConstraintViolation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ValidateConstraintViolation(varValidateConstraintViolation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flow")
+		delete(additionalProperties, "constraints")
+		delete(additionalProperties, "outdated")
+		delete(additionalProperties, "deprecationPaths")
+		delete(additionalProperties, "warnings")
+		delete(additionalProperties, "infos")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableValidateConstraintViolation struct {
+	value *ValidateConstraintViolation
+	isSet bool
+}
+
+func (v NullableValidateConstraintViolation) Get() *ValidateConstraintViolation {
+	return v.value
+}
+
+func (v *NullableValidateConstraintViolation) Set(val *ValidateConstraintViolation) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableValidateConstraintViolation) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableValidateConstraintViolation) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableValidateConstraintViolation(val *ValidateConstraintViolation) *NullableValidateConstraintViolation {
+	return &NullableValidateConstraintViolation{value: val, isSet: true}
+}
+
+func (v NullableValidateConstraintViolation) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableValidateConstraintViolation) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

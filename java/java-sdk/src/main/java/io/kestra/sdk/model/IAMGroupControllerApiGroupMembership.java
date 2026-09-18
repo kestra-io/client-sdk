@@ -1,0 +1,189 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.GroupIdentifierMembership;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMGroupControllerApiGroupMembership
+ */
+@JsonPropertyOrder({
+  IAMGroupControllerApiGroupMembership.JSON_PROPERTY_ID,
+  IAMGroupControllerApiGroupMembership.JSON_PROPERTY_NAME,
+  IAMGroupControllerApiGroupMembership.JSON_PROPERTY_EXTERNAL,
+  IAMGroupControllerApiGroupMembership.JSON_PROPERTY_MEMBERSHIP
+})
+@JsonTypeName("IAMGroupController.ApiGroupMembership")
+public class IAMGroupControllerApiGroupMembership {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_EXTERNAL = "external";
+  @jakarta.annotation.Nullable  private Boolean external;
+
+  public static final String JSON_PROPERTY_MEMBERSHIP = "membership";
+  @jakarta.annotation.Nullable  private GroupIdentifierMembership membership;
+
+  public IAMGroupControllerApiGroupMembership() {
+  }
+
+  public IAMGroupControllerApiGroupMembership id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMGroupControllerApiGroupMembership name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public IAMGroupControllerApiGroupMembership external(@jakarta.annotation.Nullable Boolean external) {
+    
+    this.external = external;
+    return this;
+  }
+
+  /**
+   * Get external
+   * @return external
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getExternal() {
+    return external;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternal(@jakarta.annotation.Nullable Boolean external) {
+    this.external = external;
+  }
+
+  public IAMGroupControllerApiGroupMembership membership(@jakarta.annotation.Nullable GroupIdentifierMembership membership) {
+    
+    this.membership = membership;
+    return this;
+  }
+
+  /**
+   * Get membership
+   * @return membership
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public GroupIdentifierMembership getMembership() {
+    return membership;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMembership(@jakarta.annotation.Nullable GroupIdentifierMembership membership) {
+    this.membership = membership;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMGroupControllerApiGroupMembership iaMGroupControllerApiGroupMembership = (IAMGroupControllerApiGroupMembership) o;
+    return Objects.equals(this.id, iaMGroupControllerApiGroupMembership.id) &&
+        Objects.equals(this.name, iaMGroupControllerApiGroupMembership.name) &&
+        Objects.equals(this.external, iaMGroupControllerApiGroupMembership.external) &&
+        Objects.equals(this.membership, iaMGroupControllerApiGroupMembership.membership);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, external, membership);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMGroupControllerApiGroupMembership {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    external: ").append(toIndentedString(external)).append("\n");
+    sb.append("    membership: ").append(toIndentedString(membership)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,125 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// ServiceServiceState the model 'ServiceServiceState'
+type ServiceServiceState string
+
+// List of Service.ServiceState
+const (
+	SERVICESERVICESTATE_CREATED ServiceServiceState = "CREATED"
+	SERVICESERVICESTATE_RUNNING ServiceServiceState = "RUNNING"
+	SERVICESERVICESTATE_ERROR ServiceServiceState = "ERROR"
+	SERVICESERVICESTATE_DISCONNECTED ServiceServiceState = "DISCONNECTED"
+	SERVICESERVICESTATE_TERMINATING ServiceServiceState = "TERMINATING"
+	SERVICESERVICESTATE_TERMINATED_GRACEFULLY ServiceServiceState = "TERMINATED_GRACEFULLY"
+	SERVICESERVICESTATE_TERMINATED_FORCED ServiceServiceState = "TERMINATED_FORCED"
+	SERVICESERVICESTATE_NOT_RUNNING ServiceServiceState = "NOT_RUNNING"
+	SERVICESERVICESTATE_INACTIVE ServiceServiceState = "INACTIVE"
+	SERVICESERVICESTATE_MAINTENANCE ServiceServiceState = "MAINTENANCE"
+)
+
+// All allowed values of ServiceServiceState enum
+var AllowedServiceServiceStateEnumValues = []ServiceServiceState{
+	"CREATED",
+	"RUNNING",
+	"ERROR",
+	"DISCONNECTED",
+	"TERMINATING",
+	"TERMINATED_GRACEFULLY",
+	"TERMINATED_FORCED",
+	"NOT_RUNNING",
+	"INACTIVE",
+	"MAINTENANCE",
+}
+
+func (v *ServiceServiceState) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := ServiceServiceState(value)
+	for _, existing := range AllowedServiceServiceStateEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ServiceServiceState", value)
+}
+
+// NewServiceServiceStateFromValue returns a pointer to a valid ServiceServiceState
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewServiceServiceStateFromValue(v string) (*ServiceServiceState, error) {
+	ev := ServiceServiceState(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for ServiceServiceState: valid values are %v", v, AllowedServiceServiceStateEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v ServiceServiceState) IsValid() bool {
+	for _, existing := range AllowedServiceServiceStateEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Service.ServiceState value
+func (v ServiceServiceState) Ptr() *ServiceServiceState {
+	return &v
+}
+
+type NullableServiceServiceState struct {
+	value *ServiceServiceState
+	isSet bool
+}
+
+func (v NullableServiceServiceState) Get() *ServiceServiceState {
+	return v.value
+}
+
+func (v *NullableServiceServiceState) Set(val *ServiceServiceState) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceServiceState) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceServiceState) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceServiceState(val *ServiceServiceState) *NullableServiceServiceState {
+	return &NullableServiceServiceState{value: val, isSet: true}
+}
+
+func (v NullableServiceServiceState) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceServiceState) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

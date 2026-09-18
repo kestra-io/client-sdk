@@ -1,0 +1,300 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Meta;
+import io.kestra.sdk.model.ScimExtension;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ScimResourceWithOptionalId
+ */
+@JsonPropertyOrder({
+  ScimResourceWithOptionalId.JSON_PROPERTY_SCHEMAS,
+  ScimResourceWithOptionalId.JSON_PROPERTY_BASE_URN,
+  ScimResourceWithOptionalId.JSON_PROPERTY_EXTENSIONS,
+  ScimResourceWithOptionalId.JSON_PROPERTY_META,
+  ScimResourceWithOptionalId.JSON_PROPERTY_ID,
+  ScimResourceWithOptionalId.JSON_PROPERTY_EXTERNAL_ID,
+  ScimResourceWithOptionalId.JSON_PROPERTY_RESOURCE_TYPE
+})
+public class ScimResourceWithOptionalId {
+  public static final String JSON_PROPERTY_SCHEMAS = "schemas";
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
+  @jakarta.annotation.Nullable  private String baseUrn;
+
+  public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
+  @jakarta.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_META = "meta";
+  @jakarta.annotation.Nonnull  private Meta meta;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @jakarta.annotation.Nullable  private String externalId;
+
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @jakarta.annotation.Nullable  private String resourceType;
+
+  public ScimResourceWithOptionalId() {
+  }
+
+  public ScimResourceWithOptionalId schemas(@jakarta.annotation.Nullable List<String> schemas) {
+    
+    this.schemas = schemas;
+    return this;
+  }
+
+  public ScimResourceWithOptionalId addSchemasItem(String schemasItem) {
+    if (this.schemas == null) {
+      this.schemas = new ArrayList<>();
+    }
+    this.schemas.add(schemasItem);
+    return this;
+  }
+
+  /**
+   * Get schemas
+   * @return schemas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSchemas() {
+    return schemas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
+    this.schemas = schemas;
+  }
+
+  public ScimResourceWithOptionalId baseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    
+    this.baseUrn = baseUrn;
+    return this;
+  }
+
+  /**
+   * Get baseUrn
+   * @return baseUrn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBaseUrn() {
+    return baseUrn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBaseUrn(@jakarta.annotation.Nullable String baseUrn) {
+    this.baseUrn = baseUrn;
+  }
+
+  public ScimResourceWithOptionalId extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    
+    this.extensions = extensions;
+    return this;
+  }
+
+  public ScimResourceWithOptionalId putExtensionsItem(String key, ScimExtension extensionsItem) {
+    if (this.extensions == null) {
+      this.extensions = new HashMap<>();
+    }
+    this.extensions.put(key, extensionsItem);
+    return this;
+  }
+
+  /**
+   * Get extensions
+   * @return extensions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, ScimExtension> getExtensions() {
+    return extensions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExtensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+    this.extensions = extensions;
+  }
+
+  public ScimResourceWithOptionalId meta(@jakarta.annotation.Nonnull Meta meta) {
+    
+    this.meta = meta;
+    return this;
+  }
+
+  /**
+   * Get meta
+   * @return meta
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Meta getMeta() {
+    return meta;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_META)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMeta(@jakarta.annotation.Nonnull Meta meta) {
+    this.meta = meta;
+  }
+
+  public ScimResourceWithOptionalId id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public ScimResourceWithOptionalId externalId(@jakarta.annotation.Nullable String externalId) {
+    
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Get externalId
+   * @return externalId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
+  public ScimResourceWithOptionalId resourceType(@jakarta.annotation.Nullable String resourceType) {
+    
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ScimResourceWithOptionalId scimResourceWithOptionalId = (ScimResourceWithOptionalId) o;
+    return Objects.equals(this.schemas, scimResourceWithOptionalId.schemas) &&
+        Objects.equals(this.baseUrn, scimResourceWithOptionalId.baseUrn) &&
+        Objects.equals(this.extensions, scimResourceWithOptionalId.extensions) &&
+        Objects.equals(this.meta, scimResourceWithOptionalId.meta) &&
+        Objects.equals(this.id, scimResourceWithOptionalId.id) &&
+        Objects.equals(this.externalId, scimResourceWithOptionalId.externalId) &&
+        Objects.equals(this.resourceType, scimResourceWithOptionalId.resourceType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas, baseUrn, extensions, meta, id, externalId, resourceType);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ScimResourceWithOptionalId {\n");
+    sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
+    sb.append("    baseUrn: ").append(toIndentedString(baseUrn)).append("\n");
+    sb.append("    extensions: ").append(toIndentedString(extensions)).append("\n");
+    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,113 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * Gets or Sets ResourceType
+ */
+public enum ResourceType {
+  
+  AUDITLOG("AUDITLOG"),
+  
+  APP("APP"),
+  
+  ASSET("ASSET"),
+  
+  APP_EXECUTION("APP_EXECUTION"),
+  
+  BLUEPRINT("BLUEPRINT"),
+  
+  BINDING("BINDING"),
+  
+  DASHBOARD("DASHBOARD"),
+  
+  EXECUTION("EXECUTION"),
+  
+  FLOW("FLOW"),
+  
+  KILL_SWITCH("KILL_SWITCH"),
+  
+  KV_STORE("KV_STORE"),
+  
+  GROUP("GROUP"),
+  
+  INVITATION("INVITATION"),
+  
+  NAMESPACE("NAMESPACE"),
+  
+  NAMESPACE_FILE("NAMESPACE_FILE"),
+  
+  ROLE("ROLE"),
+  
+  SECURITY_INTEGRATION("SECURITY_INTEGRATION"),
+  
+  SECRET("SECRET"),
+  
+  SETTING("SETTING"),
+  
+  TRIGGER("TRIGGER"),
+  
+  TENANT("TENANT"),
+  
+  TENANT_ACCESS("TENANT_ACCESS"),
+  
+  TESTSUITE("TESTSUITE"),
+  
+  TESTSUITE_RUN("TESTSUITE_RUN"),
+  
+  VERSIONED_PLUGIN("VERSIONED_PLUGIN"),
+  
+  USER("USER"),
+  
+  CREDENTIAL("CREDENTIAL"),
+  
+  WORKER_GROUP("WORKER_GROUP"),
+  
+  INSTANCE("INSTANCE"),
+  
+  UNKNOWN("UNKNOWN"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+
+  private String value;
+
+  ResourceType(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static ResourceType fromValue(String value) {
+    for (ResourceType b : ResourceType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
+  }
+}
+

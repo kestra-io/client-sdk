@@ -1,0 +1,852 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Tenant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Tenant{}
+
+// Tenant struct for Tenant
+type Tenant struct {
+	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
+	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
+	Name string `json:"name"`
+	Deleted bool `json:"deleted"`
+	Type *TenantType `json:"type,omitempty"`
+	DefaultWorkerSelector *WorkerSelector `json:"defaultWorkerSelector,omitempty"`
+	Concurrency *Concurrency `json:"concurrency,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	StorageConfiguration map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
+	SecretConfiguration map[string]interface{} `json:"secretConfiguration,omitempty"`
+	WorkerSecretManagerMode *SecretConfigurationWorkerSecretManagerMode `json:"workerSecretManagerMode,omitempty"`
+	RequireExistingNamespace *bool `json:"requireExistingNamespace,omitempty"`
+	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
+	AppCatalogConfig *TenantAppCatalogConfig `json:"appCatalogConfig,omitempty"`
+	Settings *TenantPreferencesSettings `json:"settings,omitempty"`
+	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	Quotas []Quota `json:"quotas,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Tenant Tenant
+
+// NewTenant instantiates a new Tenant object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTenant(id string, name string, deleted bool) *Tenant {
+	this := Tenant{}
+	this.Id = id
+	this.Name = name
+	this.Deleted = deleted
+	var type_ TenantType = TENANTTYPE_DEFAULT
+	this.Type = &type_
+	return &this
+}
+
+// NewTenantWithDefaults instantiates a new Tenant object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTenantWithDefaults() *Tenant {
+	this := Tenant{}
+	return &this
+}
+
+// GetStorageIsolation returns the StorageIsolation field value if set, zero value otherwise.
+func (o *Tenant) GetStorageIsolation() Isolation {
+	if o == nil || IsNil(o.StorageIsolation) {
+		var ret Isolation
+		return ret
+	}
+	return *o.StorageIsolation
+}
+
+// GetStorageIsolationOk returns a tuple with the StorageIsolation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetStorageIsolationOk() (*Isolation, bool) {
+	if o == nil || IsNil(o.StorageIsolation) {
+		return nil, false
+	}
+	return o.StorageIsolation, true
+}
+
+// HasStorageIsolation returns a boolean if a field has been set.
+func (o *Tenant) HasStorageIsolation() bool {
+	if o != nil && !IsNil(o.StorageIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageIsolation gets a reference to the given Isolation and assigns it to the StorageIsolation field.
+func (o *Tenant) SetStorageIsolation(v Isolation) {
+	o.StorageIsolation = &v
+}
+
+// GetSecretIsolation returns the SecretIsolation field value if set, zero value otherwise.
+func (o *Tenant) GetSecretIsolation() Isolation {
+	if o == nil || IsNil(o.SecretIsolation) {
+		var ret Isolation
+		return ret
+	}
+	return *o.SecretIsolation
+}
+
+// GetSecretIsolationOk returns a tuple with the SecretIsolation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSecretIsolationOk() (*Isolation, bool) {
+	if o == nil || IsNil(o.SecretIsolation) {
+		return nil, false
+	}
+	return o.SecretIsolation, true
+}
+
+// HasSecretIsolation returns a boolean if a field has been set.
+func (o *Tenant) HasSecretIsolation() bool {
+	if o != nil && !IsNil(o.SecretIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretIsolation gets a reference to the given Isolation and assigns it to the SecretIsolation field.
+func (o *Tenant) SetSecretIsolation(v Isolation) {
+	o.SecretIsolation = &v
+}
+
+// GetId returns the Id field value
+func (o *Tenant) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Tenant) SetId(v string) {
+	o.Id = v
+}
+
+// GetName returns the Name field value
+func (o *Tenant) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *Tenant) SetName(v string) {
+	o.Name = v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *Tenant) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *Tenant) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Tenant) GetType() TenantType {
+	if o == nil || IsNil(o.Type) {
+		var ret TenantType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetTypeOk() (*TenantType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Tenant) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given TenantType and assigns it to the Type field.
+func (o *Tenant) SetType(v TenantType) {
+	o.Type = &v
+}
+
+// GetDefaultWorkerSelector returns the DefaultWorkerSelector field value if set, zero value otherwise.
+func (o *Tenant) GetDefaultWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		var ret WorkerSelector
+		return ret
+	}
+	return *o.DefaultWorkerSelector
+}
+
+// GetDefaultWorkerSelectorOk returns a tuple with the DefaultWorkerSelector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetDefaultWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		return nil, false
+	}
+	return o.DefaultWorkerSelector, true
+}
+
+// HasDefaultWorkerSelector returns a boolean if a field has been set.
+func (o *Tenant) HasDefaultWorkerSelector() bool {
+	if o != nil && !IsNil(o.DefaultWorkerSelector) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultWorkerSelector gets a reference to the given WorkerSelector and assigns it to the DefaultWorkerSelector field.
+func (o *Tenant) SetDefaultWorkerSelector(v WorkerSelector) {
+	o.DefaultWorkerSelector = &v
+}
+
+// GetConcurrency returns the Concurrency field value if set, zero value otherwise.
+func (o *Tenant) GetConcurrency() Concurrency {
+	if o == nil || IsNil(o.Concurrency) {
+		var ret Concurrency
+		return ret
+	}
+	return *o.Concurrency
+}
+
+// GetConcurrencyOk returns a tuple with the Concurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetConcurrencyOk() (*Concurrency, bool) {
+	if o == nil || IsNil(o.Concurrency) {
+		return nil, false
+	}
+	return o.Concurrency, true
+}
+
+// HasConcurrency returns a boolean if a field has been set.
+func (o *Tenant) HasConcurrency() bool {
+	if o != nil && !IsNil(o.Concurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetConcurrency gets a reference to the given Concurrency and assigns it to the Concurrency field.
+func (o *Tenant) SetConcurrency(v Concurrency) {
+	o.Concurrency = &v
+}
+
+// GetStorageType returns the StorageType field value if set, zero value otherwise.
+func (o *Tenant) GetStorageType() string {
+	if o == nil || IsNil(o.StorageType) {
+		var ret string
+		return ret
+	}
+	return *o.StorageType
+}
+
+// GetStorageTypeOk returns a tuple with the StorageType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetStorageTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.StorageType) {
+		return nil, false
+	}
+	return o.StorageType, true
+}
+
+// HasStorageType returns a boolean if a field has been set.
+func (o *Tenant) HasStorageType() bool {
+	if o != nil && !IsNil(o.StorageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageType gets a reference to the given string and assigns it to the StorageType field.
+func (o *Tenant) SetStorageType(v string) {
+	o.StorageType = &v
+}
+
+// GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
+func (o *Tenant) GetStorageConfiguration() map[string]interface{} {
+	if o == nil || IsNil(o.StorageConfiguration) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetStorageConfigurationOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.StorageConfiguration) {
+		return map[string]interface{}{}, false
+	}
+	return o.StorageConfiguration, true
+}
+
+// HasStorageConfiguration returns a boolean if a field has been set.
+func (o *Tenant) HasStorageConfiguration() bool {
+	if o != nil && !IsNil(o.StorageConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageConfiguration gets a reference to the given map[string]interface{} and assigns it to the StorageConfiguration field.
+func (o *Tenant) SetStorageConfiguration(v map[string]interface{}) {
+	o.StorageConfiguration = v
+}
+
+// GetSecretType returns the SecretType field value if set, zero value otherwise.
+func (o *Tenant) GetSecretType() string {
+	if o == nil || IsNil(o.SecretType) {
+		var ret string
+		return ret
+	}
+	return *o.SecretType
+}
+
+// GetSecretTypeOk returns a tuple with the SecretType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSecretTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.SecretType) {
+		return nil, false
+	}
+	return o.SecretType, true
+}
+
+// HasSecretType returns a boolean if a field has been set.
+func (o *Tenant) HasSecretType() bool {
+	if o != nil && !IsNil(o.SecretType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretType gets a reference to the given string and assigns it to the SecretType field.
+func (o *Tenant) SetSecretType(v string) {
+	o.SecretType = &v
+}
+
+// GetSecretReadOnly returns the SecretReadOnly field value if set, zero value otherwise.
+func (o *Tenant) GetSecretReadOnly() bool {
+	if o == nil || IsNil(o.SecretReadOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.SecretReadOnly
+}
+
+// GetSecretReadOnlyOk returns a tuple with the SecretReadOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSecretReadOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.SecretReadOnly) {
+		return nil, false
+	}
+	return o.SecretReadOnly, true
+}
+
+// HasSecretReadOnly returns a boolean if a field has been set.
+func (o *Tenant) HasSecretReadOnly() bool {
+	if o != nil && !IsNil(o.SecretReadOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretReadOnly gets a reference to the given bool and assigns it to the SecretReadOnly field.
+func (o *Tenant) SetSecretReadOnly(v bool) {
+	o.SecretReadOnly = &v
+}
+
+// GetSecretConfiguration returns the SecretConfiguration field value if set, zero value otherwise.
+func (o *Tenant) GetSecretConfiguration() map[string]interface{} {
+	if o == nil || IsNil(o.SecretConfiguration) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.SecretConfiguration
+}
+
+// GetSecretConfigurationOk returns a tuple with the SecretConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSecretConfigurationOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.SecretConfiguration) {
+		return map[string]interface{}{}, false
+	}
+	return o.SecretConfiguration, true
+}
+
+// HasSecretConfiguration returns a boolean if a field has been set.
+func (o *Tenant) HasSecretConfiguration() bool {
+	if o != nil && !IsNil(o.SecretConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretConfiguration gets a reference to the given map[string]interface{} and assigns it to the SecretConfiguration field.
+func (o *Tenant) SetSecretConfiguration(v map[string]interface{}) {
+	o.SecretConfiguration = v
+}
+
+// GetWorkerSecretManagerMode returns the WorkerSecretManagerMode field value if set, zero value otherwise.
+func (o *Tenant) GetWorkerSecretManagerMode() SecretConfigurationWorkerSecretManagerMode {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		var ret SecretConfigurationWorkerSecretManagerMode
+		return ret
+	}
+	return *o.WorkerSecretManagerMode
+}
+
+// GetWorkerSecretManagerModeOk returns a tuple with the WorkerSecretManagerMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetWorkerSecretManagerModeOk() (*SecretConfigurationWorkerSecretManagerMode, bool) {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		return nil, false
+	}
+	return o.WorkerSecretManagerMode, true
+}
+
+// HasWorkerSecretManagerMode returns a boolean if a field has been set.
+func (o *Tenant) HasWorkerSecretManagerMode() bool {
+	if o != nil && !IsNil(o.WorkerSecretManagerMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSecretManagerMode gets a reference to the given SecretConfigurationWorkerSecretManagerMode and assigns it to the WorkerSecretManagerMode field.
+func (o *Tenant) SetWorkerSecretManagerMode(v SecretConfigurationWorkerSecretManagerMode) {
+	o.WorkerSecretManagerMode = &v
+}
+
+// GetRequireExistingNamespace returns the RequireExistingNamespace field value if set, zero value otherwise.
+func (o *Tenant) GetRequireExistingNamespace() bool {
+	if o == nil || IsNil(o.RequireExistingNamespace) {
+		var ret bool
+		return ret
+	}
+	return *o.RequireExistingNamespace
+}
+
+// GetRequireExistingNamespaceOk returns a tuple with the RequireExistingNamespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetRequireExistingNamespaceOk() (*bool, bool) {
+	if o == nil || IsNil(o.RequireExistingNamespace) {
+		return nil, false
+	}
+	return o.RequireExistingNamespace, true
+}
+
+// HasRequireExistingNamespace returns a boolean if a field has been set.
+func (o *Tenant) HasRequireExistingNamespace() bool {
+	if o != nil && !IsNil(o.RequireExistingNamespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequireExistingNamespace gets a reference to the given bool and assigns it to the RequireExistingNamespace field.
+func (o *Tenant) SetRequireExistingNamespace(v bool) {
+	o.RequireExistingNamespace = &v
+}
+
+// GetOutputsInInternalStorage returns the OutputsInInternalStorage field value if set, zero value otherwise.
+func (o *Tenant) GetOutputsInInternalStorage() bool {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
+		var ret bool
+		return ret
+	}
+	return *o.OutputsInInternalStorage
+}
+
+// GetOutputsInInternalStorageOk returns a tuple with the OutputsInInternalStorage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetOutputsInInternalStorageOk() (*bool, bool) {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
+		return nil, false
+	}
+	return o.OutputsInInternalStorage, true
+}
+
+// HasOutputsInInternalStorage returns a boolean if a field has been set.
+func (o *Tenant) HasOutputsInInternalStorage() bool {
+	if o != nil && !IsNil(o.OutputsInInternalStorage) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputsInInternalStorage gets a reference to the given bool and assigns it to the OutputsInInternalStorage field.
+func (o *Tenant) SetOutputsInInternalStorage(v bool) {
+	o.OutputsInInternalStorage = &v
+}
+
+// GetAppCatalogConfig returns the AppCatalogConfig field value if set, zero value otherwise.
+func (o *Tenant) GetAppCatalogConfig() TenantAppCatalogConfig {
+	if o == nil || IsNil(o.AppCatalogConfig) {
+		var ret TenantAppCatalogConfig
+		return ret
+	}
+	return *o.AppCatalogConfig
+}
+
+// GetAppCatalogConfigOk returns a tuple with the AppCatalogConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetAppCatalogConfigOk() (*TenantAppCatalogConfig, bool) {
+	if o == nil || IsNil(o.AppCatalogConfig) {
+		return nil, false
+	}
+	return o.AppCatalogConfig, true
+}
+
+// HasAppCatalogConfig returns a boolean if a field has been set.
+func (o *Tenant) HasAppCatalogConfig() bool {
+	if o != nil && !IsNil(o.AppCatalogConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppCatalogConfig gets a reference to the given TenantAppCatalogConfig and assigns it to the AppCatalogConfig field.
+func (o *Tenant) SetAppCatalogConfig(v TenantAppCatalogConfig) {
+	o.AppCatalogConfig = &v
+}
+
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *Tenant) GetSettings() TenantPreferencesSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret TenantPreferencesSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSettingsOk() (*TenantPreferencesSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *Tenant) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given TenantPreferencesSettings and assigns it to the Settings field.
+func (o *Tenant) SetSettings(v TenantPreferencesSettings) {
+	o.Settings = &v
+}
+
+// GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
+func (o *Tenant) GetSdkDefaultAuthentication() SDKAuth {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		var ret SDKAuth
+		return ret
+	}
+	return *o.SdkDefaultAuthentication
+}
+
+// GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool) {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		return nil, false
+	}
+	return o.SdkDefaultAuthentication, true
+}
+
+// HasSdkDefaultAuthentication returns a boolean if a field has been set.
+func (o *Tenant) HasSdkDefaultAuthentication() bool {
+	if o != nil && !IsNil(o.SdkDefaultAuthentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetSdkDefaultAuthentication gets a reference to the given SDKAuth and assigns it to the SdkDefaultAuthentication field.
+func (o *Tenant) SetSdkDefaultAuthentication(v SDKAuth) {
+	o.SdkDefaultAuthentication = &v
+}
+
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *Tenant) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *Tenant) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *Tenant) SetQuotas(v []Quota) {
+	o.Quotas = v
+}
+
+func (o Tenant) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Tenant) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StorageIsolation) {
+		toSerialize["storageIsolation"] = o.StorageIsolation
+	}
+	if !IsNil(o.SecretIsolation) {
+		toSerialize["secretIsolation"] = o.SecretIsolation
+	}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["deleted"] = o.Deleted
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.DefaultWorkerSelector) {
+		toSerialize["defaultWorkerSelector"] = o.DefaultWorkerSelector
+	}
+	if !IsNil(o.Concurrency) {
+		toSerialize["concurrency"] = o.Concurrency
+	}
+	if !IsNil(o.StorageType) {
+		toSerialize["storageType"] = o.StorageType
+	}
+	if !IsNil(o.StorageConfiguration) {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	}
+	if !IsNil(o.SecretType) {
+		toSerialize["secretType"] = o.SecretType
+	}
+	if !IsNil(o.SecretReadOnly) {
+		toSerialize["secretReadOnly"] = o.SecretReadOnly
+	}
+	if !IsNil(o.SecretConfiguration) {
+		toSerialize["secretConfiguration"] = o.SecretConfiguration
+	}
+	if !IsNil(o.WorkerSecretManagerMode) {
+		toSerialize["workerSecretManagerMode"] = o.WorkerSecretManagerMode
+	}
+	if !IsNil(o.RequireExistingNamespace) {
+		toSerialize["requireExistingNamespace"] = o.RequireExistingNamespace
+	}
+	if !IsNil(o.OutputsInInternalStorage) {
+		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
+	}
+	if !IsNil(o.AppCatalogConfig) {
+		toSerialize["appCatalogConfig"] = o.AppCatalogConfig
+	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
+	}
+	if !IsNil(o.SdkDefaultAuthentication) {
+		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Tenant) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"deleted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTenant := _Tenant{}
+
+	err = json.Unmarshal(data, &varTenant)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Tenant(varTenant)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "storageIsolation")
+		delete(additionalProperties, "secretIsolation")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "defaultWorkerSelector")
+		delete(additionalProperties, "concurrency")
+		delete(additionalProperties, "storageType")
+		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "secretType")
+		delete(additionalProperties, "secretReadOnly")
+		delete(additionalProperties, "secretConfiguration")
+		delete(additionalProperties, "workerSecretManagerMode")
+		delete(additionalProperties, "requireExistingNamespace")
+		delete(additionalProperties, "outputsInInternalStorage")
+		delete(additionalProperties, "appCatalogConfig")
+		delete(additionalProperties, "settings")
+		delete(additionalProperties, "sdkDefaultAuthentication")
+		delete(additionalProperties, "quotas")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTenant struct {
+	value *Tenant
+	isSet bool
+}
+
+func (v NullableTenant) Get() *Tenant {
+	return v.value
+}
+
+func (v *NullableTenant) Set(val *Tenant) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTenant) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTenant) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTenant(val *Tenant) *NullableTenant {
+	return &NullableTenant{value: val, isSet: true}
+}
+
+func (v NullableTenant) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTenant) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

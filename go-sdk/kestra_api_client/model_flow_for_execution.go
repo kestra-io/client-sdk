@@ -1,0 +1,759 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+	"time"
+)
+
+// checks if the FlowForExecution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FlowForExecution{}
+
+// FlowForExecution struct for FlowForExecution
+type FlowForExecution struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision *int32 `json:"revision,omitempty"`
+	// The timestamp when this revision was created or last updated.
+	Updated *time.Time `json:"updated,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Inputs []InputObject `json:"inputs,omitempty"`
+	Outputs []Output `json:"outputs,omitempty"`
+	// A disabled flow does not run: its triggers are paused and new executions are rejected.
+	Disabled bool `json:"disabled"`
+	// Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+	Draft bool `json:"draft"`
+	// Labels as a list of Label (key/value pairs) or as a map of string to string.
+	Labels *MapObjectObject `json:"labels,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	// Routing requirements (tags + fallback) for this flow.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	Deleted bool `json:"deleted"`
+	Tasks []TaskForExecution `json:"tasks"`
+	Errors []TaskForExecution `json:"errors,omitempty"`
+	Finally []TaskForExecution `json:"finally,omitempty"`
+	AfterExecution []TaskForExecution `json:"afterExecution,omitempty"`
+	Triggers []AbstractTriggerForExecution `json:"triggers,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FlowForExecution FlowForExecution
+
+// NewFlowForExecution instantiates a new FlowForExecution object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFlowForExecution(id string, namespace string, disabled bool, draft bool, deleted bool, tasks []TaskForExecution) *FlowForExecution {
+	this := FlowForExecution{}
+	this.Id = id
+	this.Namespace = namespace
+	this.Disabled = disabled
+	this.Draft = draft
+	this.Deleted = deleted
+	this.Tasks = tasks
+	return &this
+}
+
+// NewFlowForExecutionWithDefaults instantiates a new FlowForExecution object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFlowForExecutionWithDefaults() *FlowForExecution {
+	this := FlowForExecution{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *FlowForExecution) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *FlowForExecution) SetId(v string) {
+	o.Id = v
+}
+
+// GetNamespace returns the Namespace field value
+func (o *FlowForExecution) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *FlowForExecution) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *FlowForExecution) GetRevision() int32 {
+	if o == nil || IsNil(o.Revision) {
+		var ret int32
+		return ret
+	}
+	return *o.Revision
+}
+
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetRevisionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Revision) {
+		return nil, false
+	}
+	return o.Revision, true
+}
+
+// HasRevision returns a boolean if a field has been set.
+func (o *FlowForExecution) HasRevision() bool {
+	if o != nil && !IsNil(o.Revision) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevision gets a reference to the given int32 and assigns it to the Revision field.
+func (o *FlowForExecution) SetRevision(v int32) {
+	o.Revision = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *FlowForExecution) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *FlowForExecution) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *FlowForExecution) SetUpdated(v time.Time) {
+	o.Updated = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FlowForExecution) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FlowForExecution) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FlowForExecution) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetInputs returns the Inputs field value if set, zero value otherwise.
+func (o *FlowForExecution) GetInputs() []InputObject {
+	if o == nil || IsNil(o.Inputs) {
+		var ret []InputObject
+		return ret
+	}
+	return o.Inputs
+}
+
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetInputsOk() ([]InputObject, bool) {
+	if o == nil || IsNil(o.Inputs) {
+		return nil, false
+	}
+	return o.Inputs, true
+}
+
+// HasInputs returns a boolean if a field has been set.
+func (o *FlowForExecution) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given []InputObject and assigns it to the Inputs field.
+func (o *FlowForExecution) SetInputs(v []InputObject) {
+	o.Inputs = v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
+func (o *FlowForExecution) GetOutputs() []Output {
+	if o == nil || IsNil(o.Outputs) {
+		var ret []Output
+		return ret
+	}
+	return o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetOutputsOk() ([]Output, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *FlowForExecution) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given []Output and assigns it to the Outputs field.
+func (o *FlowForExecution) SetOutputs(v []Output) {
+	o.Outputs = v
+}
+
+// GetDisabled returns the Disabled field value
+func (o *FlowForExecution) GetDisabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetDisabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Disabled, true
+}
+
+// SetDisabled sets field value
+func (o *FlowForExecution) SetDisabled(v bool) {
+	o.Disabled = v
+}
+
+// GetDraft returns the Draft field value
+func (o *FlowForExecution) GetDraft() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetDraftOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Draft, true
+}
+
+// SetDraft sets field value
+func (o *FlowForExecution) SetDraft(v bool) {
+	o.Draft = v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *FlowForExecution) GetLabels() MapObjectObject {
+	if o == nil || IsNil(o.Labels) {
+		var ret MapObjectObject
+		return ret
+	}
+	return *o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetLabelsOk() (*MapObjectObject, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *FlowForExecution) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given MapObjectObject and assigns it to the Labels field.
+func (o *FlowForExecution) SetLabels(v MapObjectObject) {
+	o.Labels = &v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *FlowForExecution) GetVariables() map[string]interface{} {
+	if o == nil || IsNil(o.Variables) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetVariablesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return map[string]interface{}{}, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *FlowForExecution) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *FlowForExecution) SetVariables(v map[string]interface{}) {
+	o.Variables = v
+}
+
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *FlowForExecution) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
+		return ret
+	}
+	return *o.WorkerSelector
+}
+
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
+		return nil, false
+	}
+	return o.WorkerSelector, true
+}
+
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *FlowForExecution) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *FlowForExecution) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *FlowForExecution) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *FlowForExecution) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+// GetTasks returns the Tasks field value
+func (o *FlowForExecution) GetTasks() []TaskForExecution {
+	if o == nil {
+		var ret []TaskForExecution
+		return ret
+	}
+
+	return o.Tasks
+}
+
+// GetTasksOk returns a tuple with the Tasks field value
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetTasksOk() ([]TaskForExecution, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Tasks, true
+}
+
+// SetTasks sets field value
+func (o *FlowForExecution) SetTasks(v []TaskForExecution) {
+	o.Tasks = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *FlowForExecution) GetErrors() []TaskForExecution {
+	if o == nil || IsNil(o.Errors) {
+		var ret []TaskForExecution
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetErrorsOk() ([]TaskForExecution, bool) {
+	if o == nil || IsNil(o.Errors) {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *FlowForExecution) HasErrors() bool {
+	if o != nil && !IsNil(o.Errors) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []TaskForExecution and assigns it to the Errors field.
+func (o *FlowForExecution) SetErrors(v []TaskForExecution) {
+	o.Errors = v
+}
+
+// GetFinally returns the Finally field value if set, zero value otherwise.
+func (o *FlowForExecution) GetFinally() []TaskForExecution {
+	if o == nil || IsNil(o.Finally) {
+		var ret []TaskForExecution
+		return ret
+	}
+	return o.Finally
+}
+
+// GetFinallyOk returns a tuple with the Finally field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetFinallyOk() ([]TaskForExecution, bool) {
+	if o == nil || IsNil(o.Finally) {
+		return nil, false
+	}
+	return o.Finally, true
+}
+
+// HasFinally returns a boolean if a field has been set.
+func (o *FlowForExecution) HasFinally() bool {
+	if o != nil && !IsNil(o.Finally) {
+		return true
+	}
+
+	return false
+}
+
+// SetFinally gets a reference to the given []TaskForExecution and assigns it to the Finally field.
+func (o *FlowForExecution) SetFinally(v []TaskForExecution) {
+	o.Finally = v
+}
+
+// GetAfterExecution returns the AfterExecution field value if set, zero value otherwise.
+func (o *FlowForExecution) GetAfterExecution() []TaskForExecution {
+	if o == nil || IsNil(o.AfterExecution) {
+		var ret []TaskForExecution
+		return ret
+	}
+	return o.AfterExecution
+}
+
+// GetAfterExecutionOk returns a tuple with the AfterExecution field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetAfterExecutionOk() ([]TaskForExecution, bool) {
+	if o == nil || IsNil(o.AfterExecution) {
+		return nil, false
+	}
+	return o.AfterExecution, true
+}
+
+// HasAfterExecution returns a boolean if a field has been set.
+func (o *FlowForExecution) HasAfterExecution() bool {
+	if o != nil && !IsNil(o.AfterExecution) {
+		return true
+	}
+
+	return false
+}
+
+// SetAfterExecution gets a reference to the given []TaskForExecution and assigns it to the AfterExecution field.
+func (o *FlowForExecution) SetAfterExecution(v []TaskForExecution) {
+	o.AfterExecution = v
+}
+
+// GetTriggers returns the Triggers field value if set, zero value otherwise.
+func (o *FlowForExecution) GetTriggers() []AbstractTriggerForExecution {
+	if o == nil || IsNil(o.Triggers) {
+		var ret []AbstractTriggerForExecution
+		return ret
+	}
+	return o.Triggers
+}
+
+// GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetTriggersOk() ([]AbstractTriggerForExecution, bool) {
+	if o == nil || IsNil(o.Triggers) {
+		return nil, false
+	}
+	return o.Triggers, true
+}
+
+// HasTriggers returns a boolean if a field has been set.
+func (o *FlowForExecution) HasTriggers() bool {
+	if o != nil && !IsNil(o.Triggers) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggers gets a reference to the given []AbstractTriggerForExecution and assigns it to the Triggers field.
+func (o *FlowForExecution) SetTriggers(v []AbstractTriggerForExecution) {
+	o.Triggers = v
+}
+
+func (o FlowForExecution) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FlowForExecution) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["namespace"] = o.Namespace
+	if !IsNil(o.Revision) {
+		toSerialize["revision"] = o.Revision
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Inputs) {
+		toSerialize["inputs"] = o.Inputs
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+	toSerialize["disabled"] = o.Disabled
+	toSerialize["draft"] = o.Draft
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
+	}
+	toSerialize["deleted"] = o.Deleted
+	toSerialize["tasks"] = o.Tasks
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
+	if !IsNil(o.Finally) {
+		toSerialize["finally"] = o.Finally
+	}
+	if !IsNil(o.AfterExecution) {
+		toSerialize["afterExecution"] = o.AfterExecution
+	}
+	if !IsNil(o.Triggers) {
+		toSerialize["triggers"] = o.Triggers
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FlowForExecution) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"namespace",
+		"disabled",
+		"draft",
+		"deleted",
+		"tasks",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFlowForExecution := _FlowForExecution{}
+
+	err = json.Unmarshal(data, &varFlowForExecution)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowForExecution(varFlowForExecution)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "draft")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerSelector")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "finally")
+		delete(additionalProperties, "afterExecution")
+		delete(additionalProperties, "triggers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFlowForExecution struct {
+	value *FlowForExecution
+	isSet bool
+}
+
+func (v NullableFlowForExecution) Get() *FlowForExecution {
+	return v.value
+}
+
+func (v *NullableFlowForExecution) Set(val *FlowForExecution) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowForExecution) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowForExecution) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowForExecution(val *FlowForExecution) *NullableFlowForExecution {
+	return &NullableFlowForExecution{value: val, isSet: true}
+}
+
+func (v NullableFlowForExecution) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowForExecution) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

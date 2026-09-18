@@ -1,0 +1,538 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the MetricEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetricEntry{}
+
+// MetricEntry struct for MetricEntry
+type MetricEntry struct {
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId NullableString `json:"taskId,omitempty"`
+	ExecutionId NullableString `json:"executionId,omitempty"`
+	TaskRunId NullableString `json:"taskRunId,omitempty"`
+	Type string `json:"type"`
+	Name string `json:"name"`
+	Value float64 `json:"value"`
+	Timestamp time.Time `json:"timestamp"`
+	Tags map[string]string `json:"tags,omitempty"`
+	ExecutionKind NullableExecutionKind `json:"executionKind,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MetricEntry MetricEntry
+
+// NewMetricEntry instantiates a new MetricEntry object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMetricEntry(namespace string, flowId string, type_ string, name string, value float64, timestamp time.Time) *MetricEntry {
+	this := MetricEntry{}
+	this.Namespace = namespace
+	this.FlowId = flowId
+	this.Type = type_
+	this.Name = name
+	this.Value = value
+	this.Timestamp = timestamp
+	return &this
+}
+
+// NewMetricEntryWithDefaults instantiates a new MetricEntry object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMetricEntryWithDefaults() *MetricEntry {
+	this := MetricEntry{}
+	return &this
+}
+
+// GetNamespace returns the Namespace field value
+func (o *MetricEntry) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *MetricEntry) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetFlowId returns the FlowId field value
+func (o *MetricEntry) GetFlowId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlowId, true
+}
+
+// SetFlowId sets field value
+func (o *MetricEntry) SetFlowId(v string) {
+	o.FlowId = v
+}
+
+// GetTaskId returns the TaskId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricEntry) GetTaskId() string {
+	if o == nil || IsNil(o.TaskId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TaskId.Get()
+}
+
+// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricEntry) GetTaskIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TaskId.Get(), o.TaskId.IsSet()
+}
+
+// HasTaskId returns a boolean if a field has been set.
+func (o *MetricEntry) HasTaskId() bool {
+	if o != nil && o.TaskId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskId gets a reference to the given NullableString and assigns it to the TaskId field.
+func (o *MetricEntry) SetTaskId(v string) {
+	o.TaskId.Set(&v)
+}
+// SetTaskIdNil sets the value for TaskId to be an explicit nil
+func (o *MetricEntry) SetTaskIdNil() {
+	o.TaskId.Set(nil)
+}
+
+// UnsetTaskId ensures that no value is present for TaskId, not even an explicit nil
+func (o *MetricEntry) UnsetTaskId() {
+	o.TaskId.Unset()
+}
+
+// GetExecutionId returns the ExecutionId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricEntry) GetExecutionId() string {
+	if o == nil || IsNil(o.ExecutionId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExecutionId.Get()
+}
+
+// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricEntry) GetExecutionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExecutionId.Get(), o.ExecutionId.IsSet()
+}
+
+// HasExecutionId returns a boolean if a field has been set.
+func (o *MetricEntry) HasExecutionId() bool {
+	if o != nil && o.ExecutionId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionId gets a reference to the given NullableString and assigns it to the ExecutionId field.
+func (o *MetricEntry) SetExecutionId(v string) {
+	o.ExecutionId.Set(&v)
+}
+// SetExecutionIdNil sets the value for ExecutionId to be an explicit nil
+func (o *MetricEntry) SetExecutionIdNil() {
+	o.ExecutionId.Set(nil)
+}
+
+// UnsetExecutionId ensures that no value is present for ExecutionId, not even an explicit nil
+func (o *MetricEntry) UnsetExecutionId() {
+	o.ExecutionId.Unset()
+}
+
+// GetTaskRunId returns the TaskRunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricEntry) GetTaskRunId() string {
+	if o == nil || IsNil(o.TaskRunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TaskRunId.Get()
+}
+
+// GetTaskRunIdOk returns a tuple with the TaskRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricEntry) GetTaskRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TaskRunId.Get(), o.TaskRunId.IsSet()
+}
+
+// HasTaskRunId returns a boolean if a field has been set.
+func (o *MetricEntry) HasTaskRunId() bool {
+	if o != nil && o.TaskRunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskRunId gets a reference to the given NullableString and assigns it to the TaskRunId field.
+func (o *MetricEntry) SetTaskRunId(v string) {
+	o.TaskRunId.Set(&v)
+}
+// SetTaskRunIdNil sets the value for TaskRunId to be an explicit nil
+func (o *MetricEntry) SetTaskRunIdNil() {
+	o.TaskRunId.Set(nil)
+}
+
+// UnsetTaskRunId ensures that no value is present for TaskRunId, not even an explicit nil
+func (o *MetricEntry) UnsetTaskRunId() {
+	o.TaskRunId.Unset()
+}
+
+// GetType returns the Type field value
+func (o *MetricEntry) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *MetricEntry) SetType(v string) {
+	o.Type = v
+}
+
+// GetName returns the Name field value
+func (o *MetricEntry) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *MetricEntry) SetName(v string) {
+	o.Name = v
+}
+
+// GetValue returns the Value field value
+func (o *MetricEntry) GetValue() float64 {
+	if o == nil {
+		var ret float64
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetValueOk() (*float64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *MetricEntry) SetValue(v float64) {
+	o.Value = v
+}
+
+// GetTimestamp returns the Timestamp field value
+func (o *MetricEntry) GetTimestamp() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value
+// and a boolean to check if the value has been set.
+func (o *MetricEntry) GetTimestampOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Timestamp, true
+}
+
+// SetTimestamp sets field value
+func (o *MetricEntry) SetTimestamp(v time.Time) {
+	o.Timestamp = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricEntry) GetTags() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricEntry) GetTagsOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *MetricEntry) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given map[string]string and assigns it to the Tags field.
+func (o *MetricEntry) SetTags(v map[string]string) {
+	o.Tags = v
+}
+
+// GetExecutionKind returns the ExecutionKind field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricEntry) GetExecutionKind() ExecutionKind {
+	if o == nil || IsNil(o.ExecutionKind.Get()) {
+		var ret ExecutionKind
+		return ret
+	}
+	return *o.ExecutionKind.Get()
+}
+
+// GetExecutionKindOk returns a tuple with the ExecutionKind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricEntry) GetExecutionKindOk() (*ExecutionKind, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExecutionKind.Get(), o.ExecutionKind.IsSet()
+}
+
+// HasExecutionKind returns a boolean if a field has been set.
+func (o *MetricEntry) HasExecutionKind() bool {
+	if o != nil && o.ExecutionKind.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionKind gets a reference to the given NullableExecutionKind and assigns it to the ExecutionKind field.
+func (o *MetricEntry) SetExecutionKind(v ExecutionKind) {
+	o.ExecutionKind.Set(&v)
+}
+// SetExecutionKindNil sets the value for ExecutionKind to be an explicit nil
+func (o *MetricEntry) SetExecutionKindNil() {
+	o.ExecutionKind.Set(nil)
+}
+
+// UnsetExecutionKind ensures that no value is present for ExecutionKind, not even an explicit nil
+func (o *MetricEntry) UnsetExecutionKind() {
+	o.ExecutionKind.Unset()
+}
+
+func (o MetricEntry) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MetricEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	if o.TaskId.IsSet() {
+		toSerialize["taskId"] = o.TaskId.Get()
+	}
+	if o.ExecutionId.IsSet() {
+		toSerialize["executionId"] = o.ExecutionId.Get()
+	}
+	if o.TaskRunId.IsSet() {
+		toSerialize["taskRunId"] = o.TaskRunId.Get()
+	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
+	toSerialize["value"] = o.Value
+	toSerialize["timestamp"] = o.Timestamp
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.ExecutionKind.IsSet() {
+		toSerialize["executionKind"] = o.ExecutionKind.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MetricEntry) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"namespace",
+		"flowId",
+		"type",
+		"name",
+		"value",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMetricEntry := _MetricEntry{}
+
+	err = json.Unmarshal(data, &varMetricEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MetricEntry(varMetricEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "taskRunId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "executionKind")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMetricEntry struct {
+	value *MetricEntry
+	isSet bool
+}
+
+func (v NullableMetricEntry) Get() *MetricEntry {
+	return v.value
+}
+
+func (v *NullableMetricEntry) Set(val *MetricEntry) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMetricEntry) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMetricEntry) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMetricEntry(val *MetricEntry) *NullableMetricEntry {
+	return &NullableMetricEntry{value: val, isSet: true}
+}
+
+func (v NullableMetricEntry) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMetricEntry) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

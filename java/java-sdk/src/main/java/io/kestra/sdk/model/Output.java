@@ -1,0 +1,249 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.OutputValue;
+import io.kestra.sdk.model.Type;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Output
+ */
+@JsonPropertyOrder({
+  Output.JSON_PROPERTY_ID,
+  Output.JSON_PROPERTY_DESCRIPTION,
+  Output.JSON_PROPERTY_VALUE,
+  Output.JSON_PROPERTY_TYPE,
+  Output.JSON_PROPERTY_DISPLAY_NAME,
+  Output.JSON_PROPERTY_REQUIRED
+})
+public class Output {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nonnull  private OutputValue value;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private Type type;
+
+  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+  @jakarta.annotation.Nullable  private String displayName;
+
+  public static final String JSON_PROPERTY_REQUIRED = "required";
+  @jakarta.annotation.Nullable  private Boolean required;
+
+  public Output() {
+  }
+
+  public Output id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public Output description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public Output value(@jakarta.annotation.Nonnull OutputValue value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OutputValue getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@jakarta.annotation.Nonnull OutputValue value) {
+    this.value = value;
+  }
+
+  public Output type(@jakarta.annotation.Nonnull Type type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Type getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull Type type) {
+    this.type = type;
+  }
+
+  public Output displayName(@jakarta.annotation.Nullable String displayName) {
+    
+    this.displayName = displayName;
+    return this;
+  }
+
+  /**
+   * Get displayName
+   * @return displayName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDisplayName() {
+    return displayName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
+    this.displayName = displayName;
+  }
+
+  public Output required(@jakarta.annotation.Nullable Boolean required) {
+    
+    this.required = required;
+    return this;
+  }
+
+  /**
+   * Get required
+   * @return required
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequired() {
+    return required;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequired(@jakarta.annotation.Nullable Boolean required) {
+    this.required = required;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Output output = (Output) o;
+    return Objects.equals(this.id, output.id) &&
+        Objects.equals(this.description, output.description) &&
+        Objects.equals(this.value, output.value) &&
+        Objects.equals(this.type, output.type) &&
+        Objects.equals(this.displayName, output.displayName) &&
+        Objects.equals(this.required, output.required);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, description, value, type, displayName, required);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Output {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    required: ").append(toIndentedString(required)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

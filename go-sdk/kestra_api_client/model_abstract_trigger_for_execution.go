@@ -1,0 +1,233 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the AbstractTriggerForExecution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AbstractTriggerForExecution{}
+
+// AbstractTriggerForExecution struct for AbstractTriggerForExecution
+type AbstractTriggerForExecution struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
+	// Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). 
+	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AbstractTriggerForExecution AbstractTriggerForExecution
+
+// NewAbstractTriggerForExecution instantiates a new AbstractTriggerForExecution object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAbstractTriggerForExecution(id string, type_ string) *AbstractTriggerForExecution {
+	this := AbstractTriggerForExecution{}
+	this.Id = id
+	this.Type = type_
+	return &this
+}
+
+// NewAbstractTriggerForExecutionWithDefaults instantiates a new AbstractTriggerForExecution object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAbstractTriggerForExecutionWithDefaults() *AbstractTriggerForExecution {
+	this := AbstractTriggerForExecution{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *AbstractTriggerForExecution) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AbstractTriggerForExecution) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AbstractTriggerForExecution) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *AbstractTriggerForExecution) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *AbstractTriggerForExecution) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *AbstractTriggerForExecution) SetType(v string) {
+	o.Type = v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *AbstractTriggerForExecution) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTriggerForExecution) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *AbstractTriggerForExecution) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *AbstractTriggerForExecution) SetVersion(v string) {
+	o.Version = &v
+}
+
+func (o AbstractTriggerForExecution) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AbstractTriggerForExecution) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AbstractTriggerForExecution) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAbstractTriggerForExecution := _AbstractTriggerForExecution{}
+
+	err = json.Unmarshal(data, &varAbstractTriggerForExecution)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractTriggerForExecution(varAbstractTriggerForExecution)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAbstractTriggerForExecution struct {
+	value *AbstractTriggerForExecution
+	isSet bool
+}
+
+func (v NullableAbstractTriggerForExecution) Get() *AbstractTriggerForExecution {
+	return v.value
+}
+
+func (v *NullableAbstractTriggerForExecution) Set(val *AbstractTriggerForExecution) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAbstractTriggerForExecution) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAbstractTriggerForExecution) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAbstractTriggerForExecution(val *AbstractTriggerForExecution) *NullableAbstractTriggerForExecution {
+	return &NullableAbstractTriggerForExecution{value: val, isSet: true}
+}
+
+func (v NullableAbstractTriggerForExecution) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAbstractTriggerForExecution) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

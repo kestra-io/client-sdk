@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Scim core schema.
+ */
+@JsonPropertyOrder({
+  Name.JSON_PROPERTY_FAMILY_NAME,
+  Name.JSON_PROPERTY_GIVEN_NAME
+})
+public class Name {
+  public static final String JSON_PROPERTY_FAMILY_NAME = "familyName";
+  @jakarta.annotation.Nullable  private String familyName;
+
+  public static final String JSON_PROPERTY_GIVEN_NAME = "givenName";
+  @jakarta.annotation.Nullable  private String givenName;
+
+  public Name() {
+  }
+
+  public Name familyName(@jakarta.annotation.Nullable String familyName) {
+    
+    this.familyName = familyName;
+    return this;
+  }
+
+  /**
+   * Get familyName
+   * @return familyName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFamilyName() {
+    return familyName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFamilyName(@jakarta.annotation.Nullable String familyName) {
+    this.familyName = familyName;
+  }
+
+  public Name givenName(@jakarta.annotation.Nullable String givenName) {
+    
+    this.givenName = givenName;
+    return this;
+  }
+
+  /**
+   * Get givenName
+   * @return givenName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGivenName() {
+    return givenName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGivenName(@jakarta.annotation.Nullable String givenName) {
+    this.givenName = givenName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Name name = (Name) o;
+    return Objects.equals(this.familyName, name.familyName) &&
+        Objects.equals(this.givenName, name.givenName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(familyName, givenName);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Name {\n");
+    sb.append("    familyName: ").append(toIndentedString(familyName)).append("\n");
+    sb.append("    givenName: ").append(toIndentedString(givenName)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

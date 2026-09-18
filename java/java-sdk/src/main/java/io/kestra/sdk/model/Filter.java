@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Filter
+ */
+@JsonPropertyOrder({
+  Filter.JSON_PROPERTY_FILTER,
+  Filter.JSON_PROPERTY_EXPRESSION
+})
+public class Filter {
+  public static final String JSON_PROPERTY_FILTER = "filter";
+  @jakarta.annotation.Nullable  private String filter;
+
+  public static final String JSON_PROPERTY_EXPRESSION = "expression";
+  @jakarta.annotation.Nullable  private Object expression;
+
+  public Filter() {
+  }
+
+  public Filter filter(@jakarta.annotation.Nullable String filter) {
+    
+    this.filter = filter;
+    return this;
+  }
+
+  /**
+   * Get filter
+   * @return filter
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFilter() {
+    return filter;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilter(@jakarta.annotation.Nullable String filter) {
+    this.filter = filter;
+  }
+
+  public Filter expression(@jakarta.annotation.Nullable Object expression) {
+    
+    this.expression = expression;
+    return this;
+  }
+
+  /**
+   * Get expression
+   * @return expression
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getExpression() {
+    return expression;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpression(@jakarta.annotation.Nullable Object expression) {
+    this.expression = expression;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Filter filter = (Filter) o;
+    return Objects.equals(this.filter, filter.filter) &&
+        Objects.equals(this.expression, filter.expression);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, expression);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Filter {\n");
+    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    expression: ").append(toIndentedString(expression)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,314 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Schema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Schema{}
+
+// Schema struct for Schema
+type Schema struct {
+	Attributes []SchemaAttribute `json:"attributes,omitempty"`
+	Id string `json:"id"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Meta *Meta `json:"meta,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Schema Schema
+
+// NewSchema instantiates a new Schema object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSchema(id string) *Schema {
+	this := Schema{}
+	this.Id = id
+	return &this
+}
+
+// NewSchemaWithDefaults instantiates a new Schema object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSchemaWithDefaults() *Schema {
+	this := Schema{}
+	return &this
+}
+
+// GetAttributes returns the Attributes field value if set, zero value otherwise.
+func (o *Schema) GetAttributes() []SchemaAttribute {
+	if o == nil || IsNil(o.Attributes) {
+		var ret []SchemaAttribute
+		return ret
+	}
+	return o.Attributes
+}
+
+// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Schema) GetAttributesOk() ([]SchemaAttribute, bool) {
+	if o == nil || IsNil(o.Attributes) {
+		return nil, false
+	}
+	return o.Attributes, true
+}
+
+// HasAttributes returns a boolean if a field has been set.
+func (o *Schema) HasAttributes() bool {
+	if o != nil && !IsNil(o.Attributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributes gets a reference to the given []SchemaAttribute and assigns it to the Attributes field.
+func (o *Schema) SetAttributes(v []SchemaAttribute) {
+	o.Attributes = v
+}
+
+// GetId returns the Id field value
+func (o *Schema) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Schema) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Schema) SetId(v string) {
+	o.Id = v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Schema) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Schema) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Schema) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Schema) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Schema) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Schema) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Schema) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Schema) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetMeta returns the Meta field value if set, zero value otherwise.
+func (o *Schema) GetMeta() Meta {
+	if o == nil || IsNil(o.Meta) {
+		var ret Meta
+		return ret
+	}
+	return *o.Meta
+}
+
+// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Schema) GetMetaOk() (*Meta, bool) {
+	if o == nil || IsNil(o.Meta) {
+		return nil, false
+	}
+	return o.Meta, true
+}
+
+// HasMeta returns a boolean if a field has been set.
+func (o *Schema) HasMeta() bool {
+	if o != nil && !IsNil(o.Meta) {
+		return true
+	}
+
+	return false
+}
+
+// SetMeta gets a reference to the given Meta and assigns it to the Meta field.
+func (o *Schema) SetMeta(v Meta) {
+	o.Meta = &v
+}
+
+func (o Schema) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Schema) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Meta) {
+		toSerialize["meta"] = o.Meta
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Schema) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSchema := _Schema{}
+
+	err = json.Unmarshal(data, &varSchema)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Schema(varSchema)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "meta")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableSchema struct {
+	value *Schema
+	isSet bool
+}
+
+func (v NullableSchema) Get() *Schema {
+	return v.value
+}
+
+func (v *NullableSchema) Set(val *Schema) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSchema) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSchema) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSchema(val *Schema) *NullableSchema {
+	return &NullableSchema{value: val, isSet: true}
+}
+
+func (v NullableSchema) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSchema) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

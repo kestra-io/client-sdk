@@ -1,0 +1,40 @@
+# QueryFilterOp
+
+
+## Enum
+
+* `EQUALS` (value: `'EQUALS'`)
+
+* `NOT_EQUALS` (value: `'NOT_EQUALS'`)
+
+* `GREATER_THAN` (value: `'GREATER_THAN'`)
+
+* `LESS_THAN` (value: `'LESS_THAN'`)
+
+* `GREATER_THAN_OR_EQUAL_TO` (value: `'GREATER_THAN_OR_EQUAL_TO'`)
+
+* `LESS_THAN_OR_EQUAL_TO` (value: `'LESS_THAN_OR_EQUAL_TO'`)
+
+* `IN` (value: `'IN'`)
+
+* `NOT_IN` (value: `'NOT_IN'`)
+
+* `STARTS_WITH` (value: `'STARTS_WITH'`)
+
+* `ENDS_WITH` (value: `'ENDS_WITH'`)
+
+* `CONTAINS` (value: `'CONTAINS'`)
+
+* `NOT_CONTAINS` (value: `'NOT_CONTAINS'`)
+
+* `IS_NULL` (value: `'IS_NULL'`)
+
+* `IS_NOT_NULL` (value: `'IS_NOT_NULL'`)
+
+* `REGEX` (value: `'REGEX'`)
+
+* `PREFIX` (value: `'PREFIX'`)
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

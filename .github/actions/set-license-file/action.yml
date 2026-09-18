@@ -1,0 +1,43 @@
+name: Select License File Based on Version
+description: Selects the appropriate Kestra EE license file based on the version
+
+inputs:
+  kestra_version:
+    description: The Kestra version to check
+    required: true
+  license_file:
+    description: The current license file secret
+    required: true
+  license_legacy_file:
+    description: The legacy license file secret for versions < v1.2
+    required: true
+
+outputs:
+  license:
+    description: The selected license file content
+    value: ${{ steps.select.outputs.license }}
+
+runs:
+  using: composite
+  steps:
+    - name: Select license based on version
+      id: select
+      shell: bash
+      env:
+        KESTRA_VERSION: ${{ inputs.kestra_version }}
+        LICENSE_FILE: ${{ inputs.license_file }}
+        LICENSE_LEGACY_FILE: ${{ inputs.license_legacy_file }}
+      run: |
+        if [[ "$KESTRA_VERSION" =~ ^v([0-9]+)\.([0-9]+) ]]; then
+          MAJOR="${BASH_REMATCH[1]}"
+          MINOR="${BASH_REMATCH[2]}"
+          if [[ $MAJOR -lt 1 ]] || ([[ $MAJOR -eq 1 ]] && [[ $MINOR -lt 2 ]]); then
+            LICENSE="$LICENSE_LEGACY_FILE"
+          else
+            LICENSE="$LICENSE_FILE"
+          fi
+        else
+          LICENSE="$LICENSE_FILE"
+        fi
+
+        echo "license=$LICENSE" >> $GITHUB_OUTPUT

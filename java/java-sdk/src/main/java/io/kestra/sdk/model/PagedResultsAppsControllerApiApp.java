@@ -1,0 +1,140 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AppsControllerApiApp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PagedResultsAppsControllerApiApp
+ */
+@JsonPropertyOrder({
+  PagedResultsAppsControllerApiApp.JSON_PROPERTY_RESULTS,
+  PagedResultsAppsControllerApiApp.JSON_PROPERTY_TOTAL
+})
+@JsonTypeName("PagedResults_AppsController.ApiApp_")
+public class PagedResultsAppsControllerApiApp {
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nonnull  private List<AppsControllerApiApp> results = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @jakarta.annotation.Nonnull  private Long total;
+
+  public PagedResultsAppsControllerApiApp() {
+  }
+
+  public PagedResultsAppsControllerApiApp results(@jakarta.annotation.Nonnull List<AppsControllerApiApp> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public PagedResultsAppsControllerApiApp addResultsItem(AppsControllerApiApp resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<AppsControllerApiApp> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResults(@jakarta.annotation.Nonnull List<AppsControllerApiApp> results) {
+    this.results = results;
+  }
+
+  public PagedResultsAppsControllerApiApp total(@jakarta.annotation.Nonnull Long total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Long getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
+    this.total = total;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PagedResultsAppsControllerApiApp pagedResultsAppsControllerApiApp = (PagedResultsAppsControllerApiApp) o;
+    return Objects.equals(this.results, pagedResultsAppsControllerApiApp.results) &&
+        Objects.equals(this.total, pagedResultsAppsControllerApiApp.total);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(results, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PagedResultsAppsControllerApiApp {\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

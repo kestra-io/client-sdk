@@ -1,0 +1,321 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TestState;
+import io.kestra.sdk.model.UnitTestResult;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteRunResult
+ */
+@JsonPropertyOrder({
+  TestSuiteRunResult.JSON_PROPERTY_ID,
+  TestSuiteRunResult.JSON_PROPERTY_TEST_SUITE_ID,
+  TestSuiteRunResult.JSON_PROPERTY_NAMESPACE,
+  TestSuiteRunResult.JSON_PROPERTY_FLOW_ID,
+  TestSuiteRunResult.JSON_PROPERTY_STATE,
+  TestSuiteRunResult.JSON_PROPERTY_START_DATE,
+  TestSuiteRunResult.JSON_PROPERTY_END_DATE,
+  TestSuiteRunResult.JSON_PROPERTY_RESULTS
+})
+public class TestSuiteRunResult {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TEST_SUITE_ID = "testSuiteId";
+  @jakarta.annotation.Nonnull  private String testSuiteId;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private TestState state;
+
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime startDate;
+
+  public static final String JSON_PROPERTY_END_DATE = "endDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime endDate;
+
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nullable  private List<UnitTestResult> results = new ArrayList<>();
+
+  public TestSuiteRunResult() {
+  }
+
+  public TestSuiteRunResult id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public TestSuiteRunResult testSuiteId(@jakarta.annotation.Nonnull String testSuiteId) {
+    
+    this.testSuiteId = testSuiteId;
+    return this;
+  }
+
+  /**
+   * Get testSuiteId
+   * @return testSuiteId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTestSuiteId() {
+    return testSuiteId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestSuiteId(@jakarta.annotation.Nonnull String testSuiteId) {
+    this.testSuiteId = testSuiteId;
+  }
+
+  public TestSuiteRunResult namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public TestSuiteRunResult flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public TestSuiteRunResult state(@jakarta.annotation.Nonnull TestState state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TestState getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull TestState state) {
+    this.state = state;
+  }
+
+  public TestSuiteRunResult startDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+    
+    this.startDate = startDate;
+    return this;
+  }
+
+  /**
+   * Get startDate
+   * @return startDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getStartDate() {
+    return startDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+    this.startDate = startDate;
+  }
+
+  public TestSuiteRunResult endDate(@jakarta.annotation.Nonnull OffsetDateTime endDate) {
+    
+    this.endDate = endDate;
+    return this;
+  }
+
+  /**
+   * Get endDate
+   * @return endDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getEndDate() {
+    return endDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEndDate(@jakarta.annotation.Nonnull OffsetDateTime endDate) {
+    this.endDate = endDate;
+  }
+
+  public TestSuiteRunResult results(@jakarta.annotation.Nullable List<UnitTestResult> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public TestSuiteRunResult addResultsItem(UnitTestResult resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<UnitTestResult> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<UnitTestResult> results) {
+    this.results = results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteRunResult testSuiteRunResult = (TestSuiteRunResult) o;
+    return Objects.equals(this.id, testSuiteRunResult.id) &&
+        Objects.equals(this.testSuiteId, testSuiteRunResult.testSuiteId) &&
+        Objects.equals(this.namespace, testSuiteRunResult.namespace) &&
+        Objects.equals(this.flowId, testSuiteRunResult.flowId) &&
+        Objects.equals(this.state, testSuiteRunResult.state) &&
+        Objects.equals(this.startDate, testSuiteRunResult.startDate) &&
+        Objects.equals(this.endDate, testSuiteRunResult.endDate) &&
+        Objects.equals(this.results, testSuiteRunResult.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, testSuiteId, namespace, flowId, state, startDate, endDate, results);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteRunResult {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    testSuiteId: ").append(toIndentedString(testSuiteId)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

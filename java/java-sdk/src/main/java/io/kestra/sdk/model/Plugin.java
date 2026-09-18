@@ -1,0 +1,960 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PluginPluginElementMetadata;
+import io.kestra.sdk.model.PluginSubGroupPluginCategory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Plugin
+ */
+@JsonPropertyOrder({
+  Plugin.JSON_PROPERTY_NAME,
+  Plugin.JSON_PROPERTY_TITLE,
+  Plugin.JSON_PROPERTY_DESCRIPTION,
+  Plugin.JSON_PROPERTY_LICENSE,
+  Plugin.JSON_PROPERTY_LONG_DESCRIPTION,
+  Plugin.JSON_PROPERTY_GROUP,
+  Plugin.JSON_PROPERTY_VERSION,
+  Plugin.JSON_PROPERTY_MANIFEST,
+  Plugin.JSON_PROPERTY_GUIDES,
+  Plugin.JSON_PROPERTY_ALIASES,
+  Plugin.JSON_PROPERTY_TASKS,
+  Plugin.JSON_PROPERTY_TRIGGERS,
+  Plugin.JSON_PROPERTY_CONTROLLERS,
+  Plugin.JSON_PROPERTY_STORAGES,
+  Plugin.JSON_PROPERTY_SECRETS,
+  Plugin.JSON_PROPERTY_TASK_RUNNERS,
+  Plugin.JSON_PROPERTY_APPS,
+  Plugin.JSON_PROPERTY_APP_BLOCKS,
+  Plugin.JSON_PROPERTY_CHARTS,
+  Plugin.JSON_PROPERTY_DATA_FILTERS,
+  Plugin.JSON_PROPERTY_DATA_FILTERS_K_P_I,
+  Plugin.JSON_PROPERTY_LOG_EXPORTERS,
+  Plugin.JSON_PROPERTY_ADDITIONAL_PLUGINS,
+  Plugin.JSON_PROPERTY_CATEGORIES,
+  Plugin.JSON_PROPERTY_SUB_GROUP
+})
+public class Plugin {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_LICENSE = "license";
+  @jakarta.annotation.Nullable  private String license;
+
+  public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
+  @jakarta.annotation.Nullable  private String longDescription;
+
+  public static final String JSON_PROPERTY_GROUP = "group";
+  @jakarta.annotation.Nullable  private String group;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_MANIFEST = "manifest";
+  @jakarta.annotation.Nullable  private Map<String, String> manifest = new HashMap<>();
+
+  public static final String JSON_PROPERTY_GUIDES = "guides";
+  @jakarta.annotation.Nullable  private List<String> guides = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ALIASES = "aliases";
+  @jakarta.annotation.Nullable  private List<String> aliases = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TASKS = "tasks";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> tasks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TRIGGERS = "triggers";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CONTROLLERS = "controllers";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_STORAGES = "storages";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> storages = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_SECRETS = "secrets";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> secrets = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TASK_RUNNERS = "taskRunners";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> taskRunners = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_APPS = "apps";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> apps = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_APP_BLOCKS = "appBlocks";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> appBlocks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CHARTS = "charts";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> charts = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DATA_FILTERS = "dataFilters";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DATA_FILTERS_K_P_I = "dataFiltersKPI";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_LOG_EXPORTERS = "logExporters";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> logExporters = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ADDITIONAL_PLUGINS = "additionalPlugins";
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> additionalPlugins = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CATEGORIES = "categories";
+  @jakarta.annotation.Nullable  private List<PluginSubGroupPluginCategory> categories = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_SUB_GROUP = "subGroup";
+  @jakarta.annotation.Nullable  private String subGroup;
+
+  public Plugin() {
+  }
+
+  public Plugin name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public Plugin title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public Plugin description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public Plugin license(@jakarta.annotation.Nullable String license) {
+    
+    this.license = license;
+    return this;
+  }
+
+  /**
+   * Get license
+   * @return license
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLicense() {
+    return license;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLicense(@jakarta.annotation.Nullable String license) {
+    this.license = license;
+  }
+
+  public Plugin longDescription(@jakarta.annotation.Nullable String longDescription) {
+    
+    this.longDescription = longDescription;
+    return this;
+  }
+
+  /**
+   * Get longDescription
+   * @return longDescription
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLongDescription() {
+    return longDescription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLongDescription(@jakarta.annotation.Nullable String longDescription) {
+    this.longDescription = longDescription;
+  }
+
+  public Plugin group(@jakarta.annotation.Nullable String group) {
+    
+    this.group = group;
+    return this;
+  }
+
+  /**
+   * Get group
+   * @return group
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGroup() {
+    return group;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroup(@jakarta.annotation.Nullable String group) {
+    this.group = group;
+  }
+
+  public Plugin version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public Plugin manifest(@jakarta.annotation.Nullable Map<String, String> manifest) {
+    
+    this.manifest = manifest;
+    return this;
+  }
+
+  public Plugin putManifestItem(String key, String manifestItem) {
+    if (this.manifest == null) {
+      this.manifest = new HashMap<>();
+    }
+    this.manifest.put(key, manifestItem);
+    return this;
+  }
+
+  /**
+   * Get manifest
+   * @return manifest
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, String> getManifest() {
+    return manifest;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManifest(@jakarta.annotation.Nullable Map<String, String> manifest) {
+    this.manifest = manifest;
+  }
+
+  public Plugin guides(@jakarta.annotation.Nullable List<String> guides) {
+    
+    this.guides = guides;
+    return this;
+  }
+
+  public Plugin addGuidesItem(String guidesItem) {
+    if (this.guides == null) {
+      this.guides = new ArrayList<>();
+    }
+    this.guides.add(guidesItem);
+    return this;
+  }
+
+  /**
+   * Get guides
+   * @return guides
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGuides() {
+    return guides;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGuides(@jakarta.annotation.Nullable List<String> guides) {
+    this.guides = guides;
+  }
+
+  public Plugin aliases(@jakarta.annotation.Nullable List<String> aliases) {
+    
+    this.aliases = aliases;
+    return this;
+  }
+
+  public Plugin addAliasesItem(String aliasesItem) {
+    if (this.aliases == null) {
+      this.aliases = new ArrayList<>();
+    }
+    this.aliases.add(aliasesItem);
+    return this;
+  }
+
+  /**
+   * Get aliases
+   * @return aliases
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAliases() {
+    return aliases;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAliases(@jakarta.annotation.Nullable List<String> aliases) {
+    this.aliases = aliases;
+  }
+
+  public Plugin tasks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
+    
+    this.tasks = tasks;
+    return this;
+  }
+
+  public Plugin addTasksItem(PluginPluginElementMetadata tasksItem) {
+    if (this.tasks == null) {
+      this.tasks = new ArrayList<>();
+    }
+    this.tasks.add(tasksItem);
+    return this;
+  }
+
+  /**
+   * Get tasks
+   * @return tasks
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getTasks() {
+    return tasks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTasks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
+    this.tasks = tasks;
+  }
+
+  public Plugin triggers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
+    
+    this.triggers = triggers;
+    return this;
+  }
+
+  public Plugin addTriggersItem(PluginPluginElementMetadata triggersItem) {
+    if (this.triggers == null) {
+      this.triggers = new ArrayList<>();
+    }
+    this.triggers.add(triggersItem);
+    return this;
+  }
+
+  /**
+   * Get triggers
+   * @return triggers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getTriggers() {
+    return triggers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTriggers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
+    this.triggers = triggers;
+  }
+
+  public Plugin controllers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
+    
+    this.controllers = controllers;
+    return this;
+  }
+
+  public Plugin addControllersItem(PluginPluginElementMetadata controllersItem) {
+    if (this.controllers == null) {
+      this.controllers = new ArrayList<>();
+    }
+    this.controllers.add(controllersItem);
+    return this;
+  }
+
+  /**
+   * Get controllers
+   * @return controllers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getControllers() {
+    return controllers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setControllers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
+    this.controllers = controllers;
+  }
+
+  public Plugin storages(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> storages) {
+    
+    this.storages = storages;
+    return this;
+  }
+
+  public Plugin addStoragesItem(PluginPluginElementMetadata storagesItem) {
+    if (this.storages == null) {
+      this.storages = new ArrayList<>();
+    }
+    this.storages.add(storagesItem);
+    return this;
+  }
+
+  /**
+   * Get storages
+   * @return storages
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getStorages() {
+    return storages;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorages(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> storages) {
+    this.storages = storages;
+  }
+
+  public Plugin secrets(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
+    
+    this.secrets = secrets;
+    return this;
+  }
+
+  public Plugin addSecretsItem(PluginPluginElementMetadata secretsItem) {
+    if (this.secrets == null) {
+      this.secrets = new ArrayList<>();
+    }
+    this.secrets.add(secretsItem);
+    return this;
+  }
+
+  /**
+   * Get secrets
+   * @return secrets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getSecrets() {
+    return secrets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecrets(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
+    this.secrets = secrets;
+  }
+
+  public Plugin taskRunners(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
+    
+    this.taskRunners = taskRunners;
+    return this;
+  }
+
+  public Plugin addTaskRunnersItem(PluginPluginElementMetadata taskRunnersItem) {
+    if (this.taskRunners == null) {
+      this.taskRunners = new ArrayList<>();
+    }
+    this.taskRunners.add(taskRunnersItem);
+    return this;
+  }
+
+  /**
+   * Get taskRunners
+   * @return taskRunners
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getTaskRunners() {
+    return taskRunners;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskRunners(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
+    this.taskRunners = taskRunners;
+  }
+
+  public Plugin apps(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> apps) {
+    
+    this.apps = apps;
+    return this;
+  }
+
+  public Plugin addAppsItem(PluginPluginElementMetadata appsItem) {
+    if (this.apps == null) {
+      this.apps = new ArrayList<>();
+    }
+    this.apps.add(appsItem);
+    return this;
+  }
+
+  /**
+   * Get apps
+   * @return apps
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getApps() {
+    return apps;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setApps(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> apps) {
+    this.apps = apps;
+  }
+
+  public Plugin appBlocks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
+    
+    this.appBlocks = appBlocks;
+    return this;
+  }
+
+  public Plugin addAppBlocksItem(PluginPluginElementMetadata appBlocksItem) {
+    if (this.appBlocks == null) {
+      this.appBlocks = new ArrayList<>();
+    }
+    this.appBlocks.add(appBlocksItem);
+    return this;
+  }
+
+  /**
+   * Get appBlocks
+   * @return appBlocks
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getAppBlocks() {
+    return appBlocks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppBlocks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
+    this.appBlocks = appBlocks;
+  }
+
+  public Plugin charts(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> charts) {
+    
+    this.charts = charts;
+    return this;
+  }
+
+  public Plugin addChartsItem(PluginPluginElementMetadata chartsItem) {
+    if (this.charts == null) {
+      this.charts = new ArrayList<>();
+    }
+    this.charts.add(chartsItem);
+    return this;
+  }
+
+  /**
+   * Get charts
+   * @return charts
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getCharts() {
+    return charts;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCharts(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> charts) {
+    this.charts = charts;
+  }
+
+  public Plugin dataFilters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
+    
+    this.dataFilters = dataFilters;
+    return this;
+  }
+
+  public Plugin addDataFiltersItem(PluginPluginElementMetadata dataFiltersItem) {
+    if (this.dataFilters == null) {
+      this.dataFilters = new ArrayList<>();
+    }
+    this.dataFilters.add(dataFiltersItem);
+    return this;
+  }
+
+  /**
+   * Get dataFilters
+   * @return dataFilters
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getDataFilters() {
+    return dataFilters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDataFilters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
+    this.dataFilters = dataFilters;
+  }
+
+  public Plugin dataFiltersKPI(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+    
+    this.dataFiltersKPI = dataFiltersKPI;
+    return this;
+  }
+
+  public Plugin addDataFiltersKPIItem(PluginPluginElementMetadata dataFiltersKPIItem) {
+    if (this.dataFiltersKPI == null) {
+      this.dataFiltersKPI = new ArrayList<>();
+    }
+    this.dataFiltersKPI.add(dataFiltersKPIItem);
+    return this;
+  }
+
+  /**
+   * Get dataFiltersKPI
+   * @return dataFiltersKPI
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getDataFiltersKPI() {
+    return dataFiltersKPI;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDataFiltersKPI(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+    this.dataFiltersKPI = dataFiltersKPI;
+  }
+
+  public Plugin logExporters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
+    
+    this.logExporters = logExporters;
+    return this;
+  }
+
+  public Plugin addLogExportersItem(PluginPluginElementMetadata logExportersItem) {
+    if (this.logExporters == null) {
+      this.logExporters = new ArrayList<>();
+    }
+    this.logExporters.add(logExportersItem);
+    return this;
+  }
+
+  /**
+   * Get logExporters
+   * @return logExporters
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getLogExporters() {
+    return logExporters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogExporters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
+    this.logExporters = logExporters;
+  }
+
+  public Plugin additionalPlugins(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
+    
+    this.additionalPlugins = additionalPlugins;
+    return this;
+  }
+
+  public Plugin addAdditionalPluginsItem(PluginPluginElementMetadata additionalPluginsItem) {
+    if (this.additionalPlugins == null) {
+      this.additionalPlugins = new ArrayList<>();
+    }
+    this.additionalPlugins.add(additionalPluginsItem);
+    return this;
+  }
+
+  /**
+   * Get additionalPlugins
+   * @return additionalPlugins
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getAdditionalPlugins() {
+    return additionalPlugins;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdditionalPlugins(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
+    this.additionalPlugins = additionalPlugins;
+  }
+
+  public Plugin categories(@jakarta.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
+    
+    this.categories = categories;
+    return this;
+  }
+
+  public Plugin addCategoriesItem(PluginSubGroupPluginCategory categoriesItem) {
+    if (this.categories == null) {
+      this.categories = new ArrayList<>();
+    }
+    this.categories.add(categoriesItem);
+    return this;
+  }
+
+  /**
+   * Get categories
+   * @return categories
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginSubGroupPluginCategory> getCategories() {
+    return categories;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCategories(@jakarta.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
+    this.categories = categories;
+  }
+
+  public Plugin subGroup(@jakarta.annotation.Nullable String subGroup) {
+    
+    this.subGroup = subGroup;
+    return this;
+  }
+
+  /**
+   * Get subGroup
+   * @return subGroup
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSubGroup() {
+    return subGroup;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubGroup(@jakarta.annotation.Nullable String subGroup) {
+    this.subGroup = subGroup;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Plugin plugin = (Plugin) o;
+    return Objects.equals(this.name, plugin.name) &&
+        Objects.equals(this.title, plugin.title) &&
+        Objects.equals(this.description, plugin.description) &&
+        Objects.equals(this.license, plugin.license) &&
+        Objects.equals(this.longDescription, plugin.longDescription) &&
+        Objects.equals(this.group, plugin.group) &&
+        Objects.equals(this.version, plugin.version) &&
+        Objects.equals(this.manifest, plugin.manifest) &&
+        Objects.equals(this.guides, plugin.guides) &&
+        Objects.equals(this.aliases, plugin.aliases) &&
+        Objects.equals(this.tasks, plugin.tasks) &&
+        Objects.equals(this.triggers, plugin.triggers) &&
+        Objects.equals(this.controllers, plugin.controllers) &&
+        Objects.equals(this.storages, plugin.storages) &&
+        Objects.equals(this.secrets, plugin.secrets) &&
+        Objects.equals(this.taskRunners, plugin.taskRunners) &&
+        Objects.equals(this.apps, plugin.apps) &&
+        Objects.equals(this.appBlocks, plugin.appBlocks) &&
+        Objects.equals(this.charts, plugin.charts) &&
+        Objects.equals(this.dataFilters, plugin.dataFilters) &&
+        Objects.equals(this.dataFiltersKPI, plugin.dataFiltersKPI) &&
+        Objects.equals(this.logExporters, plugin.logExporters) &&
+        Objects.equals(this.additionalPlugins, plugin.additionalPlugins) &&
+        Objects.equals(this.categories, plugin.categories) &&
+        Objects.equals(this.subGroup, plugin.subGroup);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, title, description, license, longDescription, group, version, manifest, guides, aliases, tasks, triggers, controllers, storages, secrets, taskRunners, apps, appBlocks, charts, dataFilters, dataFiltersKPI, logExporters, additionalPlugins, categories, subGroup);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Plugin {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    license: ").append(toIndentedString(license)).append("\n");
+    sb.append("    longDescription: ").append(toIndentedString(longDescription)).append("\n");
+    sb.append("    group: ").append(toIndentedString(group)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+    sb.append("    guides: ").append(toIndentedString(guides)).append("\n");
+    sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
+    sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
+    sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
+    sb.append("    controllers: ").append(toIndentedString(controllers)).append("\n");
+    sb.append("    storages: ").append(toIndentedString(storages)).append("\n");
+    sb.append("    secrets: ").append(toIndentedString(secrets)).append("\n");
+    sb.append("    taskRunners: ").append(toIndentedString(taskRunners)).append("\n");
+    sb.append("    apps: ").append(toIndentedString(apps)).append("\n");
+    sb.append("    appBlocks: ").append(toIndentedString(appBlocks)).append("\n");
+    sb.append("    charts: ").append(toIndentedString(charts)).append("\n");
+    sb.append("    dataFilters: ").append(toIndentedString(dataFilters)).append("\n");
+    sb.append("    dataFiltersKPI: ").append(toIndentedString(dataFiltersKPI)).append("\n");
+    sb.append("    logExporters: ").append(toIndentedString(logExporters)).append("\n");
+    sb.append("    additionalPlugins: ").append(toIndentedString(additionalPlugins)).append("\n");
+    sb.append("    categories: ").append(toIndentedString(categories)).append("\n");
+    sb.append("    subGroup: ").append(toIndentedString(subGroup)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

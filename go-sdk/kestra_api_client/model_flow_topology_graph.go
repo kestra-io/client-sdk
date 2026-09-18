@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the FlowTopologyGraph type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FlowTopologyGraph{}
+
+// FlowTopologyGraph struct for FlowTopologyGraph
+type FlowTopologyGraph struct {
+	Nodes []FlowNode `json:"nodes,omitempty"`
+	Edges []FlowTopologyGraphEdge `json:"edges,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FlowTopologyGraph FlowTopologyGraph
+
+// NewFlowTopologyGraph instantiates a new FlowTopologyGraph object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFlowTopologyGraph() *FlowTopologyGraph {
+	this := FlowTopologyGraph{}
+	return &this
+}
+
+// NewFlowTopologyGraphWithDefaults instantiates a new FlowTopologyGraph object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFlowTopologyGraphWithDefaults() *FlowTopologyGraph {
+	this := FlowTopologyGraph{}
+	return &this
+}
+
+// GetNodes returns the Nodes field value if set, zero value otherwise.
+func (o *FlowTopologyGraph) GetNodes() []FlowNode {
+	if o == nil || IsNil(o.Nodes) {
+		var ret []FlowNode
+		return ret
+	}
+	return o.Nodes
+}
+
+// GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowTopologyGraph) GetNodesOk() ([]FlowNode, bool) {
+	if o == nil || IsNil(o.Nodes) {
+		return nil, false
+	}
+	return o.Nodes, true
+}
+
+// HasNodes returns a boolean if a field has been set.
+func (o *FlowTopologyGraph) HasNodes() bool {
+	if o != nil && !IsNil(o.Nodes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNodes gets a reference to the given []FlowNode and assigns it to the Nodes field.
+func (o *FlowTopologyGraph) SetNodes(v []FlowNode) {
+	o.Nodes = v
+}
+
+// GetEdges returns the Edges field value if set, zero value otherwise.
+func (o *FlowTopologyGraph) GetEdges() []FlowTopologyGraphEdge {
+	if o == nil || IsNil(o.Edges) {
+		var ret []FlowTopologyGraphEdge
+		return ret
+	}
+	return o.Edges
+}
+
+// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowTopologyGraph) GetEdgesOk() ([]FlowTopologyGraphEdge, bool) {
+	if o == nil || IsNil(o.Edges) {
+		return nil, false
+	}
+	return o.Edges, true
+}
+
+// HasEdges returns a boolean if a field has been set.
+func (o *FlowTopologyGraph) HasEdges() bool {
+	if o != nil && !IsNil(o.Edges) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdges gets a reference to the given []FlowTopologyGraphEdge and assigns it to the Edges field.
+func (o *FlowTopologyGraph) SetEdges(v []FlowTopologyGraphEdge) {
+	o.Edges = v
+}
+
+func (o FlowTopologyGraph) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FlowTopologyGraph) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Nodes) {
+		toSerialize["nodes"] = o.Nodes
+	}
+	if !IsNil(o.Edges) {
+		toSerialize["edges"] = o.Edges
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FlowTopologyGraph) UnmarshalJSON(data []byte) (err error) {
+	varFlowTopologyGraph := _FlowTopologyGraph{}
+
+	err = json.Unmarshal(data, &varFlowTopologyGraph)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowTopologyGraph(varFlowTopologyGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "nodes")
+		delete(additionalProperties, "edges")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFlowTopologyGraph struct {
+	value *FlowTopologyGraph
+	isSet bool
+}
+
+func (v NullableFlowTopologyGraph) Get() *FlowTopologyGraph {
+	return v.value
+}
+
+func (v *NullableFlowTopologyGraph) Set(val *FlowTopologyGraph) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowTopologyGraph) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowTopologyGraph) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowTopologyGraph(val *FlowTopologyGraph) *NullableFlowTopologyGraph {
+	return &NullableFlowTopologyGraph{value: val, isSet: true}
+}
+
+func (v NullableFlowTopologyGraph) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowTopologyGraph) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

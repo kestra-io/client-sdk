@@ -1,0 +1,237 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ExecutableTaskSubflowId type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExecutableTaskSubflowId{}
+
+// ExecutableTaskSubflowId struct for ExecutableTaskSubflowId
+type ExecutableTaskSubflowId struct {
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	Revision NullableInt32 `json:"revision,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ExecutableTaskSubflowId ExecutableTaskSubflowId
+
+// NewExecutableTaskSubflowId instantiates a new ExecutableTaskSubflowId object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewExecutableTaskSubflowId() *ExecutableTaskSubflowId {
+	this := ExecutableTaskSubflowId{}
+	return &this
+}
+
+// NewExecutableTaskSubflowIdWithDefaults instantiates a new ExecutableTaskSubflowId object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewExecutableTaskSubflowIdWithDefaults() *ExecutableTaskSubflowId {
+	this := ExecutableTaskSubflowId{}
+	return &this
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *ExecutableTaskSubflowId) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecutableTaskSubflowId) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *ExecutableTaskSubflowId) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *ExecutableTaskSubflowId) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetFlowId returns the FlowId field value if set, zero value otherwise.
+func (o *ExecutableTaskSubflowId) GetFlowId() string {
+	if o == nil || IsNil(o.FlowId) {
+		var ret string
+		return ret
+	}
+	return *o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecutableTaskSubflowId) GetFlowIdOk() (*string, bool) {
+	if o == nil || IsNil(o.FlowId) {
+		return nil, false
+	}
+	return o.FlowId, true
+}
+
+// HasFlowId returns a boolean if a field has been set.
+func (o *ExecutableTaskSubflowId) HasFlowId() bool {
+	if o != nil && !IsNil(o.FlowId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+func (o *ExecutableTaskSubflowId) SetFlowId(v string) {
+	o.FlowId = &v
+}
+
+// GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ExecutableTaskSubflowId) GetRevision() int32 {
+	if o == nil || IsNil(o.Revision.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.Revision.Get()
+}
+
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ExecutableTaskSubflowId) GetRevisionOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Revision.Get(), o.Revision.IsSet()
+}
+
+// HasRevision returns a boolean if a field has been set.
+func (o *ExecutableTaskSubflowId) HasRevision() bool {
+	if o != nil && o.Revision.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRevision gets a reference to the given NullableInt32 and assigns it to the Revision field.
+func (o *ExecutableTaskSubflowId) SetRevision(v int32) {
+	o.Revision.Set(&v)
+}
+// SetRevisionNil sets the value for Revision to be an explicit nil
+func (o *ExecutableTaskSubflowId) SetRevisionNil() {
+	o.Revision.Set(nil)
+}
+
+// UnsetRevision ensures that no value is present for Revision, not even an explicit nil
+func (o *ExecutableTaskSubflowId) UnsetRevision() {
+	o.Revision.Unset()
+}
+
+func (o ExecutableTaskSubflowId) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ExecutableTaskSubflowId) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.FlowId) {
+		toSerialize["flowId"] = o.FlowId
+	}
+	if o.Revision.IsSet() {
+		toSerialize["revision"] = o.Revision.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ExecutableTaskSubflowId) UnmarshalJSON(data []byte) (err error) {
+	varExecutableTaskSubflowId := _ExecutableTaskSubflowId{}
+
+	err = json.Unmarshal(data, &varExecutableTaskSubflowId)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutableTaskSubflowId(varExecutableTaskSubflowId)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "revision")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableExecutableTaskSubflowId struct {
+	value *ExecutableTaskSubflowId
+	isSet bool
+}
+
+func (v NullableExecutableTaskSubflowId) Get() *ExecutableTaskSubflowId {
+	return v.value
+}
+
+func (v *NullableExecutableTaskSubflowId) Set(val *ExecutableTaskSubflowId) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableExecutableTaskSubflowId) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableExecutableTaskSubflowId) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableExecutableTaskSubflowId(val *ExecutableTaskSubflowId) *NullableExecutableTaskSubflowId {
+	return &NullableExecutableTaskSubflowId{value: val, isSet: true}
+}
+
+func (v NullableExecutableTaskSubflowId) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableExecutableTaskSubflowId) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

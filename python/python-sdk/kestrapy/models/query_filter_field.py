@@ -1,0 +1,86 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import json
+from enum import Enum
+from typing_extensions import Self
+
+
+class QueryFilterField(str, Enum):
+    """
+    QueryFilterField
+    """
+
+    """
+    allowed enum values
+    """
+    QUERY = 'q'
+    SCOPE = 'scope'
+    NAMESPACE = 'namespace'
+    KIND = 'kind'
+    POLICY_SCOPE = 'POLICY_SCOPE'
+    ENFORCEMENT = 'ENFORCEMENT'
+    LABELS = 'labels'
+    TAGS = 'tags'
+    METADATA = 'metadata'
+    FLOW_ID = 'flowId'
+    FLOW_REVISION = 'flowRevision'
+    ID = 'id'
+    ASSET_ID = 'assetId'
+    TYPE = 'type'
+    ACTION = 'action'
+    CREATED = 'created'
+    UPDATED = 'updated'
+    START_DATE = 'startDate'
+    END_DATE = 'endDate'
+    EXPIRATION_DATE = 'expirationDate'
+    STATE = 'state'
+    STATUS = 'status'
+    SEVERITY = 'SEVERITY'
+    ASSIGNEE = 'ASSIGNEE'
+    EMAIL = 'email'
+    TIME_RANGE = 'timeRange'
+    PARENT_ID = 'parentId'
+    TRIGGER_EXECUTION_ID = 'triggerExecutionId'
+    TRIGGER_ID = 'triggerId'
+    TRIGGER_STATE = 'triggerState'
+    EXECUTION_ID = 'executionId'
+    TASK_ID = 'taskId'
+    TASK_RUN_ID = 'taskRunId'
+    ATTEMPT_NUMBER = 'attemptNumber'
+    CHILD_FILTER = 'childFilter'
+    WORKER_ID = 'workerId'
+    EXISTING_ONLY = 'existingOnly'
+    USER_ID = 'userId'
+    RESOURCES = 'resources'
+    DETAILS = 'details'
+    LEVEL = 'level'
+    PATH = 'path'
+    PARENT_PATH = 'parentPath'
+    VERSION = 'version'
+    ENABLED = 'enabled'
+    USERNAME = 'username'
+    NAME = 'name'
+    GROUP = 'groupList'
+    EXTERNAL_ID = 'external_id'
+    EXPIRED_AT = 'expired_at'
+    INSTANCE_OWNER = 'instance_owner'
+    SOURCE = 'source'
+    LOCKED = 'locked'
+    LAST_TRIGGERED_DATE = 'lastTriggeredDate'
+    NEXT_EXECUTION_DATE = 'nextExecutionDate'
+    ARTIFACT_ID = 'artifactId'
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Create an instance of QueryFilterField from a JSON string"""
+        return cls(json.loads(json_str))
+
+

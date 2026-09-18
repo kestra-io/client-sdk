@@ -1,0 +1,674 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the AbstractTrigger type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AbstractTrigger{}
+
+// AbstractTrigger struct for AbstractTrigger
+type AbstractTrigger struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
+	// Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). 
+	Version *string `json:"version,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.
+	When *string `json:"when,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	// Routing requirements (tags + fallback) for this trigger.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	// Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition only).
+	PolicyRefs []string `json:"policyRefs,omitempty"`
+	LogLevel *Level `json:"logLevel,omitempty"`
+	Labels *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
+	StopAfter []StateType `json:"stopAfter,omitempty"`
+	LogToFile *bool `json:"logToFile,omitempty"`
+	FailOnTriggerError *bool `json:"failOnTriggerError,omitempty"`
+	AllowConcurrent *bool `json:"allowConcurrent,omitempty"`
+	Assets *AssetsDeclaration `json:"assets,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AbstractTrigger AbstractTrigger
+
+// NewAbstractTrigger instantiates a new AbstractTrigger object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAbstractTrigger(id string, type_ string) *AbstractTrigger {
+	this := AbstractTrigger{}
+	this.Id = id
+	this.Type = type_
+	var disabled bool = false
+	this.Disabled = &disabled
+	return &this
+}
+
+// NewAbstractTriggerWithDefaults instantiates a new AbstractTrigger object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAbstractTriggerWithDefaults() *AbstractTrigger {
+	this := AbstractTrigger{}
+	var disabled bool = false
+	this.Disabled = &disabled
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *AbstractTrigger) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AbstractTrigger) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *AbstractTrigger) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *AbstractTrigger) SetType(v string) {
+	o.Type = v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *AbstractTrigger) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AbstractTrigger) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetWhen returns the When field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetWhen() string {
+	if o == nil || IsNil(o.When) {
+		var ret string
+		return ret
+	}
+	return *o.When
+}
+
+// GetWhenOk returns a tuple with the When field value if set, nil otherwise.
+func (o *AbstractTrigger) GetWhenOk() (*string, bool) {
+	if o == nil || IsNil(o.When) {
+		return nil, false
+	}
+	return o.When, true
+}
+
+// SetWhen sets field value
+func (o *AbstractTrigger) SetWhen(v string) {
+	o.When = &v
+}
+
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetDisabled() bool {
+	if o == nil || IsNil(o.Disabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetDisabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Disabled) {
+		return nil, false
+	}
+	return o.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+func (o *AbstractTrigger) SetDisabled(v bool) {
+	o.Disabled = &v
+}
+
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
+		return ret
+	}
+	return *o.WorkerSelector
+}
+
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
+		return nil, false
+	}
+	return o.WorkerSelector, true
+}
+
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractTrigger) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
+}
+
+// GetPolicyRefs returns the PolicyRefs field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetPolicyRefs() []string {
+	if o == nil || IsNil(o.PolicyRefs) {
+		var ret []string
+		return ret
+	}
+	return o.PolicyRefs
+}
+
+// GetPolicyRefsOk returns a tuple with the PolicyRefs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetPolicyRefsOk() ([]string, bool) {
+	if o == nil || IsNil(o.PolicyRefs) {
+		return nil, false
+	}
+	return o.PolicyRefs, true
+}
+
+// HasPolicyRefs returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasPolicyRefs() bool {
+	if o != nil && !IsNil(o.PolicyRefs) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyRefs gets a reference to the given []string and assigns it to the PolicyRefs field.
+func (o *AbstractTrigger) SetPolicyRefs(v []string) {
+	o.PolicyRefs = v
+}
+
+// GetLogLevel returns the LogLevel field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetLogLevel() Level {
+	if o == nil || IsNil(o.LogLevel) {
+		var ret Level
+		return ret
+	}
+	return *o.LogLevel
+}
+
+// GetLogLevelOk returns a tuple with the LogLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetLogLevelOk() (*Level, bool) {
+	if o == nil || IsNil(o.LogLevel) {
+		return nil, false
+	}
+	return o.LogLevel, true
+}
+
+// HasLogLevel returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasLogLevel() bool {
+	if o != nil && !IsNil(o.LogLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogLevel gets a reference to the given Level and assigns it to the LogLevel field.
+func (o *AbstractTrigger) SetLogLevel(v Level) {
+	o.LogLevel = &v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetLabels() TheLabelsToPassToTheExecutionCreated {
+	if o == nil || IsNil(o.Labels) {
+		var ret TheLabelsToPassToTheExecutionCreated
+		return ret
+	}
+	return *o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetLabelsOk() (*TheLabelsToPassToTheExecutionCreated, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given TheLabelsToPassToTheExecutionCreated and assigns it to the Labels field.
+func (o *AbstractTrigger) SetLabels(v TheLabelsToPassToTheExecutionCreated) {
+	o.Labels = &v
+}
+
+// GetStopAfter returns the StopAfter field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetStopAfter() []StateType {
+	if o == nil || IsNil(o.StopAfter) {
+		var ret []StateType
+		return ret
+	}
+	return o.StopAfter
+}
+
+// GetStopAfterOk returns a tuple with the StopAfter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetStopAfterOk() ([]StateType, bool) {
+	if o == nil || IsNil(o.StopAfter) {
+		return nil, false
+	}
+	return o.StopAfter, true
+}
+
+// HasStopAfter returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasStopAfter() bool {
+	if o != nil && !IsNil(o.StopAfter) {
+		return true
+	}
+
+	return false
+}
+
+// SetStopAfter gets a reference to the given []StateType and assigns it to the StopAfter field.
+func (o *AbstractTrigger) SetStopAfter(v []StateType) {
+	o.StopAfter = v
+}
+
+// GetLogToFile returns the LogToFile field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetLogToFile() bool {
+	if o == nil || IsNil(o.LogToFile) {
+		var ret bool
+		return ret
+	}
+	return *o.LogToFile
+}
+
+// GetLogToFileOk returns a tuple with the LogToFile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetLogToFileOk() (*bool, bool) {
+	if o == nil || IsNil(o.LogToFile) {
+		return nil, false
+	}
+	return o.LogToFile, true
+}
+
+// HasLogToFile returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasLogToFile() bool {
+	if o != nil && !IsNil(o.LogToFile) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogToFile gets a reference to the given bool and assigns it to the LogToFile field.
+func (o *AbstractTrigger) SetLogToFile(v bool) {
+	o.LogToFile = &v
+}
+
+// GetFailOnTriggerError returns the FailOnTriggerError field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetFailOnTriggerError() bool {
+	if o == nil || IsNil(o.FailOnTriggerError) {
+		var ret bool
+		return ret
+	}
+	return *o.FailOnTriggerError
+}
+
+// GetFailOnTriggerErrorOk returns a tuple with the FailOnTriggerError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetFailOnTriggerErrorOk() (*bool, bool) {
+	if o == nil || IsNil(o.FailOnTriggerError) {
+		return nil, false
+	}
+	return o.FailOnTriggerError, true
+}
+
+// HasFailOnTriggerError returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasFailOnTriggerError() bool {
+	if o != nil && !IsNil(o.FailOnTriggerError) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailOnTriggerError gets a reference to the given bool and assigns it to the FailOnTriggerError field.
+func (o *AbstractTrigger) SetFailOnTriggerError(v bool) {
+	o.FailOnTriggerError = &v
+}
+
+// GetAllowConcurrent returns the AllowConcurrent field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetAllowConcurrent() bool {
+	if o == nil || IsNil(o.AllowConcurrent) {
+		var ret bool
+		return ret
+	}
+	return *o.AllowConcurrent
+}
+
+// GetAllowConcurrentOk returns a tuple with the AllowConcurrent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetAllowConcurrentOk() (*bool, bool) {
+	if o == nil || IsNil(o.AllowConcurrent) {
+		return nil, false
+	}
+	return o.AllowConcurrent, true
+}
+
+// HasAllowConcurrent returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasAllowConcurrent() bool {
+	if o != nil && !IsNil(o.AllowConcurrent) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowConcurrent gets a reference to the given bool and assigns it to the AllowConcurrent field.
+func (o *AbstractTrigger) SetAllowConcurrent(v bool) {
+	o.AllowConcurrent = &v
+}
+
+// GetAssets returns the Assets field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetAssets() AssetsDeclaration {
+	if o == nil || IsNil(o.Assets) {
+		var ret AssetsDeclaration
+		return ret
+	}
+	return *o.Assets
+}
+
+// GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetAssetsOk() (*AssetsDeclaration, bool) {
+	if o == nil || IsNil(o.Assets) {
+		return nil, false
+	}
+	return o.Assets, true
+}
+
+// HasAssets returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasAssets() bool {
+	if o != nil && !IsNil(o.Assets) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssets gets a reference to the given AssetsDeclaration and assigns it to the Assets field.
+func (o *AbstractTrigger) SetAssets(v AssetsDeclaration) {
+	o.Assets = &v
+}
+
+func (o AbstractTrigger) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AbstractTrigger) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.When) {
+		toSerialize["when"] = o.When
+	}
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
+	}
+	if !IsNil(o.PolicyRefs) {
+		toSerialize["policyRefs"] = o.PolicyRefs
+	}
+	if !IsNil(o.LogLevel) {
+		toSerialize["logLevel"] = o.LogLevel
+	}
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.StopAfter) {
+		toSerialize["stopAfter"] = o.StopAfter
+	}
+	if !IsNil(o.LogToFile) {
+		toSerialize["logToFile"] = o.LogToFile
+	}
+	if !IsNil(o.FailOnTriggerError) {
+		toSerialize["failOnTriggerError"] = o.FailOnTriggerError
+	}
+	if !IsNil(o.AllowConcurrent) {
+		toSerialize["allowConcurrent"] = o.AllowConcurrent
+	}
+	if !IsNil(o.Assets) {
+		toSerialize["assets"] = o.Assets
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AbstractTrigger) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAbstractTrigger := _AbstractTrigger{}
+
+	err = json.Unmarshal(data, &varAbstractTrigger)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractTrigger(varAbstractTrigger)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "when")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "workerSelector")
+		delete(additionalProperties, "policyRefs")
+		delete(additionalProperties, "logLevel")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "stopAfter")
+		delete(additionalProperties, "logToFile")
+		delete(additionalProperties, "failOnTriggerError")
+		delete(additionalProperties, "allowConcurrent")
+		delete(additionalProperties, "assets")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAbstractTrigger struct {
+	value *AbstractTrigger
+	isSet bool
+}
+
+func (v NullableAbstractTrigger) Get() *AbstractTrigger {
+	return v.value
+}
+
+func (v *NullableAbstractTrigger) Set(val *AbstractTrigger) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAbstractTrigger) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAbstractTrigger) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAbstractTrigger(val *AbstractTrigger) *NullableAbstractTrigger {
+	return &NullableAbstractTrigger{value: val, isSet: true}
+}
+
+func (v NullableAbstractTrigger) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAbstractTrigger) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

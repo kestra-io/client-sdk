@@ -1,0 +1,98 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMUserControllerApiPatchUserPasswordRequest
+ */
+@JsonPropertyOrder({
+  IAMUserControllerApiPatchUserPasswordRequest.JSON_PROPERTY_PASSWORD
+})
+@JsonTypeName("IAMUserController.ApiPatchUserPasswordRequest")
+public class IAMUserControllerApiPatchUserPasswordRequest {
+  public static final String JSON_PROPERTY_PASSWORD = "password";
+  @jakarta.annotation.Nonnull  private String password;
+
+  public IAMUserControllerApiPatchUserPasswordRequest() {
+  }
+
+  public IAMUserControllerApiPatchUserPasswordRequest password(@jakarta.annotation.Nonnull String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+  /**
+   * Get password
+   * @return password
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPassword(@jakarta.annotation.Nonnull String password) {
+    this.password = password;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = (IAMUserControllerApiPatchUserPasswordRequest) o;
+    return Objects.equals(this.password, iaMUserControllerApiPatchUserPasswordRequest.password);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(password);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMUserControllerApiPatchUserPasswordRequest {\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

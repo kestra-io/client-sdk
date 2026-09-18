@@ -1,0 +1,278 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Role
+ */
+@JsonPropertyOrder({
+  Role.JSON_PROPERTY_IS_MANAGED,
+  Role.JSON_PROPERTY_PERMISSIONS,
+  Role.JSON_PROPERTY_ID,
+  Role.JSON_PROPERTY_NAME,
+  Role.JSON_PROPERTY_DESCRIPTION,
+  Role.JSON_PROPERTY_IS_DEFAULT,
+  Role.JSON_PROPERTY_DELETED
+})
+public class Role {
+  public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
+  @jakarta.annotation.Nonnull  private Boolean isManaged;
+
+  public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
+  @jakarta.annotation.Nullable  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
+  @jakarta.annotation.Nullable  private Boolean isDefault;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public Role() {
+  }
+
+  public Role isManaged(@jakarta.annotation.Nonnull Boolean isManaged) {
+    
+    this.isManaged = isManaged;
+    return this;
+  }
+
+  /**
+   * Get isManaged
+   * @return isManaged
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIsManaged() {
+    return isManaged;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsManaged(@jakarta.annotation.Nonnull Boolean isManaged) {
+    this.isManaged = isManaged;
+  }
+
+  public Role permissions(@jakarta.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    
+    this.permissions = permissions;
+    return this;
+  }
+
+  /**
+   * Get permissions
+   * @return permissions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
+    return permissions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@jakarta.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    this.permissions = permissions;
+  }
+
+  public Role id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public Role name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public Role description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public Role isDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    
+    this.isDefault = isDefault;
+    return this;
+  }
+
+  /**
+   * Get isDefault
+   * @return isDefault
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(@jakarta.annotation.Nullable Boolean isDefault) {
+    this.isDefault = isDefault;
+  }
+
+  public Role deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Role role = (Role) o;
+    return Objects.equals(this.isManaged, role.isManaged) &&
+        Objects.equals(this.permissions, role.permissions) &&
+        Objects.equals(this.id, role.id) &&
+        Objects.equals(this.name, role.name) &&
+        Objects.equals(this.description, role.description) &&
+        Objects.equals(this.isDefault, role.isDefault) &&
+        Objects.equals(this.deleted, role.deleted);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isManaged, permissions, id, name, description, isDefault, deleted);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Role {\n");
+    sb.append("    isManaged: ").append(toIndentedString(isManaged)).append("\n");
+    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

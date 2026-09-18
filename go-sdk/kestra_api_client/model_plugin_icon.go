@@ -1,0 +1,227 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the PluginIcon type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PluginIcon{}
+
+// PluginIcon struct for PluginIcon
+type PluginIcon struct {
+	Name *string `json:"name,omitempty"`
+	Icon *string `json:"icon,omitempty"`
+	Flowable *bool `json:"flowable,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _PluginIcon PluginIcon
+
+// NewPluginIcon instantiates a new PluginIcon object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPluginIcon() *PluginIcon {
+	this := PluginIcon{}
+	return &this
+}
+
+// NewPluginIconWithDefaults instantiates a new PluginIcon object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPluginIconWithDefaults() *PluginIcon {
+	this := PluginIcon{}
+	return &this
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *PluginIcon) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginIcon) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *PluginIcon) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *PluginIcon) SetName(v string) {
+	o.Name = &v
+}
+
+// GetIcon returns the Icon field value if set, zero value otherwise.
+func (o *PluginIcon) GetIcon() string {
+	if o == nil || IsNil(o.Icon) {
+		var ret string
+		return ret
+	}
+	return *o.Icon
+}
+
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginIcon) GetIconOk() (*string, bool) {
+	if o == nil || IsNil(o.Icon) {
+		return nil, false
+	}
+	return o.Icon, true
+}
+
+// HasIcon returns a boolean if a field has been set.
+func (o *PluginIcon) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
+func (o *PluginIcon) SetIcon(v string) {
+	o.Icon = &v
+}
+
+// GetFlowable returns the Flowable field value if set, zero value otherwise.
+func (o *PluginIcon) GetFlowable() bool {
+	if o == nil || IsNil(o.Flowable) {
+		var ret bool
+		return ret
+	}
+	return *o.Flowable
+}
+
+// GetFlowableOk returns a tuple with the Flowable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PluginIcon) GetFlowableOk() (*bool, bool) {
+	if o == nil || IsNil(o.Flowable) {
+		return nil, false
+	}
+	return o.Flowable, true
+}
+
+// HasFlowable returns a boolean if a field has been set.
+func (o *PluginIcon) HasFlowable() bool {
+	if o != nil && !IsNil(o.Flowable) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowable gets a reference to the given bool and assigns it to the Flowable field.
+func (o *PluginIcon) SetFlowable(v bool) {
+	o.Flowable = &v
+}
+
+func (o PluginIcon) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PluginIcon) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Icon) {
+		toSerialize["icon"] = o.Icon
+	}
+	if !IsNil(o.Flowable) {
+		toSerialize["flowable"] = o.Flowable
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *PluginIcon) UnmarshalJSON(data []byte) (err error) {
+	varPluginIcon := _PluginIcon{}
+
+	err = json.Unmarshal(data, &varPluginIcon)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginIcon(varPluginIcon)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "flowable")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullablePluginIcon struct {
+	value *PluginIcon
+	isSet bool
+}
+
+func (v NullablePluginIcon) Get() *PluginIcon {
+	return v.value
+}
+
+func (v *NullablePluginIcon) Set(val *PluginIcon) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePluginIcon) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePluginIcon) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePluginIcon(val *PluginIcon) *NullablePluginIcon {
+	return &NullablePluginIcon{value: val, isSet: true}
+}
+
+func (v NullablePluginIcon) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePluginIcon) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

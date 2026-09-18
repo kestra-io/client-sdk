@@ -1,0 +1,399 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AttributeReference;
+import io.kestra.sdk.model.Filter;
+import io.kestra.sdk.model.PageRequest;
+import io.kestra.sdk.model.SortOrder;
+import io.kestra.sdk.model.SortRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * SearchRequest
+ */
+@JsonPropertyOrder({
+  SearchRequest.JSON_PROPERTY_SCHEMAS,
+  SearchRequest.JSON_PROPERTY_PAGE_REQUEST,
+  SearchRequest.JSON_PROPERTY_SORT_REQUEST,
+  SearchRequest.JSON_PROPERTY_ATTRIBUTES,
+  SearchRequest.JSON_PROPERTY_EXCLUDED_ATTRIBUTES,
+  SearchRequest.JSON_PROPERTY_FILTER,
+  SearchRequest.JSON_PROPERTY_SORT_BY,
+  SearchRequest.JSON_PROPERTY_SORT_ORDER,
+  SearchRequest.JSON_PROPERTY_START_INDEX,
+  SearchRequest.JSON_PROPERTY_COUNT
+})
+public class SearchRequest {
+  public static final String JSON_PROPERTY_SCHEMAS = "schemas";
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PAGE_REQUEST = "pageRequest";
+  @jakarta.annotation.Nullable  private PageRequest pageRequest;
+
+  public static final String JSON_PROPERTY_SORT_REQUEST = "sortRequest";
+  @jakarta.annotation.Nullable  private SortRequest sortRequest;
+
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  @jakarta.annotation.Nullable  private List<AttributeReference> attributes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EXCLUDED_ATTRIBUTES = "excludedAttributes";
+  @jakarta.annotation.Nullable  private List<AttributeReference> excludedAttributes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_FILTER = "filter";
+  @jakarta.annotation.Nullable  private Filter filter;
+
+  public static final String JSON_PROPERTY_SORT_BY = "sortBy";
+  @jakarta.annotation.Nullable  private AttributeReference sortBy;
+
+  public static final String JSON_PROPERTY_SORT_ORDER = "sortOrder";
+  @jakarta.annotation.Nullable  private SortOrder sortOrder;
+
+  public static final String JSON_PROPERTY_START_INDEX = "startIndex";
+  @jakarta.annotation.Nullable  private Integer startIndex;
+
+  public static final String JSON_PROPERTY_COUNT = "count";
+  @jakarta.annotation.Nullable  private Integer count;
+
+  public SearchRequest() {
+  }
+
+  public SearchRequest schemas(@jakarta.annotation.Nullable List<String> schemas) {
+    
+    this.schemas = schemas;
+    return this;
+  }
+
+  public SearchRequest addSchemasItem(String schemasItem) {
+    if (this.schemas == null) {
+      this.schemas = new ArrayList<>();
+    }
+    this.schemas.add(schemasItem);
+    return this;
+  }
+
+  /**
+   * Get schemas
+   * @return schemas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSchemas() {
+    return schemas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
+    this.schemas = schemas;
+  }
+
+  public SearchRequest pageRequest(@jakarta.annotation.Nullable PageRequest pageRequest) {
+    
+    this.pageRequest = pageRequest;
+    return this;
+  }
+
+  /**
+   * Get pageRequest
+   * @return pageRequest
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_REQUEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PageRequest getPageRequest() {
+    return pageRequest;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGE_REQUEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPageRequest(@jakarta.annotation.Nullable PageRequest pageRequest) {
+    this.pageRequest = pageRequest;
+  }
+
+  public SearchRequest sortRequest(@jakarta.annotation.Nullable SortRequest sortRequest) {
+    
+    this.sortRequest = sortRequest;
+    return this;
+  }
+
+  /**
+   * Get sortRequest
+   * @return sortRequest
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_REQUEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SortRequest getSortRequest() {
+    return sortRequest;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SORT_REQUEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSortRequest(@jakarta.annotation.Nullable SortRequest sortRequest) {
+    this.sortRequest = sortRequest;
+  }
+
+  public SearchRequest attributes(@jakarta.annotation.Nullable List<AttributeReference> attributes) {
+    
+    this.attributes = attributes;
+    return this;
+  }
+
+  public SearchRequest addAttributesItem(AttributeReference attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new ArrayList<>();
+    }
+    this.attributes.add(attributesItem);
+    return this;
+  }
+
+  /**
+   * Get attributes
+   * @return attributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AttributeReference> getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(@jakarta.annotation.Nullable List<AttributeReference> attributes) {
+    this.attributes = attributes;
+  }
+
+  public SearchRequest excludedAttributes(@jakarta.annotation.Nullable List<AttributeReference> excludedAttributes) {
+    
+    this.excludedAttributes = excludedAttributes;
+    return this;
+  }
+
+  public SearchRequest addExcludedAttributesItem(AttributeReference excludedAttributesItem) {
+    if (this.excludedAttributes == null) {
+      this.excludedAttributes = new ArrayList<>();
+    }
+    this.excludedAttributes.add(excludedAttributesItem);
+    return this;
+  }
+
+  /**
+   * Get excludedAttributes
+   * @return excludedAttributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXCLUDED_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AttributeReference> getExcludedAttributes() {
+    return excludedAttributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXCLUDED_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExcludedAttributes(@jakarta.annotation.Nullable List<AttributeReference> excludedAttributes) {
+    this.excludedAttributes = excludedAttributes;
+  }
+
+  public SearchRequest filter(@jakarta.annotation.Nullable Filter filter) {
+    
+    this.filter = filter;
+    return this;
+  }
+
+  /**
+   * Get filter
+   * @return filter
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Filter getFilter() {
+    return filter;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilter(@jakarta.annotation.Nullable Filter filter) {
+    this.filter = filter;
+  }
+
+  public SearchRequest sortBy(@jakarta.annotation.Nullable AttributeReference sortBy) {
+    
+    this.sortBy = sortBy;
+    return this;
+  }
+
+  /**
+   * Get sortBy
+   * @return sortBy
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AttributeReference getSortBy() {
+    return sortBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSortBy(@jakarta.annotation.Nullable AttributeReference sortBy) {
+    this.sortBy = sortBy;
+  }
+
+  public SearchRequest sortOrder(@jakarta.annotation.Nullable SortOrder sortOrder) {
+    
+    this.sortOrder = sortOrder;
+    return this;
+  }
+
+  /**
+   * Get sortOrder
+   * @return sortOrder
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SortOrder getSortOrder() {
+    return sortOrder;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSortOrder(@jakarta.annotation.Nullable SortOrder sortOrder) {
+    this.sortOrder = sortOrder;
+  }
+
+  public SearchRequest startIndex(@jakarta.annotation.Nullable Integer startIndex) {
+    
+    this.startIndex = startIndex;
+    return this;
+  }
+
+  /**
+   * Get startIndex
+   * @return startIndex
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_INDEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getStartIndex() {
+    return startIndex;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_INDEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartIndex(@jakarta.annotation.Nullable Integer startIndex) {
+    this.startIndex = startIndex;
+  }
+
+  public SearchRequest count(@jakarta.annotation.Nullable Integer count) {
+    
+    this.count = count;
+    return this;
+  }
+
+  /**
+   * Get count
+   * @return count
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCount() {
+    return count;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCount(@jakarta.annotation.Nullable Integer count) {
+    this.count = count;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SearchRequest searchRequest = (SearchRequest) o;
+    return Objects.equals(this.schemas, searchRequest.schemas) &&
+        Objects.equals(this.pageRequest, searchRequest.pageRequest) &&
+        Objects.equals(this.sortRequest, searchRequest.sortRequest) &&
+        Objects.equals(this.attributes, searchRequest.attributes) &&
+        Objects.equals(this.excludedAttributes, searchRequest.excludedAttributes) &&
+        Objects.equals(this.filter, searchRequest.filter) &&
+        Objects.equals(this.sortBy, searchRequest.sortBy) &&
+        Objects.equals(this.sortOrder, searchRequest.sortOrder) &&
+        Objects.equals(this.startIndex, searchRequest.startIndex) &&
+        Objects.equals(this.count, searchRequest.count);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas, pageRequest, sortRequest, attributes, excludedAttributes, filter, sortBy, sortOrder, startIndex, count);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SearchRequest {\n");
+    sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
+    sb.append("    pageRequest: ").append(toIndentedString(pageRequest)).append("\n");
+    sb.append("    sortRequest: ").append(toIndentedString(sortRequest)).append("\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    excludedAttributes: ").append(toIndentedString(excludedAttributes)).append("\n");
+    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    sortBy: ").append(toIndentedString(sortBy)).append("\n");
+    sb.append("    sortOrder: ").append(toIndentedString(sortOrder)).append("\n");
+    sb.append("    startIndex: ").append(toIndentedString(startIndex)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

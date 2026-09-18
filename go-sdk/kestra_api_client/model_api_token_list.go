@@ -1,0 +1,203 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ApiTokenList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiTokenList{}
+
+// ApiTokenList struct for ApiTokenList
+type ApiTokenList struct {
+	Total *int32 `json:"total,omitempty"`
+	Results []ApiToken `json:"results"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiTokenList ApiTokenList
+
+// NewApiTokenList instantiates a new ApiTokenList object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiTokenList(results []ApiToken) *ApiTokenList {
+	this := ApiTokenList{}
+	this.Results = results
+	return &this
+}
+
+// NewApiTokenListWithDefaults instantiates a new ApiTokenList object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiTokenListWithDefaults() *ApiTokenList {
+	this := ApiTokenList{}
+	return &this
+}
+
+// GetTotal returns the Total field value if set, zero value otherwise.
+func (o *ApiTokenList) GetTotal() int32 {
+	if o == nil || IsNil(o.Total) {
+		var ret int32
+		return ret
+	}
+	return *o.Total
+}
+
+// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTokenList) GetTotalOk() (*int32, bool) {
+	if o == nil || IsNil(o.Total) {
+		return nil, false
+	}
+	return o.Total, true
+}
+
+// HasTotal returns a boolean if a field has been set.
+func (o *ApiTokenList) HasTotal() bool {
+	if o != nil && !IsNil(o.Total) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+func (o *ApiTokenList) SetTotal(v int32) {
+	o.Total = &v
+}
+
+// GetResults returns the Results field value
+func (o *ApiTokenList) GetResults() []ApiToken {
+	if o == nil {
+		var ret []ApiToken
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *ApiTokenList) GetResultsOk() ([]ApiToken, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *ApiTokenList) SetResults(v []ApiToken) {
+	o.Results = v
+}
+
+func (o ApiTokenList) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiTokenList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Total) {
+		toSerialize["total"] = o.Total
+	}
+	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiTokenList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiTokenList := _ApiTokenList{}
+
+	err = json.Unmarshal(data, &varApiTokenList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiTokenList(varApiTokenList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiTokenList struct {
+	value *ApiTokenList
+	isSet bool
+}
+
+func (v NullableApiTokenList) Get() *ApiTokenList {
+	return v.value
+}
+
+func (v *NullableApiTokenList) Set(val *ApiTokenList) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiTokenList) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiTokenList) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiTokenList(val *ApiTokenList) *NullableApiTokenList {
+	return &NullableApiTokenList{value: val, isSet: true}
+}
+
+func (v NullableApiTokenList) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiTokenList) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

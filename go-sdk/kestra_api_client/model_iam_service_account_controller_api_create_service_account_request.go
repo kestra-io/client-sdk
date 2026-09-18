@@ -1,0 +1,277 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the IAMServiceAccountControllerApiCreateServiceAccountRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IAMServiceAccountControllerApiCreateServiceAccountRequest{}
+
+// IAMServiceAccountControllerApiCreateServiceAccountRequest Request payload for updating service account details
+type IAMServiceAccountControllerApiCreateServiceAccountRequest struct {
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	Description *string `json:"description,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
+	Tenants []string `json:"tenants,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _IAMServiceAccountControllerApiCreateServiceAccountRequest IAMServiceAccountControllerApiCreateServiceAccountRequest
+
+// NewIAMServiceAccountControllerApiCreateServiceAccountRequest instantiates a new IAMServiceAccountControllerApiCreateServiceAccountRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIAMServiceAccountControllerApiCreateServiceAccountRequest(name string) *IAMServiceAccountControllerApiCreateServiceAccountRequest {
+	this := IAMServiceAccountControllerApiCreateServiceAccountRequest{}
+	this.Name = name
+	return &this
+}
+
+// NewIAMServiceAccountControllerApiCreateServiceAccountRequestWithDefaults instantiates a new IAMServiceAccountControllerApiCreateServiceAccountRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIAMServiceAccountControllerApiCreateServiceAccountRequestWithDefaults() *IAMServiceAccountControllerApiCreateServiceAccountRequest {
+	this := IAMServiceAccountControllerApiCreateServiceAccountRequest{}
+	return &this
+}
+
+// GetName returns the Name field value
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
+		var ret bool
+		return ret
+	}
+	return *o.InstanceOwner
+}
+
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
+		return nil, false
+	}
+	return o.InstanceOwner, true
+}
+
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
+}
+
+// GetTenants returns the Tenants field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetTenants() []string {
+	if o == nil || IsNil(o.Tenants) {
+		var ret []string
+		return ret
+	}
+	return o.Tenants
+}
+
+// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetTenantsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tenants) {
+		return nil, false
+	}
+	return o.Tenants, true
+}
+
+// HasTenants returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasTenants() bool {
+	if o != nil && !IsNil(o.Tenants) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenants gets a reference to the given []string and assigns it to the Tenants field.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetTenants(v []string) {
+	o.Tenants = v
+}
+
+func (o IAMServiceAccountControllerApiCreateServiceAccountRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IAMServiceAccountControllerApiCreateServiceAccountRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
+	}
+	if !IsNil(o.Tenants) {
+		toSerialize["tenants"] = o.Tenants
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIAMServiceAccountControllerApiCreateServiceAccountRequest := _IAMServiceAccountControllerApiCreateServiceAccountRequest{}
+
+	err = json.Unmarshal(data, &varIAMServiceAccountControllerApiCreateServiceAccountRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IAMServiceAccountControllerApiCreateServiceAccountRequest(varIAMServiceAccountControllerApiCreateServiceAccountRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "instanceOwner")
+		delete(additionalProperties, "tenants")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIAMServiceAccountControllerApiCreateServiceAccountRequest struct {
+	value *IAMServiceAccountControllerApiCreateServiceAccountRequest
+	isSet bool
+}
+
+func (v NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) Get() *IAMServiceAccountControllerApiCreateServiceAccountRequest {
+	return v.value
+}
+
+func (v *NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) Set(val *IAMServiceAccountControllerApiCreateServiceAccountRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIAMServiceAccountControllerApiCreateServiceAccountRequest(val *IAMServiceAccountControllerApiCreateServiceAccountRequest) *NullableIAMServiceAccountControllerApiCreateServiceAccountRequest {
+	return &NullableIAMServiceAccountControllerApiCreateServiceAccountRequest{value: val, isSet: true}
+}
+
+func (v NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

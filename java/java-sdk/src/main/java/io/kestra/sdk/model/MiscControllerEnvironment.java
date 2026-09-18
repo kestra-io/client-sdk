@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerEnvironment
+ */
+@JsonPropertyOrder({
+  MiscControllerEnvironment.JSON_PROPERTY_NAME,
+  MiscControllerEnvironment.JSON_PROPERTY_COLOR
+})
+@JsonTypeName("MiscController.Environment")
+public class MiscControllerEnvironment {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_COLOR = "color";
+  @jakarta.annotation.Nullable  private String color;
+
+  public MiscControllerEnvironment() {
+  }
+
+  public MiscControllerEnvironment name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public MiscControllerEnvironment color(@jakarta.annotation.Nullable String color) {
+    
+    this.color = color;
+    return this;
+  }
+
+  /**
+   * Get color
+   * @return color
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COLOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getColor() {
+    return color;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COLOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setColor(@jakarta.annotation.Nullable String color) {
+    this.color = color;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerEnvironment miscControllerEnvironment = (MiscControllerEnvironment) o;
+    return Objects.equals(this.name, miscControllerEnvironment.name) &&
+        Objects.equals(this.color, miscControllerEnvironment.color);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, color);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerEnvironment {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

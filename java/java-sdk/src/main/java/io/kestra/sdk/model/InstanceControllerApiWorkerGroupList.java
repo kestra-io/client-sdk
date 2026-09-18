@@ -1,0 +1,110 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.InstanceControllerApiWorkerGroupItem;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiWorkerGroupList.
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiWorkerGroupList.JSON_PROPERTY_WORKER_GROUPS
+})
+@JsonTypeName("InstanceController.ApiWorkerGroupList")
+public class InstanceControllerApiWorkerGroupList {
+  public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
+
+  public InstanceControllerApiWorkerGroupList() {
+  }
+
+  public InstanceControllerApiWorkerGroupList workerGroups(@jakarta.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+    
+    this.workerGroups = workerGroups;
+    return this;
+  }
+
+  public InstanceControllerApiWorkerGroupList addWorkerGroupsItem(InstanceControllerApiWorkerGroupItem workerGroupsItem) {
+    if (this.workerGroups == null) {
+      this.workerGroups = new ArrayList<>();
+    }
+    this.workerGroups.add(workerGroupsItem);
+    return this;
+  }
+
+  /**
+   * The list of worker groups.
+   * @return workerGroups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<InstanceControllerApiWorkerGroupItem> getWorkerGroups() {
+    return workerGroups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerGroups(@jakarta.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+    this.workerGroups = workerGroups;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiWorkerGroupList instanceControllerApiWorkerGroupList = (InstanceControllerApiWorkerGroupList) o;
+    return Objects.equals(this.workerGroups, instanceControllerApiWorkerGroupList.workerGroups);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(workerGroups);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiWorkerGroupList {\n");
+    sb.append("    workerGroups: ").append(toIndentedString(workerGroups)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

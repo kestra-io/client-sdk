@@ -1,0 +1,259 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AppsControllerApiAppCatalogItem
+ */
+@JsonPropertyOrder({
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_UID,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_NAME,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_DESCRIPTION,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_TYPE,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_TAGS,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_THUMBNAIL
+})
+@JsonTypeName("AppsController.ApiAppCatalogItem")
+public class AppsControllerApiAppCatalogItem {
+  public static final String JSON_PROPERTY_UID = "uid";
+  @jakarta.annotation.Nullable  private String uid;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_THUMBNAIL = "thumbnail";
+  @jakarta.annotation.Nullable  private String thumbnail;
+
+  public AppsControllerApiAppCatalogItem() {
+  }
+
+  public AppsControllerApiAppCatalogItem uid(@jakarta.annotation.Nullable String uid) {
+    
+    this.uid = uid;
+    return this;
+  }
+
+  /**
+   * Get uid
+   * @return uid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUid() {
+    return uid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
+    this.uid = uid;
+  }
+
+  public AppsControllerApiAppCatalogItem name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public AppsControllerApiAppCatalogItem description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public AppsControllerApiAppCatalogItem type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public AppsControllerApiAppCatalogItem tags(@jakarta.annotation.Nullable List<String> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public AppsControllerApiAppCatalogItem addTagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
+    this.tags = tags;
+  }
+
+  public AppsControllerApiAppCatalogItem thumbnail(@jakarta.annotation.Nullable String thumbnail) {
+    
+    this.thumbnail = thumbnail;
+    return this;
+  }
+
+  /**
+   * Get thumbnail
+   * @return thumbnail
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_THUMBNAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getThumbnail() {
+    return thumbnail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_THUMBNAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setThumbnail(@jakarta.annotation.Nullable String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AppsControllerApiAppCatalogItem appsControllerApiAppCatalogItem = (AppsControllerApiAppCatalogItem) o;
+    return Objects.equals(this.uid, appsControllerApiAppCatalogItem.uid) &&
+        Objects.equals(this.name, appsControllerApiAppCatalogItem.name) &&
+        Objects.equals(this.description, appsControllerApiAppCatalogItem.description) &&
+        Objects.equals(this.type, appsControllerApiAppCatalogItem.type) &&
+        Objects.equals(this.tags, appsControllerApiAppCatalogItem.tags) &&
+        Objects.equals(this.thumbnail, appsControllerApiAppCatalogItem.thumbnail);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uid, name, description, type, tags, thumbnail);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AppsControllerApiAppCatalogItem {\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    thumbnail: ").append(toIndentedString(thumbnail)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

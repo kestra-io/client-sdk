@@ -1,0 +1,319 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.UnitTest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuite
+ */
+@JsonPropertyOrder({
+  TestSuite.JSON_PROPERTY_ID,
+  TestSuite.JSON_PROPERTY_DESCRIPTION,
+  TestSuite.JSON_PROPERTY_NAMESPACE,
+  TestSuite.JSON_PROPERTY_FLOW_ID,
+  TestSuite.JSON_PROPERTY_SOURCE,
+  TestSuite.JSON_PROPERTY_TEST_CASES,
+  TestSuite.JSON_PROPERTY_DELETED,
+  TestSuite.JSON_PROPERTY_DISABLED
+})
+public class TestSuite {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_TEST_CASES = "testCases";
+  @jakarta.annotation.Nonnull  private List<UnitTest> testCases = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nullable  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nullable  private Boolean disabled;
+
+  public TestSuite() {
+  }
+
+  public TestSuite id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public TestSuite description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public TestSuite namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public TestSuite flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public TestSuite source(@jakarta.annotation.Nullable String source) {
+    
+    this.source = source;
+    return this;
+  }
+
+  /**
+   * Get source
+   * @return source
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
+    this.source = source;
+  }
+
+  public TestSuite testCases(@jakarta.annotation.Nonnull List<UnitTest> testCases) {
+    
+    this.testCases = testCases;
+    return this;
+  }
+
+  public TestSuite addTestCasesItem(UnitTest testCasesItem) {
+    if (this.testCases == null) {
+      this.testCases = new ArrayList<>();
+    }
+    this.testCases.add(testCasesItem);
+    return this;
+  }
+
+  /**
+   * Get testCases
+   * @return testCases
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_CASES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<UnitTest> getTestCases() {
+    return testCases;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEST_CASES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestCases(@jakarta.annotation.Nonnull List<UnitTest> testCases) {
+    this.testCases = testCases;
+  }
+
+  public TestSuite deleted(@jakarta.annotation.Nullable Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
+    this.deleted = deleted;
+  }
+
+  public TestSuite disabled(@jakarta.annotation.Nullable Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuite testSuite = (TestSuite) o;
+    return Objects.equals(this.id, testSuite.id) &&
+        Objects.equals(this.description, testSuite.description) &&
+        Objects.equals(this.namespace, testSuite.namespace) &&
+        Objects.equals(this.flowId, testSuite.flowId) &&
+        Objects.equals(this.source, testSuite.source) &&
+        Objects.equals(this.testCases, testSuite.testCases) &&
+        Objects.equals(this.deleted, testSuite.deleted) &&
+        Objects.equals(this.disabled, testSuite.disabled);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, description, namespace, flowId, source, testCases, deleted, disabled);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuite {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    testCases: ").append(toIndentedString(testCases)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

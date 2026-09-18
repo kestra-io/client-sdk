@@ -1,0 +1,196 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the StateHistory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StateHistory{}
+
+// StateHistory struct for StateHistory
+type StateHistory struct {
+	State StateType `json:"state"`
+	Date time.Time `json:"date"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _StateHistory StateHistory
+
+// NewStateHistory instantiates a new StateHistory object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewStateHistory(state StateType, date time.Time) *StateHistory {
+	this := StateHistory{}
+	this.State = state
+	this.Date = date
+	return &this
+}
+
+// NewStateHistoryWithDefaults instantiates a new StateHistory object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewStateHistoryWithDefaults() *StateHistory {
+	this := StateHistory{}
+	return &this
+}
+
+// GetState returns the State field value
+func (o *StateHistory) GetState() StateType {
+	if o == nil {
+		var ret StateType
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *StateHistory) GetStateOk() (*StateType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *StateHistory) SetState(v StateType) {
+	o.State = v
+}
+
+// GetDate returns the Date field value
+func (o *StateHistory) GetDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Date
+}
+
+// GetDateOk returns a tuple with the Date field value
+// and a boolean to check if the value has been set.
+func (o *StateHistory) GetDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Date, true
+}
+
+// SetDate sets field value
+func (o *StateHistory) SetDate(v time.Time) {
+	o.Date = v
+}
+
+func (o StateHistory) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StateHistory) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["state"] = o.State
+	toSerialize["date"] = o.Date
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *StateHistory) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"state",
+		"date",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStateHistory := _StateHistory{}
+
+	err = json.Unmarshal(data, &varStateHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StateHistory(varStateHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "date")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableStateHistory struct {
+	value *StateHistory
+	isSet bool
+}
+
+func (v NullableStateHistory) Get() *StateHistory {
+	return v.value
+}
+
+func (v *NullableStateHistory) Set(val *StateHistory) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableStateHistory) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableStateHistory) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableStateHistory(val *StateHistory) *NullableStateHistory {
+	return &NullableStateHistory{value: val, isSet: true}
+}
+
+func (v NullableStateHistory) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableStateHistory) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

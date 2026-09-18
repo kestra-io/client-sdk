@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServiceProviderConfigurationFilterConfiguration
+ */
+@JsonPropertyOrder({
+  ServiceProviderConfigurationFilterConfiguration.JSON_PROPERTY_SUPPORTED,
+  ServiceProviderConfigurationFilterConfiguration.JSON_PROPERTY_MAX_RESULTS
+})
+@JsonTypeName("ServiceProviderConfiguration.FilterConfiguration")
+public class ServiceProviderConfigurationFilterConfiguration {
+  public static final String JSON_PROPERTY_SUPPORTED = "supported";
+  @jakarta.annotation.Nullable  private Boolean supported;
+
+  public static final String JSON_PROPERTY_MAX_RESULTS = "maxResults";
+  @jakarta.annotation.Nullable  private Integer maxResults;
+
+  public ServiceProviderConfigurationFilterConfiguration() {
+  }
+
+  public ServiceProviderConfigurationFilterConfiguration supported(@jakarta.annotation.Nullable Boolean supported) {
+    
+    this.supported = supported;
+    return this;
+  }
+
+  /**
+   * Get supported
+   * @return supported
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSupported() {
+    return supported;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSupported(@jakarta.annotation.Nullable Boolean supported) {
+    this.supported = supported;
+  }
+
+  public ServiceProviderConfigurationFilterConfiguration maxResults(@jakarta.annotation.Nullable Integer maxResults) {
+    
+    this.maxResults = maxResults;
+    return this;
+  }
+
+  /**
+   * Get maxResults
+   * @return maxResults
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxResults() {
+    return maxResults;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxResults(@jakarta.annotation.Nullable Integer maxResults) {
+    this.maxResults = maxResults;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceProviderConfigurationFilterConfiguration serviceProviderConfigurationFilterConfiguration = (ServiceProviderConfigurationFilterConfiguration) o;
+    return Objects.equals(this.supported, serviceProviderConfigurationFilterConfiguration.supported) &&
+        Objects.equals(this.maxResults, serviceProviderConfigurationFilterConfiguration.maxResults);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(supported, maxResults);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceProviderConfigurationFilterConfiguration {\n");
+    sb.append("    supported: ").append(toIndentedString(supported)).append("\n");
+    sb.append("    maxResults: ").append(toIndentedString(maxResults)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

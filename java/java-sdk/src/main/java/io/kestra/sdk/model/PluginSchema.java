@@ -1,0 +1,183 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PluginSchema
+ */
+@JsonPropertyOrder({
+  PluginSchema.JSON_PROPERTY_PROPERTIES,
+  PluginSchema.JSON_PROPERTY_OUTPUTS,
+  PluginSchema.JSON_PROPERTY_DEFINITIONS
+})
+public class PluginSchema {
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @jakarta.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();
+
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+
+  public static final String JSON_PROPERTY_DEFINITIONS = "definitions";
+  @jakarta.annotation.Nullable  private Map<String, Object> definitions = new HashMap<>();
+
+  public PluginSchema() {
+  }
+
+  public PluginSchema properties(@jakarta.annotation.Nullable Map<String, Object> properties) {
+    
+    this.properties = properties;
+    return this;
+  }
+
+  public PluginSchema putPropertiesItem(String key, Object propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Get properties
+   * @return properties
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getProperties() {
+    return properties;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@jakarta.annotation.Nullable Map<String, Object> properties) {
+    this.properties = properties;
+  }
+
+  public PluginSchema outputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  public PluginSchema putOutputsItem(String key, Object outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new HashMap<>();
+    }
+    this.outputs.put(key, outputsItem);
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
+    this.outputs = outputs;
+  }
+
+  public PluginSchema definitions(@jakarta.annotation.Nullable Map<String, Object> definitions) {
+    
+    this.definitions = definitions;
+    return this;
+  }
+
+  public PluginSchema putDefinitionsItem(String key, Object definitionsItem) {
+    if (this.definitions == null) {
+      this.definitions = new HashMap<>();
+    }
+    this.definitions.put(key, definitionsItem);
+    return this;
+  }
+
+  /**
+   * Get definitions
+   * @return definitions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getDefinitions() {
+    return definitions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDefinitions(@jakarta.annotation.Nullable Map<String, Object> definitions) {
+    this.definitions = definitions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PluginSchema pluginSchema = (PluginSchema) o;
+    return Objects.equals(this.properties, pluginSchema.properties) &&
+        Objects.equals(this.outputs, pluginSchema.outputs) &&
+        Objects.equals(this.definitions, pluginSchema.definitions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(properties, outputs, definitions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PluginSchema {\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    definitions: ").append(toIndentedString(definitions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

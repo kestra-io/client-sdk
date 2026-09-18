@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerTenantConfigurationInfo
+ */
+@JsonPropertyOrder({
+  MiscControllerTenantConfigurationInfo.JSON_PROPERTY_STORAGE_BY_TENANT,
+  MiscControllerTenantConfigurationInfo.JSON_PROPERTY_SECRET_BY_TENANT
+})
+@JsonTypeName("MiscController.TenantConfigurationInfo")
+public class MiscControllerTenantConfigurationInfo {
+  public static final String JSON_PROPERTY_STORAGE_BY_TENANT = "storageByTenant";
+  @jakarta.annotation.Nullable  private Boolean storageByTenant;
+
+  public static final String JSON_PROPERTY_SECRET_BY_TENANT = "secretByTenant";
+  @jakarta.annotation.Nullable  private Boolean secretByTenant;
+
+  public MiscControllerTenantConfigurationInfo() {
+  }
+
+  public MiscControllerTenantConfigurationInfo storageByTenant(@jakarta.annotation.Nullable Boolean storageByTenant) {
+    
+    this.storageByTenant = storageByTenant;
+    return this;
+  }
+
+  /**
+   * Get storageByTenant
+   * @return storageByTenant
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_BY_TENANT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getStorageByTenant() {
+    return storageByTenant;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_BY_TENANT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageByTenant(@jakarta.annotation.Nullable Boolean storageByTenant) {
+    this.storageByTenant = storageByTenant;
+  }
+
+  public MiscControllerTenantConfigurationInfo secretByTenant(@jakarta.annotation.Nullable Boolean secretByTenant) {
+    
+    this.secretByTenant = secretByTenant;
+    return this;
+  }
+
+  /**
+   * Get secretByTenant
+   * @return secretByTenant
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_BY_TENANT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSecretByTenant() {
+    return secretByTenant;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_BY_TENANT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretByTenant(@jakarta.annotation.Nullable Boolean secretByTenant) {
+    this.secretByTenant = secretByTenant;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerTenantConfigurationInfo miscControllerTenantConfigurationInfo = (MiscControllerTenantConfigurationInfo) o;
+    return Objects.equals(this.storageByTenant, miscControllerTenantConfigurationInfo.storageByTenant) &&
+        Objects.equals(this.secretByTenant, miscControllerTenantConfigurationInfo.secretByTenant);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(storageByTenant, secretByTenant);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerTenantConfigurationInfo {\n");
+    sb.append("    storageByTenant: ").append(toIndentedString(storageByTenant)).append("\n");
+    sb.append("    secretByTenant: ").append(toIndentedString(secretByTenant)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

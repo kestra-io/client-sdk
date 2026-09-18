@@ -1,0 +1,148 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AppsControllerApiBulkImportResponseError;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AppsControllerApiBulkImportResponse
+ */
+@JsonPropertyOrder({
+  AppsControllerApiBulkImportResponse.JSON_PROPERTY_SUCCESS,
+  AppsControllerApiBulkImportResponse.JSON_PROPERTY_ERRORS
+})
+@JsonTypeName("AppsController.ApiBulkImportResponse")
+public class AppsControllerApiBulkImportResponse {
+  public static final String JSON_PROPERTY_SUCCESS = "success";
+  @jakarta.annotation.Nullable  private List<String> success = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  @jakarta.annotation.Nullable  private List<AppsControllerApiBulkImportResponseError> errors = new ArrayList<>();
+
+  public AppsControllerApiBulkImportResponse() {
+  }
+
+  public AppsControllerApiBulkImportResponse success(@jakarta.annotation.Nullable List<String> success) {
+    
+    this.success = success;
+    return this;
+  }
+
+  public AppsControllerApiBulkImportResponse addSuccessItem(String successItem) {
+    if (this.success == null) {
+      this.success = new ArrayList<>();
+    }
+    this.success.add(successItem);
+    return this;
+  }
+
+  /**
+   * Get success
+   * @return success
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSuccess() {
+    return success;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuccess(@jakarta.annotation.Nullable List<String> success) {
+    this.success = success;
+  }
+
+  public AppsControllerApiBulkImportResponse errors(@jakarta.annotation.Nullable List<AppsControllerApiBulkImportResponseError> errors) {
+    
+    this.errors = errors;
+    return this;
+  }
+
+  public AppsControllerApiBulkImportResponse addErrorsItem(AppsControllerApiBulkImportResponseError errorsItem) {
+    if (this.errors == null) {
+      this.errors = new ArrayList<>();
+    }
+    this.errors.add(errorsItem);
+    return this;
+  }
+
+  /**
+   * Get errors
+   * @return errors
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AppsControllerApiBulkImportResponseError> getErrors() {
+    return errors;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrors(@jakarta.annotation.Nullable List<AppsControllerApiBulkImportResponseError> errors) {
+    this.errors = errors;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AppsControllerApiBulkImportResponse appsControllerApiBulkImportResponse = (AppsControllerApiBulkImportResponse) o;
+    return Objects.equals(this.success, appsControllerApiBulkImportResponse.success) &&
+        Objects.equals(this.errors, appsControllerApiBulkImportResponse.errors);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(success, errors);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AppsControllerApiBulkImportResponse {\n");
+    sb.append("    success: ").append(toIndentedString(success)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

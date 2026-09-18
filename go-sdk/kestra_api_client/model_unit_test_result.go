@@ -1,0 +1,393 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the UnitTestResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UnitTestResult{}
+
+// UnitTestResult struct for UnitTestResult
+type UnitTestResult struct {
+	TestId string `json:"testId"`
+	TestType string `json:"testType"`
+	ExecutionId *string `json:"executionId,omitempty"`
+	Url *string `json:"url,omitempty"`
+	State TestState `json:"state"`
+	AssertionResults []AssertionResult `json:"assertionResults"`
+	Errors []AssertionRunError `json:"errors"`
+	Fixtures *Fixtures `json:"fixtures,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _UnitTestResult UnitTestResult
+
+// NewUnitTestResult instantiates a new UnitTestResult object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewUnitTestResult(testId string, testType string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError) *UnitTestResult {
+	this := UnitTestResult{}
+	this.TestId = testId
+	this.TestType = testType
+	this.State = state
+	this.AssertionResults = assertionResults
+	this.Errors = errors
+	return &this
+}
+
+// NewUnitTestResultWithDefaults instantiates a new UnitTestResult object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewUnitTestResultWithDefaults() *UnitTestResult {
+	this := UnitTestResult{}
+	return &this
+}
+
+// GetTestId returns the TestId field value
+func (o *UnitTestResult) GetTestId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TestId
+}
+
+// GetTestIdOk returns a tuple with the TestId field value
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetTestIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TestId, true
+}
+
+// SetTestId sets field value
+func (o *UnitTestResult) SetTestId(v string) {
+	o.TestId = v
+}
+
+// GetTestType returns the TestType field value
+func (o *UnitTestResult) GetTestType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TestType
+}
+
+// GetTestTypeOk returns a tuple with the TestType field value
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetTestTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TestType, true
+}
+
+// SetTestType sets field value
+func (o *UnitTestResult) SetTestType(v string) {
+	o.TestType = v
+}
+
+// GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
+func (o *UnitTestResult) GetExecutionId() string {
+	if o == nil || IsNil(o.ExecutionId) {
+		var ret string
+		return ret
+	}
+	return *o.ExecutionId
+}
+
+// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetExecutionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExecutionId) {
+		return nil, false
+	}
+	return o.ExecutionId, true
+}
+
+// HasExecutionId returns a boolean if a field has been set.
+func (o *UnitTestResult) HasExecutionId() bool {
+	if o != nil && !IsNil(o.ExecutionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionId gets a reference to the given string and assigns it to the ExecutionId field.
+func (o *UnitTestResult) SetExecutionId(v string) {
+	o.ExecutionId = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *UnitTestResult) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *UnitTestResult) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *UnitTestResult) SetUrl(v string) {
+	o.Url = &v
+}
+
+// GetState returns the State field value
+func (o *UnitTestResult) GetState() TestState {
+	if o == nil {
+		var ret TestState
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetStateOk() (*TestState, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *UnitTestResult) SetState(v TestState) {
+	o.State = v
+}
+
+// GetAssertionResults returns the AssertionResults field value
+func (o *UnitTestResult) GetAssertionResults() []AssertionResult {
+	if o == nil {
+		var ret []AssertionResult
+		return ret
+	}
+
+	return o.AssertionResults
+}
+
+// GetAssertionResultsOk returns a tuple with the AssertionResults field value
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetAssertionResultsOk() ([]AssertionResult, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AssertionResults, true
+}
+
+// SetAssertionResults sets field value
+func (o *UnitTestResult) SetAssertionResults(v []AssertionResult) {
+	o.AssertionResults = v
+}
+
+// GetErrors returns the Errors field value
+func (o *UnitTestResult) GetErrors() []AssertionRunError {
+	if o == nil {
+		var ret []AssertionRunError
+		return ret
+	}
+
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetErrorsOk() ([]AssertionRunError, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// SetErrors sets field value
+func (o *UnitTestResult) SetErrors(v []AssertionRunError) {
+	o.Errors = v
+}
+
+// GetFixtures returns the Fixtures field value if set, zero value otherwise.
+func (o *UnitTestResult) GetFixtures() Fixtures {
+	if o == nil || IsNil(o.Fixtures) {
+		var ret Fixtures
+		return ret
+	}
+	return *o.Fixtures
+}
+
+// GetFixturesOk returns a tuple with the Fixtures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnitTestResult) GetFixturesOk() (*Fixtures, bool) {
+	if o == nil || IsNil(o.Fixtures) {
+		return nil, false
+	}
+	return o.Fixtures, true
+}
+
+// HasFixtures returns a boolean if a field has been set.
+func (o *UnitTestResult) HasFixtures() bool {
+	if o != nil && !IsNil(o.Fixtures) {
+		return true
+	}
+
+	return false
+}
+
+// SetFixtures gets a reference to the given Fixtures and assigns it to the Fixtures field.
+func (o *UnitTestResult) SetFixtures(v Fixtures) {
+	o.Fixtures = &v
+}
+
+func (o UnitTestResult) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UnitTestResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["testId"] = o.TestId
+	toSerialize["testType"] = o.TestType
+	if !IsNil(o.ExecutionId) {
+		toSerialize["executionId"] = o.ExecutionId
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	toSerialize["state"] = o.State
+	toSerialize["assertionResults"] = o.AssertionResults
+	toSerialize["errors"] = o.Errors
+	if !IsNil(o.Fixtures) {
+		toSerialize["fixtures"] = o.Fixtures
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *UnitTestResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"testId",
+		"testType",
+		"state",
+		"assertionResults",
+		"errors",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUnitTestResult := _UnitTestResult{}
+
+	err = json.Unmarshal(data, &varUnitTestResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UnitTestResult(varUnitTestResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "testId")
+		delete(additionalProperties, "testType")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "assertionResults")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "fixtures")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableUnitTestResult struct {
+	value *UnitTestResult
+	isSet bool
+}
+
+func (v NullableUnitTestResult) Get() *UnitTestResult {
+	return v.value
+}
+
+func (v *NullableUnitTestResult) Set(val *UnitTestResult) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableUnitTestResult) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableUnitTestResult) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableUnitTestResult(val *UnitTestResult) *NullableUnitTestResult {
+	return &NullableUnitTestResult{value: val, isSet: true}
+}
+
+func (v NullableUnitTestResult) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableUnitTestResult) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

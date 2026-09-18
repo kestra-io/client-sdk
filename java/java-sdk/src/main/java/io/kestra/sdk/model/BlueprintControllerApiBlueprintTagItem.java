@@ -1,0 +1,159 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * BlueprintControllerApiBlueprintTagItem
+ */
+@JsonPropertyOrder({
+  BlueprintControllerApiBlueprintTagItem.JSON_PROPERTY_ID,
+  BlueprintControllerApiBlueprintTagItem.JSON_PROPERTY_NAME,
+  BlueprintControllerApiBlueprintTagItem.JSON_PROPERTY_PUBLISHED_AT
+})
+@JsonTypeName("BlueprintController.ApiBlueprintTagItem")
+public class BlueprintControllerApiBlueprintTagItem {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime publishedAt;
+
+  public BlueprintControllerApiBlueprintTagItem() {
+  }
+
+  public BlueprintControllerApiBlueprintTagItem id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public BlueprintControllerApiBlueprintTagItem name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public BlueprintControllerApiBlueprintTagItem publishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    
+    this.publishedAt = publishedAt;
+    return this;
+  }
+
+  /**
+   * Get publishedAt
+   * @return publishedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getPublishedAt() {
+    return publishedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    this.publishedAt = publishedAt;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BlueprintControllerApiBlueprintTagItem blueprintControllerApiBlueprintTagItem = (BlueprintControllerApiBlueprintTagItem) o;
+    return Objects.equals(this.id, blueprintControllerApiBlueprintTagItem.id) &&
+        Objects.equals(this.name, blueprintControllerApiBlueprintTagItem.name) &&
+        Objects.equals(this.publishedAt, blueprintControllerApiBlueprintTagItem.publishedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, publishedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class BlueprintControllerApiBlueprintTagItem {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

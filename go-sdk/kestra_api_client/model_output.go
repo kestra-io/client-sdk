@@ -1,0 +1,335 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Output type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Output{}
+
+// Output struct for Output
+type Output struct {
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Description *string `json:"description,omitempty"`
+	Value OutputValue `json:"value"`
+	Type Type `json:"type"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Required *bool `json:"required,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Output Output
+
+// NewOutput instantiates a new Output object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewOutput(id string, value OutputValue, type_ Type) *Output {
+	this := Output{}
+	this.Id = id
+	this.Value = value
+	this.Type = type_
+	return &this
+}
+
+// NewOutputWithDefaults instantiates a new Output object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewOutputWithDefaults() *Output {
+	this := Output{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *Output) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Output) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Output) SetId(v string) {
+	o.Id = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Output) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Output) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Output) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetValue returns the Value field value
+func (o *Output) GetValue() OutputValue {
+	if o == nil {
+		var ret OutputValue
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *Output) GetValueOk() (*OutputValue, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *Output) SetValue(v OutputValue) {
+	o.Value = v
+}
+
+// GetType returns the Type field value
+func (o *Output) GetType() Type {
+	if o == nil {
+		var ret Type
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *Output) GetTypeOk() (*Type, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *Output) SetType(v Type) {
+	o.Type = v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *Output) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *Output) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *Output) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetRequired returns the Required field value if set, zero value otherwise.
+func (o *Output) GetRequired() bool {
+	if o == nil || IsNil(o.Required) {
+		var ret bool
+		return ret
+	}
+	return *o.Required
+}
+
+// GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetRequiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Required) {
+		return nil, false
+	}
+	return o.Required, true
+}
+
+// HasRequired returns a boolean if a field has been set.
+func (o *Output) HasRequired() bool {
+	if o != nil && !IsNil(o.Required) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequired gets a reference to the given bool and assigns it to the Required field.
+func (o *Output) SetRequired(v bool) {
+	o.Required = &v
+}
+
+func (o Output) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Output) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["value"] = o.Value
+	toSerialize["type"] = o.Type
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Required) {
+		toSerialize["required"] = o.Required
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Output) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"value",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOutput := _Output{}
+
+	err = json.Unmarshal(data, &varOutput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Output(varOutput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "required")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableOutput struct {
+	value *Output
+	isSet bool
+}
+
+func (v NullableOutput) Get() *Output {
+	return v.value
+}
+
+func (v *NullableOutput) Set(val *Output) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOutput) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOutput) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOutput(val *Output) *NullableOutput {
+	return &NullableOutput{value: val, isSet: true}
+}
+
+func (v NullableOutput) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableOutput) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

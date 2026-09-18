@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ScimExtension type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScimExtension{}
+
+// ScimExtension struct for ScimExtension
+type ScimExtension struct {
+	Urn *string `json:"urn,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ScimExtension ScimExtension
+
+// NewScimExtension instantiates a new ScimExtension object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewScimExtension() *ScimExtension {
+	this := ScimExtension{}
+	return &this
+}
+
+// NewScimExtensionWithDefaults instantiates a new ScimExtension object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewScimExtensionWithDefaults() *ScimExtension {
+	this := ScimExtension{}
+	return &this
+}
+
+// GetUrn returns the Urn field value if set, zero value otherwise.
+func (o *ScimExtension) GetUrn() string {
+	if o == nil || IsNil(o.Urn) {
+		var ret string
+		return ret
+	}
+	return *o.Urn
+}
+
+// GetUrnOk returns a tuple with the Urn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScimExtension) GetUrnOk() (*string, bool) {
+	if o == nil || IsNil(o.Urn) {
+		return nil, false
+	}
+	return o.Urn, true
+}
+
+// HasUrn returns a boolean if a field has been set.
+func (o *ScimExtension) HasUrn() bool {
+	if o != nil && !IsNil(o.Urn) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrn gets a reference to the given string and assigns it to the Urn field.
+func (o *ScimExtension) SetUrn(v string) {
+	o.Urn = &v
+}
+
+func (o ScimExtension) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScimExtension) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Urn) {
+		toSerialize["urn"] = o.Urn
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ScimExtension) UnmarshalJSON(data []byte) (err error) {
+	varScimExtension := _ScimExtension{}
+
+	err = json.Unmarshal(data, &varScimExtension)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScimExtension(varScimExtension)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "urn")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableScimExtension struct {
+	value *ScimExtension
+	isSet bool
+}
+
+func (v NullableScimExtension) Get() *ScimExtension {
+	return v.value
+}
+
+func (v *NullableScimExtension) Set(val *ScimExtension) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableScimExtension) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableScimExtension) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableScimExtension(val *ScimExtension) *NullableScimExtension {
+	return &NullableScimExtension{value: val, isSet: true}
+}
+
+func (v NullableScimExtension) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableScimExtension) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

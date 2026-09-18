@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AttributeReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ValuePathExpression
+ */
+@JsonPropertyOrder({
+  ValuePathExpression.JSON_PROPERTY_ATTRIBUTE_PATH,
+  ValuePathExpression.JSON_PROPERTY_ATTRIBUTE_EXPRESSION
+})
+public class ValuePathExpression {
+  public static final String JSON_PROPERTY_ATTRIBUTE_PATH = "attributePath";
+  @jakarta.annotation.Nullable  private AttributeReference attributePath;
+
+  public static final String JSON_PROPERTY_ATTRIBUTE_EXPRESSION = "attributeExpression";
+  @jakarta.annotation.Nullable  private Object attributeExpression;
+
+  public ValuePathExpression() {
+  }
+
+  public ValuePathExpression attributePath(@jakarta.annotation.Nullable AttributeReference attributePath) {
+    
+    this.attributePath = attributePath;
+    return this;
+  }
+
+  /**
+   * Get attributePath
+   * @return attributePath
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AttributeReference getAttributePath() {
+    return attributePath;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributePath(@jakarta.annotation.Nullable AttributeReference attributePath) {
+    this.attributePath = attributePath;
+  }
+
+  public ValuePathExpression attributeExpression(@jakarta.annotation.Nullable Object attributeExpression) {
+    
+    this.attributeExpression = attributeExpression;
+    return this;
+  }
+
+  /**
+   * Get attributeExpression
+   * @return attributeExpression
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getAttributeExpression() {
+    return attributeExpression;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributeExpression(@jakarta.annotation.Nullable Object attributeExpression) {
+    this.attributeExpression = attributeExpression;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ValuePathExpression valuePathExpression = (ValuePathExpression) o;
+    return Objects.equals(this.attributePath, valuePathExpression.attributePath) &&
+        Objects.equals(this.attributeExpression, valuePathExpression.attributeExpression);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attributePath, attributeExpression);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ValuePathExpression {\n");
+    sb.append("    attributePath: ").append(toIndentedString(attributePath)).append("\n");
+    sb.append("    attributeExpression: ").append(toIndentedString(attributeExpression)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

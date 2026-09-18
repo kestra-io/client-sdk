@@ -1,0 +1,153 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the TestSuiteControllerRunRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestSuiteControllerRunRequest{}
+
+// TestSuiteControllerRunRequest struct for TestSuiteControllerRunRequest
+type TestSuiteControllerRunRequest struct {
+	TestCases []string `json:"testCases,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TestSuiteControllerRunRequest TestSuiteControllerRunRequest
+
+// NewTestSuiteControllerRunRequest instantiates a new TestSuiteControllerRunRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTestSuiteControllerRunRequest() *TestSuiteControllerRunRequest {
+	this := TestSuiteControllerRunRequest{}
+	return &this
+}
+
+// NewTestSuiteControllerRunRequestWithDefaults instantiates a new TestSuiteControllerRunRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTestSuiteControllerRunRequestWithDefaults() *TestSuiteControllerRunRequest {
+	this := TestSuiteControllerRunRequest{}
+	return &this
+}
+
+// GetTestCases returns the TestCases field value if set, zero value otherwise.
+func (o *TestSuiteControllerRunRequest) GetTestCases() []string {
+	if o == nil || IsNil(o.TestCases) {
+		var ret []string
+		return ret
+	}
+	return o.TestCases
+}
+
+// GetTestCasesOk returns a tuple with the TestCases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteControllerRunRequest) GetTestCasesOk() ([]string, bool) {
+	if o == nil || IsNil(o.TestCases) {
+		return nil, false
+	}
+	return o.TestCases, true
+}
+
+// HasTestCases returns a boolean if a field has been set.
+func (o *TestSuiteControllerRunRequest) HasTestCases() bool {
+	if o != nil && !IsNil(o.TestCases) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestCases gets a reference to the given []string and assigns it to the TestCases field.
+func (o *TestSuiteControllerRunRequest) SetTestCases(v []string) {
+	o.TestCases = v
+}
+
+func (o TestSuiteControllerRunRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestSuiteControllerRunRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TestCases) {
+		toSerialize["testCases"] = o.TestCases
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TestSuiteControllerRunRequest) UnmarshalJSON(data []byte) (err error) {
+	varTestSuiteControllerRunRequest := _TestSuiteControllerRunRequest{}
+
+	err = json.Unmarshal(data, &varTestSuiteControllerRunRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestSuiteControllerRunRequest(varTestSuiteControllerRunRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "testCases")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTestSuiteControllerRunRequest struct {
+	value *TestSuiteControllerRunRequest
+	isSet bool
+}
+
+func (v NullableTestSuiteControllerRunRequest) Get() *TestSuiteControllerRunRequest {
+	return v.value
+}
+
+func (v *NullableTestSuiteControllerRunRequest) Set(val *TestSuiteControllerRunRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTestSuiteControllerRunRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTestSuiteControllerRunRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTestSuiteControllerRunRequest(val *TestSuiteControllerRunRequest) *NullableTestSuiteControllerRunRequest {
+	return &NullableTestSuiteControllerRunRequest{value: val, isSet: true}
+}
+
+func (v NullableTestSuiteControllerRunRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTestSuiteControllerRunRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

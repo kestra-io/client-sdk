@@ -1,0 +1,139 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ServiceType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Isolation
+ */
+@JsonPropertyOrder({
+  Isolation.JSON_PROPERTY_DENIED_SERVICES,
+  Isolation.JSON_PROPERTY_ENABLED
+})
+public class Isolation {
+  public static final String JSON_PROPERTY_DENIED_SERVICES = "deniedServices";
+  @jakarta.annotation.Nullable  private List<ServiceType> deniedServices = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ENABLED = "enabled";
+  @jakarta.annotation.Nullable  private Boolean enabled;
+
+  public Isolation() {
+  }
+
+  public Isolation deniedServices(@jakarta.annotation.Nullable List<ServiceType> deniedServices) {
+    
+    this.deniedServices = deniedServices;
+    return this;
+  }
+
+  public Isolation addDeniedServicesItem(ServiceType deniedServicesItem) {
+    if (this.deniedServices == null) {
+      this.deniedServices = new ArrayList<>();
+    }
+    this.deniedServices.add(deniedServicesItem);
+    return this;
+  }
+
+  /**
+   * Get deniedServices
+   * @return deniedServices
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ServiceType> getDeniedServices() {
+    return deniedServices;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeniedServices(@jakarta.annotation.Nullable List<ServiceType> deniedServices) {
+    this.deniedServices = deniedServices;
+  }
+
+  public Isolation enabled(@jakarta.annotation.Nullable Boolean enabled) {
+    
+    this.enabled = enabled;
+    return this;
+  }
+
+  /**
+   * Get enabled
+   * @return enabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Isolation isolation = (Isolation) o;
+    return Objects.equals(this.deniedServices, isolation.deniedServices) &&
+        Objects.equals(this.enabled, isolation.enabled);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(deniedServices, enabled);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Isolation {\n");
+    sb.append("    deniedServices: ").append(toIndentedString(deniedServices)).append("\n");
+    sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

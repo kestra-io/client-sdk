@@ -1,0 +1,277 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AssertionResult
+ */
+@JsonPropertyOrder({
+  AssertionResult.JSON_PROPERTY_OPERATOR,
+  AssertionResult.JSON_PROPERTY_EXPECTED,
+  AssertionResult.JSON_PROPERTY_ACTUAL,
+  AssertionResult.JSON_PROPERTY_IS_SUCCESS,
+  AssertionResult.JSON_PROPERTY_TASK_ID,
+  AssertionResult.JSON_PROPERTY_DESCRIPTION,
+  AssertionResult.JSON_PROPERTY_ERROR_MESSAGE
+})
+public class AssertionResult {
+  public static final String JSON_PROPERTY_OPERATOR = "operator";
+  @jakarta.annotation.Nonnull  private String operator;
+
+  public static final String JSON_PROPERTY_EXPECTED = "expected";
+  @jakarta.annotation.Nonnull  private Object expected;
+
+  public static final String JSON_PROPERTY_ACTUAL = "actual";
+  @jakarta.annotation.Nonnull  private Object actual;
+
+  public static final String JSON_PROPERTY_IS_SUCCESS = "isSuccess";
+  @jakarta.annotation.Nonnull  private Boolean isSuccess;
+
+  public static final String JSON_PROPERTY_TASK_ID = "taskId";
+  @jakarta.annotation.Nullable  private String taskId;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
+  @jakarta.annotation.Nullable  private String errorMessage;
+
+  public AssertionResult() {
+  }
+
+  public AssertionResult operator(@jakarta.annotation.Nonnull String operator) {
+    
+    this.operator = operator;
+    return this;
+  }
+
+  /**
+   * Get operator
+   * @return operator
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getOperator() {
+    return operator;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOperator(@jakarta.annotation.Nonnull String operator) {
+    this.operator = operator;
+  }
+
+  public AssertionResult expected(@jakarta.annotation.Nonnull Object expected) {
+    
+    this.expected = expected;
+    return this;
+  }
+
+  /**
+   * Get expected
+   * @return expected
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXPECTED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Object getExpected() {
+    return expected;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPECTED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExpected(@jakarta.annotation.Nonnull Object expected) {
+    this.expected = expected;
+  }
+
+  public AssertionResult actual(@jakarta.annotation.Nonnull Object actual) {
+    
+    this.actual = actual;
+    return this;
+  }
+
+  /**
+   * Get actual
+   * @return actual
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ACTUAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Object getActual() {
+    return actual;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTUAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setActual(@jakarta.annotation.Nonnull Object actual) {
+    this.actual = actual;
+  }
+
+  public AssertionResult isSuccess(@jakarta.annotation.Nonnull Boolean isSuccess) {
+    
+    this.isSuccess = isSuccess;
+    return this;
+  }
+
+  /**
+   * Get isSuccess
+   * @return isSuccess
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIsSuccess() {
+    return isSuccess;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsSuccess(@jakarta.annotation.Nonnull Boolean isSuccess) {
+    this.isSuccess = isSuccess;
+  }
+
+  public AssertionResult taskId(@jakarta.annotation.Nullable String taskId) {
+    
+    this.taskId = taskId;
+    return this;
+  }
+
+  /**
+   * Get taskId
+   * @return taskId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTaskId() {
+    return taskId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskId(@jakarta.annotation.Nullable String taskId) {
+    this.taskId = taskId;
+  }
+
+  public AssertionResult description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public AssertionResult errorMessage(@jakarta.annotation.Nullable String errorMessage) {
+    
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  /**
+   * Get errorMessage
+   * @return errorMessage
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AssertionResult assertionResult = (AssertionResult) o;
+    return Objects.equals(this.operator, assertionResult.operator) &&
+        Objects.equals(this.expected, assertionResult.expected) &&
+        Objects.equals(this.actual, assertionResult.actual) &&
+        Objects.equals(this.isSuccess, assertionResult.isSuccess) &&
+        Objects.equals(this.taskId, assertionResult.taskId) &&
+        Objects.equals(this.description, assertionResult.description) &&
+        Objects.equals(this.errorMessage, assertionResult.errorMessage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(operator, expected, actual, isSuccess, taskId, description, errorMessage);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AssertionResult {\n");
+    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
+    sb.append("    expected: ").append(toIndentedString(expected)).append("\n");
+    sb.append("    actual: ").append(toIndentedString(actual)).append("\n");
+    sb.append("    isSuccess: ").append(toIndentedString(isSuccess)).append("\n");
+    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

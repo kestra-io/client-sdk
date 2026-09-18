@@ -1,0 +1,247 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AttributeReference
+ */
+@JsonPropertyOrder({
+  AttributeReference.JSON_PROPERTY_FULL_ATTRIBUTE_NAME,
+  AttributeReference.JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME,
+  AttributeReference.JSON_PROPERTY_ATTRIBUTE_BASE,
+  AttributeReference.JSON_PROPERTY_URN,
+  AttributeReference.JSON_PROPERTY_ATTRIBUTE_NAME,
+  AttributeReference.JSON_PROPERTY_SUB_ATTRIBUTE_NAME
+})
+public class AttributeReference {
+  public static final String JSON_PROPERTY_FULL_ATTRIBUTE_NAME = "fullAttributeName";
+  @jakarta.annotation.Nullable  private String fullAttributeName;
+
+  public static final String JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME = "fullyQualifiedAttributeName";
+  @jakarta.annotation.Nullable  private String fullyQualifiedAttributeName;
+
+  public static final String JSON_PROPERTY_ATTRIBUTE_BASE = "attributeBase";
+  @jakarta.annotation.Nullable  private String attributeBase;
+
+  public static final String JSON_PROPERTY_URN = "urn";
+  @jakarta.annotation.Nullable  private String urn;
+
+  public static final String JSON_PROPERTY_ATTRIBUTE_NAME = "attributeName";
+  @jakarta.annotation.Nullable  private String attributeName;
+
+  public static final String JSON_PROPERTY_SUB_ATTRIBUTE_NAME = "subAttributeName";
+  @jakarta.annotation.Nullable  private String subAttributeName;
+
+  public AttributeReference() {
+  }
+
+  public AttributeReference fullAttributeName(@jakarta.annotation.Nullable String fullAttributeName) {
+    
+    this.fullAttributeName = fullAttributeName;
+    return this;
+  }
+
+  /**
+   * Get fullAttributeName
+   * @return fullAttributeName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FULL_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFullAttributeName() {
+    return fullAttributeName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FULL_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFullAttributeName(@jakarta.annotation.Nullable String fullAttributeName) {
+    this.fullAttributeName = fullAttributeName;
+  }
+
+  public AttributeReference fullyQualifiedAttributeName(@jakarta.annotation.Nullable String fullyQualifiedAttributeName) {
+    
+    this.fullyQualifiedAttributeName = fullyQualifiedAttributeName;
+    return this;
+  }
+
+  /**
+   * Get fullyQualifiedAttributeName
+   * @return fullyQualifiedAttributeName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFullyQualifiedAttributeName() {
+    return fullyQualifiedAttributeName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFullyQualifiedAttributeName(@jakarta.annotation.Nullable String fullyQualifiedAttributeName) {
+    this.fullyQualifiedAttributeName = fullyQualifiedAttributeName;
+  }
+
+  public AttributeReference attributeBase(@jakarta.annotation.Nullable String attributeBase) {
+    
+    this.attributeBase = attributeBase;
+    return this;
+  }
+
+  /**
+   * Get attributeBase
+   * @return attributeBase
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAttributeBase() {
+    return attributeBase;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributeBase(@jakarta.annotation.Nullable String attributeBase) {
+    this.attributeBase = attributeBase;
+  }
+
+  public AttributeReference urn(@jakarta.annotation.Nullable String urn) {
+    
+    this.urn = urn;
+    return this;
+  }
+
+  /**
+   * Get urn
+   * @return urn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUrn() {
+    return urn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrn(@jakarta.annotation.Nullable String urn) {
+    this.urn = urn;
+  }
+
+  public AttributeReference attributeName(@jakarta.annotation.Nullable String attributeName) {
+    
+    this.attributeName = attributeName;
+    return this;
+  }
+
+  /**
+   * Get attributeName
+   * @return attributeName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAttributeName() {
+    return attributeName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributeName(@jakarta.annotation.Nullable String attributeName) {
+    this.attributeName = attributeName;
+  }
+
+  public AttributeReference subAttributeName(@jakarta.annotation.Nullable String subAttributeName) {
+    
+    this.subAttributeName = subAttributeName;
+    return this;
+  }
+
+  /**
+   * Get subAttributeName
+   * @return subAttributeName
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSubAttributeName() {
+    return subAttributeName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubAttributeName(@jakarta.annotation.Nullable String subAttributeName) {
+    this.subAttributeName = subAttributeName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AttributeReference attributeReference = (AttributeReference) o;
+    return Objects.equals(this.fullAttributeName, attributeReference.fullAttributeName) &&
+        Objects.equals(this.fullyQualifiedAttributeName, attributeReference.fullyQualifiedAttributeName) &&
+        Objects.equals(this.attributeBase, attributeReference.attributeBase) &&
+        Objects.equals(this.urn, attributeReference.urn) &&
+        Objects.equals(this.attributeName, attributeReference.attributeName) &&
+        Objects.equals(this.subAttributeName, attributeReference.subAttributeName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullAttributeName, fullyQualifiedAttributeName, attributeBase, urn, attributeName, subAttributeName);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AttributeReference {\n");
+    sb.append("    fullAttributeName: ").append(toIndentedString(fullAttributeName)).append("\n");
+    sb.append("    fullyQualifiedAttributeName: ").append(toIndentedString(fullyQualifiedAttributeName)).append("\n");
+    sb.append("    attributeBase: ").append(toIndentedString(attributeBase)).append("\n");
+    sb.append("    urn: ").append(toIndentedString(urn)).append("\n");
+    sb.append("    attributeName: ").append(toIndentedString(attributeName)).append("\n");
+    sb.append("    subAttributeName: ").append(toIndentedString(subAttributeName)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

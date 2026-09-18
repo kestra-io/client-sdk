@@ -1,0 +1,169 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiCreateWorkerGroupRequest.
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiCreateOrUpdateWorkerGroupRequest.JSON_PROPERTY_KEY,
+  InstanceControllerApiCreateOrUpdateWorkerGroupRequest.JSON_PROPERTY_DESCRIPTION,
+  InstanceControllerApiCreateOrUpdateWorkerGroupRequest.JSON_PROPERTY_ALLOWED_TENANTS
+})
+@JsonTypeName("InstanceController.ApiCreateOrUpdateWorkerGroupRequest")
+public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nonnull  private String key;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_ALLOWED_TENANTS = "allowedTenants";
+  @jakarta.annotation.Nullable  private List<String> allowedTenants = new ArrayList<>();
+
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest() {
+  }
+
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest key(@jakarta.annotation.Nonnull String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * The key of the worker group.
+   * @return key
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@jakarta.annotation.Nonnull String key) {
+    this.key = key;
+  }
+
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * The description of the worker group.
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest allowedTenants(@jakarta.annotation.Nullable List<String> allowedTenants) {
+    
+    this.allowedTenants = allowedTenants;
+    return this;
+  }
+
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest addAllowedTenantsItem(String allowedTenantsItem) {
+    if (this.allowedTenants == null) {
+      this.allowedTenants = new ArrayList<>();
+    }
+    this.allowedTenants.add(allowedTenantsItem);
+    return this;
+  }
+
+  /**
+   * Get allowedTenants
+   * @return allowedTenants
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAllowedTenants() {
+    return allowedTenants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAllowedTenants(@jakarta.annotation.Nullable List<String> allowedTenants) {
+    this.allowedTenants = allowedTenants;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiCreateOrUpdateWorkerGroupRequest instanceControllerApiCreateOrUpdateWorkerGroupRequest = (InstanceControllerApiCreateOrUpdateWorkerGroupRequest) o;
+    return Objects.equals(this.key, instanceControllerApiCreateOrUpdateWorkerGroupRequest.key) &&
+        Objects.equals(this.description, instanceControllerApiCreateOrUpdateWorkerGroupRequest.description) &&
+        Objects.equals(this.allowedTenants, instanceControllerApiCreateOrUpdateWorkerGroupRequest.allowedTenants);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, description, allowedTenants);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    allowedTenants: ").append(toIndentedString(allowedTenants)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

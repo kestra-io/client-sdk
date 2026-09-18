@@ -1,0 +1,240 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the FlowNode type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FlowNode{}
+
+// FlowNode struct for FlowNode
+type FlowNode struct {
+	Uid string `json:"uid"`
+	Namespace *string `json:"namespace,omitempty"`
+	Id *string `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FlowNode FlowNode
+
+// NewFlowNode instantiates a new FlowNode object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFlowNode(uid string) *FlowNode {
+	this := FlowNode{}
+	this.Uid = uid
+	return &this
+}
+
+// NewFlowNodeWithDefaults instantiates a new FlowNode object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFlowNodeWithDefaults() *FlowNode {
+	this := FlowNode{}
+	return &this
+}
+
+// GetUid returns the Uid field value
+func (o *FlowNode) GetUid() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Uid
+}
+
+// GetUidOk returns a tuple with the Uid field value
+// and a boolean to check if the value has been set.
+func (o *FlowNode) GetUidOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Uid, true
+}
+
+// SetUid sets field value
+func (o *FlowNode) SetUid(v string) {
+	o.Uid = v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *FlowNode) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowNode) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *FlowNode) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *FlowNode) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *FlowNode) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowNode) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *FlowNode) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *FlowNode) SetId(v string) {
+	o.Id = &v
+}
+
+func (o FlowNode) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FlowNode) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uid"] = o.Uid
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FlowNode) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFlowNode := _FlowNode{}
+
+	err = json.Unmarshal(data, &varFlowNode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowNode(varFlowNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFlowNode struct {
+	value *FlowNode
+	isSet bool
+}
+
+func (v NullableFlowNode) Get() *FlowNode {
+	return v.value
+}
+
+func (v *NullableFlowNode) Set(val *FlowNode) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowNode) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowNode) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowNode(val *FlowNode) *NullableFlowNode {
+	return &NullableFlowNode{value: val, isSet: true}
+}
+
+func (v NullableFlowNode) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowNode) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

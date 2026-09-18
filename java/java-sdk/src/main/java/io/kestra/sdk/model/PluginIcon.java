@@ -1,0 +1,157 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PluginIcon
+ */
+@JsonPropertyOrder({
+  PluginIcon.JSON_PROPERTY_NAME,
+  PluginIcon.JSON_PROPERTY_ICON,
+  PluginIcon.JSON_PROPERTY_FLOWABLE
+})
+public class PluginIcon {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_ICON = "icon";
+  @jakarta.annotation.Nullable  private String icon;
+
+  public static final String JSON_PROPERTY_FLOWABLE = "flowable";
+  @jakarta.annotation.Nullable  private Boolean flowable;
+
+  public PluginIcon() {
+  }
+
+  public PluginIcon name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public PluginIcon icon(@jakarta.annotation.Nullable String icon) {
+    
+    this.icon = icon;
+    return this;
+  }
+
+  /**
+   * Get icon
+   * @return icon
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIcon() {
+    return icon;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ICON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
+    this.icon = icon;
+  }
+
+  public PluginIcon flowable(@jakarta.annotation.Nullable Boolean flowable) {
+    
+    this.flowable = flowable;
+    return this;
+  }
+
+  /**
+   * Get flowable
+   * @return flowable
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFlowable() {
+    return flowable;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOWABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowable(@jakarta.annotation.Nullable Boolean flowable) {
+    this.flowable = flowable;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PluginIcon pluginIcon = (PluginIcon) o;
+    return Objects.equals(this.name, pluginIcon.name) &&
+        Objects.equals(this.icon, pluginIcon.icon) &&
+        Objects.equals(this.flowable, pluginIcon.flowable);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, icon, flowable);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PluginIcon {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+    sb.append("    flowable: ").append(toIndentedString(flowable)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,109 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// FlowRelation the model 'FlowRelation'
+type FlowRelation string
+
+// List of FlowRelation
+const (
+	FLOWRELATION_FLOW_TASK FlowRelation = "FLOW_TASK"
+	FLOWRELATION_FLOW_TRIGGER FlowRelation = "FLOW_TRIGGER"
+)
+
+// All allowed values of FlowRelation enum
+var AllowedFlowRelationEnumValues = []FlowRelation{
+	"FLOW_TASK",
+	"FLOW_TRIGGER",
+}
+
+func (v *FlowRelation) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := FlowRelation(value)
+	for _, existing := range AllowedFlowRelationEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid FlowRelation", value)
+}
+
+// NewFlowRelationFromValue returns a pointer to a valid FlowRelation
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewFlowRelationFromValue(v string) (*FlowRelation, error) {
+	ev := FlowRelation(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for FlowRelation: valid values are %v", v, AllowedFlowRelationEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v FlowRelation) IsValid() bool {
+	for _, existing := range AllowedFlowRelationEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to FlowRelation value
+func (v FlowRelation) Ptr() *FlowRelation {
+	return &v
+}
+
+type NullableFlowRelation struct {
+	value *FlowRelation
+	isSet bool
+}
+
+func (v NullableFlowRelation) Get() *FlowRelation {
+	return v.value
+}
+
+func (v *NullableFlowRelation) Set(val *FlowRelation) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowRelation) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowRelation) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowRelation(val *FlowRelation) *NullableFlowRelation {
+	return &NullableFlowRelation{value: val, isSet: true}
+}
+
+func (v NullableFlowRelation) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowRelation) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

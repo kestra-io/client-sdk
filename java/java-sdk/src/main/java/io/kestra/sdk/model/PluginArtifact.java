@@ -1,0 +1,248 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URI;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PluginArtifact
+ */
+@JsonPropertyOrder({
+  PluginArtifact.JSON_PROPERTY_GROUP_ID,
+  PluginArtifact.JSON_PROPERTY_ARTIFACT_ID,
+  PluginArtifact.JSON_PROPERTY_EXTENSION,
+  PluginArtifact.JSON_PROPERTY_CLASSIFIER,
+  PluginArtifact.JSON_PROPERTY_VERSION,
+  PluginArtifact.JSON_PROPERTY_URI
+})
+public class PluginArtifact {
+  public static final String JSON_PROPERTY_GROUP_ID = "groupId";
+  @jakarta.annotation.Nullable  private String groupId;
+
+  public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
+  @jakarta.annotation.Nullable  private String artifactId;
+
+  public static final String JSON_PROPERTY_EXTENSION = "extension";
+  @jakarta.annotation.Nullable  private String extension;
+
+  public static final String JSON_PROPERTY_CLASSIFIER = "classifier";
+  @jakarta.annotation.Nullable  private String classifier;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_URI = "uri";
+  @jakarta.annotation.Nullable  private URI uri;
+
+  public PluginArtifact() {
+  }
+
+  public PluginArtifact groupId(@jakarta.annotation.Nullable String groupId) {
+    
+    this.groupId = groupId;
+    return this;
+  }
+
+  /**
+   * Get groupId
+   * @return groupId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGroupId() {
+    return groupId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupId(@jakarta.annotation.Nullable String groupId) {
+    this.groupId = groupId;
+  }
+
+  public PluginArtifact artifactId(@jakarta.annotation.Nullable String artifactId) {
+    
+    this.artifactId = artifactId;
+    return this;
+  }
+
+  /**
+   * Get artifactId
+   * @return artifactId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getArtifactId() {
+    return artifactId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setArtifactId(@jakarta.annotation.Nullable String artifactId) {
+    this.artifactId = artifactId;
+  }
+
+  public PluginArtifact extension(@jakarta.annotation.Nullable String extension) {
+    
+    this.extension = extension;
+    return this;
+  }
+
+  /**
+   * Get extension
+   * @return extension
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExtension() {
+    return extension;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTENSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExtension(@jakarta.annotation.Nullable String extension) {
+    this.extension = extension;
+  }
+
+  public PluginArtifact classifier(@jakarta.annotation.Nullable String classifier) {
+    
+    this.classifier = classifier;
+    return this;
+  }
+
+  /**
+   * Get classifier
+   * @return classifier
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSIFIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClassifier() {
+    return classifier;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLASSIFIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClassifier(@jakarta.annotation.Nullable String classifier) {
+    this.classifier = classifier;
+  }
+
+  public PluginArtifact version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public PluginArtifact uri(@jakarta.annotation.Nullable URI uri) {
+    
+    this.uri = uri;
+    return this;
+  }
+
+  /**
+   * Get uri
+   * @return uri
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public URI getUri() {
+    return uri;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUri(@jakarta.annotation.Nullable URI uri) {
+    this.uri = uri;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PluginArtifact pluginArtifact = (PluginArtifact) o;
+    return Objects.equals(this.groupId, pluginArtifact.groupId) &&
+        Objects.equals(this.artifactId, pluginArtifact.artifactId) &&
+        Objects.equals(this.extension, pluginArtifact.extension) &&
+        Objects.equals(this.classifier, pluginArtifact.classifier) &&
+        Objects.equals(this.version, pluginArtifact.version) &&
+        Objects.equals(this.uri, pluginArtifact.uri);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupId, artifactId, extension, classifier, version, uri);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PluginArtifact {\n");
+    sb.append("    groupId: ").append(toIndentedString(groupId)).append("\n");
+    sb.append("    artifactId: ").append(toIndentedString(artifactId)).append("\n");
+    sb.append("    extension: ").append(toIndentedString(extension)).append("\n");
+    sb.append("    classifier: ").append(toIndentedString(classifier)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

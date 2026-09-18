@@ -1,0 +1,277 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the CreateApiTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateApiTokenRequest{}
+
+// CreateApiTokenRequest struct for CreateApiTokenRequest
+type CreateApiTokenRequest struct {
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	Description *string `json:"description,omitempty"`
+	MaxAge *string `json:"maxAge,omitempty"`
+	Extended *bool `json:"extended,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _CreateApiTokenRequest CreateApiTokenRequest
+
+// NewCreateApiTokenRequest instantiates a new CreateApiTokenRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCreateApiTokenRequest(name string) *CreateApiTokenRequest {
+	this := CreateApiTokenRequest{}
+	this.Name = name
+	return &this
+}
+
+// NewCreateApiTokenRequestWithDefaults instantiates a new CreateApiTokenRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCreateApiTokenRequestWithDefaults() *CreateApiTokenRequest {
+	this := CreateApiTokenRequest{}
+	return &this
+}
+
+// GetName returns the Name field value
+func (o *CreateApiTokenRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateApiTokenRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateApiTokenRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *CreateApiTokenRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateApiTokenRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CreateApiTokenRequest) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *CreateApiTokenRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetMaxAge returns the MaxAge field value if set, zero value otherwise.
+func (o *CreateApiTokenRequest) GetMaxAge() string {
+	if o == nil || IsNil(o.MaxAge) {
+		var ret string
+		return ret
+	}
+	return *o.MaxAge
+}
+
+// GetMaxAgeOk returns a tuple with the MaxAge field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateApiTokenRequest) GetMaxAgeOk() (*string, bool) {
+	if o == nil || IsNil(o.MaxAge) {
+		return nil, false
+	}
+	return o.MaxAge, true
+}
+
+// HasMaxAge returns a boolean if a field has been set.
+func (o *CreateApiTokenRequest) HasMaxAge() bool {
+	if o != nil && !IsNil(o.MaxAge) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxAge gets a reference to the given string and assigns it to the MaxAge field.
+func (o *CreateApiTokenRequest) SetMaxAge(v string) {
+	o.MaxAge = &v
+}
+
+// GetExtended returns the Extended field value if set, zero value otherwise.
+func (o *CreateApiTokenRequest) GetExtended() bool {
+	if o == nil || IsNil(o.Extended) {
+		var ret bool
+		return ret
+	}
+	return *o.Extended
+}
+
+// GetExtendedOk returns a tuple with the Extended field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateApiTokenRequest) GetExtendedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Extended) {
+		return nil, false
+	}
+	return o.Extended, true
+}
+
+// HasExtended returns a boolean if a field has been set.
+func (o *CreateApiTokenRequest) HasExtended() bool {
+	if o != nil && !IsNil(o.Extended) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtended gets a reference to the given bool and assigns it to the Extended field.
+func (o *CreateApiTokenRequest) SetExtended(v bool) {
+	o.Extended = &v
+}
+
+func (o CreateApiTokenRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateApiTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.MaxAge) {
+		toSerialize["maxAge"] = o.MaxAge
+	}
+	if !IsNil(o.Extended) {
+		toSerialize["extended"] = o.Extended
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *CreateApiTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateApiTokenRequest := _CreateApiTokenRequest{}
+
+	err = json.Unmarshal(data, &varCreateApiTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateApiTokenRequest(varCreateApiTokenRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "maxAge")
+		delete(additionalProperties, "extended")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableCreateApiTokenRequest struct {
+	value *CreateApiTokenRequest
+	isSet bool
+}
+
+func (v NullableCreateApiTokenRequest) Get() *CreateApiTokenRequest {
+	return v.value
+}
+
+func (v *NullableCreateApiTokenRequest) Set(val *CreateApiTokenRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCreateApiTokenRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCreateApiTokenRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCreateApiTokenRequest(val *CreateApiTokenRequest) *NullableCreateApiTokenRequest {
+	return &NullableCreateApiTokenRequest{value: val, isSet: true}
+}
+
+func (v NullableCreateApiTokenRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableCreateApiTokenRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

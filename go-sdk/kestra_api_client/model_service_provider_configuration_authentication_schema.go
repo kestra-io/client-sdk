@@ -1,0 +1,301 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the ServiceProviderConfigurationAuthenticationSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceProviderConfigurationAuthenticationSchema{}
+
+// ServiceProviderConfigurationAuthenticationSchema struct for ServiceProviderConfigurationAuthenticationSchema
+type ServiceProviderConfigurationAuthenticationSchema struct {
+	Type *ServiceProviderConfigurationAuthenticationSchemaType `json:"type,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	SpecUri *string `json:"specUri,omitempty"`
+	DocumentationUri *string `json:"documentationUri,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceProviderConfigurationAuthenticationSchema ServiceProviderConfigurationAuthenticationSchema
+
+// NewServiceProviderConfigurationAuthenticationSchema instantiates a new ServiceProviderConfigurationAuthenticationSchema object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceProviderConfigurationAuthenticationSchema() *ServiceProviderConfigurationAuthenticationSchema {
+	this := ServiceProviderConfigurationAuthenticationSchema{}
+	return &this
+}
+
+// NewServiceProviderConfigurationAuthenticationSchemaWithDefaults instantiates a new ServiceProviderConfigurationAuthenticationSchema object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceProviderConfigurationAuthenticationSchemaWithDefaults() *ServiceProviderConfigurationAuthenticationSchema {
+	this := ServiceProviderConfigurationAuthenticationSchema{}
+	return &this
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetType() ServiceProviderConfigurationAuthenticationSchemaType {
+	if o == nil || IsNil(o.Type) {
+		var ret ServiceProviderConfigurationAuthenticationSchemaType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetTypeOk() (*ServiceProviderConfigurationAuthenticationSchemaType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given ServiceProviderConfigurationAuthenticationSchemaType and assigns it to the Type field.
+func (o *ServiceProviderConfigurationAuthenticationSchema) SetType(v ServiceProviderConfigurationAuthenticationSchemaType) {
+	o.Type = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *ServiceProviderConfigurationAuthenticationSchema) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ServiceProviderConfigurationAuthenticationSchema) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetSpecUri returns the SpecUri field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetSpecUri() string {
+	if o == nil || IsNil(o.SpecUri) {
+		var ret string
+		return ret
+	}
+	return *o.SpecUri
+}
+
+// GetSpecUriOk returns a tuple with the SpecUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetSpecUriOk() (*string, bool) {
+	if o == nil || IsNil(o.SpecUri) {
+		return nil, false
+	}
+	return o.SpecUri, true
+}
+
+// HasSpecUri returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) HasSpecUri() bool {
+	if o != nil && !IsNil(o.SpecUri) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpecUri gets a reference to the given string and assigns it to the SpecUri field.
+func (o *ServiceProviderConfigurationAuthenticationSchema) SetSpecUri(v string) {
+	o.SpecUri = &v
+}
+
+// GetDocumentationUri returns the DocumentationUri field value if set, zero value otherwise.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetDocumentationUri() string {
+	if o == nil || IsNil(o.DocumentationUri) {
+		var ret string
+		return ret
+	}
+	return *o.DocumentationUri
+}
+
+// GetDocumentationUriOk returns a tuple with the DocumentationUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) GetDocumentationUriOk() (*string, bool) {
+	if o == nil || IsNil(o.DocumentationUri) {
+		return nil, false
+	}
+	return o.DocumentationUri, true
+}
+
+// HasDocumentationUri returns a boolean if a field has been set.
+func (o *ServiceProviderConfigurationAuthenticationSchema) HasDocumentationUri() bool {
+	if o != nil && !IsNil(o.DocumentationUri) {
+		return true
+	}
+
+	return false
+}
+
+// SetDocumentationUri gets a reference to the given string and assigns it to the DocumentationUri field.
+func (o *ServiceProviderConfigurationAuthenticationSchema) SetDocumentationUri(v string) {
+	o.DocumentationUri = &v
+}
+
+func (o ServiceProviderConfigurationAuthenticationSchema) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceProviderConfigurationAuthenticationSchema) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.SpecUri) {
+		toSerialize["specUri"] = o.SpecUri
+	}
+	if !IsNil(o.DocumentationUri) {
+		toSerialize["documentationUri"] = o.DocumentationUri
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfigurationAuthenticationSchema) UnmarshalJSON(data []byte) (err error) {
+	varServiceProviderConfigurationAuthenticationSchema := _ServiceProviderConfigurationAuthenticationSchema{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfigurationAuthenticationSchema)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfigurationAuthenticationSchema(varServiceProviderConfigurationAuthenticationSchema)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "specUri")
+		delete(additionalProperties, "documentationUri")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceProviderConfigurationAuthenticationSchema struct {
+	value *ServiceProviderConfigurationAuthenticationSchema
+	isSet bool
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchema) Get() *ServiceProviderConfigurationAuthenticationSchema {
+	return v.value
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchema) Set(val *ServiceProviderConfigurationAuthenticationSchema) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchema) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchema) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceProviderConfigurationAuthenticationSchema(val *ServiceProviderConfigurationAuthenticationSchema) *NullableServiceProviderConfigurationAuthenticationSchema {
+	return &NullableServiceProviderConfigurationAuthenticationSchema{value: val, isSet: true}
+}
+
+func (v NullableServiceProviderConfigurationAuthenticationSchema) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceProviderConfigurationAuthenticationSchema) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

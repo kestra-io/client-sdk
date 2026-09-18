@@ -1,0 +1,225 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AbstractGraph;
+import io.kestra.sdk.model.FlowGraphCluster;
+import io.kestra.sdk.model.FlowGraphEdge;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowGraph
+ */
+@JsonPropertyOrder({
+  FlowGraph.JSON_PROPERTY_NODES,
+  FlowGraph.JSON_PROPERTY_EDGES,
+  FlowGraph.JSON_PROPERTY_CLUSTERS,
+  FlowGraph.JSON_PROPERTY_FLOWABLES
+})
+public class FlowGraph {
+  public static final String JSON_PROPERTY_NODES = "nodes";
+  @jakarta.annotation.Nullable  private List<AbstractGraph> nodes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EDGES = "edges";
+  @jakarta.annotation.Nullable  private List<FlowGraphEdge> edges = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CLUSTERS = "clusters";
+  @jakarta.annotation.Nullable  private List<FlowGraphCluster> clusters = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_FLOWABLES = "flowables";
+  @jakarta.annotation.Nullable  private List<String> flowables = new ArrayList<>();
+
+  public FlowGraph() {
+  }
+
+  public FlowGraph nodes(@jakarta.annotation.Nullable List<AbstractGraph> nodes) {
+    
+    this.nodes = nodes;
+    return this;
+  }
+
+  public FlowGraph addNodesItem(AbstractGraph nodesItem) {
+    if (this.nodes == null) {
+      this.nodes = new ArrayList<>();
+    }
+    this.nodes.add(nodesItem);
+    return this;
+  }
+
+  /**
+   * Get nodes
+   * @return nodes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AbstractGraph> getNodes() {
+    return nodes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNodes(@jakarta.annotation.Nullable List<AbstractGraph> nodes) {
+    this.nodes = nodes;
+  }
+
+  public FlowGraph edges(@jakarta.annotation.Nullable List<FlowGraphEdge> edges) {
+    
+    this.edges = edges;
+    return this;
+  }
+
+  public FlowGraph addEdgesItem(FlowGraphEdge edgesItem) {
+    if (this.edges == null) {
+      this.edges = new ArrayList<>();
+    }
+    this.edges.add(edgesItem);
+    return this;
+  }
+
+  /**
+   * Get edges
+   * @return edges
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<FlowGraphEdge> getEdges() {
+    return edges;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdges(@jakarta.annotation.Nullable List<FlowGraphEdge> edges) {
+    this.edges = edges;
+  }
+
+  public FlowGraph clusters(@jakarta.annotation.Nullable List<FlowGraphCluster> clusters) {
+    
+    this.clusters = clusters;
+    return this;
+  }
+
+  public FlowGraph addClustersItem(FlowGraphCluster clustersItem) {
+    if (this.clusters == null) {
+      this.clusters = new ArrayList<>();
+    }
+    this.clusters.add(clustersItem);
+    return this;
+  }
+
+  /**
+   * Get clusters
+   * @return clusters
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<FlowGraphCluster> getClusters() {
+    return clusters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLUSTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClusters(@jakarta.annotation.Nullable List<FlowGraphCluster> clusters) {
+    this.clusters = clusters;
+  }
+
+  public FlowGraph flowables(@jakarta.annotation.Nullable List<String> flowables) {
+    
+    this.flowables = flowables;
+    return this;
+  }
+
+  public FlowGraph addFlowablesItem(String flowablesItem) {
+    if (this.flowables == null) {
+      this.flowables = new ArrayList<>();
+    }
+    this.flowables.add(flowablesItem);
+    return this;
+  }
+
+  /**
+   * Get flowables
+   * @return flowables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getFlowables() {
+    return flowables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOWABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowables(@jakarta.annotation.Nullable List<String> flowables) {
+    this.flowables = flowables;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowGraph flowGraph = (FlowGraph) o;
+    return Objects.equals(this.nodes, flowGraph.nodes) &&
+        Objects.equals(this.edges, flowGraph.edges) &&
+        Objects.equals(this.clusters, flowGraph.clusters) &&
+        Objects.equals(this.flowables, flowGraph.flowables);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nodes, edges, clusters, flowables);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowGraph {\n");
+    sb.append("    nodes: ").append(toIndentedString(nodes)).append("\n");
+    sb.append("    edges: ").append(toIndentedString(edges)).append("\n");
+    sb.append("    clusters: ").append(toIndentedString(clusters)).append("\n");
+    sb.append("    flowables: ").append(toIndentedString(flowables)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

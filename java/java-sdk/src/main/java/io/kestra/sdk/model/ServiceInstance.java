@@ -1,0 +1,433 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Metric;
+import io.kestra.sdk.model.ServerConfig;
+import io.kestra.sdk.model.ServerInstance;
+import io.kestra.sdk.model.ServiceInstanceTimestampedEvent;
+import io.kestra.sdk.model.ServiceServiceState;
+import io.kestra.sdk.model.ServiceType;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServiceInstance
+ */
+@JsonPropertyOrder({
+  ServiceInstance.JSON_PROPERTY_SERVER,
+  ServiceInstance.JSON_PROPERTY_METRICS,
+  ServiceInstance.JSON_PROPERTY_STATE,
+  ServiceInstance.JSON_PROPERTY_ID,
+  ServiceInstance.JSON_PROPERTY_TYPE,
+  ServiceInstance.JSON_PROPERTY_CREATED_AT,
+  ServiceInstance.JSON_PROPERTY_UPDATED_AT,
+  ServiceInstance.JSON_PROPERTY_EVENTS,
+  ServiceInstance.JSON_PROPERTY_CONFIG,
+  ServiceInstance.JSON_PROPERTY_PROPS,
+  ServiceInstance.JSON_PROPERTY_SEQ_ID
+})
+public class ServiceInstance {
+  public static final String JSON_PROPERTY_SERVER = "server";
+  @jakarta.annotation.Nullable  private ServerInstance server;
+
+  public static final String JSON_PROPERTY_METRICS = "metrics";
+  @jakarta.annotation.Nullable  private List<Metric> metrics = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nullable  private ServiceServiceState state;
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private ServiceType type;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime updatedAt;
+
+  public static final String JSON_PROPERTY_EVENTS = "events";
+  @jakarta.annotation.Nullable  private List<ServiceInstanceTimestampedEvent> events = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CONFIG = "config";
+  @jakarta.annotation.Nullable  private ServerConfig config;
+
+  public static final String JSON_PROPERTY_PROPS = "props";
+  @jakarta.annotation.Nullable  private Map<String, Object> props = new HashMap<>();
+
+  public static final String JSON_PROPERTY_SEQ_ID = "seqId";
+  @jakarta.annotation.Nullable  private Long seqId;
+
+  public ServiceInstance() {
+  }
+
+  public ServiceInstance server(@jakarta.annotation.Nullable ServerInstance server) {
+    
+    this.server = server;
+    return this;
+  }
+
+  /**
+   * Get server
+   * @return server
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SERVER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServerInstance getServer() {
+    return server;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SERVER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServer(@jakarta.annotation.Nullable ServerInstance server) {
+    this.server = server;
+  }
+
+  public ServiceInstance metrics(@jakarta.annotation.Nullable List<Metric> metrics) {
+    
+    this.metrics = metrics;
+    return this;
+  }
+
+  public ServiceInstance addMetricsItem(Metric metricsItem) {
+    if (this.metrics == null) {
+      this.metrics = new ArrayList<>();
+    }
+    this.metrics.add(metricsItem);
+    return this;
+  }
+
+  /**
+   * Get metrics
+   * @return metrics
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Metric> getMetrics() {
+    return metrics;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetrics(@jakarta.annotation.Nullable List<Metric> metrics) {
+    this.metrics = metrics;
+  }
+
+  public ServiceInstance state(@jakarta.annotation.Nullable ServiceServiceState state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceServiceState getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@jakarta.annotation.Nullable ServiceServiceState state) {
+    this.state = state;
+  }
+
+  public ServiceInstance id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public ServiceInstance type(@jakarta.annotation.Nullable ServiceType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable ServiceType type) {
+    this.type = type;
+  }
+
+  public ServiceInstance createdAt(@jakarta.annotation.Nullable OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  /**
+   * Get createdAt
+   * @return createdAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(@jakarta.annotation.Nullable OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public ServiceInstance updatedAt(@jakarta.annotation.Nullable OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  /**
+   * Get updatedAt
+   * @return updatedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(@jakarta.annotation.Nullable OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public ServiceInstance events(@jakarta.annotation.Nullable List<ServiceInstanceTimestampedEvent> events) {
+    
+    this.events = events;
+    return this;
+  }
+
+  public ServiceInstance addEventsItem(ServiceInstanceTimestampedEvent eventsItem) {
+    if (this.events == null) {
+      this.events = new ArrayList<>();
+    }
+    this.events.add(eventsItem);
+    return this;
+  }
+
+  /**
+   * Get events
+   * @return events
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EVENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ServiceInstanceTimestampedEvent> getEvents() {
+    return events;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EVENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEvents(@jakarta.annotation.Nullable List<ServiceInstanceTimestampedEvent> events) {
+    this.events = events;
+  }
+
+  public ServiceInstance config(@jakarta.annotation.Nullable ServerConfig config) {
+    
+    this.config = config;
+    return this;
+  }
+
+  /**
+   * Get config
+   * @return config
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServerConfig getConfig() {
+    return config;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConfig(@jakarta.annotation.Nullable ServerConfig config) {
+    this.config = config;
+  }
+
+  public ServiceInstance props(@jakarta.annotation.Nullable Map<String, Object> props) {
+    
+    this.props = props;
+    return this;
+  }
+
+  public ServiceInstance putPropsItem(String key, Object propsItem) {
+    if (this.props == null) {
+      this.props = new HashMap<>();
+    }
+    this.props.put(key, propsItem);
+    return this;
+  }
+
+  /**
+   * Get props
+   * @return props
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getProps() {
+    return props;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProps(@jakarta.annotation.Nullable Map<String, Object> props) {
+    this.props = props;
+  }
+
+  public ServiceInstance seqId(@jakarta.annotation.Nullable Long seqId) {
+    
+    this.seqId = seqId;
+    return this;
+  }
+
+  /**
+   * Get seqId
+   * @return seqId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SEQ_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getSeqId() {
+    return seqId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SEQ_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSeqId(@jakarta.annotation.Nullable Long seqId) {
+    this.seqId = seqId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceInstance serviceInstance = (ServiceInstance) o;
+    return Objects.equals(this.server, serviceInstance.server) &&
+        Objects.equals(this.metrics, serviceInstance.metrics) &&
+        Objects.equals(this.state, serviceInstance.state) &&
+        Objects.equals(this.id, serviceInstance.id) &&
+        Objects.equals(this.type, serviceInstance.type) &&
+        Objects.equals(this.createdAt, serviceInstance.createdAt) &&
+        Objects.equals(this.updatedAt, serviceInstance.updatedAt) &&
+        Objects.equals(this.events, serviceInstance.events) &&
+        Objects.equals(this.config, serviceInstance.config) &&
+        Objects.equals(this.props, serviceInstance.props) &&
+        Objects.equals(this.seqId, serviceInstance.seqId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(server, metrics, state, id, type, createdAt, updatedAt, events, config, props, seqId);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceInstance {\n");
+    sb.append("    server: ").append(toIndentedString(server)).append("\n");
+    sb.append("    metrics: ").append(toIndentedString(metrics)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    events: ").append(toIndentedString(events)).append("\n");
+    sb.append("    config: ").append(toIndentedString(config)).append("\n");
+    sb.append("    props: ").append(toIndentedString(props)).append("\n");
+    sb.append("    seqId: ").append(toIndentedString(seqId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

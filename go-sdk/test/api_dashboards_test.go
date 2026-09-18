@@ -1,0 +1,452 @@
+package test
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"sort"
+	"strings"
+	"testing"
+
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
+	"github.com/stretchr/testify/require"
+)
+
+// expectedExportColumns are the executionsTable*Yaml column keys, sorted. The
+// CSV header uses these raw keys (not their displayName) and the SQL layer
+// does not guarantee they come back in declaration order, so tests compare
+// against a sorted copy of the header rather than a fixed string.
+var expectedExportColumns = []string{"flow", "id", "namespace", "state"}
+
+// ionBinaryVersionMarker is the fixed 4-byte header every Amazon Ion 1.0
+// binary stream starts with; FileSerde writes ION exports in binary form.
+var ionBinaryVersionMarker = []byte{0xE0, 0x01, 0x00, 0xEA}
+
+func assertCsvHeader(t *testing.T, csv string) {
+	t.Helper()
+	header := strings.TrimRight(strings.SplitN(csv, "\n", 2)[0], "\r")
+	columns := strings.Split(header, ",")
+	sort.Strings(columns)
+	require.Equal(t, expectedExportColumns, columns)
+}
+
+func assertIonBinaryMarker(t *testing.T, result []byte) {
+	t.Helper()
+	require.GreaterOrEqual(t, len(result), 4)
+	require.Equal(t, ionBinaryVersionMarker, result[:4])
+}
+
+func dashboardYaml(title string) string {
+	return dashboardYamlWithId(randomId(), title)
+}
+
+func dashboardYamlWithId(id, title string) string {
+	return fmt.Sprintf(`
+id: %s
+title: %s
+description: Test dashboard
+timeWindow:
+  default: P30D
+  max: P365D
+charts: []
+`, id, title)
+}
+
+// executionsTableDashboardYaml builds a dashboard with a single OSS-native Table
+// chart over the Executions data type, scoped to namespace so its export content
+// is deterministic even on a shared test instance with unrelated executions.
+func executionsTableDashboardYaml(dashboardId, title, chartId, namespace string) string {
+	return fmt.Sprintf(`
+id: %s
+title: %s
+description: Test dashboard
+timeWindow:
+  default: P30D
+  max: P365D
+charts:
+  - id: %s
+    type: io.kestra.plugin.core.dashboard.chart.Table
+    chartOptions:
+      displayName: Executions
+    data:
+      type: io.kestra.plugin.core.dashboard.data.Executions
+      where:
+        - field: NAMESPACE
+          type: EQUAL_TO
+          value: %s
+      columns:
+        id:
+          field: ID
+          displayName: Execution ID
+        namespace:
+          field: NAMESPACE
+          displayName: Namespace
+        flow:
+          field: FLOW_ID
+          displayName: Flow
+        state:
+          field: STATE
+          displayName: State
+`, dashboardId, title, chartId, namespace)
+}
+
+// executionsTableChartYaml is executionsTableDashboardYaml's chart block on its
+// own, usable directly in an ad-hoc PreviewRequest (no dashboard wrapper).
+func executionsTableChartYaml(chartId, namespace string) string {
+	return fmt.Sprintf(`
+id: %s
+type: io.kestra.plugin.core.dashboard.chart.Table
+chartOptions:
+  displayName: Executions
+data:
+  type: io.kestra.plugin.core.dashboard.data.Executions
+  where:
+    - field: NAMESPACE
+      type: EQUAL_TO
+      value: %s
+  columns:
+    id:
+      field: ID
+      displayName: Execution ID
+    namespace:
+      field: NAMESPACE
+      displayName: Namespace
+    flow:
+      field: FLOW_ID
+      displayName: Flow
+    state:
+      field: STATE
+      displayName: State
+`, chartId, namespace)
+}
+
+func TestDashboardsAPI_All(t *testing.T) {
+
+	// ========================================================================
+	// CRUD
+	// ========================================================================
+
+	t.Run("createDashboard_basic", func(t *testing.T) {
+		ctx := context.Background()
+		title := "test-dash-" + randomId()
+
+		result, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title))
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.NotEmpty(t, result.Id)
+		require.Equal(t, title, result.Title)
+	})
+
+	t.Run("dashboard_getById", func(t *testing.T) {
+		ctx := context.Background()
+		title := "get-dash-" + randomId()
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title))
+		require.NoError(t, err)
+
+		result, err := KestraTestClient().Dashboards().Dashboard(ctx, created.Id, MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.Equal(t, created.Id, result.Id)
+		require.Equal(t, title, result.Title)
+	})
+
+	t.Run("dashboard_notFound", func(t *testing.T) {
+		ctx := context.Background()
+
+		_, err := KestraTestClient().Dashboards().Dashboard(ctx, "nonexistent-dash-id", MAIN_TENANT)
+		require.Error(t, err)
+	})
+
+	t.Run("updateDashboard_changeTitle", func(t *testing.T) {
+		ctx := context.Background()
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml("before-"+randomId()))
+		require.NoError(t, err)
+
+		newTitle := "after-" + randomId()
+		updated, err := KestraTestClient().Dashboards().UpdateDashboard(ctx, created.Id, MAIN_TENANT, dashboardYamlWithId(created.Id, newTitle))
+		require.NoError(t, err)
+		require.Equal(t, newTitle, updated.Title)
+	})
+
+	t.Run("deleteDashboard_basic", func(t *testing.T) {
+		ctx := context.Background()
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml("to-delete-"+randomId()))
+		require.NoError(t, err)
+
+		err = KestraTestClient().Dashboards().DeleteDashboard(ctx, created.Id, MAIN_TENANT)
+		require.NoError(t, err)
+
+		_, err = KestraTestClient().Dashboards().Dashboard(ctx, created.Id, MAIN_TENANT)
+		require.Error(t, err)
+	})
+
+	// ========================================================================
+	// Search
+	// ========================================================================
+
+	t.Run("searchDashboards_basic", func(t *testing.T) {
+		ctx := context.Background()
+
+		_, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml("searchable-"+randomId()))
+		require.NoError(t, err)
+
+		result, err := KestraTestClient().Dashboards().SearchDashboards(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.Greater(t, len(result.Results), 0)
+	})
+
+	t.Run("searchDashboards_withPagination", func(t *testing.T) {
+		ctx := context.Background()
+
+		result, err := KestraTestClient().Dashboards().SearchDashboards(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(2), nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.LessOrEqual(t, len(result.Results), 2)
+	})
+
+	t.Run("searchDashboards_withQuery", func(t *testing.T) {
+		ctx := context.Background()
+		title := "dashboard-" + randomId()
+
+		_, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title))
+		require.NoError(t, err)
+
+		result, err := KestraTestClient().Dashboards().SearchDashboards(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), kestra_api_client.PtrString(title), nil)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.Greater(t, len(result.Results), 0)
+	})
+
+	t.Run("searchDashboards_withSort", func(t *testing.T) {
+		ctx := context.Background()
+		prefix := "sortdash" + randomId()[:6]
+		title1 := prefix + "aaa"
+		title2 := prefix + "zzz"
+
+		_, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title2))
+		require.NoError(t, err)
+		_, err = KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title1))
+		require.NoError(t, err)
+
+		result, err := KestraTestClient().Dashboards().SearchDashboards(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), kestra_api_client.PtrString(prefix), []string{"title:asc"})
+		require.NoError(t, err)
+		require.GreaterOrEqual(t, len(result.Results), 2)
+
+		titles := make([]string, len(result.Results))
+		for i, r := range result.Results {
+			titles[i] = r.Title
+		}
+		idx1 := indexOf(titles, title1)
+		idx2 := indexOf(titles, title2)
+		require.GreaterOrEqual(t, idx1, 0)
+		require.Greater(t, idx2, idx1)
+	})
+
+	t.Run("searchDashboards_noResults", func(t *testing.T) {
+		ctx := context.Background()
+
+		result, err := KestraTestClient().Dashboards().SearchDashboards(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), kestra_api_client.PtrString("nonexistent_dashboard_"+randomId()), nil)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.Empty(t, result.Results)
+	})
+
+	// ========================================================================
+	// Settings
+	// ========================================================================
+
+	t.Run("defaultDashboards_basic", func(t *testing.T) {
+		ctx := context.Background()
+
+		result, err := KestraTestClient().Dashboards().DefaultDashboards(ctx, MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+	})
+
+	// ========================================================================
+	// Validation
+	// ========================================================================
+
+	t.Run("validateDashboard_valid", func(t *testing.T) {
+		ctx := context.Background()
+
+		result, err := KestraTestClient().Dashboards().ValidateDashboard(ctx, MAIN_TENANT, dashboardYaml("valid-"+randomId()))
+		require.NoError(t, err)
+		require.NotNil(t, result)
+	})
+
+	t.Run("validateChart_valid", func(t *testing.T) {
+		ctx := context.Background()
+
+		chartYaml := `
+id: test-chart
+type: io.kestra.plugin.ee.core.dashboard.charts.Executions
+columns:
+  date:
+    field: DATE
+  duration:
+    field: DURATION
+graphStyle: LINES
+`
+		result, err := KestraTestClient().Dashboards().ValidateChart(ctx, MAIN_TENANT, chartYaml)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+	})
+
+	// ========================================================================
+	// Chart data & export
+	// ========================================================================
+
+	t.Run("dashboardChartData_notFound", func(t *testing.T) {
+		ctx := context.Background()
+		title := "chart-data-" + randomId()
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+
+		// Dashboard has no charts, so chart ID "nonexistent" should fail
+		_, err = KestraTestClient().Dashboards().DashboardChartData(ctx, created.Id, "nonexistent", MAIN_TENANT, filters)
+		require.Error(t, err)
+	})
+
+	t.Run("previewChart_basic", func(t *testing.T) {
+		ctx := context.Background()
+
+		chartYaml := strings.TrimSpace(`
+id: preview-chart
+type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+graphStyle: LINES
+columns:
+  date:
+    field: DATE
+`)
+		request := kestra_api_client.NewDashboardControllerPreviewRequest(chartYaml)
+
+		// This minimal chart definition may legitimately be refused with a 400/422. Any other
+		// status means the endpoint itself is gone rather than the chart being rejected — EE
+		// answers an unmatched /api path with 403 — so those must fail the test.
+		_, err := KestraTestClient().Dashboards().PreviewChart(ctx, MAIN_TENANT, request)
+		if err != nil {
+			var apiErr *kestra_api_client.ApiError
+			require.True(t, errors.As(err, &apiErr), "expected an *ApiError, got %v", err)
+			require.Contains(t, []int{400, 422}, apiErr.StatusCode, "unexpected status, body: %s", apiErr.Body)
+		}
+	})
+
+	t.Run("exportChart_basic", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		request := kestra_api_client.NewDashboardControllerPreviewRequest(executionsTableChartYaml("adhoc-chart", namespace))
+		result, err := KestraTestClient().Dashboards().ExportChart(ctx, MAIN_TENANT, request, strPtr("CSV"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		csv := string(result)
+		require.Contains(t, csv, namespace)
+		require.Contains(t, csv, flowId)
+		require.Contains(t, csv, execution.Id)
+		assertCsvHeader(t, csv)
+	})
+
+	t.Run("exportChart_ion", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		request := kestra_api_client.NewDashboardControllerPreviewRequest(executionsTableChartYaml("adhoc-chart", namespace))
+		result, err := KestraTestClient().Dashboards().ExportChart(ctx, MAIN_TENANT, request, strPtr("ION"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		ion := string(result)
+		require.Contains(t, ion, namespace)
+		require.Contains(t, ion, flowId)
+		require.Contains(t, ion, execution.Id)
+		assertIonBinaryMarker(t, result)
+	})
+
+	t.Run("exportDashboardChart_csv", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+		chartId := "recent_executions"
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, executionsTableDashboardYaml(randomId(), "export-csv-"+randomId(), chartId, namespace))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+		result, err := KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, chartId, MAIN_TENANT, filters, strPtr("CSV"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		csv := string(result)
+		require.Contains(t, csv, namespace)
+		require.Contains(t, csv, flowId)
+		require.Contains(t, csv, execution.Id)
+		assertCsvHeader(t, csv)
+	})
+
+	t.Run("exportDashboardChart_ion", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+		chartId := "recent_executions"
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, executionsTableDashboardYaml(randomId(), "export-ion-"+randomId(), chartId, namespace))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+		result, err := KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, chartId, MAIN_TENANT, filters, strPtr("ION"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		ion := string(result)
+		require.Contains(t, ion, namespace)
+		require.Contains(t, ion, flowId)
+		require.Contains(t, ion, execution.Id)
+		assertIonBinaryMarker(t, result)
+	})
+
+	t.Run("exportDashboardChart_notFound", func(t *testing.T) {
+		ctx := context.Background()
+		title := "csv-export-" + randomId()
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, dashboardYaml(title))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+
+		_, err = KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, "nonexistent", MAIN_TENANT, filters, strPtr("CSV"))
+		require.Error(t, err)
+	})
+}
+
+// indexOf returns the index of s in slice, or -1 if not found.
+func indexOf(slice []string, s string) int {
+	for i, v := range slice {
+		if v == s {
+			return i
+		}
+	}
+	return -1
+}

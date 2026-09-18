@@ -1,0 +1,27 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+package io.kestra.sdk.internal;
+
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+public class RFC3339JavaTimeModule extends SimpleModule {
+    private static final long serialVersionUID = 1L;
+
+    public RFC3339JavaTimeModule() {
+        super("RFC3339JavaTimeModule");
+
+        addDeserializer(Instant.class, RFC3339InstantDeserializer.INSTANT);
+        addDeserializer(OffsetDateTime.class, RFC3339InstantDeserializer.OFFSET_DATE_TIME);
+        addDeserializer(ZonedDateTime.class, RFC3339InstantDeserializer.ZONED_DATE_TIME);
+    }
+}

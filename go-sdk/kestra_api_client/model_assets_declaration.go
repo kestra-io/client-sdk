@@ -1,0 +1,227 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the AssetsDeclaration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssetsDeclaration{}
+
+// AssetsDeclaration struct for AssetsDeclaration
+type AssetsDeclaration struct {
+	EnableAuto *string `json:"enableAuto,omitempty"`
+	Inputs *PropertyListAssetIdentifier `json:"inputs,omitempty"`
+	Outputs *PropertyListAsset `json:"outputs,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AssetsDeclaration AssetsDeclaration
+
+// NewAssetsDeclaration instantiates a new AssetsDeclaration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAssetsDeclaration() *AssetsDeclaration {
+	this := AssetsDeclaration{}
+	return &this
+}
+
+// NewAssetsDeclarationWithDefaults instantiates a new AssetsDeclaration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAssetsDeclarationWithDefaults() *AssetsDeclaration {
+	this := AssetsDeclaration{}
+	return &this
+}
+
+// GetEnableAuto returns the EnableAuto field value if set, zero value otherwise.
+func (o *AssetsDeclaration) GetEnableAuto() string {
+	if o == nil || IsNil(o.EnableAuto) {
+		var ret string
+		return ret
+	}
+	return *o.EnableAuto
+}
+
+// GetEnableAutoOk returns a tuple with the EnableAuto field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsDeclaration) GetEnableAutoOk() (*string, bool) {
+	if o == nil || IsNil(o.EnableAuto) {
+		return nil, false
+	}
+	return o.EnableAuto, true
+}
+
+// HasEnableAuto returns a boolean if a field has been set.
+func (o *AssetsDeclaration) HasEnableAuto() bool {
+	if o != nil && !IsNil(o.EnableAuto) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnableAuto gets a reference to the given string and assigns it to the EnableAuto field.
+func (o *AssetsDeclaration) SetEnableAuto(v string) {
+	o.EnableAuto = &v
+}
+
+// GetInputs returns the Inputs field value if set, zero value otherwise.
+func (o *AssetsDeclaration) GetInputs() PropertyListAssetIdentifier {
+	if o == nil || IsNil(o.Inputs) {
+		var ret PropertyListAssetIdentifier
+		return ret
+	}
+	return *o.Inputs
+}
+
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsDeclaration) GetInputsOk() (*PropertyListAssetIdentifier, bool) {
+	if o == nil || IsNil(o.Inputs) {
+		return nil, false
+	}
+	return o.Inputs, true
+}
+
+// HasInputs returns a boolean if a field has been set.
+func (o *AssetsDeclaration) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given PropertyListAssetIdentifier and assigns it to the Inputs field.
+func (o *AssetsDeclaration) SetInputs(v PropertyListAssetIdentifier) {
+	o.Inputs = &v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
+func (o *AssetsDeclaration) GetOutputs() PropertyListAsset {
+	if o == nil || IsNil(o.Outputs) {
+		var ret PropertyListAsset
+		return ret
+	}
+	return *o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsDeclaration) GetOutputsOk() (*PropertyListAsset, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *AssetsDeclaration) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given PropertyListAsset and assigns it to the Outputs field.
+func (o *AssetsDeclaration) SetOutputs(v PropertyListAsset) {
+	o.Outputs = &v
+}
+
+func (o AssetsDeclaration) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssetsDeclaration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EnableAuto) {
+		toSerialize["enableAuto"] = o.EnableAuto
+	}
+	if !IsNil(o.Inputs) {
+		toSerialize["inputs"] = o.Inputs
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AssetsDeclaration) UnmarshalJSON(data []byte) (err error) {
+	varAssetsDeclaration := _AssetsDeclaration{}
+
+	err = json.Unmarshal(data, &varAssetsDeclaration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssetsDeclaration(varAssetsDeclaration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enableAuto")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAssetsDeclaration struct {
+	value *AssetsDeclaration
+	isSet bool
+}
+
+func (v NullableAssetsDeclaration) Get() *AssetsDeclaration {
+	return v.value
+}
+
+func (v *NullableAssetsDeclaration) Set(val *AssetsDeclaration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAssetsDeclaration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAssetsDeclaration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAssetsDeclaration(val *AssetsDeclaration) *NullableAssetsDeclaration {
+	return &NullableAssetsDeclaration{value: val, isSet: true}
+}
+
+func (v NullableAssetsDeclaration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAssetsDeclaration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

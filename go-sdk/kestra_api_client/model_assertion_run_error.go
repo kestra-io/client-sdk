@@ -1,0 +1,203 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the AssertionRunError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssertionRunError{}
+
+// AssertionRunError struct for AssertionRunError
+type AssertionRunError struct {
+	Message string `json:"message"`
+	Details *string `json:"details,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _AssertionRunError AssertionRunError
+
+// NewAssertionRunError instantiates a new AssertionRunError object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAssertionRunError(message string) *AssertionRunError {
+	this := AssertionRunError{}
+	this.Message = message
+	return &this
+}
+
+// NewAssertionRunErrorWithDefaults instantiates a new AssertionRunError object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAssertionRunErrorWithDefaults() *AssertionRunError {
+	this := AssertionRunError{}
+	return &this
+}
+
+// GetMessage returns the Message field value
+func (o *AssertionRunError) GetMessage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *AssertionRunError) GetMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *AssertionRunError) SetMessage(v string) {
+	o.Message = v
+}
+
+// GetDetails returns the Details field value if set, zero value otherwise.
+func (o *AssertionRunError) GetDetails() string {
+	if o == nil || IsNil(o.Details) {
+		var ret string
+		return ret
+	}
+	return *o.Details
+}
+
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionRunError) GetDetailsOk() (*string, bool) {
+	if o == nil || IsNil(o.Details) {
+		return nil, false
+	}
+	return o.Details, true
+}
+
+// HasDetails returns a boolean if a field has been set.
+func (o *AssertionRunError) HasDetails() bool {
+	if o != nil && !IsNil(o.Details) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given string and assigns it to the Details field.
+func (o *AssertionRunError) SetDetails(v string) {
+	o.Details = &v
+}
+
+func (o AssertionRunError) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssertionRunError) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["message"] = o.Message
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *AssertionRunError) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"message",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAssertionRunError := _AssertionRunError{}
+
+	err = json.Unmarshal(data, &varAssertionRunError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssertionRunError(varAssertionRunError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAssertionRunError struct {
+	value *AssertionRunError
+	isSet bool
+}
+
+func (v NullableAssertionRunError) Get() *AssertionRunError {
+	return v.value
+}
+
+func (v *NullableAssertionRunError) Set(val *AssertionRunError) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAssertionRunError) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAssertionRunError) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAssertionRunError(val *AssertionRunError) *NullableAssertionRunError {
+	return &NullableAssertionRunError{value: val, isSet: true}
+}
+
+func (v NullableAssertionRunError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAssertionRunError) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

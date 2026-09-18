@@ -1,0 +1,269 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ApiSecretMetaEE type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiSecretMetaEE{}
+
+// ApiSecretMetaEE struct for ApiSecretMetaEE
+type ApiSecretMetaEE struct {
+	Key string `json:"key"`
+	Namespace *string `json:"namespace,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Tags []ApiSecretTag `json:"tags"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiSecretMetaEE ApiSecretMetaEE
+
+// NewApiSecretMetaEE instantiates a new ApiSecretMetaEE object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiSecretMetaEE(key string, tags []ApiSecretTag) *ApiSecretMetaEE {
+	this := ApiSecretMetaEE{}
+	this.Key = key
+	this.Tags = tags
+	return &this
+}
+
+// NewApiSecretMetaEEWithDefaults instantiates a new ApiSecretMetaEE object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiSecretMetaEEWithDefaults() *ApiSecretMetaEE {
+	this := ApiSecretMetaEE{}
+	return &this
+}
+
+// GetKey returns the Key field value
+func (o *ApiSecretMetaEE) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *ApiSecretMetaEE) GetKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
+func (o *ApiSecretMetaEE) SetKey(v string) {
+	o.Key = v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *ApiSecretMetaEE) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiSecretMetaEE) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *ApiSecretMetaEE) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *ApiSecretMetaEE) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ApiSecretMetaEE) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiSecretMetaEE) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ApiSecretMetaEE) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ApiSecretMetaEE) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTags returns the Tags field value
+func (o *ApiSecretMetaEE) GetTags() []ApiSecretTag {
+	if o == nil {
+		var ret []ApiSecretTag
+		return ret
+	}
+
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value
+// and a boolean to check if the value has been set.
+func (o *ApiSecretMetaEE) GetTagsOk() ([]ApiSecretTag, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// SetTags sets field value
+func (o *ApiSecretMetaEE) SetTags(v []ApiSecretTag) {
+	o.Tags = v
+}
+
+func (o ApiSecretMetaEE) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiSecretMetaEE) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["key"] = o.Key
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["tags"] = o.Tags
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiSecretMetaEE) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+		"tags",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiSecretMetaEE := _ApiSecretMetaEE{}
+
+	err = json.Unmarshal(data, &varApiSecretMetaEE)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiSecretMetaEE(varApiSecretMetaEE)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiSecretMetaEE struct {
+	value *ApiSecretMetaEE
+	isSet bool
+}
+
+func (v NullableApiSecretMetaEE) Get() *ApiSecretMetaEE {
+	return v.value
+}
+
+func (v *NullableApiSecretMetaEE) Set(val *ApiSecretMetaEE) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiSecretMetaEE) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiSecretMetaEE) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiSecretMetaEE(val *ApiSecretMetaEE) *NullableApiSecretMetaEE {
+	return &NullableApiSecretMetaEE{value: val, isSet: true}
+}
+
+func (v NullableApiSecretMetaEE) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiSecretMetaEE) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

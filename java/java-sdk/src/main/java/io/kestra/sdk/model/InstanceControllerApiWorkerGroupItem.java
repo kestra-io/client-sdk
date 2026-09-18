@@ -1,0 +1,188 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiWorkerGroup.
+ */
+@JsonPropertyOrder({
+  InstanceControllerApiWorkerGroupItem.JSON_PROPERTY_ID,
+  InstanceControllerApiWorkerGroupItem.JSON_PROPERTY_KEY,
+  InstanceControllerApiWorkerGroupItem.JSON_PROPERTY_DESCRIPTION,
+  InstanceControllerApiWorkerGroupItem.JSON_PROPERTY_ACTIVE_WORKERS
+})
+@JsonTypeName("InstanceController.ApiWorkerGroupItem")
+public class InstanceControllerApiWorkerGroupItem {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nullable  private String key;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_ACTIVE_WORKERS = "activeWorkers";
+  @jakarta.annotation.Nullable  private Integer activeWorkers;
+
+  public InstanceControllerApiWorkerGroupItem() {
+  }
+
+  public InstanceControllerApiWorkerGroupItem id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * The ID of worker group.
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public InstanceControllerApiWorkerGroupItem key(@jakarta.annotation.Nullable String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * The key of the worker group.
+   * @return key
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKey(@jakarta.annotation.Nullable String key) {
+    this.key = key;
+  }
+
+  public InstanceControllerApiWorkerGroupItem description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * The description of the worker group.
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public InstanceControllerApiWorkerGroupItem activeWorkers(@jakarta.annotation.Nullable Integer activeWorkers) {
+    
+    this.activeWorkers = activeWorkers;
+    return this;
+  }
+
+  /**
+   * The number of active workers for the group.
+   * @return activeWorkers
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE_WORKERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getActiveWorkers() {
+    return activeWorkers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIVE_WORKERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActiveWorkers(@jakarta.annotation.Nullable Integer activeWorkers) {
+    this.activeWorkers = activeWorkers;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstanceControllerApiWorkerGroupItem instanceControllerApiWorkerGroupItem = (InstanceControllerApiWorkerGroupItem) o;
+    return Objects.equals(this.id, instanceControllerApiWorkerGroupItem.id) &&
+        Objects.equals(this.key, instanceControllerApiWorkerGroupItem.key) &&
+        Objects.equals(this.description, instanceControllerApiWorkerGroupItem.description) &&
+        Objects.equals(this.activeWorkers, instanceControllerApiWorkerGroupItem.activeWorkers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, key, description, activeWorkers);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class InstanceControllerApiWorkerGroupItem {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    activeWorkers: ").append(toIndentedString(activeWorkers)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

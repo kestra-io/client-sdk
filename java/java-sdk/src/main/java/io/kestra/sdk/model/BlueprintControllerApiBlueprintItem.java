@@ -1,0 +1,268 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * BlueprintControllerApiBlueprintItem
+ */
+@JsonPropertyOrder({
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_ID,
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_TITLE,
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_DESCRIPTION,
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_INCLUDED_TASKS,
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_TAGS,
+  BlueprintControllerApiBlueprintItem.JSON_PROPERTY_PUBLISHED_AT
+})
+@JsonTypeName("BlueprintController.ApiBlueprintItem")
+public class BlueprintControllerApiBlueprintItem {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TITLE = "title";
+  @jakarta.annotation.Nullable  private String title;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
+  @jakarta.annotation.Nullable  private List<String> includedTasks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
+  @jakarta.annotation.Nullable  private OffsetDateTime publishedAt;
+
+  public BlueprintControllerApiBlueprintItem() {
+  }
+
+  public BlueprintControllerApiBlueprintItem id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public BlueprintControllerApiBlueprintItem title(@jakarta.annotation.Nullable String title) {
+    
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   * @return title
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTitle() {
+    return title;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
+    this.title = title;
+  }
+
+  public BlueprintControllerApiBlueprintItem description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public BlueprintControllerApiBlueprintItem includedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
+    
+    this.includedTasks = includedTasks;
+    return this;
+  }
+
+  public BlueprintControllerApiBlueprintItem addIncludedTasksItem(String includedTasksItem) {
+    if (this.includedTasks == null) {
+      this.includedTasks = new ArrayList<>();
+    }
+    this.includedTasks.add(includedTasksItem);
+    return this;
+  }
+
+  /**
+   * Get includedTasks
+   * @return includedTasks
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getIncludedTasks() {
+    return includedTasks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIncludedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
+    this.includedTasks = includedTasks;
+  }
+
+  public BlueprintControllerApiBlueprintItem tags(@jakarta.annotation.Nullable List<String> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public BlueprintControllerApiBlueprintItem addTagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
+    this.tags = tags;
+  }
+
+  public BlueprintControllerApiBlueprintItem publishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    
+    this.publishedAt = publishedAt;
+    return this;
+  }
+
+  /**
+   * Get publishedAt
+   * @return publishedAt
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getPublishedAt() {
+    return publishedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
+    this.publishedAt = publishedAt;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BlueprintControllerApiBlueprintItem blueprintControllerApiBlueprintItem = (BlueprintControllerApiBlueprintItem) o;
+    return Objects.equals(this.id, blueprintControllerApiBlueprintItem.id) &&
+        Objects.equals(this.title, blueprintControllerApiBlueprintItem.title) &&
+        Objects.equals(this.description, blueprintControllerApiBlueprintItem.description) &&
+        Objects.equals(this.includedTasks, blueprintControllerApiBlueprintItem.includedTasks) &&
+        Objects.equals(this.tags, blueprintControllerApiBlueprintItem.tags) &&
+        Objects.equals(this.publishedAt, blueprintControllerApiBlueprintItem.publishedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, title, description, includedTasks, tags, publishedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class BlueprintControllerApiBlueprintItem {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    includedTasks: ").append(toIndentedString(includedTasks)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

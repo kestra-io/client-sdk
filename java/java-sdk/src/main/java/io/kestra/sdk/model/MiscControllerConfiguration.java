@@ -1,0 +1,653 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.EditionProviderEdition;
+import io.kestra.sdk.model.MiscControllerEnvironment;
+import io.kestra.sdk.model.MiscControllerPreview;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerConfiguration
+ */
+@JsonPropertyOrder({
+  MiscControllerConfiguration.JSON_PROPERTY_UUID,
+  MiscControllerConfiguration.JSON_PROPERTY_VERSION,
+  MiscControllerConfiguration.JSON_PROPERTY_EDITION,
+  MiscControllerConfiguration.JSON_PROPERTY_COMMIT_ID,
+  MiscControllerConfiguration.JSON_PROPERTY_CHART_DEFAULT_DURATION,
+  MiscControllerConfiguration.JSON_PROPERTY_COMMIT_DATE,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerConfiguration.JSON_PROPERTY_ENVIRONMENT,
+  MiscControllerConfiguration.JSON_PROPERTY_URL,
+  MiscControllerConfiguration.JSON_PROPERTY_PREVIEW,
+  MiscControllerConfiguration.JSON_PROPERTY_SYSTEM_NAMESPACE,
+  MiscControllerConfiguration.JSON_PROPERTY_HIDDEN_LABELS_PREFIXES,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
+  MiscControllerConfiguration.JSON_PROPERTY_PLUGINS_HASH,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED
+})
+@JsonTypeName("MiscController.Configuration")
+public class MiscControllerConfiguration {
+  public static final String JSON_PROPERTY_UUID = "uuid";
+  @jakarta.annotation.Nullable  private String uuid;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public static final String JSON_PROPERTY_EDITION = "edition";
+  @jakarta.annotation.Nullable  private EditionProviderEdition edition;
+
+  public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
+  @jakarta.annotation.Nullable  private String commitId;
+
+  public static final String JSON_PROPERTY_CHART_DEFAULT_DURATION = "chartDefaultDuration";
+  @jakarta.annotation.Nullable  private String chartDefaultDuration;
+
+  public static final String JSON_PROPERTY_COMMIT_DATE = "commitDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime commitDate;
+
+  public static final String JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED = "isCustomDashboardsEnabled";
+  @jakarta.annotation.Nullable  private Boolean isCustomDashboardsEnabled;
+
+  public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
+  @jakarta.annotation.Nullable  private Boolean isAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
+  @jakarta.annotation.Nullable  private Boolean isUiAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
+  @jakarta.annotation.Nullable  private MiscControllerEnvironment environment;
+
+  public static final String JSON_PROPERTY_URL = "url";
+  @jakarta.annotation.Nullable  private String url;
+
+  public static final String JSON_PROPERTY_PREVIEW = "preview";
+  @jakarta.annotation.Nullable  private MiscControllerPreview preview;
+
+  public static final String JSON_PROPERTY_SYSTEM_NAMESPACE = "systemNamespace";
+  @jakarta.annotation.Nullable  private String systemNamespace;
+
+  public static final String JSON_PROPERTY_HIDDEN_LABELS_PREFIXES = "hiddenLabelsPrefixes";
+  @jakarta.annotation.Nullable  private List<String> hiddenLabelsPrefixes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_IS_AI_ENABLED = "isAiEnabled";
+  @jakarta.annotation.Nullable  private Boolean isAiEnabled;
+
+  public static final String JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED = "isAiApiKeyConfigured";
+  @jakarta.annotation.Nullable  private Boolean isAiApiKeyConfigured;
+
+  public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
+  @jakarta.annotation.Nullable  private Boolean isBasicAuthInitialized;
+
+  public static final String JSON_PROPERTY_PLUGINS_HASH = "pluginsHash";
+  @jakarta.annotation.Nullable  private Long pluginsHash;
+
+  public static final String JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED = "isConcurrencyViewEnabled";
+  @jakarta.annotation.Nullable  private Boolean isConcurrencyViewEnabled;
+
+  public MiscControllerConfiguration() {
+  }
+
+  public MiscControllerConfiguration uuid(@jakarta.annotation.Nullable String uuid) {
+    
+    this.uuid = uuid;
+    return this;
+  }
+
+  /**
+   * Get uuid
+   * @return uuid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUuid() {
+    return uuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUuid(@jakarta.annotation.Nullable String uuid) {
+    this.uuid = uuid;
+  }
+
+  public MiscControllerConfiguration version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  public MiscControllerConfiguration edition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
+    
+    this.edition = edition;
+    return this;
+  }
+
+  /**
+   * Get edition
+   * @return edition
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public EditionProviderEdition getEdition() {
+    return edition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
+    this.edition = edition;
+  }
+
+  public MiscControllerConfiguration commitId(@jakarta.annotation.Nullable String commitId) {
+    
+    this.commitId = commitId;
+    return this;
+  }
+
+  /**
+   * Get commitId
+   * @return commitId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCommitId() {
+    return commitId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCommitId(@jakarta.annotation.Nullable String commitId) {
+    this.commitId = commitId;
+  }
+
+  public MiscControllerConfiguration chartDefaultDuration(@jakarta.annotation.Nullable String chartDefaultDuration) {
+    
+    this.chartDefaultDuration = chartDefaultDuration;
+    return this;
+  }
+
+  /**
+   * Get chartDefaultDuration
+   * @return chartDefaultDuration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHART_DEFAULT_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getChartDefaultDuration() {
+    return chartDefaultDuration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHART_DEFAULT_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setChartDefaultDuration(@jakarta.annotation.Nullable String chartDefaultDuration) {
+    this.chartDefaultDuration = chartDefaultDuration;
+  }
+
+  public MiscControllerConfiguration commitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
+    
+    this.commitDate = commitDate;
+    return this;
+  }
+
+  /**
+   * Get commitDate
+   * @return commitDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCommitDate() {
+    return commitDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCommitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
+    this.commitDate = commitDate;
+  }
+
+  public MiscControllerConfiguration isCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+    
+    this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
+    return this;
+  }
+
+  /**
+   * Get isCustomDashboardsEnabled
+   * @return isCustomDashboardsEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsCustomDashboardsEnabled() {
+    return isCustomDashboardsEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+    this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
+  }
+
+  public MiscControllerConfiguration isAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+    
+    this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isAnonymousUsageEnabled
+   * @return isAnonymousUsageEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAnonymousUsageEnabled() {
+    return isAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+    this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+  }
+
+  public MiscControllerConfiguration isUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isUiAnonymousUsageEnabled
+   * @return isUiAnonymousUsageEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsUiAnonymousUsageEnabled() {
+    return isUiAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+  }
+
+  public MiscControllerConfiguration environment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
+    
+    this.environment = environment;
+    return this;
+  }
+
+  /**
+   * Get environment
+   * @return environment
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerEnvironment getEnvironment() {
+    return environment;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnvironment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
+    this.environment = environment;
+  }
+
+  public MiscControllerConfiguration url(@jakarta.annotation.Nullable String url) {
+    
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   * @return url
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUrl() {
+    return url;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable String url) {
+    this.url = url;
+  }
+
+  public MiscControllerConfiguration preview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
+    
+    this.preview = preview;
+    return this;
+  }
+
+  /**
+   * Get preview
+   * @return preview
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerPreview getPreview() {
+    return preview;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
+    this.preview = preview;
+  }
+
+  public MiscControllerConfiguration systemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
+    
+    this.systemNamespace = systemNamespace;
+    return this;
+  }
+
+  /**
+   * Get systemNamespace
+   * @return systemNamespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSystemNamespace() {
+    return systemNamespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSystemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
+    this.systemNamespace = systemNamespace;
+  }
+
+  public MiscControllerConfiguration hiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+    
+    this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
+    return this;
+  }
+
+  public MiscControllerConfiguration addHiddenLabelsPrefixesItem(String hiddenLabelsPrefixesItem) {
+    if (this.hiddenLabelsPrefixes == null) {
+      this.hiddenLabelsPrefixes = new ArrayList<>();
+    }
+    this.hiddenLabelsPrefixes.add(hiddenLabelsPrefixesItem);
+    return this;
+  }
+
+  /**
+   * Get hiddenLabelsPrefixes
+   * @return hiddenLabelsPrefixes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getHiddenLabelsPrefixes() {
+    return hiddenLabelsPrefixes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+    this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
+  }
+
+  public MiscControllerConfiguration isAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
+    
+    this.isAiEnabled = isAiEnabled;
+    return this;
+  }
+
+  /**
+   * Get isAiEnabled
+   * @return isAiEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiEnabled() {
+    return isAiEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
+    this.isAiEnabled = isAiEnabled;
+  }
+
+  public MiscControllerConfiguration isAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+    return this;
+  }
+
+  /**
+   * Get isAiApiKeyConfigured
+   * @return isAiApiKeyConfigured
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiApiKeyConfigured() {
+    return isAiApiKeyConfigured;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+  }
+
+  public MiscControllerConfiguration isBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
+    
+    this.isBasicAuthInitialized = isBasicAuthInitialized;
+    return this;
+  }
+
+  /**
+   * Get isBasicAuthInitialized
+   * @return isBasicAuthInitialized
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsBasicAuthInitialized() {
+    return isBasicAuthInitialized;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
+    this.isBasicAuthInitialized = isBasicAuthInitialized;
+  }
+
+  public MiscControllerConfiguration pluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
+    
+    this.pluginsHash = pluginsHash;
+    return this;
+  }
+
+  /**
+   * Get pluginsHash
+   * @return pluginsHash
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getPluginsHash() {
+    return pluginsHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
+    this.pluginsHash = pluginsHash;
+  }
+
+  public MiscControllerConfiguration isConcurrencyViewEnabled(@jakarta.annotation.Nullable Boolean isConcurrencyViewEnabled) {
+    
+    this.isConcurrencyViewEnabled = isConcurrencyViewEnabled;
+    return this;
+  }
+
+  /**
+   * Get isConcurrencyViewEnabled
+   * @return isConcurrencyViewEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsConcurrencyViewEnabled() {
+    return isConcurrencyViewEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsConcurrencyViewEnabled(@jakarta.annotation.Nullable Boolean isConcurrencyViewEnabled) {
+    this.isConcurrencyViewEnabled = isConcurrencyViewEnabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerConfiguration miscControllerConfiguration = (MiscControllerConfiguration) o;
+    return Objects.equals(this.uuid, miscControllerConfiguration.uuid) &&
+        Objects.equals(this.version, miscControllerConfiguration.version) &&
+        Objects.equals(this.edition, miscControllerConfiguration.edition) &&
+        Objects.equals(this.commitId, miscControllerConfiguration.commitId) &&
+        Objects.equals(this.chartDefaultDuration, miscControllerConfiguration.chartDefaultDuration) &&
+        Objects.equals(this.commitDate, miscControllerConfiguration.commitDate) &&
+        Objects.equals(this.isCustomDashboardsEnabled, miscControllerConfiguration.isCustomDashboardsEnabled) &&
+        Objects.equals(this.isAnonymousUsageEnabled, miscControllerConfiguration.isAnonymousUsageEnabled) &&
+        Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerConfiguration.isUiAnonymousUsageEnabled) &&
+        Objects.equals(this.environment, miscControllerConfiguration.environment) &&
+        Objects.equals(this.url, miscControllerConfiguration.url) &&
+        Objects.equals(this.preview, miscControllerConfiguration.preview) &&
+        Objects.equals(this.systemNamespace, miscControllerConfiguration.systemNamespace) &&
+        Objects.equals(this.hiddenLabelsPrefixes, miscControllerConfiguration.hiddenLabelsPrefixes) &&
+        Objects.equals(this.isAiEnabled, miscControllerConfiguration.isAiEnabled) &&
+        Objects.equals(this.isAiApiKeyConfigured, miscControllerConfiguration.isAiApiKeyConfigured) &&
+        Objects.equals(this.isBasicAuthInitialized, miscControllerConfiguration.isBasicAuthInitialized) &&
+        Objects.equals(this.pluginsHash, miscControllerConfiguration.pluginsHash) &&
+        Objects.equals(this.isConcurrencyViewEnabled, miscControllerConfiguration.isConcurrencyViewEnabled);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerConfiguration {\n");
+    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
+    sb.append("    commitId: ").append(toIndentedString(commitId)).append("\n");
+    sb.append("    chartDefaultDuration: ").append(toIndentedString(chartDefaultDuration)).append("\n");
+    sb.append("    commitDate: ").append(toIndentedString(commitDate)).append("\n");
+    sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
+    sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
+    sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
+    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    preview: ").append(toIndentedString(preview)).append("\n");
+    sb.append("    systemNamespace: ").append(toIndentedString(systemNamespace)).append("\n");
+    sb.append("    hiddenLabelsPrefixes: ").append(toIndentedString(hiddenLabelsPrefixes)).append("\n");
+    sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
+    sb.append("    isAiApiKeyConfigured: ").append(toIndentedString(isAiApiKeyConfigured)).append("\n");
+    sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
+    sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
+    sb.append("    isConcurrencyViewEnabled: ").append(toIndentedString(isConcurrencyViewEnabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

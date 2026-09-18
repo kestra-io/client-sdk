@@ -1,0 +1,110 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.QueryFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * DeleteTriggersByQueryRequest
+ */
+@JsonPropertyOrder({
+  DeleteTriggersByQueryRequest.JSON_PROPERTY_FILTERS
+})
+@JsonTypeName("deleteTriggersByQuery_request")
+public class DeleteTriggersByQueryRequest {
+  public static final String JSON_PROPERTY_FILTERS = "filters";
+  @jakarta.annotation.Nullable  private List<QueryFilter> filters = new ArrayList<>();
+
+  public DeleteTriggersByQueryRequest() {
+  }
+
+  public DeleteTriggersByQueryRequest filters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
+    
+    this.filters = filters;
+    return this;
+  }
+
+  public DeleteTriggersByQueryRequest addFiltersItem(QueryFilter filtersItem) {
+    if (this.filters == null) {
+      this.filters = new ArrayList<>();
+    }
+    this.filters.add(filtersItem);
+    return this;
+  }
+
+  /**
+   * Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60;
+   * @return filters
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<QueryFilter> getFilters() {
+    return filters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
+    this.filters = filters;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DeleteTriggersByQueryRequest deleteTriggersByQueryRequest = (DeleteTriggersByQueryRequest) o;
+    return Objects.equals(this.filters, deleteTriggersByQueryRequest.filters);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filters);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DeleteTriggersByQueryRequest {\n");
+    sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

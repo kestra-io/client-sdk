@@ -1,0 +1,758 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Assertion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Assertion{}
+
+// Assertion struct for Assertion
+type Assertion struct {
+	Value string `json:"value"`
+	TaskId *string `json:"taskId,omitempty"`
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+	Description *string `json:"description,omitempty"`
+	EndsWith *string `json:"endsWith,omitempty"`
+	StartsWith *string `json:"startsWith,omitempty"`
+	Contains *string `json:"contains,omitempty"`
+	EqualTo *string `json:"equalTo,omitempty"`
+	NotEqualTo *string `json:"notEqualTo,omitempty"`
+	GreaterThan *string `json:"greaterThan,omitempty"`
+	GreaterThanOrEqualTo *string `json:"greaterThanOrEqualTo,omitempty"`
+	LessThan *string `json:"lessThan,omitempty"`
+	LessThanOrEqualTo *string `json:"lessThanOrEqualTo,omitempty"`
+	In *string `json:"in,omitempty"`
+	NotIn *string `json:"notIn,omitempty"`
+	IsNull *string `json:"isNull,omitempty"`
+	IsNotNull *string `json:"isNotNull,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Assertion Assertion
+
+// NewAssertion instantiates a new Assertion object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAssertion(value string) *Assertion {
+	this := Assertion{}
+	this.Value = value
+	return &this
+}
+
+// NewAssertionWithDefaults instantiates a new Assertion object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAssertionWithDefaults() *Assertion {
+	this := Assertion{}
+	return &this
+}
+
+// GetValue returns the Value field value
+func (o *Assertion) GetValue() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetValueOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *Assertion) SetValue(v string) {
+	o.Value = v
+}
+
+// GetTaskId returns the TaskId field value if set, zero value otherwise.
+func (o *Assertion) GetTaskId() string {
+	if o == nil || IsNil(o.TaskId) {
+		var ret string
+		return ret
+	}
+	return *o.TaskId
+}
+
+// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetTaskIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TaskId) {
+		return nil, false
+	}
+	return o.TaskId, true
+}
+
+// HasTaskId returns a boolean if a field has been set.
+func (o *Assertion) HasTaskId() bool {
+	if o != nil && !IsNil(o.TaskId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskId gets a reference to the given string and assigns it to the TaskId field.
+func (o *Assertion) SetTaskId(v string) {
+	o.TaskId = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *Assertion) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *Assertion) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *Assertion) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Assertion) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Assertion) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Assertion) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetEndsWith returns the EndsWith field value if set, zero value otherwise.
+func (o *Assertion) GetEndsWith() string {
+	if o == nil || IsNil(o.EndsWith) {
+		var ret string
+		return ret
+	}
+	return *o.EndsWith
+}
+
+// GetEndsWithOk returns a tuple with the EndsWith field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetEndsWithOk() (*string, bool) {
+	if o == nil || IsNil(o.EndsWith) {
+		return nil, false
+	}
+	return o.EndsWith, true
+}
+
+// HasEndsWith returns a boolean if a field has been set.
+func (o *Assertion) HasEndsWith() bool {
+	if o != nil && !IsNil(o.EndsWith) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndsWith gets a reference to the given string and assigns it to the EndsWith field.
+func (o *Assertion) SetEndsWith(v string) {
+	o.EndsWith = &v
+}
+
+// GetStartsWith returns the StartsWith field value if set, zero value otherwise.
+func (o *Assertion) GetStartsWith() string {
+	if o == nil || IsNil(o.StartsWith) {
+		var ret string
+		return ret
+	}
+	return *o.StartsWith
+}
+
+// GetStartsWithOk returns a tuple with the StartsWith field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetStartsWithOk() (*string, bool) {
+	if o == nil || IsNil(o.StartsWith) {
+		return nil, false
+	}
+	return o.StartsWith, true
+}
+
+// HasStartsWith returns a boolean if a field has been set.
+func (o *Assertion) HasStartsWith() bool {
+	if o != nil && !IsNil(o.StartsWith) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartsWith gets a reference to the given string and assigns it to the StartsWith field.
+func (o *Assertion) SetStartsWith(v string) {
+	o.StartsWith = &v
+}
+
+// GetContains returns the Contains field value if set, zero value otherwise.
+func (o *Assertion) GetContains() string {
+	if o == nil || IsNil(o.Contains) {
+		var ret string
+		return ret
+	}
+	return *o.Contains
+}
+
+// GetContainsOk returns a tuple with the Contains field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetContainsOk() (*string, bool) {
+	if o == nil || IsNil(o.Contains) {
+		return nil, false
+	}
+	return o.Contains, true
+}
+
+// HasContains returns a boolean if a field has been set.
+func (o *Assertion) HasContains() bool {
+	if o != nil && !IsNil(o.Contains) {
+		return true
+	}
+
+	return false
+}
+
+// SetContains gets a reference to the given string and assigns it to the Contains field.
+func (o *Assertion) SetContains(v string) {
+	o.Contains = &v
+}
+
+// GetEqualTo returns the EqualTo field value if set, zero value otherwise.
+func (o *Assertion) GetEqualTo() string {
+	if o == nil || IsNil(o.EqualTo) {
+		var ret string
+		return ret
+	}
+	return *o.EqualTo
+}
+
+// GetEqualToOk returns a tuple with the EqualTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetEqualToOk() (*string, bool) {
+	if o == nil || IsNil(o.EqualTo) {
+		return nil, false
+	}
+	return o.EqualTo, true
+}
+
+// HasEqualTo returns a boolean if a field has been set.
+func (o *Assertion) HasEqualTo() bool {
+	if o != nil && !IsNil(o.EqualTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetEqualTo gets a reference to the given string and assigns it to the EqualTo field.
+func (o *Assertion) SetEqualTo(v string) {
+	o.EqualTo = &v
+}
+
+// GetNotEqualTo returns the NotEqualTo field value if set, zero value otherwise.
+func (o *Assertion) GetNotEqualTo() string {
+	if o == nil || IsNil(o.NotEqualTo) {
+		var ret string
+		return ret
+	}
+	return *o.NotEqualTo
+}
+
+// GetNotEqualToOk returns a tuple with the NotEqualTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetNotEqualToOk() (*string, bool) {
+	if o == nil || IsNil(o.NotEqualTo) {
+		return nil, false
+	}
+	return o.NotEqualTo, true
+}
+
+// HasNotEqualTo returns a boolean if a field has been set.
+func (o *Assertion) HasNotEqualTo() bool {
+	if o != nil && !IsNil(o.NotEqualTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotEqualTo gets a reference to the given string and assigns it to the NotEqualTo field.
+func (o *Assertion) SetNotEqualTo(v string) {
+	o.NotEqualTo = &v
+}
+
+// GetGreaterThan returns the GreaterThan field value if set, zero value otherwise.
+func (o *Assertion) GetGreaterThan() string {
+	if o == nil || IsNil(o.GreaterThan) {
+		var ret string
+		return ret
+	}
+	return *o.GreaterThan
+}
+
+// GetGreaterThanOk returns a tuple with the GreaterThan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetGreaterThanOk() (*string, bool) {
+	if o == nil || IsNil(o.GreaterThan) {
+		return nil, false
+	}
+	return o.GreaterThan, true
+}
+
+// HasGreaterThan returns a boolean if a field has been set.
+func (o *Assertion) HasGreaterThan() bool {
+	if o != nil && !IsNil(o.GreaterThan) {
+		return true
+	}
+
+	return false
+}
+
+// SetGreaterThan gets a reference to the given string and assigns it to the GreaterThan field.
+func (o *Assertion) SetGreaterThan(v string) {
+	o.GreaterThan = &v
+}
+
+// GetGreaterThanOrEqualTo returns the GreaterThanOrEqualTo field value if set, zero value otherwise.
+func (o *Assertion) GetGreaterThanOrEqualTo() string {
+	if o == nil || IsNil(o.GreaterThanOrEqualTo) {
+		var ret string
+		return ret
+	}
+	return *o.GreaterThanOrEqualTo
+}
+
+// GetGreaterThanOrEqualToOk returns a tuple with the GreaterThanOrEqualTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetGreaterThanOrEqualToOk() (*string, bool) {
+	if o == nil || IsNil(o.GreaterThanOrEqualTo) {
+		return nil, false
+	}
+	return o.GreaterThanOrEqualTo, true
+}
+
+// HasGreaterThanOrEqualTo returns a boolean if a field has been set.
+func (o *Assertion) HasGreaterThanOrEqualTo() bool {
+	if o != nil && !IsNil(o.GreaterThanOrEqualTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetGreaterThanOrEqualTo gets a reference to the given string and assigns it to the GreaterThanOrEqualTo field.
+func (o *Assertion) SetGreaterThanOrEqualTo(v string) {
+	o.GreaterThanOrEqualTo = &v
+}
+
+// GetLessThan returns the LessThan field value if set, zero value otherwise.
+func (o *Assertion) GetLessThan() string {
+	if o == nil || IsNil(o.LessThan) {
+		var ret string
+		return ret
+	}
+	return *o.LessThan
+}
+
+// GetLessThanOk returns a tuple with the LessThan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetLessThanOk() (*string, bool) {
+	if o == nil || IsNil(o.LessThan) {
+		return nil, false
+	}
+	return o.LessThan, true
+}
+
+// HasLessThan returns a boolean if a field has been set.
+func (o *Assertion) HasLessThan() bool {
+	if o != nil && !IsNil(o.LessThan) {
+		return true
+	}
+
+	return false
+}
+
+// SetLessThan gets a reference to the given string and assigns it to the LessThan field.
+func (o *Assertion) SetLessThan(v string) {
+	o.LessThan = &v
+}
+
+// GetLessThanOrEqualTo returns the LessThanOrEqualTo field value if set, zero value otherwise.
+func (o *Assertion) GetLessThanOrEqualTo() string {
+	if o == nil || IsNil(o.LessThanOrEqualTo) {
+		var ret string
+		return ret
+	}
+	return *o.LessThanOrEqualTo
+}
+
+// GetLessThanOrEqualToOk returns a tuple with the LessThanOrEqualTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetLessThanOrEqualToOk() (*string, bool) {
+	if o == nil || IsNil(o.LessThanOrEqualTo) {
+		return nil, false
+	}
+	return o.LessThanOrEqualTo, true
+}
+
+// HasLessThanOrEqualTo returns a boolean if a field has been set.
+func (o *Assertion) HasLessThanOrEqualTo() bool {
+	if o != nil && !IsNil(o.LessThanOrEqualTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetLessThanOrEqualTo gets a reference to the given string and assigns it to the LessThanOrEqualTo field.
+func (o *Assertion) SetLessThanOrEqualTo(v string) {
+	o.LessThanOrEqualTo = &v
+}
+
+// GetIn returns the In field value if set, zero value otherwise.
+func (o *Assertion) GetIn() string {
+	if o == nil || IsNil(o.In) {
+		var ret string
+		return ret
+	}
+	return *o.In
+}
+
+// GetInOk returns a tuple with the In field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetInOk() (*string, bool) {
+	if o == nil || IsNil(o.In) {
+		return nil, false
+	}
+	return o.In, true
+}
+
+// HasIn returns a boolean if a field has been set.
+func (o *Assertion) HasIn() bool {
+	if o != nil && !IsNil(o.In) {
+		return true
+	}
+
+	return false
+}
+
+// SetIn gets a reference to the given string and assigns it to the In field.
+func (o *Assertion) SetIn(v string) {
+	o.In = &v
+}
+
+// GetNotIn returns the NotIn field value if set, zero value otherwise.
+func (o *Assertion) GetNotIn() string {
+	if o == nil || IsNil(o.NotIn) {
+		var ret string
+		return ret
+	}
+	return *o.NotIn
+}
+
+// GetNotInOk returns a tuple with the NotIn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetNotInOk() (*string, bool) {
+	if o == nil || IsNil(o.NotIn) {
+		return nil, false
+	}
+	return o.NotIn, true
+}
+
+// HasNotIn returns a boolean if a field has been set.
+func (o *Assertion) HasNotIn() bool {
+	if o != nil && !IsNil(o.NotIn) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotIn gets a reference to the given string and assigns it to the NotIn field.
+func (o *Assertion) SetNotIn(v string) {
+	o.NotIn = &v
+}
+
+// GetIsNull returns the IsNull field value if set, zero value otherwise.
+func (o *Assertion) GetIsNull() string {
+	if o == nil || IsNil(o.IsNull) {
+		var ret string
+		return ret
+	}
+	return *o.IsNull
+}
+
+// GetIsNullOk returns a tuple with the IsNull field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetIsNullOk() (*string, bool) {
+	if o == nil || IsNil(o.IsNull) {
+		return nil, false
+	}
+	return o.IsNull, true
+}
+
+// HasIsNull returns a boolean if a field has been set.
+func (o *Assertion) HasIsNull() bool {
+	if o != nil && !IsNil(o.IsNull) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsNull gets a reference to the given string and assigns it to the IsNull field.
+func (o *Assertion) SetIsNull(v string) {
+	o.IsNull = &v
+}
+
+// GetIsNotNull returns the IsNotNull field value if set, zero value otherwise.
+func (o *Assertion) GetIsNotNull() string {
+	if o == nil || IsNil(o.IsNotNull) {
+		var ret string
+		return ret
+	}
+	return *o.IsNotNull
+}
+
+// GetIsNotNullOk returns a tuple with the IsNotNull field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Assertion) GetIsNotNullOk() (*string, bool) {
+	if o == nil || IsNil(o.IsNotNull) {
+		return nil, false
+	}
+	return o.IsNotNull, true
+}
+
+// HasIsNotNull returns a boolean if a field has been set.
+func (o *Assertion) HasIsNotNull() bool {
+	if o != nil && !IsNil(o.IsNotNull) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsNotNull gets a reference to the given string and assigns it to the IsNotNull field.
+func (o *Assertion) SetIsNotNull(v string) {
+	o.IsNotNull = &v
+}
+
+func (o Assertion) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Assertion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["value"] = o.Value
+	if !IsNil(o.TaskId) {
+		toSerialize["taskId"] = o.TaskId
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["errorMessage"] = o.ErrorMessage
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.EndsWith) {
+		toSerialize["endsWith"] = o.EndsWith
+	}
+	if !IsNil(o.StartsWith) {
+		toSerialize["startsWith"] = o.StartsWith
+	}
+	if !IsNil(o.Contains) {
+		toSerialize["contains"] = o.Contains
+	}
+	if !IsNil(o.EqualTo) {
+		toSerialize["equalTo"] = o.EqualTo
+	}
+	if !IsNil(o.NotEqualTo) {
+		toSerialize["notEqualTo"] = o.NotEqualTo
+	}
+	if !IsNil(o.GreaterThan) {
+		toSerialize["greaterThan"] = o.GreaterThan
+	}
+	if !IsNil(o.GreaterThanOrEqualTo) {
+		toSerialize["greaterThanOrEqualTo"] = o.GreaterThanOrEqualTo
+	}
+	if !IsNil(o.LessThan) {
+		toSerialize["lessThan"] = o.LessThan
+	}
+	if !IsNil(o.LessThanOrEqualTo) {
+		toSerialize["lessThanOrEqualTo"] = o.LessThanOrEqualTo
+	}
+	if !IsNil(o.In) {
+		toSerialize["in"] = o.In
+	}
+	if !IsNil(o.NotIn) {
+		toSerialize["notIn"] = o.NotIn
+	}
+	if !IsNil(o.IsNull) {
+		toSerialize["isNull"] = o.IsNull
+	}
+	if !IsNil(o.IsNotNull) {
+		toSerialize["isNotNull"] = o.IsNotNull
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Assertion) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAssertion := _Assertion{}
+
+	err = json.Unmarshal(data, &varAssertion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Assertion(varAssertion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "errorMessage")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "endsWith")
+		delete(additionalProperties, "startsWith")
+		delete(additionalProperties, "contains")
+		delete(additionalProperties, "equalTo")
+		delete(additionalProperties, "notEqualTo")
+		delete(additionalProperties, "greaterThan")
+		delete(additionalProperties, "greaterThanOrEqualTo")
+		delete(additionalProperties, "lessThan")
+		delete(additionalProperties, "lessThanOrEqualTo")
+		delete(additionalProperties, "in")
+		delete(additionalProperties, "notIn")
+		delete(additionalProperties, "isNull")
+		delete(additionalProperties, "isNotNull")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableAssertion struct {
+	value *Assertion
+	isSet bool
+}
+
+func (v NullableAssertion) Get() *Assertion {
+	return v.value
+}
+
+func (v *NullableAssertion) Set(val *Assertion) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAssertion) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAssertion) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAssertion(val *Assertion) *NullableAssertion {
+	return &NullableAssertion{value: val, isSet: true}
+}
+
+func (v NullableAssertion) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableAssertion) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

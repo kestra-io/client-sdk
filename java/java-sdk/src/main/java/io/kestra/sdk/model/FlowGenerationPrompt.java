@@ -1,0 +1,187 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowGenerationPrompt
+ */
+@JsonPropertyOrder({
+  FlowGenerationPrompt.JSON_PROPERTY_CONVERSATION_ID,
+  FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
+  FlowGenerationPrompt.JSON_PROPERTY_YAML,
+  FlowGenerationPrompt.JSON_PROPERTY_NAMESPACE
+})
+public class FlowGenerationPrompt {
+  public static final String JSON_PROPERTY_CONVERSATION_ID = "conversationId";
+  @jakarta.annotation.Nonnull  private String conversationId;
+
+  public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
+  @jakarta.annotation.Nonnull  private String userPrompt;
+
+  public static final String JSON_PROPERTY_YAML = "yaml";
+  @jakarta.annotation.Nullable  private String yaml;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public FlowGenerationPrompt() {
+  }
+
+  public FlowGenerationPrompt conversationId(@jakarta.annotation.Nonnull String conversationId) {
+    
+    this.conversationId = conversationId;
+    return this;
+  }
+
+  /**
+   * Get conversationId
+   * @return conversationId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getConversationId() {
+    return conversationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setConversationId(@jakarta.annotation.Nonnull String conversationId) {
+    this.conversationId = conversationId;
+  }
+
+  public FlowGenerationPrompt userPrompt(@jakarta.annotation.Nonnull String userPrompt) {
+    
+    this.userPrompt = userPrompt;
+    return this;
+  }
+
+  /**
+   * Get userPrompt
+   * @return userPrompt
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUserPrompt() {
+    return userPrompt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUserPrompt(@jakarta.annotation.Nonnull String userPrompt) {
+    this.userPrompt = userPrompt;
+  }
+
+  public FlowGenerationPrompt yaml(@jakarta.annotation.Nullable String yaml) {
+    
+    this.yaml = yaml;
+    return this;
+  }
+
+  /**
+   * Get yaml
+   * @return yaml
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_YAML)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getYaml() {
+    return yaml;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_YAML)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setYaml(@jakarta.annotation.Nullable String yaml) {
+    this.yaml = yaml;
+  }
+
+  public FlowGenerationPrompt namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowGenerationPrompt flowGenerationPrompt = (FlowGenerationPrompt) o;
+    return Objects.equals(this.conversationId, flowGenerationPrompt.conversationId) &&
+        Objects.equals(this.userPrompt, flowGenerationPrompt.userPrompt) &&
+        Objects.equals(this.yaml, flowGenerationPrompt.yaml) &&
+        Objects.equals(this.namespace, flowGenerationPrompt.namespace);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(conversationId, userPrompt, yaml, namespace);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowGenerationPrompt {\n");
+    sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
+    sb.append("    userPrompt: ").append(toIndentedString(userPrompt)).append("\n");
+    sb.append("    yaml: ").append(toIndentedString(yaml)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

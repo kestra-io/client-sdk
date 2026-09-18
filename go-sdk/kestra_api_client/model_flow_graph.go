@@ -1,0 +1,264 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the FlowGraph type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FlowGraph{}
+
+// FlowGraph struct for FlowGraph
+type FlowGraph struct {
+	Nodes []AbstractGraph `json:"nodes,omitempty"`
+	Edges []FlowGraphEdge `json:"edges,omitempty"`
+	Clusters []FlowGraphCluster `json:"clusters,omitempty"`
+	Flowables []string `json:"flowables,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _FlowGraph FlowGraph
+
+// NewFlowGraph instantiates a new FlowGraph object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFlowGraph() *FlowGraph {
+	this := FlowGraph{}
+	return &this
+}
+
+// NewFlowGraphWithDefaults instantiates a new FlowGraph object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFlowGraphWithDefaults() *FlowGraph {
+	this := FlowGraph{}
+	return &this
+}
+
+// GetNodes returns the Nodes field value if set, zero value otherwise.
+func (o *FlowGraph) GetNodes() []AbstractGraph {
+	if o == nil || IsNil(o.Nodes) {
+		var ret []AbstractGraph
+		return ret
+	}
+	return o.Nodes
+}
+
+// GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGraph) GetNodesOk() ([]AbstractGraph, bool) {
+	if o == nil || IsNil(o.Nodes) {
+		return nil, false
+	}
+	return o.Nodes, true
+}
+
+// HasNodes returns a boolean if a field has been set.
+func (o *FlowGraph) HasNodes() bool {
+	if o != nil && !IsNil(o.Nodes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNodes gets a reference to the given []AbstractGraph and assigns it to the Nodes field.
+func (o *FlowGraph) SetNodes(v []AbstractGraph) {
+	o.Nodes = v
+}
+
+// GetEdges returns the Edges field value if set, zero value otherwise.
+func (o *FlowGraph) GetEdges() []FlowGraphEdge {
+	if o == nil || IsNil(o.Edges) {
+		var ret []FlowGraphEdge
+		return ret
+	}
+	return o.Edges
+}
+
+// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGraph) GetEdgesOk() ([]FlowGraphEdge, bool) {
+	if o == nil || IsNil(o.Edges) {
+		return nil, false
+	}
+	return o.Edges, true
+}
+
+// HasEdges returns a boolean if a field has been set.
+func (o *FlowGraph) HasEdges() bool {
+	if o != nil && !IsNil(o.Edges) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdges gets a reference to the given []FlowGraphEdge and assigns it to the Edges field.
+func (o *FlowGraph) SetEdges(v []FlowGraphEdge) {
+	o.Edges = v
+}
+
+// GetClusters returns the Clusters field value if set, zero value otherwise.
+func (o *FlowGraph) GetClusters() []FlowGraphCluster {
+	if o == nil || IsNil(o.Clusters) {
+		var ret []FlowGraphCluster
+		return ret
+	}
+	return o.Clusters
+}
+
+// GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGraph) GetClustersOk() ([]FlowGraphCluster, bool) {
+	if o == nil || IsNil(o.Clusters) {
+		return nil, false
+	}
+	return o.Clusters, true
+}
+
+// HasClusters returns a boolean if a field has been set.
+func (o *FlowGraph) HasClusters() bool {
+	if o != nil && !IsNil(o.Clusters) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusters gets a reference to the given []FlowGraphCluster and assigns it to the Clusters field.
+func (o *FlowGraph) SetClusters(v []FlowGraphCluster) {
+	o.Clusters = v
+}
+
+// GetFlowables returns the Flowables field value if set, zero value otherwise.
+func (o *FlowGraph) GetFlowables() []string {
+	if o == nil || IsNil(o.Flowables) {
+		var ret []string
+		return ret
+	}
+	return o.Flowables
+}
+
+// GetFlowablesOk returns a tuple with the Flowables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGraph) GetFlowablesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Flowables) {
+		return nil, false
+	}
+	return o.Flowables, true
+}
+
+// HasFlowables returns a boolean if a field has been set.
+func (o *FlowGraph) HasFlowables() bool {
+	if o != nil && !IsNil(o.Flowables) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowables gets a reference to the given []string and assigns it to the Flowables field.
+func (o *FlowGraph) SetFlowables(v []string) {
+	o.Flowables = v
+}
+
+func (o FlowGraph) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FlowGraph) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Nodes) {
+		toSerialize["nodes"] = o.Nodes
+	}
+	if !IsNil(o.Edges) {
+		toSerialize["edges"] = o.Edges
+	}
+	if !IsNil(o.Clusters) {
+		toSerialize["clusters"] = o.Clusters
+	}
+	if !IsNil(o.Flowables) {
+		toSerialize["flowables"] = o.Flowables
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *FlowGraph) UnmarshalJSON(data []byte) (err error) {
+	varFlowGraph := _FlowGraph{}
+
+	err = json.Unmarshal(data, &varFlowGraph)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowGraph(varFlowGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "nodes")
+		delete(additionalProperties, "edges")
+		delete(additionalProperties, "clusters")
+		delete(additionalProperties, "flowables")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableFlowGraph struct {
+	value *FlowGraph
+	isSet bool
+}
+
+func (v NullableFlowGraph) Get() *FlowGraph {
+	return v.value
+}
+
+func (v *NullableFlowGraph) Set(val *FlowGraph) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFlowGraph) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFlowGraph) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFlowGraph(val *FlowGraph) *NullableFlowGraph {
+	return &NullableFlowGraph{value: val, isSet: true}
+}
+
+func (v NullableFlowGraph) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableFlowGraph) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

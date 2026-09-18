@@ -1,0 +1,218 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TaskFixture;
+import io.kestra.sdk.model.TriggerFixture;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Fixtures
+ */
+@JsonPropertyOrder({
+  Fixtures.JSON_PROPERTY_INPUTS,
+  Fixtures.JSON_PROPERTY_FILES,
+  Fixtures.JSON_PROPERTY_TASKS,
+  Fixtures.JSON_PROPERTY_TRIGGER
+})
+public class Fixtures {
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
+
+  public static final String JSON_PROPERTY_FILES = "files";
+  @jakarta.annotation.Nullable  private Map<String, String> files = new HashMap<>();
+
+  public static final String JSON_PROPERTY_TASKS = "tasks";
+  @jakarta.annotation.Nullable  private List<TaskFixture> tasks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TRIGGER = "trigger";
+  @jakarta.annotation.Nullable  private TriggerFixture trigger;
+
+  public Fixtures() {
+  }
+
+  public Fixtures inputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  public Fixtures putInputsItem(String key, Object inputsItem) {
+    if (this.inputs == null) {
+      this.inputs = new HashMap<>();
+    }
+    this.inputs.put(key, inputsItem);
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
+    this.inputs = inputs;
+  }
+
+  public Fixtures files(@jakarta.annotation.Nullable Map<String, String> files) {
+    
+    this.files = files;
+    return this;
+  }
+
+  public Fixtures putFilesItem(String key, String filesItem) {
+    if (this.files == null) {
+      this.files = new HashMap<>();
+    }
+    this.files.put(key, filesItem);
+    return this;
+  }
+
+  /**
+   * Get files
+   * @return files
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, String> getFiles() {
+    return files;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFiles(@jakarta.annotation.Nullable Map<String, String> files) {
+    this.files = files;
+  }
+
+  public Fixtures tasks(@jakarta.annotation.Nullable List<TaskFixture> tasks) {
+    
+    this.tasks = tasks;
+    return this;
+  }
+
+  public Fixtures addTasksItem(TaskFixture tasksItem) {
+    if (this.tasks == null) {
+      this.tasks = new ArrayList<>();
+    }
+    this.tasks.add(tasksItem);
+    return this;
+  }
+
+  /**
+   * Get tasks
+   * @return tasks
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TaskFixture> getTasks() {
+    return tasks;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTasks(@jakarta.annotation.Nullable List<TaskFixture> tasks) {
+    this.tasks = tasks;
+  }
+
+  public Fixtures trigger(@jakarta.annotation.Nullable TriggerFixture trigger) {
+    
+    this.trigger = trigger;
+    return this;
+  }
+
+  /**
+   * Get trigger
+   * @return trigger
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TriggerFixture getTrigger() {
+    return trigger;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrigger(@jakarta.annotation.Nullable TriggerFixture trigger) {
+    this.trigger = trigger;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Fixtures fixtures = (Fixtures) o;
+    return Objects.equals(this.inputs, fixtures.inputs) &&
+        Objects.equals(this.files, fixtures.files) &&
+        Objects.equals(this.tasks, fixtures.tasks) &&
+        Objects.equals(this.trigger, fixtures.trigger);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(inputs, files, tasks, trigger);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Fixtures {\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    files: ").append(toIndentedString(files)).append("\n");
+    sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
+    sb.append("    trigger: ").append(toIndentedString(trigger)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

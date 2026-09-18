@@ -1,0 +1,264 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the IdentityProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProvider{}
+
+// IdentityProvider struct for IdentityProvider
+type IdentityProvider struct {
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	SecurityIntegrationId *string `json:"securityIntegrationId,omitempty"`
+	SecurityIntegrationName *string `json:"securityIntegrationName,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _IdentityProvider IdentityProvider
+
+// NewIdentityProvider instantiates a new IdentityProvider object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIdentityProvider() *IdentityProvider {
+	this := IdentityProvider{}
+	return &this
+}
+
+// NewIdentityProviderWithDefaults instantiates a new IdentityProvider object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIdentityProviderWithDefaults() *IdentityProvider {
+	this := IdentityProvider{}
+	return &this
+}
+
+// GetAttributes returns the Attributes field value if set, zero value otherwise.
+func (o *IdentityProvider) GetAttributes() map[string]interface{} {
+	if o == nil || IsNil(o.Attributes) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Attributes
+}
+
+// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProvider) GetAttributesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Attributes) {
+		return map[string]interface{}{}, false
+	}
+	return o.Attributes, true
+}
+
+// HasAttributes returns a boolean if a field has been set.
+func (o *IdentityProvider) HasAttributes() bool {
+	if o != nil && !IsNil(o.Attributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.
+func (o *IdentityProvider) SetAttributes(v map[string]interface{}) {
+	o.Attributes = v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *IdentityProvider) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProvider) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *IdentityProvider) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *IdentityProvider) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetSecurityIntegrationId returns the SecurityIntegrationId field value if set, zero value otherwise.
+func (o *IdentityProvider) GetSecurityIntegrationId() string {
+	if o == nil || IsNil(o.SecurityIntegrationId) {
+		var ret string
+		return ret
+	}
+	return *o.SecurityIntegrationId
+}
+
+// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProvider) GetSecurityIntegrationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SecurityIntegrationId) {
+		return nil, false
+	}
+	return o.SecurityIntegrationId, true
+}
+
+// HasSecurityIntegrationId returns a boolean if a field has been set.
+func (o *IdentityProvider) HasSecurityIntegrationId() bool {
+	if o != nil && !IsNil(o.SecurityIntegrationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityIntegrationId gets a reference to the given string and assigns it to the SecurityIntegrationId field.
+func (o *IdentityProvider) SetSecurityIntegrationId(v string) {
+	o.SecurityIntegrationId = &v
+}
+
+// GetSecurityIntegrationName returns the SecurityIntegrationName field value if set, zero value otherwise.
+func (o *IdentityProvider) GetSecurityIntegrationName() string {
+	if o == nil || IsNil(o.SecurityIntegrationName) {
+		var ret string
+		return ret
+	}
+	return *o.SecurityIntegrationName
+}
+
+// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProvider) GetSecurityIntegrationNameOk() (*string, bool) {
+	if o == nil || IsNil(o.SecurityIntegrationName) {
+		return nil, false
+	}
+	return o.SecurityIntegrationName, true
+}
+
+// HasSecurityIntegrationName returns a boolean if a field has been set.
+func (o *IdentityProvider) HasSecurityIntegrationName() bool {
+	if o != nil && !IsNil(o.SecurityIntegrationName) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityIntegrationName gets a reference to the given string and assigns it to the SecurityIntegrationName field.
+func (o *IdentityProvider) SetSecurityIntegrationName(v string) {
+	o.SecurityIntegrationName = &v
+}
+
+func (o IdentityProvider) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProvider) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["externalId"] = o.ExternalId
+	}
+	if !IsNil(o.SecurityIntegrationId) {
+		toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
+	}
+	if !IsNil(o.SecurityIntegrationName) {
+		toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *IdentityProvider) UnmarshalJSON(data []byte) (err error) {
+	varIdentityProvider := _IdentityProvider{}
+
+	err = json.Unmarshal(data, &varIdentityProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityProvider(varIdentityProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "securityIntegrationId")
+		delete(additionalProperties, "securityIntegrationName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIdentityProvider struct {
+	value *IdentityProvider
+	isSet bool
+}
+
+func (v NullableIdentityProvider) Get() *IdentityProvider {
+	return v.value
+}
+
+func (v *NullableIdentityProvider) Set(val *IdentityProvider) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIdentityProvider) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIdentityProvider) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIdentityProvider(val *IdentityProvider) *NullableIdentityProvider {
+	return &NullableIdentityProvider{value: val, isSet: true}
+}
+
+func (v NullableIdentityProvider) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIdentityProvider) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

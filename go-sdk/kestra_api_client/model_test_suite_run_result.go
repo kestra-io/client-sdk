@@ -1,0 +1,378 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+	"fmt"
+)
+
+// checks if the TestSuiteRunResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestSuiteRunResult{}
+
+// TestSuiteRunResult struct for TestSuiteRunResult
+type TestSuiteRunResult struct {
+	Id string `json:"id"`
+	TestSuiteId string `json:"testSuiteId"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	State TestState `json:"state"`
+	StartDate time.Time `json:"startDate"`
+	EndDate time.Time `json:"endDate"`
+	Results []UnitTestResult `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TestSuiteRunResult TestSuiteRunResult
+
+// NewTestSuiteRunResult instantiates a new TestSuiteRunResult object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time) *TestSuiteRunResult {
+	this := TestSuiteRunResult{}
+	this.Id = id
+	this.TestSuiteId = testSuiteId
+	this.Namespace = namespace
+	this.FlowId = flowId
+	this.State = state
+	this.StartDate = startDate
+	this.EndDate = endDate
+	return &this
+}
+
+// NewTestSuiteRunResultWithDefaults instantiates a new TestSuiteRunResult object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTestSuiteRunResultWithDefaults() *TestSuiteRunResult {
+	this := TestSuiteRunResult{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *TestSuiteRunResult) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *TestSuiteRunResult) SetId(v string) {
+	o.Id = v
+}
+
+// GetTestSuiteId returns the TestSuiteId field value
+func (o *TestSuiteRunResult) GetTestSuiteId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TestSuiteId
+}
+
+// GetTestSuiteIdOk returns a tuple with the TestSuiteId field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetTestSuiteIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TestSuiteId, true
+}
+
+// SetTestSuiteId sets field value
+func (o *TestSuiteRunResult) SetTestSuiteId(v string) {
+	o.TestSuiteId = v
+}
+
+// GetNamespace returns the Namespace field value
+func (o *TestSuiteRunResult) GetNamespace() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Namespace, true
+}
+
+// SetNamespace sets field value
+func (o *TestSuiteRunResult) SetNamespace(v string) {
+	o.Namespace = v
+}
+
+// GetFlowId returns the FlowId field value
+func (o *TestSuiteRunResult) GetFlowId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlowId
+}
+
+// GetFlowIdOk returns a tuple with the FlowId field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetFlowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlowId, true
+}
+
+// SetFlowId sets field value
+func (o *TestSuiteRunResult) SetFlowId(v string) {
+	o.FlowId = v
+}
+
+// GetState returns the State field value
+func (o *TestSuiteRunResult) GetState() TestState {
+	if o == nil {
+		var ret TestState
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetStateOk() (*TestState, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *TestSuiteRunResult) SetState(v TestState) {
+	o.State = v
+}
+
+// GetStartDate returns the StartDate field value
+func (o *TestSuiteRunResult) GetStartDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.StartDate
+}
+
+// GetStartDateOk returns a tuple with the StartDate field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetStartDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StartDate, true
+}
+
+// SetStartDate sets field value
+func (o *TestSuiteRunResult) SetStartDate(v time.Time) {
+	o.StartDate = v
+}
+
+// GetEndDate returns the EndDate field value
+func (o *TestSuiteRunResult) GetEndDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.EndDate
+}
+
+// GetEndDateOk returns a tuple with the EndDate field value
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetEndDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EndDate, true
+}
+
+// SetEndDate sets field value
+func (o *TestSuiteRunResult) SetEndDate(v time.Time) {
+	o.EndDate = v
+}
+
+// GetResults returns the Results field value if set, zero value otherwise.
+func (o *TestSuiteRunResult) GetResults() []UnitTestResult {
+	if o == nil || IsNil(o.Results) {
+		var ret []UnitTestResult
+		return ret
+	}
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestSuiteRunResult) GetResultsOk() ([]UnitTestResult, bool) {
+	if o == nil || IsNil(o.Results) {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// HasResults returns a boolean if a field has been set.
+func (o *TestSuiteRunResult) HasResults() bool {
+	if o != nil && !IsNil(o.Results) {
+		return true
+	}
+
+	return false
+}
+
+// SetResults gets a reference to the given []UnitTestResult and assigns it to the Results field.
+func (o *TestSuiteRunResult) SetResults(v []UnitTestResult) {
+	o.Results = v
+}
+
+func (o TestSuiteRunResult) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestSuiteRunResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["testSuiteId"] = o.TestSuiteId
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	toSerialize["state"] = o.State
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["endDate"] = o.EndDate
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TestSuiteRunResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"testSuiteId",
+		"namespace",
+		"flowId",
+		"state",
+		"startDate",
+		"endDate",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestSuiteRunResult := _TestSuiteRunResult{}
+
+	err = json.Unmarshal(data, &varTestSuiteRunResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestSuiteRunResult(varTestSuiteRunResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "testSuiteId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "startDate")
+		delete(additionalProperties, "endDate")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTestSuiteRunResult struct {
+	value *TestSuiteRunResult
+	isSet bool
+}
+
+func (v NullableTestSuiteRunResult) Get() *TestSuiteRunResult {
+	return v.value
+}
+
+func (v *NullableTestSuiteRunResult) Set(val *TestSuiteRunResult) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTestSuiteRunResult) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTestSuiteRunResult) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTestSuiteRunResult(val *TestSuiteRunResult) *NullableTestSuiteRunResult {
+	return &NullableTestSuiteRunResult{value: val, isSet: true}
+}
+
+func (v NullableTestSuiteRunResult) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTestSuiteRunResult) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,141 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * Gets or Sets QueryFilter.Field
+ */
+public enum QueryFilterField {
+  
+  QUERY("QUERY"),
+  
+  SCOPE("SCOPE"),
+  
+  NAMESPACE("NAMESPACE"),
+  
+  KIND("KIND"),
+  
+  LABELS("LABELS"),
+  
+  TAGS("TAGS"),
+  
+  METADATA("METADATA"),
+  
+  FLOW_ID("FLOW_ID"),
+  
+  FLOW_REVISION("FLOW_REVISION"),
+  
+  ID("ID"),
+  
+  ASSET_ID("ASSET_ID"),
+  
+  TYPE("TYPE"),
+  
+  CREATED("CREATED"),
+  
+  UPDATED("UPDATED"),
+  
+  START_DATE("START_DATE"),
+  
+  END_DATE("END_DATE"),
+  
+  EXPIRATION_DATE("EXPIRATION_DATE"),
+  
+  STATE("STATE"),
+  
+  STATUS("STATUS"),
+  
+  EMAIL("EMAIL"),
+  
+  TIME_RANGE("TIME_RANGE"),
+  
+  PARENT_ID("PARENT_ID"),
+  
+  TRIGGER_EXECUTION_ID("TRIGGER_EXECUTION_ID"),
+  
+  TRIGGER_ID("TRIGGER_ID"),
+  
+  TRIGGER_STATE("TRIGGER_STATE"),
+  
+  EXECUTION_ID("EXECUTION_ID"),
+  
+  TASK_ID("TASK_ID"),
+  
+  TASK_RUN_ID("TASK_RUN_ID"),
+  
+  CHILD_FILTER("CHILD_FILTER"),
+  
+  WORKER_ID("WORKER_ID"),
+  
+  EXISTING_ONLY("EXISTING_ONLY"),
+  
+  USER_ID("USER_ID"),
+  
+  ACTION("ACTION"),
+  
+  RESOURCES("RESOURCES"),
+  
+  DETAILS("DETAILS"),
+  
+  MIN_LEVEL("MIN_LEVEL"),
+  
+  PATH("PATH"),
+  
+  PARENT_PATH("PARENT_PATH"),
+  
+  VERSION("VERSION"),
+  
+  ENABLED("ENABLED"),
+  
+  USERNAME("USERNAME"),
+  
+  NAME("NAME"),
+  
+  GROUP("GROUP"),
+  
+  EXPIRED_AT("EXPIRED_AT"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+
+  private String value;
+
+  QueryFilterField(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static QueryFilterField fromValue(String value) {
+    for (QueryFilterField b : QueryFilterField.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
+  }
+}
+

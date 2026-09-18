@@ -1,0 +1,151 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ChartFiltersOverrides;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * DashboardControllerPreviewRequest
+ */
+@JsonPropertyOrder({
+  DashboardControllerPreviewRequest.JSON_PROPERTY_CHART,
+  DashboardControllerPreviewRequest.JSON_PROPERTY_GLOBAL_FILTER
+})
+@JsonTypeName("DashboardController.PreviewRequest")
+public class DashboardControllerPreviewRequest {
+  public static final String JSON_PROPERTY_CHART = "chart";
+  @jakarta.annotation.Nonnull  private String chart;
+
+  public static final String JSON_PROPERTY_GLOBAL_FILTER = "globalFilter";
+  @jakarta.annotation.Nullable  private JsonNullable<ChartFiltersOverrides> globalFilter = JsonNullable.<ChartFiltersOverrides>undefined();
+
+  public DashboardControllerPreviewRequest() {
+  }
+
+  public DashboardControllerPreviewRequest chart(@jakarta.annotation.Nonnull String chart) {
+    
+    this.chart = chart;
+    return this;
+  }
+
+  /**
+   * Get chart
+   * @return chart
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CHART)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getChart() {
+    return chart;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHART)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setChart(@jakarta.annotation.Nonnull String chart) {
+    this.chart = chart;
+  }
+
+  public DashboardControllerPreviewRequest globalFilter(@jakarta.annotation.Nullable ChartFiltersOverrides globalFilter) {
+    this.globalFilter = JsonNullable.<ChartFiltersOverrides>of(globalFilter);
+    
+    return this;
+  }
+
+  /**
+   * Get globalFilter
+   * @return globalFilter
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public ChartFiltersOverrides getGlobalFilter() {
+        return globalFilter.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_GLOBAL_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<ChartFiltersOverrides> getGlobalFilter_JsonNullable() {
+    return globalFilter;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_GLOBAL_FILTER)
+  public void setGlobalFilter_JsonNullable(JsonNullable<ChartFiltersOverrides> globalFilter) {
+    this.globalFilter = globalFilter;
+  }
+
+  public void setGlobalFilter(@jakarta.annotation.Nullable ChartFiltersOverrides globalFilter) {
+    this.globalFilter = JsonNullable.<ChartFiltersOverrides>of(globalFilter);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DashboardControllerPreviewRequest dashboardControllerPreviewRequest = (DashboardControllerPreviewRequest) o;
+    return Objects.equals(this.chart, dashboardControllerPreviewRequest.chart) &&
+        equalsNullable(this.globalFilter, dashboardControllerPreviewRequest.globalFilter);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(chart, hashCodeNullable(globalFilter));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DashboardControllerPreviewRequest {\n");
+    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+    sb.append("    globalFilter: ").append(toIndentedString(globalFilter)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

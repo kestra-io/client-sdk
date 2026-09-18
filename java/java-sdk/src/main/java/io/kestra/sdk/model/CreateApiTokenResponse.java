@@ -1,0 +1,157 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * CreateApiTokenResponse
+ */
+@JsonPropertyOrder({
+  CreateApiTokenResponse.JSON_PROPERTY_ID,
+  CreateApiTokenResponse.JSON_PROPERTY_NAME,
+  CreateApiTokenResponse.JSON_PROPERTY_FULL_TOKEN
+})
+public class CreateApiTokenResponse {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nonnull  private String name;
+
+  public static final String JSON_PROPERTY_FULL_TOKEN = "fullToken";
+  @jakarta.annotation.Nonnull  private String fullToken;
+
+  public CreateApiTokenResponse() {
+  }
+
+  public CreateApiTokenResponse id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public CreateApiTokenResponse name(@jakarta.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
+    this.name = name;
+  }
+
+  public CreateApiTokenResponse fullToken(@jakarta.annotation.Nonnull String fullToken) {
+    
+    this.fullToken = fullToken;
+    return this;
+  }
+
+  /**
+   * Get fullToken
+   * @return fullToken
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFullToken() {
+    return fullToken;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFullToken(@jakarta.annotation.Nonnull String fullToken) {
+    this.fullToken = fullToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateApiTokenResponse createApiTokenResponse = (CreateApiTokenResponse) o;
+    return Objects.equals(this.id, createApiTokenResponse.id) &&
+        Objects.equals(this.name, createApiTokenResponse.name) &&
+        Objects.equals(this.fullToken, createApiTokenResponse.fullToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, fullToken);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateApiTokenResponse {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    fullToken: ").append(toIndentedString(fullToken)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

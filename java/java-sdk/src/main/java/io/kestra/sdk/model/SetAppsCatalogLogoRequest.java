@@ -1,0 +1,99 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.File;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * SetAppsCatalogLogoRequest
+ */
+@JsonPropertyOrder({
+  SetAppsCatalogLogoRequest.JSON_PROPERTY_LOGO
+})
+@JsonTypeName("setAppsCatalogLogo_request")
+public class SetAppsCatalogLogoRequest {
+  public static final String JSON_PROPERTY_LOGO = "logo";
+  @jakarta.annotation.Nullable  private File logo;
+
+  public SetAppsCatalogLogoRequest() {
+  }
+
+  public SetAppsCatalogLogoRequest logo(@jakarta.annotation.Nullable File logo) {
+    
+    this.logo = logo;
+    return this;
+  }
+
+  /**
+   * The logo file
+   * @return logo
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public File getLogo() {
+    return logo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogo(@jakarta.annotation.Nullable File logo) {
+    this.logo = logo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SetAppsCatalogLogoRequest setAppsCatalogLogoRequest = (SetAppsCatalogLogoRequest) o;
+    return Objects.equals(this.logo, setAppsCatalogLogoRequest.logo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(logo);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SetAppsCatalogLogoRequest {\n");
+    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

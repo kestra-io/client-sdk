@@ -1,0 +1,192 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.CrudEventType;
+import io.kestra.sdk.model.ResourceType;
+import java.util.HashMap;
+import java.util.Map;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AuditLogControllerFindRequest
+ */
+@JsonPropertyOrder({
+  AuditLogControllerFindRequest.JSON_PROPERTY_RESOURCE,
+  AuditLogControllerFindRequest.JSON_PROPERTY_TYPE,
+  AuditLogControllerFindRequest.JSON_PROPERTY_DETAIL
+})
+@JsonTypeName("AuditLogController.FindRequest")
+public class AuditLogControllerFindRequest {
+  public static final String JSON_PROPERTY_RESOURCE = "resource";
+  @jakarta.annotation.Nullable  private ResourceType resource;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
+
+  public static final String JSON_PROPERTY_DETAIL = "detail";
+  @jakarta.annotation.Nullable  private Map<String, Object> detail = new HashMap<>();
+
+  public AuditLogControllerFindRequest() {
+  }
+
+  public AuditLogControllerFindRequest resource(@jakarta.annotation.Nullable ResourceType resource) {
+    
+    this.resource = resource;
+    return this;
+  }
+
+  /**
+   * Get resource
+   * @return resource
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ResourceType getResource() {
+    return resource;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResource(@jakarta.annotation.Nullable ResourceType resource) {
+    this.resource = resource;
+  }
+
+  public AuditLogControllerFindRequest type(@jakarta.annotation.Nullable CrudEventType type) {
+    this.type = JsonNullable.<CrudEventType>of(type);
+    
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public CrudEventType getType() {
+        return type.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<CrudEventType> getType_JsonNullable() {
+    return type;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  public void setType_JsonNullable(JsonNullable<CrudEventType> type) {
+    this.type = type;
+  }
+
+  public void setType(@jakarta.annotation.Nullable CrudEventType type) {
+    this.type = JsonNullable.<CrudEventType>of(type);
+  }
+
+  public AuditLogControllerFindRequest detail(@jakarta.annotation.Nullable Map<String, Object> detail) {
+    
+    this.detail = detail;
+    return this;
+  }
+
+  public AuditLogControllerFindRequest putDetailItem(String key, Object detailItem) {
+    if (this.detail == null) {
+      this.detail = new HashMap<>();
+    }
+    this.detail.put(key, detailItem);
+    return this;
+  }
+
+  /**
+   * Get detail
+   * @return detail
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getDetail() {
+    return detail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetail(@jakarta.annotation.Nullable Map<String, Object> detail) {
+    this.detail = detail;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AuditLogControllerFindRequest auditLogControllerFindRequest = (AuditLogControllerFindRequest) o;
+    return Objects.equals(this.resource, auditLogControllerFindRequest.resource) &&
+        equalsNullable(this.type, auditLogControllerFindRequest.type) &&
+        Objects.equals(this.detail, auditLogControllerFindRequest.detail);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(resource, hashCodeNullable(type), detail);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AuditLogControllerFindRequest {\n");
+    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,148 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.FlowNode;
+import io.kestra.sdk.model.FlowTopologyGraphEdge;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * FlowTopologyGraph
+ */
+@JsonPropertyOrder({
+  FlowTopologyGraph.JSON_PROPERTY_NODES,
+  FlowTopologyGraph.JSON_PROPERTY_EDGES
+})
+public class FlowTopologyGraph {
+  public static final String JSON_PROPERTY_NODES = "nodes";
+  @jakarta.annotation.Nullable  private List<FlowNode> nodes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EDGES = "edges";
+  @jakarta.annotation.Nullable  private List<FlowTopologyGraphEdge> edges = new ArrayList<>();
+
+  public FlowTopologyGraph() {
+  }
+
+  public FlowTopologyGraph nodes(@jakarta.annotation.Nullable List<FlowNode> nodes) {
+    
+    this.nodes = nodes;
+    return this;
+  }
+
+  public FlowTopologyGraph addNodesItem(FlowNode nodesItem) {
+    if (this.nodes == null) {
+      this.nodes = new ArrayList<>();
+    }
+    this.nodes.add(nodesItem);
+    return this;
+  }
+
+  /**
+   * Get nodes
+   * @return nodes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<FlowNode> getNodes() {
+    return nodes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NODES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNodes(@jakarta.annotation.Nullable List<FlowNode> nodes) {
+    this.nodes = nodes;
+  }
+
+  public FlowTopologyGraph edges(@jakarta.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
+    
+    this.edges = edges;
+    return this;
+  }
+
+  public FlowTopologyGraph addEdgesItem(FlowTopologyGraphEdge edgesItem) {
+    if (this.edges == null) {
+      this.edges = new ArrayList<>();
+    }
+    this.edges.add(edgesItem);
+    return this;
+  }
+
+  /**
+   * Get edges
+   * @return edges
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<FlowTopologyGraphEdge> getEdges() {
+    return edges;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdges(@jakarta.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
+    this.edges = edges;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FlowTopologyGraph flowTopologyGraph = (FlowTopologyGraph) o;
+    return Objects.equals(this.nodes, flowTopologyGraph.nodes) &&
+        Objects.equals(this.edges, flowTopologyGraph.edges);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nodes, edges);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FlowTopologyGraph {\n");
+    sb.append("    nodes: ").append(toIndentedString(nodes)).append("\n");
+    sb.append("    edges: ").append(toIndentedString(edges)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

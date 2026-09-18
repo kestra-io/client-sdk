@@ -1,0 +1,877 @@
+# DashboardsApi
+
+All URIs are relative to *http://localhost*
+
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**createDashboard**](DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source |
+| [**dashboard**](DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard |
+| [**dashboardChartData**](DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data |
+| [**defaultDashboards1**](DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
+| [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard |
+| [**exportChart**](DashboardsApi.md#exportChart) | **POST** /api/v1/{tenant}/dashboards/charts/export | Export a chart data to CSV or ION |
+| [**exportDashboardChart**](DashboardsApi.md#exportDashboardChart) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export | Export a dashboard chart data to CSV or ION |
+| [**previewChart**](DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data |
+| [**searchDashboards**](DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards |
+| [**updateDashboard**](DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard |
+| [**validateChart**](DashboardsApi.md#validateChart) | **POST** /api/v1/{tenant}/dashboards/validate/chart | Validate a chart from yaml source |
+| [**validateDashboard**](DashboardsApi.md#validateDashboard) | **POST** /api/v1/{tenant}/dashboards/validate | Validate dashboard from yaml source |
+
+
+
+## createDashboard
+
+> DashboardControllerDashboardResponse createDashboard(tenant, body)
+
+Create a dashboard from yaml source
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The dashboard definition as YAML
+        try {
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().createDashboard(tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#createDashboard");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **body** | **String**| The dashboard definition as YAML | |
+
+### Return type
+
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | createDashboard 200 response |  -  |
+
+
+## dashboard
+
+> DashboardControllerDashboardResponse dashboard(id, tenant)
+
+Get a dashboard
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The dashboard id
+        String tenant = "tenant_example"; // String | 
+        try {
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().dashboard(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#dashboard");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The dashboard id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getDashboard 200 response |  -  |
+
+
+## dashboardChartData
+
+> PagedResultsMapStringObject dashboardChartData(id, chartId, tenant, chartFiltersOverrides)
+
+Generate a dashboard chart data
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The dashboard id
+        String chartId = "chartId_example"; // String | The chart id
+        String tenant = "tenant_example"; // String | 
+        ChartFiltersOverrides chartFiltersOverrides = new ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+        try {
+            PagedResultsMapStringObject result = kestraClient.DashboardsApi().dashboardChartData(id, chartId, tenant, chartFiltersOverrides);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#dashboardChartData");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The dashboard id | |
+| **chartId** | **String**| The chart id | |
+| **tenant** | **String**|  | |
+| **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
+
+### Return type
+
+[**PagedResultsMapStringObject**](PagedResultsMapStringObject.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getDashboardChartData 200 response |  -  |
+
+
+## defaultDashboards1
+
+> DashboardSettings defaultDashboards1(tenant)
+
+Get default dashboards
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        try {
+            DashboardSettings result = kestraClient.DashboardsApi().defaultDashboards1(tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#defaultDashboards1");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**DashboardSettings**](DashboardSettings.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getDefaultDashboards_1 200 response |  -  |
+
+
+## deleteDashboard
+
+> deleteDashboard(id, tenant)
+
+Delete a dashboard
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The dashboard id
+        String tenant = "tenant_example"; // String | 
+        try {
+            kestraClient.DashboardsApi().deleteDashboard(id, tenant);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#deleteDashboard");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The dashboard id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | deleteDashboard 200 response |  -  |
+
+
+## exportChart
+
+> byte[] exportChart(tenant, dashboardControllerPreviewRequest, format)
+
+Export a chart data to CSV or ION
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        DashboardControllerPreviewRequest dashboardControllerPreviewRequest = new DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+        String format = "CSV"; // String | The export format, CSV or ION
+        try {
+            byte[] result = kestraClient.DashboardsApi().exportChart(tenant, dashboardControllerPreviewRequest, format);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#exportChart");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
+| **format** | **String**| The export format, CSV or ION | [optional] |
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | exportChart 200 response |  -  |
+
+
+## exportDashboardChart
+
+> byte[] exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format)
+
+Export a dashboard chart data to CSV or ION
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The dashboard id
+        String chartId = "chartId_example"; // String | The chart id
+        String tenant = "tenant_example"; // String | 
+        ChartFiltersOverrides chartFiltersOverrides = new ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+        String format = "CSV"; // String | The export format, CSV or ION
+        try {
+            byte[] result = kestraClient.DashboardsApi().exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#exportDashboardChart");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The dashboard id | |
+| **chartId** | **String**| The chart id | |
+| **tenant** | **String**|  | |
+| **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
+| **format** | **String**| The export format, CSV or ION | [optional] |
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | exportDashboardChart 200 response |  -  |
+
+
+## previewChart
+
+> PagedResultsMapStringObject previewChart(tenant, dashboardControllerPreviewRequest)
+
+Preview a chart data
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        DashboardControllerPreviewRequest dashboardControllerPreviewRequest = new DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+        try {
+            PagedResultsMapStringObject result = kestraClient.DashboardsApi().previewChart(tenant, dashboardControllerPreviewRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#previewChart");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
+
+### Return type
+
+[**PagedResultsMapStringObject**](PagedResultsMapStringObject.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | previewChart 200 response |  -  |
+
+
+## searchDashboards
+
+> PagedResultsDashboardControllerDashboardResponse searchDashboards(tenant, page, size, q, sort)
+
+Search for dashboards
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
+        String q = "q_example"; // String | The filter query
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        try {
+            PagedResultsDashboardControllerDashboardResponse result = kestraClient.DashboardsApi().searchDashboards(tenant, page, size, q, sort);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#searchDashboards");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **q** | **String**| The filter query | [optional] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+
+### Return type
+
+[**PagedResultsDashboardControllerDashboardResponse**](PagedResultsDashboardControllerDashboardResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | searchDashboards 200 response |  -  |
+
+
+## updateDashboard
+
+> DashboardControllerDashboardResponse updateDashboard(id, tenant, body)
+
+Update a dashboard
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The dashboard id
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The dashboard definition as YAML
+        try {
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().updateDashboard(id, tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#updateDashboard");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The dashboard id | |
+| **tenant** | **String**|  | |
+| **body** | **String**| The dashboard definition as YAML | |
+
+### Return type
+
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | updateDashboard 200 response |  -  |
+
+
+## validateChart
+
+> ValidateConstraintViolation validateChart(tenant, body)
+
+Validate a chart from yaml source
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The chart definition as YAML
+        try {
+            ValidateConstraintViolation result = kestraClient.DashboardsApi().validateChart(tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#validateChart");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **body** | **String**| The chart definition as YAML | |
+
+### Return type
+
+[**ValidateConstraintViolation**](ValidateConstraintViolation.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | validateChart 200 response |  -  |
+
+
+## validateDashboard
+
+> ValidateConstraintViolation validateDashboard(tenant, body)
+
+Validate dashboard from yaml source
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The dashboard definition as YAML
+        try {
+            ValidateConstraintViolation result = kestraClient.DashboardsApi().validateDashboard(tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#validateDashboard");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **body** | **String**| The dashboard definition as YAML | |
+
+### Return type
+
+[**ValidateConstraintViolation**](ValidateConstraintViolation.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | validateDashboard 200 response |  -  |
+

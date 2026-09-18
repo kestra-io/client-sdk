@@ -1,0 +1,349 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.IAMTenantAccessControllerApiAuthentication;
+import io.kestra.sdk.model.MeControllerApiProfile;
+import io.kestra.sdk.model.MeControllerApiTenant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import io.kestra.sdk.model.MeControllerApiOwnedGroup;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MeControllerApiMe
+ */
+@JsonPropertyOrder({
+  MeControllerApiMe.JSON_PROPERTY_ID,
+  MeControllerApiMe.JSON_PROPERTY_INSTANCE_OWNER,
+  MeControllerApiMe.JSON_PROPERTY_RESTRICTED,
+  MeControllerApiMe.JSON_PROPERTY_PROFILE,
+  MeControllerApiMe.JSON_PROPERTY_AUTHS,
+  MeControllerApiMe.JSON_PROPERTY_TENANTS,
+  MeControllerApiMe.JSON_PROPERTY_OWNED_GROUPS
+})
+@JsonTypeName("MeController.ApiMe")
+public class MeControllerApiMe {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
+
+  public static final String JSON_PROPERTY_RESTRICTED = "restricted";
+  @jakarta.annotation.Nullable  private Boolean restricted;
+
+  public static final String JSON_PROPERTY_PROFILE = "profile";
+  @jakarta.annotation.Nullable  private MeControllerApiProfile profile;
+
+  public static final String JSON_PROPERTY_AUTHS = "auths";
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TENANTS = "tenants";
+  @jakarta.annotation.Nullable  private List<MeControllerApiTenant> tenants = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_OWNED_GROUPS = "ownedGroups";
+  @jakarta.annotation.Nullable  private List<MeControllerApiOwnedGroup> ownedGroups;
+
+  public MeControllerApiMe() {
+  }
+
+  public MeControllerApiMe id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public MeControllerApiMe instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    
+    this.instanceOwner = instanceOwner;
+    return this;
+  }
+
+  /**
+   * Get instanceOwner
+   * @return instanceOwner
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
+  }
+
+  public MeControllerApiMe restricted(@jakarta.annotation.Nullable Boolean restricted) {
+    
+    this.restricted = restricted;
+    return this;
+  }
+
+  /**
+   * Get restricted
+   * @return restricted
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRestricted() {
+    return restricted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRestricted(@jakarta.annotation.Nullable Boolean restricted) {
+    this.restricted = restricted;
+  }
+
+  public MeControllerApiMe profile(@jakarta.annotation.Nullable MeControllerApiProfile profile) {
+    
+    this.profile = profile;
+    return this;
+  }
+
+  /**
+   * Get profile
+   * @return profile
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROFILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MeControllerApiProfile getProfile() {
+    return profile;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROFILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProfile(@jakarta.annotation.Nullable MeControllerApiProfile profile) {
+    this.profile = profile;
+  }
+
+  public MeControllerApiMe auths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+    
+    this.auths = auths;
+    return this;
+  }
+
+  public MeControllerApiMe addAuthsItem(IAMTenantAccessControllerApiAuthentication authsItem) {
+    if (this.auths == null) {
+      this.auths = new ArrayList<>();
+    }
+    this.auths.add(authsItem);
+    return this;
+  }
+
+  /**
+   * Get auths
+   * @return auths
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
+    return auths;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+    this.auths = auths;
+  }
+
+  public MeControllerApiMe tenants(@jakarta.annotation.Nullable List<MeControllerApiTenant> tenants) {
+    
+    this.tenants = tenants;
+    return this;
+  }
+
+  public MeControllerApiMe addTenantsItem(MeControllerApiTenant tenantsItem) {
+    if (this.tenants == null) {
+      this.tenants = new ArrayList<>();
+    }
+    this.tenants.add(tenantsItem);
+    return this;
+  }
+
+  /**
+   * Get tenants
+   * @return tenants
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<MeControllerApiTenant> getTenants() {
+    return tenants;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenants(@jakarta.annotation.Nullable List<MeControllerApiTenant> tenants) {
+    this.tenants = tenants;
+  }
+
+  public MeControllerApiMe ownedGroups(@jakarta.annotation.Nullable List<MeControllerApiOwnedGroup> ownedGroups) {
+    
+    this.ownedGroups = ownedGroups;
+    return this;
+  }
+
+  public MeControllerApiMe addOwnedGroupsItem(MeControllerApiOwnedGroup ownedGroupsItem) {
+    if (this.ownedGroups == null) {
+      this.ownedGroups = new ArrayList<>();
+    }
+    this.ownedGroups.add(ownedGroupsItem);
+    return this;
+  }
+
+  /**
+   * Get ownedGroups
+   * @return ownedGroups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OWNED_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<MeControllerApiOwnedGroup> getOwnedGroups() {
+    return ownedGroups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OWNED_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOwnedGroups(@jakarta.annotation.Nullable List<MeControllerApiOwnedGroup> ownedGroups) {
+    this.ownedGroups = ownedGroups;
+  }
+
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public MeControllerApiMe superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MeControllerApiMe meControllerApiMe = (MeControllerApiMe) o;
+    return Objects.equals(this.id, meControllerApiMe.id) &&
+        Objects.equals(this.instanceOwner, meControllerApiMe.instanceOwner) &&
+        Objects.equals(this.restricted, meControllerApiMe.restricted) &&
+        Objects.equals(this.profile, meControllerApiMe.profile) &&
+        Objects.equals(this.auths, meControllerApiMe.auths) &&
+        Objects.equals(this.tenants, meControllerApiMe.tenants) &&
+        Objects.equals(this.ownedGroups, meControllerApiMe.ownedGroups);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, instanceOwner, restricted, profile, auths, tenants, ownedGroups);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MeControllerApiMe {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
+    sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
+    sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
+    sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
+    sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
+    sb.append("    ownedGroups: ").append(toIndentedString(ownedGroups)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

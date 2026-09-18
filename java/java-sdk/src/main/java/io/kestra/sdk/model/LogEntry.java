@@ -1,0 +1,487 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ExecutionKind;
+import io.kestra.sdk.model.Level;
+import java.time.OffsetDateTime;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * LogEntry
+ */
+@JsonPropertyOrder({
+  LogEntry.JSON_PROPERTY_NAMESPACE,
+  LogEntry.JSON_PROPERTY_FLOW_ID,
+  LogEntry.JSON_PROPERTY_TASK_ID,
+  LogEntry.JSON_PROPERTY_EXECUTION_ID,
+  LogEntry.JSON_PROPERTY_TASK_RUN_ID,
+  LogEntry.JSON_PROPERTY_ATTEMPT_NUMBER,
+  LogEntry.JSON_PROPERTY_TRIGGER_ID,
+  LogEntry.JSON_PROPERTY_TIMESTAMP,
+  LogEntry.JSON_PROPERTY_LEVEL,
+  LogEntry.JSON_PROPERTY_THREAD,
+  LogEntry.JSON_PROPERTY_MESSAGE,
+  LogEntry.JSON_PROPERTY_EXECUTION_KIND
+})
+public class LogEntry {
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_TASK_ID = "taskId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> taskId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> taskRunId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
+  @jakarta.annotation.Nullable  private JsonNullable<Integer> attemptNumber = JsonNullable.<Integer>undefined();
+
+  public static final String JSON_PROPERTY_TRIGGER_ID = "triggerId";
+  @jakarta.annotation.Nullable  private JsonNullable<String> triggerId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
+  @jakarta.annotation.Nullable  private OffsetDateTime timestamp;
+
+  public static final String JSON_PROPERTY_LEVEL = "level";
+  @jakarta.annotation.Nullable  private Level level;
+
+  public static final String JSON_PROPERTY_THREAD = "thread";
+  @jakarta.annotation.Nullable  private String thread;
+
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  @jakarta.annotation.Nullable  private String message;
+
+  public static final String JSON_PROPERTY_EXECUTION_KIND = "executionKind";
+  @jakarta.annotation.Nullable  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
+
+  public LogEntry() {
+  }
+
+  public LogEntry namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public LogEntry flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public LogEntry taskId(@jakarta.annotation.Nullable String taskId) {
+    this.taskId = JsonNullable.<String>of(taskId);
+    
+    return this;
+  }
+
+  /**
+   * Get taskId
+   * @return taskId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getTaskId() {
+        return taskId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getTaskId_JsonNullable() {
+    return taskId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  public void setTaskId_JsonNullable(JsonNullable<String> taskId) {
+    this.taskId = taskId;
+  }
+
+  public void setTaskId(@jakarta.annotation.Nullable String taskId) {
+    this.taskId = JsonNullable.<String>of(taskId);
+  }
+
+  public LogEntry executionId(@jakarta.annotation.Nullable String executionId) {
+    this.executionId = JsonNullable.<String>of(executionId);
+    
+    return this;
+  }
+
+  /**
+   * Get executionId
+   * @return executionId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getExecutionId() {
+        return executionId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getExecutionId_JsonNullable() {
+    return executionId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  public void setExecutionId_JsonNullable(JsonNullable<String> executionId) {
+    this.executionId = executionId;
+  }
+
+  public void setExecutionId(@jakarta.annotation.Nullable String executionId) {
+    this.executionId = JsonNullable.<String>of(executionId);
+  }
+
+  public LogEntry taskRunId(@jakarta.annotation.Nullable String taskRunId) {
+    this.taskRunId = JsonNullable.<String>of(taskRunId);
+    
+    return this;
+  }
+
+  /**
+   * Get taskRunId
+   * @return taskRunId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getTaskRunId() {
+        return taskRunId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getTaskRunId_JsonNullable() {
+    return taskRunId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
+  public void setTaskRunId_JsonNullable(JsonNullable<String> taskRunId) {
+    this.taskRunId = taskRunId;
+  }
+
+  public void setTaskRunId(@jakarta.annotation.Nullable String taskRunId) {
+    this.taskRunId = JsonNullable.<String>of(taskRunId);
+  }
+
+  public LogEntry attemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
+    this.attemptNumber = JsonNullable.<Integer>of(attemptNumber);
+    
+    return this;
+  }
+
+  /**
+   * Get attemptNumber
+   * @return attemptNumber
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public Integer getAttemptNumber() {
+        return attemptNumber.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<Integer> getAttemptNumber_JsonNullable() {
+    return attemptNumber;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
+  public void setAttemptNumber_JsonNullable(JsonNullable<Integer> attemptNumber) {
+    this.attemptNumber = attemptNumber;
+  }
+
+  public void setAttemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
+    this.attemptNumber = JsonNullable.<Integer>of(attemptNumber);
+  }
+
+  public LogEntry triggerId(@jakarta.annotation.Nullable String triggerId) {
+    this.triggerId = JsonNullable.<String>of(triggerId);
+    
+    return this;
+  }
+
+  /**
+   * Get triggerId
+   * @return triggerId
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getTriggerId() {
+        return triggerId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getTriggerId_JsonNullable() {
+    return triggerId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  public void setTriggerId_JsonNullable(JsonNullable<String> triggerId) {
+    this.triggerId = triggerId;
+  }
+
+  public void setTriggerId(@jakarta.annotation.Nullable String triggerId) {
+    this.triggerId = JsonNullable.<String>of(triggerId);
+  }
+
+  public LogEntry timestamp(@jakarta.annotation.Nullable OffsetDateTime timestamp) {
+    
+    this.timestamp = timestamp;
+    return this;
+  }
+
+  /**
+   * Get timestamp
+   * @return timestamp
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getTimestamp() {
+    return timestamp;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTimestamp(@jakarta.annotation.Nullable OffsetDateTime timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public LogEntry level(@jakarta.annotation.Nullable Level level) {
+    
+    this.level = level;
+    return this;
+  }
+
+  /**
+   * Get level
+   * @return level
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Level getLevel() {
+    return level;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLevel(@jakarta.annotation.Nullable Level level) {
+    this.level = level;
+  }
+
+  public LogEntry thread(@jakarta.annotation.Nullable String thread) {
+    
+    this.thread = thread;
+    return this;
+  }
+
+  /**
+   * Get thread
+   * @return thread
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_THREAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getThread() {
+    return thread;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_THREAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setThread(@jakarta.annotation.Nullable String thread) {
+    this.thread = thread;
+  }
+
+  public LogEntry message(@jakarta.annotation.Nullable String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * Get message
+   * @return message
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessage(@jakarta.annotation.Nullable String message) {
+    this.message = message;
+  }
+
+  public LogEntry executionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
+    this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
+    
+    return this;
+  }
+
+  /**
+   * Get executionKind
+   * @return executionKind
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public ExecutionKind getExecutionKind() {
+        return executionKind.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<ExecutionKind> getExecutionKind_JsonNullable() {
+    return executionKind;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
+  public void setExecutionKind_JsonNullable(JsonNullable<ExecutionKind> executionKind) {
+    this.executionKind = executionKind;
+  }
+
+  public void setExecutionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
+    this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    LogEntry logEntry = (LogEntry) o;
+    return Objects.equals(this.namespace, logEntry.namespace) &&
+        Objects.equals(this.flowId, logEntry.flowId) &&
+        equalsNullable(this.taskId, logEntry.taskId) &&
+        equalsNullable(this.executionId, logEntry.executionId) &&
+        equalsNullable(this.taskRunId, logEntry.taskRunId) &&
+        equalsNullable(this.attemptNumber, logEntry.attemptNumber) &&
+        equalsNullable(this.triggerId, logEntry.triggerId) &&
+        Objects.equals(this.timestamp, logEntry.timestamp) &&
+        Objects.equals(this.level, logEntry.level) &&
+        Objects.equals(this.thread, logEntry.thread) &&
+        Objects.equals(this.message, logEntry.message) &&
+        equalsNullable(this.executionKind, logEntry.executionKind);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(namespace, flowId, hashCodeNullable(taskId), hashCodeNullable(executionId), hashCodeNullable(taskRunId), hashCodeNullable(attemptNumber), hashCodeNullable(triggerId), timestamp, level, thread, message, hashCodeNullable(executionKind));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class LogEntry {\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+    sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
+    sb.append("    taskRunId: ").append(toIndentedString(taskRunId)).append("\n");
+    sb.append("    attemptNumber: ").append(toIndentedString(attemptNumber)).append("\n");
+    sb.append("    triggerId: ").append(toIndentedString(triggerId)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    thread: ").append(toIndentedString(thread)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    executionKind: ").append(toIndentedString(executionKind)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

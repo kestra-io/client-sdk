@@ -1,0 +1,364 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ValidateConstraintViolation
+ */
+@JsonPropertyOrder({
+  ValidateConstraintViolation.JSON_PROPERTY_INDEX,
+  ValidateConstraintViolation.JSON_PROPERTY_FILENAME,
+  ValidateConstraintViolation.JSON_PROPERTY_NAMESPACE,
+  ValidateConstraintViolation.JSON_PROPERTY_FLOW,
+  ValidateConstraintViolation.JSON_PROPERTY_CONSTRAINTS,
+  ValidateConstraintViolation.JSON_PROPERTY_OUTDATED,
+  ValidateConstraintViolation.JSON_PROPERTY_DEPRECATION_PATHS,
+  ValidateConstraintViolation.JSON_PROPERTY_WARNINGS,
+  ValidateConstraintViolation.JSON_PROPERTY_INFOS
+})
+public class ValidateConstraintViolation {
+  public static final String JSON_PROPERTY_INDEX = "index";
+  @jakarta.annotation.Nonnull  private Integer index;
+
+  public static final String JSON_PROPERTY_FILENAME = "filename";
+  @jakarta.annotation.Nullable  private String filename;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW = "flow";
+  @jakarta.annotation.Nullable  private String flow;
+
+  public static final String JSON_PROPERTY_CONSTRAINTS = "constraints";
+  @jakarta.annotation.Nullable  private String constraints;
+
+  public static final String JSON_PROPERTY_OUTDATED = "outdated";
+  @jakarta.annotation.Nullable  private Boolean outdated;
+
+  public static final String JSON_PROPERTY_DEPRECATION_PATHS = "deprecationPaths";
+  @jakarta.annotation.Nullable  private List<String> deprecationPaths = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_WARNINGS = "warnings";
+  @jakarta.annotation.Nullable  private List<String> warnings = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_INFOS = "infos";
+  @jakarta.annotation.Nullable  private List<String> infos = new ArrayList<>();
+
+  public ValidateConstraintViolation() {
+  }
+
+  public ValidateConstraintViolation index(@jakarta.annotation.Nonnull Integer index) {
+    
+    this.index = index;
+    return this;
+  }
+
+  /**
+   * Get index
+   * @return index
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Integer getIndex() {
+    return index;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIndex(@jakarta.annotation.Nonnull Integer index) {
+    this.index = index;
+  }
+
+  public ValidateConstraintViolation filename(@jakarta.annotation.Nullable String filename) {
+    
+    this.filename = filename;
+    return this;
+  }
+
+  /**
+   * Get filename
+   * @return filename
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILENAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFilename() {
+    return filename;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILENAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilename(@jakarta.annotation.Nullable String filename) {
+    this.filename = filename;
+  }
+
+  public ValidateConstraintViolation namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ValidateConstraintViolation flow(@jakarta.annotation.Nullable String flow) {
+    
+    this.flow = flow;
+    return this;
+  }
+
+  /**
+   * Get flow
+   * @return flow
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFlow() {
+    return flow;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlow(@jakarta.annotation.Nullable String flow) {
+    this.flow = flow;
+  }
+
+  public ValidateConstraintViolation constraints(@jakarta.annotation.Nullable String constraints) {
+    
+    this.constraints = constraints;
+    return this;
+  }
+
+  /**
+   * Get constraints
+   * @return constraints
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONSTRAINTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConstraints() {
+    return constraints;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONSTRAINTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConstraints(@jakarta.annotation.Nullable String constraints) {
+    this.constraints = constraints;
+  }
+
+  public ValidateConstraintViolation outdated(@jakarta.annotation.Nullable Boolean outdated) {
+    
+    this.outdated = outdated;
+    return this;
+  }
+
+  /**
+   * Get outdated
+   * @return outdated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getOutdated() {
+    return outdated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutdated(@jakarta.annotation.Nullable Boolean outdated) {
+    this.outdated = outdated;
+  }
+
+  public ValidateConstraintViolation deprecationPaths(@jakarta.annotation.Nullable List<String> deprecationPaths) {
+    
+    this.deprecationPaths = deprecationPaths;
+    return this;
+  }
+
+  public ValidateConstraintViolation addDeprecationPathsItem(String deprecationPathsItem) {
+    if (this.deprecationPaths == null) {
+      this.deprecationPaths = new ArrayList<>();
+    }
+    this.deprecationPaths.add(deprecationPathsItem);
+    return this;
+  }
+
+  /**
+   * Get deprecationPaths
+   * @return deprecationPaths
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPRECATION_PATHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getDeprecationPaths() {
+    return deprecationPaths;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEPRECATION_PATHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeprecationPaths(@jakarta.annotation.Nullable List<String> deprecationPaths) {
+    this.deprecationPaths = deprecationPaths;
+  }
+
+  public ValidateConstraintViolation warnings(@jakarta.annotation.Nullable List<String> warnings) {
+    
+    this.warnings = warnings;
+    return this;
+  }
+
+  public ValidateConstraintViolation addWarningsItem(String warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Get warnings
+   * @return warnings
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getWarnings() {
+    return warnings;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWarnings(@jakarta.annotation.Nullable List<String> warnings) {
+    this.warnings = warnings;
+  }
+
+  public ValidateConstraintViolation infos(@jakarta.annotation.Nullable List<String> infos) {
+    
+    this.infos = infos;
+    return this;
+  }
+
+  public ValidateConstraintViolation addInfosItem(String infosItem) {
+    if (this.infos == null) {
+      this.infos = new ArrayList<>();
+    }
+    this.infos.add(infosItem);
+    return this;
+  }
+
+  /**
+   * Get infos
+   * @return infos
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INFOS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getInfos() {
+    return infos;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INFOS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInfos(@jakarta.annotation.Nullable List<String> infos) {
+    this.infos = infos;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ValidateConstraintViolation validateConstraintViolation = (ValidateConstraintViolation) o;
+    return Objects.equals(this.index, validateConstraintViolation.index) &&
+        Objects.equals(this.filename, validateConstraintViolation.filename) &&
+        Objects.equals(this.namespace, validateConstraintViolation.namespace) &&
+        Objects.equals(this.flow, validateConstraintViolation.flow) &&
+        Objects.equals(this.constraints, validateConstraintViolation.constraints) &&
+        Objects.equals(this.outdated, validateConstraintViolation.outdated) &&
+        Objects.equals(this.deprecationPaths, validateConstraintViolation.deprecationPaths) &&
+        Objects.equals(this.warnings, validateConstraintViolation.warnings) &&
+        Objects.equals(this.infos, validateConstraintViolation.infos);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(index, filename, namespace, flow, constraints, outdated, deprecationPaths, warnings, infos);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ValidateConstraintViolation {\n");
+    sb.append("    index: ").append(toIndentedString(index)).append("\n");
+    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flow: ").append(toIndentedString(flow)).append("\n");
+    sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
+    sb.append("    outdated: ").append(toIndentedString(outdated)).append("\n");
+    sb.append("    deprecationPaths: ").append(toIndentedString(deprecationPaths)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    infos: ").append(toIndentedString(infos)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

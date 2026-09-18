@@ -1,0 +1,231 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TestSuiteRunResult;
+import io.kestra.sdk.model.TestSuiteServiceRunByQueryRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteServiceTestRunByQueryResult
+ */
+@JsonPropertyOrder({
+  TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_REQUEST_MADE,
+  TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_TENANT_ID,
+  TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN,
+  TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN,
+  TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_RESULTS
+})
+@JsonTypeName("TestSuiteService.TestRunByQueryResult")
+public class TestSuiteServiceTestRunByQueryResult {
+  public static final String JSON_PROPERTY_REQUEST_MADE = "requestMade";
+  @jakarta.annotation.Nullable  private TestSuiteServiceRunByQueryRequest requestMade;
+
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @jakarta.annotation.Nullable  private String tenantId;
+
+  public static final String JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN = "numberOfTestSuitesToBeRun";
+  @jakarta.annotation.Nullable  private Integer numberOfTestSuitesToBeRun;
+
+  public static final String JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN = "numberOfTestCasesToBeRun";
+  @jakarta.annotation.Nullable  private Integer numberOfTestCasesToBeRun;
+
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
+
+  public TestSuiteServiceTestRunByQueryResult() {
+  }
+
+  public TestSuiteServiceTestRunByQueryResult requestMade(@jakarta.annotation.Nullable TestSuiteServiceRunByQueryRequest requestMade) {
+    
+    this.requestMade = requestMade;
+    return this;
+  }
+
+  /**
+   * Get requestMade
+   * @return requestMade
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUEST_MADE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TestSuiteServiceRunByQueryRequest getRequestMade() {
+    return requestMade;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUEST_MADE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequestMade(@jakarta.annotation.Nullable TestSuiteServiceRunByQueryRequest requestMade) {
+    this.requestMade = requestMade;
+  }
+
+  public TestSuiteServiceTestRunByQueryResult tenantId(@jakarta.annotation.Nullable String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
+    this.tenantId = tenantId;
+  }
+
+  public TestSuiteServiceTestRunByQueryResult numberOfTestSuitesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestSuitesToBeRun) {
+    
+    this.numberOfTestSuitesToBeRun = numberOfTestSuitesToBeRun;
+    return this;
+  }
+
+  /**
+   * Get numberOfTestSuitesToBeRun
+   * @return numberOfTestSuitesToBeRun
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getNumberOfTestSuitesToBeRun() {
+    return numberOfTestSuitesToBeRun;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumberOfTestSuitesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestSuitesToBeRun) {
+    this.numberOfTestSuitesToBeRun = numberOfTestSuitesToBeRun;
+  }
+
+  public TestSuiteServiceTestRunByQueryResult numberOfTestCasesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestCasesToBeRun) {
+    
+    this.numberOfTestCasesToBeRun = numberOfTestCasesToBeRun;
+    return this;
+  }
+
+  /**
+   * Get numberOfTestCasesToBeRun
+   * @return numberOfTestCasesToBeRun
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getNumberOfTestCasesToBeRun() {
+    return numberOfTestCasesToBeRun;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumberOfTestCasesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestCasesToBeRun) {
+    this.numberOfTestCasesToBeRun = numberOfTestCasesToBeRun;
+  }
+
+  public TestSuiteServiceTestRunByQueryResult results(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public TestSuiteServiceTestRunByQueryResult addResultsItem(TestSuiteRunResult resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TestSuiteRunResult> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
+    this.results = results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteServiceTestRunByQueryResult testSuiteServiceTestRunByQueryResult = (TestSuiteServiceTestRunByQueryResult) o;
+    return Objects.equals(this.requestMade, testSuiteServiceTestRunByQueryResult.requestMade) &&
+        Objects.equals(this.tenantId, testSuiteServiceTestRunByQueryResult.tenantId) &&
+        Objects.equals(this.numberOfTestSuitesToBeRun, testSuiteServiceTestRunByQueryResult.numberOfTestSuitesToBeRun) &&
+        Objects.equals(this.numberOfTestCasesToBeRun, testSuiteServiceTestRunByQueryResult.numberOfTestCasesToBeRun) &&
+        Objects.equals(this.results, testSuiteServiceTestRunByQueryResult.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(requestMade, tenantId, numberOfTestSuitesToBeRun, numberOfTestCasesToBeRun, results);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteServiceTestRunByQueryResult {\n");
+    sb.append("    requestMade: ").append(toIndentedString(requestMade)).append("\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+    sb.append("    numberOfTestSuitesToBeRun: ").append(toIndentedString(numberOfTestSuitesToBeRun)).append("\n");
+    sb.append("    numberOfTestCasesToBeRun: ").append(toIndentedString(numberOfTestCasesToBeRun)).append("\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

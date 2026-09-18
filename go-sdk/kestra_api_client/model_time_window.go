@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the TimeWindow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TimeWindow{}
+
+// TimeWindow struct for TimeWindow
+type TimeWindow struct {
+	Default *string `json:"default,omitempty"`
+	Max *string `json:"max,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _TimeWindow TimeWindow
+
+// NewTimeWindow instantiates a new TimeWindow object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTimeWindow() *TimeWindow {
+	this := TimeWindow{}
+	return &this
+}
+
+// NewTimeWindowWithDefaults instantiates a new TimeWindow object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTimeWindowWithDefaults() *TimeWindow {
+	this := TimeWindow{}
+	return &this
+}
+
+// GetDefault returns the Default field value if set, zero value otherwise.
+func (o *TimeWindow) GetDefault() string {
+	if o == nil || IsNil(o.Default) {
+		var ret string
+		return ret
+	}
+	return *o.Default
+}
+
+// GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeWindow) GetDefaultOk() (*string, bool) {
+	if o == nil || IsNil(o.Default) {
+		return nil, false
+	}
+	return o.Default, true
+}
+
+// HasDefault returns a boolean if a field has been set.
+func (o *TimeWindow) HasDefault() bool {
+	if o != nil && !IsNil(o.Default) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefault gets a reference to the given string and assigns it to the Default field.
+func (o *TimeWindow) SetDefault(v string) {
+	o.Default = &v
+}
+
+// GetMax returns the Max field value if set, zero value otherwise.
+func (o *TimeWindow) GetMax() string {
+	if o == nil || IsNil(o.Max) {
+		var ret string
+		return ret
+	}
+	return *o.Max
+}
+
+// GetMaxOk returns a tuple with the Max field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeWindow) GetMaxOk() (*string, bool) {
+	if o == nil || IsNil(o.Max) {
+		return nil, false
+	}
+	return o.Max, true
+}
+
+// HasMax returns a boolean if a field has been set.
+func (o *TimeWindow) HasMax() bool {
+	if o != nil && !IsNil(o.Max) {
+		return true
+	}
+
+	return false
+}
+
+// SetMax gets a reference to the given string and assigns it to the Max field.
+func (o *TimeWindow) SetMax(v string) {
+	o.Max = &v
+}
+
+func (o TimeWindow) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TimeWindow) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Default) {
+		toSerialize["default"] = o.Default
+	}
+	if !IsNil(o.Max) {
+		toSerialize["max"] = o.Max
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *TimeWindow) UnmarshalJSON(data []byte) (err error) {
+	varTimeWindow := _TimeWindow{}
+
+	err = json.Unmarshal(data, &varTimeWindow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TimeWindow(varTimeWindow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "max")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableTimeWindow struct {
+	value *TimeWindow
+	isSet bool
+}
+
+func (v NullableTimeWindow) Get() *TimeWindow {
+	return v.value
+}
+
+func (v *NullableTimeWindow) Set(val *TimeWindow) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTimeWindow) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTimeWindow) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTimeWindow(val *TimeWindow) *NullableTimeWindow {
+	return &NullableTimeWindow{value: val, isSet: true}
+}
+
+func (v NullableTimeWindow) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTimeWindow) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

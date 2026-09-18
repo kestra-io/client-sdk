@@ -1,0 +1,786 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the Namespace type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Namespace{}
+
+// Namespace struct for Namespace
+type Namespace struct {
+	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
+	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
+	Deleted bool `json:"deleted"`
+	Description *string `json:"description,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	AllowedNamespaces []NamespaceAllowedNamespace `json:"allowedNamespaces,omitempty"`
+	DefaultWorkerSelector *WorkerSelector `json:"defaultWorkerSelector,omitempty"`
+	// The concurrency limit applying to the executions of every flow inside this namespace and its descendants.
+	Concurrency *Concurrency `json:"concurrency,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	StorageConfiguration map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
+	SecretConfiguration map[string]interface{} `json:"secretConfiguration,omitempty"`
+	WorkerSecretManagerMode *SecretConfigurationWorkerSecretManagerMode `json:"workerSecretManagerMode,omitempty"`
+	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
+	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	Quotas []Quota `json:"quotas,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Namespace Namespace
+
+// NewNamespace instantiates a new Namespace object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewNamespace(id string, deleted bool) *Namespace {
+	this := Namespace{}
+	this.Id = id
+	this.Deleted = deleted
+	return &this
+}
+
+// NewNamespaceWithDefaults instantiates a new Namespace object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewNamespaceWithDefaults() *Namespace {
+	this := Namespace{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *Namespace) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Namespace) SetId(v string) {
+	o.Id = v
+}
+
+// GetStorageIsolation returns the StorageIsolation field value if set, zero value otherwise.
+func (o *Namespace) GetStorageIsolation() Isolation {
+	if o == nil || IsNil(o.StorageIsolation) {
+		var ret Isolation
+		return ret
+	}
+	return *o.StorageIsolation
+}
+
+// GetStorageIsolationOk returns a tuple with the StorageIsolation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetStorageIsolationOk() (*Isolation, bool) {
+	if o == nil || IsNil(o.StorageIsolation) {
+		return nil, false
+	}
+	return o.StorageIsolation, true
+}
+
+// HasStorageIsolation returns a boolean if a field has been set.
+func (o *Namespace) HasStorageIsolation() bool {
+	if o != nil && !IsNil(o.StorageIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageIsolation gets a reference to the given Isolation and assigns it to the StorageIsolation field.
+func (o *Namespace) SetStorageIsolation(v Isolation) {
+	o.StorageIsolation = &v
+}
+
+// GetSecretIsolation returns the SecretIsolation field value if set, zero value otherwise.
+func (o *Namespace) GetSecretIsolation() Isolation {
+	if o == nil || IsNil(o.SecretIsolation) {
+		var ret Isolation
+		return ret
+	}
+	return *o.SecretIsolation
+}
+
+// GetSecretIsolationOk returns a tuple with the SecretIsolation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSecretIsolationOk() (*Isolation, bool) {
+	if o == nil || IsNil(o.SecretIsolation) {
+		return nil, false
+	}
+	return o.SecretIsolation, true
+}
+
+// HasSecretIsolation returns a boolean if a field has been set.
+func (o *Namespace) HasSecretIsolation() bool {
+	if o != nil && !IsNil(o.SecretIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretIsolation gets a reference to the given Isolation and assigns it to the SecretIsolation field.
+func (o *Namespace) SetSecretIsolation(v Isolation) {
+	o.SecretIsolation = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *Namespace) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *Namespace) SetDeleted(v bool) {
+	o.Deleted = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Namespace) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Namespace) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Namespace) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *Namespace) GetVariables() map[string]interface{} {
+	if o == nil || IsNil(o.Variables) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetVariablesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return map[string]interface{}{}, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *Namespace) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *Namespace) SetVariables(v map[string]interface{}) {
+	o.Variables = v
+}
+
+// GetAllowedNamespaces returns the AllowedNamespaces field value if set, zero value otherwise.
+func (o *Namespace) GetAllowedNamespaces() []NamespaceAllowedNamespace {
+	if o == nil || IsNil(o.AllowedNamespaces) {
+		var ret []NamespaceAllowedNamespace
+		return ret
+	}
+	return o.AllowedNamespaces
+}
+
+// GetAllowedNamespacesOk returns a tuple with the AllowedNamespaces field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetAllowedNamespacesOk() ([]NamespaceAllowedNamespace, bool) {
+	if o == nil || IsNil(o.AllowedNamespaces) {
+		return nil, false
+	}
+	return o.AllowedNamespaces, true
+}
+
+// HasAllowedNamespaces returns a boolean if a field has been set.
+func (o *Namespace) HasAllowedNamespaces() bool {
+	if o != nil && !IsNil(o.AllowedNamespaces) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedNamespaces gets a reference to the given []NamespaceAllowedNamespace and assigns it to the AllowedNamespaces field.
+func (o *Namespace) SetAllowedNamespaces(v []NamespaceAllowedNamespace) {
+	o.AllowedNamespaces = v
+}
+
+// GetDefaultWorkerSelector returns the DefaultWorkerSelector field value if set, zero value otherwise.
+func (o *Namespace) GetDefaultWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		var ret WorkerSelector
+		return ret
+	}
+	return *o.DefaultWorkerSelector
+}
+
+// GetDefaultWorkerSelectorOk returns a tuple with the DefaultWorkerSelector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetDefaultWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		return nil, false
+	}
+	return o.DefaultWorkerSelector, true
+}
+
+// HasDefaultWorkerSelector returns a boolean if a field has been set.
+func (o *Namespace) HasDefaultWorkerSelector() bool {
+	if o != nil && !IsNil(o.DefaultWorkerSelector) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultWorkerSelector gets a reference to the given WorkerSelector and assigns it to the DefaultWorkerSelector field.
+func (o *Namespace) SetDefaultWorkerSelector(v WorkerSelector) {
+	o.DefaultWorkerSelector = &v
+}
+
+// GetConcurrency returns the Concurrency field value if set, zero value otherwise.
+func (o *Namespace) GetConcurrency() Concurrency {
+	if o == nil || IsNil(o.Concurrency) {
+		var ret Concurrency
+		return ret
+	}
+	return *o.Concurrency
+}
+
+// GetConcurrencyOk returns a tuple with the Concurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetConcurrencyOk() (*Concurrency, bool) {
+	if o == nil || IsNil(o.Concurrency) {
+		return nil, false
+	}
+	return o.Concurrency, true
+}
+
+// HasConcurrency returns a boolean if a field has been set.
+func (o *Namespace) HasConcurrency() bool {
+	if o != nil && !IsNil(o.Concurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetConcurrency gets a reference to the given Concurrency and assigns it to the Concurrency field.
+func (o *Namespace) SetConcurrency(v Concurrency) {
+	o.Concurrency = &v
+}
+
+// GetStorageType returns the StorageType field value if set, zero value otherwise.
+func (o *Namespace) GetStorageType() string {
+	if o == nil || IsNil(o.StorageType) {
+		var ret string
+		return ret
+	}
+	return *o.StorageType
+}
+
+// GetStorageTypeOk returns a tuple with the StorageType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetStorageTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.StorageType) {
+		return nil, false
+	}
+	return o.StorageType, true
+}
+
+// HasStorageType returns a boolean if a field has been set.
+func (o *Namespace) HasStorageType() bool {
+	if o != nil && !IsNil(o.StorageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageType gets a reference to the given string and assigns it to the StorageType field.
+func (o *Namespace) SetStorageType(v string) {
+	o.StorageType = &v
+}
+
+// GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
+func (o *Namespace) GetStorageConfiguration() map[string]interface{} {
+	if o == nil || IsNil(o.StorageConfiguration) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.StorageConfiguration
+}
+
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetStorageConfigurationOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.StorageConfiguration) {
+		return map[string]interface{}{}, false
+	}
+	return o.StorageConfiguration, true
+}
+
+// HasStorageConfiguration returns a boolean if a field has been set.
+func (o *Namespace) HasStorageConfiguration() bool {
+	if o != nil && !IsNil(o.StorageConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageConfiguration gets a reference to the given map[string]interface{} and assigns it to the StorageConfiguration field.
+func (o *Namespace) SetStorageConfiguration(v map[string]interface{}) {
+	o.StorageConfiguration = v
+}
+
+// GetSecretType returns the SecretType field value if set, zero value otherwise.
+func (o *Namespace) GetSecretType() string {
+	if o == nil || IsNil(o.SecretType) {
+		var ret string
+		return ret
+	}
+	return *o.SecretType
+}
+
+// GetSecretTypeOk returns a tuple with the SecretType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSecretTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.SecretType) {
+		return nil, false
+	}
+	return o.SecretType, true
+}
+
+// HasSecretType returns a boolean if a field has been set.
+func (o *Namespace) HasSecretType() bool {
+	if o != nil && !IsNil(o.SecretType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretType gets a reference to the given string and assigns it to the SecretType field.
+func (o *Namespace) SetSecretType(v string) {
+	o.SecretType = &v
+}
+
+// GetSecretReadOnly returns the SecretReadOnly field value if set, zero value otherwise.
+func (o *Namespace) GetSecretReadOnly() bool {
+	if o == nil || IsNil(o.SecretReadOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.SecretReadOnly
+}
+
+// GetSecretReadOnlyOk returns a tuple with the SecretReadOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSecretReadOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.SecretReadOnly) {
+		return nil, false
+	}
+	return o.SecretReadOnly, true
+}
+
+// HasSecretReadOnly returns a boolean if a field has been set.
+func (o *Namespace) HasSecretReadOnly() bool {
+	if o != nil && !IsNil(o.SecretReadOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretReadOnly gets a reference to the given bool and assigns it to the SecretReadOnly field.
+func (o *Namespace) SetSecretReadOnly(v bool) {
+	o.SecretReadOnly = &v
+}
+
+// GetSecretConfiguration returns the SecretConfiguration field value if set, zero value otherwise.
+func (o *Namespace) GetSecretConfiguration() map[string]interface{} {
+	if o == nil || IsNil(o.SecretConfiguration) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.SecretConfiguration
+}
+
+// GetSecretConfigurationOk returns a tuple with the SecretConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSecretConfigurationOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.SecretConfiguration) {
+		return map[string]interface{}{}, false
+	}
+	return o.SecretConfiguration, true
+}
+
+// HasSecretConfiguration returns a boolean if a field has been set.
+func (o *Namespace) HasSecretConfiguration() bool {
+	if o != nil && !IsNil(o.SecretConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretConfiguration gets a reference to the given map[string]interface{} and assigns it to the SecretConfiguration field.
+func (o *Namespace) SetSecretConfiguration(v map[string]interface{}) {
+	o.SecretConfiguration = v
+}
+
+// GetWorkerSecretManagerMode returns the WorkerSecretManagerMode field value if set, zero value otherwise.
+func (o *Namespace) GetWorkerSecretManagerMode() SecretConfigurationWorkerSecretManagerMode {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		var ret SecretConfigurationWorkerSecretManagerMode
+		return ret
+	}
+	return *o.WorkerSecretManagerMode
+}
+
+// GetWorkerSecretManagerModeOk returns a tuple with the WorkerSecretManagerMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetWorkerSecretManagerModeOk() (*SecretConfigurationWorkerSecretManagerMode, bool) {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		return nil, false
+	}
+	return o.WorkerSecretManagerMode, true
+}
+
+// HasWorkerSecretManagerMode returns a boolean if a field has been set.
+func (o *Namespace) HasWorkerSecretManagerMode() bool {
+	if o != nil && !IsNil(o.WorkerSecretManagerMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSecretManagerMode gets a reference to the given SecretConfigurationWorkerSecretManagerMode and assigns it to the WorkerSecretManagerMode field.
+func (o *Namespace) SetWorkerSecretManagerMode(v SecretConfigurationWorkerSecretManagerMode) {
+	o.WorkerSecretManagerMode = &v
+}
+
+// GetOutputsInInternalStorage returns the OutputsInInternalStorage field value if set, zero value otherwise.
+func (o *Namespace) GetOutputsInInternalStorage() bool {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
+		var ret bool
+		return ret
+	}
+	return *o.OutputsInInternalStorage
+}
+
+// GetOutputsInInternalStorageOk returns a tuple with the OutputsInInternalStorage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetOutputsInInternalStorageOk() (*bool, bool) {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
+		return nil, false
+	}
+	return o.OutputsInInternalStorage, true
+}
+
+// HasOutputsInInternalStorage returns a boolean if a field has been set.
+func (o *Namespace) HasOutputsInInternalStorage() bool {
+	if o != nil && !IsNil(o.OutputsInInternalStorage) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputsInInternalStorage gets a reference to the given bool and assigns it to the OutputsInInternalStorage field.
+func (o *Namespace) SetOutputsInInternalStorage(v bool) {
+	o.OutputsInInternalStorage = &v
+}
+
+// GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
+func (o *Namespace) GetSdkDefaultAuthentication() SDKAuth {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		var ret SDKAuth
+		return ret
+	}
+	return *o.SdkDefaultAuthentication
+}
+
+// GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool) {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		return nil, false
+	}
+	return o.SdkDefaultAuthentication, true
+}
+
+// HasSdkDefaultAuthentication returns a boolean if a field has been set.
+func (o *Namespace) HasSdkDefaultAuthentication() bool {
+	if o != nil && !IsNil(o.SdkDefaultAuthentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetSdkDefaultAuthentication gets a reference to the given SDKAuth and assigns it to the SdkDefaultAuthentication field.
+func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth) {
+	o.SdkDefaultAuthentication = &v
+}
+
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *Namespace) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *Namespace) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *Namespace) SetQuotas(v []Quota) {
+	o.Quotas = v
+}
+
+func (o Namespace) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Namespace) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.StorageIsolation) {
+		toSerialize["storageIsolation"] = o.StorageIsolation
+	}
+	if !IsNil(o.SecretIsolation) {
+		toSerialize["secretIsolation"] = o.SecretIsolation
+	}
+	toSerialize["deleted"] = o.Deleted
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
+	if !IsNil(o.AllowedNamespaces) {
+		toSerialize["allowedNamespaces"] = o.AllowedNamespaces
+	}
+	if !IsNil(o.DefaultWorkerSelector) {
+		toSerialize["defaultWorkerSelector"] = o.DefaultWorkerSelector
+	}
+	if !IsNil(o.Concurrency) {
+		toSerialize["concurrency"] = o.Concurrency
+	}
+	if !IsNil(o.StorageType) {
+		toSerialize["storageType"] = o.StorageType
+	}
+	if !IsNil(o.StorageConfiguration) {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	}
+	if !IsNil(o.SecretType) {
+		toSerialize["secretType"] = o.SecretType
+	}
+	if !IsNil(o.SecretReadOnly) {
+		toSerialize["secretReadOnly"] = o.SecretReadOnly
+	}
+	if !IsNil(o.SecretConfiguration) {
+		toSerialize["secretConfiguration"] = o.SecretConfiguration
+	}
+	if !IsNil(o.WorkerSecretManagerMode) {
+		toSerialize["workerSecretManagerMode"] = o.WorkerSecretManagerMode
+	}
+	if !IsNil(o.OutputsInInternalStorage) {
+		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
+	}
+	if !IsNil(o.SdkDefaultAuthentication) {
+		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"deleted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNamespace := _Namespace{}
+
+	err = json.Unmarshal(data, &varNamespace)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Namespace(varNamespace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "storageIsolation")
+		delete(additionalProperties, "secretIsolation")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "allowedNamespaces")
+		delete(additionalProperties, "defaultWorkerSelector")
+		delete(additionalProperties, "concurrency")
+		delete(additionalProperties, "storageType")
+		delete(additionalProperties, "storageConfiguration")
+		delete(additionalProperties, "secretType")
+		delete(additionalProperties, "secretReadOnly")
+		delete(additionalProperties, "secretConfiguration")
+		delete(additionalProperties, "workerSecretManagerMode")
+		delete(additionalProperties, "outputsInInternalStorage")
+		delete(additionalProperties, "sdkDefaultAuthentication")
+		delete(additionalProperties, "quotas")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableNamespace struct {
+	value *Namespace
+	isSet bool
+}
+
+func (v NullableNamespace) Get() *Namespace {
+	return v.value
+}
+
+func (v *NullableNamespace) Set(val *Namespace) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableNamespace) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableNamespace) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableNamespace(val *Namespace) *NullableNamespace {
+	return &NullableNamespace{value: val, isSet: true}
+}
+
+func (v NullableNamespace) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableNamespace) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

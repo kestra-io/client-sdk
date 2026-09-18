@@ -1,0 +1,320 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AppsControllerApiAppSource
+ */
+@JsonPropertyOrder({
+  AppsControllerApiAppSource.JSON_PROPERTY_UID,
+  AppsControllerApiAppSource.JSON_PROPERTY_NAME,
+  AppsControllerApiAppSource.JSON_PROPERTY_NAMESPACE,
+  AppsControllerApiAppSource.JSON_PROPERTY_TAGS,
+  AppsControllerApiAppSource.JSON_PROPERTY_DISABLED,
+  AppsControllerApiAppSource.JSON_PROPERTY_SOURCE,
+  AppsControllerApiAppSource.JSON_PROPERTY_CREATED,
+  AppsControllerApiAppSource.JSON_PROPERTY_UPDATED
+})
+@JsonTypeName("AppsController.ApiAppSource")
+public class AppsControllerApiAppSource {
+  public static final String JSON_PROPERTY_UID = "uid";
+  @jakarta.annotation.Nullable  private String uid;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nullable  private Boolean disabled;
+
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_CREATED = "created";
+  @jakarta.annotation.Nullable  private OffsetDateTime created;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public AppsControllerApiAppSource() {
+  }
+
+  public AppsControllerApiAppSource uid(@jakarta.annotation.Nullable String uid) {
+    
+    this.uid = uid;
+    return this;
+  }
+
+  /**
+   * Get uid
+   * @return uid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUid() {
+    return uid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
+    this.uid = uid;
+  }
+
+  public AppsControllerApiAppSource name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public AppsControllerApiAppSource namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
+  }
+
+  public AppsControllerApiAppSource tags(@jakarta.annotation.Nullable List<String> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public AppsControllerApiAppSource addTagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
+    this.tags = tags;
+  }
+
+  public AppsControllerApiAppSource disabled(@jakarta.annotation.Nullable Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public AppsControllerApiAppSource source(@jakarta.annotation.Nullable String source) {
+    
+    this.source = source;
+    return this;
+  }
+
+  /**
+   * Get source
+   * @return source
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
+    this.source = source;
+  }
+
+  public AppsControllerApiAppSource created(@jakarta.annotation.Nullable OffsetDateTime created) {
+    
+    this.created = created;
+    return this;
+  }
+
+  /**
+   * Get created
+   * @return created
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreated() {
+    return created;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreated(@jakarta.annotation.Nullable OffsetDateTime created) {
+    this.created = created;
+  }
+
+  public AppsControllerApiAppSource updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * Get updated
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AppsControllerApiAppSource appsControllerApiAppSource = (AppsControllerApiAppSource) o;
+    return Objects.equals(this.uid, appsControllerApiAppSource.uid) &&
+        Objects.equals(this.name, appsControllerApiAppSource.name) &&
+        Objects.equals(this.namespace, appsControllerApiAppSource.namespace) &&
+        Objects.equals(this.tags, appsControllerApiAppSource.tags) &&
+        Objects.equals(this.disabled, appsControllerApiAppSource.disabled) &&
+        Objects.equals(this.source, appsControllerApiAppSource.source) &&
+        Objects.equals(this.created, appsControllerApiAppSource.created) &&
+        Objects.equals(this.updated, appsControllerApiAppSource.updated);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uid, name, namespace, tags, disabled, source, created, updated);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AppsControllerApiAppSource {\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

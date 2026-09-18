@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the Relation1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Relation1{}
+
+// Relation1 struct for Relation1
+type Relation1 struct {
+	RelationType *RelationType `json:"relationType,omitempty"`
+	Value *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _Relation1 Relation1
+
+// NewRelation1 instantiates a new Relation1 object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewRelation1() *Relation1 {
+	this := Relation1{}
+	return &this
+}
+
+// NewRelation1WithDefaults instantiates a new Relation1 object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewRelation1WithDefaults() *Relation1 {
+	this := Relation1{}
+	return &this
+}
+
+// GetRelationType returns the RelationType field value if set, zero value otherwise.
+func (o *Relation1) GetRelationType() RelationType {
+	if o == nil || IsNil(o.RelationType) {
+		var ret RelationType
+		return ret
+	}
+	return *o.RelationType
+}
+
+// GetRelationTypeOk returns a tuple with the RelationType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Relation1) GetRelationTypeOk() (*RelationType, bool) {
+	if o == nil || IsNil(o.RelationType) {
+		return nil, false
+	}
+	return o.RelationType, true
+}
+
+// HasRelationType returns a boolean if a field has been set.
+func (o *Relation1) HasRelationType() bool {
+	if o != nil && !IsNil(o.RelationType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRelationType gets a reference to the given RelationType and assigns it to the RelationType field.
+func (o *Relation1) SetRelationType(v RelationType) {
+	o.RelationType = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *Relation1) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Relation1) GetValueOk() (*string, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *Relation1) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *Relation1) SetValue(v string) {
+	o.Value = &v
+}
+
+func (o Relation1) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Relation1) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RelationType) {
+		toSerialize["relationType"] = o.RelationType
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *Relation1) UnmarshalJSON(data []byte) (err error) {
+	varRelation1 := _Relation1{}
+
+	err = json.Unmarshal(data, &varRelation1)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Relation1(varRelation1)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "relationType")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableRelation1 struct {
+	value *Relation1
+	isSet bool
+}
+
+func (v NullableRelation1) Get() *Relation1 {
+	return v.value
+}
+
+func (v *NullableRelation1) Set(val *Relation1) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableRelation1) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableRelation1) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableRelation1(val *Relation1) *NullableRelation1 {
+	return &NullableRelation1{value: val, isSet: true}
+}
+
+func (v NullableRelation1) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableRelation1) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

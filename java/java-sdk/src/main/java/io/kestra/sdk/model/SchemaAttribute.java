@@ -1,0 +1,587 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.SchemaAttributeMutability;
+import io.kestra.sdk.model.SchemaAttributeReturned;
+import io.kestra.sdk.model.SchemaAttributeType;
+import io.kestra.sdk.model.SchemaAttributeUniqueness;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * SchemaAttribute
+ */
+@JsonPropertyOrder({
+  SchemaAttribute.JSON_PROPERTY_ATTRIBUTES,
+  SchemaAttribute.JSON_PROPERTY_URN,
+  SchemaAttribute.JSON_PROPERTY_NAME,
+  SchemaAttribute.JSON_PROPERTY_TYPE,
+  SchemaAttribute.JSON_PROPERTY_SUB_ATTRIBUTES,
+  SchemaAttribute.JSON_PROPERTY_MULTI_VALUED,
+  SchemaAttribute.JSON_PROPERTY_DESCRIPTION,
+  SchemaAttribute.JSON_PROPERTY_REQUIRED,
+  SchemaAttribute.JSON_PROPERTY_CANONICAL_VALUES,
+  SchemaAttribute.JSON_PROPERTY_CASE_EXACT,
+  SchemaAttribute.JSON_PROPERTY_MUTABILITY,
+  SchemaAttribute.JSON_PROPERTY_RETURNED,
+  SchemaAttribute.JSON_PROPERTY_UNIQUENESS,
+  SchemaAttribute.JSON_PROPERTY_REFERENCE_TYPES,
+  SchemaAttribute.JSON_PROPERTY_ACCESSOR,
+  SchemaAttribute.JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE
+})
+@JsonTypeName("Schema.Attribute")
+public class SchemaAttribute {
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  @jakarta.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_URN = "urn";
+  @jakarta.annotation.Nullable  private String urn;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private SchemaAttributeType type;
+
+  public static final String JSON_PROPERTY_SUB_ATTRIBUTES = "subAttributes";
+  @jakarta.annotation.Nullable  private List<SchemaAttribute> subAttributes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_MULTI_VALUED = "multiValued";
+  @jakarta.annotation.Nullable  private Boolean multiValued;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_REQUIRED = "required";
+  @jakarta.annotation.Nullable  private Boolean required;
+
+  public static final String JSON_PROPERTY_CANONICAL_VALUES = "canonicalValues";
+  @jakarta.annotation.Nullable  private List<String> canonicalValues = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CASE_EXACT = "caseExact";
+  @jakarta.annotation.Nullable  private Boolean caseExact;
+
+  public static final String JSON_PROPERTY_MUTABILITY = "mutability";
+  @jakarta.annotation.Nullable  private SchemaAttributeMutability mutability;
+
+  public static final String JSON_PROPERTY_RETURNED = "returned";
+  @jakarta.annotation.Nullable  private SchemaAttributeReturned returned;
+
+  public static final String JSON_PROPERTY_UNIQUENESS = "uniqueness";
+  @jakarta.annotation.Nullable  private SchemaAttributeUniqueness uniqueness;
+
+  public static final String JSON_PROPERTY_REFERENCE_TYPES = "referenceTypes";
+  @jakarta.annotation.Nullable  private List<String> referenceTypes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ACCESSOR = "accessor";
+  @jakarta.annotation.Nullable  private Object accessor;
+
+  public static final String JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE = "scimResourceIdReference";
+  @jakarta.annotation.Nullable  private Boolean scimResourceIdReference;
+
+  public SchemaAttribute() {
+  }
+
+  public SchemaAttribute attributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
+    
+    this.attributes = attributes;
+    return this;
+  }
+
+  public SchemaAttribute addAttributesItem(SchemaAttribute attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new ArrayList<>();
+    }
+    this.attributes.add(attributesItem);
+    return this;
+  }
+
+  /**
+   * Get attributes
+   * @return attributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SchemaAttribute> getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
+    this.attributes = attributes;
+  }
+
+  public SchemaAttribute urn(@jakarta.annotation.Nullable String urn) {
+    
+    this.urn = urn;
+    return this;
+  }
+
+  /**
+   * Get urn
+   * @return urn
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUrn() {
+    return urn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrn(@jakarta.annotation.Nullable String urn) {
+    this.urn = urn;
+  }
+
+  public SchemaAttribute name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public SchemaAttribute type(@jakarta.annotation.Nullable SchemaAttributeType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SchemaAttributeType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable SchemaAttributeType type) {
+    this.type = type;
+  }
+
+  public SchemaAttribute subAttributes(@jakarta.annotation.Nullable List<SchemaAttribute> subAttributes) {
+    
+    this.subAttributes = subAttributes;
+    return this;
+  }
+
+  public SchemaAttribute addSubAttributesItem(SchemaAttribute subAttributesItem) {
+    if (this.subAttributes == null) {
+      this.subAttributes = new ArrayList<>();
+    }
+    this.subAttributes.add(subAttributesItem);
+    return this;
+  }
+
+  /**
+   * Get subAttributes
+   * @return subAttributes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SchemaAttribute> getSubAttributes() {
+    return subAttributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubAttributes(@jakarta.annotation.Nullable List<SchemaAttribute> subAttributes) {
+    this.subAttributes = subAttributes;
+  }
+
+  public SchemaAttribute multiValued(@jakarta.annotation.Nullable Boolean multiValued) {
+    
+    this.multiValued = multiValued;
+    return this;
+  }
+
+  /**
+   * Get multiValued
+   * @return multiValued
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMultiValued() {
+    return multiValued;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMultiValued(@jakarta.annotation.Nullable Boolean multiValued) {
+    this.multiValued = multiValued;
+  }
+
+  public SchemaAttribute description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public SchemaAttribute required(@jakarta.annotation.Nullable Boolean required) {
+    
+    this.required = required;
+    return this;
+  }
+
+  /**
+   * Get required
+   * @return required
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequired() {
+    return required;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequired(@jakarta.annotation.Nullable Boolean required) {
+    this.required = required;
+  }
+
+  public SchemaAttribute canonicalValues(@jakarta.annotation.Nullable List<String> canonicalValues) {
+    
+    this.canonicalValues = canonicalValues;
+    return this;
+  }
+
+  public SchemaAttribute addCanonicalValuesItem(String canonicalValuesItem) {
+    if (this.canonicalValues == null) {
+      this.canonicalValues = new ArrayList<>();
+    }
+    this.canonicalValues.add(canonicalValuesItem);
+    return this;
+  }
+
+  /**
+   * Get canonicalValues
+   * @return canonicalValues
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getCanonicalValues() {
+    return canonicalValues;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCanonicalValues(@jakarta.annotation.Nullable List<String> canonicalValues) {
+    this.canonicalValues = canonicalValues;
+  }
+
+  public SchemaAttribute caseExact(@jakarta.annotation.Nullable Boolean caseExact) {
+    
+    this.caseExact = caseExact;
+    return this;
+  }
+
+  /**
+   * Get caseExact
+   * @return caseExact
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCaseExact() {
+    return caseExact;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCaseExact(@jakarta.annotation.Nullable Boolean caseExact) {
+    this.caseExact = caseExact;
+  }
+
+  public SchemaAttribute mutability(@jakarta.annotation.Nullable SchemaAttributeMutability mutability) {
+    
+    this.mutability = mutability;
+    return this;
+  }
+
+  /**
+   * Get mutability
+   * @return mutability
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MUTABILITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SchemaAttributeMutability getMutability() {
+    return mutability;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MUTABILITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMutability(@jakarta.annotation.Nullable SchemaAttributeMutability mutability) {
+    this.mutability = mutability;
+  }
+
+  public SchemaAttribute returned(@jakarta.annotation.Nullable SchemaAttributeReturned returned) {
+    
+    this.returned = returned;
+    return this;
+  }
+
+  /**
+   * Get returned
+   * @return returned
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETURNED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SchemaAttributeReturned getReturned() {
+    return returned;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RETURNED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReturned(@jakarta.annotation.Nullable SchemaAttributeReturned returned) {
+    this.returned = returned;
+  }
+
+  public SchemaAttribute uniqueness(@jakarta.annotation.Nullable SchemaAttributeUniqueness uniqueness) {
+    
+    this.uniqueness = uniqueness;
+    return this;
+  }
+
+  /**
+   * Get uniqueness
+   * @return uniqueness
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SchemaAttributeUniqueness getUniqueness() {
+    return uniqueness;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUniqueness(@jakarta.annotation.Nullable SchemaAttributeUniqueness uniqueness) {
+    this.uniqueness = uniqueness;
+  }
+
+  public SchemaAttribute referenceTypes(@jakarta.annotation.Nullable List<String> referenceTypes) {
+    
+    this.referenceTypes = referenceTypes;
+    return this;
+  }
+
+  public SchemaAttribute addReferenceTypesItem(String referenceTypesItem) {
+    if (this.referenceTypes == null) {
+      this.referenceTypes = new ArrayList<>();
+    }
+    this.referenceTypes.add(referenceTypesItem);
+    return this;
+  }
+
+  /**
+   * Get referenceTypes
+   * @return referenceTypes
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getReferenceTypes() {
+    return referenceTypes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReferenceTypes(@jakarta.annotation.Nullable List<String> referenceTypes) {
+    this.referenceTypes = referenceTypes;
+  }
+
+  public SchemaAttribute accessor(@jakarta.annotation.Nullable Object accessor) {
+    
+    this.accessor = accessor;
+    return this;
+  }
+
+  /**
+   * Get accessor
+   * @return accessor
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACCESSOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getAccessor() {
+    return accessor;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCESSOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAccessor(@jakarta.annotation.Nullable Object accessor) {
+    this.accessor = accessor;
+  }
+
+  public SchemaAttribute scimResourceIdReference(@jakarta.annotation.Nullable Boolean scimResourceIdReference) {
+    
+    this.scimResourceIdReference = scimResourceIdReference;
+    return this;
+  }
+
+  /**
+   * Get scimResourceIdReference
+   * @return scimResourceIdReference
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getScimResourceIdReference() {
+    return scimResourceIdReference;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setScimResourceIdReference(@jakarta.annotation.Nullable Boolean scimResourceIdReference) {
+    this.scimResourceIdReference = scimResourceIdReference;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SchemaAttribute schemaAttribute = (SchemaAttribute) o;
+    return Objects.equals(this.attributes, schemaAttribute.attributes) &&
+        Objects.equals(this.urn, schemaAttribute.urn) &&
+        Objects.equals(this.name, schemaAttribute.name) &&
+        Objects.equals(this.type, schemaAttribute.type) &&
+        Objects.equals(this.subAttributes, schemaAttribute.subAttributes) &&
+        Objects.equals(this.multiValued, schemaAttribute.multiValued) &&
+        Objects.equals(this.description, schemaAttribute.description) &&
+        Objects.equals(this.required, schemaAttribute.required) &&
+        Objects.equals(this.canonicalValues, schemaAttribute.canonicalValues) &&
+        Objects.equals(this.caseExact, schemaAttribute.caseExact) &&
+        Objects.equals(this.mutability, schemaAttribute.mutability) &&
+        Objects.equals(this.returned, schemaAttribute.returned) &&
+        Objects.equals(this.uniqueness, schemaAttribute.uniqueness) &&
+        Objects.equals(this.referenceTypes, schemaAttribute.referenceTypes) &&
+        Objects.equals(this.accessor, schemaAttribute.accessor) &&
+        Objects.equals(this.scimResourceIdReference, schemaAttribute.scimResourceIdReference);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attributes, urn, name, type, subAttributes, multiValued, description, required, canonicalValues, caseExact, mutability, returned, uniqueness, referenceTypes, accessor, scimResourceIdReference);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SchemaAttribute {\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    urn: ").append(toIndentedString(urn)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    subAttributes: ").append(toIndentedString(subAttributes)).append("\n");
+    sb.append("    multiValued: ").append(toIndentedString(multiValued)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    required: ").append(toIndentedString(required)).append("\n");
+    sb.append("    canonicalValues: ").append(toIndentedString(canonicalValues)).append("\n");
+    sb.append("    caseExact: ").append(toIndentedString(caseExact)).append("\n");
+    sb.append("    mutability: ").append(toIndentedString(mutability)).append("\n");
+    sb.append("    returned: ").append(toIndentedString(returned)).append("\n");
+    sb.append("    uniqueness: ").append(toIndentedString(uniqueness)).append("\n");
+    sb.append("    referenceTypes: ").append(toIndentedString(referenceTypes)).append("\n");
+    sb.append("    accessor: ").append(toIndentedString(accessor)).append("\n");
+    sb.append("    scimResourceIdReference: ").append(toIndentedString(scimResourceIdReference)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

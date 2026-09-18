@@ -1,0 +1,147 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PatchOperation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * PatchRequest
+ */
+@JsonPropertyOrder({
+  PatchRequest.JSON_PROPERTY_SCHEMAS,
+  PatchRequest.JSON_PROPERTY_PATCH_OPERATION_LIST
+})
+public class PatchRequest {
+  public static final String JSON_PROPERTY_SCHEMAS = "schemas";
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PATCH_OPERATION_LIST = "patchOperationList";
+  @jakarta.annotation.Nullable  private List<PatchOperation> patchOperationList = new ArrayList<>();
+
+  public PatchRequest() {
+  }
+
+  public PatchRequest schemas(@jakarta.annotation.Nullable List<String> schemas) {
+    
+    this.schemas = schemas;
+    return this;
+  }
+
+  public PatchRequest addSchemasItem(String schemasItem) {
+    if (this.schemas == null) {
+      this.schemas = new ArrayList<>();
+    }
+    this.schemas.add(schemasItem);
+    return this;
+  }
+
+  /**
+   * Get schemas
+   * @return schemas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSchemas() {
+    return schemas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
+    this.schemas = schemas;
+  }
+
+  public PatchRequest patchOperationList(@jakarta.annotation.Nullable List<PatchOperation> patchOperationList) {
+    
+    this.patchOperationList = patchOperationList;
+    return this;
+  }
+
+  public PatchRequest addPatchOperationListItem(PatchOperation patchOperationListItem) {
+    if (this.patchOperationList == null) {
+      this.patchOperationList = new ArrayList<>();
+    }
+    this.patchOperationList.add(patchOperationListItem);
+    return this;
+  }
+
+  /**
+   * Get patchOperationList
+   * @return patchOperationList
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PatchOperation> getPatchOperationList() {
+    return patchOperationList;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPatchOperationList(@jakarta.annotation.Nullable List<PatchOperation> patchOperationList) {
+    this.patchOperationList = patchOperationList;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PatchRequest patchRequest = (PatchRequest) o;
+    return Objects.equals(this.schemas, patchRequest.schemas) &&
+        Objects.equals(this.patchOperationList, patchRequest.patchOperationList);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas, patchOperationList);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PatchRequest {\n");
+    sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
+    sb.append("    patchOperationList: ").append(toIndentedString(patchOperationList)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

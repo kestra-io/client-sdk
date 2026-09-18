@@ -1,0 +1,50 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Instance-owner-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import json
+from enum import Enum
+from typing_extensions import Self
+
+
+class Type(str, Enum):
+    """
+    Type
+    """
+
+    """
+    allowed enum values
+    """
+    STRING = 'STRING'
+    SELECT = 'SELECT'
+    INT = 'INT'
+    FLOAT = 'FLOAT'
+    BOOL = 'BOOL'
+    DATETIME = 'DATETIME'
+    DATE = 'DATE'
+    TIME = 'TIME'
+    DURATION = 'DURATION'
+    FILE = 'FILE'
+    JSON = 'JSON'
+    ION = 'ION'
+    URI = 'URI'
+    SECRET = 'SECRET'
+    ARRAY = 'ARRAY'
+    MULTISELECT = 'MULTISELECT'
+    YAML = 'YAML'
+    EMAIL = 'EMAIL'
+    FORM = 'FORM'
+    REUSABLE_INPUTS = 'REUSABLE_INPUTS'
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Create an instance of Type from a JSON string"""
+        return cls(json.loads(json_str))
+
+

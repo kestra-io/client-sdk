@@ -1,0 +1,413 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the MiscControllerLicenseInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MiscControllerLicenseInfo{}
+
+// MiscControllerLicenseInfo struct for MiscControllerLicenseInfo
+type MiscControllerLicenseInfo struct {
+	Type *string `json:"type,omitempty"`
+	Expiry *time.Time `json:"expiry,omitempty"`
+	Expired *bool `json:"expired,omitempty"`
+	MaxServers *int32 `json:"maxServers,omitempty"`
+	Standalone *bool `json:"standalone,omitempty"`
+	WorkerGroups *bool `json:"workerGroups,omitempty"`
+	Online *bool `json:"online,omitempty"`
+	GracePeriod *time.Time `json:"gracePeriod,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MiscControllerLicenseInfo MiscControllerLicenseInfo
+
+// NewMiscControllerLicenseInfo instantiates a new MiscControllerLicenseInfo object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMiscControllerLicenseInfo() *MiscControllerLicenseInfo {
+	this := MiscControllerLicenseInfo{}
+	return &this
+}
+
+// NewMiscControllerLicenseInfoWithDefaults instantiates a new MiscControllerLicenseInfo object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMiscControllerLicenseInfoWithDefaults() *MiscControllerLicenseInfo {
+	this := MiscControllerLicenseInfo{}
+	return &this
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *MiscControllerLicenseInfo) SetType(v string) {
+	o.Type = &v
+}
+
+// GetExpiry returns the Expiry field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetExpiry() time.Time {
+	if o == nil || IsNil(o.Expiry) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Expiry
+}
+
+// GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetExpiryOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Expiry) {
+		return nil, false
+	}
+	return o.Expiry, true
+}
+
+// HasExpiry returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasExpiry() bool {
+	if o != nil && !IsNil(o.Expiry) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiry gets a reference to the given time.Time and assigns it to the Expiry field.
+func (o *MiscControllerLicenseInfo) SetExpiry(v time.Time) {
+	o.Expiry = &v
+}
+
+// GetExpired returns the Expired field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetExpired() bool {
+	if o == nil || IsNil(o.Expired) {
+		var ret bool
+		return ret
+	}
+	return *o.Expired
+}
+
+// GetExpiredOk returns a tuple with the Expired field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetExpiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Expired) {
+		return nil, false
+	}
+	return o.Expired, true
+}
+
+// HasExpired returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasExpired() bool {
+	if o != nil && !IsNil(o.Expired) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpired gets a reference to the given bool and assigns it to the Expired field.
+func (o *MiscControllerLicenseInfo) SetExpired(v bool) {
+	o.Expired = &v
+}
+
+// GetMaxServers returns the MaxServers field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetMaxServers() int32 {
+	if o == nil || IsNil(o.MaxServers) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxServers
+}
+
+// GetMaxServersOk returns a tuple with the MaxServers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetMaxServersOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxServers) {
+		return nil, false
+	}
+	return o.MaxServers, true
+}
+
+// HasMaxServers returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasMaxServers() bool {
+	if o != nil && !IsNil(o.MaxServers) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxServers gets a reference to the given int32 and assigns it to the MaxServers field.
+func (o *MiscControllerLicenseInfo) SetMaxServers(v int32) {
+	o.MaxServers = &v
+}
+
+// GetStandalone returns the Standalone field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetStandalone() bool {
+	if o == nil || IsNil(o.Standalone) {
+		var ret bool
+		return ret
+	}
+	return *o.Standalone
+}
+
+// GetStandaloneOk returns a tuple with the Standalone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetStandaloneOk() (*bool, bool) {
+	if o == nil || IsNil(o.Standalone) {
+		return nil, false
+	}
+	return o.Standalone, true
+}
+
+// HasStandalone returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasStandalone() bool {
+	if o != nil && !IsNil(o.Standalone) {
+		return true
+	}
+
+	return false
+}
+
+// SetStandalone gets a reference to the given bool and assigns it to the Standalone field.
+func (o *MiscControllerLicenseInfo) SetStandalone(v bool) {
+	o.Standalone = &v
+}
+
+// GetWorkerGroups returns the WorkerGroups field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetWorkerGroups() bool {
+	if o == nil || IsNil(o.WorkerGroups) {
+		var ret bool
+		return ret
+	}
+	return *o.WorkerGroups
+}
+
+// GetWorkerGroupsOk returns a tuple with the WorkerGroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetWorkerGroupsOk() (*bool, bool) {
+	if o == nil || IsNil(o.WorkerGroups) {
+		return nil, false
+	}
+	return o.WorkerGroups, true
+}
+
+// HasWorkerGroups returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasWorkerGroups() bool {
+	if o != nil && !IsNil(o.WorkerGroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroups gets a reference to the given bool and assigns it to the WorkerGroups field.
+func (o *MiscControllerLicenseInfo) SetWorkerGroups(v bool) {
+	o.WorkerGroups = &v
+}
+
+// GetOnline returns the Online field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetOnline() bool {
+	if o == nil || IsNil(o.Online) {
+		var ret bool
+		return ret
+	}
+	return *o.Online
+}
+
+// GetOnlineOk returns a tuple with the Online field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetOnlineOk() (*bool, bool) {
+	if o == nil || IsNil(o.Online) {
+		return nil, false
+	}
+	return o.Online, true
+}
+
+// HasOnline returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasOnline() bool {
+	if o != nil && !IsNil(o.Online) {
+		return true
+	}
+
+	return false
+}
+
+// SetOnline gets a reference to the given bool and assigns it to the Online field.
+func (o *MiscControllerLicenseInfo) SetOnline(v bool) {
+	o.Online = &v
+}
+
+// GetGracePeriod returns the GracePeriod field value if set, zero value otherwise.
+func (o *MiscControllerLicenseInfo) GetGracePeriod() time.Time {
+	if o == nil || IsNil(o.GracePeriod) {
+		var ret time.Time
+		return ret
+	}
+	return *o.GracePeriod
+}
+
+// GetGracePeriodOk returns a tuple with the GracePeriod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerLicenseInfo) GetGracePeriodOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.GracePeriod) {
+		return nil, false
+	}
+	return o.GracePeriod, true
+}
+
+// HasGracePeriod returns a boolean if a field has been set.
+func (o *MiscControllerLicenseInfo) HasGracePeriod() bool {
+	if o != nil && !IsNil(o.GracePeriod) {
+		return true
+	}
+
+	return false
+}
+
+// SetGracePeriod gets a reference to the given time.Time and assigns it to the GracePeriod field.
+func (o *MiscControllerLicenseInfo) SetGracePeriod(v time.Time) {
+	o.GracePeriod = &v
+}
+
+func (o MiscControllerLicenseInfo) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MiscControllerLicenseInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Expiry) {
+		toSerialize["expiry"] = o.Expiry
+	}
+	if !IsNil(o.Expired) {
+		toSerialize["expired"] = o.Expired
+	}
+	if !IsNil(o.MaxServers) {
+		toSerialize["maxServers"] = o.MaxServers
+	}
+	if !IsNil(o.Standalone) {
+		toSerialize["standalone"] = o.Standalone
+	}
+	if !IsNil(o.WorkerGroups) {
+		toSerialize["workerGroups"] = o.WorkerGroups
+	}
+	if !IsNil(o.Online) {
+		toSerialize["online"] = o.Online
+	}
+	if !IsNil(o.GracePeriod) {
+		toSerialize["gracePeriod"] = o.GracePeriod
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MiscControllerLicenseInfo) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerLicenseInfo := _MiscControllerLicenseInfo{}
+
+	err = json.Unmarshal(data, &varMiscControllerLicenseInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerLicenseInfo(varMiscControllerLicenseInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "expiry")
+		delete(additionalProperties, "expired")
+		delete(additionalProperties, "maxServers")
+		delete(additionalProperties, "standalone")
+		delete(additionalProperties, "workerGroups")
+		delete(additionalProperties, "online")
+		delete(additionalProperties, "gracePeriod")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMiscControllerLicenseInfo struct {
+	value *MiscControllerLicenseInfo
+	isSet bool
+}
+
+func (v NullableMiscControllerLicenseInfo) Get() *MiscControllerLicenseInfo {
+	return v.value
+}
+
+func (v *NullableMiscControllerLicenseInfo) Set(val *MiscControllerLicenseInfo) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMiscControllerLicenseInfo) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMiscControllerLicenseInfo) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMiscControllerLicenseInfo(val *MiscControllerLicenseInfo) *NullableMiscControllerLicenseInfo {
+	return &NullableMiscControllerLicenseInfo{value: val, isSet: true}
+}
+
+func (v NullableMiscControllerLicenseInfo) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMiscControllerLicenseInfo) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

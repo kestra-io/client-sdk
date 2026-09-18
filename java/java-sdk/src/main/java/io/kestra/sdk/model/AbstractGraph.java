@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AbstractGraphBranchType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AbstractGraph
+ */
+@JsonPropertyOrder({
+  AbstractGraph.JSON_PROPERTY_UID,
+  AbstractGraph.JSON_PROPERTY_TYPE,
+  AbstractGraph.JSON_PROPERTY_BRANCH_TYPE
+})
+public class AbstractGraph {
+  public static final String JSON_PROPERTY_UID = "uid";
+  @jakarta.annotation.Nullable  private String uid;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
+
+  public static final String JSON_PROPERTY_BRANCH_TYPE = "branchType";
+  @jakarta.annotation.Nullable  private AbstractGraphBranchType branchType;
+
+  public AbstractGraph() {
+  }
+
+  public AbstractGraph uid(@jakarta.annotation.Nullable String uid) {
+    
+    this.uid = uid;
+    return this;
+  }
+
+  /**
+   * Get uid
+   * @return uid
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUid() {
+    return uid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
+    this.uid = uid;
+  }
+
+  public AbstractGraph type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
+  public AbstractGraph branchType(@jakarta.annotation.Nullable AbstractGraphBranchType branchType) {
+    
+    this.branchType = branchType;
+    return this;
+  }
+
+  /**
+   * Get branchType
+   * @return branchType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AbstractGraphBranchType getBranchType() {
+    return branchType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBranchType(@jakarta.annotation.Nullable AbstractGraphBranchType branchType) {
+    this.branchType = branchType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AbstractGraph abstractGraph = (AbstractGraph) o;
+    return Objects.equals(this.uid, abstractGraph.uid) &&
+        Objects.equals(this.type, abstractGraph.type) &&
+        Objects.equals(this.branchType, abstractGraph.branchType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(uid, type, branchType);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AbstractGraph {\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    branchType: ").append(toIndentedString(branchType)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

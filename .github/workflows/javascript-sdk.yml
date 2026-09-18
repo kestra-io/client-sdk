@@ -1,50 +1,248 @@
-name: Javascript SDK release
+name: Javascript SDK tests and release
 
 on:
   push:
     branches:
       - main
-
+      - "releases/v*"
+    # Tag-only release, aligned with terraform-provider-kestra / kestractl.
+    # Push a tag like `v1.0.13-javascript` to publish that version to npm.
+    # NOTE: the publish job MUST live in this file. npm Trusted Publishing (OIDC)
+    # is bound to this exact workflow filename (javascript-sdk.yml); publishing
+    # from any other file makes npm reject the token with an E404/permission error
+    # (see https://github.com/kestra-io/client-sdk/actions/runs/28595836505).
+    # `paths` filters apply to branch pushes only, not tags, so the tag trigger
+    # fires regardless of the paths list below.
+    tags:
+      - "v*-javascript"
+    paths:
+      - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
+      - "kestra-ee.yml"
+      - "generation-helpers/**"
+      - "README_JAVASCRIPT_SDK.md"
+      - "test-utils/embed_snippets.py"
   pull_request:
     branches:
       - main
-
+      - "releases/v*"
+    paths:
+      - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
+      - "kestra-ee.yml"
+      - "generation-helpers/**"
+      - "README_JAVASCRIPT_SDK.md"
+      - "test-utils/embed_snippets.py"
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
-        type: string
+        type: choice
+        options:
+          - "true"
+          - "false"
         default: "false"
 
+permissions:
+  contents: read
+
 jobs:
-  npm:
-    name: Publish to Npm
+  test:
+    name: Test Javascript SDK
     runs-on: ubuntu-latest
+    # Skip on release tag pushes — the tag is cut from an already-green branch.
+    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
-        working-directory: ./javascript-sdk
-
+        working-directory: ./javascript
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
+
+      - uses: actions/setup-node@v7
         with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Set version
-        id: set_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      # node 22.18 ships npm 10, but the committed lockfile records the `libc`
+      # field on native optional deps, which only npm 11+ writes. Without this,
+      # SDK generation rewrites (and strips) those fields, failing the
+      # "fail workflow if there is any difference" check. Matches the publish jobs.
+      - name: Upgrade npm
+        run: npm install -g npm@11
 
-      - name: Install dependencies
-        run: npm install
+      - name: extract root version
+        id: extract_version
+        run: |
+          # remove the .X or .x at the end of the version
+          root_version=$(echo "${{ steps.version.outputs.kestra_version }}" | sed 's/\.[xX]$//')
 
-      - name: build
-        run: npm run build
+          echo "root_version=$root_version" >> $GITHUB_OUTPUT
+
+      # Static doc check — reads only the README and the example source (no SDK
+      # generation or Kestra container needed, so it fails fast). Guarantees the
+      # README usage snippet is identical to the CI-tested example
+      # (basicSDKUsageExample.ts). #144.
+      - name: Check README example is in sync with its tested source
+        working-directory: .
+        run: python3 test-utils/embed_snippets.py --check README_JAVASCRIPT_SDK.md
+
+      - name: Generate SDK
+        # Generate SDK with develop version to check
+        # for any difference with current code
+        working-directory: .
+        run: ./generate-sdks.sh javascript
+
+      - name: fail workflow if there is any difference after SDK generation
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "There are uncommitted changes after SDK generation. Please commit the changes."
+            git --no-pager diff
+            exit 1
+          else
+            echo "No changes detected after SDK generation."
+          fi
+
+      - name: GCP - Auth with github service account
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: type check
+        run: npm run check:types
+
+      - name: Select license file
+        id: license
+        uses: ./.github/actions/set-license-file
+        with:
+          kestra_version: ${{ steps.extract_version.outputs.root_version }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
+      - name: Test with vitest
+        id: tests
+        if: inputs.skip-test != 'true'
+        env:
+          KESTRA_VERSION: ${{ steps.extract_version.outputs.root_version }}
+        run: |
+          echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          sh run-tests.sh $KESTRA_VERSION --no-build
+
+      - name: publish test results
+        if: always() && inputs.skip-test != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: ./javascript/coverage
+
+      # Reports failing tests (grouped by spec file, linked to their source) and
+      # uncovered functions. Runs on failure too — that is the case where the
+      # comment matters most.
+      - name: Comment test results and coverage on PR
+        if: always() && github.event_name == 'pull_request' && inputs.skip-test != 'true'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          # Link spec files at the PR head, not the ephemeral merge commit.
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json javascript/coverage/test-failures.json
+
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK
+
+  publish-release:
+    name: Publish Release to Npm
+    runs-on: ubuntu-latest
+    # Tag-only release. The tag is cut from an already-green release branch, so
+    # this job only builds and publishes — tests run on push/PR above. The tag is
+    # the source of truth for the version (no npm auto-increment). This job MUST
+    # stay in javascript-sdk.yml: npm Trusted Publishing (OIDC) is bound to this
+    # workflow filename.
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve version from tag
+        id: resolveVersion
+        run: |
+          # v1.0.13-javascript -> 1.0.13
+          VERSION=${GITHUB_REF_NAME#v}
+          VERSION=${VERSION%-javascript}
+          # moving dist-tag for the minor line, e.g. v1-0. Dash, not dot: npm
+          # rejects a dist-tag that parses as a valid SemVer range (e.g.
+          # "v1.0" or "1.0.x"), which "v$MAJOR.$MINOR" would be.
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2 | tr '.' '-')
+          echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@11
+          npm version
+
+      - name: Generate SDK
+        working-directory: .
+        run: |
+          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
+          javascript
 
       - name: Publish to npm
-        run: npm publish --access public
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./javascript/javascript-sdk
+        # npm refuses a bare `publish` for a prerelease version (e.g. `-rc1`) —
+        # it won't guess whether that should move the `latest` dist-tag, so an
+        # explicit --tag is required. Stable versions still get `latest`;
+        # prereleases get a tag matching their prerelease identifier (e.g. `rc1`).
+        run: |
+          VERSION="${{ steps.resolveVersion.outputs.kestra_version }}"
+          if [[ "$VERSION" == *-* ]]; then
+            NPM_TAG="${VERSION#*-}"
+          else
+            NPM_TAG="latest"
+          fi
+          npm publish --access public --tag "$NPM_TAG"
+
+      - name: Slack notification
+        if: success()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
+
+      - name: Slack - Notify release failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}

@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutionMetadata
+ */
+@JsonPropertyOrder({
+  ExecutionMetadata.JSON_PROPERTY_ATTEMPT_NUMBER,
+  ExecutionMetadata.JSON_PROPERTY_ORIGINAL_CREATED_DATE
+})
+public class ExecutionMetadata {
+  public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
+  @jakarta.annotation.Nullable  private Integer attemptNumber;
+
+  public static final String JSON_PROPERTY_ORIGINAL_CREATED_DATE = "originalCreatedDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime originalCreatedDate;
+
+  public ExecutionMetadata() {
+  }
+
+  public ExecutionMetadata attemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
+    
+    this.attemptNumber = attemptNumber;
+    return this;
+  }
+
+  /**
+   * Get attemptNumber
+   * @return attemptNumber
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getAttemptNumber() {
+    return attemptNumber;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
+    this.attemptNumber = attemptNumber;
+  }
+
+  public ExecutionMetadata originalCreatedDate(@jakarta.annotation.Nonnull OffsetDateTime originalCreatedDate) {
+    
+    this.originalCreatedDate = originalCreatedDate;
+    return this;
+  }
+
+  /**
+   * Get originalCreatedDate
+   * @return originalCreatedDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getOriginalCreatedDate() {
+    return originalCreatedDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOriginalCreatedDate(@jakarta.annotation.Nonnull OffsetDateTime originalCreatedDate) {
+    this.originalCreatedDate = originalCreatedDate;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionMetadata executionMetadata = (ExecutionMetadata) o;
+    return Objects.equals(this.attemptNumber, executionMetadata.attemptNumber) &&
+        Objects.equals(this.originalCreatedDate, executionMetadata.originalCreatedDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attemptNumber, originalCreatedDate);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionMetadata {\n");
+    sb.append("    attemptNumber: ").append(toIndentedString(attemptNumber)).append("\n");
+    sb.append("    originalCreatedDate: ").append(toIndentedString(originalCreatedDate)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

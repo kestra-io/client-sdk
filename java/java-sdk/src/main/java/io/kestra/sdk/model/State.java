@@ -1,0 +1,316 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.StateHistory;
+import io.kestra.sdk.model.StateType;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * State
+ */
+@JsonPropertyOrder({
+  State.JSON_PROPERTY_DURATION,
+  State.JSON_PROPERTY_START_DATE,
+  State.JSON_PROPERTY_END_DATE,
+  State.JSON_PROPERTY_CURRENT,
+  State.JSON_PROPERTY_HISTORIES,
+  State.JSON_PROPERTY_GET_DURATION,
+  State.JSON_PROPERTY_GET_START_DATE,
+  State.JSON_PROPERTY_GET_END_DATE
+})
+public class State {
+  public static final String JSON_PROPERTY_DURATION = "duration";
+  @jakarta.annotation.Nullable  private JsonNullable<String> duration = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
+  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
+
+  public static final String JSON_PROPERTY_END_DATE = "endDate";
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
+
+  public static final String JSON_PROPERTY_CURRENT = "current";
+  @jakarta.annotation.Nonnull  private StateType current;
+
+  public static final String JSON_PROPERTY_HISTORIES = "histories";
+  @jakarta.annotation.Nonnull  private List<StateHistory> histories = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_GET_DURATION = "getDuration";
+  @jakarta.annotation.Nonnull  private String getDuration;
+
+  public static final String JSON_PROPERTY_GET_START_DATE = "getStartDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime getStartDate;
+
+  public static final String JSON_PROPERTY_GET_END_DATE = "getEndDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime getEndDate;
+
+  public State() {
+  }
+  /**
+   * Constructor with only readonly parameters
+   */
+  @JsonCreator
+  public State(
+    @JsonProperty(JSON_PROPERTY_DURATION) String duration, 
+    @JsonProperty(JSON_PROPERTY_START_DATE) OffsetDateTime startDate, 
+    @JsonProperty(JSON_PROPERTY_END_DATE) OffsetDateTime endDate, 
+    @JsonProperty(JSON_PROPERTY_GET_DURATION) String getDuration, 
+    @JsonProperty(JSON_PROPERTY_GET_START_DATE) OffsetDateTime getStartDate, 
+    @JsonProperty(JSON_PROPERTY_GET_END_DATE) OffsetDateTime getEndDate
+  ) {
+    this();
+    this.duration = duration == null ? JsonNullable.<String>undefined() : JsonNullable.of(duration);
+    this.startDate = startDate;
+    this.endDate = endDate == null ? JsonNullable.<OffsetDateTime>undefined() : JsonNullable.of(endDate);
+    this.getDuration = getDuration;
+    this.getStartDate = getStartDate;
+    this.getEndDate = getEndDate;
+  }
+
+  /**
+   * Get duration
+   * @return duration
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getDuration() {
+    
+    if (duration == null) {
+      duration = JsonNullable.<String>undefined();
+    }
+    return duration.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getDuration_JsonNullable() {
+    return duration;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DURATION)
+  private void setDuration_JsonNullable(JsonNullable<String> duration) {
+    this.duration = duration;
+  }
+
+
+  /**
+   * Get startDate
+   * @return startDate
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartDate() {
+    return startDate;
+  }
+
+
+
+  /**
+   * Get endDate
+   * @return endDate
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public OffsetDateTime getEndDate() {
+    
+    if (endDate == null) {
+      endDate = JsonNullable.<OffsetDateTime>undefined();
+    }
+    return endDate.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
+    return endDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  private void setEndDate_JsonNullable(JsonNullable<OffsetDateTime> endDate) {
+    this.endDate = endDate;
+  }
+
+
+  public State current(@jakarta.annotation.Nonnull StateType current) {
+    
+    this.current = current;
+    return this;
+  }
+
+  /**
+   * Get current
+   * @return current
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public StateType getCurrent() {
+    return current;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCurrent(@jakarta.annotation.Nonnull StateType current) {
+    this.current = current;
+  }
+
+  public State histories(@jakarta.annotation.Nonnull List<StateHistory> histories) {
+    
+    this.histories = histories;
+    return this;
+  }
+
+  public State addHistoriesItem(StateHistory historiesItem) {
+    if (this.histories == null) {
+      this.histories = new ArrayList<>();
+    }
+    this.histories.add(historiesItem);
+    return this;
+  }
+
+  /**
+   * Get histories
+   * @return histories
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<StateHistory> getHistories() {
+    return histories;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHistories(@jakarta.annotation.Nonnull List<StateHistory> histories) {
+    this.histories = histories;
+  }
+
+  /**
+   * Get getDuration
+   * @return getDuration
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_DURATION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGetDuration() {
+    return getDuration;
+  }
+
+
+
+  /**
+   * Get getStartDate
+   * @return getStartDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getGetStartDate() {
+    return getStartDate;
+  }
+
+
+
+  /**
+   * Get getEndDate
+   * @return getEndDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getGetEndDate() {
+    return getEndDate;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    State state = (State) o;
+    return equalsNullable(this.duration, state.duration) &&
+        Objects.equals(this.startDate, state.startDate) &&
+        equalsNullable(this.endDate, state.endDate) &&
+        Objects.equals(this.current, state.current) &&
+        Objects.equals(this.histories, state.histories) &&
+        Objects.equals(this.getDuration, state.getDuration) &&
+        Objects.equals(this.getStartDate, state.getStartDate) &&
+        Objects.equals(this.getEndDate, state.getEndDate);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hashCodeNullable(duration), startDate, hashCodeNullable(endDate), current, histories, getDuration, getStartDate, getEndDate);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class State {\n");
+    sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+    sb.append("    current: ").append(toIndentedString(current)).append("\n");
+    sb.append("    histories: ").append(toIndentedString(histories)).append("\n");
+    sb.append("    getDuration: ").append(toIndentedString(getDuration)).append("\n");
+    sb.append("    getStartDate: ").append(toIndentedString(getStartDate)).append("\n");
+    sb.append("    getEndDate: ").append(toIndentedString(getEndDate)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

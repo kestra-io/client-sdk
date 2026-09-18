@@ -1,0 +1,171 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * DependsOn
+ */
+@JsonPropertyOrder({
+  DependsOn.JSON_PROPERTY_INPUTS,
+  DependsOn.JSON_PROPERTY_CONDITION
+})
+public class DependsOn {
+  public static final String JSON_PROPERTY_INPUTS = "inputs";
+  @jakarta.annotation.Nullable  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();
+
+  public static final String JSON_PROPERTY_CONDITION = "condition";
+  @jakarta.annotation.Nullable  private JsonNullable<String> condition = JsonNullable.<String>undefined();
+
+  public DependsOn() {
+  }
+
+  public DependsOn inputs(@jakarta.annotation.Nullable List<String> inputs) {
+    this.inputs = JsonNullable.<List<String>>of(inputs);
+    
+    return this;
+  }
+
+  public DependsOn addInputsItem(String inputsItem) {
+    if (this.inputs == null || !this.inputs.isPresent()) {
+      this.inputs = JsonNullable.<List<String>>of(new ArrayList<>());
+    }
+    try {
+      this.inputs.get().add(inputsItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public List<String> getInputs() {
+        return inputs.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<List<String>> getInputs_JsonNullable() {
+    return inputs;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  public void setInputs_JsonNullable(JsonNullable<List<String>> inputs) {
+    this.inputs = inputs;
+  }
+
+  public void setInputs(@jakarta.annotation.Nullable List<String> inputs) {
+    this.inputs = JsonNullable.<List<String>>of(inputs);
+  }
+
+  public DependsOn condition(@jakarta.annotation.Nullable String condition) {
+    this.condition = JsonNullable.<String>of(condition);
+    
+    return this;
+  }
+
+  /**
+   * Get condition
+   * @return condition
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getCondition() {
+        return condition.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_CONDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getCondition_JsonNullable() {
+    return condition;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_CONDITION)
+  public void setCondition_JsonNullable(JsonNullable<String> condition) {
+    this.condition = condition;
+  }
+
+  public void setCondition(@jakarta.annotation.Nullable String condition) {
+    this.condition = JsonNullable.<String>of(condition);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DependsOn dependsOn = (DependsOn) o;
+    return equalsNullable(this.inputs, dependsOn.inputs) &&
+        equalsNullable(this.condition, dependsOn.condition);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hashCodeNullable(inputs), hashCodeNullable(condition));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DependsOn {\n");
+    sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    condition: ").append(toIndentedString(condition)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

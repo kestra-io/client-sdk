@@ -1,0 +1,219 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ServiceProviderConfigurationAuthenticationSchemaType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ServiceProviderConfigurationAuthenticationSchema
+ */
+@JsonPropertyOrder({
+  ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_TYPE,
+  ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_NAME,
+  ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_DESCRIPTION,
+  ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_SPEC_URI,
+  ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_DOCUMENTATION_URI
+})
+@JsonTypeName("ServiceProviderConfiguration.AuthenticationSchema")
+public class ServiceProviderConfigurationAuthenticationSchema {
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationAuthenticationSchemaType type;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  @jakarta.annotation.Nullable  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_SPEC_URI = "specUri";
+  @jakarta.annotation.Nullable  private String specUri;
+
+  public static final String JSON_PROPERTY_DOCUMENTATION_URI = "documentationUri";
+  @jakarta.annotation.Nullable  private String documentationUri;
+
+  public ServiceProviderConfigurationAuthenticationSchema() {
+  }
+
+  public ServiceProviderConfigurationAuthenticationSchema type(@jakarta.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ServiceProviderConfigurationAuthenticationSchemaType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
+    this.type = type;
+  }
+
+  public ServiceProviderConfigurationAuthenticationSchema name(@jakarta.annotation.Nullable String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
+    this.name = name;
+  }
+
+  public ServiceProviderConfigurationAuthenticationSchema description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public ServiceProviderConfigurationAuthenticationSchema specUri(@jakarta.annotation.Nullable String specUri) {
+    
+    this.specUri = specUri;
+    return this;
+  }
+
+  /**
+   * Get specUri
+   * @return specUri
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SPEC_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSpecUri() {
+    return specUri;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SPEC_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSpecUri(@jakarta.annotation.Nullable String specUri) {
+    this.specUri = specUri;
+  }
+
+  public ServiceProviderConfigurationAuthenticationSchema documentationUri(@jakarta.annotation.Nullable String documentationUri) {
+    
+    this.documentationUri = documentationUri;
+    return this;
+  }
+
+  /**
+   * Get documentationUri
+   * @return documentationUri
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDocumentationUri() {
+    return documentationUri;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDocumentationUri(@jakarta.annotation.Nullable String documentationUri) {
+    this.documentationUri = documentationUri;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceProviderConfigurationAuthenticationSchema serviceProviderConfigurationAuthenticationSchema = (ServiceProviderConfigurationAuthenticationSchema) o;
+    return Objects.equals(this.type, serviceProviderConfigurationAuthenticationSchema.type) &&
+        Objects.equals(this.name, serviceProviderConfigurationAuthenticationSchema.name) &&
+        Objects.equals(this.description, serviceProviderConfigurationAuthenticationSchema.description) &&
+        Objects.equals(this.specUri, serviceProviderConfigurationAuthenticationSchema.specUri) &&
+        Objects.equals(this.documentationUri, serviceProviderConfigurationAuthenticationSchema.documentationUri);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, name, description, specUri, documentationUri);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceProviderConfigurationAuthenticationSchema {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    specUri: ").append(toIndentedString(specUri)).append("\n");
+    sb.append("    documentationUri: ").append(toIndentedString(documentationUri)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

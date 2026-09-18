@@ -1,0 +1,1024 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
+ */
+@JsonPropertyOrder({
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_F_L_O_W,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_B_L_U_E_P_R_I_N_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_N_A_M_E_S_P_A_C_E,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_E_X_E_C_U_T_I_O_N,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_S_E_R,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_G_R_O_U_P,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_R_O_L_E,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_B_I_N_D_I_N_G,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_U_D_I_T_L_O_G,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_C_R_E_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_K_V_S_T_O_R_E,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_T_T_I_N_G,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_S_S_E_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_S_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_D_A_S_H_B_O_A_R_D,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_I_C_O_P_I_L_O_T,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
+})
+@JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
+// Kestra 2.0 rejects a role whose permissions map carries unknown/non-assignable
+// keys, so never serialize empty permission arrays (an unset permission).
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
+  public static final String JSON_PROPERTY_F_L_O_W = "FLOW";
+  @jakarta.annotation.Nullable  private List<String> FLOW = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_B_L_U_E_P_R_I_N_T = "BLUEPRINT";
+  @jakarta.annotation.Nullable  private List<String> BLUEPRINT = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_N_A_M_E_S_P_A_C_E = "NAMESPACE";
+  @jakarta.annotation.Nullable  private List<String> NAMESPACE = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_E_X_E_C_U_T_I_O_N = "EXECUTION";
+  @jakarta.annotation.Nullable  private List<String> EXECUTION = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_U_S_E_R = "USER";
+  @jakarta.annotation.Nullable  private List<String> USER = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_G_R_O_U_P = "GROUP";
+  @jakarta.annotation.Nullable  private List<String> GROUP = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_R_O_L_E = "ROLE";
+  @jakarta.annotation.Nullable  private List<String> ROLE = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_B_I_N_D_I_N_G = "BINDING";
+  @jakarta.annotation.Nullable  private List<String> BINDING = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_U_D_I_T_L_O_G = "AUDITLOG";
+  @jakarta.annotation.Nullable  private List<String> AUDITLOG = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_S_E_C_R_E_T = "SECRET";
+  @jakarta.annotation.Nullable  private List<String> SECRET = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_K_V_S_T_O_R_E = "KVSTORE";
+  @jakarta.annotation.Nullable  private List<String> KVSTORE = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E = "IMPERSONATE";
+  @jakarta.annotation.Nullable  private List<String> IMPERSONATE = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_S_E_T_T_I_N_G = "SETTING";
+  @jakarta.annotation.Nullable  private List<String> SETTING = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_P_P = "APP";
+  @jakarta.annotation.Nullable  private List<String> APP = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_S_S_E_T = "ASSET";
+  @jakarta.annotation.Nullable  private List<String> ASSET = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N = "APPEXECUTION";
+  @jakarta.annotation.Nullable  private List<String> APPEXECUTION = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_T_E_S_T = "TEST";
+  @jakarta.annotation.Nullable  private List<String> TEST = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_D_A_S_H_B_O_A_R_D = "DASHBOARD";
+  @jakarta.annotation.Nullable  private List<String> DASHBOARD = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S = "TENANT_ACCESS";
+  @jakarta.annotation.Nullable  private List<String> TENANT_ACCESS = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T = "SERVICE_ACCOUNT";
+  @jakarta.annotation.Nullable  private List<String> SERVICE_ACCOUNT = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N = "INVITATION";
+  @jakarta.annotation.Nullable  private List<String> INVITATION = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P = "GROUP_MEMBERSHIP";
+  @jakarta.annotation.Nullable  private List<String> GROUP_MEMBERSHIP = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L = "CREDENTIAL";
+  @jakarta.annotation.Nullable  private List<String> CREDENTIAL = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_I_C_O_P_I_L_O_T = "AI_COPILOT";
+  @jakarta.annotation.Nullable  private List<String> AI_COPILOT = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_U_N_K_N_O_W_N = "UNKNOWN";
+  @jakarta.annotation.Nullable  private List<String> UNKNOWN = new ArrayList<>();
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions() {
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions FLOW(@jakarta.annotation.Nullable List<String> FLOW) {
+    
+    this.FLOW = FLOW;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addFLOWItem(String FLOWItem) {
+    if (this.FLOW == null) {
+      this.FLOW = new ArrayList<>();
+    }
+    this.FLOW.add(FLOWItem);
+    return this;
+  }
+
+  /**
+   * Get FLOW
+   * @return FLOW
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_F_L_O_W)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getFLOW() {
+    return FLOW;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_F_L_O_W)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFLOW(@jakarta.annotation.Nullable List<String> FLOW) {
+    this.FLOW = FLOW;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions BLUEPRINT(@jakarta.annotation.Nullable List<String> BLUEPRINT) {
+    
+    this.BLUEPRINT = BLUEPRINT;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addBLUEPRINTItem(String BLUEPRINTItem) {
+    if (this.BLUEPRINT == null) {
+      this.BLUEPRINT = new ArrayList<>();
+    }
+    this.BLUEPRINT.add(BLUEPRINTItem);
+    return this;
+  }
+
+  /**
+   * Get BLUEPRINT
+   * @return BLUEPRINT
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_B_L_U_E_P_R_I_N_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getBLUEPRINT() {
+    return BLUEPRINT;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_B_L_U_E_P_R_I_N_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBLUEPRINT(@jakarta.annotation.Nullable List<String> BLUEPRINT) {
+    this.BLUEPRINT = BLUEPRINT;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions NAMESPACE(@jakarta.annotation.Nullable List<String> NAMESPACE) {
+    
+    this.NAMESPACE = NAMESPACE;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addNAMESPACEItem(String NAMESPACEItem) {
+    if (this.NAMESPACE == null) {
+      this.NAMESPACE = new ArrayList<>();
+    }
+    this.NAMESPACE.add(NAMESPACEItem);
+    return this;
+  }
+
+  /**
+   * Get NAMESPACE
+   * @return NAMESPACE
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_N_A_M_E_S_P_A_C_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getNAMESPACE() {
+    return NAMESPACE;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_N_A_M_E_S_P_A_C_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNAMESPACE(@jakarta.annotation.Nullable List<String> NAMESPACE) {
+    this.NAMESPACE = NAMESPACE;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions EXECUTION(@jakarta.annotation.Nullable List<String> EXECUTION) {
+    
+    this.EXECUTION = EXECUTION;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addEXECUTIONItem(String EXECUTIONItem) {
+    if (this.EXECUTION == null) {
+      this.EXECUTION = new ArrayList<>();
+    }
+    this.EXECUTION.add(EXECUTIONItem);
+    return this;
+  }
+
+  /**
+   * Get EXECUTION
+   * @return EXECUTION
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_E_X_E_C_U_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getEXECUTION() {
+    return EXECUTION;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_E_X_E_C_U_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEXECUTION(@jakarta.annotation.Nullable List<String> EXECUTION) {
+    this.EXECUTION = EXECUTION;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions USER(@jakarta.annotation.Nullable List<String> USER) {
+    
+    this.USER = USER;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addUSERItem(String USERItem) {
+    if (this.USER == null) {
+      this.USER = new ArrayList<>();
+    }
+    this.USER.add(USERItem);
+    return this;
+  }
+
+  /**
+   * Get USER
+   * @return USER
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_U_S_E_R)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getUSER() {
+    return USER;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_U_S_E_R)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUSER(@jakarta.annotation.Nullable List<String> USER) {
+    this.USER = USER;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions GROUP(@jakarta.annotation.Nullable List<String> GROUP) {
+    
+    this.GROUP = GROUP;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addGROUPItem(String GROUPItem) {
+    if (this.GROUP == null) {
+      this.GROUP = new ArrayList<>();
+    }
+    this.GROUP.add(GROUPItem);
+    return this;
+  }
+
+  /**
+   * Get GROUP
+   * @return GROUP
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_G_R_O_U_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGROUP() {
+    return GROUP;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_G_R_O_U_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGROUP(@jakarta.annotation.Nullable List<String> GROUP) {
+    this.GROUP = GROUP;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions ROLE(@jakarta.annotation.Nullable List<String> ROLE) {
+    
+    this.ROLE = ROLE;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addROLEItem(String ROLEItem) {
+    if (this.ROLE == null) {
+      this.ROLE = new ArrayList<>();
+    }
+    this.ROLE.add(ROLEItem);
+    return this;
+  }
+
+  /**
+   * Get ROLE
+   * @return ROLE
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_O_L_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getROLE() {
+    return ROLE;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_R_O_L_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setROLE(@jakarta.annotation.Nullable List<String> ROLE) {
+    this.ROLE = ROLE;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions BINDING(@jakarta.annotation.Nullable List<String> BINDING) {
+    
+    this.BINDING = BINDING;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addBINDINGItem(String BINDINGItem) {
+    if (this.BINDING == null) {
+      this.BINDING = new ArrayList<>();
+    }
+    this.BINDING.add(BINDINGItem);
+    return this;
+  }
+
+  /**
+   * Get BINDING
+   * @return BINDING
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_B_I_N_D_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getBINDING() {
+    return BINDING;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_B_I_N_D_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBINDING(@jakarta.annotation.Nullable List<String> BINDING) {
+    this.BINDING = BINDING;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions AUDITLOG(@jakarta.annotation.Nullable List<String> AUDITLOG) {
+    
+    this.AUDITLOG = AUDITLOG;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAUDITLOGItem(String AUDITLOGItem) {
+    if (this.AUDITLOG == null) {
+      this.AUDITLOG = new ArrayList<>();
+    }
+    this.AUDITLOG.add(AUDITLOGItem);
+    return this;
+  }
+
+  /**
+   * Get AUDITLOG
+   * @return AUDITLOG
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_U_D_I_T_L_O_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAUDITLOG() {
+    return AUDITLOG;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_U_D_I_T_L_O_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAUDITLOG(@jakarta.annotation.Nullable List<String> AUDITLOG) {
+    this.AUDITLOG = AUDITLOG;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions SECRET(@jakarta.annotation.Nullable List<String> SECRET) {
+    
+    this.SECRET = SECRET;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addSECRETItem(String SECRETItem) {
+    if (this.SECRET == null) {
+      this.SECRET = new ArrayList<>();
+    }
+    this.SECRET.add(SECRETItem);
+    return this;
+  }
+
+  /**
+   * Get SECRET
+   * @return SECRET
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_E_C_R_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSECRET() {
+    return SECRET;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_S_E_C_R_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSECRET(@jakarta.annotation.Nullable List<String> SECRET) {
+    this.SECRET = SECRET;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions KVSTORE(@jakarta.annotation.Nullable List<String> KVSTORE) {
+    
+    this.KVSTORE = KVSTORE;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addKVSTOREItem(String KVSTOREItem) {
+    if (this.KVSTORE == null) {
+      this.KVSTORE = new ArrayList<>();
+    }
+    this.KVSTORE.add(KVSTOREItem);
+    return this;
+  }
+
+  /**
+   * Get KVSTORE
+   * @return KVSTORE
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_K_V_S_T_O_R_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getKVSTORE() {
+    return KVSTORE;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_K_V_S_T_O_R_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKVSTORE(@jakarta.annotation.Nullable List<String> KVSTORE) {
+    this.KVSTORE = KVSTORE;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions IMPERSONATE(@jakarta.annotation.Nullable List<String> IMPERSONATE) {
+    
+    this.IMPERSONATE = IMPERSONATE;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addIMPERSONATEItem(String IMPERSONATEItem) {
+    if (this.IMPERSONATE == null) {
+      this.IMPERSONATE = new ArrayList<>();
+    }
+    this.IMPERSONATE.add(IMPERSONATEItem);
+    return this;
+  }
+
+  /**
+   * Get IMPERSONATE
+   * @return IMPERSONATE
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getIMPERSONATE() {
+    return IMPERSONATE;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIMPERSONATE(@jakarta.annotation.Nullable List<String> IMPERSONATE) {
+    this.IMPERSONATE = IMPERSONATE;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions SETTING(@jakarta.annotation.Nullable List<String> SETTING) {
+    
+    this.SETTING = SETTING;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addSETTINGItem(String SETTINGItem) {
+    if (this.SETTING == null) {
+      this.SETTING = new ArrayList<>();
+    }
+    this.SETTING.add(SETTINGItem);
+    return this;
+  }
+
+  /**
+   * Get SETTING
+   * @return SETTING
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_E_T_T_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSETTING() {
+    return SETTING;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_S_E_T_T_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSETTING(@jakarta.annotation.Nullable List<String> SETTING) {
+    this.SETTING = SETTING;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions APP(@jakarta.annotation.Nullable List<String> APP) {
+    
+    this.APP = APP;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAPPItem(String APPItem) {
+    if (this.APP == null) {
+      this.APP = new ArrayList<>();
+    }
+    this.APP.add(APPItem);
+    return this;
+  }
+
+  /**
+   * Get APP
+   * @return APP
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_P_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAPP() {
+    return APP;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_P_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAPP(@jakarta.annotation.Nullable List<String> APP) {
+    this.APP = APP;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions ASSET(@jakarta.annotation.Nullable List<String> ASSET) {
+    
+    this.ASSET = ASSET;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addASSETItem(String ASSETItem) {
+    if (this.ASSET == null) {
+      this.ASSET = new ArrayList<>();
+    }
+    this.ASSET.add(ASSETItem);
+    return this;
+  }
+
+  /**
+   * Get ASSET
+   * @return ASSET
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_S_S_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getASSET() {
+    return ASSET;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_S_S_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setASSET(@jakarta.annotation.Nullable List<String> ASSET) {
+    this.ASSET = ASSET;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions APPEXECUTION(@jakarta.annotation.Nullable List<String> APPEXECUTION) {
+    
+    this.APPEXECUTION = APPEXECUTION;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAPPEXECUTIONItem(String APPEXECUTIONItem) {
+    if (this.APPEXECUTION == null) {
+      this.APPEXECUTION = new ArrayList<>();
+    }
+    this.APPEXECUTION.add(APPEXECUTIONItem);
+    return this;
+  }
+
+  /**
+   * Get APPEXECUTION
+   * @return APPEXECUTION
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAPPEXECUTION() {
+    return APPEXECUTION;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAPPEXECUTION(@jakarta.annotation.Nullable List<String> APPEXECUTION) {
+    this.APPEXECUTION = APPEXECUTION;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions TEST(@jakarta.annotation.Nullable List<String> TEST) {
+    
+    this.TEST = TEST;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addTESTItem(String TESTItem) {
+    if (this.TEST == null) {
+      this.TEST = new ArrayList<>();
+    }
+    this.TEST.add(TESTItem);
+    return this;
+  }
+
+  /**
+   * Get TEST
+   * @return TEST
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_T_E_S_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTEST() {
+    return TEST;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_T_E_S_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTEST(@jakarta.annotation.Nullable List<String> TEST) {
+    this.TEST = TEST;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions DASHBOARD(@jakarta.annotation.Nullable List<String> DASHBOARD) {
+    
+    this.DASHBOARD = DASHBOARD;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addDASHBOARDItem(String DASHBOARDItem) {
+    if (this.DASHBOARD == null) {
+      this.DASHBOARD = new ArrayList<>();
+    }
+    this.DASHBOARD.add(DASHBOARDItem);
+    return this;
+  }
+
+  /**
+   * Get DASHBOARD
+   * @return DASHBOARD
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_D_A_S_H_B_O_A_R_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getDASHBOARD() {
+    return DASHBOARD;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_D_A_S_H_B_O_A_R_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDASHBOARD(@jakarta.annotation.Nullable List<String> DASHBOARD) {
+    this.DASHBOARD = DASHBOARD;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions TENANT_ACCESS(@jakarta.annotation.Nullable List<String> TENANT_ACCESS) {
+    
+    this.TENANT_ACCESS = TENANT_ACCESS;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addTENANTACCESSItem(String TENANT_ACCESSItem) {
+    if (this.TENANT_ACCESS == null) {
+      this.TENANT_ACCESS = new ArrayList<>();
+    }
+    this.TENANT_ACCESS.add(TENANT_ACCESSItem);
+    return this;
+  }
+
+  /**
+   * Get TENANT_ACCESS
+   * @return TENANT_ACCESS
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTENANTACCESS() {
+    return TENANT_ACCESS;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTENANTACCESS(@jakarta.annotation.Nullable List<String> TENANT_ACCESS) {
+    this.TENANT_ACCESS = TENANT_ACCESS;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions SERVICE_ACCOUNT(@jakarta.annotation.Nullable List<String> SERVICE_ACCOUNT) {
+    
+    this.SERVICE_ACCOUNT = SERVICE_ACCOUNT;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addSERVICEACCOUNTItem(String SERVICE_ACCOUNTItem) {
+    if (this.SERVICE_ACCOUNT == null) {
+      this.SERVICE_ACCOUNT = new ArrayList<>();
+    }
+    this.SERVICE_ACCOUNT.add(SERVICE_ACCOUNTItem);
+    return this;
+  }
+
+  /**
+   * Get SERVICE_ACCOUNT
+   * @return SERVICE_ACCOUNT
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSERVICEACCOUNT() {
+    return SERVICE_ACCOUNT;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSERVICEACCOUNT(@jakarta.annotation.Nullable List<String> SERVICE_ACCOUNT) {
+    this.SERVICE_ACCOUNT = SERVICE_ACCOUNT;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions INVITATION(@jakarta.annotation.Nullable List<String> INVITATION) {
+    
+    this.INVITATION = INVITATION;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addINVITATIONItem(String INVITATIONItem) {
+    if (this.INVITATION == null) {
+      this.INVITATION = new ArrayList<>();
+    }
+    this.INVITATION.add(INVITATIONItem);
+    return this;
+  }
+
+  /**
+   * Get INVITATION
+   * @return INVITATION
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getINVITATION() {
+    return INVITATION;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setINVITATION(@jakarta.annotation.Nullable List<String> INVITATION) {
+    this.INVITATION = INVITATION;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions GROUP_MEMBERSHIP(@jakarta.annotation.Nullable List<String> GROUP_MEMBERSHIP) {
+    
+    this.GROUP_MEMBERSHIP = GROUP_MEMBERSHIP;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addGROUPMEMBERSHIPItem(String GROUP_MEMBERSHIPItem) {
+    if (this.GROUP_MEMBERSHIP == null) {
+      this.GROUP_MEMBERSHIP = new ArrayList<>();
+    }
+    this.GROUP_MEMBERSHIP.add(GROUP_MEMBERSHIPItem);
+    return this;
+  }
+
+  /**
+   * Get GROUP_MEMBERSHIP
+   * @return GROUP_MEMBERSHIP
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getGROUPMEMBERSHIP() {
+    return GROUP_MEMBERSHIP;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGROUPMEMBERSHIP(@jakarta.annotation.Nullable List<String> GROUP_MEMBERSHIP) {
+    this.GROUP_MEMBERSHIP = GROUP_MEMBERSHIP;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions CREDENTIAL(@jakarta.annotation.Nullable List<String> CREDENTIAL) {
+    
+    this.CREDENTIAL = CREDENTIAL;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addCREDENTIALItem(String CREDENTIALItem) {
+    if (this.CREDENTIAL == null) {
+      this.CREDENTIAL = new ArrayList<>();
+    }
+    this.CREDENTIAL.add(CREDENTIALItem);
+    return this;
+  }
+
+  /**
+   * Get CREDENTIAL
+   * @return CREDENTIAL
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getCREDENTIAL() {
+    return CREDENTIAL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCREDENTIAL(@jakarta.annotation.Nullable List<String> CREDENTIAL) {
+    this.CREDENTIAL = CREDENTIAL;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions AI_COPILOT(@jakarta.annotation.Nullable List<String> AI_COPILOT) {
+    
+    this.AI_COPILOT = AI_COPILOT;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAICOPILOTItem(String AI_COPILOTItem) {
+    if (this.AI_COPILOT == null) {
+      this.AI_COPILOT = new ArrayList<>();
+    }
+    this.AI_COPILOT.add(AI_COPILOTItem);
+    return this;
+  }
+
+  /**
+   * Get AI_COPILOT
+   * @return AI_COPILOT
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_I_C_O_P_I_L_O_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAICOPILOT() {
+    return AI_COPILOT;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_I_C_O_P_I_L_O_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAICOPILOT(@jakarta.annotation.Nullable List<String> AI_COPILOT) {
+    this.AI_COPILOT = AI_COPILOT;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions UNKNOWN(@jakarta.annotation.Nullable List<String> UNKNOWN) {
+    
+    this.UNKNOWN = UNKNOWN;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addUNKNOWNItem(String UNKNOWNItem) {
+    if (this.UNKNOWN == null) {
+      this.UNKNOWN = new ArrayList<>();
+    }
+    this.UNKNOWN.add(UNKNOWNItem);
+    return this;
+  }
+
+  /**
+   * Get UNKNOWN
+   * @return UNKNOWN
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_U_N_K_N_O_W_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getUNKNOWN() {
+    return UNKNOWN;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_U_N_K_N_O_W_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUNKNOWN(@jakarta.annotation.Nullable List<String> UNKNOWN) {
+    this.UNKNOWN = UNKNOWN;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions = (IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) o;
+    return Objects.equals(this.FLOW, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.FLOW) &&
+        Objects.equals(this.BLUEPRINT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.BLUEPRINT) &&
+        Objects.equals(this.NAMESPACE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.NAMESPACE) &&
+        Objects.equals(this.EXECUTION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.EXECUTION) &&
+        Objects.equals(this.USER, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.USER) &&
+        Objects.equals(this.GROUP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.GROUP) &&
+        Objects.equals(this.ROLE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.ROLE) &&
+        Objects.equals(this.BINDING, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.BINDING) &&
+        Objects.equals(this.AUDITLOG, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.AUDITLOG) &&
+        Objects.equals(this.SECRET, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SECRET) &&
+        Objects.equals(this.KVSTORE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.KVSTORE) &&
+        Objects.equals(this.IMPERSONATE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.IMPERSONATE) &&
+        Objects.equals(this.SETTING, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SETTING) &&
+        Objects.equals(this.APP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APP) &&
+        Objects.equals(this.ASSET, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.ASSET) &&
+        Objects.equals(this.APPEXECUTION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APPEXECUTION) &&
+        Objects.equals(this.TEST, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TEST) &&
+        Objects.equals(this.DASHBOARD, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.DASHBOARD) &&
+        Objects.equals(this.TENANT_ACCESS, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TENANT_ACCESS) &&
+        Objects.equals(this.SERVICE_ACCOUNT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SERVICE_ACCOUNT) &&
+        Objects.equals(this.INVITATION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.INVITATION) &&
+        Objects.equals(this.GROUP_MEMBERSHIP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.GROUP_MEMBERSHIP) &&
+        Objects.equals(this.CREDENTIAL, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.CREDENTIAL) &&
+        Objects.equals(this.AI_COPILOT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.AI_COPILOT) &&
+        Objects.equals(this.UNKNOWN, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.UNKNOWN);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(FLOW, BLUEPRINT, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, CREDENTIAL, AI_COPILOT, UNKNOWN);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {\n");
+    sb.append("    FLOW: ").append(toIndentedString(FLOW)).append("\n");
+    sb.append("    BLUEPRINT: ").append(toIndentedString(BLUEPRINT)).append("\n");
+    sb.append("    NAMESPACE: ").append(toIndentedString(NAMESPACE)).append("\n");
+    sb.append("    EXECUTION: ").append(toIndentedString(EXECUTION)).append("\n");
+    sb.append("    USER: ").append(toIndentedString(USER)).append("\n");
+    sb.append("    GROUP: ").append(toIndentedString(GROUP)).append("\n");
+    sb.append("    ROLE: ").append(toIndentedString(ROLE)).append("\n");
+    sb.append("    BINDING: ").append(toIndentedString(BINDING)).append("\n");
+    sb.append("    AUDITLOG: ").append(toIndentedString(AUDITLOG)).append("\n");
+    sb.append("    SECRET: ").append(toIndentedString(SECRET)).append("\n");
+    sb.append("    KVSTORE: ").append(toIndentedString(KVSTORE)).append("\n");
+    sb.append("    IMPERSONATE: ").append(toIndentedString(IMPERSONATE)).append("\n");
+    sb.append("    SETTING: ").append(toIndentedString(SETTING)).append("\n");
+    sb.append("    APP: ").append(toIndentedString(APP)).append("\n");
+    sb.append("    ASSET: ").append(toIndentedString(ASSET)).append("\n");
+    sb.append("    APPEXECUTION: ").append(toIndentedString(APPEXECUTION)).append("\n");
+    sb.append("    TEST: ").append(toIndentedString(TEST)).append("\n");
+    sb.append("    DASHBOARD: ").append(toIndentedString(DASHBOARD)).append("\n");
+    sb.append("    TENANT_ACCESS: ").append(toIndentedString(TENANT_ACCESS)).append("\n");
+    sb.append("    SERVICE_ACCOUNT: ").append(toIndentedString(SERVICE_ACCOUNT)).append("\n");
+    sb.append("    INVITATION: ").append(toIndentedString(INVITATION)).append("\n");
+    sb.append("    GROUP_MEMBERSHIP: ").append(toIndentedString(GROUP_MEMBERSHIP)).append("\n");
+    sb.append("    CREDENTIAL: ").append(toIndentedString(CREDENTIAL)).append("\n");
+    sb.append("    AI_COPILOT: ").append(toIndentedString(AI_COPILOT)).append("\n");
+    sb.append("    UNKNOWN: ").append(toIndentedString(UNKNOWN)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

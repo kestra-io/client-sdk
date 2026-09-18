@@ -1,0 +1,260 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Assertion;
+import io.kestra.sdk.model.Fixtures;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * UnitTest
+ */
+@JsonPropertyOrder({
+  UnitTest.JSON_PROPERTY_ID,
+  UnitTest.JSON_PROPERTY_TYPE,
+  UnitTest.JSON_PROPERTY_DISABLED,
+  UnitTest.JSON_PROPERTY_DESCRIPTION,
+  UnitTest.JSON_PROPERTY_FIXTURES,
+  UnitTest.JSON_PROPERTY_ASSERTIONS
+})
+public class UnitTest {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
+  @jakarta.annotation.Nullable  private Boolean disabled;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public static final String JSON_PROPERTY_FIXTURES = "fixtures";
+  @jakarta.annotation.Nullable  private Fixtures fixtures;
+
+  public static final String JSON_PROPERTY_ASSERTIONS = "assertions";
+  @jakarta.annotation.Nonnull  private List<Assertion> assertions = new ArrayList<>();
+
+  public UnitTest() {
+  }
+
+  public UnitTest id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public UnitTest type(@jakarta.annotation.Nonnull String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public UnitTest disabled(@jakarta.annotation.Nullable Boolean disabled) {
+    
+    this.disabled = disabled;
+    return this;
+  }
+
+  /**
+   * Get disabled
+   * @return disabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public UnitTest description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  public UnitTest fixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
+    
+    this.fixtures = fixtures;
+    return this;
+  }
+
+  /**
+   * Get fixtures
+   * @return fixtures
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Fixtures getFixtures() {
+    return fixtures;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
+    this.fixtures = fixtures;
+  }
+
+  public UnitTest assertions(@jakarta.annotation.Nonnull List<Assertion> assertions) {
+    
+    this.assertions = assertions;
+    return this;
+  }
+
+  public UnitTest addAssertionsItem(Assertion assertionsItem) {
+    if (this.assertions == null) {
+      this.assertions = new ArrayList<>();
+    }
+    this.assertions.add(assertionsItem);
+    return this;
+  }
+
+  /**
+   * Get assertions
+   * @return assertions
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<Assertion> getAssertions() {
+    return assertions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAssertions(@jakarta.annotation.Nonnull List<Assertion> assertions) {
+    this.assertions = assertions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UnitTest unitTest = (UnitTest) o;
+    return Objects.equals(this.id, unitTest.id) &&
+        Objects.equals(this.type, unitTest.type) &&
+        Objects.equals(this.disabled, unitTest.disabled) &&
+        Objects.equals(this.description, unitTest.description) &&
+        Objects.equals(this.fixtures, unitTest.fixtures) &&
+        Objects.equals(this.assertions, unitTest.assertions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, disabled, description, fixtures, assertions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UnitTest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    fixtures: ").append(toIndentedString(fixtures)).append("\n");
+    sb.append("    assertions: ").append(toIndentedString(assertions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

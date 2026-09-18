@@ -1,0 +1,190 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+)
+
+// checks if the MeControllerApiUpdatePasswordRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MeControllerApiUpdatePasswordRequest{}
+
+// MeControllerApiUpdatePasswordRequest struct for MeControllerApiUpdatePasswordRequest
+type MeControllerApiUpdatePasswordRequest struct {
+	OldPassword *string `json:"oldPassword,omitempty"`
+	NewPassword *string `json:"newPassword,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _MeControllerApiUpdatePasswordRequest MeControllerApiUpdatePasswordRequest
+
+// NewMeControllerApiUpdatePasswordRequest instantiates a new MeControllerApiUpdatePasswordRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewMeControllerApiUpdatePasswordRequest() *MeControllerApiUpdatePasswordRequest {
+	this := MeControllerApiUpdatePasswordRequest{}
+	return &this
+}
+
+// NewMeControllerApiUpdatePasswordRequestWithDefaults instantiates a new MeControllerApiUpdatePasswordRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewMeControllerApiUpdatePasswordRequestWithDefaults() *MeControllerApiUpdatePasswordRequest {
+	this := MeControllerApiUpdatePasswordRequest{}
+	return &this
+}
+
+// GetOldPassword returns the OldPassword field value if set, zero value otherwise.
+func (o *MeControllerApiUpdatePasswordRequest) GetOldPassword() string {
+	if o == nil || IsNil(o.OldPassword) {
+		var ret string
+		return ret
+	}
+	return *o.OldPassword
+}
+
+// GetOldPasswordOk returns a tuple with the OldPassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MeControllerApiUpdatePasswordRequest) GetOldPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.OldPassword) {
+		return nil, false
+	}
+	return o.OldPassword, true
+}
+
+// HasOldPassword returns a boolean if a field has been set.
+func (o *MeControllerApiUpdatePasswordRequest) HasOldPassword() bool {
+	if o != nil && !IsNil(o.OldPassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetOldPassword gets a reference to the given string and assigns it to the OldPassword field.
+func (o *MeControllerApiUpdatePasswordRequest) SetOldPassword(v string) {
+	o.OldPassword = &v
+}
+
+// GetNewPassword returns the NewPassword field value if set, zero value otherwise.
+func (o *MeControllerApiUpdatePasswordRequest) GetNewPassword() string {
+	if o == nil || IsNil(o.NewPassword) {
+		var ret string
+		return ret
+	}
+	return *o.NewPassword
+}
+
+// GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MeControllerApiUpdatePasswordRequest) GetNewPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.NewPassword) {
+		return nil, false
+	}
+	return o.NewPassword, true
+}
+
+// HasNewPassword returns a boolean if a field has been set.
+func (o *MeControllerApiUpdatePasswordRequest) HasNewPassword() bool {
+	if o != nil && !IsNil(o.NewPassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetNewPassword gets a reference to the given string and assigns it to the NewPassword field.
+func (o *MeControllerApiUpdatePasswordRequest) SetNewPassword(v string) {
+	o.NewPassword = &v
+}
+
+func (o MeControllerApiUpdatePasswordRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MeControllerApiUpdatePasswordRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OldPassword) {
+		toSerialize["oldPassword"] = o.OldPassword
+	}
+	if !IsNil(o.NewPassword) {
+		toSerialize["newPassword"] = o.NewPassword
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *MeControllerApiUpdatePasswordRequest) UnmarshalJSON(data []byte) (err error) {
+	varMeControllerApiUpdatePasswordRequest := _MeControllerApiUpdatePasswordRequest{}
+
+	err = json.Unmarshal(data, &varMeControllerApiUpdatePasswordRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MeControllerApiUpdatePasswordRequest(varMeControllerApiUpdatePasswordRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "oldPassword")
+		delete(additionalProperties, "newPassword")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableMeControllerApiUpdatePasswordRequest struct {
+	value *MeControllerApiUpdatePasswordRequest
+	isSet bool
+}
+
+func (v NullableMeControllerApiUpdatePasswordRequest) Get() *MeControllerApiUpdatePasswordRequest {
+	return v.value
+}
+
+func (v *NullableMeControllerApiUpdatePasswordRequest) Set(val *MeControllerApiUpdatePasswordRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableMeControllerApiUpdatePasswordRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableMeControllerApiUpdatePasswordRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableMeControllerApiUpdatePasswordRequest(val *MeControllerApiUpdatePasswordRequest) *NullableMeControllerApiUpdatePasswordRequest {
+	return &NullableMeControllerApiUpdatePasswordRequest{value: val, isSet: true}
+}
+
+func (v NullableMeControllerApiUpdatePasswordRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableMeControllerApiUpdatePasswordRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,127 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TimeWindow
+ */
+@JsonPropertyOrder({
+  TimeWindow.JSON_PROPERTY_DEFAULT,
+  TimeWindow.JSON_PROPERTY_MAX
+})
+public class TimeWindow {
+  public static final String JSON_PROPERTY_DEFAULT = "default";
+  @jakarta.annotation.Nullable  private String _default;
+
+  public static final String JSON_PROPERTY_MAX = "max";
+  @jakarta.annotation.Nullable  private String max;
+
+  public TimeWindow() {
+  }
+
+  public TimeWindow _default(@jakarta.annotation.Nullable String _default) {
+    
+    this._default = _default;
+    return this;
+  }
+
+  /**
+   * Get _default
+   * @return _default
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDefault() {
+    return _default;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDefault(@jakarta.annotation.Nullable String _default) {
+    this._default = _default;
+  }
+
+  public TimeWindow max(@jakarta.annotation.Nullable String max) {
+    
+    this.max = max;
+    return this;
+  }
+
+  /**
+   * Get max
+   * @return max
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMax() {
+    return max;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMax(@jakarta.annotation.Nullable String max) {
+    this.max = max;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TimeWindow timeWindow = (TimeWindow) o;
+    return Objects.equals(this._default, timeWindow._default) &&
+        Objects.equals(this.max, timeWindow.max);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(_default, max);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TimeWindow {\n");
+    sb.append("    _default: ").append(toIndentedString(_default)).append("\n");
+    sb.append("    max: ").append(toIndentedString(max)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

@@ -1,0 +1,331 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssertionResult;
+import io.kestra.sdk.model.AssertionRunError;
+import io.kestra.sdk.model.Fixtures;
+import io.kestra.sdk.model.TestState;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * UnitTestResult
+ */
+@JsonPropertyOrder({
+  UnitTestResult.JSON_PROPERTY_TEST_ID,
+  UnitTestResult.JSON_PROPERTY_TEST_TYPE,
+  UnitTestResult.JSON_PROPERTY_EXECUTION_ID,
+  UnitTestResult.JSON_PROPERTY_URL,
+  UnitTestResult.JSON_PROPERTY_STATE,
+  UnitTestResult.JSON_PROPERTY_ASSERTION_RESULTS,
+  UnitTestResult.JSON_PROPERTY_ERRORS,
+  UnitTestResult.JSON_PROPERTY_FIXTURES
+})
+public class UnitTestResult {
+  public static final String JSON_PROPERTY_TEST_ID = "testId";
+  @jakarta.annotation.Nonnull  private String testId;
+
+  public static final String JSON_PROPERTY_TEST_TYPE = "testType";
+  @jakarta.annotation.Nonnull  private String testType;
+
+  public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
+  @jakarta.annotation.Nullable  private String executionId;
+
+  public static final String JSON_PROPERTY_URL = "url";
+  @jakarta.annotation.Nullable  private URI url;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nonnull  private TestState state;
+
+  public static final String JSON_PROPERTY_ASSERTION_RESULTS = "assertionResults";
+  @jakarta.annotation.Nonnull  private List<AssertionResult> assertionResults = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  @jakarta.annotation.Nonnull  private List<AssertionRunError> errors = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_FIXTURES = "fixtures";
+  @jakarta.annotation.Nullable  private Fixtures fixtures;
+
+  public UnitTestResult() {
+  }
+
+  public UnitTestResult testId(@jakarta.annotation.Nonnull String testId) {
+    
+    this.testId = testId;
+    return this;
+  }
+
+  /**
+   * Get testId
+   * @return testId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTestId() {
+    return testId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEST_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestId(@jakarta.annotation.Nonnull String testId) {
+    this.testId = testId;
+  }
+
+  public UnitTestResult testType(@jakarta.annotation.Nonnull String testType) {
+    
+    this.testType = testType;
+    return this;
+  }
+
+  /**
+   * Get testType
+   * @return testType
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTestType() {
+    return testType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEST_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestType(@jakarta.annotation.Nonnull String testType) {
+    this.testType = testType;
+  }
+
+  public UnitTestResult executionId(@jakarta.annotation.Nullable String executionId) {
+    
+    this.executionId = executionId;
+    return this;
+  }
+
+  /**
+   * Get executionId
+   * @return executionId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExecutionId() {
+    return executionId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutionId(@jakarta.annotation.Nullable String executionId) {
+    this.executionId = executionId;
+  }
+
+  public UnitTestResult url(@jakarta.annotation.Nullable URI url) {
+    
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   * @return url
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public URI getUrl() {
+    return url;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable URI url) {
+    this.url = url;
+  }
+
+  public UnitTestResult state(@jakarta.annotation.Nonnull TestState state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TestState getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@jakarta.annotation.Nonnull TestState state) {
+    this.state = state;
+  }
+
+  public UnitTestResult assertionResults(@jakarta.annotation.Nonnull List<AssertionResult> assertionResults) {
+    
+    this.assertionResults = assertionResults;
+    return this;
+  }
+
+  public UnitTestResult addAssertionResultsItem(AssertionResult assertionResultsItem) {
+    if (this.assertionResults == null) {
+      this.assertionResults = new ArrayList<>();
+    }
+    this.assertionResults.add(assertionResultsItem);
+    return this;
+  }
+
+  /**
+   * Get assertionResults
+   * @return assertionResults
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTION_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<AssertionResult> getAssertionResults() {
+    return assertionResults;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSERTION_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAssertionResults(@jakarta.annotation.Nonnull List<AssertionResult> assertionResults) {
+    this.assertionResults = assertionResults;
+  }
+
+  public UnitTestResult errors(@jakarta.annotation.Nonnull List<AssertionRunError> errors) {
+    
+    this.errors = errors;
+    return this;
+  }
+
+  public UnitTestResult addErrorsItem(AssertionRunError errorsItem) {
+    if (this.errors == null) {
+      this.errors = new ArrayList<>();
+    }
+    this.errors.add(errorsItem);
+    return this;
+  }
+
+  /**
+   * Get errors
+   * @return errors
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<AssertionRunError> getErrors() {
+    return errors;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setErrors(@jakarta.annotation.Nonnull List<AssertionRunError> errors) {
+    this.errors = errors;
+  }
+
+  public UnitTestResult fixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
+    
+    this.fixtures = fixtures;
+    return this;
+  }
+
+  /**
+   * Get fixtures
+   * @return fixtures
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Fixtures getFixtures() {
+    return fixtures;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
+    this.fixtures = fixtures;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UnitTestResult unitTestResult = (UnitTestResult) o;
+    return Objects.equals(this.testId, unitTestResult.testId) &&
+        Objects.equals(this.testType, unitTestResult.testType) &&
+        Objects.equals(this.executionId, unitTestResult.executionId) &&
+        Objects.equals(this.url, unitTestResult.url) &&
+        Objects.equals(this.state, unitTestResult.state) &&
+        Objects.equals(this.assertionResults, unitTestResult.assertionResults) &&
+        Objects.equals(this.errors, unitTestResult.errors) &&
+        Objects.equals(this.fixtures, unitTestResult.fixtures);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(testId, testType, executionId, url, state, assertionResults, errors, fixtures);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UnitTestResult {\n");
+    sb.append("    testId: ").append(toIndentedString(testId)).append("\n");
+    sb.append("    testType: ").append(toIndentedString(testType)).append("\n");
+    sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    assertionResults: ").append(toIndentedString(assertionResults)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("    fixtures: ").append(toIndentedString(fixtures)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

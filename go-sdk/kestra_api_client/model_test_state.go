@@ -1,0 +1,113 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// TestState the model 'TestState'
+type TestState string
+
+// List of TestState
+const (
+	TESTSTATE_ERROR TestState = "ERROR"
+	TESTSTATE_SUCCESS TestState = "SUCCESS"
+	TESTSTATE_FAILED TestState = "FAILED"
+	TESTSTATE_SKIPPED TestState = "SKIPPED"
+)
+
+// All allowed values of TestState enum
+var AllowedTestStateEnumValues = []TestState{
+	"ERROR",
+	"SUCCESS",
+	"FAILED",
+	"SKIPPED",
+}
+
+func (v *TestState) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := TestState(value)
+	for _, existing := range AllowedTestStateEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TestState", value)
+}
+
+// NewTestStateFromValue returns a pointer to a valid TestState
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewTestStateFromValue(v string) (*TestState, error) {
+	ev := TestState(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for TestState: valid values are %v", v, AllowedTestStateEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v TestState) IsValid() bool {
+	for _, existing := range AllowedTestStateEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to TestState value
+func (v TestState) Ptr() *TestState {
+	return &v
+}
+
+type NullableTestState struct {
+	value *TestState
+	isSet bool
+}
+
+func (v NullableTestState) Get() *TestState {
+	return v.value
+}
+
+func (v *NullableTestState) Set(val *TestState) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTestState) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTestState) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTestState(val *TestState) *NullableTestState {
+	return &NullableTestState{value: val, isSet: true}
+}
+
+func (v NullableTestState) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTestState) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

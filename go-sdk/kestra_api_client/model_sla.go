@@ -1,0 +1,261 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the SLA type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SLA{}
+
+// SLA struct for SLA
+type SLA struct {
+	Id string `json:"id"`
+	Type SLAType `json:"type"`
+	Behavior SLABehavior `json:"behavior"`
+	Labels *SLALabels `json:"labels,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _SLA SLA
+
+// NewSLA instantiates a new SLA object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSLA(id string, type_ SLAType, behavior SLABehavior) *SLA {
+	this := SLA{}
+	this.Id = id
+	this.Type = type_
+	this.Behavior = behavior
+	return &this
+}
+
+// NewSLAWithDefaults instantiates a new SLA object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSLAWithDefaults() *SLA {
+	this := SLA{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *SLA) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *SLA) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *SLA) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *SLA) GetType() SLAType {
+	if o == nil {
+		var ret SLAType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *SLA) GetTypeOk() (*SLAType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *SLA) SetType(v SLAType) {
+	o.Type = v
+}
+
+// GetBehavior returns the Behavior field value
+func (o *SLA) GetBehavior() SLABehavior {
+	if o == nil {
+		var ret SLABehavior
+		return ret
+	}
+
+	return o.Behavior
+}
+
+// GetBehaviorOk returns a tuple with the Behavior field value
+// and a boolean to check if the value has been set.
+func (o *SLA) GetBehaviorOk() (*SLABehavior, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Behavior, true
+}
+
+// SetBehavior sets field value
+func (o *SLA) SetBehavior(v SLABehavior) {
+	o.Behavior = v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *SLA) GetLabels() SLALabels {
+	if o == nil || IsNil(o.Labels) {
+		var ret SLALabels
+		return ret
+	}
+	return *o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SLA) GetLabelsOk() (*SLALabels, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *SLA) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given SLALabels and assigns it to the Labels field.
+func (o *SLA) SetLabels(v SLALabels) {
+	o.Labels = &v
+}
+
+func (o SLA) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SLA) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["behavior"] = o.Behavior
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *SLA) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"behavior",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSLA := _SLA{}
+
+	err = json.Unmarshal(data, &varSLA)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SLA(varSLA)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "behavior")
+		delete(additionalProperties, "labels")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableSLA struct {
+	value *SLA
+	isSet bool
+}
+
+func (v NullableSLA) Get() *SLA {
+	return v.value
+}
+
+func (v *NullableSLA) Set(val *SLA) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSLA) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSLA) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSLA(val *SLA) *NullableSLA {
+	return &NullableSLA{value: val, isSet: true}
+}
+
+func (v NullableSLA) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSLA) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

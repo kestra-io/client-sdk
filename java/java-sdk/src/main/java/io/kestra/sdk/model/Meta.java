@@ -1,0 +1,218 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * Meta
+ */
+@JsonPropertyOrder({
+  Meta.JSON_PROPERTY_RESOURCE_TYPE,
+  Meta.JSON_PROPERTY_CREATED,
+  Meta.JSON_PROPERTY_LAST_MODIFIED,
+  Meta.JSON_PROPERTY_LOCATION,
+  Meta.JSON_PROPERTY_VERSION
+})
+public class Meta {
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @jakarta.annotation.Nullable  private String resourceType;
+
+  public static final String JSON_PROPERTY_CREATED = "created";
+  @jakarta.annotation.Nullable  private LocalDateTime created;
+
+  public static final String JSON_PROPERTY_LAST_MODIFIED = "lastModified";
+  @jakarta.annotation.Nullable  private LocalDateTime lastModified;
+
+  public static final String JSON_PROPERTY_LOCATION = "location";
+  @jakarta.annotation.Nullable  private String location;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private String version;
+
+  public Meta() {
+  }
+
+  public Meta resourceType(@jakarta.annotation.Nullable String resourceType) {
+    
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  public Meta created(@jakarta.annotation.Nullable LocalDateTime created) {
+    
+    this.created = created;
+    return this;
+  }
+
+  /**
+   * Get created
+   * @return created
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public LocalDateTime getCreated() {
+    return created;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreated(@jakarta.annotation.Nullable LocalDateTime created) {
+    this.created = created;
+  }
+
+  public Meta lastModified(@jakarta.annotation.Nullable LocalDateTime lastModified) {
+    
+    this.lastModified = lastModified;
+    return this;
+  }
+
+  /**
+   * Get lastModified
+   * @return lastModified
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public LocalDateTime getLastModified() {
+    return lastModified;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastModified(@jakarta.annotation.Nullable LocalDateTime lastModified) {
+    this.lastModified = lastModified;
+  }
+
+  public Meta location(@jakarta.annotation.Nullable String location) {
+    
+    this.location = location;
+    return this;
+  }
+
+  /**
+   * Get location
+   * @return location
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLocation() {
+    return location;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLocation(@jakarta.annotation.Nullable String location) {
+    this.location = location;
+  }
+
+  public Meta version(@jakarta.annotation.Nullable String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
+    this.version = version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Meta meta = (Meta) o;
+    return Objects.equals(this.resourceType, meta.resourceType) &&
+        Objects.equals(this.created, meta.created) &&
+        Objects.equals(this.lastModified, meta.lastModified) &&
+        Objects.equals(this.location, meta.location) &&
+        Objects.equals(this.version, meta.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(resourceType, created, lastModified, location, version);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Meta {\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

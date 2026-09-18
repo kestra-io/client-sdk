@@ -22,4 +22,4 @@ body:
       required: false
 labels:
   - bug
-  - area/plugin
+  - area/backend

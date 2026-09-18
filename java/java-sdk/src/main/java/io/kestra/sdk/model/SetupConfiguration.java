@@ -1,0 +1,278 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PasswordConfiguration;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * SetupConfiguration
+ */
+@JsonPropertyOrder({
+  SetupConfiguration.JSON_PROPERTY_DONE,
+  SetupConfiguration.JSON_PROPERTY_REPOSITORY_TYPE,
+  SetupConfiguration.JSON_PROPERTY_QUEUE_TYPE,
+  SetupConfiguration.JSON_PROPERTY_STORAGE_TYPE,
+  SetupConfiguration.JSON_PROPERTY_SECRET_TYPE,
+  SetupConfiguration.JSON_PROPERTY_PASSWORD_CONFIGURATION,
+  SetupConfiguration.JSON_PROPERTY_HAVE_AUTH_NOT_BASIC
+})
+public class SetupConfiguration {
+  public static final String JSON_PROPERTY_DONE = "done";
+  @jakarta.annotation.Nullable  private Boolean done;
+
+  public static final String JSON_PROPERTY_REPOSITORY_TYPE = "repositoryType";
+  @jakarta.annotation.Nullable  private String repositoryType;
+
+  public static final String JSON_PROPERTY_QUEUE_TYPE = "queueType";
+  @jakarta.annotation.Nullable  private String queueType;
+
+  public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
+  @jakarta.annotation.Nullable  private String storageType;
+
+  public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
+  @jakarta.annotation.Nullable  private String secretType;
+
+  public static final String JSON_PROPERTY_PASSWORD_CONFIGURATION = "passwordConfiguration";
+  @jakarta.annotation.Nullable  private PasswordConfiguration passwordConfiguration;
+
+  public static final String JSON_PROPERTY_HAVE_AUTH_NOT_BASIC = "haveAuthNotBasic";
+  @jakarta.annotation.Nullable  private Boolean haveAuthNotBasic;
+
+  public SetupConfiguration() {
+  }
+
+  public SetupConfiguration done(@jakarta.annotation.Nullable Boolean done) {
+    
+    this.done = done;
+    return this;
+  }
+
+  /**
+   * Get done
+   * @return done
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDone() {
+    return done;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDone(@jakarta.annotation.Nullable Boolean done) {
+    this.done = done;
+  }
+
+  public SetupConfiguration repositoryType(@jakarta.annotation.Nullable String repositoryType) {
+    
+    this.repositoryType = repositoryType;
+    return this;
+  }
+
+  /**
+   * Get repositoryType
+   * @return repositoryType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRepositoryType() {
+    return repositoryType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRepositoryType(@jakarta.annotation.Nullable String repositoryType) {
+    this.repositoryType = repositoryType;
+  }
+
+  public SetupConfiguration queueType(@jakarta.annotation.Nullable String queueType) {
+    
+    this.queueType = queueType;
+    return this;
+  }
+
+  /**
+   * Get queueType
+   * @return queueType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getQueueType() {
+    return queueType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQueueType(@jakarta.annotation.Nullable String queueType) {
+    this.queueType = queueType;
+  }
+
+  public SetupConfiguration storageType(@jakarta.annotation.Nullable String storageType) {
+    
+    this.storageType = storageType;
+    return this;
+  }
+
+  /**
+   * Get storageType
+   * @return storageType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStorageType() {
+    return storageType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageType(@jakarta.annotation.Nullable String storageType) {
+    this.storageType = storageType;
+  }
+
+  public SetupConfiguration secretType(@jakarta.annotation.Nullable String secretType) {
+    
+    this.secretType = secretType;
+    return this;
+  }
+
+  /**
+   * Get secretType
+   * @return secretType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSecretType() {
+    return secretType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSecretType(@jakarta.annotation.Nullable String secretType) {
+    this.secretType = secretType;
+  }
+
+  public SetupConfiguration passwordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    
+    this.passwordConfiguration = passwordConfiguration;
+    return this;
+  }
+
+  /**
+   * Get passwordConfiguration
+   * @return passwordConfiguration
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PasswordConfiguration getPasswordConfiguration() {
+    return passwordConfiguration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    this.passwordConfiguration = passwordConfiguration;
+  }
+
+  public SetupConfiguration haveAuthNotBasic(@jakarta.annotation.Nullable Boolean haveAuthNotBasic) {
+    
+    this.haveAuthNotBasic = haveAuthNotBasic;
+    return this;
+  }
+
+  /**
+   * Get haveAuthNotBasic
+   * @return haveAuthNotBasic
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getHaveAuthNotBasic() {
+    return haveAuthNotBasic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHaveAuthNotBasic(@jakarta.annotation.Nullable Boolean haveAuthNotBasic) {
+    this.haveAuthNotBasic = haveAuthNotBasic;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SetupConfiguration setupConfiguration = (SetupConfiguration) o;
+    return Objects.equals(this.done, setupConfiguration.done) &&
+        Objects.equals(this.repositoryType, setupConfiguration.repositoryType) &&
+        Objects.equals(this.queueType, setupConfiguration.queueType) &&
+        Objects.equals(this.storageType, setupConfiguration.storageType) &&
+        Objects.equals(this.secretType, setupConfiguration.secretType) &&
+        Objects.equals(this.passwordConfiguration, setupConfiguration.passwordConfiguration) &&
+        Objects.equals(this.haveAuthNotBasic, setupConfiguration.haveAuthNotBasic);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordConfiguration, haveAuthNotBasic);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SetupConfiguration {\n");
+    sb.append("    done: ").append(toIndentedString(done)).append("\n");
+    sb.append("    repositoryType: ").append(toIndentedString(repositoryType)).append("\n");
+    sb.append("    queueType: ").append(toIndentedString(queueType)).append("\n");
+    sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
+    sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
+    sb.append("    passwordConfiguration: ").append(toIndentedString(passwordConfiguration)).append("\n");
+    sb.append("    haveAuthNotBasic: ").append(toIndentedString(haveAuthNotBasic)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

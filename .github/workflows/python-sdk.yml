@@ -1,36 +1,54 @@
-name: Python SDK release
+name: Python SDK tests
 
 on:
   push:
     branches:
       - main
-
+      - "releases/v*"
+    paths:
+      - 'python/**'
   pull_request:
     branches:
       - main
-
+      - "releases/v*"
+    paths:
+      - 'python/**'
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
-        type: string
+        type: choice
+        options:
+          - "true"
+          - "false"
         default: "false"
 
 jobs:
-  pip:
-    name: Publish to Pip
+  test:
+    name: Test Python SDK
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./python-sdk
+        working-directory: ./python/python-sdk
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
+
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.9.23"
+
+      # Static doc checks — no Kestra container needed, so they fail fast.
+      - name: Check README examples are in sync with their tested source
+        run: python3 ../../test-utils/embed_snippets.py --check ../../README_PYTHON_SDK.md
+
+      - name: Validate generated docs examples match the SDK
+        run: python3 scripts/validate_doc_examples.py --check
 
       - name: Install pypa/build
         run: python -m pip install build --user
@@ -38,15 +56,52 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
-      - name: Build a binary wheel and a source tarball
-        env:
-          VERSION: ${{ github.ref_name }}
-        run: python -m build --sdist --wheel --outdir dist/ .
+      - name: Install tests deps
+        run: pip install -r test-requirements.txt
 
-      - name: Publish distribution to PyPI
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: GCP - Auth with github service account
+        uses: "google-github-actions/auth@v2"
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          verbose: true
-          packages-dir: python-sdk/dist
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Select license file
+        id: license
+        uses: ./.github/actions/set-license-file
+        with:
+          kestra_version: ${{ steps.version.outputs.kestra_version }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
+      - name: Test with pytest
+        if: inputs.skip-test != 'true'
+        env:
+          KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
+        run: |
+          echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
+          bash run-tests.sh $KESTRA_VERSION
+
+      # The CI Kestra JVM occasionally dies mid-shard (2.0 develop image).
+      # run-tests.sh saves the dead container's full docker log (including
+      # -Xlog:gc heap lines and any "Terminating due to OutOfMemoryError"
+      # message) into kestra-logs/shard-NN-<file>.log the moment a shard
+      # fails, before the stack reset destroys the container.
+      - name: Upload Kestra logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: kestra-logs
+          path: python/python-sdk/kestra-logs/
+          if-no-files-found: ignore
+          retention-days: 5
+
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Python SDK

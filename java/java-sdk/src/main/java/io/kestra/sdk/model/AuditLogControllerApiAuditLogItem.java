@@ -1,0 +1,130 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ApiUser;
+import io.kestra.sdk.model.AuditLog;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * AuditLogControllerApiAuditLogItem
+ */
+@JsonPropertyOrder({
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_AUDIT_LOG,
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER
+})
+@JsonTypeName("AuditLogController.ApiAuditLogItem")
+public class AuditLogControllerApiAuditLogItem {
+  public static final String JSON_PROPERTY_AUDIT_LOG = "auditLog";
+  @jakarta.annotation.Nullable  private AuditLog auditLog;
+
+  public static final String JSON_PROPERTY_USER = "user";
+  @jakarta.annotation.Nullable  private ApiUser user;
+
+  public AuditLogControllerApiAuditLogItem() {
+  }
+
+  public AuditLogControllerApiAuditLogItem auditLog(@jakarta.annotation.Nullable AuditLog auditLog) {
+    
+    this.auditLog = auditLog;
+    return this;
+  }
+
+  /**
+   * Get auditLog
+   * @return auditLog
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AuditLog getAuditLog() {
+    return auditLog;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuditLog(@jakarta.annotation.Nullable AuditLog auditLog) {
+    this.auditLog = auditLog;
+  }
+
+  public AuditLogControllerApiAuditLogItem user(@jakarta.annotation.Nullable ApiUser user) {
+    
+    this.user = user;
+    return this;
+  }
+
+  /**
+   * Get user
+   * @return user
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ApiUser getUser() {
+    return user;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUser(@jakarta.annotation.Nullable ApiUser user) {
+    this.user = user;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AuditLogControllerApiAuditLogItem auditLogControllerApiAuditLogItem = (AuditLogControllerApiAuditLogItem) o;
+    return Objects.equals(this.auditLog, auditLogControllerApiAuditLogItem.auditLog) &&
+        Objects.equals(this.user, auditLogControllerApiAuditLogItem.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(auditLog, user);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AuditLogControllerApiAuditLogItem {\n");
+    sb.append("    auditLog: ").append(toIndentedString(auditLog)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

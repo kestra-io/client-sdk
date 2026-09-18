@@ -1,0 +1,113 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// SchemaAttributeReturned the model 'SchemaAttributeReturned'
+type SchemaAttributeReturned string
+
+// List of Schema.Attribute.Returned
+const (
+	SCHEMAATTRIBUTERETURNED_ALWAYS SchemaAttributeReturned = "ALWAYS"
+	SCHEMAATTRIBUTERETURNED_DEFAULT SchemaAttributeReturned = "DEFAULT"
+	SCHEMAATTRIBUTERETURNED_NEVER SchemaAttributeReturned = "NEVER"
+	SCHEMAATTRIBUTERETURNED_REQUEST SchemaAttributeReturned = "REQUEST"
+)
+
+// All allowed values of SchemaAttributeReturned enum
+var AllowedSchemaAttributeReturnedEnumValues = []SchemaAttributeReturned{
+	"ALWAYS",
+	"DEFAULT",
+	"NEVER",
+	"REQUEST",
+}
+
+func (v *SchemaAttributeReturned) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := SchemaAttributeReturned(value)
+	for _, existing := range AllowedSchemaAttributeReturnedEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SchemaAttributeReturned", value)
+}
+
+// NewSchemaAttributeReturnedFromValue returns a pointer to a valid SchemaAttributeReturned
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewSchemaAttributeReturnedFromValue(v string) (*SchemaAttributeReturned, error) {
+	ev := SchemaAttributeReturned(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for SchemaAttributeReturned: valid values are %v", v, AllowedSchemaAttributeReturnedEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v SchemaAttributeReturned) IsValid() bool {
+	for _, existing := range AllowedSchemaAttributeReturnedEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Schema.Attribute.Returned value
+func (v SchemaAttributeReturned) Ptr() *SchemaAttributeReturned {
+	return &v
+}
+
+type NullableSchemaAttributeReturned struct {
+	value *SchemaAttributeReturned
+	isSet bool
+}
+
+func (v NullableSchemaAttributeReturned) Get() *SchemaAttributeReturned {
+	return v.value
+}
+
+func (v *NullableSchemaAttributeReturned) Set(val *SchemaAttributeReturned) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSchemaAttributeReturned) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSchemaAttributeReturned) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSchemaAttributeReturned(val *SchemaAttributeReturned) *NullableSchemaAttributeReturned {
+	return &NullableSchemaAttributeReturned{value: val, isSet: true}
+}
+
+func (v NullableSchemaAttributeReturned) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSchemaAttributeReturned) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+

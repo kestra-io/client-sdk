@@ -1,0 +1,271 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Asset;
+import io.kestra.sdk.model.PropertyString;
+import io.kestra.sdk.model.StateType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TaskFixture
+ */
+@JsonPropertyOrder({
+  TaskFixture.JSON_PROPERTY_ID,
+  TaskFixture.JSON_PROPERTY_VALUE,
+  TaskFixture.JSON_PROPERTY_STATE,
+  TaskFixture.JSON_PROPERTY_OUTPUTS,
+  TaskFixture.JSON_PROPERTY_ASSETS,
+  TaskFixture.JSON_PROPERTY_DESCRIPTION
+})
+public class TaskFixture {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nullable  private String value;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  @jakarta.annotation.Nullable  private StateType state;
+
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private List<Asset> assets = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public TaskFixture() {
+  }
+
+  public TaskFixture id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public TaskFixture value(@jakarta.annotation.Nullable String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable String value) {
+    this.value = value;
+  }
+
+  public TaskFixture state(@jakarta.annotation.Nullable StateType state) {
+    
+    this.state = state;
+    return this;
+  }
+
+  /**
+   * Get state
+   * @return state
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StateType getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@jakarta.annotation.Nullable StateType state) {
+    this.state = state;
+  }
+
+  public TaskFixture outputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  public TaskFixture putOutputsItem(String key, Object outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new HashMap<>();
+    }
+    this.outputs.put(key, outputsItem);
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
+    this.outputs = outputs;
+  }
+
+  public TaskFixture assets(@jakarta.annotation.Nullable List<Asset> assets) {
+    
+    this.assets = assets;
+    return this;
+  }
+
+  public TaskFixture addAssetsItem(Asset assetsItem) {
+    if (this.assets == null) {
+      this.assets = new ArrayList<>();
+    }
+    this.assets.add(assetsItem);
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Asset> getAssets() {
+    return assets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssets(@jakarta.annotation.Nullable List<Asset> assets) {
+    this.assets = assets;
+  }
+
+  public TaskFixture description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TaskFixture taskFixture = (TaskFixture) o;
+    return Objects.equals(this.id, taskFixture.id) &&
+        Objects.equals(this.value, taskFixture.value) &&
+        Objects.equals(this.state, taskFixture.state) &&
+        Objects.equals(this.outputs, taskFixture.outputs) &&
+        Objects.equals(this.assets, taskFixture.assets) &&
+        Objects.equals(this.description, taskFixture.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, value, state, outputs, assets, description);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TaskFixture {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

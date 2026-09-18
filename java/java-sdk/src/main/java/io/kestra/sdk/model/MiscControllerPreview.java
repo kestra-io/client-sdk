@@ -1,0 +1,128 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * MiscControllerPreview
+ */
+@JsonPropertyOrder({
+  MiscControllerPreview.JSON_PROPERTY_INITIAL,
+  MiscControllerPreview.JSON_PROPERTY_MAX
+})
+@JsonTypeName("MiscController.Preview")
+public class MiscControllerPreview {
+  public static final String JSON_PROPERTY_INITIAL = "initial";
+  @jakarta.annotation.Nullable  private Integer initial;
+
+  public static final String JSON_PROPERTY_MAX = "max";
+  @jakarta.annotation.Nullable  private Integer max;
+
+  public MiscControllerPreview() {
+  }
+
+  public MiscControllerPreview initial(@jakarta.annotation.Nullable Integer initial) {
+    
+    this.initial = initial;
+    return this;
+  }
+
+  /**
+   * Get initial
+   * @return initial
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INITIAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getInitial() {
+    return initial;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INITIAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInitial(@jakarta.annotation.Nullable Integer initial) {
+    this.initial = initial;
+  }
+
+  public MiscControllerPreview max(@jakarta.annotation.Nullable Integer max) {
+    
+    this.max = max;
+    return this;
+  }
+
+  /**
+   * Get max
+   * @return max
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMax() {
+    return max;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMax(@jakarta.annotation.Nullable Integer max) {
+    this.max = max;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MiscControllerPreview miscControllerPreview = (MiscControllerPreview) o;
+    return Objects.equals(this.initial, miscControllerPreview.initial) &&
+        Objects.equals(this.max, miscControllerPreview.max);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(initial, max);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class MiscControllerPreview {\n");
+    sb.append("    initial: ").append(toIndentedString(initial)).append("\n");
+    sb.append("    max: ").append(toIndentedString(max)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

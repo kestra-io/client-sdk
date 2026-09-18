@@ -1,0 +1,220 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.StateType;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ExecutionControllerLastExecutionResponse
+ */
+@JsonPropertyOrder({
+  ExecutionControllerLastExecutionResponse.JSON_PROPERTY_ID,
+  ExecutionControllerLastExecutionResponse.JSON_PROPERTY_FLOW_ID,
+  ExecutionControllerLastExecutionResponse.JSON_PROPERTY_NAMESPACE,
+  ExecutionControllerLastExecutionResponse.JSON_PROPERTY_START_DATE,
+  ExecutionControllerLastExecutionResponse.JSON_PROPERTY_STATUS
+})
+@JsonTypeName("ExecutionController.LastExecutionResponse")
+public class ExecutionControllerLastExecutionResponse {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nonnull  private String flowId;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nonnull  private String namespace;
+
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime startDate;
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @jakarta.annotation.Nonnull  private StateType status;
+
+  public ExecutionControllerLastExecutionResponse() {
+  }
+
+  public ExecutionControllerLastExecutionResponse id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ExecutionControllerLastExecutionResponse flowId(@jakarta.annotation.Nonnull String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+    this.flowId = flowId;
+  }
+
+  public ExecutionControllerLastExecutionResponse namespace(@jakarta.annotation.Nonnull String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+    this.namespace = namespace;
+  }
+
+  public ExecutionControllerLastExecutionResponse startDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+    
+    this.startDate = startDate;
+    return this;
+  }
+
+  /**
+   * Get startDate
+   * @return startDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getStartDate() {
+    return startDate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+    this.startDate = startDate;
+  }
+
+  public ExecutionControllerLastExecutionResponse status(@jakarta.annotation.Nonnull StateType status) {
+    
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public StateType getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@jakarta.annotation.Nonnull StateType status) {
+    this.status = status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionControllerLastExecutionResponse executionControllerLastExecutionResponse = (ExecutionControllerLastExecutionResponse) o;
+    return Objects.equals(this.id, executionControllerLastExecutionResponse.id) &&
+        Objects.equals(this.flowId, executionControllerLastExecutionResponse.flowId) &&
+        Objects.equals(this.namespace, executionControllerLastExecutionResponse.namespace) &&
+        Objects.equals(this.startDate, executionControllerLastExecutionResponse.startDate) &&
+        Objects.equals(this.status, executionControllerLastExecutionResponse.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, flowId, namespace, startDate, status);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionControllerLastExecutionResponse {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

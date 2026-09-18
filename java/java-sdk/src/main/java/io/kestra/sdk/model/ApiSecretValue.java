@@ -1,0 +1,199 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.ApiSecretTag;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ApiSecretValue
+ */
+@JsonPropertyOrder({
+  ApiSecretValue.JSON_PROPERTY_TAGS,
+  ApiSecretValue.JSON_PROPERTY_KEY,
+  ApiSecretValue.JSON_PROPERTY_VALUE,
+  ApiSecretValue.JSON_PROPERTY_DESCRIPTION
+})
+public class ApiSecretValue {
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  @jakarta.annotation.Nullable  private List<ApiSecretTag> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nonnull  private String key;
+
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nonnull  private String value;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @jakarta.annotation.Nullable  private String description;
+
+  public ApiSecretValue() {
+  }
+
+  public ApiSecretValue tags(@jakarta.annotation.Nullable List<ApiSecretTag> tags) {
+    
+    this.tags = tags;
+    return this;
+  }
+
+  public ApiSecretValue addTagsItem(ApiSecretTag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ApiSecretTag> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<ApiSecretTag> tags) {
+    this.tags = tags;
+  }
+
+  public ApiSecretValue key(@jakarta.annotation.Nonnull String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@jakarta.annotation.Nonnull String key) {
+    this.key = key;
+  }
+
+  public ApiSecretValue value(@jakarta.annotation.Nonnull String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@jakarta.annotation.Nonnull String value) {
+    this.value = value;
+  }
+
+  public ApiSecretValue description(@jakarta.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
+    this.description = description;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ApiSecretValue apiSecretValue = (ApiSecretValue) o;
+    return Objects.equals(this.tags, apiSecretValue.tags) &&
+        Objects.equals(this.key, apiSecretValue.key) &&
+        Objects.equals(this.value, apiSecretValue.value) &&
+        Objects.equals(this.description, apiSecretValue.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tags, key, value, description);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ApiSecretValue {\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

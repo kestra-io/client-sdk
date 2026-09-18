@@ -1,0 +1,110 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TestSuiteRunResult;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteControllerTestsLastResultResponse
+ */
+@JsonPropertyOrder({
+  TestSuiteControllerTestsLastResultResponse.JSON_PROPERTY_RESULTS
+})
+@JsonTypeName("TestSuiteController.TestsLastResultResponse")
+public class TestSuiteControllerTestsLastResultResponse {
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
+
+  public TestSuiteControllerTestsLastResultResponse() {
+  }
+
+  public TestSuiteControllerTestsLastResultResponse results(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public TestSuiteControllerTestsLastResultResponse addResultsItem(TestSuiteRunResult resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<TestSuiteRunResult> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
+    this.results = results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteControllerTestsLastResultResponse testSuiteControllerTestsLastResultResponse = (TestSuiteControllerTestsLastResultResponse) o;
+    return Objects.equals(this.results, testSuiteControllerTestsLastResultResponse.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(results);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteControllerTestsLastResultResponse {\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

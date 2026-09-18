@@ -1,0 +1,487 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// checks if the ServiceInstance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceInstance{}
+
+// ServiceInstance struct for ServiceInstance
+type ServiceInstance struct {
+	Server *ServerInstance `json:"server,omitempty"`
+	Metrics []Metric `json:"metrics,omitempty"`
+	State *ServiceServiceState `json:"state,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *ServiceType `json:"type,omitempty"`
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	Events []ServiceInstanceTimestampedEvent `json:"events,omitempty"`
+	Props map[string]interface{} `json:"props,omitempty"`
+	SeqId *int64 `json:"seqId,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ServiceInstance ServiceInstance
+
+// NewServiceInstance instantiates a new ServiceInstance object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewServiceInstance() *ServiceInstance {
+	this := ServiceInstance{}
+	return &this
+}
+
+// NewServiceInstanceWithDefaults instantiates a new ServiceInstance object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewServiceInstanceWithDefaults() *ServiceInstance {
+	this := ServiceInstance{}
+	return &this
+}
+
+// GetServer returns the Server field value if set, zero value otherwise.
+func (o *ServiceInstance) GetServer() ServerInstance {
+	if o == nil || IsNil(o.Server) {
+		var ret ServerInstance
+		return ret
+	}
+	return *o.Server
+}
+
+// GetServerOk returns a tuple with the Server field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetServerOk() (*ServerInstance, bool) {
+	if o == nil || IsNil(o.Server) {
+		return nil, false
+	}
+	return o.Server, true
+}
+
+// HasServer returns a boolean if a field has been set.
+func (o *ServiceInstance) HasServer() bool {
+	if o != nil && !IsNil(o.Server) {
+		return true
+	}
+
+	return false
+}
+
+// SetServer gets a reference to the given ServerInstance and assigns it to the Server field.
+func (o *ServiceInstance) SetServer(v ServerInstance) {
+	o.Server = &v
+}
+
+// GetMetrics returns the Metrics field value if set, zero value otherwise.
+func (o *ServiceInstance) GetMetrics() []Metric {
+	if o == nil || IsNil(o.Metrics) {
+		var ret []Metric
+		return ret
+	}
+	return o.Metrics
+}
+
+// GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetMetricsOk() ([]Metric, bool) {
+	if o == nil || IsNil(o.Metrics) {
+		return nil, false
+	}
+	return o.Metrics, true
+}
+
+// HasMetrics returns a boolean if a field has been set.
+func (o *ServiceInstance) HasMetrics() bool {
+	if o != nil && !IsNil(o.Metrics) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetrics gets a reference to the given []Metric and assigns it to the Metrics field.
+func (o *ServiceInstance) SetMetrics(v []Metric) {
+	o.Metrics = v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *ServiceInstance) GetState() ServiceServiceState {
+	if o == nil || IsNil(o.State) {
+		var ret ServiceServiceState
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetStateOk() (*ServiceServiceState, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *ServiceInstance) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given ServiceServiceState and assigns it to the State field.
+func (o *ServiceInstance) SetState(v ServiceServiceState) {
+	o.State = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ServiceInstance) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ServiceInstance) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ServiceInstance) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ServiceInstance) GetType() ServiceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ServiceType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetTypeOk() (*ServiceType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ServiceInstance) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given ServiceType and assigns it to the Type field.
+func (o *ServiceInstance) SetType(v ServiceType) {
+	o.Type = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *ServiceInstance) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *ServiceInstance) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *ServiceInstance) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *ServiceInstance) GetUpdatedAt() time.Time {
+	if o == nil || IsNil(o.UpdatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.UpdatedAt) {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *ServiceInstance) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *ServiceInstance) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
+}
+
+// GetEvents returns the Events field value if set, zero value otherwise.
+func (o *ServiceInstance) GetEvents() []ServiceInstanceTimestampedEvent {
+	if o == nil || IsNil(o.Events) {
+		var ret []ServiceInstanceTimestampedEvent
+		return ret
+	}
+	return o.Events
+}
+
+// GetEventsOk returns a tuple with the Events field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetEventsOk() ([]ServiceInstanceTimestampedEvent, bool) {
+	if o == nil || IsNil(o.Events) {
+		return nil, false
+	}
+	return o.Events, true
+}
+
+// HasEvents returns a boolean if a field has been set.
+func (o *ServiceInstance) HasEvents() bool {
+	if o != nil && !IsNil(o.Events) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvents gets a reference to the given []ServiceInstanceTimestampedEvent and assigns it to the Events field.
+func (o *ServiceInstance) SetEvents(v []ServiceInstanceTimestampedEvent) {
+	o.Events = v
+}
+
+// GetProps returns the Props field value if set, zero value otherwise.
+func (o *ServiceInstance) GetProps() map[string]interface{} {
+	if o == nil || IsNil(o.Props) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Props
+}
+
+// GetPropsOk returns a tuple with the Props field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetPropsOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Props) {
+		return map[string]interface{}{}, false
+	}
+	return o.Props, true
+}
+
+// HasProps returns a boolean if a field has been set.
+func (o *ServiceInstance) HasProps() bool {
+	if o != nil && !IsNil(o.Props) {
+		return true
+	}
+
+	return false
+}
+
+// SetProps gets a reference to the given map[string]interface{} and assigns it to the Props field.
+func (o *ServiceInstance) SetProps(v map[string]interface{}) {
+	o.Props = v
+}
+
+// GetSeqId returns the SeqId field value if set, zero value otherwise.
+func (o *ServiceInstance) GetSeqId() int64 {
+	if o == nil || IsNil(o.SeqId) {
+		var ret int64
+		return ret
+	}
+	return *o.SeqId
+}
+
+// GetSeqIdOk returns a tuple with the SeqId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetSeqIdOk() (*int64, bool) {
+	if o == nil || IsNil(o.SeqId) {
+		return nil, false
+	}
+	return o.SeqId, true
+}
+
+// HasSeqId returns a boolean if a field has been set.
+func (o *ServiceInstance) HasSeqId() bool {
+	if o != nil && !IsNil(o.SeqId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeqId gets a reference to the given int64 and assigns it to the SeqId field.
+func (o *ServiceInstance) SetSeqId(v int64) {
+	o.SeqId = &v
+}
+
+func (o ServiceInstance) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceInstance) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Server) {
+		toSerialize["server"] = o.Server
+	}
+	if !IsNil(o.Metrics) {
+		toSerialize["metrics"] = o.Metrics
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	if !IsNil(o.Events) {
+		toSerialize["events"] = o.Events
+	}
+	if !IsNil(o.Props) {
+		toSerialize["props"] = o.Props
+	}
+	if !IsNil(o.SeqId) {
+		toSerialize["seqId"] = o.SeqId
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ServiceInstance) UnmarshalJSON(data []byte) (err error) {
+	varServiceInstance := _ServiceInstance{}
+
+	err = json.Unmarshal(data, &varServiceInstance)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceInstance(varServiceInstance)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "server")
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "props")
+		delete(additionalProperties, "seqId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableServiceInstance struct {
+	value *ServiceInstance
+	isSet bool
+}
+
+func (v NullableServiceInstance) Get() *ServiceInstance {
+	return v.value
+}
+
+func (v *NullableServiceInstance) Set(val *ServiceInstance) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableServiceInstance) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableServiceInstance) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableServiceInstance(val *ServiceInstance) *NullableServiceInstance {
+	return &NullableServiceInstance{value: val, isSet: true}
+}
+
+func (v NullableServiceInstance) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableServiceInstance) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

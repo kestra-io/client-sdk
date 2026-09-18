@@ -1,0 +1,269 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the ApiSecretValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiSecretValue{}
+
+// ApiSecretValue struct for ApiSecretValue
+type ApiSecretValue struct {
+	Tags []ApiSecretTag `json:"tags,omitempty"`
+	Key string `json:"key"`
+	Value string `json:"value"`
+	Description *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _ApiSecretValue ApiSecretValue
+
+// NewApiSecretValue instantiates a new ApiSecretValue object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiSecretValue(key string, value string) *ApiSecretValue {
+	this := ApiSecretValue{}
+	this.Key = key
+	this.Value = value
+	return &this
+}
+
+// NewApiSecretValueWithDefaults instantiates a new ApiSecretValue object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiSecretValueWithDefaults() *ApiSecretValue {
+	this := ApiSecretValue{}
+	return &this
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ApiSecretValue) GetTags() []ApiSecretTag {
+	if o == nil || IsNil(o.Tags) {
+		var ret []ApiSecretTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiSecretValue) GetTagsOk() ([]ApiSecretTag, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ApiSecretValue) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []ApiSecretTag and assigns it to the Tags field.
+func (o *ApiSecretValue) SetTags(v []ApiSecretTag) {
+	o.Tags = v
+}
+
+// GetKey returns the Key field value
+func (o *ApiSecretValue) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *ApiSecretValue) GetKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
+func (o *ApiSecretValue) SetKey(v string) {
+	o.Key = v
+}
+
+// GetValue returns the Value field value
+func (o *ApiSecretValue) GetValue() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *ApiSecretValue) GetValueOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *ApiSecretValue) SetValue(v string) {
+	o.Value = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ApiSecretValue) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiSecretValue) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ApiSecretValue) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ApiSecretValue) SetDescription(v string) {
+	o.Description = &v
+}
+
+func (o ApiSecretValue) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiSecretValue) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	toSerialize["key"] = o.Key
+	toSerialize["value"] = o.Value
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *ApiSecretValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiSecretValue := _ApiSecretValue{}
+
+	err = json.Unmarshal(data, &varApiSecretValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiSecretValue(varApiSecretValue)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableApiSecretValue struct {
+	value *ApiSecretValue
+	isSet bool
+}
+
+func (v NullableApiSecretValue) Get() *ApiSecretValue {
+	return v.value
+}
+
+func (v *NullableApiSecretValue) Set(val *ApiSecretValue) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiSecretValue) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiSecretValue) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiSecretValue(val *ApiSecretValue) *NullableApiSecretValue {
+	return &NullableApiSecretValue{value: val, isSet: true}
+}
+
+func (v NullableApiSecretValue) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiSecretValue) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

@@ -1,0 +1,110 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.TestSuiteControllerTestSuiteApiId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * TestSuiteControllerTestSuiteBulkRequest
+ */
+@JsonPropertyOrder({
+  TestSuiteControllerTestSuiteBulkRequest.JSON_PROPERTY_IDS
+})
+@JsonTypeName("TestSuiteController.TestSuiteBulkRequest")
+public class TestSuiteControllerTestSuiteBulkRequest {
+  public static final String JSON_PROPERTY_IDS = "ids";
+  @jakarta.annotation.Nonnull  private List<TestSuiteControllerTestSuiteApiId> ids = new ArrayList<>();
+
+  public TestSuiteControllerTestSuiteBulkRequest() {
+  }
+
+  public TestSuiteControllerTestSuiteBulkRequest ids(@jakarta.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
+    
+    this.ids = ids;
+    return this;
+  }
+
+  public TestSuiteControllerTestSuiteBulkRequest addIdsItem(TestSuiteControllerTestSuiteApiId idsItem) {
+    if (this.ids == null) {
+      this.ids = new ArrayList<>();
+    }
+    this.ids.add(idsItem);
+    return this;
+  }
+
+  /**
+   * Get ids
+   * @return ids
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<TestSuiteControllerTestSuiteApiId> getIds() {
+    return ids;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIds(@jakarta.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
+    this.ids = ids;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TestSuiteControllerTestSuiteBulkRequest testSuiteControllerTestSuiteBulkRequest = (TestSuiteControllerTestSuiteBulkRequest) o;
+    return Objects.equals(this.ids, testSuiteControllerTestSuiteBulkRequest.ids);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ids);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TestSuiteControllerTestSuiteBulkRequest {\n");
+    sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

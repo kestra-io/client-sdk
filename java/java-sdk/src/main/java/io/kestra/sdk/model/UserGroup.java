@@ -1,0 +1,188 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.UserGroupType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * UserGroup
+ */
+@JsonPropertyOrder({
+  UserGroup.JSON_PROPERTY_VALUE,
+  UserGroup.JSON_PROPERTY_REF,
+  UserGroup.JSON_PROPERTY_DISPLAY,
+  UserGroup.JSON_PROPERTY_TYPE
+})
+public class UserGroup {
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nullable  private String value;
+
+  public static final String JSON_PROPERTY_REF = "ref";
+  @jakarta.annotation.Nullable  private String ref;
+
+  public static final String JSON_PROPERTY_DISPLAY = "display";
+  @jakarta.annotation.Nullable  private String display;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private UserGroupType type;
+
+  public UserGroup() {
+  }
+
+  public UserGroup value(@jakarta.annotation.Nullable String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getValue() {
+    return value;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable String value) {
+    this.value = value;
+  }
+
+  public UserGroup ref(@jakarta.annotation.Nullable String ref) {
+    
+    this.ref = ref;
+    return this;
+  }
+
+  /**
+   * Get ref
+   * @return ref
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRef() {
+    return ref;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRef(@jakarta.annotation.Nullable String ref) {
+    this.ref = ref;
+  }
+
+  public UserGroup display(@jakarta.annotation.Nullable String display) {
+    
+    this.display = display;
+    return this;
+  }
+
+  /**
+   * Get display
+   * @return display
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDisplay() {
+    return display;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISPLAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisplay(@jakarta.annotation.Nullable String display) {
+    this.display = display;
+  }
+
+  public UserGroup type(@jakarta.annotation.Nullable UserGroupType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UserGroupType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable UserGroupType type) {
+    this.type = type;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserGroup userGroup = (UserGroup) o;
+    return Objects.equals(this.value, userGroup.value) &&
+        Objects.equals(this.ref, userGroup.ref) &&
+        Objects.equals(this.display, userGroup.display) &&
+        Objects.equals(this.type, userGroup.type);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, ref, display, type);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UserGroup {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    ref: ").append(toIndentedString(ref)).append("\n");
+    sb.append("    display: ").append(toIndentedString(display)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

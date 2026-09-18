@@ -1,0 +1,288 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.BindingType;
+import io.kestra.sdk.model.IAMBindingControllerApiBindingGroup;
+import io.kestra.sdk.model.IAMBindingControllerApiBindingUser;
+import io.kestra.sdk.model.IAMBindingControllerApiRole;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * IAMBindingControllerApiBindingDetail
+ */
+@JsonPropertyOrder({
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_ID,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_TYPE,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_NAMESPACE,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_ROLE,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_GROUP,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_USER
+})
+@JsonTypeName("IAMBindingController.ApiBindingDetail")
+public class IAMBindingControllerApiBindingDetail {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private BindingType type;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ROLE = "role";
+  @jakarta.annotation.Nullable  private IAMBindingControllerApiRole role;
+
+  public static final String JSON_PROPERTY_GROUP = "group";
+  @jakarta.annotation.Nullable  private JsonNullable<IAMBindingControllerApiBindingGroup> group = JsonNullable.<IAMBindingControllerApiBindingGroup>undefined();
+
+  public static final String JSON_PROPERTY_USER = "user";
+  @jakarta.annotation.Nullable  private JsonNullable<IAMBindingControllerApiBindingUser> user = JsonNullable.<IAMBindingControllerApiBindingUser>undefined();
+
+  public IAMBindingControllerApiBindingDetail() {
+  }
+
+  public IAMBindingControllerApiBindingDetail id(@jakarta.annotation.Nullable String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
+    this.id = id;
+  }
+
+  public IAMBindingControllerApiBindingDetail type(@jakarta.annotation.Nullable BindingType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BindingType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable BindingType type) {
+    this.type = type;
+  }
+
+  public IAMBindingControllerApiBindingDetail namespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+    
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public String getNamespace() {
+        return namespace.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getNamespace_JsonNullable() {
+    return namespace;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
+    this.namespace = namespace;
+  }
+
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+  }
+
+  public IAMBindingControllerApiBindingDetail role(@jakarta.annotation.Nullable IAMBindingControllerApiRole role) {
+    
+    this.role = role;
+    return this;
+  }
+
+  /**
+   * Get role
+   * @return role
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public IAMBindingControllerApiRole getRole() {
+    return role;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRole(@jakarta.annotation.Nullable IAMBindingControllerApiRole role) {
+    this.role = role;
+  }
+
+  public IAMBindingControllerApiBindingDetail group(@jakarta.annotation.Nullable IAMBindingControllerApiBindingGroup group) {
+    this.group = JsonNullable.<IAMBindingControllerApiBindingGroup>of(group);
+    
+    return this;
+  }
+
+  /**
+   * Get group
+   * @return group
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public IAMBindingControllerApiBindingGroup getGroup() {
+        return group.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_GROUP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<IAMBindingControllerApiBindingGroup> getGroup_JsonNullable() {
+    return group;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_GROUP)
+  public void setGroup_JsonNullable(JsonNullable<IAMBindingControllerApiBindingGroup> group) {
+    this.group = group;
+  }
+
+  public void setGroup(@jakarta.annotation.Nullable IAMBindingControllerApiBindingGroup group) {
+    this.group = JsonNullable.<IAMBindingControllerApiBindingGroup>of(group);
+  }
+
+  public IAMBindingControllerApiBindingDetail user(@jakarta.annotation.Nullable IAMBindingControllerApiBindingUser user) {
+    this.user = JsonNullable.<IAMBindingControllerApiBindingUser>of(user);
+    
+    return this;
+  }
+
+  /**
+   * Get user
+   * @return user
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public IAMBindingControllerApiBindingUser getUser() {
+        return user.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_USER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<IAMBindingControllerApiBindingUser> getUser_JsonNullable() {
+    return user;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_USER)
+  public void setUser_JsonNullable(JsonNullable<IAMBindingControllerApiBindingUser> user) {
+    this.user = user;
+  }
+
+  public void setUser(@jakarta.annotation.Nullable IAMBindingControllerApiBindingUser user) {
+    this.user = JsonNullable.<IAMBindingControllerApiBindingUser>of(user);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    IAMBindingControllerApiBindingDetail iaMBindingControllerApiBindingDetail = (IAMBindingControllerApiBindingDetail) o;
+    return Objects.equals(this.id, iaMBindingControllerApiBindingDetail.id) &&
+        Objects.equals(this.type, iaMBindingControllerApiBindingDetail.type) &&
+        equalsNullable(this.namespace, iaMBindingControllerApiBindingDetail.namespace) &&
+        Objects.equals(this.role, iaMBindingControllerApiBindingDetail.role) &&
+        equalsNullable(this.group, iaMBindingControllerApiBindingDetail.group) &&
+        equalsNullable(this.user, iaMBindingControllerApiBindingDetail.user);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, hashCodeNullable(namespace), role, hashCodeNullable(group), hashCodeNullable(user));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class IAMBindingControllerApiBindingDetail {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role)).append("\n");
+    sb.append("    group: ").append(toIndentedString(group)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

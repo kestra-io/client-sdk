@@ -1,0 +1,158 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ *
+ * 
+ *
+ */
+
+
+package io.kestra.sdk.model;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+/**
+ * ChartChartOption
+ */
+@JsonPropertyOrder({
+  ChartChartOption.JSON_PROPERTY_ID,
+  ChartChartOption.JSON_PROPERTY_TYPE,
+  ChartChartOption.JSON_PROPERTY_CHART_OPTIONS
+})
+@JsonTypeName("Chart_ChartOption_")
+public class ChartChartOption {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private String type;
+
+  public static final String JSON_PROPERTY_CHART_OPTIONS = "chartOptions";
+  @jakarta.annotation.Nullable  private Object chartOptions;
+
+  public ChartChartOption() {
+  }
+
+  public ChartChartOption id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ChartChartOption type(@jakarta.annotation.Nonnull String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull String type) {
+    this.type = type;
+  }
+
+  public ChartChartOption chartOptions(@jakarta.annotation.Nullable Object chartOptions) {
+    
+    this.chartOptions = chartOptions;
+    return this;
+  }
+
+  /**
+   * Get chartOptions
+   * @return chartOptions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getChartOptions() {
+    return chartOptions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setChartOptions(@jakarta.annotation.Nullable Object chartOptions) {
+    this.chartOptions = chartOptions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ChartChartOption chartChartOption = (ChartChartOption) o;
+    return Objects.equals(this.id, chartChartOption.id) &&
+        Objects.equals(this.type, chartChartOption.type) &&
+        Objects.equals(this.chartOptions, chartChartOption.chartOptions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type, chartOptions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ChartChartOption {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    chartOptions: ").append(toIndentedString(chartOptions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

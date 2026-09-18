@@ -1,0 +1,226 @@
+/*
+Kestra EE
+
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+
+API version: 2.0.0-SNAPSHOT
+*/
+
+package kestra_api_client
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// checks if the CreateSecurityIntegrationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateSecurityIntegrationRequest{}
+
+// CreateSecurityIntegrationRequest Create SecurityIntegration Request
+type CreateSecurityIntegrationRequest struct {
+	// The name of security integration.
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	// The description of security integration.
+	Description string `json:"description"`
+	Type SecurityIntegrationType `json:"type"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _CreateSecurityIntegrationRequest CreateSecurityIntegrationRequest
+
+// NewCreateSecurityIntegrationRequest instantiates a new CreateSecurityIntegrationRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCreateSecurityIntegrationRequest(name string, description string, type_ SecurityIntegrationType) *CreateSecurityIntegrationRequest {
+	this := CreateSecurityIntegrationRequest{}
+	this.Name = name
+	this.Description = description
+	this.Type = type_
+	return &this
+}
+
+// NewCreateSecurityIntegrationRequestWithDefaults instantiates a new CreateSecurityIntegrationRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCreateSecurityIntegrationRequestWithDefaults() *CreateSecurityIntegrationRequest {
+	this := CreateSecurityIntegrationRequest{}
+	return &this
+}
+
+// GetName returns the Name field value
+func (o *CreateSecurityIntegrationRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateSecurityIntegrationRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateSecurityIntegrationRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value
+func (o *CreateSecurityIntegrationRequest) GetDescription() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value
+// and a boolean to check if the value has been set.
+func (o *CreateSecurityIntegrationRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Description, true
+}
+
+// SetDescription sets field value
+func (o *CreateSecurityIntegrationRequest) SetDescription(v string) {
+	o.Description = v
+}
+
+// GetType returns the Type field value
+func (o *CreateSecurityIntegrationRequest) GetType() SecurityIntegrationType {
+	if o == nil {
+		var ret SecurityIntegrationType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *CreateSecurityIntegrationRequest) GetTypeOk() (*SecurityIntegrationType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *CreateSecurityIntegrationRequest) SetType(v SecurityIntegrationType) {
+	o.Type = v
+}
+
+func (o CreateSecurityIntegrationRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateSecurityIntegrationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *CreateSecurityIntegrationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"description",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateSecurityIntegrationRequest := _CreateSecurityIntegrationRequest{}
+
+	err = json.Unmarshal(data, &varCreateSecurityIntegrationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateSecurityIntegrationRequest(varCreateSecurityIntegrationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableCreateSecurityIntegrationRequest struct {
+	value *CreateSecurityIntegrationRequest
+	isSet bool
+}
+
+func (v NullableCreateSecurityIntegrationRequest) Get() *CreateSecurityIntegrationRequest {
+	return v.value
+}
+
+func (v *NullableCreateSecurityIntegrationRequest) Set(val *CreateSecurityIntegrationRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCreateSecurityIntegrationRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCreateSecurityIntegrationRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCreateSecurityIntegrationRequest(val *CreateSecurityIntegrationRequest) *NullableCreateSecurityIntegrationRequest {
+	return &NullableCreateSecurityIntegrationRequest{value: val, isSet: true}
+}
+
+func (v NullableCreateSecurityIntegrationRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableCreateSecurityIntegrationRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+
