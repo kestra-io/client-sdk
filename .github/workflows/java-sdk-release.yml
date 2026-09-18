@@ -20,7 +20,7 @@ jobs:
       run:
         working-directory: ./java/java-sdk
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Resolve version from tag
         id: version

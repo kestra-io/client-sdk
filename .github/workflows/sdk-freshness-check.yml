@@ -40,7 +40,7 @@ jobs:
     env:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # --- SDK-specific toolchains (only the matching leg's steps run) ---
       - name: Set up Python
