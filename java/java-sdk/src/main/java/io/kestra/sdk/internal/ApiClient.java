@@ -855,7 +855,8 @@ public class ApiClient extends JavaTimeFormatter {
         if (value instanceof File) {
           multiPartBuilder.addBinaryBody(paramEntry.getKey(), (File) value);
         } else if (value instanceof byte[]) {
-          multiPartBuilder.addBinaryBody(paramEntry.getKey(), (byte[]) value);
+          multiPartBuilder.addBinaryBody(paramEntry.getKey(), (byte[]) value,
+                  ContentType.DEFAULT_BINARY, paramEntry.getKey());
         } else {
           Charset charset = contentType.getCharset();
           if (charset != null) {
