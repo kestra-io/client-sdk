@@ -98,7 +98,7 @@ jobs:
           sh run-tests.sh $KESTRA_VERSION
 
       - name: Test - Publish Test Results
-        uses: dorny/test-reporter@v2
+        uses: dorny/test-reporter@v3
         if: inputs.skip-test != 'true'
         with:
           name: Java Tests Report (${{ steps.version.outputs.kestra_version }})
