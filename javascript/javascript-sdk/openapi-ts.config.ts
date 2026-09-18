@@ -6,6 +6,25 @@ import { defineConfigKestraHeyOptionalTenant, fixYamlSourceRequestBodyContentTyp
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const YAML_MEDIA_TYPE = "application/x-yaml";
+const RFC_YAML_MEDIA_TYPE = "application/yaml";
+
+// Rewrite RFC-compliant `application/yaml` request bodies (introduced by the
+// backend Micronaut migration) back to `application/x-yaml` so the #340 fix below
+// still matches; both are accepted by the server (#444).
+const normalizeYamlRequestBodyMediaType = (
+    _method: string,
+    _path: string,
+    operation: any,
+): void => {
+    const content = operation?.requestBody?.content;
+    if (!content || typeof content !== "object") return;
+    const rfcYaml = content[RFC_YAML_MEDIA_TYPE];
+    if (rfcYaml === undefined) return;
+    if (content[YAML_MEDIA_TYPE] === undefined) content[YAML_MEDIA_TYPE] = rfcYaml;
+    delete content[RFC_YAML_MEDIA_TYPE];
+};
+
 const generateHash = (str: string) => {
     let hash = 0;
     for (const char of str) {
@@ -21,7 +40,11 @@ export default {
         patch: {
             // hey-api prefers the application/json variant when resolving a request
             // body; force application/x-yaml for YAML-source bodies (issue #340).
-            operations: fixYamlSourceRequestBodyContentType,
+            // normalize runs first so a migrated spec keeps matching (#444).
+            operations: (method: string, path: string, operation: any): void => {
+                normalizeYamlRequestBodyMediaType(method, path, operation);
+                fixYamlSourceRequestBodyContentType(method, path, operation);
+            },
         },
     },
     output: {
