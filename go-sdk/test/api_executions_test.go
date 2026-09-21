@@ -1197,9 +1197,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createSimpleFlow(ctx, flowId, namespace)
 		createExecution(t, ctx, flowId, namespace)
 
-		values, err := KestraTestClient().Executions().FindDistinctExecutionFieldValues(ctx, MAIN_TENANT, "NAMESPACE", nil, kestra_api_client.PtrInt(500))
+		values, err := KestraTestClient().Executions().FindDistinctExecutionFieldValues(ctx, MAIN_TENANT, string(kestra_api_client.QUERYFILTERFIELD_NAMESPACE), nil, kestra_api_client.PtrInt(500))
 		require.NoError(t, err)
-		require.Contains(t, values, namespace, "distinct NAMESPACE values should contain the namespace we just ran an execution in")
+		require.Contains(t, values, namespace, "distinct namespace values should contain the namespace we just ran an execution in")
 	})
 
 	t.Run("exportExecutionsByQueryToCsvTest", func(t *testing.T) {
