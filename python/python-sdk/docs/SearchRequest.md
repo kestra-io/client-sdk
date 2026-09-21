@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.search_request import SearchRequest
 
 # TODO update the JSON string below

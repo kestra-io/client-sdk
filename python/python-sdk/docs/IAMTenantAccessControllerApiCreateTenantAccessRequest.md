@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.iam_tenant_access_controller_api_create_tenant_access_request import IAMTenantAccessControllerApiCreateTenantAccessRequest
 
 # TODO update the JSON string below

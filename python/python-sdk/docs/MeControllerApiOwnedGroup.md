@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.me_controller_api_owned_group import MeControllerApiOwnedGroup
 
 # TODO update the JSON string below

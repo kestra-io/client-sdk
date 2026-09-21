@@ -24,6 +24,8 @@ List roles for autocomplete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -39,7 +41,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles for autocomplete
-        api_response = kestra_client.RolesApi.autocomplete_roles(tenant, api_autocomplete)
+        api_response = kestra_client.roles.autocomplete_roles(tenant, api_autocomplete)
         print("The response of RolesApi->autocomplete_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -88,6 +90,8 @@ Create a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -103,7 +107,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a role
-        api_response = kestra_client.RolesApi.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = kestra_client.roles.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->create_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -169,7 +173,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a role
-        kestra_client.RolesApi.delete_role(id, tenant)
+        kestra_client.roles.delete_role(id, tenant)
     except Exception as e:
         print("Exception when calling RolesApi->delete_role: %s\n" % e)
 ```
@@ -216,6 +220,8 @@ List roles by ids
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -231,7 +237,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles by ids
-        api_response = kestra_client.RolesApi.list_roles_from_given_ids(tenant, api_ids)
+        api_response = kestra_client.roles.list_roles_from_given_ids(tenant, api_ids)
         print("The response of RolesApi->list_roles_from_given_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -280,6 +286,7 @@ Retrieve a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -295,7 +302,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a role
-        api_response = kestra_client.RolesApi.role(id, tenant)
+        api_response = kestra_client.roles.role(id, tenant)
         print("The response of RolesApi->role:\n")
         pprint(api_response)
     except Exception as e:
@@ -345,6 +352,8 @@ Search for roles
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -363,7 +372,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for roles
-        api_response = kestra_client.RolesApi.search_roles(tenant, page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.roles.search_roles(tenant, page=page, size=size, sort=sort, filters=filters)
         print("The response of RolesApi->search_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -415,6 +424,8 @@ Update a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -431,7 +442,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a role
-        api_response = kestra_client.RolesApi.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = kestra_client.roles.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->update_role:\n")
         pprint(api_response)
     except Exception as e:

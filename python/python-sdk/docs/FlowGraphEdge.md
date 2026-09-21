@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.flow_graph_edge import FlowGraphEdge
 
 # TODO update the JSON string below

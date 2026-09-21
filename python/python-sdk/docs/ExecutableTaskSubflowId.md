@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.executable_task_subflow_id import ExecutableTaskSubflowId
 
 # TODO update the JSON string below

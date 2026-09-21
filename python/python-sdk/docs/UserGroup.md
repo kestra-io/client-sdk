@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.user_group import UserGroup
 
 # TODO update the JSON string below

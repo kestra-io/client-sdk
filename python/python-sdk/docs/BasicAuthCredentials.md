@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.basic_auth_credentials import BasicAuthCredentials
 
 # TODO update the JSON string below

@@ -40,7 +40,11 @@ API_GLOB = os.path.join(BASE, "kestrapy", "api", "*_api.py")
 CLIENT_PY = os.path.join(BASE, "kestrapy", "kestra_client.py")
 DOCS_GLOB = os.path.join(BASE, "docs", "*.md")
 
-_CALL_RE = re.compile(r"kestra_client\.([a-z_][a-z0-9_]*)\.([a-z_][a-z0-9_]*)\((.*)\)")
+# The accessor group intentionally allows an initial capital so mis-cased
+# accessors (e.g. the generator's `kestra_client.ExecutionsApi.method(...)`)
+# are matched and then flagged as unknown, rather than slipping through
+# unvalidated (issue #122).
+_CALL_RE = re.compile(r"kestra_client\.([A-Za-z_][A-Za-z0-9_]*)\.([a-z_][a-z0-9_]*)\((.*)\)")
 
 
 def load_signatures() -> dict[str, list[str]]:

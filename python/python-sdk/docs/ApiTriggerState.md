@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_trigger_state import ApiTriggerState
 
 # TODO update the JSON string below

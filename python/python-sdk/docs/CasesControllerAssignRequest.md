@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.cases_controller_assign_request import CasesControllerAssignRequest
 
 # TODO update the JSON string below

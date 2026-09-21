@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.blueprint_controller_use_blueprint_template_response import BlueprintControllerUseBlueprintTemplateResponse
 
 # TODO update the JSON string below

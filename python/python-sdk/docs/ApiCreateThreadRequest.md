@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_create_thread_request import ApiCreateThreadRequest
 
 # TODO update the JSON string below

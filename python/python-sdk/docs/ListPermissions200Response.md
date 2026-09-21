@@ -51,6 +51,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.list_permissions200_response import ListPermissions200Response
 
 # TODO update the JSON string below

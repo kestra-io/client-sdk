@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.notification_controller_api_notifications_since import NotificationControllerApiNotificationsSince
 
 # TODO update the JSON string below

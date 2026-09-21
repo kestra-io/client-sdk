@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.base_resource_search_request import BaseResourceSearchRequest
 
 # TODO update the JSON string below

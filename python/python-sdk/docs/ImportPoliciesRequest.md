@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.import_policies_request import ImportPoliciesRequest
 
 # TODO update the JSON string below

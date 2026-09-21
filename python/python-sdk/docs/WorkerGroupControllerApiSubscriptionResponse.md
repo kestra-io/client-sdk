@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.worker_group_controller_api_subscription_response import WorkerGroupControllerApiSubscriptionResponse
 
 # TODO update the JSON string below

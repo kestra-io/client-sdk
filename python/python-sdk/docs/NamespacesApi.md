@@ -30,6 +30,8 @@ Returns a list of namespaces for use in autocomplete fields, optionally allowing
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -45,7 +47,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List namespaces for autocomplete
-        api_response = kestra_client.NamespacesApi.autocomplete_namespaces(tenant, api_autocomplete)
+        api_response = kestra_client.namespaces.autocomplete_namespaces(tenant, api_autocomplete)
         print("The response of NamespacesApi->autocomplete_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -94,6 +96,8 @@ Create a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -109,7 +113,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a namespace
-        api_response = kestra_client.NamespacesApi.create_namespace(tenant, namespace)
+        api_response = kestra_client.namespaces.create_namespace(tenant, namespace)
         print("The response of NamespacesApi->create_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -173,7 +177,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a namespace
-        kestra_client.NamespacesApi.delete_namespace(id, tenant)
+        kestra_client.namespaces.delete_namespace(id, tenant)
     except Exception as e:
         print("Exception when calling NamespacesApi->delete_namespace: %s\n" % e)
 ```
@@ -236,7 +240,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a secret for a namespace
-        kestra_client.NamespacesApi.delete_secret(namespace, key, tenant)
+        kestra_client.namespaces.delete_secret(namespace, key, tenant)
     except Exception as e:
         print("Exception when calling NamespacesApi->delete_secret: %s\n" % e)
 ```
@@ -284,6 +288,7 @@ List inherited secrets
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -299,7 +304,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited secrets
-        api_response = kestra_client.NamespacesApi.inherited_secrets(namespace, tenant)
+        api_response = kestra_client.namespaces.inherited_secrets(namespace, tenant)
         print("The response of NamespacesApi->inherited_secrets:\n")
         pprint(api_response)
     except Exception as e:
@@ -348,6 +353,7 @@ List inherited variables
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -363,7 +369,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited variables
-        api_response = kestra_client.NamespacesApi.inherited_variables(id, tenant)
+        api_response = kestra_client.namespaces.inherited_variables(id, tenant)
         print("The response of NamespacesApi->inherited_variables:\n")
         pprint(api_response)
     except Exception as e:
@@ -412,6 +418,7 @@ Get a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -427,7 +434,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a namespace
-        api_response = kestra_client.NamespacesApi.namespace(id, tenant)
+        api_response = kestra_client.namespaces.namespace(id, tenant)
         print("The response of NamespacesApi->namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -476,6 +483,8 @@ Patch a secret metadata for a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -493,7 +502,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Patch a secret metadata for a namespace
-        api_response = kestra_client.NamespacesApi.patch_secret(namespace, key, tenant, api_secret_meta_ee)
+        api_response = kestra_client.namespaces.patch_secret(namespace, key, tenant, api_secret_meta_ee)
         print("The response of NamespacesApi->patch_secret:\n")
         pprint(api_response)
     except Exception as e:
@@ -544,6 +553,8 @@ Update secrets for a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -560,7 +571,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update secrets for a namespace
-        api_response = kestra_client.NamespacesApi.put_secrets(namespace, tenant, api_secret_value)
+        api_response = kestra_client.namespaces.put_secrets(namespace, tenant, api_secret_value)
         print("The response of NamespacesApi->put_secrets:\n")
         pprint(api_response)
     except Exception as e:
@@ -610,6 +621,8 @@ Search for namespaces
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -629,7 +642,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for namespaces
-        api_response = kestra_client.NamespacesApi.search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
+        api_response = kestra_client.namespaces.search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
         print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -682,6 +695,8 @@ Update a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -698,7 +713,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a namespace
-        api_response = kestra_client.NamespacesApi.update_namespace(id, tenant, namespace)
+        api_response = kestra_client.namespaces.update_namespace(id, tenant, namespace)
         print("The response of NamespacesApi->update_namespace:\n")
         pprint(api_response)
     except Exception as e:

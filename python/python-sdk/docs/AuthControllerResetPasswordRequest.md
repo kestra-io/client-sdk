@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.auth_controller_reset_password_request import AuthControllerResetPasswordRequest
 
 # TODO update the JSON string below

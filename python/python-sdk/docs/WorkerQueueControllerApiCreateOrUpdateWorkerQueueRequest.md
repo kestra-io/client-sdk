@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.worker_queue_controller_api_create_or_update_worker_queue_request import WorkerQueueControllerApiCreateOrUpdateWorkerQueueRequest
 
 # TODO update the JSON string below

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.chart_chart_option import ChartChartOption
 
 # TODO update the JSON string below

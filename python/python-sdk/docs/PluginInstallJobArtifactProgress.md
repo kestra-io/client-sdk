@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin_install_job_artifact_progress import PluginInstallJobArtifactProgress
 
 # TODO update the JSON string below

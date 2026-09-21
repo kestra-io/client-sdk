@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.policy_mutation import PolicyMutation
 
 # TODO update the JSON string below

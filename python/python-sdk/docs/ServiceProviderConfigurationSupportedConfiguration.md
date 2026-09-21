@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.service_provider_configuration_supported_configuration import ServiceProviderConfigurationSupportedConfiguration
 
 # TODO update the JSON string below

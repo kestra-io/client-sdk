@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_flow_hash_batch_request import ApiFlowHashBatchRequest
 
 # TODO update the JSON string below

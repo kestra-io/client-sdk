@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata
 
 # TODO update the JSON string below
