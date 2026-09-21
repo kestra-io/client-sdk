@@ -1,9 +1,21 @@
 // testApis/NamespacesApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { randomId } from './_utils.js';
+import { expectStatus, randomId } from './_utils.js';
 import { tenantId } from './_setup.js';
+import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Namespaces from '@kestra-io/kestra-sdk/namespaces';
 import * as Secrets from '@kestra-io/kestra-sdk/secrets';
+
+function logFlowYaml(id: string, namespace: string): string {
+    return `id: ${id}
+namespace: ${namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+`;
+}
 
 describe('NamespacesApi', () => {
     it('autocomplete_namespaces: List namespaces for autocomplete', async () => {
@@ -44,6 +56,25 @@ describe('NamespacesApi', () => {
         await expect(() =>
             (Namespaces.loadNamespace({ id: created.id }))
         ).rejects.toThrow();
+    });
+
+    it('delete_namespace: Deleting a parent cascades to its child namespaces', async () => {
+        const parentId = `test_delete_parent_${randomId()}`;
+        const childId = `${parentId}.child`;
+        await Namespaces.createNamespace({ id: parentId, deleted: false, tenant: tenantId });
+        await Namespaces.createNamespace({ id: childId, deleted: false, tenant: tenantId });
+
+        await Namespaces.deleteNamespace({ id: parentId });
+
+        await expect(() => Namespaces.loadNamespace({ id: childId })).rejects.toThrow();
+    });
+
+    it('delete_namespace: A namespace holding flows answers 409', async () => {
+        const nsId = `test_delete_namespace_with_flows_${randomId()}`;
+        await Namespaces.createNamespace({ id: nsId, deleted: false, tenant: tenantId });
+        await Flows.createFlow({ body: logFlowYaml(randomId(), nsId) });
+
+        await expectStatus(Namespaces.deleteNamespace({ id: nsId }), 409);
     });
 
     it('get_inherited_secrets: List inherited secrets', async () => {
