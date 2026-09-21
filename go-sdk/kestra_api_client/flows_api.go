@@ -410,7 +410,7 @@ func (a *FlowsAPI) ExportFlowsByQueryCsv(ctx context.Context, tenant string, fil
 	path := tenantPath(tenant, "flows", "export", "by-query", "csv")
 	params := url.Values{}
 	appendFilterParams(params, filters)
-	return a.doText(ctx, "GET", path, params)
+	return a.doText(ctx, "GET", path, params, contentCSV)
 }
 
 // ========================================================================
