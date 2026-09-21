@@ -22,8 +22,10 @@ Run it in CI (`--check`) to gate the docs:
 Checks per `kestra_client.<accessor>.<method>(...)` call found in docs/*.md:
   1. <accessor> is a real @property on KestraClient (catches FlowsApi -> flows);
   2. <method> exists on the API classes (catches renamed/removed methods);
-  3. any positional argument whose name is a real parameter sits at the index
-     that parameter occupies in the signature (catches tenant-last ordering);
+  3. the call passes no more positional arguments than the signature declares
+     (catches a removed/extra argument), and any positional argument whose name
+     is a real parameter sits at the index that parameter occupies in the
+     signature (catches tenant-last ordering);
   4. every keyword argument names a real parameter (catches q=/file_upload=).
 """
 from __future__ import annotations
@@ -44,7 +46,25 @@ DOCS_GLOB = os.path.join(BASE, "docs", "*.md")
 # accessors (e.g. the generator's `kestra_client.ExecutionsApi.method(...)`)
 # are matched and then flagged as unknown, rather than slipping through
 # unvalidated (issue #122).
-_CALL_RE = re.compile(r"kestra_client\.([A-Za-z_][A-Za-z0-9_]*)\.([a-z_][a-z0-9_]*)\((.*)\)")
+# Match only the call's opening `kestra_client.<accessor>.<method>(`; the
+# argument list (which may span lines or contain nested parentheses) is then
+# read by balancing the parentheses, so multi-line examples are validated
+# instead of silently skipped.
+_CALL_OPEN_RE = re.compile(r"kestra_client\.([A-Za-z_][A-Za-z0-9_]*)\.([a-z_][a-z0-9_]*)\(")
+
+
+def _balanced_args(text: str, open_paren: int) -> str | None:
+    """Given the index of a call's ``(``, return the argument text up to the
+    matching ``)``, or None if the parentheses never balance."""
+    depth = 0
+    for j in range(open_paren, len(text)):
+        if text[j] == "(":
+            depth += 1
+        elif text[j] == ")":
+            depth -= 1
+            if depth == 0:
+                return text[open_paren + 1 : j]
+    return None
 
 
 def load_signatures() -> dict[str, list[str]]:
@@ -96,11 +116,13 @@ def validate() -> list[str]:
 
     for path in sorted(glob.glob(DOCS_GLOB)):
         rel = os.path.relpath(path, BASE)
-        for lineno, line in enumerate(open(path, encoding="utf-8"), 1):
-            m = _CALL_RE.search(line)
-            if not m:
+        text = open(path, encoding="utf-8").read()
+        for m in _CALL_OPEN_RE.finditer(text):
+            argstr = _balanced_args(text, m.end() - 1)
+            if argstr is None:
                 continue
-            accessor, method, argstr = m.group(1), m.group(2), m.group(3)
+            accessor, method = m.group(1), m.group(2)
+            lineno = text.count("\n", 0, m.start()) + 1
             where = f"{rel}:{lineno} {accessor}.{method}"
 
             if accessor not in accessors:
@@ -115,6 +137,12 @@ def validate() -> list[str]:
             positional = [a for a in args if "=" not in a.split("(")[0]]
             keywords = [a.split("=")[0].strip() for a in args if "=" in a.split("(")[0]]
 
+            if len(positional) > len(params):
+                problems.append(
+                    f"{where}: passes {len(positional)} positional argument(s) but the "
+                    f"signature declares {len(params)} (params: {params})"
+                )
+                continue
             for i, var in enumerate(positional):
                 if var in params and params.index(var) != i:
                     problems.append(

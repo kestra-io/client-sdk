@@ -14,9 +14,10 @@ live signatures parsed from the SDK sources. No JVM or server required.
 Checks per call:
   1. <accessor> is a real accessor on KestraClient (catches ExecutionsApi -> executions);
   2. <method> exists on the accessor's API class (catches renamed/removed methods);
-  3. any positional argument whose name is a real parameter sits at the index
-     that parameter occupies in *some* overload of the method (catches
-     tenant-last ordering). Overloads are accepted if the call fits any of them.
+  3. the call fits *some* overload: it passes no more arguments than that
+     overload declares (catches a removed/extra argument), and any positional
+     argument whose name is a real parameter sits at the index that parameter
+     occupies (catches tenant-last ordering).
 
 Run in CI with --check to gate the docs.
 """
@@ -36,7 +37,13 @@ DOCS_GLOB = os.path.join(BASE, "docs", "*.md")
 # The accessor group intentionally allows an initial capital so mis-cased
 # accessors (e.g. the generator's `kestraClient.ExecutionsApi()`) are matched
 # and then flagged as unknown, rather than slipping through unvalidated.
-CALL_RE = re.compile(r"kestraClient\.([A-Za-z_][A-Za-z0-9_]*)\(\)\.([a-zA-Z_][A-Za-z0-9_]*)\((.*?)\)\s*;")
+# DOTALL so a call wrapped across several lines (hand-edited examples often are)
+# is matched rather than silently skipped; the non-greedy body plus the `)\s*;`
+# anchor still stops at the first statement terminator.
+CALL_RE = re.compile(
+    r"kestraClient\.([A-Za-z_][A-Za-z0-9_]*)\(\)\.([a-zA-Z_][A-Za-z0-9_]*)\((.*?)\)\s*;",
+    re.DOTALL,
+)
 
 
 def load_accessors() -> dict[str, str]:
@@ -84,6 +91,8 @@ def load_signatures() -> dict[str, dict[str, list[list[str]]]]:
         # public <return type ...> name( ... )   — return type may span generics
         for m in re.finditer(r"\bpublic\s+[^;{}]+?\b([A-Za-z_][A-Za-z0-9_]*)\s*\(", text):
             name = m.group(1)
+            if name == cls:
+                continue  # constructor, not a callable method on the API surface
             # capture balanced parentheses for the parameter list
             i = m.end() - 1
             depth = 0
@@ -110,33 +119,45 @@ def validate() -> list[str]:
 
     for path in sorted(glob.glob(DOCS_GLOB)):
         rel = os.path.relpath(path, BASE)
-        for lineno, line in enumerate(open(path, encoding="utf-8"), 1):
-            for accessor, method, argstr in CALL_RE.findall(line):
-                where = f"{rel}:{lineno} {accessor}().{method}"
-                if accessor not in accessors:
-                    problems.append(f"{where}: unknown KestraClient accessor '{accessor}()'")
-                    continue
-                cls = accessors[accessor]
-                overloads = sigs.get(cls, {}).get(method)
-                if not overloads:
-                    problems.append(f"{where}: method '{method}' does not exist on {cls}")
-                    continue
+        text = open(path, encoding="utf-8").read()
+        for m in CALL_RE.finditer(text):
+            accessor, method, argstr = m.group(1), m.group(2), m.group(3)
+            lineno = text.count("\n", 0, m.start()) + 1
+            where = f"{rel}:{lineno} {accessor}().{method}"
+            if accessor not in accessors:
+                problems.append(f"{where}: unknown KestraClient accessor '{accessor}()'")
+                continue
+            cls = accessors[accessor]
+            overloads = sigs.get(cls, {}).get(method)
+            if not overloads:
+                problems.append(f"{where}: method '{method}' does not exist on {cls}")
+                continue
 
-                args = [a for a in _top_level_split(argstr) if a]
-                positional = [a for a in args if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", a)]
-                # Accept if the positional names fit ANY overload's ordering.
-                if any(_fits(positional, params) for params in overloads):
-                    continue
-                problems.append(
-                    f"{where}: argument order does not match any overload "
-                    f"(args: {positional}, overloads: {overloads})"
-                )
+            args = [a for a in _top_level_split(argstr) if a]
+            # Accept if the args fit ANY overload (arity + name ordering).
+            if any(_fits(args, params) for params in overloads):
+                continue
+            problems.append(
+                f"{where}: call does not match any overload "
+                f"(args: {args}, overloads: {overloads})"
+            )
     return problems
 
 
-def _fits(positional: list[str], params: list[str]) -> bool:
-    for i, var in enumerate(positional):
-        if var in params and params.index(var) != i:
+def _fits(args: list[str], params: list[str]) -> bool:
+    """Does this positional-arg list fit the overload's parameter list?
+
+    Java calls are all positional, so ``args`` and ``params`` line up index by
+    index. We reject a call that passes *more* args than the overload declares
+    (catches a removed/extra argument — the #222/#122 drift), and require every
+    argument whose text is a bare identifier naming a real parameter to sit at
+    that parameter's declared position (catches tenant-last ordering). Literal
+    and expression args occupy their slot but cannot be name-checked.
+    """
+    if len(args) > len(params):
+        return False
+    for i, arg in enumerate(args):
+        if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", arg) and arg in params and params.index(arg) != i:
             return False
     return True
 
