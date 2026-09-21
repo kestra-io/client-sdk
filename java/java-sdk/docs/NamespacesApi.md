@@ -39,7 +39,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -49,7 +49,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | 
         try {
-            List<String> result = kestraClient.NamespacesApi().autocompleteNamespaces(tenant, apiAutocomplete);
+            List<String> result = kestraClient.namespaces().autocompleteNamespaces(tenant, apiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#autocompleteNamespaces");
@@ -109,7 +109,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -119,7 +119,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Namespace namespace = new Namespace(); // Namespace | The namespace
         try {
-            Namespace result = kestraClient.NamespacesApi().createNamespace(tenant, namespace);
+            Namespace result = kestraClient.namespaces().createNamespace(tenant, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#createNamespace");
@@ -179,7 +179,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -189,7 +189,7 @@ public class Example {
         String id = "id_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.NamespacesApi().deleteNamespace(id, tenant);
+            kestraClient.namespaces().deleteNamespace(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#deleteNamespace");
             System.err.println("Status code: " + e.getCode());
@@ -248,7 +248,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -259,7 +259,7 @@ public class Example {
         String key = "key_example"; // String | The secret key
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.NamespacesApi().deleteSecret(namespace, key, tenant);
+            kestraClient.namespaces().deleteSecret(namespace, key, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#deleteSecret");
             System.err.println("Status code: " + e.getCode());
@@ -319,7 +319,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -329,7 +329,7 @@ public class Example {
         String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            Map<String, List<String>> result = kestraClient.NamespacesApi().inheritedSecrets(namespace, tenant);
+            Map<String, List<String>> result = kestraClient.namespaces().inheritedSecrets(namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#inheritedSecrets");
@@ -389,7 +389,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -399,7 +399,7 @@ public class Example {
         String id = "id_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            Map<String, Object> result = kestraClient.NamespacesApi().inheritedVariables(id, tenant);
+            Map<String, Object> result = kestraClient.namespaces().inheritedVariables(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#inheritedVariables");
@@ -459,7 +459,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -469,7 +469,7 @@ public class Example {
         String id = "id_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            Namespace result = kestraClient.NamespacesApi().namespace(id, tenant);
+            Namespace result = kestraClient.namespaces().namespace(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#namespace");
@@ -529,7 +529,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -541,7 +541,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretMetaEE apiSecretMetaEE = new ApiSecretMetaEE(); // ApiSecretMetaEE | 
         try {
-            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().patchSecret(namespace, key, tenant, apiSecretMetaEE);
+            List<ApiSecretMetaEE> result = kestraClient.namespaces().patchSecret(namespace, key, tenant, apiSecretMetaEE);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#patchSecret");
@@ -603,7 +603,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -614,7 +614,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretValue apiSecretValue = new ApiSecretValue(); // ApiSecretValue | 
         try {
-            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().putSecrets(namespace, tenant, apiSecretValue);
+            List<ApiSecretMetaEE> result = kestraClient.namespaces().putSecrets(namespace, tenant, apiSecretValue);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#putSecrets");
@@ -675,7 +675,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -689,7 +689,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         Boolean existing = false; // Boolean | Return only existing namespace
         try {
-            PagedResultsNamespace result = kestraClient.NamespacesApi().searchNamespaces(tenant, q, page, size, sort, existing);
+            PagedResultsNamespace result = kestraClient.namespaces().searchNamespaces(tenant, page, size, sort, existing, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#searchNamespaces");
@@ -753,7 +753,7 @@ import io.kestra.sdk.api.NamespacesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -764,7 +764,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Namespace namespace = new Namespace(); // Namespace | The namespace
         try {
-            Namespace result = kestraClient.NamespacesApi().updateNamespace(id, tenant, namespace);
+            Namespace result = kestraClient.namespaces().updateNamespace(id, tenant, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#updateNamespace");

@@ -44,7 +44,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -54,7 +54,7 @@ public class Example {
         String uid = "uid_example"; // String | The ID of the app
         String tenant = "tenant_example"; // String | 
         try {
-            AppsControllerApiAppSource result = kestraClient.AppsApi().app(uid, tenant);
+            AppsControllerApiAppSource result = kestraClient.apps().app(uid, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#app");
@@ -114,7 +114,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -124,7 +124,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         AppsControllerApiBulkOperationRequest appsControllerApiBulkOperationRequest = new AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
         try {
-            Object result = kestraClient.AppsApi().bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest);
+            Object result = kestraClient.apps().bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#bulkDeleteApps");
@@ -184,7 +184,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -194,7 +194,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         AppsControllerApiBulkOperationRequest appsControllerApiBulkOperationRequest = new AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
         try {
-            Object result = kestraClient.AppsApi().bulkDisableApps(tenant, appsControllerApiBulkOperationRequest);
+            Object result = kestraClient.apps().bulkDisableApps(tenant, appsControllerApiBulkOperationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#bulkDisableApps");
@@ -254,7 +254,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -264,7 +264,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         AppsControllerApiBulkOperationRequest appsControllerApiBulkOperationRequest = new AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
         try {
-            Object result = kestraClient.AppsApi().bulkEnableApps(tenant, appsControllerApiBulkOperationRequest);
+            Object result = kestraClient.apps().bulkEnableApps(tenant, appsControllerApiBulkOperationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#bulkEnableApps");
@@ -324,7 +324,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -334,7 +334,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         AppsControllerApiBulkOperationRequest appsControllerApiBulkOperationRequest = new AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
         try {
-            byte[] result = kestraClient.AppsApi().bulkExportApps(tenant, appsControllerApiBulkOperationRequest);
+            byte[] result = kestraClient.apps().bulkExportApps(tenant, appsControllerApiBulkOperationRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#bulkExportApps");
@@ -394,7 +394,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -404,7 +404,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         File fileUpload = new File("/path/to/file"); // File | The file to import, can be a ZIP archive or a multi-objects YAML file
         try {
-            AppsControllerApiBulkImportResponse result = kestraClient.AppsApi().bulkImportApps(tenant, fileUpload);
+            AppsControllerApiBulkImportResponse result = kestraClient.apps().bulkImportApps(tenant, fileUpload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#bulkImportApps");
@@ -464,7 +464,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -474,7 +474,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The app
         try {
-            AppsControllerApiAppSource result = kestraClient.AppsApi().createApp(tenant, body);
+            AppsControllerApiAppSource result = kestraClient.apps().createApp(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#createApp");
@@ -534,7 +534,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -544,7 +544,7 @@ public class Example {
         String uid = "uid_example"; // String | The ID of the app
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.AppsApi().deleteApp(uid, tenant);
+            Object result = kestraClient.apps().deleteApp(uid, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#deleteApp");
@@ -604,7 +604,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -614,7 +614,7 @@ public class Example {
         String uid = "uid_example"; // String | The ID of app
         String tenant = "tenant_example"; // String | 
         try {
-            AppsControllerApiApp result = kestraClient.AppsApi().disableApp(uid, tenant);
+            AppsControllerApiApp result = kestraClient.apps().disableApp(uid, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#disableApp");
@@ -674,7 +674,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -684,7 +684,7 @@ public class Example {
         String uid = "uid_example"; // String | The ID of app
         String tenant = "tenant_example"; // String | 
         try {
-            AppsControllerApiApp result = kestraClient.AppsApi().enableApp(uid, tenant);
+            AppsControllerApiApp result = kestraClient.apps().enableApp(uid, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#enableApp");
@@ -744,7 +744,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -755,7 +755,7 @@ public class Example {
         URI path = new URI(); // URI | The internal storage uri
         String tenant = "tenant_example"; // String | 
         try {
-            FileMetas result = kestraClient.AppsApi().fileMetaFromAppExecution(id, path, tenant);
+            FileMetas result = kestraClient.apps().fileMetaFromAppExecution(id, path, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#fileMetaFromAppExecution");
@@ -816,7 +816,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -829,7 +829,7 @@ public class Example {
         Integer maxRows = 56; // Integer | The max row returns
         String encoding = "UTF-8"; // String | The file encoding as Java charset name. Defaults to UTF-8
         try {
-            Object result = kestraClient.AppsApi().filePreviewFromAppExecution(id, path, tenant, maxRows, encoding);
+            Object result = kestraClient.apps().filePreviewFromAppExecution(id, path, tenant, maxRows, encoding);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#filePreviewFromAppExecution");
@@ -892,7 +892,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -901,7 +901,7 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         try {
-            AppsControllerApiAppTags result = kestraClient.AppsApi().listTags(tenant);
+            AppsControllerApiAppTags result = kestraClient.apps().listTags(tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#listTags");
@@ -960,7 +960,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -973,7 +973,7 @@ public class Example {
         Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
         List<String> taskIds = Arrays.asList(); // List<String> | The tasks' IDs
         try {
-            File result = kestraClient.AppsApi().logsFromAppExecution(uid, executionId, tenant, minLevel, taskIds);
+            File result = kestraClient.apps().logsFromAppExecution(uid, executionId, tenant, minLevel, taskIds);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#logsFromAppExecution");
@@ -1036,7 +1036,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1053,7 +1053,7 @@ public class Example {
         String namespace = "namespace_example"; // String | A namespace filter prefix
         String flowId = "flowId_example"; // String | A flow id filter
         try {
-            PagedResultsAppsControllerApiApp result = kestraClient.AppsApi().searchApps(filters, tenant, page, size, sort, tags, q, namespace, flowId);
+            PagedResultsAppsControllerApiApp result = kestraClient.apps().searchApps(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchApps");
@@ -1120,7 +1120,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1132,7 +1132,7 @@ public class Example {
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         try {
-            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.AppsApi().searchAppsFromCatalog(filters, tenant, page, size);
+            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.apps().searchAppsFromCatalog(tenant, page, size, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchAppsFromCatalog");
@@ -1194,7 +1194,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1205,7 +1205,7 @@ public class Example {
         String stream = "stream_example"; // String | The ID of the stream to get
         String tenant = "tenant_example"; // String | 
         try {
-            EventAppResponse result = kestraClient.AppsApi().streamEventsFromApp(id, stream, tenant);
+            EventAppResponse result = kestraClient.apps().streamEventsFromApp(id, stream, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#streamEventsFromApp");
@@ -1266,7 +1266,7 @@ import io.kestra.sdk.api.AppsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1277,7 +1277,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The app
         try {
-            AppsControllerApiAppSource result = kestraClient.AppsApi().updateApp(uid, tenant, body);
+            AppsControllerApiAppSource result = kestraClient.apps().updateApp(uid, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#updateApp");

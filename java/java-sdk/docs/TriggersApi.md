@@ -49,7 +49,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -59,7 +59,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerApiCreateBackfillRequest triggerControllerApiCreateBackfillRequest = new TriggerControllerApiCreateBackfillRequest(); // TriggerControllerApiCreateBackfillRequest | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().createBackfill(tenant, triggerControllerApiCreateBackfillRequest);
+            ApiTriggerState result = kestraClient.triggers().createBackfill(tenant, triggerControllerApiCreateBackfillRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#createBackfill");
@@ -120,7 +120,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -130,7 +130,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerApiTriggerId triggerControllerApiTriggerId = new TriggerControllerApiTriggerId(); // TriggerControllerApiTriggerId | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().deleteBackfill(tenant, triggerControllerApiTriggerId);
+            ApiTriggerState result = kestraClient.triggers().deleteBackfill(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteBackfill");
@@ -191,7 +191,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -201,7 +201,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<TriggerControllerApiTriggerId> triggerControllerApiTriggerId = Arrays.asList(); // List<TriggerControllerApiTriggerId> | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().deleteBackfillByIds(tenant, triggerControllerApiTriggerId);
+            ApiAsyncOperationResponse result = kestraClient.triggers().deleteBackfillByIds(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteBackfillByIds");
@@ -262,7 +262,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -272,7 +272,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().deleteBackfillByQuery(tenant, filters);
+            ApiAsyncOperationResponse result = kestraClient.triggers().deleteBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteBackfillByQuery");
@@ -333,7 +333,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -345,7 +345,7 @@ public class Example {
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.TriggersApi().deleteTrigger(namespace, flowId, triggerId, tenant);
+            kestraClient.triggers().deleteTrigger(tenant, namespace, flowId, triggerId);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteTrigger");
             System.err.println("Status code: " + e.getCode());
@@ -408,7 +408,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -418,7 +418,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<TriggerControllerApiTriggerId> triggerControllerApiTriggerId = Arrays.asList(); // List<TriggerControllerApiTriggerId> | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().deleteTriggersByIds(tenant, triggerControllerApiTriggerId);
+            ApiAsyncOperationResponse result = kestraClient.triggers().deleteTriggersByIds(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteTriggersByIds");
@@ -479,7 +479,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -489,7 +489,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         DeleteTriggersByQueryRequest deleteTriggersByQueryRequest = new DeleteTriggersByQueryRequest(); // DeleteTriggersByQueryRequest | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().deleteTriggersByQuery(tenant, deleteTriggersByQueryRequest);
+            ApiAsyncOperationResponse result = kestraClient.triggers().deleteTriggersByQuery(tenant, deleteTriggersByQueryRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteTriggersByQuery");
@@ -550,7 +550,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -560,7 +560,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerApiDisableTriggerRequest triggerControllerApiDisableTriggerRequest = new TriggerControllerApiDisableTriggerRequest(); // TriggerControllerApiDisableTriggerRequest | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().disableTriggerById(tenant, triggerControllerApiDisableTriggerRequest);
+            ApiTriggerState result = kestraClient.triggers().disableTriggerById(tenant, triggerControllerApiDisableTriggerRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disableTriggerById");
@@ -621,7 +621,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -631,7 +631,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest = new TriggerControllerSetDisabledRequest(); // TriggerControllerSetDisabledRequest | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest);
+            ApiAsyncOperationResponse result = kestraClient.triggers().disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disabledTriggersByIds");
@@ -692,7 +692,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -703,7 +703,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         Boolean disabled = true; // Boolean | The disabled state
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().disabledTriggersByQuery(tenant, filters, disabled);
+            ApiAsyncOperationResponse result = kestraClient.triggers().disabledTriggersByQuery(tenant, disabled, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disabledTriggersByQuery");
@@ -765,7 +765,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -775,7 +775,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | A list of filters
         String tenant = "tenant_example"; // String | 
         try {
-            List<String> result = kestraClient.TriggersApi().exportTriggers(filters, tenant);
+            List<String> result = kestraClient.triggers().exportTriggers(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#exportTriggers");
@@ -835,7 +835,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -845,7 +845,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerApiTriggerId triggerControllerApiTriggerId = new TriggerControllerApiTriggerId(); // TriggerControllerApiTriggerId | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().pauseBackfill(tenant, triggerControllerApiTriggerId);
+            ApiTriggerState result = kestraClient.triggers().pauseBackfill(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#pauseBackfill");
@@ -906,7 +906,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -916,7 +916,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<TriggerControllerApiTriggerId> triggerControllerApiTriggerId = Arrays.asList(); // List<TriggerControllerApiTriggerId> | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().pauseBackfillByIds(tenant, triggerControllerApiTriggerId);
+            ApiAsyncOperationResponse result = kestraClient.triggers().pauseBackfillByIds(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#pauseBackfillByIds");
@@ -977,7 +977,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -987,7 +987,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().pauseBackfillByQuery(tenant, filters);
+            ApiAsyncOperationResponse result = kestraClient.triggers().pauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#pauseBackfillByQuery");
@@ -1048,7 +1048,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1060,7 +1060,7 @@ public class Example {
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().restartTrigger(namespace, flowId, triggerId, tenant);
+            ApiTriggerState result = kestraClient.triggers().restartTrigger(tenant, namespace, flowId, triggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#restartTrigger");
@@ -1123,7 +1123,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1136,7 +1136,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         try {
-            PagedResultsApiTriggerAndState result = kestraClient.TriggersApi().searchTriggers(tenant, page, size, sort, filters);
+            PagedResultsApiTriggerAndState result = kestraClient.triggers().searchTriggers(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#searchTriggers");
@@ -1199,7 +1199,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1214,7 +1214,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String q = "q_example"; // String | A string filter
         try {
-            PagedResultsApiTriggerState result = kestraClient.TriggersApi().searchTriggersForFlow(namespace, flowId, tenant, page, size, sort, q);
+            PagedResultsApiTriggerState result = kestraClient.triggers().searchTriggersForFlow(tenant, namespace, flowId, page, size, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#searchTriggersForFlow");
@@ -1279,7 +1279,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1291,7 +1291,7 @@ public class Example {
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().unlockTrigger(namespace, flowId, triggerId, tenant);
+            ApiTriggerState result = kestraClient.triggers().unlockTrigger(tenant, namespace, flowId, triggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTrigger");
@@ -1354,7 +1354,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1364,7 +1364,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<TriggerControllerApiTriggerId> triggerControllerApiTriggerId = Arrays.asList(); // List<TriggerControllerApiTriggerId> | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().unlockTriggersByIds(tenant, triggerControllerApiTriggerId);
+            ApiAsyncOperationResponse result = kestraClient.triggers().unlockTriggersByIds(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTriggersByIds");
@@ -1425,7 +1425,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1435,7 +1435,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().unlockTriggersByQuery(tenant, filters);
+            ApiAsyncOperationResponse result = kestraClient.triggers().unlockTriggersByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTriggersByQuery");
@@ -1496,7 +1496,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1506,7 +1506,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TriggerControllerApiTriggerId triggerControllerApiTriggerId = new TriggerControllerApiTriggerId(); // TriggerControllerApiTriggerId | 
         try {
-            ApiTriggerState result = kestraClient.TriggersApi().unpauseBackfill(tenant, triggerControllerApiTriggerId);
+            ApiTriggerState result = kestraClient.triggers().unpauseBackfill(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unpauseBackfill");
@@ -1567,7 +1567,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1577,7 +1577,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<TriggerControllerApiTriggerId> triggerControllerApiTriggerId = Arrays.asList(); // List<TriggerControllerApiTriggerId> | 
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().unpauseBackfillByIds(tenant, triggerControllerApiTriggerId);
+            ApiAsyncOperationResponse result = kestraClient.triggers().unpauseBackfillByIds(tenant, triggerControllerApiTriggerId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unpauseBackfillByIds");
@@ -1638,7 +1638,7 @@ import io.kestra.sdk.api.TriggersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1648,7 +1648,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
         try {
-            ApiAsyncOperationResponse result = kestraClient.TriggersApi().unpauseBackfillByQuery(tenant, filters);
+            ApiAsyncOperationResponse result = kestraClient.triggers().unpauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unpauseBackfillByQuery");

@@ -7,7 +7,7 @@ All URIs are relative to *http://localhost*
 | [**createDashboard**](DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source |
 | [**dashboard**](DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard |
 | [**dashboardChartData**](DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data |
-| [**defaultDashboards1**](DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
+| [**defaultDashboards**](DashboardsApi.md#defaultDashboards) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
 | [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard |
 | [**exportChart**](DashboardsApi.md#exportChart) | **POST** /api/v1/{tenant}/dashboards/charts/export | Export a chart data to CSV or ION |
 | [**exportDashboardChart**](DashboardsApi.md#exportDashboardChart) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export | Export a dashboard chart data to CSV or ION |
@@ -38,7 +38,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -48,7 +48,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The dashboard definition as YAML
         try {
-            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().createDashboard(tenant, body);
+            DashboardControllerDashboardResponse result = kestraClient.dashboards().createDashboard(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#createDashboard");
@@ -108,7 +108,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -118,7 +118,7 @@ public class Example {
         String id = "id_example"; // String | The dashboard id
         String tenant = "tenant_example"; // String | 
         try {
-            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().dashboard(id, tenant);
+            DashboardControllerDashboardResponse result = kestraClient.dashboards().dashboard(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#dashboard");
@@ -178,7 +178,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -190,7 +190,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ChartFiltersOverrides chartFiltersOverrides = new ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
         try {
-            PagedResultsMapStringObject result = kestraClient.DashboardsApi().dashboardChartData(id, chartId, tenant, chartFiltersOverrides);
+            PagedResultsMapStringObject result = kestraClient.dashboards().dashboardChartData(id, chartId, tenant, chartFiltersOverrides);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#dashboardChartData");
@@ -233,9 +233,9 @@ public class Example {
 | **200** | getDashboardChartData 200 response |  -  |
 
 
-## defaultDashboards1
+## defaultDashboards
 
-> DashboardSettings defaultDashboards1(tenant)
+> DashboardSettings defaultDashboards(tenant)
 
 Get default dashboards
 
@@ -252,7 +252,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -261,10 +261,10 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         try {
-            DashboardSettings result = kestraClient.DashboardsApi().defaultDashboards1(tenant);
+            DashboardSettings result = kestraClient.dashboards().defaultDashboards(tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DashboardsApi#defaultDashboards1");
+            System.err.println("Exception when calling DashboardsApi#defaultDashboards");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -320,7 +320,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -330,7 +330,7 @@ public class Example {
         String id = "id_example"; // String | The dashboard id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.DashboardsApi().deleteDashboard(id, tenant);
+            kestraClient.dashboards().deleteDashboard(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#deleteDashboard");
             System.err.println("Status code: " + e.getCode());
@@ -389,7 +389,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -400,7 +400,7 @@ public class Example {
         DashboardControllerPreviewRequest dashboardControllerPreviewRequest = new DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
         String format = "CSV"; // String | The export format, CSV or ION
         try {
-            byte[] result = kestraClient.DashboardsApi().exportChart(tenant, dashboardControllerPreviewRequest, format);
+            byte[] result = kestraClient.dashboards().exportChart(tenant, dashboardControllerPreviewRequest, format);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#exportChart");
@@ -461,7 +461,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -474,7 +474,7 @@ public class Example {
         ChartFiltersOverrides chartFiltersOverrides = new ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
         String format = "CSV"; // String | The export format, CSV or ION
         try {
-            byte[] result = kestraClient.DashboardsApi().exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format);
+            byte[] result = kestraClient.dashboards().exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#exportDashboardChart");
@@ -537,7 +537,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -547,7 +547,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         DashboardControllerPreviewRequest dashboardControllerPreviewRequest = new DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
         try {
-            PagedResultsMapStringObject result = kestraClient.DashboardsApi().previewChart(tenant, dashboardControllerPreviewRequest);
+            PagedResultsMapStringObject result = kestraClient.dashboards().previewChart(tenant, dashboardControllerPreviewRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#previewChart");
@@ -607,7 +607,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -620,7 +620,7 @@ public class Example {
         String q = "q_example"; // String | The filter query
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsDashboardControllerDashboardResponse result = kestraClient.DashboardsApi().searchDashboards(tenant, page, size, q, sort);
+            PagedResultsDashboardControllerDashboardResponse result = kestraClient.dashboards().searchDashboards(tenant, page, size, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#searchDashboards");
@@ -683,7 +683,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -694,7 +694,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The dashboard definition as YAML
         try {
-            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().updateDashboard(id, tenant, body);
+            DashboardControllerDashboardResponse result = kestraClient.dashboards().updateDashboard(id, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#updateDashboard");
@@ -755,7 +755,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -765,7 +765,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The chart definition as YAML
         try {
-            ValidateConstraintViolation result = kestraClient.DashboardsApi().validateChart(tenant, body);
+            ValidateConstraintViolation result = kestraClient.dashboards().validateChart(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#validateChart");
@@ -825,7 +825,7 @@ import io.kestra.sdk.api.DashboardsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -835,7 +835,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The dashboard definition as YAML
         try {
-            ValidateConstraintViolation result = kestraClient.DashboardsApi().validateDashboard(tenant, body);
+            ValidateConstraintViolation result = kestraClient.dashboards().validateDashboard(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#validateDashboard");

@@ -39,7 +39,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -50,7 +50,7 @@ public class Example {
         String userId = "userId_example"; // String | The ID of the user to add to the group
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().addUserToGroup(id, userId, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().addUserToGroup(id, userId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#addUserToGroup");
@@ -113,7 +113,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -124,7 +124,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
         try {
-            List<ApiGroupSummary> result = kestraClient.GroupsApi().autocompleteGroups(filters, tenant, apiAutocomplete);
+            List<ApiGroupSummary> result = kestraClient.groups().autocompleteGroups(tenant, apiAutocomplete, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#autocompleteGroups");
@@ -185,7 +185,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -195,7 +195,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest = new IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
         try {
-            IAMGroupControllerApiGroupDetail result = kestraClient.GroupsApi().createGroup(tenant, iaMGroupControllerApiCreateGroupRequest);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().createGroup(tenant, iaMGroupControllerApiCreateGroupRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#createGroup");
@@ -256,7 +256,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -266,7 +266,7 @@ public class Example {
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.GroupsApi().deleteGroup(id, tenant);
+            kestraClient.groups().deleteGroup(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#deleteGroup");
             System.err.println("Status code: " + e.getCode());
@@ -328,7 +328,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -339,7 +339,7 @@ public class Example {
         String userId = "userId_example"; // String | The ID of the user to remove from the group
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().deleteUserFromGroup(id, userId, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().deleteUserFromGroup(id, userId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#deleteUserFromGroup");
@@ -404,7 +404,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -414,7 +414,7 @@ public class Example {
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupDetail result = kestraClient.GroupsApi().group(id, tenant);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().group(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#group");
@@ -475,7 +475,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -485,7 +485,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiIds apiIds = new ApiIds(); // ApiIds | The ids that must be present on results
         try {
-            List<ApiGroupSummary> result = kestraClient.GroupsApi().listGroupIds(tenant, apiIds);
+            List<ApiGroupSummary> result = kestraClient.groups().listGroupIds(tenant, apiIds);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#listGroupIds");
@@ -545,7 +545,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -559,7 +559,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().searchGroupMembers(id, filters, tenant, page, size, sort);
+            PagedResultsIAMGroupControllerApiGroupMember result = kestraClient.groups().searchGroupMembers(id, tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#searchGroupMembers");
@@ -623,7 +623,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -636,7 +636,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsApiGroupSummary result = kestraClient.GroupsApi().searchGroups(filters, tenant, page, size, sort);
+            PagedResultsApiGroupSummary result = kestraClient.groups().searchGroups(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#searchGroups");
@@ -701,7 +701,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -713,7 +713,7 @@ public class Example {
         GroupIdentifierMembership membership = GroupIdentifierMembership.fromValue("OWNER"); // GroupIdentifierMembership | The new membership type to assign to the user.
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().setUserMembershipForGroup(id, userId, membership, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().setUserMembershipForGroup(id, userId, membership, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#setUserMembershipForGroup");
@@ -777,7 +777,7 @@ import io.kestra.sdk.api.GroupsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -788,7 +788,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest = new IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
         try {
-            IAMGroupControllerApiGroupDetail result = kestraClient.GroupsApi().updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#updateGroup");

@@ -44,7 +44,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -55,7 +55,7 @@ public class Example {
         BlueprintControllerKind kind = BlueprintControllerKind.fromValue("APP"); // BlueprintControllerKind | The blueprint kind
         String tenant = "tenant_example"; // String | 
         try {
-            BlueprintControllerApiBlueprintItemWithSource result = kestraClient.BlueprintsApi().blueprint(id, kind, tenant);
+            BlueprintControllerApiBlueprintItemWithSource result = kestraClient.blueprints().blueprint(id, kind, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#blueprint");
@@ -118,7 +118,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -129,7 +129,7 @@ public class Example {
         BlueprintControllerKind kind = BlueprintControllerKind.fromValue("APP"); // BlueprintControllerKind | The blueprint kind
         String tenant = "tenant_example"; // String | 
         try {
-            Map<String, Object> result = kestraClient.BlueprintsApi().blueprintGraph(id, kind, tenant);
+            Map<String, Object> result = kestraClient.blueprints().blueprintGraph(id, kind, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#blueprintGraph");
@@ -192,7 +192,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -203,7 +203,7 @@ public class Example {
         BlueprintControllerKind kind = BlueprintControllerKind.fromValue("APP"); // BlueprintControllerKind | The blueprint kind
         String tenant = "tenant_example"; // String | 
         try {
-            String result = kestraClient.BlueprintsApi().blueprintSource(id, kind, tenant);
+            String result = kestraClient.blueprints().blueprintSource(id, kind, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#blueprintSource");
@@ -264,7 +264,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -274,7 +274,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         BlueprintControllerFlowBlueprintCreateOrUpdate blueprintControllerFlowBlueprintCreateOrUpdate = new BlueprintControllerFlowBlueprintCreateOrUpdate(); // BlueprintControllerFlowBlueprintCreateOrUpdate | 
         try {
-            BlueprintControllerApiFlowBlueprint result = kestraClient.BlueprintsApi().createFlowBlueprint(tenant, blueprintControllerFlowBlueprintCreateOrUpdate);
+            BlueprintControllerApiFlowBlueprint result = kestraClient.blueprints().createFlowBlueprint(tenant, blueprintControllerFlowBlueprintCreateOrUpdate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#createFlowBlueprint");
@@ -336,7 +336,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -346,7 +346,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         BlueprintControllerApiBlueprintItemWithSource blueprintControllerApiBlueprintItemWithSource = new BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
         try {
-            BlueprintControllerApiBlueprintItemWithSource result = kestraClient.BlueprintsApi().createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource);
+            BlueprintControllerApiBlueprintItemWithSource result = kestraClient.blueprints().createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#createInternalBlueprints");
@@ -408,7 +408,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -418,7 +418,7 @@ public class Example {
         String id = "id_example"; // String | The flow blueprint id to delete
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.BlueprintsApi().deleteFlowBlueprints(id, tenant);
+            kestraClient.blueprints().deleteFlowBlueprints(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#deleteFlowBlueprints");
             System.err.println("Status code: " + e.getCode());
@@ -479,7 +479,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -489,7 +489,7 @@ public class Example {
         String id = "id_example"; // String | The internal blueprint id to delete
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.BlueprintsApi().deleteInternalBlueprints(id, tenant);
+            kestraClient.blueprints().deleteInternalBlueprints(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#deleteInternalBlueprints");
             System.err.println("Status code: " + e.getCode());
@@ -550,7 +550,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -560,7 +560,7 @@ public class Example {
         String id = "id_example"; // String | The blueprint id
         String tenant = "tenant_example"; // String | 
         try {
-            BlueprintControllerApiFlowBlueprint result = kestraClient.BlueprintsApi().flowBlueprint(id, tenant);
+            BlueprintControllerApiFlowBlueprint result = kestraClient.blueprints().flowBlueprint(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#flowBlueprint");
@@ -622,7 +622,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -632,7 +632,7 @@ public class Example {
         String id = "id_example"; // String | The blueprint id
         String tenant = "tenant_example"; // String | 
         try {
-            BlueprintControllerApiFlowBlueprint result = kestraClient.BlueprintsApi().flowBlueprintById(id, tenant);
+            BlueprintControllerApiFlowBlueprint result = kestraClient.blueprints().flowBlueprintById(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#flowBlueprintById");
@@ -694,7 +694,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -704,7 +704,7 @@ public class Example {
         String id = "id_example"; // String | The blueprint id
         String tenant = "tenant_example"; // String | 
         try {
-            BlueprintControllerApiFlowBlueprint result = kestraClient.BlueprintsApi().internalBlueprint(id, tenant);
+            BlueprintControllerApiFlowBlueprint result = kestraClient.blueprints().internalBlueprint(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#internalBlueprint");
@@ -766,7 +766,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -776,7 +776,7 @@ public class Example {
         String id = "id_example"; // String | The blueprint id
         String tenant = "tenant_example"; // String | 
         try {
-            String result = kestraClient.BlueprintsApi().internalBlueprintFlow(id, tenant);
+            String result = kestraClient.blueprints().internalBlueprintFlow(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#internalBlueprintFlow");
@@ -838,7 +838,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -853,7 +853,7 @@ public class Example {
         Integer page = 1; // Integer | The current page
         Integer size = 1; // Integer | The current page size
         try {
-            PagedResultsBlueprintControllerApiBlueprintItem result = kestraClient.BlueprintsApi().searchBlueprints(kind, tenant, q, sort, tags, page, size);
+            PagedResultsBlueprintControllerApiBlueprintItem result = kestraClient.blueprints().searchBlueprints(kind, tenant, sort, page, size, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#searchBlueprints");
@@ -920,7 +920,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -935,7 +935,7 @@ public class Example {
         Integer size = 1; // Integer | The current page size
         Boolean source = false; // Boolean | Whether to include the flow source in the response
         try {
-            PagedResultsBlueprint result = kestraClient.BlueprintsApi().searchInternalBlueprints(tenant, q, sort, tags, page, size, source);
+            PagedResultsBlueprint result = kestraClient.blueprints().searchInternalBlueprints(tenant, sort, page, size, source, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#searchInternalBlueprints");
@@ -1000,7 +1000,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1011,7 +1011,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         BlueprintControllerFlowBlueprintCreateOrUpdate blueprintControllerFlowBlueprintCreateOrUpdate = new BlueprintControllerFlowBlueprintCreateOrUpdate(); // BlueprintControllerFlowBlueprintCreateOrUpdate | 
         try {
-            BlueprintControllerApiFlowBlueprint result = kestraClient.BlueprintsApi().updateFlowBlueprint(id, tenant, blueprintControllerFlowBlueprintCreateOrUpdate);
+            BlueprintControllerApiFlowBlueprint result = kestraClient.blueprints().updateFlowBlueprint(id, tenant, blueprintControllerFlowBlueprintCreateOrUpdate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#updateFlowBlueprint");
@@ -1074,7 +1074,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1085,7 +1085,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         BlueprintControllerApiBlueprintItemWithSource blueprintControllerApiBlueprintItemWithSource = new BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
         try {
-            BlueprintWithFlowEntity result = kestraClient.BlueprintsApi().updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource);
+            BlueprintWithFlowEntity result = kestraClient.blueprints().updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#updateInternalBlueprints");
@@ -1146,7 +1146,7 @@ import io.kestra.sdk.api.BlueprintsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1157,7 +1157,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         BlueprintControllerUseBlueprintTemplateRequest blueprintControllerUseBlueprintTemplateRequest = new BlueprintControllerUseBlueprintTemplateRequest(); // BlueprintControllerUseBlueprintTemplateRequest | 
         try {
-            BlueprintControllerUseBlueprintTemplateResponse result = kestraClient.BlueprintsApi().useBlueprintTemplate(id, tenant, blueprintControllerUseBlueprintTemplateRequest);
+            BlueprintControllerUseBlueprintTemplateResponse result = kestraClient.blueprints().useBlueprintTemplate(id, tenant, blueprintControllerUseBlueprintTemplateRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#useBlueprintTemplate");

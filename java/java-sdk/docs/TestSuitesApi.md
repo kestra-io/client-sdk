@@ -42,7 +42,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -52,7 +52,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The TestSuite source code
         try {
-            TestSuite result = kestraClient.TestSuitesApi().createTestSuite(tenant, body);
+            TestSuite result = kestraClient.testSuites().createTestSuite(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#createTestSuite");
@@ -114,7 +114,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -125,7 +125,7 @@ public class Example {
         String id = "id_example"; // String | The TestSuite ID
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.TestSuitesApi().deleteTestSuite(namespace, id, tenant);
+            Object result = kestraClient.testSuites().deleteTestSuite(namespace, id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#deleteTestSuite");
@@ -188,7 +188,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -198,7 +198,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteControllerTestSuiteBulkRequest testSuiteControllerTestSuiteBulkRequest = new TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
         try {
-            BulkResponse result = kestraClient.TestSuitesApi().deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
+            BulkResponse result = kestraClient.testSuites().deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#deleteTestSuitesByIds");
@@ -260,7 +260,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -270,7 +270,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteControllerTestSuiteBulkRequest testSuiteControllerTestSuiteBulkRequest = new TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
         try {
-            BulkResponse result = kestraClient.TestSuitesApi().disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
+            BulkResponse result = kestraClient.testSuites().disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#disableTestSuitesByIds");
@@ -332,7 +332,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -342,7 +342,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteControllerTestSuiteBulkRequest testSuiteControllerTestSuiteBulkRequest = new TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
         try {
-            BulkResponse result = kestraClient.TestSuitesApi().enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
+            BulkResponse result = kestraClient.testSuites().enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#enableTestSuitesByIds");
@@ -404,7 +404,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -416,7 +416,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteControllerRunRequest testSuiteControllerRunRequest = new TestSuiteControllerRunRequest(); // TestSuiteControllerRunRequest | 
         try {
-            TestSuiteRunResult result = kestraClient.TestSuitesApi().runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest);
+            TestSuiteRunResult result = kestraClient.testSuites().runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#runTestSuite");
@@ -480,7 +480,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -490,7 +490,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest = new TestSuiteServiceRunByQueryRequest(); // TestSuiteServiceRunByQueryRequest | 
         try {
-            TestSuiteServiceTestRunByQueryResult result = kestraClient.TestSuitesApi().runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest);
+            TestSuiteServiceTestRunByQueryResult result = kestraClient.testSuites().runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#runTestSuitesByQuery");
@@ -552,7 +552,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -567,7 +567,7 @@ public class Example {
         String flowId = "flowId_example"; // String | The flow id to filter on
         Boolean includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
         try {
-            PagedResultsTestSuite result = kestraClient.TestSuitesApi().searchTestSuites(tenant, page, size, sort, namespace, flowId, includeChildNamespaces);
+            PagedResultsTestSuite result = kestraClient.testSuites().searchTestSuites(tenant, page, size, sort, namespace, flowId, includeChildNamespaces);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuites");
@@ -634,7 +634,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -649,7 +649,7 @@ public class Example {
         String namespace = "namespace_example"; // String | The namespace to filter on
         String flowId = "flowId_example"; // String | The flow id to filter on
         try {
-            PagedResultsTestSuiteRunResult result = kestraClient.TestSuitesApi().searchTestSuitesResults(tenant, page, size, sort, testSuiteId, namespace, flowId);
+            PagedResultsTestSuiteRunResult result = kestraClient.testSuites().searchTestSuitesResults(tenant, page, size, sort, testSuiteId, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuitesResults");
@@ -716,7 +716,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -726,7 +726,7 @@ public class Example {
         String id = "id_example"; // String | The test run ID
         String tenant = "tenant_example"; // String | 
         try {
-            TestSuiteRunResult result = kestraClient.TestSuitesApi().testResult(id, tenant);
+            TestSuiteRunResult result = kestraClient.testSuites().testResult(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#testResult");
@@ -788,7 +788,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -799,7 +799,7 @@ public class Example {
         String id = "id_example"; // String | The TestSuite ID
         String tenant = "tenant_example"; // String | 
         try {
-            TestSuite result = kestraClient.TestSuitesApi().testSuite(namespace, id, tenant);
+            TestSuite result = kestraClient.testSuites().testSuite(namespace, id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#testSuite");
@@ -862,7 +862,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -872,7 +872,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         TestSuiteControllerSearchTestsLastResult testSuiteControllerSearchTestsLastResult = new TestSuiteControllerSearchTestsLastResult(); // TestSuiteControllerSearchTestsLastResult | 
         try {
-            TestSuiteControllerTestsLastResultResponse result = kestraClient.TestSuitesApi().testsLastResult(tenant, testSuiteControllerSearchTestsLastResult);
+            TestSuiteControllerTestsLastResultResponse result = kestraClient.testSuites().testsLastResult(tenant, testSuiteControllerSearchTestsLastResult);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#testsLastResult");
@@ -934,7 +934,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -946,7 +946,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The TestSuite source code
         try {
-            TestSuite result = kestraClient.TestSuitesApi().updateTestSuite(namespace, id, tenant, body);
+            TestSuite result = kestraClient.testSuites().updateTestSuite(namespace, id, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#updateTestSuite");
@@ -1010,7 +1010,7 @@ import io.kestra.sdk.api.TestSuitesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1020,7 +1020,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The TestSuite source code
         try {
-            ValidateConstraintViolation result = kestraClient.TestSuitesApi().validateTestSuite(tenant, body);
+            ValidateConstraintViolation result = kestraClient.testSuites().validateTestSuite(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#validateTestSuite");

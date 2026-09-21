@@ -61,7 +61,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -74,7 +74,7 @@ public class Example {
         Boolean allowNamespaceChild = false; // Boolean | If namespace child should are allowed to be updated
         String body = "body_example"; // String | A list of flows source code split with \"---\"
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().bulkUpdateFlows(tenant, delete, namespace, allowNamespaceChild, body);
+            List<FlowInterface> result = kestraClient.flows().bulkUpdateFlows(tenant, delete, namespace, allowNamespaceChild, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#bulkUpdateFlows");
@@ -137,7 +137,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -147,7 +147,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The flow source code
         try {
-            FlowWithSource result = kestraClient.FlowsApi().createFlow(tenant, body);
+            FlowWithSource result = kestraClient.flows().createFlow(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#createFlow");
@@ -207,7 +207,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -218,7 +218,7 @@ public class Example {
         String id = "id_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.FlowsApi().deleteFlow(namespace, id, tenant);
+            kestraClient.flows().deleteFlow(namespace, id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#deleteFlow");
             System.err.println("Status code: " + e.getCode());
@@ -279,7 +279,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -289,7 +289,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<IdWithNamespace> idWithNamespace = Arrays.asList(); // List<IdWithNamespace> | A list of tuple flow ID and namespace as flow identifiers
         try {
-            BulkResponse result = kestraClient.FlowsApi().deleteFlowsByIds(tenant, idWithNamespace);
+            BulkResponse result = kestraClient.flows().deleteFlowsByIds(tenant, idWithNamespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#deleteFlowsByIds");
@@ -349,7 +349,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -359,7 +359,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            BulkResponse result = kestraClient.FlowsApi().deleteFlowsByQuery(tenant, filters);
+            BulkResponse result = kestraClient.flows().deleteFlowsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#deleteFlowsByQuery");
@@ -419,7 +419,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -431,7 +431,7 @@ public class Example {
         List<Integer> revisions = Arrays.asList(); // List<Integer> | 
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.FlowsApi().deleteRevisions(namespace, id, revisions, tenant);
+            kestraClient.flows().deleteRevisions(namespace, id, tenant, revisions);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#deleteRevisions");
             System.err.println("Status code: " + e.getCode());
@@ -492,7 +492,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -502,7 +502,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<IdWithNamespace> idWithNamespace = Arrays.asList(); // List<IdWithNamespace> | A list of tuple flow ID and namespace as flow identifiers
         try {
-            BulkResponse result = kestraClient.FlowsApi().disableFlowsByIds(tenant, idWithNamespace);
+            BulkResponse result = kestraClient.flows().disableFlowsByIds(tenant, idWithNamespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#disableFlowsByIds");
@@ -562,7 +562,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -572,7 +572,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            BulkResponse result = kestraClient.FlowsApi().disableFlowsByQuery(tenant, filters);
+            BulkResponse result = kestraClient.flows().disableFlowsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#disableFlowsByQuery");
@@ -632,7 +632,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -642,7 +642,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<IdWithNamespace> idWithNamespace = Arrays.asList(); // List<IdWithNamespace> | A list of tuple flow ID and namespace as flow identifiers
         try {
-            BulkResponse result = kestraClient.FlowsApi().enableFlowsByIds(tenant, idWithNamespace);
+            BulkResponse result = kestraClient.flows().enableFlowsByIds(tenant, idWithNamespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#enableFlowsByIds");
@@ -702,7 +702,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -712,7 +712,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            BulkResponse result = kestraClient.FlowsApi().enableFlowsByQuery(tenant, filters);
+            BulkResponse result = kestraClient.flows().enableFlowsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#enableFlowsByQuery");
@@ -772,7 +772,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -782,7 +782,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<IdWithNamespace> idWithNamespace = Arrays.asList(); // List<IdWithNamespace> | A list of tuple flow ID and namespace as flow identifiers
         try {
-            byte[] result = kestraClient.FlowsApi().exportFlowsByIds(tenant, idWithNamespace);
+            byte[] result = kestraClient.flows().exportFlowsByIds(tenant, idWithNamespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#exportFlowsByIds");
@@ -842,7 +842,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -852,7 +852,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            byte[] result = kestraClient.FlowsApi().exportFlowsByQuery(tenant, filters);
+            byte[] result = kestraClient.flows().exportFlowsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#exportFlowsByQuery");
@@ -914,7 +914,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -925,7 +925,7 @@ public class Example {
         String body = "body_example"; // String | The flow source code
         String taskId = "taskId_example"; // String | Optional task ID to scope outputs to prior tasks
         try {
-            ExpressionContext result = kestraClient.FlowsApi().expressions(tenant, body, taskId);
+            ExpressionContext result = kestraClient.flows().expressions(tenant, body, taskId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#expressions");
@@ -986,7 +986,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1000,7 +1000,7 @@ public class Example {
         Integer revision = 56; // Integer | Get latest revision by default
         Boolean allowDeleted = false; // Boolean | Get flow even if deleted
         try {
-            FlowWithSource result = kestraClient.FlowsApi().flow(namespace, id, tenant, source, revision, allowDeleted);
+            FlowWithSource result = kestraClient.flows().flow(namespace, id, tenant, source, revision, allowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flow");
@@ -1064,7 +1064,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1077,7 +1077,7 @@ public class Example {
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
         try {
-            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependencies(namespace, id, tenant, destinationOnly, expandAll);
+            FlowTopologyGraph result = kestraClient.flows().flowDependencies(namespace, id, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flowDependencies");
@@ -1140,7 +1140,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1151,7 +1151,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Boolean destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
         try {
-            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependenciesFromNamespace(namespace, tenant, destinationOnly);
+            FlowTopologyGraph result = kestraClient.flows().flowDependenciesFromNamespace(namespace, tenant, destinationOnly);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flowDependenciesFromNamespace");
@@ -1212,7 +1212,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1225,7 +1225,7 @@ public class Example {
         Integer revision = 56; // Integer | The flow revision
         List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
         try {
-            FlowGraph result = kestraClient.FlowsApi().generateFlowGraph(namespace, id, tenant, revision, subflows);
+            FlowGraph result = kestraClient.flows().generateFlowGraph(namespace, id, tenant, revision, subflows);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#generateFlowGraph");
@@ -1288,7 +1288,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1299,7 +1299,7 @@ public class Example {
         String body = "body_example"; // String | The flow source code
         List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
         try {
-            FlowGraph result = kestraClient.FlowsApi().generateFlowGraphFromSource(tenant, body, subflows);
+            FlowGraph result = kestraClient.flows().generateFlowGraphFromSource(tenant, body, subflows);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#generateFlowGraphFromSource");
@@ -1360,7 +1360,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1371,7 +1371,7 @@ public class Example {
         Boolean failOnError = false; // Boolean | If should fail on invalid flows
         File fileUpload = new File("/path/to/file"); // File | The file to import, can be a ZIP archive or a multi-objects YAML file
         try {
-            List<String> result = kestraClient.FlowsApi().importFlows(tenant, failOnError, fileUpload);
+            List<String> result = kestraClient.flows().importFlows(tenant, failOnError, fileUpload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#importFlows");
@@ -1432,7 +1432,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1442,7 +1442,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            List<FlowControllerFlowWithDeprecatedTasks> result = kestraClient.FlowsApi().listDeprecated(tenant, namespace);
+            List<FlowControllerFlowWithDeprecatedTasks> result = kestraClient.flows().listDeprecated(tenant, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listDeprecated");
@@ -1502,7 +1502,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1512,7 +1512,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
         try {
-            List<String> result = kestraClient.FlowsApi().listDistinctNamespaces(tenant, q);
+            List<String> result = kestraClient.flows().listDistinctNamespaces(tenant, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listDistinctNamespaces");
@@ -1572,7 +1572,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1584,7 +1584,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Boolean allowDelete = false; // Boolean | 
         try {
-            List<FlowWithSource> result = kestraClient.FlowsApi().listFlowRevisions(namespace, id, tenant, allowDelete);
+            List<FlowWithSource> result = kestraClient.flows().listFlowRevisions(namespace, id, tenant, allowDelete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listFlowRevisions");
@@ -1646,7 +1646,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1656,7 +1656,7 @@ public class Example {
         String namespace = "namespace_example"; // String | Namespace to filter flows
         String tenant = "tenant_example"; // String | 
         try {
-            List<Flow> result = kestraClient.FlowsApi().listFlowsByNamespace(namespace, tenant);
+            List<Flow> result = kestraClient.flows().listFlowsByNamespace(namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listFlowsByNamespace");
@@ -1716,7 +1716,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1725,7 +1725,7 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         try {
-            PagedResultsConcurrencyLimit result = kestraClient.FlowsApi().searchConcurrencyLimits(tenant);
+            PagedResultsConcurrencyLimit result = kestraClient.flows().searchConcurrencyLimits(tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchConcurrencyLimits");
@@ -1784,7 +1784,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1797,7 +1797,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            PagedResultsFlow result = kestraClient.FlowsApi().searchFlows(tenant, page, size, sort, filters);
+            PagedResultsFlow result = kestraClient.flows().searchFlows(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchFlows");
@@ -1860,7 +1860,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1874,7 +1874,7 @@ public class Example {
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            PagedResultsSearchResultFlow result = kestraClient.FlowsApi().searchFlowsBySourceCode(tenant, page, size, sort, q, namespace);
+            PagedResultsSearchResultFlow result = kestraClient.flows().searchFlowsBySourceCode(tenant, page, size, sort, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchFlowsBySourceCode");
@@ -1938,7 +1938,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1951,7 +1951,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The flow revision
         try {
-            Task result = kestraClient.FlowsApi().taskFromFlow(namespace, id, taskId, tenant, revision);
+            Task result = kestraClient.flows().taskFromFlow(namespace, id, taskId, tenant, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#taskFromFlow");
@@ -2014,7 +2014,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2026,7 +2026,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ConcurrencyLimit concurrencyLimit = new ConcurrencyLimit(); // ConcurrencyLimit | 
         try {
-            ConcurrencyLimit result = kestraClient.FlowsApi().updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit);
+            ConcurrencyLimit result = kestraClient.flows().updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateConcurrencyLimit");
@@ -2088,7 +2088,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2100,7 +2100,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The flow source code
         try {
-            FlowWithSource result = kestraClient.FlowsApi().updateFlow(namespace, id, tenant, body);
+            FlowWithSource result = kestraClient.flows().updateFlow(namespace, id, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlow");
@@ -2164,7 +2164,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2177,7 +2177,7 @@ public class Example {
         Boolean delete = true; // Boolean | If missing flows should be deleted
         Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(namespace, tenant, body, delete, override);
+            List<FlowInterface> result = kestraClient.flows().updateFlowsInNamespace(namespace, tenant, body, delete, override);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlowsInNamespace");
@@ -2240,7 +2240,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2250,7 +2250,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | Flows as YAML string or multipart files
         try {
-            List<ValidateConstraintViolation> result = kestraClient.FlowsApi().validateFlows(tenant, body);
+            List<ValidateConstraintViolation> result = kestraClient.flows().validateFlows(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#validateFlows");
@@ -2310,7 +2310,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2321,7 +2321,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Object body = null; // Object | A task definition that can be from tasks or triggers
         try {
-            ValidateConstraintViolation result = kestraClient.FlowsApi().validateTask(section, tenant, body);
+            ValidateConstraintViolation result = kestraClient.flows().validateTask(section, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#validateTask");
@@ -2382,7 +2382,7 @@ import io.kestra.sdk.api.FlowsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2392,7 +2392,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Object body = null; // Object | The trigger
         try {
-            ValidateConstraintViolation result = kestraClient.FlowsApi().validateTrigger(tenant, body);
+            ValidateConstraintViolation result = kestraClient.flows().validateTrigger(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#validateTrigger");
