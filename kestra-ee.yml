@@ -800,7 +800,7 @@ paths:
       operationId: createInstancePolicy
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -1037,7 +1037,7 @@ paths:
       operationId: validateInstancePolicy
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -1132,7 +1132,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -7958,7 +7958,7 @@ paths:
       requestBody:
         description: The app
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -8347,7 +8347,7 @@ paths:
       requestBody:
         description: The app
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -9096,7 +9096,7 @@ paths:
       requestBody:
         description: The app
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -9289,7 +9289,7 @@ paths:
       requestBody:
         description: The asset
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -9871,7 +9871,7 @@ paths:
       requestBody:
         description: The asset
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -11663,7 +11663,7 @@ paths:
       requestBody:
         description: The flow blueprint source code
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -14799,7 +14799,7 @@ paths:
       requestBody:
         description: The dashboard definition as YAML
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -15037,7 +15037,7 @@ paths:
       requestBody:
         description: The dashboard definition as YAML
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -15086,7 +15086,7 @@ paths:
       requestBody:
         description: The chart definition as YAML
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -15186,7 +15186,7 @@ paths:
       requestBody:
         description: The dashboard definition as YAML
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -18498,7 +18498,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '200':
           description: On success
@@ -18621,7 +18620,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '204':
           description: On success
@@ -18735,10 +18733,11 @@ paths:
       - name: state
         in: query
         description: The new state of the execution
-        required: true
         explode: false
         schema:
-          $ref: '#/components/schemas/State.Type'
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/State.Type'
       - name: tenant
         in: path
         required: true
@@ -19321,9 +19320,9 @@ paths:
       - name: labels
         in: query
         description: The labels as a list of 'key:value'
-        required: true
         schema:
           type: array
+          nullable: true
           items:
             type: string
       - name: revision
@@ -19348,7 +19347,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '409':
           description: if the flow is disabled
@@ -19457,6 +19455,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -19526,6 +19527,10 @@ paths:
         description: A list of flows source code split with "---"
         content:
           application/x-yaml:
+            schema:
+              type: string
+              nullable: true
+          application/yaml:
             schema:
               type: string
               nullable: true
@@ -20128,6 +20133,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -20182,6 +20190,9 @@ paths:
         description: The flow source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -20838,6 +20849,9 @@ paths:
           application/x-yaml:
             schema:
               type: object
+          application/yaml:
+            schema:
+              type: object
           application/json:
             schema:
               type: object
@@ -20975,6 +20989,12 @@ paths:
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
       - name: delete
         in: query
         description: If missing flows should be deleted
@@ -20989,12 +21009,6 @@ paths:
         schema:
           type: boolean
           default: false
-      - name: namespace
-        in: path
-        description: The flow namespace
-        required: true
-        schema:
-          type: string
       - name: tenant
         in: path
         required: true
@@ -21002,11 +21016,6 @@ paths:
           type: string
       requestBody:
         description: A list of flows source code
-        content:
-          application/x-yaml:
-            schema:
-              type: string
-        required: true
       responses:
         '200':
           description: updateFlowsInNamespace 200 response
@@ -21145,6 +21154,9 @@ paths:
         description: The flow source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -24144,10 +24156,10 @@ paths:
       - name: triggerId
         in: query
         description: The trigger id
-        required: true
         explode: false
         schema:
           type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -26661,7 +26673,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -26944,7 +26956,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -27053,7 +27065,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -27358,7 +27370,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
           text/plain:
@@ -27828,7 +27840,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -28150,7 +28162,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -28249,7 +28261,7 @@ paths:
           type: string
       requestBody:
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -30810,7 +30822,7 @@ paths:
       requestBody:
         description: The TestSuite source code
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -31338,7 +31350,7 @@ paths:
       requestBody:
         description: The TestSuite source code
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -31454,7 +31466,7 @@ paths:
       requestBody:
         description: The TestSuite source code
         content:
-          application/x-yaml:
+          application/yaml:
             schema:
               type: string
         required: true
@@ -33298,7 +33310,9 @@ components:
           items:
             $ref: '#/components/schemas/Input_Object_'
         outputs:
+          title: Output values available and exposes to other flows.
           type: array
+          description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
           items:
             $ref: '#/components/schemas/Output'
         disabled:
@@ -35711,6 +35725,13 @@ components:
       - ACCOUNT_LOCKED
       - PROMOTE
       - UNKNOWN
+    AuthConfig:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthConfig.Type'
+    AuthConfig.Type:
+      type: object
     AuthController.Auth:
       type: object
       properties:
@@ -37166,70 +37187,100 @@ components:
       - CANCEL
       - IGNORE
     Event_AppResponse_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AppResponse'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_ExecutionStatusEvent_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ExecutionStatusEvent'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_Execution_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Execution'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_FollowLogEvent_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/FollowLogEvent'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_Object_:
+      required:
+      - data
       type: object
       properties:
         data:
           type: object
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     ExampleSeedState:
       type: object
       properties:
@@ -37703,6 +37754,12 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Input_Object_'
+          outputs:
+            title: Output values available and exposes to other flows.
+            type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+            items:
+              $ref: '#/components/schemas/Output'
           disabled:
             title: Whether the flow is disabled.
             type: boolean
@@ -37755,12 +37812,6 @@ components:
             description: Limits the number of concurrent executions of the flow.
             allOf:
             - $ref: '#/components/schemas/Concurrency'
-          outputs:
-            title: Output values available and exposes to other flows.
-            type: array
-            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-            items:
-              $ref: '#/components/schemas/Output'
           retry:
             title: Retry
             type: object
@@ -37849,7 +37900,9 @@ components:
             items:
               $ref: '#/components/schemas/Input_Object_'
           outputs:
+            title: Output values available and exposes to other flows.
             type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
             items:
               $ref: '#/components/schemas/Output'
           disabled:
@@ -38227,6 +38280,12 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Input_Object_'
+          outputs:
+            title: Output values available and exposes to other flows.
+            type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+            items:
+              $ref: '#/components/schemas/Output'
           disabled:
             title: Whether the flow is disabled.
             type: boolean
@@ -38251,12 +38310,6 @@ components:
             description: Limits the number of concurrent executions of the flow.
             allOf:
             - $ref: '#/components/schemas/Concurrency'
-          outputs:
-            title: Output values available and exposes to other flows.
-            type: array
-            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-            items:
-              $ref: '#/components/schemas/Output'
           sla:
             type: array
             items:
@@ -40189,6 +40242,8 @@ components:
         type:
           $ref: '#/components/schemas/OAuth2ConfigType'
       description: OAuth2 authentication configuration (sensitive fields masked)
+      allOf:
+      - $ref: '#/components/schemas/AuthConfig'
     OAuth2ConfigType:
       type: string
       enum:
