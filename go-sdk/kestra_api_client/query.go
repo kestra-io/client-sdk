@@ -1,5 +1,7 @@
 package kestra_api_client
 
+import "fmt"
+
 // Fluent DSL for building complex AND/OR + one-level-nested query filters
 // (issue #246). It is a thin, type-safe constructor layer over SearchFilter that
 // produces the []SearchFilter value every *ByQuery search method already accepts.
@@ -123,11 +125,21 @@ func group(logical SearchFilterLogical, children [][]SearchFilter) []SearchFilte
 //   - a top-level AND group → its children (flattened one level).
 //   - otherwise → a single-element list holding the root node.
 func Where(root []SearchFilter) []SearchFilter {
-	if len(root) == 0 {
-		return []SearchFilter{}
+	var result []SearchFilter
+	switch {
+	case len(root) == 0:
+		result = []SearchFilter{}
+	case len(root) == 1 && root[0].isGroup() && *root[0].Logical == LogicalAnd:
+		result = root[0].Children
+	default:
+		result = root
 	}
-	if len(root) == 1 && root[0].isGroup() && *root[0].Logical == LogicalAnd {
-		return root[0].Children
+	// Validate the tree at construction time so DSL users fail fast with the same
+	// message AppendFilterParams would panic with later (a structurally invalid
+	// tree — ambiguous leaf+group node or nesting deeper than one level — must
+	// never silently become an unbounded "match everything" query).
+	if _, err := buildFilterParams(result); err != nil {
+		panic(fmt.Sprintf("kestra: invalid query filter: %v", err))
 	}
-	return root
+	return result
 }

@@ -27,19 +27,30 @@ def _to_camel_case(s: str) -> str:
     return parts[0] + ''.join(p.capitalize() for p in parts[1:])
 
 
-def _encode_value(value: Any) -> str:
-    """Encode a filter value to string."""
+def _encode_scalar(value: Any) -> str:
+    """Encode a single scalar filter value to string.
+
+    Matches Java: '' for None, lowercase for bool, isoformat for datetime/date,
+    else str(). Used for both the scalar and per-element list paths so a bool
+    (or None/datetime) inside a list serializes exactly like a bare scalar
+    (e.g. [True, False] -> "true,false", not "True,False").
+    """
     if value is None:
         # A valueless leaf serializes to an empty string, matching the UI encoder
         # and the Go/Java serializers (rather than the literal "None").
         return ""
-    if isinstance(value, (datetime, date)):
-        return value.isoformat()
-    if isinstance(value, list):
-        return ",".join("" if v is None else str(v) for v in value)
     if isinstance(value, bool):
         return str(value).lower()
+    if isinstance(value, (datetime, date)):
+        return value.isoformat()
     return str(value)
+
+
+def _encode_value(value: Any) -> str:
+    """Encode a filter value (scalar or list) to string."""
+    if isinstance(value, list):
+        return ",".join(_encode_scalar(v) for v in value)
+    return _encode_scalar(value)
 
 
 # ---------------------------------------------------------------------------

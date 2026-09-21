@@ -111,6 +111,15 @@ func (f SearchFilter) isGroup() bool {
 	return f.Logical != nil
 }
 
+// isAmbiguous reports whether the node is BOTH a leaf and a group: it carries a
+// Logical combinator AND leaf data (Field/Operation/Value). Such a node is a
+// programmer error — the leaf data would be silently discarded if it were
+// treated as a pure group — and mirrors Java's isGroupNode (throws) and Python's
+// _classify (raises) for the identical input.
+func (f SearchFilter) isAmbiguous() bool {
+	return f.Logical != nil && (f.Field != "" || f.Operation != "" || f.Value != nil)
+}
+
 func encodeFilterValue(v interface{}) string {
 	switch val := v.(type) {
 	case nil:
@@ -121,13 +130,26 @@ func encodeFilterValue(v interface{}) string {
 		return val
 	case time.Time:
 		return val.Format(time.RFC3339)
-	case []string:
-		return strings.Join(val, ",")
+	case []byte:
+		// Raw bytes are treated as an opaque scalar (not CSV-split element by
+		// element); keep the pre-existing %v rendering.
+		return fmt.Sprintf("%v", val)
 	case fmt.Stringer:
 		return val.String()
-	default:
-		return fmt.Sprintf("%v", val)
 	}
+	// Any other slice/array (e.g. []string, []int, []interface{}) is CSV-joined —
+	// matching Java (convertValueToString/rawValueToString) and Python
+	// (_encode_value), which comma-join ANY list. Each element is encoded through
+	// encodeFilterValue so nested nils/bools/stringers stay consistent.
+	rv := reflect.ValueOf(v)
+	if rv.Kind() == reflect.Slice || rv.Kind() == reflect.Array {
+		parts := make([]string, rv.Len())
+		for i := 0; i < rv.Len(); i++ {
+			parts[i] = encodeFilterValue(rv.Index(i).Interface())
+		}
+		return strings.Join(parts, ",")
+	}
+	return fmt.Sprintf("%v", v)
 }
 
 // filterParam is a single ordered key/value pair of the serialized filters
@@ -176,8 +198,12 @@ func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
 	// Normalize raw input the same way the DSL constructors and the Java/Python
 	// serializers do: drop empty groups and flatten single-child groups. This
 	// keeps callers that build SearchFilter structs by hand (bypassing And/Or)
-	// wire-identical to callers that use the DSL.
-	filters = normalizeFilters(filters)
+	// wire-identical to callers that use the DSL. Normalization also rejects
+	// nodes that are ambiguously both a leaf and a group.
+	filters, err := normalizeFilters(filters)
+	if err != nil {
+		return nil, err
+	}
 	if len(filters) == 0 {
 		return nil, nil
 	}
@@ -232,37 +258,49 @@ func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
 
 // normalizeFilter drops empty groups and flattens single-child groups. The
 // second return value is false when the node collapses to nothing (an empty
-// group) and should be dropped by the caller.
-func normalizeFilter(f SearchFilter) (SearchFilter, bool) {
+// group) and should be dropped by the caller. It returns an error for a node
+// that is ambiguously both a leaf and a group (mirroring Java/Python).
+func normalizeFilter(f SearchFilter) (SearchFilter, bool, error) {
+	if f.isAmbiguous() {
+		return SearchFilter{}, false, fmt.Errorf("a filter node cannot be both a leaf and a group")
+	}
 	if !f.isGroup() {
-		return f, true
+		return f, true, nil
 	}
 	var kids []SearchFilter
 	for _, c := range f.Children {
-		if nc, ok := normalizeFilter(c); ok {
+		nc, ok, err := normalizeFilter(c)
+		if err != nil {
+			return SearchFilter{}, false, err
+		}
+		if ok {
 			kids = append(kids, nc)
 		}
 	}
 	switch len(kids) {
 	case 0:
-		return SearchFilter{}, false
+		return SearchFilter{}, false, nil
 	case 1:
-		return kids[0], true
+		return kids[0], true, nil
 	default:
 		f.Children = kids
-		return f, true
+		return f, true, nil
 	}
 }
 
 // normalizeFilters normalizes each top-level filter, dropping collapsed ones.
-func normalizeFilters(filters []SearchFilter) []SearchFilter {
+func normalizeFilters(filters []SearchFilter) ([]SearchFilter, error) {
 	var out []SearchFilter
 	for _, f := range filters {
-		if nf, ok := normalizeFilter(f); ok {
+		nf, ok, err := normalizeFilter(f)
+		if err != nil {
+			return nil, err
+		}
+		if ok {
 			out = append(out, nf)
 		}
 	}
-	return out
+	return out, nil
 }
 
 // allLeaves reports whether every filter in the slice is a leaf (no group).

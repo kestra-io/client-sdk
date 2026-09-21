@@ -200,6 +200,53 @@ func TestQueryFilterLeafAndGroupAmbiguous(t *testing.T) {
 	}
 }
 
+// TestQueryFilterLeafAndGroupAmbiguousRealPath verifies a node that is both a
+// leaf (Field/Operation/Value) and a group (Logical) is rejected by the REAL
+// serialization path — buildFilterParams / normalizeFilter — not just by a
+// direct emitLeaf call. Previously isGroup()==true silently discarded the leaf
+// data and emitted the node as a pure group.
+func TestQueryFilterLeafAndGroupAmbiguousRealPath(t *testing.T) {
+	and := LogicalAnd
+	ambiguous := SearchFilter{
+		Field:     FilterNamespace,
+		Operation: OpEquals,
+		Value:     "ns",
+		Logical:   &and,
+		Children: []SearchFilter{
+			{Field: FilterScope, Operation: OpEquals, Value: "s1"},
+		},
+	}
+	if _, err := buildFilterParams([]SearchFilter{ambiguous}); err == nil {
+		t.Fatal("expected error for ambiguous leaf+group node via buildFilterParams, got nil")
+	}
+
+	// The exported entry point must fail loudly (panic) on the same input.
+	func() {
+		defer func() {
+			if r := recover(); r == nil {
+				t.Fatal("expected panic for ambiguous leaf+group node via AppendFilterParams, got none")
+			}
+		}()
+		AppendFilterParams(map[string][]string{}, []SearchFilter{ambiguous})
+	}()
+}
+
+// TestQueryFilterInterfaceSliceCSV verifies any slice type (not just []string)
+// is CSV-joined, matching Java/Python. A []interface{} used to fall through to
+// fmt.Sprintf("%v", ...) → "[RUNNING SUCCESS]".
+func TestQueryFilterInterfaceSliceCSV(t *testing.T) {
+	pairs, err := buildFilterParams([]SearchFilter{
+		{Field: FilterState, Operation: OpIn, Value: []interface{}{"RUNNING", "SUCCESS"}},
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	got := fmt.Sprintf("%s=%s", pairs[0].Key, pairs[0].Value)
+	if len(pairs) != 1 || got != "filters[state][IN]=RUNNING,SUCCESS" {
+		t.Fatalf("[]interface{} not CSV-joined: got %q", got)
+	}
+}
+
 // TestQueryFilterMapKeySort verifies LABELS map keys are emitted sorted.
 func TestQueryFilterMapKeySort(t *testing.T) {
 	filters := Where(Eq(FilterLabels, map[string]string{"c": "3", "a": "1", "b": "2"}))

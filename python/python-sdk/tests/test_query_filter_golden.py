@@ -163,6 +163,21 @@ def test_null_value_serializes_to_empty_string():
     assert params == [("filters[namespace][EQUALS]", "")]
 
 
+def test_bool_list_serializes_lowercase():
+    # Booleans inside a list must serialize lowercase (true,false) — same as a
+    # bare bool — matching Java. The list branch used to use str(v) -> True,False.
+    f = QueryFilter(
+        var_field=QueryFilterField.STATE,
+        operation=QueryFilterOp.IN,
+        value=[True, False],
+    )
+    params: list = []
+    append_filter_params(params, [f])
+    assert ["%s=%s" % (k, v) for k, v in params] == [
+        "filters[state][IN]=true,false"
+    ]
+
+
 def test_null_field_leaf_raises():
     f = QueryFilter(operation=QueryFilterOp.EQUALS, value="x")
     params: list = []
