@@ -525,6 +525,24 @@ __all__ = [
     "QueryFilter",
     "QueryFilterField",
     "QueryFilterLogical",
+    # Query filter DSL (issue #246)
+    "where",
+    "and_",
+    "or_",
+    "filter_",
+    "eq",
+    "not_eq",
+    "in_",
+    "not_in",
+    "contains",
+    "starts_with",
+    "ends_with",
+    "regex",
+    "prefix",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
     "QueryFilterOp",
     "QueueSubscriptionMode",
     "Quota",
@@ -1207,6 +1225,25 @@ from kestrapy.models.query_filter import QueryFilter as QueryFilter
 from kestrapy.models.query_filter_field import QueryFilterField as QueryFilterField
 from kestrapy.models.query_filter_logical import QueryFilterLogical as QueryFilterLogical
 from kestrapy.models.query_filter_op import QueryFilterOp as QueryFilterOp
+from kestrapy.query import (
+    where as where,
+    and_ as and_,
+    or_ as or_,
+    filter_ as filter_,
+    eq as eq,
+    not_eq as not_eq,
+    in_ as in_,
+    not_in as not_in,
+    contains as contains,
+    starts_with as starts_with,
+    ends_with as ends_with,
+    regex as regex,
+    prefix as prefix,
+    gt as gt,
+    gte as gte,
+    lt as lt,
+    lte as lte,
+)
 from kestrapy.models.queue_subscription_mode import QueueSubscriptionMode as QueueSubscriptionMode
 from kestrapy.models.quota import Quota as Quota
 from kestrapy.models.quota_behavior import QuotaBehavior as QuotaBehavior

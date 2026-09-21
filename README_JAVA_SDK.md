@@ -60,3 +60,31 @@
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
 Use the `io.kestra.sdk.KestraClient` manually written that gather everything in one client.
+
+## Complex queries (AND / OR filters)
+
+Every `*ByQuery` / search endpoint accepts grouped filters. Build them with the `Query`
+DSL instead of hand-encoding `filters[...]` strings:
+
+```java
+import static io.kestra.sdk.query.Query.*;
+import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
+
+List<QueryFilter> filters = where(
+    and(
+        eq(QueryFilterField.NAMESPACE, "company.team"),
+        or(
+            eq(QueryFilterField.STATE, "SUCCESS"),
+            eq(QueryFilterField.STATE, "WARNING")
+        )
+    )
+);
+// filters drops straight into any *ByQuery / search method that takes List<QueryFilter>.
+```
+
+- Helpers: `where`, `and`, `or`, `filter`, `eq`, `notEq`, `in`, `notIn`, `contains`, `startsWith`,
+  `endsWith`, `regex`, `prefix`, `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual`.
+- **Backward compatible:** a plain `List<QueryFilter>` (or `where(and(...leaves))`) serializes to the
+  same flat `filters[field][OP]=value` wire format as before.
+- Nesting is **one level deep** (an `and` containing an `or`, or vice-versa); deeper nesting throws.

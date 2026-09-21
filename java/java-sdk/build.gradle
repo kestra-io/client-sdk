@@ -118,11 +118,19 @@ dependencies {
     implementation "org.openapitools:jackson-databind-nullable:$jackson_databind_nullable_version"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
     testImplementation "junit:junit:$junit_version"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+    // Gradle 9 no longer puts the JUnit Platform launcher on the test runtime
+    // classpath implicitly; without it the test worker fails to start.
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
     implementation "io.projectreactor:reactor-core:3.7.12"
     compileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 
+}
+
+test {
+    useJUnitPlatform()
 }
 
 configurations.all {

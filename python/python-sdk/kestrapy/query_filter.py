@@ -38,52 +38,183 @@ def _encode_value(value: Any) -> str:
     return str(value)
 
 
-def append_filter_params(params: list, filters: Optional[list]) -> None:
-    """Encode QueryFilter list into query param tuples.
+# ---------------------------------------------------------------------------
+# Node accessors — work uniformly over QueryFilter model instances and plain
+# dicts. A node is EITHER a leaf (field + operation) or a group (logical +
+# children); the serializer classifies each node with these helpers.
+# ---------------------------------------------------------------------------
 
-    Appends (key, value) tuples to params list.
-    Format: filters[field][OPERATION]=value
-    For map values: filters[field][OPERATION][key]=value
+def _enum_value(x: Any) -> Any:
+    return x.value if hasattr(x, 'value') else x
+
+
+def _node_field(f: Any) -> Any:
+    if isinstance(f, dict):
+        return f.get('field', f.get('var_field'))
+    if hasattr(f, 'var_field'):
+        return f.var_field
+    if hasattr(f, 'field'):
+        return f.field
+    return None
+
+
+def _node_operation(f: Any) -> Any:
+    if isinstance(f, dict):
+        return f.get('operation')
+    return getattr(f, 'operation', None)
+
+
+def _node_value(f: Any) -> Any:
+    if isinstance(f, dict):
+        return f.get('value')
+    return getattr(f, 'value', None)
+
+
+def _node_logical(f: Any) -> Any:
+    if isinstance(f, dict):
+        return f.get('logical')
+    return getattr(f, 'logical', None)
+
+
+def _node_children(f: Any) -> Any:
+    if isinstance(f, dict):
+        return f.get('children')
+    return getattr(f, 'children', None)
+
+
+def _logical_str(f: Any) -> str:
+    """Wire form of a group's logical operator: lowercase 'and'/'or'."""
+    lg = _enum_value(_node_logical(f))
+    return str(lg).lower() if lg is not None else 'and'
+
+
+def _classify(f: Any) -> str:
+    """Return 'leaf' or 'group'; raise if a node is ambiguously both."""
+    has_field = _node_field(f) is not None
+    has_group = _node_logical(f) is not None or _node_children(f) is not None
+    if has_field and has_group:
+        raise ValueError(
+            "a filter node cannot be both a leaf and a group"
+        )
+    return 'group' if has_group else 'leaf'
+
+
+# Internal normalized node representation:
+#   ('leaf', <original node>)
+#   ('group', <'and'|'or'>, [<normalized node>, ...])
+def _normalize(f: Any) -> Optional[tuple]:
+    """Collapse single-child groups and drop empty groups (DSL semantics)."""
+    if _classify(f) == 'leaf':
+        return ('leaf', f)
+    children = _node_children(f) or []
+    norm = []
+    for c in children:
+        n = _normalize(c)
+        if n is not None:
+            norm.append(n)
+    if not norm:
+        return None
+    if len(norm) == 1:
+        return norm[0]
+    return ('group', _logical_str(f), norm)
+
+
+def _emit_leaf(params: list, prefix: str, f: Any) -> None:
+    """Encode a single leaf filter under `prefix`.
+
+    base = prefix[fieldName][OPERATION]
+      - map/dict value  -> base[key] = value  (keys sorted for determinism)
+      - list value      -> CSV-joined single value
+      - scalar          -> single value
+    """
+    if _classify(f) != 'leaf':
+        raise ValueError("a filter node cannot be both a leaf and a group")
+
+    raw_field = _enum_value(_node_field(f))
+    if raw_field is None:
+        raise ValueError("a leaf filter requires a field")
+    raw_field = str(raw_field)
+
+    op_obj = _enum_value(_node_operation(f))
+    operation = str(op_obj) if op_obj is not None else ''
+
+    value = _node_value(f)
+
+    # Map field name: check special overrides first, then camelCase convert.
+    field_upper = raw_field.upper()
+    if field_upper in _FIELD_MAP:
+        field_name = _FIELD_MAP[field_upper]
+    else:
+        field_name = _to_camel_case(raw_field)
+
+    base = f"{prefix}[{field_name}][{operation}]"
+
+    # Unwrap {'value': actual} shape (backward compat).
+    if isinstance(value, dict) and 'value' in value and len(value) == 1:
+        value = value['value']
+
+    # Expand dict/map values (e.g. labels), sorting keys for determinism.
+    if isinstance(value, dict):
+        for k in sorted(value.keys()):
+            params.append((f"{base}[{k}]", _encode_value(value[k])))
+    else:
+        params.append((base, _encode_value(value)))
+
+
+def append_filter_params(
+    params: list, filters: Optional[list], prefix: str = "filters"
+) -> None:
+    """Encode a QueryFilter list into query param tuples.
+
+    Implements the shared complex-filter serializer (issue #246):
+    - The input list is an implicit AND of its elements (legacy semantics).
+    - A top-level AND of leaves flattens to bare `filters[field][OP]`
+      (byte-identical to the legacy flat form — the backward-compat invariant).
+    - A single top-level group is promoted to top level; explicit
+      `filters[and][i]` / `filters[or][i]` segments appear only when the top
+      logical is OR or a nested group is present.
+    - Single-child groups collapse to their child; empty groups emit nothing.
+    - Nesting is limited to one level; deeper nesting raises ValueError.
+
+    Appends (key, value) tuples to `params`, preserving list/children order.
+    Supports QueryFilter model instances, `.logical`/enum values, and dicts.
     """
     if not filters:
         return
 
-    for f in filters:
-        # Support both QueryFilter model instances and dicts.
-        # QueryFilter uses 'var_field' (aliased to "field") for the field attribute.
-        if hasattr(f, 'var_field'):
-            field_obj = f.var_field
-            raw_field = field_obj.value if hasattr(field_obj, 'value') else str(field_obj)
-            op_obj = f.operation
-            operation = op_obj.value if hasattr(op_obj, 'value') else str(op_obj)
-            value = f.value
-        elif hasattr(f, 'field'):
-            field_obj = f.field
-            raw_field = field_obj.value if hasattr(field_obj, 'value') else str(field_obj)
-            op_obj = f.operation
-            operation = op_obj.value if hasattr(op_obj, 'value') else str(op_obj)
-            value = f.value
-        elif isinstance(f, dict):
-            raw_field = str(f.get('field', ''))
-            operation = str(f.get('operation', ''))
-            value = f.get('value')
-        else:
-            continue
+    nodes = [_normalize(f) for f in filters]
+    nodes = [n for n in nodes if n is not None]
+    if not nodes:
+        return
 
-        # Map field name: check special overrides first, then camelCase convert
-        field_upper = raw_field.upper()
-        if field_upper in _FIELD_MAP:
-            field_name = _FIELD_MAP[field_upper]
-        else:
-            field_name = _to_camel_case(raw_field)
+    # Determine (top_logical, units): promote a lone top-level group.
+    if len(nodes) == 1 and nodes[0][0] == 'group':
+        top_logical = nodes[0][1]
+        units = nodes[0][2]
+    else:
+        top_logical = 'and'
+        units = nodes
 
-        # Unwrap {'value': actual} shape (backward compat)
-        if isinstance(value, dict) and 'value' in value and len(value) == 1:
-            value = value['value']
+    # Flat form: top-level AND whose units are all leaves.
+    if top_logical == 'and' and all(u[0] == 'leaf' for u in units):
+        for u in units:
+            _emit_leaf(params, prefix, u[1])
+        return
 
-        # Expand dict/map values
-        if isinstance(value, dict):
-            for k, v in value.items():
-                params.append((f"filters[{field_name}][{operation}][{k}]", _encode_value(v)))
+    for i, unit in enumerate(units):
+        unit_prefix = f"{prefix}[{top_logical}][{i}]"
+        if unit[0] == 'group':
+            group_logical = unit[1]
+            for j, child in enumerate(unit[2]):
+                if child[0] == 'group':
+                    raise ValueError(
+                        "nested groups are limited to one level; "
+                        "flatten the inner group"
+                    )
+                _emit_leaf(
+                    params,
+                    f"{unit_prefix}[{group_logical}][{j}]",
+                    child[1],
+                )
         else:
-            params.append((f"filters[{field_name}][{operation}]", _encode_value(value)))
+            _emit_leaf(params, unit_prefix, unit[1])
