@@ -422,7 +422,7 @@ func (a *FlowsAPI) ExportFlowsByQueryCsv(ctx context.Context, tenant string, fil
 	if err := appendFilterParams(params, filters); err != nil {
 		return "", err
 	}
-	return a.doText(ctx, "GET", path, params)
+	return a.doText(ctx, "GET", path, params, contentCSV)
 }
 
 // ========================================================================
