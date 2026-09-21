@@ -2,7 +2,7 @@
 /* eslint-disable jest/no-standalone-expect */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import { randomId } from './_utils.js';
+import { expectStatus, randomId } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Triggers from '@kestra-io/kestra-sdk/triggers';
@@ -116,6 +116,25 @@ async function ensureTriggerExists(namespace: string, flowId: string, triggerId:
 
 
 describe('TriggersApiTest', () => {
+    it('createBackfillTest: an end date before the start date answers 422', async () => {
+        const flowId = `createBackfillTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
+
+        await expectStatus(Triggers.createBackfill({
+            namespace,
+            flowId,
+            triggerId,
+            backfill: {
+                start: new Date().toISOString(),
+                end: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+            },
+        }), 422);
+    }, 120000);
+
     it('deleteBackfillTest', async () => {
         const flowId = `deleteBackfillTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;
