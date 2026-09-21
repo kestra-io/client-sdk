@@ -1,27 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId } from './_utils.js';
+import { randomId, getExecutableFlowAndId, getSimpleFlowAndId, waitForExecutionSuccess } from './_utils.js';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Logs from '@kestra-io/kestra-sdk/logs';
 
-const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
-
 async function createExecutionWithLogs(): Promise<string> {
-    const { flowId, flowNamespace, flowBody } = getSimpleFlowAndId();
+    const { flowId, flowNamespace, flowBody } = getExecutableFlowAndId();
     await Flows.createFlow({ body: flowBody });
 
     const exec = await Executions.createExecution({ namespace: flowNamespace, id: flowId, wait: true });
     const executionId = (exec as any).id;
 
-    const deadline = Date.now() + 10_000;
-    while (Date.now() < deadline) {
-        try {
-            const e = await Executions.execution({ executionId });
-            const state = (e as any).state?.current;
-            if (state === 'SUCCESS' || state === 'FAILED') break;
-        } catch (_) { /* execution may not be in DB yet */ }
-        await sleep(500);
-    }
+    await waitForExecutionSuccess(executionId);
     return executionId;
 }
 
@@ -57,6 +47,45 @@ describe('LogsApi', () => {
         const result = await Logs.downloadLogsFromExecution({ executionId });
         expect(result).toBeDefined();
     });
+
+    it('followLogsFromExecution: streams logs for an execution over SSE', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        const flowBody = `id: ${flowId}
+namespace: ${namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from followLogs
+`;
+        await Flows.createFlow({ body: flowBody });
+
+        // Don't wait — follow the logs live as the execution runs, mirroring the
+        // follow_execution SSE test in ExecutionsApi.spec.ts.
+        const exec = await Executions.createExecution({ namespace, id: flowId });
+        const executionId = (exec as any).id;
+
+        // Safety net: if the stream never closes on its own, abort after 20s so
+        // the Vitest worker isn't killed with an open TCP connection.
+        const ac = new AbortController();
+        const abortTimer = setTimeout(() => ac.abort(), 20000);
+
+        const { stream } = await Logs.followLogsFromExecution({ executionId }, { signal: ac.signal });
+
+        const messages: string[] = [];
+        try {
+            for await (const evt of stream) {
+                if (evt.message) messages.push(evt.message);
+            }
+        } catch {
+            // AbortError if the 20s safety timer fired — proceed with what we have.
+        } finally {
+            clearTimeout(abortTimer);
+        }
+
+        expect(messages.some((m) => m.includes('Hello from followLogs'))).toBe(true);
+    }, 25000);
 
     it('deleteLogsFromExecution: deletes logs for an execution', async () => {
         const executionId = await createExecutionWithLogs();

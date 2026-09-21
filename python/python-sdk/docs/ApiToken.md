@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**prefix** | **str** |  | [optional] 
-**iat** | **datetime** |  | [optional] 
+**prefix** | **str** |  | 
+**iat** | **datetime** |  | 
 **exp** | **datetime** |  | [optional] 
 **last_used** | **datetime** |  | [optional] 
 **extended** | **bool** |  | [optional] 

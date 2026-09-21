@@ -80,8 +80,11 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts');
         const created = await ServiceAccount.createServiceAccount({ name });
 
-        // Many SDKs use {page, size}; some use {page: 1, size: 50}, others 0-based.
-        const results = await ServiceAccount.listServiceAccounts({ page: 1, size: 10000, filters: [] });
+        const results = await ServiceAccount.listServiceAccounts({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
 
         // tolerate different result shapes: {results: []} or direct array
         const items = Array.isArray(results) ? results : results?.results ?? [];
@@ -107,20 +110,32 @@ describe('ServiceAccountApi', () => {
         expect(patched?.description).toBe('new');
     });
 
-    it('patch_service_account_super_admin', async () => {
-        const name = randomIdWith('test-patch-service-account-super-admin');
+    it('patch_service_account_instance_owner', async () => {
+        const name = randomIdWith('test-patch-service-account-instance-owner');
 
         const created = await ServiceAccount.createServiceAccount({ name });
         if (!created.id) {
             throw new Error('Failed to create service account');
         }
 
-        // In Python you had a small typo in the method name; fixed here.
-        await ServiceAccount.patchServiceAccountSuperAdmin({ id: created.id, superAdmin: true });
+        await ServiceAccount.patchServiceAccountInstanceOwner({ id: created.id, instanceOwner: true });
 
         const fetched = await ServiceAccount.serviceAccount({ id: created.id });
-        // Depending on the SDK, the property could be super_admin or superAdmin
-        expect(fetched.superAdmin).toBe(true);
+        expect(fetched.instanceOwner).toBe(true);
+    });
+
+    it('patch_service_account_instance_owner_legacy: accepts the deprecated superAdmin field', async () => {
+        const name = randomIdWith('test-patch-service-account-instance-owner-legacy');
+
+        const created = await ServiceAccount.createServiceAccount({ name });
+        if (!created.id) {
+            throw new Error('Failed to create service account');
+        }
+
+        await ServiceAccount.patchServiceAccountInstanceOwnerLegacy({ id: created.id, superAdmin: true });
+
+        const fetched = await ServiceAccount.serviceAccount({ id: created.id });
+        expect(fetched.instanceOwner).toBe(true);
     });
 
     it('update_service_account', async () => {
@@ -180,7 +195,11 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts-for-tenant');
         const created = await ServiceAccount.createServiceAccountForTenant({ name });
 
-        const results = await ServiceAccount.listServiceAccountsForTenant({ page: 1, size: 10000, filters: [] });
+        const results = await ServiceAccount.listServiceAccountsForTenant({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
         const items = Array.isArray(results) ? results : (results as any)?.results ?? [];
         expect(items.map((r: any) => r?.id)).toContain(created.id);
     });

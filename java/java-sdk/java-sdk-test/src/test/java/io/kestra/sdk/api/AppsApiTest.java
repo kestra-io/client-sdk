@@ -123,7 +123,7 @@ public class AppsApiTest {
 
     @Test
     void searchApps_basic() throws ApiException {
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, null, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -146,7 +146,7 @@ public class AppsApiTest {
 
         AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -155,7 +155,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by flowId — expected app missing from results")
     void searchApps_withFlowId() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -163,7 +162,7 @@ public class AppsApiTest {
 
         AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, flowId, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns), flowIdFilter(flowId)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -172,7 +171,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by 'q' — returns all apps")
     void searchApps_withQuery() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -183,8 +181,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(appId1, ns, flowId));
         api().createApp(TENANT, appYaml(appId2, ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, "Test App " + appId1, ns, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(queryFilter("Test App " + appId1), nsFilter(ns)));
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(app ->
@@ -202,8 +199,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(appId2, ns, flowId));
         api().createApp(TENANT, appYaml(appId1, ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, null, ns, null, List.of("id:asc"), null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, List.of("id:asc"), List.of(nsFilter(ns)));
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> ids = result.getResults().stream().map(AppsControllerApiApp::getId).toList();
@@ -215,7 +211,7 @@ public class AppsApiTest {
 
     @Test
     void searchApps_withTags() throws ApiException {
-        PagedResultsAppsControllerApiApp all = api().searchApps(TENANT, 1, 10, null, null, null, null, null, null);
+        PagedResultsAppsControllerApiApp all = api().searchApps(TENANT, 1, 10, null, null);
 
         if (all.getResults() != null && !all.getResults().isEmpty()) {
             AppsControllerApiApp first = all.getResults().stream()
@@ -225,8 +221,7 @@ public class AppsApiTest {
             if (first != null) {
                 String tag = first.getTags().get(0);
 
-                PagedResultsAppsControllerApiApp result = api().searchApps(
-                        TENANT, 1, 10, null, null, null, null, List.of(tag), null);
+                PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(tagsFilter(List.of(tag))));
 
                 assertThat(result.getResults()).isNotEmpty();
                 assertThat(result.getResults()).allSatisfy(app ->
@@ -247,8 +242,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(randomId(), ns1, flowId1));
         api().createApp(TENANT, appYaml(randomId(), ns2, flowId2));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, null, null, null, null, null, List.of(nsFilter(ns1)));
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns1)));
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(app ->
@@ -270,9 +264,8 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side — empty-result query still returns apps")
     void searchApps_noResults() throws ApiException {
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, "nonexistent_ns_" + randomId(), null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();
@@ -360,5 +353,67 @@ public class AppsApiTest {
         // Import with null file requires fileUpload → 500
         assertThatThrownBy(() -> api().bulkImportApps(TENANT, null))
                 .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // App views / states
+    // ========================================================================
+
+    @Test
+    void listAppStates_returnsStates() throws ApiException {
+        List<String> states = api().listAppStates(TENANT);
+
+        assertThat(states).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void previewApp_returnsRenderedLayout() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        java.util.Map<String, Object> result = api().previewApp(TENANT, appYaml(randomId(), ns, flowId), null);
+
+        assertThat(result).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void openApp_unknownUid_isNotFound() {
+        // The open endpoint answers 404 for a missing app; the EE catch-all 403 a mis-routed
+        // path would give is what this guards against.
+        assertThatThrownBy(() -> api().openApp(TENANT, "does-not-exist-" + randomId()))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
+
+    @Test
+    void downloadFileFromAppExecution_unknownApp_isNotFound() {
+        // For a missing app the access-level check returns empty and the controller answers 404.
+        // (A produces mismatch would mis-route to the EE catch-all 403 before ever reaching it,
+        // so a 404 here proves the request actually hit the controller.)
+        assertThatThrownBy(() -> api().downloadFileFromAppExecution(
+                TENANT, "does-not-exist-" + randomId(), java.net.URI.create("kestra:///whatever.txt")))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
+
+    @Test
+    void downloadFileFromAppExecution_appWithoutOutputs_isBadRequest() throws ApiException {
+        // A real, deployed app whose layout defines no Outputs/TaskOutputs block cannot serve
+        // execution files, so the controller answers 400 — a positive-path assertion that the
+        // request is routed and the byte[] response is deserialized, not rejected at routing.
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        try {
+            assertThatThrownBy(() -> api().downloadFileFromAppExecution(
+                    TENANT, created.getUid(), java.net.URI.create("kestra:///whatever.txt")))
+                    .isInstanceOf(ApiException.class)
+                    .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(400));
+        } finally {
+            api().deleteApp(created.getUid(), TENANT);
+        }
     }
 }

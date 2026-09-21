@@ -5,7 +5,8 @@ import { createConfigureClient, EnterpriseFeatureError, SdkVersionMismatchError 
 import type { EnterpriseFeatureConfig } from "@kestra-io/hey-api-plugin/runtime"
 import { ENTERPRISE_ONLY_ROUTES_JSON } from "./openapi/sdk/enterpriseOnlyRoutes.gen"
 
-export * from "./openapi/index"
+// Types only: the operations live on their per-tag subpaths, or all together on `./all`.
+export type * from "./openapi/types.gen"
 export { EnterpriseFeatureError, SdkVersionMismatchError }
 
 declare global {

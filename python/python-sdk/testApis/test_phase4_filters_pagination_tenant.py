@@ -13,7 +13,15 @@ from kestrapy import (
     QueryFilterField,
     QueryFilterOp,
 )
-from test_helpers import TENANT, random_id
+from test_helpers import (
+    MAX_PAGE_SIZE,
+    TENANT,
+    create_flow,
+    log_flow_yaml,
+    ns_filter,
+    random_id,
+    random_namespace,
+)
 
 
 def _filter(field, value, op=QueryFilterOp.EQUALS):
@@ -115,11 +123,34 @@ def test_search_flows_pagination_size_one(client):
 
 
 def test_search_flows_pagination_large_size(client):
-    # Confirms the SDK transports large page-size values; the server may
-    # clamp internally but should not reject the request.
+    # Confirms the SDK transports large page-size values. 500 is below
+    # MAX_PAGE_SIZE, so the server must accept it as-is.
     result = client.flows.search_flows(TENANT, page=1, size=500)
     assert result is not None
     assert result.results is not None
+
+
+def test_search_flows_pagination_at_max_page_size(client):
+    # The cap itself is a valid request: assert the created flow actually comes
+    # back, not merely that the call returned something.
+    ns = random_namespace()
+    flow = create_flow(client, log_flow_yaml(random_id(), ns))
+
+    result = client.flows.search_flows(
+        TENANT, page=1, size=MAX_PAGE_SIZE, filters=[ns_filter(ns)],
+    )
+
+    assert [f.id for f in result.results] == [flow.id]
+
+
+def test_search_flows_pagination_above_max_page_size_rejected(client):
+    # Above the cap the server answers 422 instead of clamping, so an SDK caller
+    # asking for "everything" (the size=10000 idiom) now gets an error. Pin the
+    # boundary rather than rediscovering it endpoint by endpoint.
+    with pytest.raises(ApiException) as excinfo:
+        client.flows.search_flows(TENANT, page=1, size=MAX_PAGE_SIZE + 1)
+
+    assert excinfo.value.status == 422
 
 
 def test_search_flows_pagination_high_page_empty(client):

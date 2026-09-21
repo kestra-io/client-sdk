@@ -12,6 +12,8 @@ describe('UsersApi', () => {
         // create user
         const createdUser = await Users.createUser({
             email,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         // create group to grant tenant access, then add user to group
@@ -200,15 +202,28 @@ describe('UsersApi', () => {
         await Users.deleteUser({ id: created.id });
     });
 
-    it('patch_user_super_admin: Update user superadmin privileges', async () => {
-        const base = `test_patch_user_super_admin_${randomId()}`;
+    it('patch_user_instance_owner: Update user instance owner privileges', async () => {
+        const base = `test_patch_user_instance_owner_${randomId()}`;
         const created = await Users.createUser({ email: `${base}@kestra.io` });
 
-        await Users.patchUserSuperAdmin({ id: created.id, superAdmin: true });
+        await Users.patchUserInstanceOwner({ id: created.id, instanceOwner: true });
 
         const fetched =
             (await Users.user?.({ id: created.id }));
-        expect(Boolean(fetched.superAdmin)).toBe(true);
+        expect(Boolean(fetched.instanceOwner)).toBe(true);
+
+        await Users.deleteUser({ id: created.id });
+    });
+
+    it('patch_user_instance_owner_legacy: accepts the deprecated superAdmin field', async () => {
+        const base = `test_patch_user_instance_owner_legacy_${randomId()}`;
+        const created = await Users.createUser({ email: `${base}@kestra.io` });
+
+        await Users.patchUserInstanceOwnerLegacy({ id: created.id, superAdmin: true });
+
+        const fetched =
+            (await Users.user?.({ id: created.id }));
+        expect(Boolean(fetched.instanceOwner)).toBe(true);
 
         await Users.deleteUser({ id: created.id });
     });

@@ -16,24 +16,18 @@ Endpoints designated as Superadmin-only are not tenant-scoped.
 
 Building the API client library requires:
 
-1. Java 1.8+
-2. Maven/Gradle
+1. Java 25+
+2. Gradle
 
 ## Installation
 
-To install the API client library to your local Maven repository, simply execute:
+The SDK is built and published with Gradle. To build it and install it to your local Maven repository, execute:
 
 ```shell
-mvn clean install
+./gradlew publishToMavenLocal
 ```
 
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn clean deploy
-```
-
-Refer to the [OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html) for more information.
+Releases are published to Maven Central by CI (see `.github/workflows/java-sdk-release.yml`).
 
 ### Maven users
 
@@ -61,13 +55,12 @@ compile "io.kestra:kestra-api-client:1.0.11"
 At first generate the JAR by executing:
 
 ```shell
-mvn clean package
+./gradlew build
 ```
 
-Then manually install the following JARs:
+Then manually install the following JAR:
 
-- `target/kestra-api-client-1.0.11.jar`
-- `target/lib/*.jar`
+- `build/libs/kestra-api-client-1.0.11.jar`
 
 ## Getting Started
 
@@ -169,8 +162,8 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
 *DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
-*DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
-*DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
+*DashboardsApi* | [**exportChart**](docs/DashboardsApi.md#exportChart) | **POST** /api/v1/{tenant}/dashboards/charts/export | Export a chart data to CSV or ION
+*DashboardsApi* | [**exportDashboardChart**](docs/DashboardsApi.md#exportDashboardChart) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export | Export a dashboard chart data to CSV or ION
 *DashboardsApi* | [**previewChart**](docs/DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
 *DashboardsApi* | [**searchDashboards**](docs/DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards
 *DashboardsApi* | [**updateDashboard**](docs/DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard
@@ -295,9 +288,6 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-*NamespacesApi* | [**exportPluginDefaults**](docs/NamespacesApi.md#exportPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
-*NamespacesApi* | [**importPluginDefaults**](docs/NamespacesApi.md#importPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
-*NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesApi* | [**inheritedSecrets**](docs/NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesApi* | [**namespace**](docs/NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
@@ -435,15 +425,15 @@ Class | Method | HTTP request | Description
  - [AssertionRunError](docs/AssertionRunError.md)
  - [Asset](docs/Asset.md)
  - [AssetIdentifier](docs/AssetIdentifier.md)
- - [AssetTopologyGraph](docs/AssetTopologyGraph.md)
- - [AssetTopologyGraphEdge](docs/AssetTopologyGraphEdge.md)
- - [AssetTopologyGraphNode](docs/AssetTopologyGraphNode.md)
- - [AssetTopologyGraphNodeNodeType](docs/AssetTopologyGraphNodeNodeType.md)
  - [AssetsControllerApiAsset](docs/AssetsControllerApiAsset.md)
  - [AssetsControllerApiAssetLineageEvent](docs/AssetsControllerApiAssetLineageEvent.md)
  - [AssetsControllerApiAssetUsage](docs/AssetsControllerApiAssetUsage.md)
  - [AssetsDeclaration](docs/AssetsDeclaration.md)
  - [AssetsInOut](docs/AssetsInOut.md)
+ - [AssetTopologyGraph](docs/AssetTopologyGraph.md)
+ - [AssetTopologyGraphEdge](docs/AssetTopologyGraphEdge.md)
+ - [AssetTopologyGraphNode](docs/AssetTopologyGraphNode.md)
+ - [AssetTopologyGraphNodeNodeType](docs/AssetTopologyGraphNodeNodeType.md)
  - [AttributeReference](docs/AttributeReference.md)
  - [AuditLog](docs/AuditLog.md)
  - [AuditLogControllerApiAuditLogItem](docs/AuditLogControllerApiAuditLogItem.md)
@@ -588,9 +578,8 @@ Class | Method | HTTP request | Description
  - [IAMUserControllerApiUserAuth](docs/IAMUserControllerApiUserAuth.md)
  - [IAMUserControllerApiUserSummary](docs/IAMUserControllerApiUserSummary.md)
  - [IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
- - [IdWithNamespace](docs/IdWithNamespace.md)
  - [IdentityProvider](docs/IdentityProvider.md)
- - [ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
+ - [IdWithNamespace](docs/IdWithNamespace.md)
  - [InputObject](docs/InputObject.md)
  - [InputType](docs/InputType.md)
  - [InstanceControllerApiActiveService](docs/InstanceControllerApiActiveService.md)
@@ -614,12 +603,12 @@ Class | Method | HTTP request | Description
  - [Invitation](docs/Invitation.md)
  - [InvitationInvitationStatus](docs/InvitationInvitationStatus.md)
  - [Isolation](docs/Isolation.md)
+ - [KillSwitch](docs/KillSwitch.md)
  - [KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
  - [KVControllerKvDetail](docs/KVControllerKvDetail.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
- - [KillSwitch](docs/KillSwitch.md)
  - [Label](docs/Label.md)
  - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
@@ -628,6 +617,7 @@ Class | Method | HTTP request | Description
  - [LoopRunParent](docs/LoopRunParent.md)
  - [MapObjectObject](docs/MapObjectObject.md)
  - [MeControllerApiMe](docs/MeControllerApiMe.md)
+ - [MeControllerApiOwnedGroup](docs/MeControllerApiOwnedGroup.md)
  - [MeControllerApiProfile](docs/MeControllerApiProfile.md)
  - [MeControllerApiTenant](docs/MeControllerApiTenant.md)
  - [MeControllerApiUpdatePasswordRequest](docs/MeControllerApiUpdatePasswordRequest.md)
@@ -649,13 +639,11 @@ Class | Method | HTTP request | Description
  - [Name](docs/Name.md)
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
- - [NamespaceControllerApiInheritedPluginDefaultFromNamespace](docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
  - [OutputControllerTaskOutputInformation](docs/OutputControllerTaskOutputInformation.md)
  - [OutputValue](docs/OutputValue.md)
- - [PageRequest](docs/PageRequest.md)
  - [PagedResultsApiGroupSummary](docs/PagedResultsApiGroupSummary.md)
  - [PagedResultsApiLightExecution](docs/PagedResultsApiLightExecution.md)
  - [PagedResultsApiRoleSummary](docs/PagedResultsApiRoleSummary.md)
@@ -690,6 +678,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
+ - [PageRequest](docs/PageRequest.md)
  - [PasswordConfiguration](docs/PasswordConfiguration.md)
  - [PasswordConfigurationPasswordReset](docs/PasswordConfigurationPasswordReset.md)
  - [PasswordConfigurationRateLimit](docs/PasswordConfigurationRateLimit.md)
@@ -704,7 +693,6 @@ Class | Method | HTTP request | Description
  - [PluginArtifact](docs/PluginArtifact.md)
  - [PluginArtifactMetadata](docs/PluginArtifactMetadata.md)
  - [PluginControllerApiPluginVersions](docs/PluginControllerApiPluginVersions.md)
- - [PluginDefault](docs/PluginDefault.md)
  - [PluginIcon](docs/PluginIcon.md)
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
@@ -722,22 +710,19 @@ Class | Method | HTTP request | Description
  - [QueryFilter](docs/QueryFilter.md)
  - [QueryFilterField](docs/QueryFilterField.md)
  - [QueryFilterOp](docs/QueryFilterOp.md)
+ - [Quota](docs/Quota.md)
+ - [QuotaBehavior](docs/QuotaBehavior.md)
  - [RBACServiceRoleAssignmentRoleOrigin](docs/RBACServiceRoleAssignmentRoleOrigin.md)
  - [Relation](docs/Relation.md)
  - [Relation1](docs/Relation1.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
- - [ResourceType1](docs/ResourceType1.md)
+ - [ScimResourceType](docs/ScimResourceType.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
  - [RoleUsage](docs/RoleUsage.md)
- - [SDKAuth](docs/SDKAuth.md)
- - [SLA](docs/SLA.md)
- - [SLABehavior](docs/SLABehavior.md)
- - [SLALabels](docs/SLALabels.md)
- - [SLAType](docs/SLAType.md)
  - [Schema](docs/Schema.md)
  - [SchemaAttribute](docs/SchemaAttribute.md)
  - [SchemaAttributeMutability](docs/SchemaAttributeMutability.md)
@@ -749,8 +734,10 @@ Class | Method | HTTP request | Description
  - [ScimResource](docs/ScimResource.md)
  - [ScimResourceWithOptionalId](docs/ScimResourceWithOptionalId.md)
  - [ScimUser](docs/ScimUser.md)
+ - [SDKAuth](docs/SDKAuth.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResultFlow](docs/SearchResultFlow.md)
+ - [SecretConfigurationWorkerSecretManagerMode](docs/SecretConfigurationWorkerSecretManagerMode.md)
  - [SecurityIntegration](docs/SecurityIntegration.md)
  - [SecurityIntegrationType](docs/SecurityIntegrationType.md)
  - [ServerConfig](docs/ServerConfig.md)
@@ -769,6 +756,10 @@ Class | Method | HTTP request | Description
  - [ServiceType](docs/ServiceType.md)
  - [SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
+ - [SLA](docs/SLA.md)
+ - [SLABehavior](docs/SLABehavior.md)
+ - [SLALabels](docs/SLALabels.md)
+ - [SLAType](docs/SLAType.md)
  - [SoftDeletableFlowInterface](docs/SoftDeletableFlowInterface.md)
  - [SortOrder](docs/SortOrder.md)
  - [SortRequest](docs/SortRequest.md)
@@ -796,9 +787,9 @@ Class | Method | HTTP request | Description
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
  - [TestSuiteControllerSearchTestsLastResult](docs/TestSuiteControllerSearchTestsLastResult.md)
+ - [TestSuiteControllerTestsLastResultResponse](docs/TestSuiteControllerTestsLastResultResponse.md)
  - [TestSuiteControllerTestSuiteApiId](docs/TestSuiteControllerTestSuiteApiId.md)
  - [TestSuiteControllerTestSuiteBulkRequest](docs/TestSuiteControllerTestSuiteBulkRequest.md)
- - [TestSuiteControllerTestsLastResultResponse](docs/TestSuiteControllerTestsLastResultResponse.md)
  - [TestSuiteGenerationPrompt](docs/TestSuiteGenerationPrompt.md)
  - [TestSuiteRunResult](docs/TestSuiteRunResult.md)
  - [TestSuiteServiceRunByQueryRequest](docs/TestSuiteServiceRunByQueryRequest.md)
@@ -818,9 +809,9 @@ Class | Method | HTTP request | Description
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)
+ - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [UserType](docs/UserType.md)
  - [UserUsage](docs/UserUsage.md)
- - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [ValuePathExpression](docs/ValuePathExpression.md)
  - [WebhookResponse](docs/WebhookResponse.md)
@@ -828,10 +819,13 @@ Class | Method | HTTP request | Description
  - [WorkerCredentialControllerApiWorkerList](docs/WorkerCredentialControllerApiWorkerList.md)
  - [WorkerGroup](docs/WorkerGroup.md)
  - [WorkerGroupFallback](docs/WorkerGroupFallback.md)
+ - [WorkerQueueFallback](docs/WorkerQueueFallback.md)
  - [WorkerRegistrationTokenControllerApiCreateTokenRequest](docs/WorkerRegistrationTokenControllerApiCreateTokenRequest.md)
  - [WorkerRegistrationTokenControllerApiCreateTokenResponse](docs/WorkerRegistrationTokenControllerApiCreateTokenResponse.md)
  - [WorkerRegistrationTokenControllerApiRegistrationToken](docs/WorkerRegistrationTokenControllerApiRegistrationToken.md)
  - [WorkerRegistrationTokenControllerApiTokenList](docs/WorkerRegistrationTokenControllerApiTokenList.md)
+ - [WorkerSelector](docs/WorkerSelector.md)
+ - [WorkerSelectorMatch](docs/WorkerSelectorMatch.md)
  - [WorkerTaskRestartStrategy](docs/WorkerTaskRestartStrategy.md)
 
 
@@ -852,6 +846,11 @@ Authentication schemes defined for the API:
 
 - **Type**: HTTP Bearer Token authentication (Bearer)
 
+Both are optional: the `KestraClient` builder sends no `Authorization` header unless
+`basicAuth(username, password)` or `tokenAuth(token)` is called, so an unsecured Kestra API can
+be reached with `KestraClient.builder().url("http://localhost:8080").build()`. `noAuth()` states
+this explicitly and resets any previously configured authentication.
+
 
 ## Configuring timeouts
 
@@ -864,7 +863,7 @@ import java.time.Duration;
 
 var client = KestraClient.builder()
     .url("https://kestra.example.com")
-    .token("your-api-token")
+    .tokenAuth("your-api-token")
     .connectTimeout(Duration.ofSeconds(10))   // 0 = infinite (default)
     .readTimeout(Duration.ofMinutes(30))       // 0 = infinite (default)
     .build();

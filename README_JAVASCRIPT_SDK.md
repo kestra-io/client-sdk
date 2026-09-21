@@ -15,6 +15,18 @@ npm install @kestra-io/kestra-sdk
 
 The SDK is organized into domain-specific modules (e.g. `flows`, `executions`, `apps`, `plugins`). Import only the modules you need to keep your bundle lean and benefit from tree-shaking.
 
+### Entry points
+
+| Import | Contents |
+| --- | --- |
+| `@kestra-io/kestra-sdk` | `useClient` / `configureClient` / `setMockClient`, and every generated **type** |
+| `@kestra-io/kestra-sdk/client` | the shared HTTP client |
+| `@kestra-io/kestra-sdk/<module>` | the operations of one module, e.g. `/flows`, `/executions` |
+| `@kestra-io/kestra-sdk/all` | every operation at once — named exports, plus the namespace as `default` |
+
+The root entry exports no operations. Reach an operation through its module (the tree-shakeable
+form used throughout this guide), or through `/all` if one import is preferable to several.
+
 ### Configure the client
 
 Import and configure the shared HTTP client once, at the entry point of your application:

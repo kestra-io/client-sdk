@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Optional
 
 from kestrapy.base_api import BaseApi
+from kestrapy.models.api_patch_instance_owner_request import ApiPatchInstanceOwnerRequest
 from kestrapy.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest
 from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
@@ -69,6 +70,10 @@ class UsersApi(BaseApi):
 
     def patch_user_super_admin(self, id: str, request: ApiPatchSuperAdminRequest) -> None:
         path = self._superadmin_path("users", id, "superadmin")
+        self._void_request("PATCH", path, body=request, content_type=self.JSON)
+
+    def patch_user_instance_owner(self, id: str, request: ApiPatchInstanceOwnerRequest) -> None:
+        path = self._superadmin_path("users", id, "instanceowner")
         self._void_request("PATCH", path, body=request, content_type=self.JSON)
 
     # ---- Auth methods ----

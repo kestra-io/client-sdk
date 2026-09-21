@@ -10,7 +10,7 @@ Request payload for updating service account details
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
 |**description** | **String** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**tenants** | **List&lt;String&gt;** |  |  [optional] |
 
 

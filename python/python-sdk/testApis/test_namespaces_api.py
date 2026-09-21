@@ -8,6 +8,7 @@ from test_helpers import (
     log_flow_yaml,
     create_flow,
     ns_filter,
+    query_filter,
 )
 from kestrapy import (
     Namespace,
@@ -81,7 +82,9 @@ def test_search_namespaces_with_query(client):
     ns_id = random_namespace()
     client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns_id, deleted=False))
 
-    result = client.namespaces.search_namespaces(tenant=TENANT, q=ns_id, page=1, size=10)
+    result = client.namespaces.search_namespaces(
+        tenant=TENANT, page=1, size=10, filters=[query_filter(ns_id)]
+    )
 
     assert result is not None
     assert result.results is not None
@@ -101,8 +104,10 @@ def test_search_namespaces_existing_only(client):
     ns_id = random_namespace()
     client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns_id, deleted=False))
 
+    # existing=True routes to the namespace repository, which has no QUERY-filter
+    # support; NAMESPACE maps to the id column and works on both search paths.
     result = client.namespaces.search_namespaces(
-        tenant=TENANT, q=ns_id, page=1, size=10, existing=True
+        tenant=TENANT, page=1, size=10, existing=True, filters=[ns_filter(ns_id)]
     )
 
     assert result is not None
@@ -119,7 +124,7 @@ def test_search_namespaces_with_sort(client):
     client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=id1, deleted=False))
 
     result = client.namespaces.search_namespaces(
-        tenant=TENANT, q=prefix, page=1, size=10, sort=["id:asc"]
+        tenant=TENANT, page=1, size=10, sort=["id:asc"], filters=[query_filter(prefix)]
     )
 
     assert len(result.results) >= 2
@@ -131,13 +136,14 @@ def test_search_namespaces_with_sort(client):
 
 
 @pytest.mark.xfail(
-    reason="kestra-ee 2.0 ignores the q filter on search_namespaces and returns "
-    "all namespaces instead of an empty result set (pagination/filter regression)",
+    reason="the q filter on search_namespaces used to be ignored, returning all "
+    "namespaces instead of an empty result set; kept non-strict until a run "
+    "confirms the filters[] form is honored",
     strict=False,
 )
 def test_search_namespaces_no_results(client):
     result = client.namespaces.search_namespaces(
-        tenant=TENANT, q=f"nonexistent_ns_{random_id()}", page=1, size=10
+        tenant=TENANT, page=1, size=10, filters=[query_filter(f"nonexistent_ns_{random_id()}")]
     )
 
     assert result is not None

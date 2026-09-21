@@ -98,8 +98,8 @@ describe('RolesApi', () => {
 
         const results = await Roles.searchRoles({
             page: 1,
-            size: 10000,
-            filters: [],
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
         });
 
         // search typically returns { results, total, ... }

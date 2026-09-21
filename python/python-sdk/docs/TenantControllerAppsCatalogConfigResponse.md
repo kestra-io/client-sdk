@@ -8,6 +8,9 @@ Name | Type | Description | Notes
 **title** | **str** |  | [optional] 
 **title_color** | **str** |  | [optional] 
 **primary_color** | **str** |  | [optional] 
+**background_color** | **str** |  | [optional] 
+**tile_color** | **str** |  | [optional] 
+**button_text_color** | **str** |  | [optional] 
 **logo** | **str** |  | [optional] 
 
 ## Example

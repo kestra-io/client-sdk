@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permission** | [**Permission**](Permission.md) |  | [optional] 
+**resource** | [**Resource**](Resource.md) |  | [optional] 
 **actions** | [**List[Action]**](Action.md) |  | [optional] 
 
 ## Example

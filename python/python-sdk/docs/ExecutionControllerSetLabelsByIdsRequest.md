@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**executions_id** | **List[str]** |  | [optional] 
-**execution_labels** | [**List[Label]**](Label.md) |  | [optional] 
+**executions_id** | **List[str]** |  | 
+**execution_labels** | [**List[Label]**](Label.md) |  | 
 
 ## Example
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **last_name** | **str** |  | [optional] 
 **email** | **str** |  | 
 **password** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **restricted** | **bool** |  | [optional] 
 
 ## Example

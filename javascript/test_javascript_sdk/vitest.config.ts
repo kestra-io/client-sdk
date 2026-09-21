@@ -32,11 +32,28 @@ export default defineConfig({
         setupFiles: ["test_javascript_sdk/_setup.ts"],
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
-        reporters: ["default", "json"],
+        // failureReporter writes coverage/test-failures.json, which the PR
+        // comment is built from (.github/scripts/coverage-comment.mjs). It reads
+        // the error objects directly because the json report loses the message
+        // of a timed-out test — see the comment in failureReporter.ts.
+        reporters: ["default", "json", "./test_javascript_sdk/failureReporter.ts"],
         outputFile: {
             json: "coverage/test-results.json"
         },
+        // Records each test's line number, so the PR comment can link straight
+        // to the failing test's source on GitHub.
+        includeTaskLocation: true,
         retry: 3,
+        // The suite authenticates with HTTP Basic on every request, which EE verifies with
+        // bcrypt (cost 12). On the current develop image that path got slow enough for the
+        // bulk/query tests to overrun vitest's 5s default, so give them room.
+        testTimeout: 20000,
+        // All spec files share a single Kestra instance (docker-compose-ci.yml starts one
+        // container), so unbounded file parallelism has every file's HTTP calls and
+        // executions contending for the same worker threads and queue. Cap it to reduce
+        // that contention; ExecutionsApi.spec.ts alone already dominates the suite's wall
+        // clock, so the other files have slack to spare even at reduced concurrency.
+        maxWorkers: 3,
         globalSetup: ["test_javascript_sdk/globalSetup.ts"],
         coverage: {
             // Paths are relative to root (".."), so no "../" needed.
@@ -54,7 +71,7 @@ export default defineConfig({
             // (a whole untested domain) still fails CI.
             thresholds: {
                 perFile: false,
-                functions: 75,
+                functions: 85,
             },
         },
     },

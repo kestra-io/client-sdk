@@ -16,6 +16,7 @@ export default defineConfig({
     platform: "browser",
     entry: {
         "index": "src/index.ts",
+        "all": "src/all.ts",
         "client": "src/openapi/client.gen.ts",
         ...sdkEntries,
     },

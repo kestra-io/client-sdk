@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **display_name** | **str** |  | [optional] 
 **tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
 **auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 
 ## Example
 

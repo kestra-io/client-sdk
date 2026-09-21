@@ -1,12 +1,18 @@
 # Go SDK
 
-## Steps to generate the SDK
+## History: how the SDK was originally generated (before #230)
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
+> **This SDK is hand-written since #230.** `./generate-sdks.sh` refuses to run
+> for it, and the generator apparatus (`.openapi-generator/` metadata, embedded
+> spec copy) has been removed from this repository. Edit the sources under
+> `go-sdk` directly. The steps below describe how the SDK was generated before
+> that change, kept for historical context only.
 
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+1. The `kestra-ee.yml` was updated as needed with the latest openapi spec changes.
 
-Note: For now `go.mod` is generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID` we will need to check if we can change that at generation time.
+2. The SDK was generated using the (now-removed) `generate-sdks.sh` script, which used the openapi-generator-cli docker image.
+
+Note: `go.mod` was originally generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID`.
 
 ## Step to use
 
@@ -61,6 +67,14 @@ Consumers then pull that exact version with:
 
 ```bash
 go get github.com/kestra-io/client-sdk/go-sdk@v1.1.0
+```
+
+For a `v2.0.0` and later tag, Go modules require the module path itself to carry
+the major version suffix (`go.mod`'s `module` line becomes
+`github.com/kestra-io/client-sdk/go-sdk/v2`), so the pull command becomes:
+
+```bash
+go get github.com/kestra-io/client-sdk/go-sdk/v2@v2.0.0
 ```
 
 On the first request for a new version, `proxy.golang.org` fetches this repo,

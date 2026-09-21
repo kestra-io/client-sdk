@@ -20,6 +20,14 @@ describe('AuditLogsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('exportAuditLogs: response matches declared type (string)', async () => {
+        const result = await AuditLogs.exportAuditLogs({});
+
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(result).toBeTypeOf('string');
+    });
+
     it('searchAuditLogsForAllTenants: returns a paged result', async () => {
         const result = await AuditLogs.searchAuditLogsForAllTenants({ page: 1, size: 10 });
         expect(result).toBeDefined();
@@ -28,6 +36,14 @@ describe('AuditLogsApi', () => {
     it('exportAuditLogsForAllTenants: exports audit logs for all tenants', async () => {
         const result = await AuditLogs.exportAuditLogsForAllTenants({});
         expect(result).toBeDefined();
+    });
+
+    it('exportAuditLogsForAllTenants: response matches declared type (string)', async () => {
+        const result = await AuditLogs.exportAuditLogsForAllTenants({});
+
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(result).toBeTypeOf('string');
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {

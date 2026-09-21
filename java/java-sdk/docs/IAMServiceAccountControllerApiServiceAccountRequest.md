@@ -11,7 +11,7 @@ A User Service Account.
 |**groups** | [**List&lt;IAMServiceAccountControllerApiGroup&gt;**](IAMServiceAccountControllerApiGroup.md) |  |  [optional] |
 |**name** | **String** |  |  |
 |**description** | **String** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 
 
 

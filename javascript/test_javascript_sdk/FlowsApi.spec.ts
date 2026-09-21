@@ -1,9 +1,8 @@
 // FlowsApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId } from './_utils.js';
+import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
-import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 
 // ---------- helpers ----------
 async function createSimpleFlow() {
@@ -252,12 +251,41 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const resp = await Flows.searchFlowsBySourceCode({
             page: 1,
-            size: 10000,
+            size: 5,
             q: flow.id,
             namespace: flow.namespace,
         });
-        const ids = resp.results.map((x: any) => x?.model?.id);
+        const ids = resp.results.map((hit) => hit.id);
         expect(ids).toContain(flow.id);
+    });
+
+    // Page size cap: the server rejects any `size` above MAX_PAGE_SIZE with a
+    // 422 (PageableUtils.MAX_PAGE_SIZE + `@Max(1000)` on every size query
+    // param). Pin both sides of the boundary so a future change of the cap
+    // surfaces here instead of as a mass failure across every search test.
+    it('search_flows_by_source_code: rejects a page size above the cap', async () => {
+        const flow = await createSimpleFlow();
+
+        const atCap = await Flows.searchFlowsBySourceCode({
+            page: 1,
+            size: MAX_PAGE_SIZE,
+            q: flow.id,
+            namespace: flow.namespace,
+        });
+        expect(atCap.results.map((hit) => hit.id)).toContain(flow.id);
+
+        try {
+            await Flows.searchFlowsBySourceCode({
+                page: 1,
+                size: MAX_PAGE_SIZE + 1,
+                q: flow.id,
+                namespace: flow.namespace,
+            });
+            throw new Error(`Expected a 422 for size=${MAX_PAGE_SIZE + 1}, but the call succeeded.`);
+        } catch (err: unknown) {
+            const status = (err as any)?.status ?? (err as any)?.code ?? (err as any)?.response?.status;
+            expect(status).toBe(422);
+        }
     });
 
     // Update a flow
@@ -289,7 +317,7 @@ describe('FlowsApi', () => {
 
     // Validate a task
     it('validate_task', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.Log',
@@ -303,7 +331,7 @@ describe('FlowsApi', () => {
 
     // Validate a task (invalid)
     it('validate_task_invalid', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.InvalidTask',
@@ -374,7 +402,7 @@ tasks:
 describe('FlowsApi — long tail', () => {
     // Search for flow concurrency limits
     it('search_concurrency_limits', async () => {
-        const resp = await Flows.searchConcurrencyLimits({});
+        const resp = await Flows.searchConcurrencyLimitsAsInstanceOwner({});
         expect(resp).toBeDefined();
         expect(Array.isArray(resp.results)).toBe(true);
     });
@@ -388,7 +416,7 @@ describe('FlowsApi — long tail', () => {
         await Flows.createFlow({ body: flowBody });
 
         try {
-            const resp = await Flows.updateConcurrencyLimit({
+            const resp = await Flows.updateConcurrencyLimitAsInstanceOwner({
                 namespace: flowNamespace,
                 flowId,
                 tenantId,
@@ -400,6 +428,35 @@ describe('FlowsApi — long tail', () => {
             const status = (err as any)?.status ?? (err as any)?.response?.status;
             expect(status).toBeGreaterThanOrEqual(400);
         }
+    });
+
+    // Get the concurrency limit of a flow
+    // Behind the same feature gate as the PUT above, so the read is only asserted when
+    // the write went through; a gated image must at least fail the write with an HTTP error.
+    it('get_concurrency_limit', async () => {
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        await Flows.createFlow({ body: flowBody });
+
+        let limitWasSet = false;
+        try {
+            await Flows.updateConcurrencyLimitAsInstanceOwner({
+                namespace: flowNamespace,
+                flowId,
+                tenantId,
+                running: 3,
+            });
+            limitWasSet = true;
+        } catch (err: unknown) {
+            const status = (err as any)?.status ?? (err as any)?.response?.status;
+            expect(status).toBeGreaterThanOrEqual(400);
+        }
+
+        if (!limitWasSet) return;
+
+        const resp = await Flows.concurrencyLimit({ namespace: flowNamespace, flowId });
+        expect(resp.namespace).toBe(flowNamespace);
+        expect(resp.flowId).toBe(flowId);
+        expect(resp.running).toBe(3);
     });
 
     // List flows containing deprecated tasks
@@ -487,4 +544,121 @@ describe('FlowsApi — long tail', () => {
         const after = await Flows.listFlowRevisions({ namespace: flowNamespace, id: flowId });
         expect(after.length).toBe(2);
     }, 120000);
+});
+
+// ---------- hashes + source-search-replace (#332) ----------
+
+/** A single-Log-task flow YAML carrying a distinctive token in its message. */
+function tokenFlowYaml(id: string, namespace: string, token: string) {
+    return `id: ${id}
+namespace: ${namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: ${token}
+`;
+}
+
+describe('FlowsApi — hashes & source search/replace', () => {
+    // Batch-compute source hashes for flows by id (drift detection)
+    it('flow_hashes_by_ids', async () => {
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        await Flows.createFlow({ body: flowBody });
+
+        const resp = await Flows.flowHashesByIds({
+            body: [{ namespace: flowNamespace, id: flowId }],
+        });
+
+        const hashes = resp.hashes ?? [];
+        expect(hashes.length).toBe(1);
+        const entry = hashes[0];
+        expect(entry.namespace).toBe(flowNamespace);
+        expect(entry.id).toBe(flowId);
+        expect(typeof entry.hash).toBe('string');
+        expect((entry.hash ?? '').length).toBeGreaterThan(0);
+        expect(entry.revision).toBe(1);
+    });
+
+    // Apply a source-search replace-all over a targeted flow
+    it('apply_replace_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        const resp = await Flows.applyReplaceBySourceCode({
+            query: token,
+            replacement,
+            scope: 'ALL',
+            flows: [{ namespace, id }],
+        });
+
+        const updated = resp.updated ?? [];
+        expect(updated.length).toBe(1);
+        expect(updated[0].id).toBe(id);
+        expect(updated[0].namespace).toBe(namespace);
+        expect(updated[0].source ?? '').toContain(replacement);
+        expect(updated[0].source ?? '').not.toContain(token);
+    });
+
+    // Preview a source-search replace-all (no persistence) over a namespace
+    it('preview_replace_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        const resp = await Flows.previewReplaceBySourceCode({
+            query: token,
+            replacement,
+            namespace,
+            scope: 'ALL',
+        });
+
+        expect(resp.totalMatches).toBeGreaterThanOrEqual(1);
+        const flowMatch = (resp.flows ?? []).find((f) => f.id === id);
+        expect(flowMatch).toBeDefined();
+        const matches = flowMatch?.matches ?? [];
+        expect(matches.length).toBeGreaterThanOrEqual(1);
+        expect(matches[0].after ?? '').toContain(replacement);
+    });
+
+    // Apply a source-search replace on a single matched line
+    it('replace_line_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        // Locate the matching line via a preview first. The /replace/line endpoint
+        // matches the WHOLE line, so the request's `query`/`replacement` must be the
+        // full original/replacement line text the preview reports (`before`/`after`),
+        // not just the token — passing the bare token yields NO_MATCH.
+        const preview = await Flows.previewReplaceBySourceCode({
+            query: token,
+            replacement,
+            namespace,
+            scope: 'ALL',
+        });
+        const match = (preview.flows ?? []).find((f) => f.id === id)?.matches?.[0];
+        expect(match).toBeDefined();
+        expect(typeof match!.line).toBe('number');
+
+        const resp = await Flows.replaceLineBySourceCode({
+            query: match!.before ?? '',
+            replacement: match!.after ?? '',
+            namespace,
+            id,
+            line: match!.line,
+        });
+
+        const updated = resp.updated ?? [];
+        expect(updated.length).toBe(1);
+        expect(updated[0].id).toBe(id);
+        expect(updated[0].source ?? '').toContain(replacement);
+    });
 });

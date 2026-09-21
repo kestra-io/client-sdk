@@ -42,8 +42,49 @@ public class FlowsApiTest {
         assertThat(result.getTasks()).isNotEmpty();
     }
 
+    /**
+     * Labels are an array of {key, value} on the wire at every level — on the flow,
+     * on an SLA and on a trigger. The spec's oneOf for the nested ones resolved to a
+     * marker interface, so Jackson wanted a polymorphic type id and createFlow threw
+     * outright on any flow carrying trigger or SLA labels.
+     */
     @Test
-    @Disabled("Kestra 2.0: stricter validation rejects the fixture — Schedule Trigger 'monthly' now requires declared inputs (422)")
+    void createFlow_withLabelsOnFlowSlaAndTrigger() throws ApiException {
+        String ns = randomId();
+        String id = randomId();
+        FlowWithSource created = api().createFlow(TENANT, """
+                id: %s
+                namespace: %s
+                labels:
+                  owner: data-team
+                sla:
+                  - id: max
+                    type: MAX_DURATION
+                    duration: PT1H
+                    behavior: NONE
+                    labels:
+                      sla: breached
+                tasks:
+                  - id: h
+                    type: io.kestra.plugin.core.log.Log
+                    message: hi
+                triggers:
+                  - id: sched
+                    type: io.kestra.plugin.core.trigger.Schedule
+                    cron: "0 0 * * *"
+                    labels:
+                      team: data
+                """.formatted(id, ns));
+
+        assertThat(created.getLabels()).extracting(Label::getKey).contains("owner");
+
+        FlowWithSource fetched = api().flow(ns, id, TENANT, true, null, null);
+        assertThat(fetched.getLabels()).extracting(Label::getKey).contains("owner");
+        assertThat(fetched.getSla().getFirst().getLabels()).extracting(Label::getKey).contains("sla");
+        assertThat(fetched.getTriggers().getFirst().getLabels()).extracting(Label::getKey).contains("team");
+    }
+
+    @Test
     void createFlow_complete() throws ApiException {
         String body = completeFlowBody();
         FlowWithSource result = api().createFlow(TENANT, body);
@@ -345,6 +386,10 @@ public class FlowsApiTest {
                 logFlowYamlWithDescription(id, ns, "after-bulk"));
 
         assertThat(result).isNotEmpty();
+
+        sleep(200);
+        FlowWithSource updated = api().flow(ns, id, TENANT, null, null, null);
+        assertThat(updated.getDescription()).isEqualTo("after-bulk");
     }
 
     @Test
@@ -504,6 +549,27 @@ public class FlowsApiTest {
         assertThat(page2.getResults()).hasSize(1);
     }
 
+    // Pins both sides of the server's page-size cap: the cap itself is a valid
+    // request, above it the server answers 422 instead of clamping. A call asking
+    // for "everything" with size=10000 used to work and now breaks, so keep the
+    // boundary asserted rather than rediscovering it endpoint by endpoint.
+    @Test
+    void searchFlows_pageSizeCap() throws ApiException {
+        String ns = randomId();
+        FlowWithSource flow = createFlow(logFlowYaml(randomId(), ns));
+
+        PagedResultsFlow atCap = api().searchFlows(TENANT, 1, MAX_PAGE_SIZE, null, List.of(nsFilter(ns)));
+        assertThat(atCap.getResults()).hasSize(1);
+        assertThat(atCap.getResults().get(0).getId()).isEqualTo(flow.getId());
+
+        try {
+            api().searchFlows(TENANT, 1, MAX_PAGE_SIZE + 1, null, List.of(nsFilter(ns)));
+            fail("Expected a 422 for size=" + (MAX_PAGE_SIZE + 1) + ", but the call succeeded.");
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isEqualTo(422);
+        }
+    }
+
     @Test
     void searchFlows_sortAsc() throws ApiException {
         String ns = randomId();
@@ -574,11 +640,11 @@ public class FlowsApiTest {
     void searchFlowsBySourceCode_byFlowId() throws ApiException {
         FlowWithSource f = createLogFlow();
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, f.getId(), null);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, f.getId(), null, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
-        assertThat(result.getResults()).anyMatch(r -> r.getModel() != null && f.getId().equals(r.getModel().getId()));
+        assertThat(result.getResults()).anyMatch(r -> f.getId().equals(r.getId()));
     }
 
     @Test
@@ -586,8 +652,8 @@ public class FlowsApiTest {
         String ns = randomId();
         FlowWithSource f = createFlow(logFlowYaml(randomId(), ns));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, f.getId(), ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, f.getId(), ns, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
     }
@@ -600,12 +666,12 @@ public class FlowsApiTest {
         createFlow(logFlowYamlWithDescription(id1, ns, "Hello World unique marker"));
         createFlow(logFlowYamlWithDescription(id2, ns, "Goodbye World different text"));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, "Hello World unique marker", ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, "Hello World unique marker", ns, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
         assertThat(result.getResults()).allSatisfy(r ->
-                assertThat(r.getModel()).isNotNull());
+                assertThat(r.getId()).isNotNull());
     }
 
     @Test
@@ -616,12 +682,12 @@ public class FlowsApiTest {
         createFlow(logFlowYaml(id1, ns));
         createFlow(logFlowYaml(id2, ns));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, List.of("id:asc"), null, ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, List.of("id:asc"), null, ns, null, null, null, null);
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> ids = result.getResults().stream()
-                .map(r -> r.getModel().getId())
+                .map(SourceSearchResult::getId)
                 .toList();
         int idx1 = ids.indexOf(id1);
         int idx2 = ids.indexOf(id2);
@@ -635,8 +701,8 @@ public class FlowsApiTest {
         String uniqueDesc = "unique_" + randomId();
         createFlow(logFlowYamlWithDescription(randomId(), ns, uniqueDesc));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, uniqueDesc, null);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, uniqueDesc, null, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
     }
@@ -922,7 +988,6 @@ public class FlowsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: stricter validation rejects the fixture — Schedule Trigger 'monthly' now requires declared inputs (422)")
     void generateFlowGraph_complexFlow() throws ApiException {
         String body = completeFlowBody();
         FlowWithSource f = createFlow(body);
@@ -1129,7 +1194,6 @@ public class FlowsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: stricter validation rejects the fixture — Schedule Trigger 'monthly' now requires declared inputs")
     void validateFlows_completeFlow() throws ApiException {
         String yaml = completeFlowBody();
 
@@ -1237,6 +1301,9 @@ public class FlowsApiTest {
 
         ExpressionContext result = api().expressions(TENANT, withSource.getSource(), null);
 
+        // NOTE: getCategories() comes back null on this kestra-ee image (the endpoint
+        // returns an otherwise-empty ExpressionContext), so a non-null response is the
+        // only value there is to assert here.
         assertThat(result).isNotNull();
     }
 
@@ -1247,6 +1314,7 @@ public class FlowsApiTest {
 
         ExpressionContext result = api().expressions(TENANT, withSource.getSource(), "hello");
 
+        // see expressions_basic: getCategories() is null on this image.
         assertThat(result).isNotNull();
     }
 
@@ -1266,5 +1334,170 @@ public class FlowsApiTest {
         List<FlowControllerFlowWithDeprecatedTasks> result = api().listDeprecated(TENANT, "some.namespace");
 
         assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Export by query
+    // ========================================================================
+
+    @Test
+    void exportFlows_basic() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        byte[] result = api().exportFlows(TENANT, List.of(nsFilter(f.getNamespace())));
+
+        assertThat(result).isNotEmpty();
+    }
+
+    // ========================================================================
+    // Hashes
+    // ========================================================================
+
+    @Test
+    void flowHashesByIds_basic() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().flowHashesByIds(TENANT,
+                List.of(new IdWithNamespace().id(f.getId()).namespace(f.getNamespace())));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> hashes = (List<Map<String, Object>>) result.get("hashes");
+        assertThat(hashes).hasSize(1);
+        assertThat(hashes.get(0).get("hash")).isNotNull();
+    }
+
+    // ========================================================================
+    // Governance policies (EE)
+    // ========================================================================
+
+    @Test
+    void previewPolicies_noPoliciesConfigured_returnsSourceUnchanged() throws ApiException {
+        FlowFixture fixture = simpleFlowFixture();
+
+        Map<String, Object> result = api().previewPolicies(TENANT,
+                Map.of("namespace", fixture.namespace(), "source", fixture.body()));
+
+        assertThat(result.get("resolvedSource")).isEqualTo(fixture.body());
+    }
+
+    // ========================================================================
+    // Promotion (EE) — negative paths: no promotion target is configured
+    // ========================================================================
+
+    @Test
+    void promote_unknownTarget_reportsFailure() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        // promote never throws for a per-target problem: it reports success/failure
+        // per target in the response body instead of failing the whole HTTP call.
+        Map<String, Object> result = api().promote(f.getNamespace(), f.getId(), TENANT,
+                Map.of("sourceRevision", f.getRevision(), "targets", List.of(Map.of("targetId", "nonexistent-target"))));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> results = (List<Map<String, Object>>) result.get("results");
+        assertThat(results).hasSize(1);
+        assertThat(results.get(0).get("success")).isEqualTo(false);
+        assertThat(results.get(0).get("error")).isEqualTo("Promote target not found");
+    }
+
+    @Test
+    void promoteByIds_unknownTarget_reportsFailure() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().promoteByIds(TENANT, Map.of(
+                "flows", List.of(Map.of("id", f.getId(), "namespace", f.getNamespace())),
+                "targetIds", List.of("nonexistent-target")));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> flowResults = (List<Map<String, Object>>) result.get("results");
+        assertThat(flowResults).hasSize(1);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> perTarget = (List<Map<String, Object>>) flowResults.get(0).get("results");
+        assertThat(perTarget.get(0).get("success")).isEqualTo(false);
+    }
+
+    @Test
+    void listPromotions_noPromotionsYet_empty() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().listPromotions(f.getNamespace(), f.getId(), TENANT, 1, 10, null);
+
+        assertThat(((Number) result.get("total")).longValue()).isEqualTo(0L);
+    }
+
+    @Test
+    void reportPromote_unknownTarget_throws() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        // unlike promote/promoteByIds (which soft-fail per target in the response body),
+        // reportPromote validates the target exists and 404s outright.
+        assertThatThrownBy(() -> api().reportPromote(f.getNamespace(), f.getId(), TENANT, Map.of(
+                "promotionId", randomId(),
+                "targetId", "manual-target",
+                "gateOutcome", "NONE",
+                "state", "SUCCESS")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void promoteDiff_unknownAudit_throws() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        assertThatThrownBy(() -> api().promoteDiff(f.getNamespace(), f.getId(), "nonexistent-audit", TENANT))
+                .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // Source search & replace
+    // ========================================================================
+
+    @Test
+    void previewReplaceBySourceCode_findsMatch() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().previewReplaceBySourceCode(TENANT,
+                Map.of("query", "Hello World!", "replacement", "Hi World!", "namespace", f.getNamespace()));
+
+        assertThat(((Number) result.get("totalMatches")).intValue()).isGreaterThanOrEqualTo(1);
+    }
+
+    @Test
+    void applyReplaceBySourceCode_updatesFlow() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().applyReplaceBySourceCode(TENANT, Map.of(
+                "query", "Hello World!",
+                "replacement", "Hi World!",
+                "flows", List.of(Map.of("id", f.getId(), "namespace", f.getNamespace()))));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> updated = (List<Map<String, Object>>) result.get("updated");
+        assertThat(updated).extracting(u -> u.get("id")).contains(f.getId());
+    }
+
+    @Test
+    void replaceLineBySourceCode_updatesSingleFlow() throws ApiException {
+        FlowWithSource f = createLogFlow();
+        FlowWithSource withSource = api().flow(f.getNamespace(), f.getId(), TENANT, true, null, null);
+        List<String> lines = withSource.getSource().lines().toList();
+        // line is 1-indexed; column is the 0-indexed offset of the match start on that
+        // line — both must be exact, or the endpoint reports NO_MATCH (confirmed against
+        // a live server: unlike replace/preview and replace/apply, replace/line does not
+        // just search the line text for the query).
+        int lineIndex = lines.indexOf(lines.stream().filter(l -> l.contains("Hello World!")).findFirst().orElseThrow());
+        int line = lineIndex + 1;
+        int column = lines.get(lineIndex).indexOf("Hello World!");
+
+        Map<String, Object> result = api().replaceLineBySourceCode(TENANT, Map.of(
+                "id", f.getId(),
+                "namespace", f.getNamespace(),
+                "query", "Hello World!",
+                "replacement", "Hi World!",
+                "line", line,
+                "column", column));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> updated = (List<Map<String, Object>>) result.get("updated");
+        assertThat(updated).extracting(u -> u.get("id")).contains(f.getId());
     }
 }

@@ -37,7 +37,7 @@ func (a *LogsAPI) ListLogsFromExecution(ctx context.Context, executionId, tenant
 func (a *LogsAPI) FollowLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel *string) (<-chan *LogEntry, error) {
 	path := tenantPath(tenant, "logs", executionId, "follow")
 	params := logExecutionFilters(minLevel, nil, nil, nil)
-	return followSSE[LogEntry](&a.baseAPI, ctx, path, params)
+	return followSSE[LogEntry](&a.baseAPI, ctx, "GET", path, params)
 }
 
 func (a *LogsAPI) DownloadLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel, taskRunId, taskId *string, attempt *int) (*os.File, error) {

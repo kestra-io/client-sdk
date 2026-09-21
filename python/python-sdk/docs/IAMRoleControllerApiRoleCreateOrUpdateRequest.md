@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | 
+**permissions** | [**ListPermissions200Response**](ListPermissions200Response.md) |  | 
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
 **is_default** | **bool** |  | [optional] 

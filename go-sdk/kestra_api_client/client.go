@@ -95,6 +95,18 @@ func WithLogger(w io.Writer) ClientOption {
 	}
 }
 
+func (c *KestraClient) Cases() *CasesAPI {
+	return &CasesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) CaseTemplates() *CaseTemplatesAPI {
+	return &CaseTemplatesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Plugins() *PluginsAPI {
+	return &PluginsAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Executions() *ExecutionsAPI {
 	return &ExecutionsAPI{baseAPI{client: c}}
 }
@@ -125,6 +137,10 @@ func (c *KestraClient) Bindings() *BindingsAPI {
 
 func (c *KestraClient) Triggers() *TriggersAPI {
 	return &TriggersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) TenantAccess() *TenantAccessAPI {
+	return &TenantAccessAPI{baseAPI{client: c}}
 }
 
 func (c *KestraClient) Users() *UsersAPI {
@@ -169,4 +185,88 @@ func (c *KestraClient) Blueprints() *BlueprintsAPI {
 
 func (c *KestraClient) Invitations() *InvitationsAPI {
 	return &InvitationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Outputs() *OutputsAPI {
+	return &OutputsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Quotas() *QuotasAPI {
+	return &QuotasAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Tenants() *TenantsAPI {
+	return &TenantsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) ReusableInputs() *ReusableInputsAPI {
+	return &ReusableInputsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Banners() *BannersAPI {
+	return &BannersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) KillSwitches() *KillSwitchesAPI {
+	return &KillSwitchesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Instance() *InstanceAPI {
+	return &InstanceAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerGroups() *WorkerGroupsAPI {
+	return &WorkerGroupsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerQueues() *WorkerQueuesAPI {
+	return &WorkerQueuesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Policies() *PoliciesAPI {
+	return &PoliciesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) McpServers() *McpServersAPI {
+	return &McpServersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerCredentials() *WorkerCredentialsAPI {
+	return &WorkerCredentialsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Me() *MeAPI {
+	return &MeAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Notifications() *NotificationsAPI {
+	return &NotificationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Credentials() *CredentialsAPI {
+	return &CredentialsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) PromotionTargets() *PromotionTargetsAPI {
+	return &PromotionTargetsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) SecurityIntegrations() *SecurityIntegrationsAPI {
+	return &SecurityIntegrationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Ai() *AiAPI {
+	return &AiAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) AuditLogs() *AuditLogsAPI {
+	return &AuditLogsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Metrics() *MetricsAPI {
+	return &MetricsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Mcp() *McpAPI {
+	return &McpAPI{baseAPI{client: c}}
 }

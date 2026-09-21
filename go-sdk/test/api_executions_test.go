@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -83,11 +83,10 @@ namespace: %s
 triggers:
   - id: upstream_dependancy
     type: io.kestra.plugin.core.trigger.Flow
-    preconditions:
-        id: flow_trigger
-        flows:
-          - flowId: %s
-            namespace: %s
+    dependsOn:
+      - flowId: %s
+        namespace: %s
+        states: [SUCCESS]
 tasks:
   - id: hello
     type: io.kestra.plugin.core.log.Log
@@ -164,7 +163,7 @@ namespace: %s
 tasks:
   - id: out
     type: io.kestra.plugin.core.debug.Return
-    format: "{{trigger | json }}"
+    format: "{{ trigger | toJson }}"
 
 triggers:
   - id: webhook
@@ -344,7 +343,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 	})
 
 	t.Run("forceRunExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -454,7 +452,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 	})
 
 	t.Run("killExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -511,7 +508,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 	})
 
 	t.Run("pauseExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -568,7 +564,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_PAUSED), 5*time.Second, 100*time.Millisecond)
 	})
 	t.Run("replayExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -578,8 +573,28 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().ReplayExecution(ctx, exec.Id, MAIN_TENANT, nil, nil, nil)
 		require.NoError(t, err)
-		require.EqualValues(t, kestra_api_client.STATETYPE_CREATED, res.State.Current)
-		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
+		// A replay is a *new* execution of the same flow. Kestra 2.0 hands it to the
+		// executor before responding, so the returned state is already RUNNING rather
+		// than CREATED — assert on identity and the terminal state instead of the
+		// transient one the response happens to be caught in.
+		require.NotEmpty(t, res.Id)
+		require.NotEqual(t, exec.Id, res.Id)
+		require.Equal(t, flowId, res.FlowId)
+		require.Equal(t, namespace, res.Namespace)
+		require.Eventually(t, executionInState(ctx, res.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
+	})
+	t.Run("replayExecutionWithInputsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		exec := createExecution(t, ctx, flowId, namespace)
+
+		res, err := KestraTestClient().Executions().ReplayExecutionWithInputs(ctx, exec.Id, MAIN_TENANT, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotEmpty(t, res.Id)
+		require.NotEqual(t, exec.Id, res.Id)
 	})
 	t.Run("replayExecutionsByIdsTest", func(t *testing.T) {
 		namespace := randomId()
@@ -610,7 +625,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.EqualValues(t, 1, res.GetTotalItems())
 	})
 	t.Run("restartExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -618,9 +632,27 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		exec := createExecution(t, ctx, flowId, namespace)
 
+		require.EqualValues(t, kestra_api_client.STATETYPE_FAILED, exec.State.Current)
+		historiesBeforeRestart := len(exec.State.Histories)
+
 		res, err := KestraTestClient().Executions().RestartExecution(ctx, exec.Id, MAIN_TENANT, nil)
 		require.NoError(t, err)
-		require.EqualValues(t, kestra_api_client.STATETYPE_RESTARTED, res.State.Current)
+		// A restart reuses the same execution rather than creating a new one.
+		require.Equal(t, exec.Id, res.Id)
+
+		// Asserting the state the response is caught in is a race — RESTARTED goes
+		// straight to the executor, so it may already read RUNNING or even FAILED again
+		// for this single-task flow. State history only ever grows, so wait for the
+		// restart to add to it: a plain "eventually FAILED" would be satisfied by the
+		// pre-restart FAILED and would still pass if the restart never re-ran anything.
+		require.Eventually(t, func() bool {
+			current, err := KestraTestClient().Executions().Execution(ctx, exec.Id, MAIN_TENANT)
+			if err != nil {
+				return false
+			}
+			return len(current.State.Histories) > historiesBeforeRestart &&
+				current.State.Current == kestra_api_client.STATETYPE_FAILED
+		}, 10*time.Second, 200*time.Millisecond, "restart should re-run the flow and land back in FAILED")
 	})
 	t.Run("restartExecutionsByIdsTest", func(t *testing.T) {
 		namespace := randomId()
@@ -651,7 +683,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.EqualValues(t, 1, res.GetTotalItems())
 	})
 	t.Run("resumeExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -747,7 +778,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		assertResultsContainExecutions(t, res.Results, exec3, exec4, exec5)
 	})
 	t.Run("setLabelsOnTerminatedExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -828,7 +858,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}, 10*time.Second, 500*time.Millisecond, "expected label to be set on execution")
 	})
 	t.Run("triggerExecutionByGetWebhookTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -837,11 +866,13 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().TriggerExecutionByGetWebhook(ctx, MAIN_TENANT, namespace, flowId, key)
 		require.NoError(t, err)
+		// Fail this subtest rather than panicking the whole test binary if the webhook
+		// answers without an execution id.
+		require.NotNil(t, res.Id)
 
 		require.Eventually(t, executionInState(ctx, *res.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
 	})
 	t.Run("unqueueExecutionTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -900,7 +931,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_CANCELLED), 10*time.Second, 500*time.Millisecond)
 	})
 	t.Run("updateExecutionStatusTest", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
@@ -947,13 +977,14 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_CANCELLED), 10*time.Second, 500*time.Millisecond)
 	})
 	t.Run("updateTaskRunState", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
 		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
+
+		require.NotEmpty(t, exec.TaskRunList)
 
 		res, err := KestraTestClient().Executions().UpdateTaskRunState(ctx, exec.Id, MAIN_TENANT,
 			kestra_api_client.ExecutionControllerStateRequest{
@@ -962,6 +993,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 			},
 		)
 		require.NoError(t, err)
+		require.NotEmpty(t, res.TaskRunList)
 		require.EqualValues(t, kestra_api_client.STATETYPE_FAILED, res.TaskRunList[0].State.Current)
 	})
 
@@ -1058,7 +1090,6 @@ func TestExecutionsAPI_All(t *testing.T) {
 	})
 
 	t.Run("followDependenciesExecutions", func(t *testing.T) {
-		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
 		namespace := randomId()
 		flowId := randomId()
 		dependentFlowId := randomId()
@@ -1157,6 +1188,146 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 	t.Run("triggerExecutionByPutWebhookWithPathTest", func(t *testing.T) {
 		t.Skip("Requires a flow with webhook trigger configured")
+	})
+
+	t.Run("findDistinctExecutionFieldValuesTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		createExecution(t, ctx, flowId, namespace)
+
+		values, err := KestraTestClient().Executions().FindDistinctExecutionFieldValues(ctx, MAIN_TENANT, string(kestra_api_client.QUERYFILTERFIELD_NAMESPACE), nil, kestra_api_client.PtrInt(500))
+		require.NoError(t, err)
+		require.Contains(t, values, namespace, "distinct namespace values should contain the namespace we just ran an execution in")
+	})
+
+	t.Run("exportExecutionsByQueryToCsvTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
+
+		nsFilter := kestra_api_client.SearchFilter{
+			Field:     kestra_api_client.FilterNamespace,
+			Operation: kestra_api_client.OpEquals,
+			Value:     namespace,
+		}
+		csv, err := KestraTestClient().Executions().ExportExecutionsByQueryToCsv(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{nsFilter})
+		require.NoError(t, err)
+		require.Contains(t, csv, exec.Id, "exported CSV should contain the execution id")
+	})
+
+	t.Run("listExecutableNamespacesTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		namespaces, err := KestraTestClient().Executions().ListExecutableNamespaces(ctx, MAIN_TENANT)
+		require.NoError(t, err)
+		require.Contains(t, namespaces, namespace, "executable namespaces should contain the namespace of the flow we just created")
+	})
+
+	t.Run("listExecutableFlowsByNamespaceTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		flows, err := KestraTestClient().Executions().ListExecutableFlowsByNamespace(ctx, namespace, MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotEmpty(t, flows)
+		found := false
+		for _, f := range flows {
+			if f.Id == flowId && f.Namespace == namespace {
+				found = true
+				break
+			}
+		}
+		require.True(t, found, "expected flow %s to be listed as executable in namespace %s", flowId, namespace)
+	})
+
+	t.Run("executionAverageDurationTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
+
+		res, err := KestraTestClient().Executions().ExecutionAverageDuration(ctx, namespace, flowId, MAIN_TENANT)
+		require.NoError(t, err)
+		require.Contains(t, res, "count", "average-duration response should carry a count field")
+	})
+
+	t.Run("evalTaskRunExpressionTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
+		require.NotEmpty(t, exec.TaskRunList)
+		taskRun := exec.TaskRunList[0]
+
+		result, err := KestraTestClient().Executions().EvalTaskRunExpression(ctx, exec.Id, taskRun.Id, MAIN_TENANT, "{{ taskrun.id }}")
+		require.NoError(t, err)
+		require.NotNil(t, result)
+		require.NotNil(t, result.Result)
+		require.Equal(t, taskRun.Id, *result.Result, "eval of {{ taskrun.id }} should return the task run id")
+	})
+
+	t.Run("resumeExecutionFromBreakpointTest", func(t *testing.T) {
+		t.Skip("Requires an execution suspended in the BREAKPOINT state, which needs a flow with a task-level breakpoint set")
+	})
+
+	t.Run("validateResumeExecutionInputsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createFlow(ctx, flowId, namespace, PAUSE_FLOW)
+
+		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_PAUSED)
+
+		res, err := KestraTestClient().Executions().ValidateResumeExecutionInputs(ctx, exec.Id, MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.NotNil(t, res)
+		require.Equal(t, flowId, res["id"])
+		require.Equal(t, namespace, res["namespace"])
+	})
+
+	t.Run("validateNewExecutionInputsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		res, err := KestraTestClient().Executions().ValidateNewExecutionInputs(ctx, namespace, flowId, MAIN_TENANT, []string{"label1:validated"}, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, res)
+		require.Equal(t, flowId, res["id"])
+		require.Equal(t, namespace, res["namespace"])
+		// LOG_FLOW declares a single STRING input `inputA` with a default, so it must be
+		// resolved in the validation response.
+		inputs, ok := res["inputs"].([]interface{})
+		require.True(t, ok, "validation response should carry an inputs array: %+v", res)
+		found := false
+		for _, raw := range inputs {
+			in, ok := raw.(map[string]interface{})
+			if !ok {
+				continue
+			}
+			input, ok := in["input"].(map[string]interface{})
+			if ok && input["id"] == "inputA" {
+				found = true
+				break
+			}
+		}
+		require.True(t, found, "validation response should resolve the flow's inputA input: %+v", inputs)
+	})
+
+	t.Run("previewFileFromExecutionTest", func(t *testing.T) {
+		t.Skip("ApiTaskRun model does not include outputs; cannot get a file URI from the task run to preview")
 	})
 }
 

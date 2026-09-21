@@ -316,6 +316,27 @@ describe('TriggersApiTest', () => {
         expect(resp).toBeTruthy();
     }, 120000);
 
+    it('exportTriggersTest: response matches declared type (string)', async () => {
+        const flowId = `exportTriggersTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+        await sleep(500);
+
+        const result = await Triggers.exportTriggers({
+            filters: [{
+                field: 'namespace',
+                operation: 'EQUALS',
+                value: namespace as any,
+            }],
+        });
+
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(result).toBeTypeOf('string');
+    }, 120000);
+
     it('unlockTriggersByQueryTest', async () => {
         const flowId = `unlockTriggersByQueryTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;

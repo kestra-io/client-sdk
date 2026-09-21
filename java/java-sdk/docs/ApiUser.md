@@ -12,7 +12,7 @@
 |**groups** | **List&lt;Object&gt;** |  |  [optional] |
 |**username** | **String** |  |  |
 |**email** | **String** |  |  |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**id** | **String** |  |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |

@@ -1,6 +1,7 @@
 // testApis/GroupsApi.spec.ts
 import { describe, it, expect } from 'vitest';
 import { randomId } from './_utils.js';
+import { tenantId } from './_setup.js';
 import * as Groups from '@kestra-io/kestra-sdk/groups';
 import * as Users from '@kestra-io/kestra-sdk/users';
 import type { QueryFilter, QueryFilterField, QueryFilterOp } from '@kestra-io/kestra-sdk';
@@ -23,6 +24,8 @@ describe('GroupsApi', () => {
 
         const user = await Users.createUser({
             email: `test_add_user_to_group_${randomId()}@kestra.io`,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         if (!group.id || !user.id) {
@@ -87,6 +90,8 @@ describe('GroupsApi', () => {
 
         const user = await Users.createUser({
             email: `test_delete_user_from_group_${randomId()}@kestra.io`,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         if (!group.id || !user.id) {
@@ -140,6 +145,8 @@ describe('GroupsApi', () => {
 
         const user = await Users.createUser({
             email: `test_search_group_members_${randomId()}@kestra.io`,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         if (!group.id || !user.id) {
@@ -184,6 +191,8 @@ describe('GroupsApi', () => {
 
         const user = await Users.createUser({
             email: `test_set_user_membership_for_group_${randomId()}@kestra.io`,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         if (!group.id || !user.id) {

@@ -12,6 +12,9 @@
 |**oidcCount** | **Long** |  |  |
 |**basicAuthCount** | **Long** |  |  |
 |**passwordlessCount** | **Long** |  |  |
+|**instanceOwnerCount** | **Long** |  |  |
+|**ldapAuthCount** | **Long** |  |  |
+|**restrictedCount** | **Long** |  |  |
 
 
 

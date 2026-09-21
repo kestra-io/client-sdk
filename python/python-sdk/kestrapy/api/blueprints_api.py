@@ -10,6 +10,7 @@ from kestrapy.models.blueprint_controller_use_blueprint_template_response import
 from kestrapy.models.blueprint_with_flow_entity import BlueprintWithFlowEntity
 from kestrapy.models.paged_results_blueprint_controller_api_blueprint_item import PagedResultsBlueprintControllerApiBlueprintItem
 from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint
+from kestrapy.models.query_filter import QueryFilter
 
 
 class BlueprintsApi(BaseApi):
@@ -26,21 +27,20 @@ class BlueprintsApi(BaseApi):
 
     def blueprint_source(self, id: str, kind: BlueprintControllerKind, tenant: str) -> str:
         path = self._tenant_path(tenant, "blueprints", "community", kind.value, id, "source")
-        return self._text_request("GET", path, accept=self.YAML)
+        return self._text_request("GET", path, accept=self.YAML_RESPONSE)
 
     def search_blueprints(
         self,
         kind: BlueprintControllerKind,
         tenant: str,
-        q: Optional[str] = None,
         sort: Optional[str] = None,
-        tags: Optional[List[str]] = None,
         page: Optional[int] = None,
         size: Optional[int] = None,
+        filters: Optional[List[QueryFilter]] = None,
     ) -> PagedResultsBlueprintControllerApiBlueprintItem:
         path = self._tenant_path(tenant, "blueprints", "community", kind.value)
-        params = list(self._build_query_params(q=q, sort=sort, page=page, size=size).items())
-        self._append_repeated_param(params, "tags", tags)
+        params = list(self._build_query_params(sort=sort, page=page, size=size).items())
+        self._append_filter_params(params, filters)
         return self._json_request("GET", path, PagedResultsBlueprintControllerApiBlueprintItem, params=params)
 
     # ---- Flow Blueprints ----
@@ -81,7 +81,7 @@ class BlueprintsApi(BaseApi):
 
     def internal_blueprint_flow(self, id: str, tenant: str) -> str:
         path = self._tenant_path(tenant, "blueprints", "custom", id, "source")
-        return self._text_request("GET", path, accept=self.YAML)
+        return self._text_request("GET", path, accept=self.YAML_RESPONSE)
 
     def update_internal_blueprints(self, id: str, tenant: str, request: BlueprintControllerApiBlueprintItemWithSource) -> BlueprintWithFlowEntity:
         path = self._tenant_path(tenant, "blueprints", "custom", id)
@@ -94,14 +94,13 @@ class BlueprintsApi(BaseApi):
     def search_internal_blueprints(
         self,
         tenant: str,
-        q: Optional[str] = None,
         sort: Optional[str] = None,
-        tags: Optional[List[str]] = None,
         page: Optional[int] = None,
         size: Optional[int] = None,
         source: Optional[bool] = None,
+        filters: Optional[List[QueryFilter]] = None,
     ) -> PagedResultsBlueprint:
         path = self._tenant_path(tenant, "blueprints", "custom")
-        params = list(self._build_query_params(q=q, sort=sort, page=page, size=size, source=source).items())
-        self._append_repeated_param(params, "tags", tags)
+        params = list(self._build_query_params(sort=sort, page=page, size=size, source=source).items())
+        self._append_filter_params(params, filters)
         return self._json_request("GET", path, PagedResultsBlueprint, params=params)

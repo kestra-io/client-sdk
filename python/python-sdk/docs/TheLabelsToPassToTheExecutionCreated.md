@@ -1,5 +1,6 @@
 # TheLabelsToPassToTheExecutionCreated
 
+Label values are dynamic and can reference trigger variables.
 
 ## Properties
 

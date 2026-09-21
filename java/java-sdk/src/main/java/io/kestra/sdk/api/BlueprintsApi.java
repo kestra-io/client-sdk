@@ -15,6 +15,8 @@ import io.kestra.sdk.model.BlueprintControllerUseBlueprintTemplateResponse;
 import io.kestra.sdk.model.BlueprintWithFlowEntity;
 import io.kestra.sdk.model.PagedResultsBlueprintControllerApiBlueprintItem;
 import io.kestra.sdk.model.PagedResultsBlueprint;
+import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.ValidateConstraintViolation;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class BlueprintsApi extends BaseApi {
 
     private static final String YAML_ACCEPT = "application/yaml";
+    private static final String YAML = "application/x-yaml";
 
     public BlueprintsApi() {
         super(Configuration.getDefaultApiClient());
@@ -71,16 +74,15 @@ public class BlueprintsApi extends BaseApi {
     public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(
             @jakarta.annotation.Nonnull BlueprintControllerKind kind,
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable String q,
             @jakarta.annotation.Nullable String sort,
-            @jakarta.annotation.Nullable List<String> tags,
             @jakarta.annotation.Nullable Integer page,
-            @jakarta.annotation.Nullable Integer size) throws ApiException {
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "blueprints", "community", kind.getValue()),
                 null,
-                queryParams("q", q, "sort", sort, "page", page, "size", size),
-                csvParams("tags", tags),
+                queryParams("sort", sort, "page", page, "size", size),
+                filterParams(filters),
                 JSON, null,
                 new TypeReference<>() {});
     }
@@ -88,6 +90,16 @@ public class BlueprintsApi extends BaseApi {
     // ========================================================================
     // Flow Blueprints
     // ========================================================================
+
+    public ValidateConstraintViolation validateFlowBlueprint(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String yamlBody) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "blueprints", "flows", "validate"),
+                yamlBody, null, null,
+                JSON, YAML,
+                new TypeReference<>() {});
+    }
 
     public BlueprintControllerApiFlowBlueprint createFlowBlueprint(
             @jakarta.annotation.Nonnull String tenant,
@@ -211,17 +223,16 @@ public class BlueprintsApi extends BaseApi {
 
     public PagedResultsBlueprint searchInternalBlueprints(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable String q,
             @jakarta.annotation.Nullable String sort,
-            @jakarta.annotation.Nullable List<String> tags,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
-            @jakarta.annotation.Nullable Boolean source) throws ApiException {
+            @jakarta.annotation.Nullable Boolean source,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "blueprints", "custom"),
                 null,
-                queryParams("q", q, "sort", sort, "page", page, "size", size, "source", source),
-                csvParams("tags", tags),
+                queryParams("sort", sort, "page", page, "size", size, "source", source),
+                filterParams(filters),
                 JSON, null,
                 new TypeReference<>() {});
     }

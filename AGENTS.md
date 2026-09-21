@@ -43,12 +43,16 @@ Tests require a running Kestra instance at `http://localhost:9903` with credenti
 
 ## Generating SDKs
 
+JavaScript is the only generated SDK:
+
 ```bash
 ./generate-sdks.sh javascript   # JavaScript only
-./generate-sdks.sh java         # Java only
-./generate-sdks.sh python       # Python only
-./generate-sdks.sh go           # Go only
 ```
+
+Java (#222), Go (#230) and Python (#237) are hand-written. `./generate-sdks.sh` refuses
+to run for all three and tells you to edit the sources directly — running the generator
+would delete and overwrite hand-written code, which is exactly the silent-signature-drop
+the section below warns about.
 
 ## Signature Changes — Notify, Don't Block
 

@@ -22,8 +22,7 @@ describe.skip('AiApi', () => {
             userPrompt: 'Create a simple flow that logs hello world',
             namespace: 'company.team',
         });
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     });
 
     it('generateApp: generate an app from a prompt', async () => {
@@ -31,8 +30,7 @@ describe.skip('AiApi', () => {
             conversationId: randomId(),
             userPrompt: 'Create a simple app displaying a single button',
         });
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     }, 30_000);
 
     it('generateDashboard: generate a dashboard from a prompt', async () => {
@@ -41,8 +39,7 @@ describe.skip('AiApi', () => {
             userPrompt: 'Create a kestra dashboard with a simple markdown block',
             yaml: "id: test-dashboard",
         });
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     }, 30_000);
 
     it('generateTestSuite: generate a test suite for a flow', async () => {
@@ -50,7 +47,6 @@ describe.skip('AiApi', () => {
             conversationId: randomId(),
             userPrompt: 'Generate tests for a simple log flow',
         });
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     }, 30_000);
 });
