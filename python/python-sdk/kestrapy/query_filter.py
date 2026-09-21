@@ -104,9 +104,14 @@ def _logical_str(f: Any) -> str:
 
 
 def _classify(f: Any) -> str:
-    """Return 'leaf' or 'group'; raise if a node is ambiguously both."""
+    """Return 'leaf' or 'group'; raise if a node is ambiguously both.
+
+    Unified cross-SDK rule (issue #246 review): a node is a group iff it has a
+    logical OR a NON-EMPTY children list. An empty children list on a leaf is
+    ignored (the node stays a leaf).
+    """
     has_field = _node_field(f) is not None
-    has_group = _node_logical(f) is not None or _node_children(f) is not None
+    has_group = _node_logical(f) is not None or bool(_node_children(f))
     if has_field and has_group:
         raise ValueError(
             "a filter node cannot be both a leaf and a group"

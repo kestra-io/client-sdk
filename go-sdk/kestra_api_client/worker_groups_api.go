@@ -14,7 +14,9 @@ type WorkerGroupsAPI struct {
 // WORKER_GROUP query filter format.
 func (a *WorkerGroupsAPI) ListWorkerGroups(ctx context.Context, filters []SearchFilter) (*ApiWorkerGroupList, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiWorkerGroupList](&a.baseAPI, ctx, "GET", superadminPath("instance", "worker-groups"), nil, params)
 }
 

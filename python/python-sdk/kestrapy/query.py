@@ -3,7 +3,8 @@
 Typed against the field/op/logical enums, this layer constructs
 ``QueryFilter`` trees that drop straight into any ``*ByQuery`` method::
 
-    from kestrapy import where, and_, or_, eq, in_, QueryFilterField as F
+    from kestrapy.query import where, and_, or_, eq, in_
+    from kestrapy import QueryFilterField as F
     from kestrapy.models.state_type import StateType
 
     filters = where(
@@ -113,8 +114,11 @@ def lte(field: QueryFilterField, value: Any) -> QueryFilter:
 # --- groups -----------------------------------------------------------------
 
 def _is_empty_group(node: QueryFilter) -> bool:
+    # Unified with the Java DSL's isEmptyGroup (issue #246 review): a node is an
+    # empty group iff it is not a leaf (no field) and has no children. A leaf
+    # (field set) is never an empty group.
     return (
-        getattr(node, "logical", None) is not None
+        getattr(node, "var_field", None) is None
         and not getattr(node, "children", None)
     )
 

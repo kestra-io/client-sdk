@@ -106,18 +106,21 @@ type SearchFilter struct {
 	Children  []SearchFilter
 }
 
-// isGroup reports whether the node is a logical group (has a Logical combinator).
+// isGroup reports whether the node is a logical group. Unified cross-SDK rule
+// (issue #246 review): a node is a group iff it has a Logical combinator OR a
+// non-empty Children list. A group with no Logical defaults to AND during
+// serialization. An empty Children list on a leaf is ignored.
 func (f SearchFilter) isGroup() bool {
-	return f.Logical != nil
+	return f.Logical != nil || len(f.Children) > 0
 }
 
-// isAmbiguous reports whether the node is BOTH a leaf and a group: it carries a
-// Logical combinator AND leaf data (Field/Operation/Value). Such a node is a
-// programmer error — the leaf data would be silently discarded if it were
-// treated as a pure group — and mirrors Java's isGroupNode (throws) and Python's
-// _classify (raises) for the identical input.
+// isAmbiguous reports whether the node is BOTH a leaf and a group: it carries
+// leaf data (Field/Operation/Value) AND group data (Logical or non-empty
+// Children). Such a node is a programmer error — the leaf data would be silently
+// discarded if it were treated as a pure group — and mirrors Java's isGroupNode
+// (throws) and Python's _classify (raises) for the identical input.
 func (f SearchFilter) isAmbiguous() bool {
-	return f.Logical != nil && (f.Field != "" || f.Operation != "" || f.Value != nil)
+	return (f.Logical != nil || len(f.Children) > 0) && (f.Field != "" || f.Operation != "" || f.Value != nil)
 }
 
 func encodeFilterValue(v interface{}) string {
@@ -162,33 +165,34 @@ type filterParam struct {
 }
 
 // appendFilterParams is the internal alias for AppendFilterParams.
-func appendFilterParams(params url.Values, filters []SearchFilter) {
-	AppendFilterParams(params, filters)
+func appendFilterParams(params url.Values, filters []SearchFilter) error {
+	return AppendFilterParams(params, filters)
 }
 
 // AppendFilterParams appends query filter parameters to the given url.Values.
 //
 // It implements the complex AND/OR + one-level-nested group algorithm (issue
-// #246). The exported 2-arg signature is preserved; the top-level list is an
-// implicit AND and serialization starts at the "filters" prefix.
+// #246). The top-level list is an implicit AND and serialization starts at the
+// "filters" prefix.
 //
 // Uses params.Add (not Set) so duplicate keys (e.g. two OR children on the same
 // field) survive.
 //
 // A structurally invalid filter tree (nested more than one level deep, a node
-// that is both a leaf and a group, or a leaf with no field) is a programmer
-// error and panics — mirroring the Java (ApiException) and Python (ValueError)
-// SDKs, which raise for the identical input. This is deliberately loud: silently
-// emitting no filters would turn a malformed *ByQuery into an unbounded
-// "match everything" request (e.g. a delete-by-query that hits every row).
-func AppendFilterParams(params url.Values, filters []SearchFilter) {
+// that is both a leaf and a group, or a leaf with no field) returns an error
+// rather than panicking — the search method surfaces it through its existing
+// error return. This is deliberate: silently emitting no filters would turn a
+// malformed *ByQuery into an unbounded "match everything" request (e.g. a
+// delete-by-query that hits every row).
+func AppendFilterParams(params url.Values, filters []SearchFilter) error {
 	pairs, err := buildFilterParams(filters)
 	if err != nil {
-		panic(fmt.Sprintf("kestra: invalid query filter: %v", err))
+		return err
 	}
 	for _, p := range pairs {
 		params.Add(p.Key, p.Value)
 	}
+	return nil
 }
 
 // buildFilterParams produces the ordered key/value pairs for the given top-level
@@ -208,11 +212,14 @@ func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
 		return nil, nil
 	}
 
-	// Determine the top-level logical and the units to emit.
+	// Determine the top-level logical and the units to emit. A group with no
+	// explicit Logical defaults to AND (unified cross-SDK rule).
 	topLogical := LogicalAnd
 	units := filters
 	if len(filters) == 1 && filters[0].isGroup() {
-		topLogical = *filters[0].Logical
+		if filters[0].Logical != nil {
+			topLogical = *filters[0].Logical
+		}
 		units = filters[0].Children
 	}
 
@@ -241,11 +248,15 @@ func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
 			out = append(out, leafPairs...)
 			continue
 		}
+		unitLogical := LogicalAnd
+		if unit.Logical != nil {
+			unitLogical = *unit.Logical
+		}
 		for j, child := range unit.Children {
 			if child.isGroup() {
 				return nil, fmt.Errorf("nested groups are limited to one level; flatten the inner group")
 			}
-			childPrefix := fmt.Sprintf("%s[%s][%d]", unitPrefix, *unit.Logical, j)
+			childPrefix := fmt.Sprintf("%s[%s][%d]", unitPrefix, unitLogical, j)
 			leafPairs, err := emitLeaf(childPrefix, child)
 			if err != nil {
 				return nil, err

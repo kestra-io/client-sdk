@@ -47,6 +47,7 @@ func parseNode(t *testing.T, raw json.RawMessage) []SearchFilter {
 		t.Fatalf("unmarshal node: %v", err)
 	}
 
+	// Explicit logical → build via the And/Or DSL.
 	if n.Logical != nil {
 		kids := make([][]SearchFilter, 0, len(n.Children))
 		for _, c := range n.Children {
@@ -62,6 +63,16 @@ func parseNode(t *testing.T, raw json.RawMessage) []SearchFilter {
 		}
 	}
 
+	// Children present but NO logical → build a RAW group node (Logical nil) so
+	// the serializer's default-AND path is exercised, bypassing the And() DSL.
+	if len(n.Children) > 0 {
+		var kids []SearchFilter
+		for _, c := range n.Children {
+			kids = append(kids, parseNode(t, c)...)
+		}
+		return []SearchFilter{{Children: kids}}
+	}
+
 	if n.Field == nil || n.Op == nil {
 		t.Fatalf("leaf missing field/op: %s", string(raw))
 	}
@@ -69,7 +80,13 @@ func parseNode(t *testing.T, raw json.RawMessage) []SearchFilter {
 	if !ok {
 		t.Fatalf("unmapped field %q", *n.Field)
 	}
-	return FilterBy(field, SearchFilterOp(*n.Op), parseValue(t, n.Value))
+	leaf := FilterBy(field, SearchFilterOp(*n.Op), parseValue(t, n.Value))
+	// A `children` key present but empty on a leaf is ignored (still a leaf);
+	// attach the explicit empty slice so that path is exercised.
+	if n.Children != nil {
+		leaf[0].Children = []SearchFilter{}
+	}
+	return leaf
 }
 
 func parseValue(t *testing.T, raw json.RawMessage) interface{} {
@@ -220,15 +237,10 @@ func TestQueryFilterLeafAndGroupAmbiguousRealPath(t *testing.T) {
 		t.Fatal("expected error for ambiguous leaf+group node via buildFilterParams, got nil")
 	}
 
-	// The exported entry point must fail loudly (panic) on the same input.
-	func() {
-		defer func() {
-			if r := recover(); r == nil {
-				t.Fatal("expected panic for ambiguous leaf+group node via AppendFilterParams, got none")
-			}
-		}()
-		AppendFilterParams(map[string][]string{}, []SearchFilter{ambiguous})
-	}()
+	// The exported entry point must return an error (not panic) on the same input.
+	if err := AppendFilterParams(map[string][]string{}, []SearchFilter{ambiguous}); err == nil {
+		t.Fatal("expected error for ambiguous leaf+group node via AppendFilterParams, got nil")
+	}
 }
 
 // TestQueryFilterInterfaceSliceCSV verifies any slice type (not just []string)
@@ -326,10 +338,10 @@ func TestQueryFilterMapInterfaceValue(t *testing.T) {
 	}
 }
 
-// TestAppendFilterParamsPanicsOnStructuralError verifies the exported entry
-// point fails loudly (like Java/Python raising) rather than silently emitting an
-// unfiltered query.
-func TestAppendFilterParamsPanicsOnStructuralError(t *testing.T) {
+// TestAppendFilterParamsErrorsOnStructuralError verifies the exported entry
+// point returns an error (like Java/Python raising) rather than panicking or
+// silently emitting an unfiltered query.
+func TestAppendFilterParamsErrorsOnStructuralError(t *testing.T) {
 	or := LogicalOr
 	inner := SearchFilter{Logical: &or, Children: []SearchFilter{
 		{Field: FilterScope, Operation: OpEquals, Value: "s1"},
@@ -339,10 +351,32 @@ func TestAppendFilterParamsPanicsOnStructuralError(t *testing.T) {
 		{Field: FilterNamespace, Operation: OpEquals, Value: "ns"},
 		{Logical: &or, Children: []SearchFilter{inner, {Field: FilterScope, Operation: OpEquals, Value: "s2"}}},
 	}
-	defer func() {
-		if r := recover(); r == nil {
-			t.Fatal("expected panic on structurally invalid filter tree, got none")
-		}
-	}()
-	AppendFilterParams(map[string][]string{}, filters)
+	if err := AppendFilterParams(map[string][]string{}, filters); err == nil {
+		t.Fatal("expected error on structurally invalid filter tree, got nil")
+	}
+}
+
+// TestQueryFilterGroupWithoutLogicalDefaultsToAnd verifies a raw group node with
+// no Logical set defaults to AND (unified cross-SDK rule).
+func TestQueryFilterGroupWithoutLogicalDefaultsToAnd(t *testing.T) {
+	filters := []SearchFilter{{Children: []SearchFilter{
+		{Field: FilterNamespace, Operation: OpEquals, Value: "ns"},
+		{Field: FilterFlowId, Operation: OpEquals, Value: "f"},
+	}}}
+	actual := serializeOrdered(t, filters)
+	expected := []string{"filters[namespace][EQUALS]=ns", "filters[flowId][EQUALS]=f"}
+	if !reflect.DeepEqual(actual, expected) {
+		t.Errorf("actual %v, expected %v", actual, expected)
+	}
+}
+
+// TestQueryFilterLeafWithEmptyChildrenIsLeaf verifies an empty Children slice on
+// a leaf is ignored (still serialized as a leaf, not a group).
+func TestQueryFilterLeafWithEmptyChildrenIsLeaf(t *testing.T) {
+	filters := []SearchFilter{{Field: FilterFlowId, Operation: OpEquals, Value: "f", Children: []SearchFilter{}}}
+	actual := serializeOrdered(t, filters)
+	expected := []string{"filters[flowId][EQUALS]=f"}
+	if !reflect.DeepEqual(actual, expected) {
+		t.Errorf("actual %v, expected %v", actual, expected)
+	}
 }

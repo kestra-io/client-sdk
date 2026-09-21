@@ -9,6 +9,10 @@
     "Node shapes:",
     "  leaf  = {\"field\": <LOGICAL_ENUM_NAME>, \"op\": <OP>, \"value\": <string|[string]|{k:v}>}",
     "  group = {\"logical\": \"AND\"|\"OR\", \"children\": [node, ...]}",
+    "Unified cross-SDK classification (issue #246 review): a node is a GROUP iff it",
+    "has a logical OR a non-empty children list. A group with no logical defaults to",
+    "AND. An empty children list on a leaf is ignored (the node stays a leaf). A node",
+    "that carries both a field and group data is ambiguous and raises client-side.",
     "Case input is EITHER {\"where\": <node>} (built via the DSL where(...)) OR",
     "{\"list\": [node, ...]} (a raw filter list passed straight to the serializer, no DSL).",
     "",
@@ -145,6 +149,24 @@
       "name": "query_field_maps_to_q",
       "input": { "where": { "field": "QUERY", "op": "EQUALS", "value": "hello" } },
       "expected": ["filters[q][EQUALS]=hello"]
+    },
+    {
+      "name": "group_without_logical_defaults_to_and",
+      "input": { "list": [ { "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f" }
+      ] } ] },
+      "expected": [
+        "filters[namespace][EQUALS]=ns",
+        "filters[flowId][EQUALS]=f"
+      ]
+    },
+    {
+      "name": "leaf_with_empty_children_is_leaf",
+      "input": { "list": [
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f", "children": [] }
+      ] },
+      "expected": ["filters[flowId][EQUALS]=f"]
     }
   ]
 }

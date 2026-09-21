@@ -38,20 +38,26 @@ func (a *GroupsAPI) SetUserMembershipForGroup(ctx context.Context, id, userId, t
 func (a *GroupsAPI) SearchGroupMembers(ctx context.Context, id, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMGroupControllerApiGroupMember, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMGroupControllerApiGroupMember](&a.baseAPI, ctx, "GET", tenantPath(tenant, "groups", id, "members"), nil, params)
 }
 
 func (a *GroupsAPI) SearchGroups(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiGroupSummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiGroupSummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "groups", "search"), nil, params)
 }
 
 func (a *GroupsAPI) AutocompleteGroups(ctx context.Context, tenant string, request interface{}, filters []SearchFilter) ([]ApiGroupSummary, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[[]ApiGroupSummary](&a.baseAPI, ctx, "POST", tenantPath(tenant, "groups", "autocomplete"), request, params)
 }
 

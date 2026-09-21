@@ -720,11 +720,13 @@ public class ApiClient extends JavaTimeFormatter {
     }
 
     // Determine (topLogical, units): a single top-level group is promoted to top level.
+    // A group with no explicit logical defaults to AND (unified cross-SDK rule),
+    // so getLogical() being null never NPEs.
     QueryFilterLogical topLogical;
     List<QueryFilter> units;
     if (filters.size() == 1 && isGroupNode(filters.get(0))) {
       QueryFilter group = filters.get(0);
-      topLogical = group.getLogical();
+      topLogical = logicalOrAnd(group);
       units = group.getChildren() == null ? new ArrayList<QueryFilter>() : group.getChildren();
     } else {
       topLogical = QueryFilterLogical.AND;
@@ -754,12 +756,13 @@ public class ApiClient extends JavaTimeFormatter {
         params.addAll(emitLeaf(unitPrefix, unit, escape));
       } else {
         List<QueryFilter> children = unit.getChildren() == null ? new ArrayList<QueryFilter>() : unit.getChildren();
+        String unitLogical = logicalOrAnd(unit).getValue();
         for (int j = 0; j < children.size(); j++) {
           QueryFilter child = children.get(j);
           if (isGroupNode(child)) {
             throw new ApiException(400, "nested groups are limited to one level; flatten the inner group");
           }
-          params.addAll(emitLeaf(unitPrefix + "[" + unit.getLogical().getValue() + "][" + j + "]", child, escape));
+          params.addAll(emitLeaf(unitPrefix + "[" + unitLogical + "][" + j + "]", child, escape));
         }
       }
     }
@@ -807,6 +810,15 @@ public class ApiClient extends JavaTimeFormatter {
       throw new ApiException(400, "a filter node cannot be both a leaf and a group");
     }
     return group;
+  }
+
+  /**
+   * A group's logical combinator, defaulting to AND when unset (unified cross-SDK rule). A group
+   * built with children but no explicit logical (via the DSL or JSON deserialization) is an
+   * implicit AND rather than an NPE.
+   */
+  private static QueryFilterLogical logicalOrAnd(QueryFilter f) {
+    return f.getLogical() != null ? f.getLogical() : QueryFilterLogical.AND;
   }
 
   /**

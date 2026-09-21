@@ -25,7 +25,9 @@ func (a *UsersAPI) DeleteUser(ctx context.Context, id string) error {
 func (a *UsersAPI) ListUsers(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMUserControllerApiUserSummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMUserControllerApiUserSummary](&a.baseAPI, ctx, "GET", superadminPath("users"), nil, params)
 }
 

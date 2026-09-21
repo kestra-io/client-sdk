@@ -87,4 +87,6 @@ List<QueryFilter> filters = where(
   `endsWith`, `regex`, `prefix`, `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual`.
 - **Backward compatible:** a plain `List<QueryFilter>` (or `where(and(...leaves))`) serializes to the
   same flat `filters[field][OP]=value` wire format as before.
-- Nesting is **one level deep** (an `and` containing an `or`, or vice-versa); deeper nesting throws.
+- Nesting is **one level deep** (an `and` containing an `or`, or vice-versa); deeper nesting throws
+  `ApiException(400)`. This is a client-side cap, not a server limit — the Kestra backend accepts
+  deeper trees (default `maxDepth 3` / `maxWidth 20`, and the UI itself caps at 2).

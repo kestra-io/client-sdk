@@ -15,8 +15,8 @@ from kestrapy import (
     QueryFilterField,
     QueryFilterLogical,
     QueryFilterOp,
-    where,
 )
+from kestrapy.query import where
 from kestrapy.query_filter import append_filter_params
 
 
@@ -34,16 +34,26 @@ def _find_golden() -> Path:
 
 def _build(node: dict) -> QueryFilter:
     """Build a QueryFilter from a golden node (leaf or group)."""
+    # Explicit logical -> group via logical + children.
     if "logical" in node:
         return QueryFilter(
             logical=QueryFilterLogical[node["logical"]],
-            children=[_build(child) for child in node["children"]],
+            children=[_build(child) for child in node.get("children", [])],
         )
-    return QueryFilter(
+    # Children present but NO logical and NO field -> a raw group node (logical
+    # None) so the serializer's default-AND path is exercised.
+    if "children" in node and "field" not in node:
+        return QueryFilter(children=[_build(child) for child in node["children"]])
+    leaf_kwargs = dict(
         var_field=QueryFilterField[node["field"]],
         operation=QueryFilterOp[node["op"]],
         value=node.get("value"),
     )
+    # An empty children list on a leaf is ignored (still a leaf); attach it so
+    # that path is exercised.
+    if "children" in node:
+        leaf_kwargs["children"] = [_build(child) for child in node["children"]]
+    return QueryFilter(**leaf_kwargs)
 
 
 def _load_cases():
@@ -183,3 +193,42 @@ def test_null_field_leaf_raises():
     params: list = []
     with pytest.raises(ValueError, match="requires a field"):
         append_filter_params(params, [f])
+
+
+def test_group_without_logical_defaults_to_and():
+    # A raw group node with no logical set is an implicit AND.
+    group = QueryFilter(children=[
+        QueryFilter(var_field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.EQUALS, value="ns"),
+        QueryFilter(var_field=QueryFilterField.FLOW_ID, operation=QueryFilterOp.EQUALS, value="f"),
+    ])
+    params: list = []
+    append_filter_params(params, [group])
+    assert ["%s=%s" % (k, v) for k, v in params] == [
+        "filters[namespace][EQUALS]=ns",
+        "filters[flowId][EQUALS]=f",
+    ]
+
+
+# ---------------------------------------------------------------------------
+# DSL drop / flatten rules (issue #246 review)
+# ---------------------------------------------------------------------------
+
+def test_dsl_drops_null_and_empty_then_flattens():
+    from kestrapy.query import and_, or_, eq
+    root = and_(eq(QueryFilterField.NAMESPACE, "ns"), None, or_())
+    # None and the empty or() group are dropped; a single effective child flattens.
+    assert root.var_field == QueryFilterField.NAMESPACE
+    assert getattr(root, "logical", None) is None
+
+
+def test_dsl_single_child_group_flattens():
+    from kestrapy.query import or_, eq
+    root = or_(eq(QueryFilterField.SCOPE, "s1"))
+    assert root.var_field == QueryFilterField.SCOPE
+    assert getattr(root, "logical", None) is None
+
+
+def test_dsl_empty_group_is_none():
+    from kestrapy.query import and_, or_
+    assert and_() is None
+    assert or_(and_(), None) is None

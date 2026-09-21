@@ -143,26 +143,93 @@ class QueryFilterGoldenTest {
         assertTrue(ex.getMessage().contains("requires a field"), "message was: " + ex.getMessage());
     }
 
+    @Test
+    void groupWithoutLogicalDefaultsToAnd() {
+        // A group built with children but no logical is an implicit AND (no NPE).
+        QueryFilter group = new QueryFilter().children(List.of(
+            new QueryFilter().field(QueryFilterField.NAMESPACE).operation(QueryFilterOp.EQUALS).value("ns"),
+            new QueryFilter().field(QueryFilterField.FLOW_ID).operation(QueryFilterOp.EQUALS).value("f")
+        ));
+        List<String> actual = render(apiClient.collectFilterPairs(List.of(group), false));
+        assertEquals(List.of("filters[namespace][EQUALS]=ns", "filters[flowId][EQUALS]=f"), actual);
+    }
+
+    @Test
+    void escapedPathEncodesValues() {
+        // Production serializes with escape=true; a value with a space and comma must be
+        // percent-encoded, while the un-escaped golden path leaves it raw.
+        List<QueryFilter> filters = Query.where(Query.eq(QueryFilterField.NAMESPACE, "a b,c"));
+        assertEquals(
+            List.of("filters[namespace][EQUALS]=a b,c"),
+            render(apiClient.collectFilterPairs(filters, false))
+        );
+        assertEquals(
+            List.of("filters[namespace][EQUALS]=a%20b%2Cc"),
+            render(apiClient.collectFilterPairs(filters, true))
+        );
+    }
+
+    @Test
+    void dslDropsNullAndEmptyChildrenThenFlattens() {
+        // and(leaf, null, empty-or) -> empties dropped -> single child -> flattened to the leaf.
+        QueryFilter root = Query.and(
+            Query.eq(QueryFilterField.NAMESPACE, "ns"),
+            null,
+            Query.or()
+        );
+        assertEquals(QueryFilterField.NAMESPACE, root.getField());
+        assertEquals(null, root.getLogical());
+    }
+
+    @Test
+    void dslSingleChildGroupFlattens() {
+        QueryFilter root = Query.or(Query.eq(QueryFilterField.SCOPE, "s1"));
+        assertEquals(QueryFilterField.SCOPE, root.getField());
+        assertEquals(null, root.getLogical());
+    }
+
+    @Test
+    void dslEmptyGroupIsNull() {
+        assertEquals(null, Query.and());
+        assertEquals(null, Query.or(Query.and(), (QueryFilter) null));
+    }
+
     private List<String> render(List<Pair> pairs) {
         return pairs.stream().map(p -> p.getName() + "=" + p.getValue()).collect(Collectors.toList());
     }
 
     private QueryFilter buildNode(JsonNode node) {
-        if (node.has("logical")) {
+        boolean hasLogical = node.has("logical");
+        boolean hasChildren = node.has("children");
+        // Group node: an explicit logical, OR children present with no field (a raw
+        // group with null logical — exercises the default-AND path).
+        if (hasLogical || (hasChildren && !node.has("field"))) {
             List<QueryFilter> children = new ArrayList<>();
-            if (node.has("children")) {
+            if (hasChildren) {
                 for (JsonNode child : node.get("children")) {
                     children.add(buildNode(child));
                 }
             }
-            return new QueryFilter()
-                .logical(QueryFilterLogical.valueOf(node.get("logical").asText()))
-                .children(children);
+            QueryFilter group = new QueryFilter().children(children);
+            if (hasLogical) {
+                group.logical(QueryFilterLogical.valueOf(node.get("logical").asText()));
+            }
+            return group;
         }
-        return new QueryFilter()
+        QueryFilter leaf = new QueryFilter()
             .field(QueryFilterField.valueOf(node.get("field").asText()))
             .operation(QueryFilterOp.valueOf(node.get("op").asText()))
             .value(parseValue(node.get("value")));
+        // An empty children list on a leaf is ignored (still a leaf); attach it so
+        // that path is exercised.
+        if (hasChildren) {
+            List<QueryFilter> children = new ArrayList<>();
+            for (JsonNode child : node.get("children")) {
+                children.add(buildNode(child));
+            }
+            leaf.children(children);
+        }
+        return leaf;
     }
 
     private Object parseValue(JsonNode value) {

@@ -87,7 +87,7 @@ Every `*_by_query` / `search_*` endpoint accepts grouped filters. Build them wit
 DSL instead of hand-encoding `filters[...]` strings:
 
 ```python
-from kestrapy import where, and_, or_, eq
+from kestrapy.query import where, and_, or_, eq
 from kestrapy import QueryFilterField as F
 
 filters = where(
@@ -107,4 +107,5 @@ filters = where(
 - **Backward compatible:** a plain `list[QueryFilter]` (or `where(and_(...leaves))`) serializes to the
   same flat `filters[field][OP]=value` wire format as before.
 - Nesting is **one level deep** (an `and_` containing an `or_`, or vice-versa); deeper nesting raises
-  `ValueError`.
+  `ValueError`. This is a client-side cap, not a server limit — the Kestra backend accepts deeper
+  trees (default `maxDepth 3` / `maxWidth 20`, and the UI itself caps at 2).

@@ -11,7 +11,9 @@ type CaseTemplatesAPI struct {
 func (a *CaseTemplatesAPI) SearchCaseTemplates(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsCaseTemplate, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsCaseTemplate](&a.baseAPI, ctx, "GET", tenantPath(tenant, "case-templates", "search"), nil, params)
 }
 

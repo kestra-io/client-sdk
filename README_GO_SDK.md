@@ -121,6 +121,9 @@ filters := kestra.Where(
   (named `FilterBy` rather than `Filter` because `Filter` is an existing model type).
 - **Backward compatible:** a plain `[]SearchFilter` (or `Where(And(...leaves))`) serializes to the
   same flat `filters[field][OP]=value` wire format as before.
-- Nesting is **one level deep** (an `And` containing an `Or`, or vice-versa); deeper nesting returns
-  an error.
+- Nesting is **one level deep** (an `And` containing an `Or`, or vice-versa). This is a client-side
+  cap, not a server limit — the Kestra backend accepts deeper trees (default `maxDepth 3` /
+  `maxWidth 20`, and the UI itself caps at 2). A tree deeper than one level (or a structurally
+  invalid one) is reported as an error from the search / `*ByQuery` method's existing `error` return
+  — the DSL and serializer never panic.
 

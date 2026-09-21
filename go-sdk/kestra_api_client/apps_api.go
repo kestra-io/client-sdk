@@ -61,13 +61,17 @@ func (a *AppsAPI) SearchApps(ctx context.Context, tenant string, page, size *int
 	filters = appendStringFilter(filters, FilterNamespace, namespace)
 	filters = appendStringFilter(filters, FilterFlowId, flowId)
 	filters = appendSliceFilter(filters, FilterTags, tags)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsAppsControllerApiApp](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "search"), nil, params)
 }
 
 func (a *AppsAPI) SearchAppsFromCatalog(ctx context.Context, tenant string, page, size *int, filters []SearchFilter) (*PagedResultsAppsControllerApiAppCatalogItem, error) {
 	params := buildQueryParams("page", page, "size", size)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsAppsControllerApiAppCatalogItem](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "catalog"), nil, params)
 }
 
