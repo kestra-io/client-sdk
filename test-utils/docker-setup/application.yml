@@ -1,5 +1,9 @@
 kestra:
   url: "http://localhost:8080/"
+  codec:
+    json:
+      additional-types:
+        - application/problem+json
   migration:
     auto: true
   repository:
