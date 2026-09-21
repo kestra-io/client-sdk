@@ -48,6 +48,45 @@ describe('LogsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('followLogsFromExecution: streams logs for an execution over SSE', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        const flowBody = `id: ${flowId}
+namespace: ${namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from followLogs
+`;
+        await Flows.createFlow({ body: flowBody });
+
+        // Don't wait — follow the logs live as the execution runs, mirroring the
+        // follow_execution SSE test in ExecutionsApi.spec.ts.
+        const exec = await Executions.createExecution({ namespace, id: flowId });
+        const executionId = (exec as any).id;
+
+        // Safety net: if the stream never closes on its own, abort after 20s so
+        // the Vitest worker isn't killed with an open TCP connection.
+        const ac = new AbortController();
+        const abortTimer = setTimeout(() => ac.abort(), 20000);
+
+        const { stream } = await Logs.followLogsFromExecution({ executionId }, { signal: ac.signal });
+
+        const messages: string[] = [];
+        try {
+            for await (const evt of stream) {
+                if (evt.message) messages.push(evt.message);
+            }
+        } catch {
+            // AbortError if the 20s safety timer fired — proceed with what we have.
+        } finally {
+            clearTimeout(abortTimer);
+        }
+
+        expect(messages.some((m) => m.includes('Hello from followLogs'))).toBe(true);
+    }, 25000);
+
     it('deleteLogsFromExecution: deletes logs for an execution', async () => {
         const executionId = await createExecutionWithLogs();
         await Logs.deleteLogsFromExecution({ executionId });

@@ -6,9 +6,11 @@ import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.awaitility.Awaitility.await;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class NamespacesApiTest {
@@ -145,7 +147,7 @@ public class NamespacesApiTest {
         ApiAutocomplete request = new ApiAutocomplete().q(id.substring(0, 8));
         List<String> result = api().autocompleteNamespaces(TENANT, request);
 
-        assertThat(result).isNotNull();
+        assertThat(result).contains(id);
     }
 
     // ========================================================================
@@ -160,7 +162,7 @@ public class NamespacesApiTest {
         ApiSecretValue secret = new ApiSecretValue().key("MY_SECRET").value("secret_value");
         List<ApiSecretMetaEE> result = api().putSecrets(ns, TENANT, secret);
 
-        assertThat(result).isNotNull();
+        assertThat(result).extracting(ApiSecretMetaEE::getKey).contains("MY_SECRET");
     }
 
     @Test
@@ -182,6 +184,49 @@ public class NamespacesApiTest {
         Map<String, List<String>> result = api().inheritedSecrets(ns, TENANT);
 
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    void listNamespaceSecrets_returnsSeededSecret() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        String key = "MY_LISTED_SECRET";
+        api().putSecrets(ns, TENANT, new ApiSecretValue().key(key).value("val"));
+
+        ApiSecretListResponseApiSecretMeta result =
+                api().listNamespaceSecrets(ns, TENANT, null, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults())
+                .extracting(ApiSecretMetaEE::getKey)
+                .contains(key);
+        assertThat(result.getResults())
+                .filteredOn(m -> key.equals(m.getKey()))
+                .extracting(ApiSecretMetaEE::getNamespace)
+                .containsOnly(ns);
+    }
+
+    @Test
+    void listSecrets_withNamespaceFilter_returnsSeededSecret() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        String key = "MY_CROSS_SECRET";
+        api().putSecrets(ns, TENANT, new ApiSecretValue().key(key).value("val"));
+
+        List<QueryFilter> filters = List.of(new QueryFilter()
+                .field(QueryFilterField.NAMESPACE)
+                .operation(QueryFilterOp.EQUALS)
+                .value(ns));
+        ApiSecretListResponseApiSecretMeta result =
+                api().listSecrets(TENANT, null, null, null, filters);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getTotal()).isGreaterThanOrEqualTo(1L);
+        assertThat(result.getResults())
+                .extracting(ApiSecretMetaEE::getKey)
+                .contains(key);
     }
 
     // ========================================================================
@@ -212,6 +257,145 @@ public class NamespacesApiTest {
         ApiSecretMetaEE meta = new ApiSecretMetaEE().description("patched description");
         List<ApiSecretMetaEE> result = api().patchSecret(ns, "PATCH_ME", TENANT, meta);
 
+        assertThat(result).anySatisfy(m -> {
+            assertThat(m.getKey()).isEqualTo("PATCH_ME");
+            assertThat(m.getDescription()).isEqualTo("patched description");
+        });
+    }
+
+    // ========================================================================
+    // Policies (EE)
+    // ========================================================================
+
+    private static String policyYaml(String id) {
+        return """
+                id: %s
+                enforcement: EVALUATE
+                rules:
+                  - type: io.kestra.plugin.ee.rules.Deny
+                    on: PLUGIN
+                """.formatted(id);
+    }
+
+    @Test
+    void createNamespacePolicy_thenGetThenDelete() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+
+        Map<String, Object> created = api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+        assertThat(created.get("id")).isEqualTo(policyId);
+        assertThat(created.get("enforcement")).isEqualTo("EVALUATE");
+
+        Map<String, Object> fetched = api().getNamespacePolicy(ns, policyId, TENANT);
+        assertThat(fetched.get("id")).isEqualTo(policyId);
+
+        assertThatCode(() -> api().deleteNamespacePolicy(ns, policyId, TENANT)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void updateNamespacePolicy_changesEnforcement() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        String updatedYaml = """
+                id: %s
+                enforcement: ACTIVE
+                rules:
+                  - type: io.kestra.plugin.ee.rules.Deny
+                    on: PLUGIN
+                """.formatted(policyId);
+        Map<String, Object> updated = api().updateNamespacePolicy(ns, policyId, TENANT, updatedYaml);
+
+        assertThat(updated.get("enforcement")).isEqualTo("ACTIVE");
+    }
+
+    @Test
+    void searchNamespacePolicies_findsCreatedPolicy() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            Map<String, Object> result = api().searchNamespacePolicies(ns, TENANT, 1, 10, null);
+            assertThat(((Number) result.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        });
+    }
+
+    @Test
+    void deleteNamespacePoliciesByIds_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        BulkResponse result = api().deleteNamespacePoliciesByIds(ns, TENANT, List.of(policyId));
+
+        assertThat(result.getCount()).isEqualTo(1);
+    }
+
+    @Test
+    void validateNamespacePolicy_missingRequiredFields_reportsViolation() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+
+        ValidateConstraintViolation result = api().validateNamespacePolicy(ns, TENANT, "id: incomplete-policy");
+
+        assertThat(result.getConstraints()).isNotBlank();
+    }
+
+    @Test
+    void exportNamespacePolicies_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        api().createNamespacePolicy(ns, TENANT, policyYaml(randomId()));
+
+        byte[] result = api().exportNamespacePolicies(ns, TENANT);
+
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    void exportNamespacePoliciesByIds_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        byte[] result = api().exportNamespacePoliciesByIds(ns, TENANT, List.of(policyId));
+
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    void evaluateNamespacePolicy_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        Map<String, Object> result = api().evaluateNamespacePolicy(ns, policyId, TENANT, 1, 10);
+
         assertThat(result).isNotNull();
+    }
+
+    // Reusable inputs (EE) are covered by ReusableInputsApiTest, not here.
+
+    // ========================================================================
+    // Namespace credentials (EE, CREDENTIAL resource — licensed on the CI image)
+    // ========================================================================
+
+    @Test
+    void listNamespaceCredentials_returnsPagedEnvelope() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new io.kestra.sdk.model.Namespace().id(ns));
+
+        Map<String, Object> result = api().listNamespaceCredentials(TENANT, ns, 1, 10, null, null);
+
+        assertThat(result).containsKeys("results", "total");
+        assertThat(result.get("results")).isInstanceOf(java.util.List.class);
     }
 }

@@ -71,7 +71,7 @@ func (a *BlueprintsAPI) InternalBlueprint(ctx context.Context, id, tenant string
 }
 
 func (a *BlueprintsAPI) InternalBlueprintFlow(ctx context.Context, id, tenant string) (string, error) {
-	return a.doText(ctx, "GET", tenantPath(tenant, "blueprints", "custom", id, "source"), nil)
+	return a.doText(ctx, "GET", tenantPath(tenant, "blueprints", "custom", id, "source"), nil, "application/yaml")
 }
 
 func (a *BlueprintsAPI) UpdateInternalBlueprints(ctx context.Context, id, tenant string, request interface{}) (*BlueprintWithFlowEntity, error) {

@@ -267,6 +267,50 @@ public class AppsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    /** The distinct execution states apps can render a layout for. */
+    public List<String> listAppStates(
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "states"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    /** Open an app by its uid, returning the rendered app layout/response. */
+    public Map<String, Object> openApp(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String uid) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "view", uid),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    /** Render an app layout straight from its YAML {@code source} without persisting it. */
+    public Map<String, Object> previewApp(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String source,
+            @jakarta.annotation.Nullable String state) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "apps", "preview"),
+                source, queryParams("state", state), null,
+                JSON, YAML,
+                new TypeReference<>() {});
+    }
+
+    public byte[] downloadFileFromAppExecution(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull URI path) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "view", id, "file", "download"),
+                null, queryParams("path", path), null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
     // ========================================================================
     // Streaming (SSE)
     // ========================================================================

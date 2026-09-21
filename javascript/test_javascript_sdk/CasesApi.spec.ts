@@ -7,7 +7,7 @@
 // the split comes from the generator, not the API. Aliases below keep the call
 // sites honest about which resource is being searched.
 import { describe, it, expect } from 'vitest';
-import { randomId } from './_utils.js';
+import { randomId, expectStatus } from './_utils.js';
 import * as Cases from '@kestra-io/kestra-sdk/cases';
 import * as CasesAdmin from '@kestra-io/kestra-sdk/cases-admin';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
@@ -70,15 +70,6 @@ function namespaceFilter(namespace: string) {
     return [{ field: 'namespace', operation: 'EQUALS', value: namespace as any }] as any;
 }
 
-async function statusOf(promise: Promise<unknown>) {
-    try {
-        await promise;
-        return 0;
-    } catch (err: unknown) {
-        return (err as any)?.status ?? (err as any)?.code ?? (err as any)?.response?.status;
-    }
-}
-
 // ---------- case templates (CasesAdmin) ----------
 
 describe('CasesAdminApi', () => {
@@ -120,7 +111,7 @@ describe('CasesAdminApi', () => {
 
         // The wrapper is named `deleteCases` but deletes a *template*; confirm the
         // template is gone rather than trusting the name.
-        expect(await statusOf(CasesAdmin.get({ id: created.id ?? '' }))).toBe(404);
+        await expectStatus(CasesAdmin.get({ id: created.id ?? '' }), 404);
     });
 
     it('search (case templates): returns a paged result', async () => {
@@ -165,7 +156,7 @@ describe('CasesApi', () => {
 
         await Cases.deleteCase({ id: created.id ?? '' });
 
-        expect(await statusOf(Cases.case_({ id: created.id ?? '' }))).toBe(404);
+        await expectStatus(Cases.case_({ id: created.id ?? '' }), 404);
     });
 
     it('search (cases): returns a paged result', async () => {
@@ -214,7 +205,7 @@ describe('CasesApi', () => {
 
         await Cases.deleteCasesByIds({ body: [first.id ?? '', second.id ?? ''] });
 
-        expect(await statusOf(Cases.case_({ id: first.id ?? '' }))).toBe(404);
+        await expectStatus(Cases.case_({ id: first.id ?? '' }), 404);
     });
 
     it('deleteCasesByQuery: deletes the cases matching a filter', async () => {
@@ -223,7 +214,7 @@ describe('CasesApi', () => {
 
         await Cases.deleteCasesByQuery({ filters: namespaceFilter(namespace) });
 
-        expect(await statusOf(Cases.case_({ id: created.id ?? '' }))).toBe(404);
+        await expectStatus(Cases.case_({ id: created.id ?? '' }), 404);
     });
 
     it('changeStatus: moves a case to another status', async () => {
@@ -286,10 +277,10 @@ describe('CasesApi', () => {
         // Uploading an attachment needs a multipart publisher the generated client
         // does not expose conveniently, so exercise the endpoint through its
         // not-found path: a real attachment id would be read the same way.
-        expect(await statusOf(Cases.downloadAttachment({
+        await expectStatus(Cases.downloadAttachment({
             id: created.id ?? '',
             attachmentId: randomId(),
-        }))).toBe(404);
+        }), 404);
     });
 
     // ---------- actions ----------

@@ -545,3 +545,120 @@ describe('FlowsApi — long tail', () => {
         expect(after.length).toBe(2);
     }, 120000);
 });
+
+// ---------- hashes + source-search-replace (#332) ----------
+
+/** A single-Log-task flow YAML carrying a distinctive token in its message. */
+function tokenFlowYaml(id: string, namespace: string, token: string) {
+    return `id: ${id}
+namespace: ${namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: ${token}
+`;
+}
+
+describe('FlowsApi — hashes & source search/replace', () => {
+    // Batch-compute source hashes for flows by id (drift detection)
+    it('flow_hashes_by_ids', async () => {
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        await Flows.createFlow({ body: flowBody });
+
+        const resp = await Flows.flowHashesByIds({
+            body: [{ namespace: flowNamespace, id: flowId }],
+        });
+
+        const hashes = resp.hashes ?? [];
+        expect(hashes.length).toBe(1);
+        const entry = hashes[0];
+        expect(entry.namespace).toBe(flowNamespace);
+        expect(entry.id).toBe(flowId);
+        expect(typeof entry.hash).toBe('string');
+        expect((entry.hash ?? '').length).toBeGreaterThan(0);
+        expect(entry.revision).toBe(1);
+    });
+
+    // Apply a source-search replace-all over a targeted flow
+    it('apply_replace_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        const resp = await Flows.applyReplaceBySourceCode({
+            query: token,
+            replacement,
+            scope: 'ALL',
+            flows: [{ namespace, id }],
+        });
+
+        const updated = resp.updated ?? [];
+        expect(updated.length).toBe(1);
+        expect(updated[0].id).toBe(id);
+        expect(updated[0].namespace).toBe(namespace);
+        expect(updated[0].source ?? '').toContain(replacement);
+        expect(updated[0].source ?? '').not.toContain(token);
+    });
+
+    // Preview a source-search replace-all (no persistence) over a namespace
+    it('preview_replace_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        const resp = await Flows.previewReplaceBySourceCode({
+            query: token,
+            replacement,
+            namespace,
+            scope: 'ALL',
+        });
+
+        expect(resp.totalMatches).toBeGreaterThanOrEqual(1);
+        const flowMatch = (resp.flows ?? []).find((f) => f.id === id);
+        expect(flowMatch).toBeDefined();
+        const matches = flowMatch?.matches ?? [];
+        expect(matches.length).toBeGreaterThanOrEqual(1);
+        expect(matches[0].after ?? '').toContain(replacement);
+    });
+
+    // Apply a source-search replace on a single matched line
+    it('replace_line_by_source_code', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const token = `TOKEN${randomId()}`;
+        const replacement = `NEW${randomId()}`;
+        await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
+
+        // Locate the matching line via a preview first. The /replace/line endpoint
+        // matches the WHOLE line, so the request's `query`/`replacement` must be the
+        // full original/replacement line text the preview reports (`before`/`after`),
+        // not just the token — passing the bare token yields NO_MATCH.
+        const preview = await Flows.previewReplaceBySourceCode({
+            query: token,
+            replacement,
+            namespace,
+            scope: 'ALL',
+        });
+        const match = (preview.flows ?? []).find((f) => f.id === id)?.matches?.[0];
+        expect(match).toBeDefined();
+        expect(typeof match!.line).toBe('number');
+
+        const resp = await Flows.replaceLineBySourceCode({
+            query: match!.before ?? '',
+            replacement: match!.after ?? '',
+            namespace,
+            id,
+            line: match!.line,
+        });
+
+        const updated = resp.updated ?? [];
+        expect(updated.length).toBe(1);
+        expect(updated[0].id).toBe(id);
+        expect(updated[0].source ?? '').toContain(replacement);
+    });
+});

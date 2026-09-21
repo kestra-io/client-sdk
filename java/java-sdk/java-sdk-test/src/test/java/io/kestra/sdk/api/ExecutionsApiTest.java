@@ -73,6 +73,38 @@ public class ExecutionsApiTest {
                 """.formatted(id, ns);
     }
 
+    static String inputsFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                inputs:
+                  - id: greeting
+                    type: STRING
+                    required: true
+                  - id: enabled
+                    type: BOOL
+                    defaults: false
+                  - id: payload
+                    type: JSON
+                    defaults: "{}"
+                  - id: attachment
+                    type: FILE
+                    required: false
+                tasks:
+                  - id: log
+                    type: io.kestra.plugin.core.log.Log
+                    message: "{{ inputs.greeting }}"
+                """.formatted(id, ns);
+    }
+
+    private ApiExecution createWithInputsAndRead(String ns, String flowId, Map<String, Object> inputs) throws ApiException {
+        ExecutionControllerExecutionResponse resp =
+                api().createExecution(TENANT, ns, flowId, null, true, null, null, null, null, inputs);
+        assertThat(resp).isNotNull();
+        assertThat(resp.getId()).isNotBlank();
+        return api().execution(resp.getId(), TENANT);
+    }
+
     static String webhookFlowYaml(String id, String ns, String key) {
         return """
                 id: %s
@@ -102,6 +134,99 @@ public class ExecutionsApiTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isNotBlank();
+    }
+
+    @Test
+    void createExecution_withNullInputs_stillWorks() throws ApiException {
+        // The 10-arg overload with null inputs must behave like the legacy 9-arg call
+        // and still send a valid (empty) multipart body.
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse result =
+                api().createExecution(TENANT, ns, flowId, null, null, null, null, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotBlank();
+    }
+
+    @Test
+    void createExecution_withStringInput() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        ApiExecution exec = createWithInputsAndRead(ns, flowId, Map.of("greeting", "hello"));
+
+        assertThat(exec.getInputs()).isNotNull();
+        assertThat(exec.getInputs().get("greeting")).isEqualTo("hello");
+    }
+
+    @Test
+    void createExecution_withTypedInputs() throws ApiException {
+        // Regression guard: BOOL and JSON/ARRAY inputs must be JSON-encoded, not sent via
+        // Object#toString. This test fails if createExecution serializes values with
+        // String.valueOf (e.g. a List would arrive as "[1, 2]" instead of "[1,2]").
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        ApiExecution exec = createWithInputsAndRead(ns, flowId, Map.of(
+                "greeting", "hi",
+                "enabled", true,
+                "payload", Map.of("count", 2, "items", List.of("a", "b"))
+        ));
+
+        assertThat(exec.getInputs()).isNotNull();
+        assertThat(exec.getInputs().get("enabled")).isEqualTo(true);
+        // JSON input is resolved back into a structured object by the server.
+        assertThat(exec.getInputs().get("payload")).isInstanceOf(Map.class);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> payload = (Map<String, Object>) exec.getInputs().get("payload");
+        assertThat(payload.get("count")).isEqualTo(2);
+        assertThat(payload.get("items")).isEqualTo(List.of("a", "b"));
+    }
+
+    @Test
+    void createExecution_withFileInput() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        byte[] content = "file-input-content".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        Map<String, Object> inputs = new java.util.HashMap<>();
+        inputs.put("greeting", "with-file");
+        inputs.put("attachment", content);
+
+        ApiExecution exec = createWithInputsAndRead(ns, flowId, inputs);
+
+        assertThat(exec.getInputs()).isNotNull();
+        assertThat(exec.getInputs().get("greeting")).isEqualTo("with-file");
+        // A FILE input is resolved to an internal storage URI, not the raw bytes.
+        assertThat(exec.getInputs().get("attachment")).asString().startsWith("kestra:///");
+    }
+
+    @Test
+    void createExecution_withFileInput_fromFile() throws ApiException, java.io.IOException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        java.io.File tmp = java.io.File.createTempFile("attachment", ".txt");
+        tmp.deleteOnExit();
+        java.nio.file.Files.writeString(tmp.toPath(), "file-input-content");
+
+        Map<String, Object> inputs = new java.util.HashMap<>();
+        inputs.put("greeting", "with-file");
+        inputs.put("attachment", tmp);
+
+        ApiExecution exec = createWithInputsAndRead(ns, flowId, inputs);
+
+        assertThat(exec.getInputs()).isNotNull();
+        assertThat(exec.getInputs().get("greeting")).isEqualTo("with-file");
+        // A FILE input is resolved to an internal storage URI, not the raw path.
+        assertThat(exec.getInputs().get("attachment")).asString().startsWith("kestra:///");
     }
 
     @Test
@@ -350,7 +475,7 @@ public class ExecutionsApiTest {
 
         BulkResponse result = api().deleteExecutionsByIds(TENANT, List.of(executionId), null, null, null, null);
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCount()).isEqualTo(1);
     }
 
     // ========================================================================
@@ -424,7 +549,12 @@ public class ExecutionsApiTest {
         Label label = new Label().key("env").value("test");
         Execution result = api().setLabelsOnTerminatedExecution(executionId, TENANT, List.of(label));
 
-        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(executionId);
+        assertThat(result.getLabels())
+                .anySatisfy(l -> {
+                    assertThat(l.getKey()).isEqualTo("env");
+                    assertThat(l.getValue()).isEqualTo("test");
+                });
     }
 
     @Test
@@ -704,6 +834,31 @@ public class ExecutionsApiTest {
     }
 
     @Test
+    void replayExecutionWithInputs_overridesInput() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        // Original execution runs with greeting=hello.
+        ExecutionControllerExecutionResponse original =
+                api().createExecution(TENANT, ns, flowId, null, true, null, null, null, null, Map.of("greeting", "hello"));
+        assertThat(api().execution(original.getId(), TENANT).getInputs().get("greeting")).isEqualTo("hello");
+
+        // Replay overriding the input; the new execution must carry the overridden value.
+        Execution replayed = api().replayExecutionWithInputs(
+                original.getId(), TENANT, null, null, null, Map.of("greeting", "world"));
+        assertThat(replayed).isNotNull();
+        assertThat(replayed.getId()).isNotEqualTo(original.getId());
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(replayed.getId(), TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.SUCCESS || state == StateType.FAILED || state == StateType.WARNING;
+        });
+        assertThat(api().execution(replayed.getId(), TENANT).getInputs().get("greeting")).isEqualTo("world");
+    }
+
+    @Test
     void replayExecutionsByIds_basic() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -847,5 +1002,176 @@ public class ExecutionsApiTest {
                 .blockLast(Duration.ofSeconds(20));
 
         assertThat(events).isNotEmpty();
+    }
+
+    // ========================================================================
+    // Distinct values & namespaces
+    // ========================================================================
+
+    @Test
+    void findDistinctFieldValues_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            List<Object> result = api().findDistinctFieldValues(TENANT, QueryFilterField.NAMESPACE,
+                    List.of(nsFilter(ns)), null);
+            assertThat(result).contains(ns);
+        });
+    }
+
+    @Test
+    void listExecutableDistinctNamespaces_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            List<String> result = api().listExecutableDistinctNamespaces(TENANT);
+            assertThat(result).contains(ns);
+        });
+    }
+
+    @Test
+    void listFlowExecutionsByNamespace_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            List<FlowForExecution> result = api().listFlowExecutionsByNamespace(ns, TENANT);
+            assertThat(result).extracting(FlowForExecution::getId).contains(flowId);
+        });
+    }
+
+    @Test
+    void getExecutionAverageDuration_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            Map<String, Object> result = api().getExecutionAverageDuration(ns, flowId, TENANT);
+            assertThat(((Number) result.get("count")).longValue()).isGreaterThanOrEqualTo(1L);
+        });
+    }
+
+    // ========================================================================
+    // Export
+    // ========================================================================
+
+    @Test
+    void exportExecutions_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        byte[] result = api().exportExecutions(TENANT, List.of(nsFilter(ns)));
+
+        assertThat(result).isNotEmpty();
+    }
+
+    // ========================================================================
+    // Task run eval, resume-from-breakpoint & validation
+    // ========================================================================
+
+    @Test
+    void evalTaskRunExpression_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        ApiExecution exec = api().execution(executionId, TENANT);
+        String taskRunId = exec.getTaskRunList().get(0).getId();
+
+        ExecutionControllerEvalResult result = api().evalTaskRunExpression(
+                executionId, taskRunId, TENANT, "{{ taskrun.id }}");
+
+        assertThat(result.getResult()).isEqualTo(taskRunId);
+    }
+
+    @Test
+    void resumeExecutionFromBreakpoint_notPaused_throws() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        assertThatThrownBy(() -> api().resumeExecutionFromBreakpoint(executionId, TENANT, null))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void validateResumeExecutionInputs_onPausedExecutionWithRequiredInput() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(pauseWithInputsFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.PAUSED;
+        });
+
+        Map<String, Object> result = api().validateResumeExecutionInputs(executionId, TENANT, Map.of());
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> inputs = (List<Map<String, Object>>) result.get("inputs");
+        assertThat(inputs).isNotEmpty();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> input = (Map<String, Object>) inputs.get(0).get("input");
+        assertThat(input.get("id")).isEqualTo("quorum_status");
+    }
+
+    @Test
+    void validateNewExecutionInputs_onFlowWithRequiredInput() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow("""
+                id: %s
+                namespace: %s
+                inputs:
+                  - id: name
+                    type: STRING
+                    required: true
+                tasks:
+                  - id: hello
+                    type: io.kestra.plugin.core.log.Log
+                    message: Hello {{ inputs.name }}!
+                """.formatted(flowId, ns));
+
+        Map<String, Object> result = api().validateNewExecutionInputs(ns, flowId, TENANT, List.of(), null, Map.of());
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> inputs = (List<Map<String, Object>>) result.get("inputs");
+        assertThat(inputs).isNotEmpty();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> input = (Map<String, Object>) inputs.get(0).get("input");
+        assertThat(input.get("id")).isEqualTo("name");
+    }
+
+    // ========================================================================
+    // File preview
+    // ========================================================================
+
+    @Test
+    void previewFileFromExecution_nonexistentFile_throws() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        assertThatThrownBy(() -> api().previewFileFromExecution(
+                executionId, java.net.URI.create("kestra:///nonexistent/file.txt"), 10, TENANT, null))
+                .isInstanceOf(ApiException.class);
     }
 }

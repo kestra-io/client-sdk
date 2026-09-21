@@ -112,6 +112,40 @@ public class KestraClient {
 
     public MiscApi misc() { return new MiscApi(this.apiClient); }
 
+    public ReusableInputsApi reusableInputs() { return new ReusableInputsApi(this.apiClient); }
+
+    public PluginsApi plugins() { return new PluginsApi(this.apiClient); }
+
+    public InstanceApi instance() { return new InstanceApi(this.apiClient); }
+
+    public AiApi ai() { return new AiApi(this.apiClient); }
+
+    public PromotionTargetsApi promotionTargets() { return new PromotionTargetsApi(this.apiClient); }
+
+    public AuditLogsApi auditLogs() { return new AuditLogsApi(this.apiClient); }
+
+    public MeApi me() { return new MeApi(this.apiClient); }
+
+    public SecurityIntegrationsApi securityIntegrations() { return new SecurityIntegrationsApi(this.apiClient); }
+
+    public CredentialsApi credentials() { return new CredentialsApi(this.apiClient); }
+
+    public PoliciesApi policies() { return new PoliciesApi(this.apiClient); }
+
+    public McpServersApi mcpServers() { return new McpServersApi(this.apiClient); }
+
+    public NotificationsApi notifications() { return new NotificationsApi(this.apiClient); }
+
+    public MetricsApi metrics() { return new MetricsApi(this.apiClient); }
+
+    public CaseTemplatesApi caseTemplates() { return new CaseTemplatesApi(this.apiClient); }
+
+    public BannersApi banners() { return new BannersApi(this.apiClient); }
+
+    public KillSwitchesApi killSwitches() { return new KillSwitchesApi(this.apiClient); }
+
+    public ScimApi scim() { return new ScimApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

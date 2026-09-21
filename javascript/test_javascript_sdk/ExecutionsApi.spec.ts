@@ -1563,4 +1563,22 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(keyInput?.value).toBe("empty");
         expect(keyInput?.isDefault).toBe(true);
     });
+
+    it("execution_average_duration", async () => {
+        const ns = randomId();
+        const id = randomId();
+        // `wait: true` → the execution is terminated, so it counts toward the
+        // average the endpoint computes over recent executions of the flow.
+        await createFlowWithExecution(id, ns);
+
+        const result = await Executions.executionAverageDuration({
+            namespace: ns,
+            flowId: id,
+        });
+        // Exactly one terminated execution of this brand-new flow exists, so the
+        // average is computed over that single run.
+        expect(result.count).toBeGreaterThanOrEqual(1);
+        expect(typeof result.avgDurationMs).toBe("number");
+        expect(result.avgDurationMs).toBeGreaterThanOrEqual(0);
+    });
 });

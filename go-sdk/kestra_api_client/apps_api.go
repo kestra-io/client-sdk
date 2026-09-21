@@ -2,6 +2,7 @@ package kestra_api_client
 
 import (
 	"context"
+	"net/http"
 	"os"
 )
 
@@ -93,5 +94,46 @@ func (a *AppsAPI) LogsFromAppExecution(ctx context.Context, uid, tenant string, 
 // StreamAppEventsFromApp follows an app's event stream. The channel is closed when
 // the stream ends or ctx is cancelled.
 func (a *AppsAPI) StreamAppEvents(ctx context.Context, id, stream, tenant string) (<-chan *EventAppResponse, error) {
-	return followSSE[EventAppResponse](&a.baseAPI, ctx, tenantPath(tenant, "apps", "view", id, "streams", stream), nil)
+	return followSSE[EventAppResponse](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "view", id, "streams", stream), nil)
+}
+
+// AppStates lists the possible app execution-layout state names. Backs GET
+// /api/v1/{tenant}/apps/states.
+func (a *AppsAPI) AppStates(ctx context.Context, tenant string) ([]string, error) {
+	return doJSON[[]string](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "states"), nil, nil)
+}
+
+// OpenAppView renders a published app's current layout. Backs GET
+// /api/v1/{tenant}/apps/view/{uid}.
+func (a *AppsAPI) OpenAppView(ctx context.Context, uid, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "view", uid), nil, nil)
+}
+
+// DownloadFileFromAppExecution downloads a file produced by an app execution.
+// Backs GET /api/v1/{tenant}/apps/view/{id}/file/download.
+func (a *AppsAPI) DownloadFileFromAppExecution(ctx context.Context, id, tenant, path string) (*os.File, error) {
+	params := buildQueryParams("path", path)
+	return a.doDownload(ctx, "GET", tenantPath(tenant, "apps", "view", id, "file", "download"), nil, params)
+}
+
+// PreviewApp renders an app layout from its YAML source without persisting it.
+// `state` is an optional execution-layout state. Backs POST /api/v1/{tenant}/apps/preview.
+func (a *AppsAPI) PreviewApp(ctx context.Context, tenant, yamlSource string, state *string) (map[string]interface{}, error) {
+	params := buildQueryParams("state", state)
+	return doJSONWithYAMLBody[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "apps", "preview"), yamlSource, params)
+}
+
+// PreviewDispatchApp dispatches an app preview with multipart input data. The
+// YAML source goes in the `__kestra_app_source__` form field; every app input is
+// an additional form field. Returns the raw response for the caller to read.
+// Backs POST /api/v1/{tenant}/apps/preview/dispatch/{dispatch}.
+func (a *AppsAPI) PreviewDispatchApp(ctx context.Context, dispatch, tenant string, formParams map[string]interface{}) (*http.Response, error) {
+	return a.doMultipartJSON(ctx, "POST", tenantPath(tenant, "apps", "preview", "dispatch", dispatch), nil, formParams)
+}
+
+// DispatchApp dispatches a published app with multipart input data. Returns the
+// raw response for the caller to read. Backs POST
+// /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}.
+func (a *AppsAPI) DispatchApp(ctx context.Context, id, dispatch, tenant string, formParams map[string]interface{}) (*http.Response, error) {
+	return a.doMultipartJSON(ctx, "POST", tenantPath(tenant, "apps", "view", id, "dispatch", dispatch), nil, formParams)
 }

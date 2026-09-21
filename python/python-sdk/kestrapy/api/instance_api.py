@@ -1,0 +1,183 @@
+from typing import Any, List, Optional
+
+from kestrapy.base_api import BaseApi
+from kestrapy.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
+from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
+from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_resolution_result import InstanceControllerApiPluginArtifactListPluginResolutionResult
+from kestrapy.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
+from kestrapy.models.instance_controller_api_plugin_version_details import InstanceControllerApiPluginVersionDetails
+from kestrapy.models.instance_controller_api_plugin_versions import InstanceControllerApiPluginVersions
+from kestrapy.models.instance_controller_api_service_instance import InstanceControllerApiServiceInstance
+from kestrapy.models.maintenance_status_response import MaintenanceStatusResponse
+from kestrapy.models.metric import Metric
+from kestrapy.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact
+from kestrapy.models.paged_results_instance_controller_api_service_instance import PagedResultsInstanceControllerApiServiceInstance
+from kestrapy.models.plugin_artifact import PluginArtifact
+from kestrapy.models.query_filter import QueryFilter
+from kestrapy.models.service_type import ServiceType
+from kestrapy.models.worker_credential_controller_api_worker_credential import WorkerCredentialControllerApiWorkerCredential
+from kestrapy.models.worker_credential_controller_api_worker_list import WorkerCredentialControllerApiWorkerList
+
+
+class InstanceApi(BaseApi):
+    """Instance-wide administration (`/api/v1/instance`). Instance-owner-only.
+
+    Covers running services, maintenance mode, versioned-plugin management,
+    worker credentials and the cross-tenant MCP-server listing.
+    """
+
+
+    # ---- Services ----
+
+    def search_services(
+        self,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        filters: Optional[List[QueryFilter]] = None,
+    ) -> PagedResultsInstanceControllerApiServiceInstance:
+        path = self._superadmin_path("instance", "services", "search")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
+        return self._json_request("GET", path, PagedResultsInstanceControllerApiServiceInstance, params=params)
+
+    def active_services(self) -> InstanceControllerApiActiveServiceList:
+        path = self._superadmin_path("instance", "services", "active")
+        return self._json_request("GET", path, InstanceControllerApiActiveServiceList)
+
+    def service(self, id: str) -> InstanceControllerApiServiceInstance:
+        path = self._superadmin_path("instance", "services", id)
+        return self._json_request("GET", path, InstanceControllerApiServiceInstance)
+
+    def instance_service_metrics(self, service_type: ServiceType) -> List[Metric]:
+        """Metrics for the running services of a given ``service_type`` across the
+        instance. GET /api/v1/instance/metrics/{serviceType}. Instance-owner-only.
+
+        The backend templates ``serviceType`` into the path and also reads it from
+        the query string, so it is sent in both places (matching Java)."""
+        value = service_type.value if isinstance(service_type, ServiceType) else service_type
+        path = self._superadmin_path("instance", "metrics", value)
+        params = self._build_query_params(serviceType=value)
+        return self._json_list_request("GET", path, Metric, params=params)
+
+    # ---- Maintenance ----
+
+    def enter_maintenance(self) -> Any:
+        path = self._superadmin_path("instance", "maintenance", "enter")
+        return self._raw_json_request("POST", path)
+
+    def exit_maintenance(self) -> Any:
+        path = self._superadmin_path("instance", "maintenance", "exit")
+        return self._raw_json_request("POST", path)
+
+    def maintenance_status(self) -> MaintenanceStatusResponse:
+        path = self._superadmin_path("instance", "maintenance", "status")
+        return self._json_request("GET", path, MaintenanceStatusResponse)
+
+    # ---- Versioned plugins ----
+
+    def list_available_versioned_plugins(self) -> Any:
+        path = self._superadmin_path("instance", "versioned-plugins", "available")
+        return self._raw_json_request("GET", path)
+
+    def list_available_versioned_plugins_for_storage(self) -> Any:
+        path = self._superadmin_path("instance", "versioned-plugins", "available", "storages")
+        return self._raw_json_request("GET", path)
+
+    def list_available_versioned_plugins_for_secret_manager(self) -> Any:
+        path = self._superadmin_path("instance", "versioned-plugins", "available", "secrets-managers")
+        return self._raw_json_request("GET", path)
+
+    def list_versioned_plugins(
+        self,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        filters: Optional[List[QueryFilter]] = None,
+    ) -> PagedResultsInstanceControllerApiPluginArtifact:
+        path = self._superadmin_path("instance", "versioned-plugins")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
+        return self._json_request("GET", path, PagedResultsInstanceControllerApiPluginArtifact, params=params)
+
+    def versioned_plugin_details(self, group_id: str, artifact_id: str) -> InstanceControllerApiPluginVersions:
+        path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id)
+        return self._json_request("GET", path, InstanceControllerApiPluginVersions)
+
+    def versioned_plugin_icon(self, group_id: str, artifact_id: str, v: Optional[str] = None) -> bytes:
+        path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, "icon.svg")
+        params = self._build_query_params(v=v)
+        return self._download_request("GET", path, params=params, accept="image/svg+xml")
+
+    def versioned_plugin_details_for_version(self, group_id: str, artifact_id: str, version: str) -> InstanceControllerApiPluginVersionDetails:
+        path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, version)
+        return self._json_request("GET", path, InstanceControllerApiPluginVersionDetails)
+
+    def versioned_plugin_release_notes(self, group_id: str, artifact_id: str, version: str) -> str:
+        path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, "release-notes")
+        params = self._build_query_params(version=version)
+        return self._text_request("GET", path, params=params)
+
+    def resolve_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginResolutionResult:
+        path = self._superadmin_path("instance", "versioned-plugins", "resolve")
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginResolutionResult, body=body)
+
+    def install_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
+        path = self._superadmin_path("instance", "versioned-plugins", "install")
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=body)
+
+    def upload_versioned_plugin(
+        self,
+        file_content: Any,
+        file_name: str = "plugin.jar",
+        force_install_on_existing_versions: Optional[bool] = None,
+    ) -> Optional[PluginArtifact]:
+        path = self._superadmin_path("instance", "versioned-plugins", "upload")
+        # `forceInstallOnExistingVersions` binds from the multipart form field,
+        # NOT the query string — verified live against kestra-ee v1.3.39: a
+        # query-string flag is silently dropped and the force never takes effect,
+        # so an install meant to overwrite an existing version quietly no-ops.
+        form_fields = self._build_query_params(
+            forceInstallOnExistingVersions=force_install_on_existing_versions
+        )
+        return self._multipart_upload(
+            "POST", path, PluginArtifact,
+            field_name="file", file_content=file_content, file_name=file_name,
+            form_fields=form_fields or None,
+        )
+
+    def uninstall_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
+        path = self._superadmin_path("instance", "versioned-plugins", "uninstall")
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("DELETE", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=body)
+
+    # ---- MCP servers (cross-tenant) ----
+
+    def list_all_mcp_servers(
+        self,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+    ) -> Any:
+        path = self._superadmin_path("instance", "mcp-servers")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        return self._raw_json_request("GET", path, params=params)
+
+    # ---- Worker credentials ----
+
+    def list_worker_credentials(self) -> WorkerCredentialControllerApiWorkerList:
+        path = self._superadmin_path("instance", "workers", "credentials")
+        return self._json_request("GET", path, WorkerCredentialControllerApiWorkerList)
+
+    def worker_credential(self, id: str) -> WorkerCredentialControllerApiWorkerCredential:
+        path = self._superadmin_path("instance", "workers", "credentials", id)
+        return self._json_request("GET", path, WorkerCredentialControllerApiWorkerCredential)
+
+    def revoke_worker_credential(self, id: str) -> WorkerCredentialControllerApiWorkerCredential:
+        path = self._superadmin_path("instance", "workers", "credentials", id, "revoke")
+        return self._json_request("POST", path, WorkerCredentialControllerApiWorkerCredential)

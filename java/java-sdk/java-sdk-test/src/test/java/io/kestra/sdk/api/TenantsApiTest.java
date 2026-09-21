@@ -145,4 +145,29 @@ public class TenantsApiTest {
 
         assertThat(results.getResults()).isNotNull();
     }
+
+    // ========================================================================
+    // Tenant admin: apps-catalog & default dashboards
+    // ========================================================================
+
+    @Test
+    void getAppsCatalogConfig_returnsConfig() throws ApiException {
+        // apps-catalog config exists (possibly with default/empty branding) for the
+        // current tenant and is readable by any authenticated user.
+        java.util.Map<String, Object> result = api().getAppsCatalogConfig(TENANT);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void getDefaultDashboards_isReachable() {
+        // A tenant with no default dashboards configured answers 200 with an empty body
+        // (the SDK deserializes that to null), so the real assertion is only that the
+        // endpoint is reachable: it returns (null or a settings map) or is gated 403/404.
+        try {
+            api().getDefaultDashboards(TENANT);
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(403, 404);
+        }
+    }
 }

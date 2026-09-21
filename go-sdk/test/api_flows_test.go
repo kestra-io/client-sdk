@@ -566,4 +566,126 @@ tasks:
 		t.Skip("Expressions endpoint requires specific flow YAML context")
 	})
 
+	t.Run("exportFlowsByQueryCsvTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		filters := []kestra_api_client.SearchFilter{
+			{
+				Field:     kestra_api_client.FilterNamespace,
+				Operation: kestra_api_client.OpEquals,
+				Value:     namespace,
+			},
+		}
+		csv, err := KestraTestClient().Flows().ExportFlowsByQueryCsv(ctx, MAIN_TENANT, filters)
+		if err != nil {
+			// Flow CSV export is gated behind an export permission that the EE image
+			// does not grant to the bootstrap super-admin (403), mirroring the known
+			// export-permission gap. The wrapper is still exercised for coverage.
+			var apiErr *kestra_api_client.ApiError
+			if errors.As(err, &apiErr) && apiErr.StatusCode == 403 {
+				t.Skipf("flows CSV export is permission-gated on this image: %v", err)
+			}
+			require.NoError(t, err)
+		}
+		require.Contains(t, csv, flowId, "CSV export should contain the created flow id")
+	})
+
+	t.Run("flowHashesByIdsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		ids := []kestra_api_client.IdWithNamespace{
+			{
+				Id:        ptr(flowId),
+				Namespace: ptr(namespace),
+			},
+		}
+		res, err := KestraTestClient().Flows().FlowHashesByIds(ctx, MAIN_TENANT, ids)
+		require.NoError(t, err)
+		require.NotNil(t, res)
+		// Response carries a "hashes" collection keyed/entries for the requested flow.
+		require.Contains(t, res, "hashes")
+		require.NotNil(t, res["hashes"])
+	})
+
+	t.Run("previewReplaceBySourceCodeTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		body := map[string]interface{}{
+			"query":         flowId,
+			"caseSensitive": true,
+			"wholeWord":     false,
+			"regex":         false,
+			"namespace":     namespace,
+			"replacement":   flowId,
+		}
+		res, err := KestraTestClient().Flows().PreviewReplaceBySourceCode(ctx, MAIN_TENANT, body)
+		require.NoError(t, err)
+		require.NotNil(t, res)
+		// The preview reports the matched flows and a running match tally.
+		require.Contains(t, res, "flows")
+		flows, ok := res["flows"].([]interface{})
+		require.True(t, ok, "preview response should carry a flows array: %+v", res)
+		require.NotEmpty(t, flows, "the created flow must appear in the preview")
+		require.Equal(t, float64(1), res["totalMatches"], "exactly one occurrence of the flow id should match")
+	})
+
+	t.Run("applyReplaceBySourceCodeTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		// Replace the log message text; scope the apply to the single created flow.
+		body := map[string]interface{}{
+			"query":         "Hello World!",
+			"caseSensitive": false,
+			"wholeWord":     false,
+			"regex":         false,
+			"replacement":   "Hello Kestra!",
+			"flows": []map[string]interface{}{
+				{"id": flowId, "namespace": namespace},
+			},
+		}
+		res, err := KestraTestClient().Flows().ApplyReplaceBySourceCode(ctx, MAIN_TENANT, body)
+		require.NoError(t, err)
+		require.NotNil(t, res)
+	})
+
+	t.Run("replaceLineBySourceCodeTest", func(t *testing.T) {
+		t.Skip("needs an exact matched line/column from a prior source-search preview")
+	})
+
+	t.Run("previewPoliciesTest", func(t *testing.T) {
+		t.Skip("needs FEATURE_POLICIES license and a configured governance policy")
+	})
+
+	t.Run("promoteTest", func(t *testing.T) {
+		t.Skip("needs configured promotion target")
+	})
+
+	t.Run("promoteByIdsTest", func(t *testing.T) {
+		t.Skip("needs configured promotion target")
+	})
+
+	t.Run("reportPromoteTest", func(t *testing.T) {
+		t.Skip("needs configured promotion target")
+	})
+
+	t.Run("listPromotionsTest", func(t *testing.T) {
+		t.Skip("needs configured promotion target")
+	})
+
+	t.Run("promoteDiffTest", func(t *testing.T) {
+		t.Skip("needs configured promotion target")
+	})
+
 }

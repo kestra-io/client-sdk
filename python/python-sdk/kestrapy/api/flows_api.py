@@ -11,6 +11,8 @@ from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.models.id_with_namespace import IdWithNamespace
 from kestrapy.models.paged_results_concurrency_limit import PagedResultsConcurrencyLimit
 from kestrapy.models.paged_results_flow import PagedResultsFlow
+from kestrapy.models.policy_preview_request import PolicyPreviewRequest
+from kestrapy.models.policy_preview_response import PolicyPreviewResponse
 from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.source_search_scope import SourceSearchScope
@@ -353,3 +355,116 @@ class FlowsApi(BaseApi):
         path = self._tenant_path(tenant, "flows", "expressions")
         params = self._build_query_params(taskId=task_id)
         return self._raw_json_request("POST", path, params=params, body=body, content_type=self.YAML)
+
+    # ========================================================================
+    # Governance policies (EE)
+    # ========================================================================
+
+    def preview_policies(
+        self, tenant: str, body: PolicyPreviewRequest
+    ) -> PolicyPreviewResponse:
+        """Preview the governance policy effects (mutations + violations) on a
+        flow source. Backs POST /api/v1/{tenant}/flows/policies/preview.
+        Requires the FEATURE_POLICIES licence feature."""
+        path = self._tenant_path(tenant, "flows", "policies", "preview")
+        return self._json_request("POST", path, PolicyPreviewResponse, body=body)
+
+    # ========================================================================
+    # CSV export (#421)
+    # ========================================================================
+
+    def export_flows_by_query_csv(
+        self, tenant: str, filters: Optional[List[QueryFilter]] = None,
+    ) -> str:
+        """Export all flows matching the given filters as a CSV document.
+        Backs GET /api/v1/{tenant}/flows/export/by-query/csv."""
+        path = self._tenant_path(tenant, "flows", "export", "by-query", "csv")
+        params: list = []
+        self._append_filter_params(params, filters)
+        return self._text_request("GET", path, params=params, accept=self.CSV)
+
+    # ========================================================================
+    # Source-search replace (#421)
+    # ========================================================================
+
+    def preview_replace_by_source_code(self, tenant: str, body: Dict[str, Any]) -> Dict[str, Any]:
+        """Compute matched lines and their proposed replacement for every
+        matching flow without persisting anything. Backs
+        POST /api/v1/{tenant}/flows/source/replace/preview."""
+        path = self._tenant_path(tenant, "flows", "source", "replace", "preview")
+        return self._raw_json_request("POST", path, body=body)
+
+    def apply_replace_by_source_code(self, tenant: str, body: Dict[str, Any]) -> Dict[str, Any]:
+        """Replace every match in the given flows and persist the new revisions.
+        Backs POST /api/v1/{tenant}/flows/source/replace/apply."""
+        path = self._tenant_path(tenant, "flows", "source", "replace", "apply")
+        return self._raw_json_request("POST", path, body=body)
+
+    def replace_line_by_source_code(self, tenant: str, body: Dict[str, Any]) -> Dict[str, Any]:
+        """Replace the matches on one line of one flow and persist the new
+        revision. Backs POST /api/v1/{tenant}/flows/source/replace/line."""
+        path = self._tenant_path(tenant, "flows", "source", "replace", "line")
+        return self._raw_json_request("POST", path, body=body)
+
+    # ========================================================================
+    # Drift detection (EE) (#421)
+    # ========================================================================
+
+    def flow_hashes_by_ids(
+        self, tenant: str, ids: List[IdWithNamespace],
+    ) -> Dict[str, Any]:
+        """Batch-compute source hashes for flows by id (drift detection).
+        Backs POST /api/v1/{tenant}/flows/hashes/by-ids."""
+        path = self._tenant_path(tenant, "flows", "hashes", "by-ids")
+        body = [i.model_dump(by_alias=True, exclude_none=True) if hasattr(i, 'model_dump') else i for i in ids]
+        return self._raw_json_request("POST", path, body=body)
+
+    # ========================================================================
+    # Promotions (EE) (#421)
+    # ========================================================================
+
+    def promote(
+        self, namespace: str, id: str, tenant: str, body: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """Promote a flow to one or more SERVER-mode targets. Backs
+        POST /api/v1/{tenant}/flows/{namespace}/{id}/promote."""
+        path = self._tenant_path(tenant, "flows", namespace, id, "promote")
+        return self._raw_json_request("POST", path, body=body)
+
+    def promote_by_ids(self, tenant: str, body: Dict[str, Any]) -> Dict[str, Any]:
+        """Promote flows by their ids to one or more SERVER-mode targets. Backs
+        POST /api/v1/{tenant}/flows/promote/by-ids."""
+        path = self._tenant_path(tenant, "flows", "promote", "by-ids")
+        return self._raw_json_request("POST", path, body=body)
+
+    def report_promote(
+        self, namespace: str, id: str, tenant: str, body: Dict[str, Any],
+    ) -> None:
+        """Report a CLIENT-mode promote performed by the browser. Backs
+        POST /api/v1/{tenant}/flows/{namespace}/{id}/promotions."""
+        path = self._tenant_path(tenant, "flows", namespace, id, "promotions")
+        self._void_request("POST", path, body=body)
+
+    def list_promotions(
+        self,
+        namespace: str,
+        id: str,
+        tenant: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        """List a flow's promotion history. Backs
+        GET /api/v1/{tenant}/flows/{namespace}/{id}/promotions."""
+        path = self._tenant_path(tenant, "flows", namespace, id, "promotions")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        return self._raw_json_request("GET", path, params=params)
+
+    def promote_diff(
+        self, namespace: str, id: str, audit_id: str, tenant: str,
+    ) -> Dict[str, Any]:
+        """Recompute the diff of a past promote from its audit record. Backs
+        GET /api/v1/{tenant}/flows/{namespace}/{id}/promotions/{auditId}/diff."""
+        path = self._tenant_path(tenant, "flows", namespace, id, "promotions", audit_id, "diff")
+        return self._raw_json_request("GET", path)

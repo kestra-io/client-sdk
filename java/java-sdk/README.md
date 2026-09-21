@@ -16,24 +16,18 @@ Endpoints designated as Superadmin-only are not tenant-scoped.
 
 Building the API client library requires:
 
-1. Java 1.8+
-2. Maven/Gradle
+1. Java 25+
+2. Gradle
 
 ## Installation
 
-To install the API client library to your local Maven repository, simply execute:
+The SDK is built and published with Gradle. To build it and install it to your local Maven repository, execute:
 
 ```shell
-mvn clean install
+./gradlew publishToMavenLocal
 ```
 
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn clean deploy
-```
-
-Refer to the [OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html) for more information.
+Releases are published to Maven Central by CI (see `.github/workflows/java-sdk-release.yml`).
 
 ### Maven users
 
@@ -61,13 +55,12 @@ compile "io.kestra:kestra-api-client:1.0.11"
 At first generate the JAR by executing:
 
 ```shell
-mvn clean package
+./gradlew build
 ```
 
-Then manually install the following JARs:
+Then manually install the following JAR:
 
-- `target/kestra-api-client-1.0.11.jar`
-- `target/lib/*.jar`
+- `build/libs/kestra-api-client-1.0.11.jar`
 
 ## Getting Started
 
@@ -724,7 +717,7 @@ Class | Method | HTTP request | Description
  - [Relation1](docs/Relation1.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
- - [ResourceType1](docs/ResourceType1.md)
+ - [ScimResourceType](docs/ScimResourceType.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)

@@ -204,6 +204,76 @@ func TestNamespacesAPI_All(t *testing.T) {
 		require.NoError(t, err)
 	})
 
+	t.Run("listNamespaceSecretsTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_list_namespace_secrets_" + randomId()
+		ns := kestra_api_client.Namespace{Id: nsId, Deleted: false}
+		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
+		require.NoError(t, err)
+
+		key := "test_list_secret_key_" + randomId()
+		secret := kestra_api_client.ApiSecretValue{
+			Key:   key,
+			Value: "value-list",
+		}
+		_, err = KestraTestClient().Namespaces().PutSecrets(ctx, created.GetId(), MAIN_TENANT, secret)
+		require.NoError(t, err)
+
+		// Namespace-scoped convenience: filters[namespace][EQUALS]=<ns> under the hood.
+		resp, err := KestraTestClient().Namespaces().ListNamespaceSecrets(ctx, created.GetId(), MAIN_TENANT, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+
+		found := false
+		for _, m := range resp.GetResults() {
+			if m.GetKey() == key {
+				found = true
+				require.Equal(t, created.GetId(), m.GetNamespace(), "secret should be scoped to the created namespace")
+				break
+			}
+		}
+		require.True(t, found, "ListNamespaceSecrets should include the seeded secret key")
+	})
+
+	t.Run("listSecretsTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_list_secrets_" + randomId()
+		ns := kestra_api_client.Namespace{Id: nsId, Deleted: false}
+		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
+		require.NoError(t, err)
+
+		key := "test_cross_secret_key_" + randomId()
+		secret := kestra_api_client.ApiSecretValue{
+			Key:   key,
+			Value: "value-cross",
+		}
+		_, err = KestraTestClient().Namespaces().PutSecrets(ctx, created.GetId(), MAIN_TENANT, secret)
+		require.NoError(t, err)
+
+		// Cross-namespace list scoped with an explicit namespace filter (the endpoint
+		// requires at least one filter).
+		filters := []kestra_api_client.SearchFilter{{
+			Field:     kestra_api_client.FilterNamespace,
+			Operation: kestra_api_client.OpEquals,
+			Value:     created.GetId(),
+		}}
+		resp, err := KestraTestClient().Namespaces().ListSecrets(ctx, MAIN_TENANT, nil, nil, nil, filters)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+		require.GreaterOrEqual(t, resp.GetTotal(), int64(1), "at least the seeded secret should be counted")
+
+		found := false
+		for _, m := range resp.GetResults() {
+			if m.GetKey() == key {
+				found = true
+				break
+			}
+		}
+		require.True(t, found, "ListSecrets should include the seeded secret key")
+	})
+
 	t.Run("searchNamespacesTest", func(t *testing.T) {
 		ctx := context.Background()
 
@@ -239,5 +309,159 @@ func TestNamespacesAPI_All(t *testing.T) {
 		updated, err := KestraTestClient().Namespaces().UpdateNamespace(ctx, created.GetId(), MAIN_TENANT, updateBody)
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), updated.GetId())
+	})
+
+	// oauth2CredentialBody builds a valid ApiCreateOAuth2CredentialRequest body.
+	oauth2CredentialBody := func(namespace, name string) map[string]interface{} {
+		return map[string]interface{}{
+			"type":          "OAUTH2",
+			"name":          name,
+			"description":   "created by go sdk test",
+			"namespace":     namespace,
+			"tokenEndpoint": "https://login.example.com/oauth2/token",
+			"scopes":        []string{"read"},
+			"authConfig": map[string]interface{}{
+				"type":     "CLIENT_CREDENTIALS",
+				"clientId": map[string]interface{}{"type": "VALUE", "value": "the-client-id"},
+				"clientSecret": map[string]interface{}{
+					"type":      "SECRET",
+					"secretKey": "MY_CLIENT_SECRET",
+				},
+			},
+		}
+	}
+
+	t.Run("namespaceCredentialsCrudTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_ns_credentials_" + randomId()
+		_, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, kestra_api_client.Namespace{Id: nsId})
+		require.NoError(t, err)
+
+		// list (empty is fine, but the paged envelope must be present)
+		list, err := KestraTestClient().Namespaces().NamespaceCredentials(ctx, nsId, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
+		require.NoError(t, err)
+		_, hasTotal := list["total"]
+		require.True(t, hasTotal, "credentials listing should carry a paged total")
+
+		// inherited credentials
+		inherited, err := KestraTestClient().Namespaces().InheritedNamespaceCredentials(ctx, nsId, MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotNil(t, inherited)
+
+		name := "cred_" + randomId()
+		created, err := KestraTestClient().Namespaces().CreateNamespaceCredential(ctx, nsId, MAIN_TENANT, oauth2CredentialBody(nsId, name))
+		if err != nil {
+			t.Skipf("namespace credentials not available on this instance: %v", err)
+		}
+		require.Equal(t, name, created["name"])
+		require.Equal(t, nsId, created["namespace"])
+
+		got, err := KestraTestClient().Namespaces().NamespaceCredential(ctx, nsId, name, MAIN_TENANT)
+		require.NoError(t, err)
+		require.Equal(t, name, got["name"])
+
+		updateBody := oauth2CredentialBody(nsId, name)
+		updateBody["description"] = "updated by go sdk test"
+		updated, err := KestraTestClient().Namespaces().UpdateNamespaceCredential(ctx, nsId, name, MAIN_TENANT, updateBody)
+		require.NoError(t, err)
+		require.Equal(t, "updated by go sdk test", updated["description"])
+
+		// test connection (a failed connection is still a 200 ApiTestConnectionResponse)
+		testRes, err := KestraTestClient().Namespaces().TestNamespaceCredential(ctx, nsId, name, MAIN_TENANT)
+		require.NoError(t, err)
+		_, hasSuccess := testRes["success"]
+		require.True(t, hasSuccess, "test connection response should carry a success flag")
+
+		err = KestraTestClient().Namespaces().DeleteNamespaceCredential(ctx, nsId, name, MAIN_TENANT)
+		require.NoError(t, err)
+
+		_, err = KestraTestClient().Namespaces().NamespaceCredential(ctx, nsId, name, MAIN_TENANT)
+		require.Error(t, err)
+	})
+
+	t.Run("namespaceKvDetailTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_ns_kv_detail_" + randomId()
+		_, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, kestra_api_client.Namespace{Id: nsId})
+		require.NoError(t, err)
+
+		key := "detail_key_" + randomId()
+		err = KestraTestClient().Kv().SetKeyValue(ctx, nsId, key, MAIN_TENANT, `"detail-value"`)
+		require.NoError(t, err)
+
+		detail, err := KestraTestClient().Namespaces().NamespaceKvDetail(ctx, nsId, key, MAIN_TENANT)
+		require.NoError(t, err)
+		// KvDetail carries the stored value, type and revision (not the key itself).
+		require.Equal(t, "detail-value", detail["value"], "the detail response echoes the stored value")
+		require.NotNil(t, detail["type"], "the detail response reports the value type")
+	})
+
+	t.Run("namespacePoliciesCrudTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_ns_policies_" + randomId()
+		_, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, kestra_api_client.Namespace{Id: nsId})
+		require.NoError(t, err)
+
+		// search over the resolution chain always answers (empty chain is a valid paged envelope)
+		search, err := KestraTestClient().Namespaces().SearchNamespacePolicies(ctx, nsId, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
+		if err != nil {
+			t.Skipf("namespace policies not available on this instance: %v", err)
+		}
+		_, hasTotal := search["total"]
+		require.True(t, hasTotal, "policy search should carry a paged total")
+
+		policyId := "pol_" + randomId()
+		source := "id: " + policyId + "\n" +
+			"displayName: Go SDK test policy\n" +
+			"rules:\n" +
+			"  - type: io.kestra.ee.policies.models.ValidateRule\n" +
+			"    id: require-desc\n" +
+			"    conditions: []\n"
+
+		// validate the source (a validation response is returned whether or not it is valid)
+		validation, err := KestraTestClient().Namespaces().ValidateNamespacePolicy(ctx, nsId, MAIN_TENANT, source)
+		if err != nil {
+			t.Skipf("namespace policy validate rejected on this instance: %v", err)
+		}
+		require.NotNil(t, validation)
+
+		created, err := KestraTestClient().Namespaces().CreateNamespacePolicy(ctx, nsId, MAIN_TENANT, source)
+		if err != nil {
+			t.Skipf("could not create a namespace policy (schema/license dependent): %v", err)
+		}
+		require.Equal(t, policyId, created["id"])
+
+		got, err := KestraTestClient().Namespaces().NamespacePolicy(ctx, nsId, policyId, MAIN_TENANT)
+		require.NoError(t, err)
+		require.Equal(t, policyId, got["id"])
+
+		eval, err := KestraTestClient().Namespaces().EvaluateNamespacePolicy(ctx, nsId, policyId, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(25))
+		require.NoError(t, err)
+		require.NotNil(t, eval)
+
+		updated, err := KestraTestClient().Namespaces().UpdateNamespacePolicy(ctx, nsId, policyId, MAIN_TENANT, source)
+		require.NoError(t, err)
+		require.Equal(t, policyId, updated["id"])
+
+		export, err := KestraTestClient().Namespaces().ExportNamespacePolicies(ctx, nsId, MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotEmpty(t, export)
+
+		exportByIds, err := KestraTestClient().Namespaces().ExportNamespacePoliciesByIds(ctx, nsId, MAIN_TENANT, []string{policyId})
+		require.NoError(t, err)
+		require.NotEmpty(t, exportByIds)
+
+		bulk, err := KestraTestClient().Namespaces().DeleteNamespacePoliciesByIds(ctx, nsId, MAIN_TENANT, []string{policyId})
+		require.NoError(t, err)
+		require.NotNil(t, bulk)
+
+		// recreate then delete singly to cover the by-id delete route
+		_, err = KestraTestClient().Namespaces().CreateNamespacePolicy(ctx, nsId, MAIN_TENANT, source)
+		require.NoError(t, err)
+		err = KestraTestClient().Namespaces().DeleteNamespacePolicy(ctx, nsId, policyId, MAIN_TENANT)
+		require.NoError(t, err)
 	})
 }

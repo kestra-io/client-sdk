@@ -71,7 +71,7 @@ export default defineConfig({
             // (a whole untested domain) still fails CI.
             thresholds: {
                 perFile: false,
-                functions: 75,
+                functions: 85,
             },
         },
     },

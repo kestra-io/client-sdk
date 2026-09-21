@@ -1,17 +1,19 @@
 # Python SDK
 
-## Steps to generate the SDK
+## History: how the SDK was originally generated (before #237)
 
-> **This SDK is no longer generated.** It has been hand-written since #237, and
-> `./generate-sdks.sh` now refuses to run for it — generating would delete and
-> overwrite hand-written code. Edit the sources under `python/python-sdk` directly.
-> The steps below are kept for historical context only.
+> **This SDK is hand-written since #237.** `./generate-sdks.sh` refuses to run
+> for it, and the generator apparatus (templates, `.openapi-generator/`
+> metadata) has been removed from this repository. Edit the sources under
+> `python/python-sdk` directly. The steps below describe how the SDK was
+> generated before that change, kept for historical context only. (Doc
+> examples are validated by `scripts/validate_doc_examples.py`, run in CI.)
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+1. The `kestra-ee.yml` was updated as needed with the latest openapi spec changes.
+2. The SDK was generated using the (now-removed) `generate-sdks.sh` script, which used the openapi-generator-cli docker image.
 
-3.THESE CHANGES ARE DONE AT GENERATION, BUT IF THERE IS AN ERROR, DOUBLE CHECK
-  Then multiples files changes are needed to be done manually in the generated SDK:
+3. These changes were applied at generation time, but if there was an error, they were double-checked:
+  Then multiples files changes were needed to be done manually in the generated SDK:
    - In the pyproject.toml file, set the following values (you need to replace the current one):
      ```toml
      license = "Apache-2.0"
@@ -27,10 +29,10 @@
      from kestrapy.kestra_client import KestraClient as KestraClient
      ```
 
-### More informations
+### More informations (historical)
 
-- SSE methods are injected from templates
-- Openapi spec is modified during generation through a custom TS script
+- SSE methods were injected from templates (now removed)
+- Openapi spec was modified during generation through a custom TS script
 - KestraClient is manually written to gather all API clients in one client
 - Method with Multipart form need an annotation on Kestra side to generate properly the SDK method
 

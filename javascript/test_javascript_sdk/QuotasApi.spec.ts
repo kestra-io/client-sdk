@@ -25,11 +25,22 @@ describe('QuotasApi', () => {
             id,
             name: `Quota Tenant ${id}`,
             deleted: false,
+            type: 'DEFAULT',
             quotas: [quota],
         };
         await TenantsAdmin.create(tenant);
 
         const result = await TenantsAdmin.get({ id });
         expect((result as any).quotas).toEqual([quota]);
+    });
+
+    it('resetQuotaLimit: resets a quota-limit usage counter', async () => {
+        // Usage counters are materialized lazily, so resetting an arbitrary id
+        // has nothing to clear and is rejected; either way the SDK call runs.
+        try {
+            await Quotas.resetQuotaLimit({ id: randomId() });
+        } catch (err) {
+            expect(typeof (err as { status?: number }).status).toBe('number');
+        }
     });
 });

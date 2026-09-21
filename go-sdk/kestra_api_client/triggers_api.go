@@ -28,7 +28,7 @@ func (a *TriggersAPI) SearchTriggersForFlow(ctx context.Context, tenant, namespa
 func (a *TriggersAPI) ExportTriggers(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
 	params := buildQueryParams()
 	appendFilterParams(params, filters)
-	return a.doCSV(ctx, tenantPath(tenant, "triggers", "export", "by-query", "csv"), params)
+	return a.doCSV(ctx, "GET", tenantPath(tenant, "triggers", "export", "by-query", "csv"), params)
 }
 
 // ========================================================================
