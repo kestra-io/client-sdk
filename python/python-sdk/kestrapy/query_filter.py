@@ -29,10 +29,14 @@ def _to_camel_case(s: str) -> str:
 
 def _encode_value(value: Any) -> str:
     """Encode a filter value to string."""
+    if value is None:
+        # A valueless leaf serializes to an empty string, matching the UI encoder
+        # and the Go/Java serializers (rather than the literal "None").
+        return ""
     if isinstance(value, (datetime, date)):
         return value.isoformat()
     if isinstance(value, list):
-        return ",".join(str(v) for v in value)
+        return ",".join("" if v is None else str(v) for v in value)
     if isinstance(value, bool):
         return str(value).lower()
     return str(value)

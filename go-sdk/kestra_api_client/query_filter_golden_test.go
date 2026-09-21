@@ -171,8 +171,11 @@ func TestQueryFilterMinLevel(t *testing.T) {
 // TestQueryFilterNestedTooDeep verifies nesting deeper than one level errors.
 func TestQueryFilterNestedTooDeep(t *testing.T) {
 	or := LogicalOr
+	// Two children so normalization cannot flatten this inner group to a leaf;
+	// it stays a group nested inside a group unit → genuinely too deep.
 	inner := SearchFilter{Logical: &or, Children: []SearchFilter{
 		{Field: FilterScope, Operation: OpEquals, Value: "s1"},
+		{Field: FilterFlowId, Operation: OpEquals, Value: "f"},
 	}}
 	group := SearchFilter{Logical: &or, Children: []SearchFilter{
 		inner, // a group nested inside a group unit → too deep
@@ -222,4 +225,77 @@ func TestQueryFilterAddNotSet(t *testing.T) {
 	if len(pairs) != 2 {
 		t.Fatalf("expected 2 ordered pairs, got %d: %v", len(pairs), pairs)
 	}
+}
+
+// --- cross-SDK consistency edge cases (issue #246 review follow-ups) ---
+
+// TestQueryFilterRawSingleChildGroupNormalizes verifies a raw []SearchFilter
+// (built without the And/Or DSL) still flattens single-child groups, so
+// hand-built structs are wire-identical to DSL-built ones.
+func TestQueryFilterRawSingleChildGroupNormalizes(t *testing.T) {
+	or := LogicalOr
+	filters := []SearchFilter{
+		{Logical: &or, Children: []SearchFilter{
+			{Field: FilterScope, Operation: OpEquals, Value: "s1"},
+		}},
+	}
+	pairs, err := buildFilterParams(filters)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	got := fmt.Sprintf("%s=%s", pairs[0].Key, pairs[0].Value)
+	if len(pairs) != 1 || got != "filters[scope][EQUALS]=s1" {
+		t.Fatalf("single-child group not flattened: got %v", pairs)
+	}
+}
+
+// TestQueryFilterNullValue verifies a nil leaf value serializes to an empty
+// string (matching Java/Python), not "<nil>".
+func TestQueryFilterNullValue(t *testing.T) {
+	pairs, err := buildFilterParams([]SearchFilter{
+		{Field: FilterNamespace, Operation: OpEquals, Value: nil},
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	got := fmt.Sprintf("%s=%s", pairs[0].Key, pairs[0].Value)
+	if got != "filters[namespace][EQUALS]=" {
+		t.Fatalf("nil value: want filters[namespace][EQUALS]=, got %q", got)
+	}
+}
+
+// TestQueryFilterMapInterfaceValue verifies any map type (not just
+// map[string]string) expands to [key] suffixes.
+func TestQueryFilterMapInterfaceValue(t *testing.T) {
+	pairs, err := buildFilterParams([]SearchFilter{
+		{Field: FilterLabels, Operation: OpEquals, Value: map[string]interface{}{"tier": "gold"}},
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	got := fmt.Sprintf("%s=%s", pairs[0].Key, pairs[0].Value)
+	if got != "filters[labels][EQUALS][tier]=gold" {
+		t.Fatalf("map[string]interface{} not expanded: got %q", got)
+	}
+}
+
+// TestAppendFilterParamsPanicsOnStructuralError verifies the exported entry
+// point fails loudly (like Java/Python raising) rather than silently emitting an
+// unfiltered query.
+func TestAppendFilterParamsPanicsOnStructuralError(t *testing.T) {
+	or := LogicalOr
+	inner := SearchFilter{Logical: &or, Children: []SearchFilter{
+		{Field: FilterScope, Operation: OpEquals, Value: "s1"},
+		{Field: FilterFlowId, Operation: OpEquals, Value: "f"},
+	}}
+	filters := []SearchFilter{
+		{Field: FilterNamespace, Operation: OpEquals, Value: "ns"},
+		{Logical: &or, Children: []SearchFilter{inner, {Field: FilterScope, Operation: OpEquals, Value: "s2"}}},
+	}
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("expected panic on structurally invalid filter tree, got none")
+		}
+	}()
+	AppendFilterParams(map[string][]string{}, filters)
 }

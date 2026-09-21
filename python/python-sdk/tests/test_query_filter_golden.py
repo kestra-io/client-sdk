@@ -153,3 +153,18 @@ def test_ambiguous_leaf_and_group_raises():
     params: list = []
     with pytest.raises(ValueError, match="both a leaf and a group"):
         append_filter_params(params, [ambiguous])
+
+
+def test_null_value_serializes_to_empty_string():
+    # A valueless leaf -> filters[namespace][EQUALS]= (consistent with Go/Java, not "None").
+    f = QueryFilter(var_field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.EQUALS, value=None)
+    params: list = []
+    append_filter_params(params, [f])
+    assert params == [("filters[namespace][EQUALS]", "")]
+
+
+def test_null_field_leaf_raises():
+    f = QueryFilter(operation=QueryFilterOp.EQUALS, value="x")
+    params: list = []
+    with pytest.raises(ValueError, match="requires a field"):
+        append_filter_params(params, [f])

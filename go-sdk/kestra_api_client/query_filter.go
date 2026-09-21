@@ -3,6 +3,7 @@ package kestra_api_client
 import (
 	"fmt"
 	"net/url"
+	"reflect"
 	"sort"
 	"strings"
 	"time"
@@ -112,6 +113,10 @@ func (f SearchFilter) isGroup() bool {
 
 func encodeFilterValue(v interface{}) string {
 	switch val := v.(type) {
+	case nil:
+		// A valueless leaf serializes to an empty string, matching the UI encoder
+		// (`value?.toString() ?? ""`) and the Java/Python serializers.
+		return ""
 	case string:
 		return val
 	case time.Time:
@@ -146,12 +151,18 @@ func appendFilterParams(params url.Values, filters []SearchFilter) {
 // implicit AND and serialization starts at the "filters" prefix.
 //
 // Uses params.Add (not Set) so duplicate keys (e.g. two OR children on the same
-// field) survive. If the filters are malformed (nested more than one level deep,
-// or a node that is both a leaf and a group) nothing is appended.
+// field) survive.
+//
+// A structurally invalid filter tree (nested more than one level deep, a node
+// that is both a leaf and a group, or a leaf with no field) is a programmer
+// error and panics — mirroring the Java (ApiException) and Python (ValueError)
+// SDKs, which raise for the identical input. This is deliberately loud: silently
+// emitting no filters would turn a malformed *ByQuery into an unbounded
+// "match everything" request (e.g. a delete-by-query that hits every row).
 func AppendFilterParams(params url.Values, filters []SearchFilter) {
 	pairs, err := buildFilterParams(filters)
 	if err != nil {
-		return
+		panic(fmt.Sprintf("kestra: invalid query filter: %v", err))
 	}
 	for _, p := range pairs {
 		params.Add(p.Key, p.Value)
@@ -162,6 +173,11 @@ func AppendFilterParams(params url.Values, filters []SearchFilter) {
 // filter list. It returns an error for structurally invalid filters (nested
 // groups deeper than one level, or a node that is both a leaf and a group).
 func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
+	// Normalize raw input the same way the DSL constructors and the Java/Python
+	// serializers do: drop empty groups and flatten single-child groups. This
+	// keeps callers that build SearchFilter structs by hand (bypassing And/Or)
+	// wire-identical to callers that use the DSL.
+	filters = normalizeFilters(filters)
 	if len(filters) == 0 {
 		return nil, nil
 	}
@@ -214,6 +230,41 @@ func buildFilterParams(filters []SearchFilter) ([]filterParam, error) {
 	return out, nil
 }
 
+// normalizeFilter drops empty groups and flattens single-child groups. The
+// second return value is false when the node collapses to nothing (an empty
+// group) and should be dropped by the caller.
+func normalizeFilter(f SearchFilter) (SearchFilter, bool) {
+	if !f.isGroup() {
+		return f, true
+	}
+	var kids []SearchFilter
+	for _, c := range f.Children {
+		if nc, ok := normalizeFilter(c); ok {
+			kids = append(kids, nc)
+		}
+	}
+	switch len(kids) {
+	case 0:
+		return SearchFilter{}, false
+	case 1:
+		return kids[0], true
+	default:
+		f.Children = kids
+		return f, true
+	}
+}
+
+// normalizeFilters normalizes each top-level filter, dropping collapsed ones.
+func normalizeFilters(filters []SearchFilter) []SearchFilter {
+	var out []SearchFilter
+	for _, f := range filters {
+		if nf, ok := normalizeFilter(f); ok {
+			out = append(out, nf)
+		}
+	}
+	return out
+}
+
 // allLeaves reports whether every filter in the slice is a leaf (no group).
 func allLeaves(filters []SearchFilter) bool {
 	for _, f := range filters {
@@ -231,23 +282,31 @@ func emitLeaf(prefix string, f SearchFilter) ([]filterParam, error) {
 	if f.isGroup() {
 		return nil, fmt.Errorf("a filter node cannot be both a leaf and a group")
 	}
+	if f.Field == "" {
+		return nil, fmt.Errorf("a leaf filter requires a field")
+	}
 	base := fmt.Sprintf("%s[%s][%s]", prefix, f.Field, f.Operation)
 
-	switch val := f.Value.(type) {
-	case map[string]string:
-		keys := make([]string, 0, len(val))
-		for k := range val {
-			keys = append(keys, k)
+	// Any map value (map[string]string, map[string]interface{}, LABELS, ...) emits
+	// a [key] suffix per entry, keys sorted for determinism — matching Java's
+	// Map<?,?> branch and Python's dict handling.
+	if rv := reflect.ValueOf(f.Value); rv.Kind() == reflect.Map {
+		type entry struct {
+			k string
+			v interface{}
 		}
-		sort.Strings(keys)
-		out := make([]filterParam, 0, len(keys))
-		for _, k := range keys {
-			out = append(out, filterParam{Key: fmt.Sprintf("%s[%s]", base, k), Value: val[k]})
+		entries := make([]entry, 0, rv.Len())
+		for _, mk := range rv.MapKeys() {
+			entries = append(entries, entry{fmt.Sprint(mk.Interface()), rv.MapIndex(mk).Interface()})
+		}
+		sort.Slice(entries, func(i, j int) bool { return entries[i].k < entries[j].k })
+		out := make([]filterParam, 0, len(entries))
+		for _, e := range entries {
+			out = append(out, filterParam{Key: fmt.Sprintf("%s[%s]", base, e.k), Value: encodeFilterValue(e.v)})
 		}
 		return out, nil
-	default:
-		return []filterParam{{Key: base, Value: encodeFilterValue(val)}}, nil
 	}
+	return []filterParam{{Key: base, Value: encodeFilterValue(f.Value)}}, nil
 }
 
 // Kestra 2.0 replaced the per-endpoint filter query params (q, namespace,

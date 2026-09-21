@@ -126,6 +126,23 @@ class QueryFilterGoldenTest {
     /* Helpers                                                            */
     /* ------------------------------------------------------------------ */
 
+    @Test
+    void nullValueSerializesToEmptyString() {
+        // A valueless leaf -> filters[namespace][EQUALS]= (consistent with Go/Python, not an NPE).
+        QueryFilter f = new QueryFilter().field(QueryFilterField.NAMESPACE).operation(QueryFilterOp.EQUALS);
+        List<String> actual = render(apiClient.collectFilterPairs(List.of(f), false));
+        assertEquals(List.of("filters[namespace][EQUALS]="), actual);
+    }
+
+    @Test
+    void nullFieldLeafThrows() {
+        QueryFilter f = new QueryFilter().operation(QueryFilterOp.EQUALS).value("x");
+        ApiException ex = assertThrows(ApiException.class,
+            () -> apiClient.collectFilterPairs(List.of(f), false));
+        assertEquals(400, ex.getCode());
+        assertTrue(ex.getMessage().contains("requires a field"), "message was: " + ex.getMessage());
+    }
+
     private List<String> render(List<Pair> pairs) {
         return pairs.stream().map(p -> p.getName() + "=" + p.getValue()).collect(Collectors.toList());
     }

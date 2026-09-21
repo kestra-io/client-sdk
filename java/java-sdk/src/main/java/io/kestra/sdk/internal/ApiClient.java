@@ -821,6 +821,9 @@ public class ApiClient extends JavaTimeFormatter {
     if (f.getLogical() != null || (f.getChildren() != null && !f.getChildren().isEmpty())) {
       throw new ApiException(400, "a filter node cannot be both a leaf and a group");
     }
+    if (f.getField() == null) {
+      throw new ApiException(400, "a leaf filter requires a field");
+    }
     List<Pair> params = new ArrayList<Pair>();
     String baseFilterQuery = prefix + "[" +
         filterFieldName(f.getField().toString()) +
@@ -846,13 +849,21 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   private static String rawValueToString(Object value) {
+    // A valueless leaf serializes to an empty string, matching the UI encoder and
+    // the Go/Python serializers (rather than throwing an NPE on value.toString()).
+    if (value == null) {
+      return "";
+    }
     if (value instanceof List<?> list) {
-      return list.stream().map(item -> item.toString()).collect(Collectors.joining(","));
+      return list.stream().map(item -> item == null ? "" : item.toString()).collect(Collectors.joining(","));
     }
     return value.toString();
   }
 
     private String convertValueToString(Object value){
+        if (value == null) {
+            return "";
+        }
         // Filter values land in the query string via buildUrl, which escapes only the
         // parameter *name* and takes the value as already-escaped. Escape here, or any
         // value holding a space, '&', '=' or '#' produces a malformed URI. A multi-value
