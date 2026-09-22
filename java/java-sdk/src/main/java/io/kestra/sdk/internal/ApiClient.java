@@ -1334,8 +1334,8 @@ public class ApiClient extends JavaTimeFormatter {
     context.setCookieStore(store);
 
     ContentType contentTypeObj = getContentType(contentType);
-    boolean isMultipart = contentTypeObj.getMimeType()
-        .equals(ContentType.MULTIPART_FORM_DATA.getMimeType());
+    boolean isMultipart = contentTypeObj != null
+        && contentTypeObj.getMimeType().equals(ContentType.MULTIPART_FORM_DATA.getMimeType());
     if (body != null || !formParams.isEmpty() || isMultipart) {
       if (isBodyAllowed(method)) {
         // Add entity if we have content and a valid method. A multipart request is
