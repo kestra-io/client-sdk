@@ -1334,9 +1334,14 @@ public class ApiClient extends JavaTimeFormatter {
     context.setCookieStore(store);
 
     ContentType contentTypeObj = getContentType(contentType);
-    if (body != null || !formParams.isEmpty()) {
+    boolean isMultipart = contentTypeObj.getMimeType()
+        .equals(ContentType.MULTIPART_FORM_DATA.getMimeType());
+    if (body != null || !formParams.isEmpty() || isMultipart) {
       if (isBodyAllowed(method)) {
-        // Add entity if we have content and a valid method
+        // Add entity if we have content and a valid method. A multipart request is
+        // serialized even with no form params: some endpoints (e.g. replay-with-inputs)
+        // require a well-formed empty multipart body (with a boundary), which the server
+        // binds — an empty text body is rejected with "Required Body not specified".
         builder.setEntity(serialize(body, formParams, contentTypeObj));
       } else {
         throw new ApiException("method " + method + " does not support a request body");
