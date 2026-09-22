@@ -1021,7 +1021,8 @@ public class ApiClient extends JavaTimeFormatter {
         throw new ApiException(e);
       }
     } else if (mimeType.equals(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
-      MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
+      MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create()
+          .setMimeSubtype("form-data");
       for (Entry<String, Object> paramEntry : formParams.entrySet()) {
         Object value = paramEntry.getValue();
         if (value instanceof File) {
