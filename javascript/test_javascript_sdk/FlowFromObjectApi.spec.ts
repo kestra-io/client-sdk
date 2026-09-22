@@ -111,10 +111,8 @@ describe('flowToYaml', () => {
     });
 
     it('throws on null or undefined input', () => {
-        // @ts-expect-error deliberately passing null
-        expect(() => flowToYaml(null)).toThrow();
-        // @ts-expect-error deliberately passing undefined
-        expect(() => flowToYaml(undefined)).toThrow();
+        expect(() => flowToYaml(null as never)).toThrow();
+        expect(() => flowToYaml(undefined as never)).toThrow();
     });
 
     it('keeps non-ASCII characters verbatim', () => {
