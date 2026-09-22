@@ -114,15 +114,24 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jackson_version"
     implementation "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jackson_version"
     implementation "org.openapitools:jackson-databind-nullable:$jackson_databind_nullable_version"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
     testImplementation "junit:junit:$junit_version"
+    // JUnit 5 for the hand-written serialization unit tests (src/test).
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
     implementation "io.projectreactor:reactor-core:3.7.12"
     compileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 
+}
+
+test {
+    useJUnitPlatform()
 }
 
 configurations.all {

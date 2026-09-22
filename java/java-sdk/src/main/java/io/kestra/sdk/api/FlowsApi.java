@@ -1,6 +1,11 @@
 package io.kestra.sdk.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
@@ -40,6 +45,19 @@ public class FlowsApi extends BaseApi {
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
     private static final String TEXT_CSV = "text/csv";
+
+    // Serializes a flow object to a YAML source string. The flow-write endpoints
+    // are YAML-only (they do not accept JSON), so a native object is serialized
+    // here and posted to the existing YAML endpoints. Configuration: block style,
+    // no document-start marker, no line wrapping, literal block scalars for
+    // multi-line strings, null fields omitted. Expressions like `{{ inputs.foo }}`
+    // are quoted (MINIMIZE_QUOTES stays disabled) and non-ASCII stays verbatim.
+    private static final ObjectMapper YAML_MAPPER = YAMLMapper.builder()
+            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+            .disable(YAMLGenerator.Feature.SPLIT_LINES)
+            .enable(YAMLGenerator.Feature.LITERAL_BLOCK_STYLE)
+            .serializationInclusion(JsonInclude.Include.NON_NULL)
+            .build();
 
     public FlowsApi() {
         super(Configuration.getDefaultApiClient());
@@ -145,6 +163,40 @@ public class FlowsApi extends BaseApi {
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         delete(tenantPath(tenant, "flows", namespace, id), Collections.emptyList());
+    }
+
+    /**
+     * Create a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
+     * or a plain {@code Map}). The object is serialized to a YAML source string
+     * client-side (the write endpoint is YAML-only) and delegated to
+     * {@link #createFlow(String, String)}.
+     */
+    public FlowWithSource createFlowFromObject(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Object flow) throws ApiException {
+        return createFlow(tenant, flowToYaml(flow));
+    }
+
+    /**
+     * Update a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
+     * or a plain {@code Map}). The object is serialized to a YAML source string
+     * client-side (the write endpoint is YAML-only) and delegated to
+     * {@link #updateFlow(String, String, String, String)}.
+     */
+    public FlowWithSource updateFlowFromObject(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Object flow) throws ApiException {
+        return updateFlow(namespace, id, tenant, flowToYaml(flow));
+    }
+
+    static String flowToYaml(Object flow) throws ApiException {
+        try {
+            return YAML_MAPPER.writeValueAsString(flow);
+        } catch (JsonProcessingException e) {
+            throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
+        }
     }
 
     // ========================================================================

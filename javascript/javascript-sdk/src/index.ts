@@ -2,6 +2,9 @@ import { client } from "./openapi/client.gen"
 import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
 import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
+import { stringify as stringifyYaml } from "yaml"
+import { createFlow, updateFlow } from "./openapi/sdk/Flows.gen"
+import type { Flow } from "./openapi/types.gen"
 
 // Types only: the operations live on their per-tag subpaths, or all together on `./all`.
 export type * from "./openapi/types.gen"
@@ -160,4 +163,58 @@ export function setMockClient(mockClient: Partial<typeof axiosLikeClient> = {}) 
  */
 export function useClient() {
     return axiosLikeClient
+}
+
+/**
+ * A flow described as a native object rather than a YAML source string.
+ *
+ * Accepts the typed {@link Flow} model or a plain object. The loose
+ * `Record<string, unknown>` member is deliberate: the generated `Task` type is a
+ * closed object with no index signature, so plugin-specific task properties
+ * (e.g. `message` on a Log task, `commands` on a Shell task) would otherwise be
+ * rejected by TypeScript. They are carried through verbatim into the emitted YAML.
+ */
+export type FlowObjectInput = Flow | Record<string, unknown>
+
+/**
+ * Serialize a flow object to a YAML source string (block style, no anchors,
+ * `null` fields omitted). Kestra expressions like `{{ inputs.foo }}` are quoted
+ * by the YAML emitter and multi-line strings become literal block scalars.
+ */
+export function flowToYaml(flow: FlowObjectInput): string {
+    return stringifyYaml(
+        flow,
+        (_key, value) => (value === null ? undefined : value),
+        { aliasDuplicateObjects: false },
+    )
+}
+
+/**
+ * Create a flow from a native object (typed {@link Flow} model or plain object).
+ *
+ * The flow-write endpoint is YAML-only (it does not accept JSON), so the object
+ * is serialized to a YAML source string client-side and delegated to the
+ * generated `createFlow`. `draft` stays a query parameter, not a body field.
+ */
+export function createFlowFromObject(
+    parameters: { flow: FlowObjectInput; tenant?: string; draft?: boolean },
+    options?: Parameters<typeof createFlow>[1],
+) {
+    const { flow, ...rest } = parameters
+    return createFlow({ ...rest, body: flowToYaml(flow) }, options)
+}
+
+/**
+ * Update a flow from a native object (typed {@link Flow} model or plain object).
+ *
+ * The object is serialized to a YAML source string client-side (the write
+ * endpoint is YAML-only) and delegated to the generated `updateFlow`. `draft`
+ * stays a query parameter, not a body field.
+ */
+export function updateFlowFromObject(
+    parameters: { flow: FlowObjectInput; namespace: string; id: string; tenant?: string; draft?: boolean },
+    options?: Parameters<typeof updateFlow>[1],
+) {
+    const { flow, ...rest } = parameters
+    return updateFlow({ ...rest, body: flowToYaml(flow) }, options)
 }

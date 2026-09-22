@@ -46,6 +46,28 @@ func (a *FlowsAPI) UpdateFlow(ctx context.Context, namespace, id, tenant, yamlBo
 	return &result, nil
 }
 
+// CreateFlowFromObject creates a new flow from a native object (a *Flow / Flow
+// value, or a map). The object is serialized to a YAML source string
+// client-side (the write endpoint is YAML-only) and delegated to CreateFlow.
+func (a *FlowsAPI) CreateFlowFromObject(ctx context.Context, tenant string, flow interface{}) (*FlowWithSource, error) {
+	yamlBody, err := flowToYAML(flow)
+	if err != nil {
+		return nil, err
+	}
+	return a.CreateFlow(ctx, tenant, yamlBody)
+}
+
+// UpdateFlowFromObject updates an existing flow from a native object (a *Flow /
+// Flow value, or a map). The object is serialized to a YAML source string
+// client-side (the write endpoint is YAML-only) and delegated to UpdateFlow.
+func (a *FlowsAPI) UpdateFlowFromObject(ctx context.Context, namespace, id, tenant string, flow interface{}) (*FlowWithSource, error) {
+	yamlBody, err := flowToYAML(flow)
+	if err != nil {
+		return nil, err
+	}
+	return a.UpdateFlow(ctx, namespace, id, tenant, yamlBody)
+}
+
 // DeleteFlow deletes a flow by namespace and id.
 func (a *FlowsAPI) DeleteFlow(ctx context.Context, namespace, id, tenant string) error {
 	path := tenantPath(tenant, "flows", namespace, id)
