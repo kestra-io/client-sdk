@@ -37,7 +37,8 @@ var serverManagedFlowFields = map[string]bool{
 // not lose precision) and multi-line strings become literal block scalars.
 // yaml.v3 quotes Kestra expressions such as "{{ inputs.foo }}" and keeps
 // non-ASCII characters verbatim. Server-managed top-level fields (revision,
-// deleted, draft, tenantId, source, updated) are stripped.
+// deleted, draft, tenantId, source, updated) are stripped, and null-valued map
+// keys are dropped at every depth (matching the typed path's omitempty).
 //
 // Key order: a typed *Flow marshals its struct fields in declaration order and
 // that order is preserved. A map input cannot preserve insertion order because
@@ -105,6 +106,11 @@ func jsonTokenToYAMLNode(dec *json.Decoder, tok json.Token) (*yaml.Node, error) 
 				valNode, err := jsonTokenToYAMLNode(dec, valTok)
 				if err != nil {
 					return nil, err
+				}
+				// Drop keys whose value is null at every depth, so the map/dict
+				// path matches the typed *Flow path (omitempty) and JS/Java.
+				if valNode.Kind == yaml.ScalarNode && valNode.Tag == "!!null" {
+					continue
 				}
 				node.Content = append(node.Content, keyNode, valNode)
 			}

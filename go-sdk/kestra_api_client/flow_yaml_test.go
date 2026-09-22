@@ -196,6 +196,52 @@ func TestFlowToYAML_UintPrecision(t *testing.T) {
 	}
 }
 
+func TestFlowToYAML_DropsNilMapValues(t *testing.T) {
+	flow := map[string]interface{}{
+		"id":          "x",
+		"namespace":   "y",
+		"description": nil, // top-level nil
+		"labels":      nil, // top-level nil
+		"tasks": []map[string]interface{}{
+			{
+				"id":      "log",
+				"type":    "io.kestra.plugin.core.log.Log",
+				"message": "hi",
+				"timeout": nil,                                        // nested nil
+				"retry":   map[string]interface{}{"type": "constant", "maxAttempt": nil}, // deeper nil
+			},
+		},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	if strings.Contains(out, "null") {
+		t.Errorf("nil-valued keys must be dropped, got:\n%s", out)
+	}
+
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v", err)
+	}
+	for _, key := range []string{"description", "labels"} {
+		if _, present := parsed[key]; present {
+			t.Errorf("nil key %q must be dropped, got:\n%s", key, out)
+		}
+	}
+	task := parsed["tasks"].([]interface{})[0].(map[string]interface{})
+	if _, present := task["timeout"]; present {
+		t.Errorf("nested nil key must be dropped, got:\n%s", out)
+	}
+	retry := task["retry"].(map[string]interface{})
+	if _, present := retry["maxAttempt"]; present {
+		t.Errorf("deeply nested nil key must be dropped, got:\n%s", out)
+	}
+	if retry["type"] != "constant" || task["message"] != "hi" {
+		t.Errorf("real values must survive, got:\n%s", out)
+	}
+}
+
 func TestFlowToYAML_NilInput(t *testing.T) {
 	if _, err := flowToYAML(nil); err == nil {
 		t.Error("expected an error for nil input, got nil")

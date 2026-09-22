@@ -12,7 +12,8 @@ Serialization rules:
 
 * block style (never inline/flow style), no anchors/aliases (shared object
   references are expanded, never emitted as ``&anchor``/``*alias``);
-* ``None`` fields are omitted rather than emitted as ``null``;
+* ``None`` fields are omitted rather than emitted as ``null``, at every depth
+  (for both the typed-model path and the dict path);
 * server-managed / read-only fields (``revision``, ``deleted``, ``draft``,
   ``tenantId``, ``source``, ``updated``) are stripped so the YAML mirrors what a
   user writes as flow source (``draft`` is a query parameter, not a body field);
@@ -22,8 +23,9 @@ Serialization rules:
 * multi-line strings (shell ``commands``, python ``script``) are emitted as
   readable literal block scalars;
 * non-primitive values inside a dict input (nested pydantic models, enums,
-  datetimes) are converted at every depth, so the ergonomic dict path never
-  raises ``RepresenterError``;
+  datetimes, ``bytes`` decoded as UTF-8) are converted at every depth; a truly
+  unsupported value raises a clear :class:`TypeError` naming its type rather than
+  a low-level ``yaml.representer.RepresenterError``;
 * non-ASCII characters are kept verbatim (never escaped to ``\\uXXXX``).
 """
 
@@ -77,15 +79,27 @@ def _make_serializable(value: Any) -> Any:
         return value.isoformat()
     if isinstance(value, (str, bool, int, float)):
         return value
+    if isinstance(value, bytes):
+        return value.decode("utf-8")
     if hasattr(value, "to_dict"):
         return _make_serializable(value.to_dict())
     if hasattr(value, "model_dump"):
         return _make_serializable(value.model_dump(by_alias=True, exclude_none=True))
     if isinstance(value, dict):
-        return {k: _make_serializable(v) for k, v in value.items()}
+        # Drop keys whose (recursively serialized) value is None at every depth,
+        # matching the typed-Flow path (exclude_none) and the JS/Java behavior.
+        result: Dict[Any, Any] = {}
+        for k, v in value.items():
+            serialized = _make_serializable(v)
+            if serialized is None:
+                continue
+            result[k] = serialized
+        return result
     if isinstance(value, (list, tuple, set)):
         return [_make_serializable(v) for v in value]
-    return value
+    raise TypeError(
+        f"Cannot serialize value of type {type(value).__name__!r} to flow YAML"
+    )
 
 
 def _to_serializable(flow: Any) -> Dict[str, Any]:

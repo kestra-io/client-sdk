@@ -124,6 +124,15 @@ class FlowYamlTest {
     }
 
     @Test
+    void omitsNullFields() throws Exception {
+        // buildFlow leaves nullable Flow fields unset (e.g. description); a null
+        // field must never be emitted as `key: null`.
+        String yaml = FlowsApi.flowToYaml(buildFlow());
+        assertTrue(!yaml.contains("null"), yaml);
+        assertTrue(!yaml.contains("description:"), yaml);
+    }
+
+    @Test
     void serializesJavaTimeValuesAndStripsUpdated() throws Exception {
         // A Flow with a non-null `updated` (OffsetDateTime) and a java.time value
         // nested in a task must serialize without InvalidDefinitionException (the

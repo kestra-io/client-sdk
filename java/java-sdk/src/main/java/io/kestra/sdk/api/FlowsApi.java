@@ -230,16 +230,39 @@ public class FlowsApi extends BaseApi {
 
     static String flowToYaml(Object flow) throws ApiException {
         try {
-            // First pass honors NON_NULL (drops null fields); re-parse so we can
-            // strip server-managed / read-only fields that must not appear in
-            // flow source, then re-emit.
-            JsonNode node = YAML_MAPPER.readTree(YAML_MAPPER.writeValueAsString(flow));
+            // Build the tree directly, strip server-managed / read-only fields
+            // that must not appear in flow source, drop null nodes at every depth,
+            // then emit once.
+            JsonNode node = YAML_MAPPER.valueToTree(flow);
             if (node.isObject()) {
                 ((ObjectNode) node).remove(SERVER_MANAGED_FLOW_FIELDS);
             }
+            stripNulls(node);
             return YAML_MAPPER.writeValueAsString(node);
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | IllegalArgumentException e) {
             throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
+        }
+    }
+
+    // Removes null-valued fields from every object in the tree (at every depth),
+    // so the emitted YAML never carries `key: null` (valueToTree does not apply
+    // NON_NULL). Matches the null-omission behavior of the other SDKs.
+    private static void stripNulls(JsonNode node) {
+        if (node.isObject()) {
+            ObjectNode obj = (ObjectNode) node;
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = obj.fields();
+            while (it.hasNext()) {
+                JsonNode value = it.next().getValue();
+                if (value.isNull()) {
+                    it.remove();
+                } else {
+                    stripNulls(value);
+                }
+            }
+        } else if (node.isArray()) {
+            for (JsonNode child : node) {
+                stripNulls(child);
+            }
         }
     }
 

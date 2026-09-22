@@ -9,6 +9,7 @@ These are pure serialization tests: no live Kestra server is involved.
 from datetime import datetime, timezone
 from enum import Enum
 
+import pytest
 import yaml
 
 from kestrapy.flow_yaml import flow_to_yaml
@@ -188,6 +189,66 @@ def test_dict_input_with_nested_non_primitives():
     assert parsed["tasks"][0]["id"] == "log"
     assert parsed["tasks"][0]["message"] == "hi"
     assert parsed["tasks"][1]["level"] == "INFO"
+
+
+def test_dict_input_drops_none_at_every_depth():
+    flow_dict = {
+        "id": "x",
+        "namespace": "y",
+        "description": None,          # top-level None
+        "labels": None,              # top-level None
+        "tasks": [
+            {
+                "id": "log",
+                "type": "io.kestra.plugin.core.log.Log",
+                "message": "hi",
+                "timeout": None,     # nested None inside a task
+                "retry": {"type": "constant", "maxAttempt": None},  # deeper None
+            }
+        ],
+    }
+    yaml_str = flow_to_yaml(flow_dict)
+
+    assert "null" not in yaml_str, yaml_str
+    assert "description" not in yaml_str
+    assert "labels" not in yaml_str
+
+    parsed = yaml.safe_load(yaml_str)
+    assert "description" not in parsed
+    assert "labels" not in parsed
+    task = parsed["tasks"][0]
+    assert "timeout" not in task
+    assert "maxAttempt" not in task["retry"]
+    # Real values survive.
+    assert task["message"] == "hi"
+    assert task["retry"]["type"] == "constant"
+
+
+def test_bytes_value_is_decoded():
+    yaml_str = flow_to_yaml({
+        "id": "b",
+        "namespace": "y",
+        "tasks": [{"id": "t", "type": "io.kestra.plugin.core.log.Log", "message": b"bytes-msg"}],
+    })
+    parsed = yaml.safe_load(yaml_str)
+    assert parsed["tasks"][0]["message"] == "bytes-msg"
+
+
+def test_unsupported_type_raises_clear_type_error():
+    class _Weird:
+        pass
+
+    with pytest.raises(TypeError, match="_Weird"):
+        flow_to_yaml({
+            "id": "w",
+            "namespace": "y",
+            "tasks": [{"id": "t", "type": "io.kestra.plugin.core.log.Log", "obj": _Weird()}],
+        })
+
+
+def test_none_input_raises_type_error():
+    with pytest.raises(TypeError):
+        flow_to_yaml(None)
 
 
 def test_multiline_emitted_as_block_scalar():
