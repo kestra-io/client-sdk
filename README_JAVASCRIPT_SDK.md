@@ -170,3 +170,41 @@ const execution = await ExecutionsAPI.createExecution({
 console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
 ```
 <!-- /snippet -->
+
+## Complex queries (AND / OR filters)
+
+Every `*ByQuery` / search endpoint accepts grouped filters. Build them as typed `QueryFilter`
+objects — a **leaf** is `{ field, operation, value }`; a **group** is `{ logical: 'and' | 'or',
+children: [...] }` (one level of nesting):
+
+```typescript
+import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
+
+// namespace = company.team AND (labels.tier = gold OR labels.tier = silver)
+const flows = await FlowsAPI.searchFlows({
+  filters: [
+    {
+      logical: "and",
+      children: [
+        { field: "namespace", operation: "EQUALS", value: "company.team" },
+        {
+          logical: "or",
+          children: [
+            { field: "labels", operation: "EQUALS", value: { tier: "gold" } },
+            { field: "labels", operation: "EQUALS", value: { tier: "silver" } },
+          ],
+        },
+      ],
+    },
+  ],
+});
+```
+
+- **Backward compatible:** a flat `QueryFilter[]` serializes to the same `filters[field][OP]=value`
+  wire format as before.
+- The serialization lives in the shared `@kestra-io/hey-api-plugin` `querySerializer` (also used by
+  the Kestra UI SDKs), so JS has no separate `where/and/or` DSL — build the objects directly; the
+  types give you autocompletion.
+- Notes vs. the other SDKs' DSLs (all backend-valid): an explicit top-level `{ logical: 'and' }`
+  group of leaves serializes to `filters[and][0]...` rather than the flattened bare form (a flat
+  array stays flat); a single-child group and an empty group are not normalized away.
