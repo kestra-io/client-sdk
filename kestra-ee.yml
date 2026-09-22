@@ -35018,6 +35018,8 @@ components:
             $ref: '#/components/schemas/State.Type'
         disabled:
           type: boolean
+        sourceDisabled:
+          type: boolean
         locked:
           type: boolean
         workerId:
