@@ -1,6 +1,8 @@
 import json
 from typing import Any, Dict, Generator, List, Optional
 
+from urllib3.filepost import encode_multipart_formdata
+
 from kestrapy.base_api import BaseApi
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.execution import Execution
@@ -362,14 +364,25 @@ class ExecutionsApi(BaseApi):
 
         ``inputs`` is the new set of flow inputs, encoded as ``multipart/form-data``
         (see ``create_execution`` for the value conventions). Without it this behaves
-        like ``replay_execution``.
+        like ``replay_execution`` (the original inputs are reused).
+
+        The endpoint requires a multipart body even when there is nothing to
+        override, so with no ``inputs`` we send a well-formed empty multipart
+        (as the Go and Java SDKs do); sending no body at all is rejected with a
+        422 ``Required Body [inputs] not specified``.
         """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,
         )
         files = self._build_inputs_multipart(inputs)
-        resp = self._request("POST", path, params=params, files=files)
+        if files is None:
+            body, content_type = encode_multipart_formdata([])
+            resp = self._request(
+                "POST", path, params=params, body=body, content_type=content_type,
+            )
+        else:
+            resp = self._request("POST", path, params=params, files=files)
         return self._deserialize(resp.json(), Execution)
 
     def replay_executions_by_ids(
