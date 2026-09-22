@@ -14,7 +14,9 @@ type PoliciesAPI struct {
 func (a *PoliciesAPI) SearchTenantPolicies(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiPolicySummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiPolicySummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "policies", "search"), nil, params)
 }
 
@@ -60,7 +62,9 @@ func (a *PoliciesAPI) ExportTenantPoliciesByIds(ctx context.Context, tenant stri
 func (a *PoliciesAPI) SearchNamespacePolicies(ctx context.Context, tenant, namespace string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiPolicySummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiPolicySummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "policies", "search"), nil, params)
 }
 
@@ -106,7 +110,9 @@ func (a *PoliciesAPI) ExportNamespacePoliciesByIds(ctx context.Context, tenant, 
 func (a *PoliciesAPI) SearchInstancePolicies(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiPolicySummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiPolicySummary](&a.baseAPI, ctx, "GET", superadminPath("instance", "policies", "search"), nil, params)
 }
 

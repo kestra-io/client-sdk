@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Instance-owner-only are not tenant-scoped.
-  version: 2.0.0
+  version: 2.1.0-SNAPSHOT
 tags:
 - name: Flows
   description: Flows api
@@ -803,6 +803,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -891,7 +894,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -936,7 +939,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -1040,6 +1043,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -1133,6 +1139,9 @@ paths:
       requestBody:
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -1873,7 +1882,7 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -1976,6 +1985,7 @@ paths:
         in: path
         required: true
         schema:
+          pattern: '[0-9].*'
           type: string
       responses:
         '200':
@@ -4367,7 +4377,7 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -4914,6 +4924,7 @@ paths:
         description: The file path
         required: true
         schema:
+          pattern: .*
           type: string
       responses:
         '200':
@@ -6031,6 +6042,52 @@ paths:
       responses:
         '200':
           description: deleteAppsCatalogLogo 200 response
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/tenants/{id}/examples:
+    delete:
+      tags:
+      - Tenants
+      summary: Remove the example resources of a tenant
+      description: Instance owner, or a member of the tenant allowed to delete its flows, apps, dashboards, assets and namespaces. Deletes the seeded resources and the namespace holding them.
+      operationId: removeExamples
+      parameters:
+      - name: id
+        in: path
+        description: The tenant id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: On success
+        '404':
+          description: When the tenant does not exist
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -7765,7 +7822,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Object_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Object_'
         '401':
           description: Authentication required
           content:
@@ -7816,7 +7875,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Object_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Object_'
         '401':
           description: Authentication required
           content:
@@ -7907,6 +7968,9 @@ paths:
         description: The app
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -8014,6 +8078,13 @@ paths:
           type: integer
           format: int32
           default: 10
+      - name: hideExamples
+        in: query
+        description: Exclude the apps flagged as examples
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: filters
         in: query
         description: Filters
@@ -8034,7 +8105,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedResults_AppsController.ApiAppCatalogItem_'
+                $ref: '#/components/schemas/AppsController.ApiAppCatalog'
         '401':
           description: Authentication required
           content:
@@ -8289,6 +8360,9 @@ paths:
         description: The app
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -8822,7 +8896,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_AppResponse_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_AppResponse_'
         '401':
           description: Authentication required
           content:
@@ -9038,6 +9114,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -9229,6 +9308,9 @@ paths:
         description: The asset
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -9813,6 +9895,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '423':
@@ -9876,6 +9961,120 @@ paths:
                 $ref: '#/components/schemas/ProblemDetail'
         '200':
           description: deleteAsset 200 response
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    patch:
+      tags:
+      - Assets
+      summary: Partially update an asset
+      operationId: patchAsset
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the asset
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The asset fields to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetsController.PatchAsset'
+        required: true
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: patchAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiAsset'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/assets/{id}/actions/run:
+    post:
+      tags:
+      - Assets
+      summary: Run one of an asset's attached flow actions
+      operationId: runAssetAction
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the asset
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetsController.RunAssetActionRequest'
+        required: true
+      responses:
+        '200':
+          description: runAssetAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.RunAssetActionResponse'
         '401':
           description: Authentication required
           content:
@@ -11491,6 +11690,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -12966,9 +13168,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/CasesController.RunActionResponse'
         '401':
           description: Authentication required
           content:
@@ -14629,6 +14829,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '422':
@@ -14867,6 +15070,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -14914,6 +15120,9 @@ paths:
         description: The chart definition as YAML
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -15014,6 +15223,9 @@ paths:
         description: The dashboard definition as YAML
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -18325,7 +18537,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '200':
           description: On success
@@ -18448,7 +18659,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '204':
           description: On success
@@ -18562,10 +18772,11 @@ paths:
       - name: state
         in: query
         description: The new state of the execution
-        required: true
         explode: false
         schema:
-          $ref: '#/components/schemas/State.Type'
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/State.Type'
       - name: tenant
         in: path
         required: true
@@ -18864,7 +19075,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Execution_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Execution_'
         '401':
           description: Authentication required
           content:
@@ -18927,7 +19140,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_ExecutionStatusEvent_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_ExecutionStatusEvent_'
         '401':
           description: Authentication required
           content:
@@ -19144,9 +19359,9 @@ paths:
       - name: labels
         in: query
         description: The labels as a list of 'key:value'
-        required: true
         schema:
           type: array
+          nullable: true
           items:
             type: string
       - name: revision
@@ -19171,7 +19386,6 @@ paths:
               items:
                 type: string
                 format: binary
-        required: true
       responses:
         '409':
           description: if the flow is disabled
@@ -19280,6 +19494,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -19349,6 +19566,10 @@ paths:
         description: A list of flows source code split with "---"
         content:
           application/x-yaml:
+            schema:
+              type: string
+              nullable: true
+          application/yaml:
             schema:
               type: string
               nullable: true
@@ -19802,7 +20023,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -19852,7 +20073,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -19951,6 +20172,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -20005,6 +20229,9 @@ paths:
         description: The flow source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -20661,6 +20888,9 @@ paths:
           application/x-yaml:
             schema:
               type: object
+          application/yaml:
+            schema:
+              type: object
           application/json:
             schema:
               type: object
@@ -20798,6 +21028,12 @@ paths:
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
       - name: delete
         in: query
         description: If missing flows should be deleted
@@ -20812,12 +21048,6 @@ paths:
         schema:
           type: boolean
           default: false
-      - name: namespace
-        in: path
-        description: The flow namespace
-        required: true
-        schema:
-          type: string
       - name: tenant
         in: path
         required: true
@@ -20825,11 +21055,6 @@ paths:
           type: string
       requestBody:
         description: A list of flows source code
-        content:
-          application/x-yaml:
-            schema:
-              type: string
-        required: true
       responses:
         '200':
           description: updateFlowsInNamespace 200 response
@@ -20968,6 +21193,9 @@ paths:
         description: The flow source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -23921,7 +24149,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_FollowLogEvent_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_FollowLogEvent_'
         '401':
           description: Authentication required
           content:
@@ -23965,10 +24195,10 @@ paths:
       - name: triggerId
         in: query
         description: The trigger id
-        required: true
         explode: false
         schema:
           type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -25050,7 +25280,7 @@ paths:
     delete:
       tags:
       - Namespaces
-      summary: Delete a namespace
+      summary: Delete a namespace and its child namespaces
       operationId: deleteNamespace
       parameters:
       - name: id
@@ -25067,6 +25297,18 @@ paths:
       responses:
         '204':
           description: On success
+        '404':
+          description: If neither the namespace nor any of its child namespaces exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: If the namespace or one of its child namespaces contains flows
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -26473,6 +26715,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -26583,7 +26828,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -26639,7 +26884,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -26756,6 +27001,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -26863,6 +27111,9 @@ paths:
       requestBody:
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -27168,6 +27419,9 @@ paths:
       requestBody:
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
           text/plain:
@@ -27640,6 +27894,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -27740,7 +27997,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -27791,7 +28048,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -27962,6 +28219,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -28059,6 +28319,9 @@ paths:
       requestBody:
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -29864,7 +30127,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IAMServiceAccountController.ApiServiceAccountRequest'
+              $ref: '#/components/schemas/IAMServiceAccountController.ApiUpdateServiceAccountRequest'
         required: true
       responses:
         '404':
@@ -30115,7 +30378,7 @@ paths:
       parameters:
       - name: from
         in: query
-        description: The start date
+        description: The start date, defaulting to the current month when omitted
         schema:
           type: string
           format: date
@@ -30132,7 +30395,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -30620,6 +30883,9 @@ paths:
         description: The TestSuite source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -31150,6 +31416,9 @@ paths:
           application/x-yaml:
             schema:
               type: string
+          application/yaml:
+            schema:
+              type: string
         required: true
       responses:
         '200':
@@ -31264,6 +31533,9 @@ paths:
         description: The TestSuite source code
         content:
           application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
             schema:
               type: string
         required: true
@@ -31438,6 +31710,12 @@ paths:
                 $ref: '#/components/schemas/ApiTriggerState'
         '409':
           description: If the backfill cannot be created
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: If the backfill end date is not after its start date
           content:
             application/problem+json:
               schema:
@@ -32176,6 +32454,7 @@ paths:
           - LABELS
           - TAGS
           - METADATA
+          - ASSET_EXPIRY
           - FLOW_ID
           - FLOW_REVISION
           - ID
@@ -33100,7 +33379,9 @@ components:
           items:
             $ref: '#/components/schemas/Input_Object_'
         outputs:
+          title: Output values available and exposes to other flows.
           type: array
+          description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
           items:
             $ref: '#/components/schemas/Output'
         disabled:
@@ -33116,7 +33397,6 @@ components:
           - $ref: '#/components/schemas/Map_Object.Object_'
         variables:
           type: object
-          additionalProperties: false
         workerSelector:
           description: Routing requirements (tags + fallback) for this flow.
           allOf:
@@ -34926,6 +35206,20 @@ components:
         updated:
           type: string
           format: date-time
+    AppsController.ApiAppCatalog:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppsController.ApiAppCatalogItem'
+        total:
+          type: integer
+          format: int64
+        exampleCount:
+          type: integer
+          format: int64
+      description: Same wire shape as PagedResults plus `exampleCount`, so existing consumers keep reading `results` and `total` unchanged.
     AppsController.ApiAppCatalogItem:
       type: object
       properties:
@@ -34943,6 +35237,8 @@ components:
             type: string
         thumbnail:
           type: string
+        example:
+          type: boolean
     AppsController.ApiAppSource:
       type: object
       properties:
@@ -35101,6 +35397,14 @@ components:
       - type
       type: object
       properties:
+        status:
+          type: string
+        ttl:
+          pattern: (\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)?
+          type: string
+          x-pattern-message: must be a UTC instant with millis (yyyy-MM-dd'T'HH:mm:ss.SSS'Z'), or empty for no expiry
+        owner:
+          type: string
         namespace:
           maxLength: 150
           minLength: 1
@@ -35122,6 +35426,12 @@ components:
           type: object
           additionalProperties:
             type: object
+        assetActions:
+          title: The day-2 actions offered on this asset, each backing onto a flow.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowAction'
     AssetFailureBehavior:
       type: string
       enum:
@@ -35194,10 +35504,20 @@ components:
           type: string
         description:
           type: string
+        status:
+          type: string
+        ttl:
+          type: string
+        owner:
+          type: string
         metadata:
           type: object
           additionalProperties:
             type: object
+        assetActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowAction'
         created:
           type: string
           format: date-time
@@ -35295,7 +35615,7 @@ components:
       type: object
       properties:
         ttl:
-          description: How long the lock is held before it expires.
+          description: How long the lock is held before it expires. Must be positive and at most P3650D.
           allOf:
           - $ref: '#/components/schemas/Duration'
           default: PT5M
@@ -35311,6 +35631,53 @@ components:
         taskRunId:
           type: string
           nullable: true
+    AssetsController.PatchAsset:
+      type: object
+      properties:
+        description:
+          type: string
+        displayName:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+    AssetsController.RunAssetActionRequest:
+      required:
+      - flowId
+      - namespace
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        labels:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Label'
+        scheduleDate:
+          type: string
+          format: date-time
+          nullable: true
+        breakpoints:
+          type: array
+          nullable: true
+          items:
+            type: string
+    AssetsController.RunAssetActionResponse:
+      type: object
+      properties:
+        executionId:
+          type: string
+        assetId:
+          type: string
     AssetsDeclaration:
       type: object
       properties:
@@ -35358,13 +35725,11 @@ components:
       - type: object
         properties:
           appliedPatch:
-            type: array
-            items:
-              type: object
+            type: object
+            additionalProperties: true
           revertPatch:
-            type: array
-            items:
-              type: object
+            type: object
+            additionalProperties: true
     AuditLogController.ApiAuditLogItem:
       type: object
       properties:
@@ -35429,6 +35794,13 @@ components:
       - ACCOUNT_LOCKED
       - PROMOTE
       - UNKNOWN
+    AuthConfig:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthConfig.Type'
+    AuthConfig.Type:
+      type: object
     AuthController.Auth:
       type: object
       properties:
@@ -35822,15 +36194,6 @@ components:
           type: boolean
         ttl:
           type: string
-    CaseAction:
-      type: object
-      properties:
-        label:
-          type: string
-        namespace:
-          type: string
-        flowId:
-          type: string
     CaseAttachment:
       type: object
       properties:
@@ -35915,7 +36278,7 @@ components:
         defaultActions:
           type: array
           items:
-            $ref: '#/components/schemas/CaseAction'
+            $ref: '#/components/schemas/FlowAction'
         isDefault:
           type: boolean
         createdBy:
@@ -35996,7 +36359,7 @@ components:
           type: array
           nullable: true
           items:
-            $ref: '#/components/schemas/CaseAction'
+            $ref: '#/components/schemas/FlowAction'
         isDefault:
           type: boolean
     CasesController.ApiCase:
@@ -36051,7 +36414,7 @@ components:
         actions:
           type: array
           items:
-            $ref: '#/components/schemas/CaseAction'
+            $ref: '#/components/schemas/FlowAction'
         assetIds:
           type: array
           items:
@@ -36264,7 +36627,7 @@ components:
           type: array
           nullable: true
           items:
-            $ref: '#/components/schemas/CaseAction'
+            $ref: '#/components/schemas/FlowAction'
     CasesController.CaseFromTaskRequest:
       required:
       - flowId
@@ -36315,7 +36678,7 @@ components:
           type: array
           nullable: true
           items:
-            $ref: '#/components/schemas/CaseAction'
+            $ref: '#/components/schemas/FlowAction'
         linkMatchingExecutions:
           type: boolean
         flowNamespace:
@@ -36435,6 +36798,13 @@ components:
           nullable: true
           items:
             type: string
+    CasesController.RunActionResponse:
+      type: object
+      properties:
+        executionId:
+          type: string
+        caseId:
+          type: string
     CasesController.StatusRequest:
       required:
       - status
@@ -36854,7 +37224,7 @@ components:
         nano:
           type: integer
           format: int32
-      description: How long the lock is held before it expires.
+      description: How long the lock is held before it expires. Must be positive and at most P3650D.
       default: PT5M
     EditionProvider.Edition:
       type: string
@@ -36886,70 +37256,110 @@ components:
       - CANCEL
       - IGNORE
     Event_AppResponse_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AppResponse'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_ExecutionStatusEvent_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ExecutionStatusEvent'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_Execution_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Execution'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_FollowLogEvent_:
+      required:
+      - data
       type: object
       properties:
         data:
           $ref: '#/components/schemas/FollowLogEvent'
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
     Event_Object_:
+      required:
+      - data
       type: object
       properties:
         data:
           type: object
         id:
           type: string
+          nullable: true
         name:
           type: string
+          nullable: true
         comment:
           type: string
+          nullable: true
         retry:
           type: string
+          nullable: true
+    ExampleSeedState:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/TenantType'
+        version:
+          type: string
+        seededAt:
+          type: string
+          format: date-time
     ExecutableTask.SubflowId:
       type: object
       properties:
@@ -37413,6 +37823,12 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Input_Object_'
+          outputs:
+            title: Output values available and exposes to other flows.
+            type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+            items:
+              $ref: '#/components/schemas/Output'
           disabled:
             title: Whether the flow is disabled.
             type: boolean
@@ -37436,7 +37852,6 @@ components:
               $ref: '#/components/schemas/Task'
           variables:
             type: object
-            additionalProperties: false
           tasks:
             minItems: 1
             type: array
@@ -37466,12 +37881,6 @@ components:
             description: Limits the number of concurrent executions of the flow.
             allOf:
             - $ref: '#/components/schemas/Concurrency'
-          outputs:
-            title: Output values available and exposes to other flows.
-            type: array
-            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-            items:
-              $ref: '#/components/schemas/Output'
           retry:
             title: Retry
             type: object
@@ -37494,6 +37903,24 @@ components:
               Quotas can also be defined at the namespace and tenant level.
             items:
               $ref: '#/components/schemas/Quota'
+    FlowAction:
+      required:
+      - flowId
+      - namespace
+      type: object
+      properties:
+        namespace:
+          title: The namespace of the flow backing this action.
+          minLength: 1
+          type: string
+        flowId:
+          title: The id of the flow backing this action.
+          minLength: 1
+          type: string
+        label:
+          title: The label displayed on this action.
+          type: string
+          nullable: true
     FlowController.FlowWithDeprecatedTasks:
       type: object
       properties:
@@ -37542,7 +37969,9 @@ components:
             items:
               $ref: '#/components/schemas/Input_Object_'
           outputs:
+            title: Output values available and exposes to other flows.
             type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
             items:
               $ref: '#/components/schemas/Output'
           disabled:
@@ -37558,7 +37987,6 @@ components:
             - $ref: '#/components/schemas/Map_Object.Object_'
           variables:
             type: object
-            additionalProperties: false
           workerSelector:
             description: Routing requirements (tags + fallback) for this flow.
             allOf:
@@ -37921,6 +38349,12 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Input_Object_'
+          outputs:
+            title: Output values available and exposes to other flows.
+            type: array
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+            items:
+              $ref: '#/components/schemas/Output'
           disabled:
             title: Whether the flow is disabled.
             type: boolean
@@ -37940,18 +38374,11 @@ components:
             type: boolean
           variables:
             type: object
-            additionalProperties: false
           concurrency:
             title: Concurrency
             description: Limits the number of concurrent executions of the flow.
             allOf:
             - $ref: '#/components/schemas/Concurrency'
-          outputs:
-            title: Output values available and exposes to other flows.
-            type: array
-            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-            items:
-              $ref: '#/components/schemas/Output'
           sla:
             type: array
             items:
@@ -38181,6 +38608,7 @@ components:
           items:
             type: string
         email:
+          minLength: 1
           type: string
     IAMInvitationController.ApiInvitationDetail:
       type: object
@@ -38531,6 +38959,23 @@ components:
         username:
           type: string
       description: A User Service Account.
+    IAMServiceAccountController.ApiUpdateServiceAccountRequest:
+      required:
+      - name
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
+        name:
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
+          type: string
+        description:
+          type: string
+        instanceOwner:
+          type: boolean
+      description: 'Update payload for a service account. It carries no `username`: the login is chosen at creation and is immutable, so exposing it here would let a caller send a value that is silently dropped.'
     IAMTenantAccessController.ApiAuthentication:
       type: object
       properties:
@@ -39378,6 +39823,8 @@ components:
           type: string
         name:
           type: string
+        type:
+          $ref: '#/components/schemas/TenantType'
         logo:
           type: string
     MeController.ApiUpdatePasswordRequest:
@@ -39534,6 +39981,8 @@ components:
         commitDate:
           type: string
           format: date-time
+        versionUpgrade:
+          $ref: '#/components/schemas/VersionService.VersionUpgrade'
         isCustomDashboardsEnabled:
           type: boolean
         isAnonymousUsageEnabled:
@@ -39862,6 +40311,8 @@ components:
         type:
           $ref: '#/components/schemas/OAuth2ConfigType'
       description: OAuth2 authentication configuration (sensitive fields masked)
+      allOf:
+      - $ref: '#/components/schemas/AuthConfig'
     OAuth2ConfigType:
       type: string
       enum:
@@ -40068,19 +40519,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiTriggerState'
-        total:
-          type: integer
-          format: int64
-    PagedResults_AppsController.ApiAppCatalogItem_:
-      required:
-      - results
-      - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppsController.ApiAppCatalogItem'
         total:
           type: integer
           format: int64
@@ -40666,6 +41104,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PebbleFunction.Argument'
+        deprecated:
+          type: boolean
+        replacement:
+          type: string
+          nullable: true
     PebbleFunction.Argument:
       type: object
       properties:
@@ -40724,6 +41167,10 @@ components:
           items:
             $ref: '#/components/schemas/Plugin.PluginElementMetadata'
         taskRunners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plugin.PluginElementMetadata'
+        assets:
           type: array
           items:
             $ref: '#/components/schemas/Plugin.PluginElementMetadata'
@@ -41409,6 +41856,7 @@ components:
       - labels
       - tags
       - metadata
+      - assetExpiry
       - flowId
       - flowRevision
       - id
@@ -41466,6 +41914,7 @@ components:
       - LABELS
       - TAGS
       - METADATA
+      - ASSET_EXPIRY
       - FLOW_ID
       - FLOW_REVISION
       - ID
@@ -41682,6 +42131,7 @@ components:
       - UNKNOWN
     ResourceType:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResourceWithOptionalId'
       - $ref: '#/components/schemas/ScimResource'
@@ -42076,25 +42526,17 @@ components:
       - DASHBOARD
       - REUSABLEINPUTS
       - POLICY
-    ScimExtension:
-      type: object
-      properties:
-        urn:
-          type: string
     ScimResource:
       required:
       - meta
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/BaseResource_ScimResource_'
       - type: object
         properties:
           baseUrn:
             type: string
-          extensions:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/ScimExtension'
           meta:
             $ref: '#/components/schemas/Meta'
           id:
@@ -42106,6 +42548,7 @@ components:
             type: string
     ScimResourceWithOptionalId:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResource'
       - $ref: '#/components/schemas/BaseResource_ScimResource_'
@@ -42115,6 +42558,7 @@ components:
             type: string
     ScimUser:
       type: object
+      additionalProperties: true
       description: Scim core schema.
       allOf:
       - $ref: '#/components/schemas/ScimResource'
@@ -42302,6 +42746,7 @@ components:
           $ref: '#/components/schemas/Service.ServiceState'
     ServiceProviderConfiguration:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResourceWithOptionalId'
       - $ref: '#/components/schemas/ScimResource'
@@ -42991,8 +43436,11 @@ components:
       - deleted
       - id
       - name
+      - type
       type: object
       properties:
+        type:
+          $ref: '#/components/schemas/TenantType'
         storageIsolation:
           $ref: '#/components/schemas/Isolation'
         secretIsolation:
@@ -43001,10 +43449,10 @@ components:
           type: string
         name:
           type: string
+        description:
+          type: string
         deleted:
           type: boolean
-        type:
-          $ref: '#/components/schemas/TenantType'
         defaultWorkerSelector:
           $ref: '#/components/schemas/WorkerSelector'
         concurrency:
@@ -43039,12 +43487,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Quota'
-    TenantType:
-      type: string
-      enum:
-      - DEFAULT
-      - INFRASTRUCTURE
-      - UNKNOWN
     Tenant.AppCatalogConfig:
       type: object
       properties:
@@ -43111,6 +43553,14 @@ components:
       properties:
         dashboard:
           $ref: '#/components/schemas/DashboardSettings'
+        examples:
+          $ref: '#/components/schemas/ExampleSeedState'
+    TenantType:
+      type: string
+      enum:
+      - DEFAULT
+      - INFRASTRUCTURE
+      - UNKNOWN
     TenantUsage:
       type: object
       properties:
@@ -43596,6 +44046,16 @@ components:
           $ref: '#/components/schemas/AttributeReference'
         attributeExpression:
           $ref: '#/components/schemas/FilterExpression'
+    VersionService.VersionUpgrade:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        at:
+          type: string
+          format: date-time
     WebhookResponse:
       type: object
       properties:

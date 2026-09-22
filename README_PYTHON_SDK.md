@@ -80,3 +80,32 @@ created = kestra_client.flows.create_flow(tenant, flow)
 print(f"Created flow {created.namespace}.{created.id} (revision {created.revision})")
 ```
 <!-- /snippet -->
+
+## Complex queries (AND / OR filters)
+
+Every `*_by_query` / `search_*` endpoint accepts grouped filters. Build them with the `query`
+DSL instead of hand-encoding `filters[...]` strings:
+
+```python
+from kestrapy.query import where, and_, or_, eq
+from kestrapy import QueryFilterField as F
+
+filters = where(
+    and_(
+        eq(F.NAMESPACE, "company.team"),
+        or_(
+            eq(F.STATE, "SUCCESS"),
+            eq(F.STATE, "WARNING"),
+        ),
+    )
+)
+# filters is a list[QueryFilter] — pass it to the search / *_by_query methods' filters argument.
+```
+
+- Helpers: `where`, `and_`, `or_`, `filter_`, `eq`, `not_eq`, `in_`, `not_in`, `contains`,
+  `starts_with`, `ends_with`, `regex`, `prefix`, `gt`, `gte`, `lt`, `lte`.
+- **Backward compatible:** a plain `list[QueryFilter]` (or `where(and_(...leaves))`) serializes to the
+  same flat `filters[field][OP]=value` wire format as before.
+- Nesting is **one level deep** (an `and_` containing an `or_`, or vice-versa); deeper nesting raises
+  `ValueError`. This is a client-side cap, not a server limit — the Kestra backend accepts deeper
+  trees (default `maxDepth 3` / `maxWidth 20`, and the UI itself caps at 2).

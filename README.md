@@ -347,6 +347,38 @@ tasks:
 ```
 <!-- /snippet -->
 
+## Complex queries (AND / OR filters)
+
+Every `*ByQuery` / search endpoint accepts grouped filters (Kestra
+[#16197](https://github.com/kestra-io/kestra/pull/16197)). Each SDK ships a small `query` DSL so you
+build `AND` / `OR` groups (one level of nesting) without hand-encoding `filters[...]` strings — and a
+plain flat filter list keeps producing the exact same wire format as before.
+
+```java
+// Java
+List<QueryFilter> filters = where(and(
+    eq(QueryFilterField.NAMESPACE, "company.team"),
+    or(eq(QueryFilterField.STATE, "SUCCESS"), eq(QueryFilterField.STATE, "WARNING"))));
+```
+```python
+# Python
+filters = where(and_(
+    eq(F.NAMESPACE, "company.team"),
+    or_(eq(F.STATE, "SUCCESS"), eq(F.STATE, "WARNING"))))
+```
+```go
+// Go
+filters := kestra.Where(kestra.And(
+    kestra.Eq(kestra.FilterNamespace, "company.team"),
+    kestra.Or(kestra.Eq(kestra.FilterState, "SUCCESS"), kestra.Eq(kestra.FilterState, "WARNING"))))
+```
+
+See [README_JAVA_SDK.md](./README_JAVA_SDK.md), [README_PYTHON_SDK.md](./README_PYTHON_SDK.md) and
+[README_GO_SDK.md](./README_GO_SDK.md) for the full helper list. The shared serialization contract is
+pinned by golden vectors in [`test-utils/query-filter-golden.json`](./test-utils/query-filter-golden.json),
+asserted by every SDK's offline test. (JavaScript support is tracked separately — it lives in the
+`@kestra-io/hey-api-plugin` package.)
+
 ## How to update the SDK
 - Generate openapi from Kestra-EE: `./gradlew clean build updateOpenapiVersion -xtest`
 - Move `kestra-ee.yml` from `webserver-ee/build/classes/java/main/META-INF/swagger` to the root of the SDK repository

@@ -105,6 +105,17 @@ describe('AssetsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('patchAsset: updates only the fields the patch carries', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        const assetId = created.id ?? "";
+
+        const patched = await Assets.patchAsset({ id: assetId, description: 'patched description' });
+        expect(patched.id).toBe(assetId);
+        expect(patched.description).toBe('patched description');
+        expect(patched.type).toBe(created.type);
+    });
+
     it('lockAsset: a zero or negative ttl is rejected', async () => {
         const id = randomId();
         const created = await Assets.createAsset({ body: assetYaml(id) });

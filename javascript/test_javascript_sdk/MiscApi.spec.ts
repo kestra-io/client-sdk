@@ -7,6 +7,15 @@ import fixtures from './fixtures.json' with { type: 'json' };
 const expectHttpStatus = (err: unknown) =>
     expect(typeof (err as { status?: number }).status).toBe('number');
 
+// A live file-download endpoint can also fail at the transport level — no HTTP
+// response arrives (connection reset / timeout mid-stream), so the SDK rethrows
+// the raw fetch error, which carries no numeric `.status`. Accept that as long
+// as it is a real Error; still reject a junk (statusless, non-Error) throw.
+const expectHttpOrTransportError = (err: unknown) =>
+    expect(
+        typeof (err as { status?: number }).status === 'number' || err instanceof Error,
+    ).toBe(true);
+
 describe('MiscApi', () => {
     it('configuration: returns server configuration', async () => {
         const result = await Misc.configuration();
@@ -122,7 +131,7 @@ describe('MiscApi — auth, license & setup', () => {
             const result = await Misc.generate();
             expect(result).toBeInstanceOf(Blob);
         } catch (err) {
-            expectHttpStatus(err);
+            expectHttpOrTransportError(err);
         }
     });
 

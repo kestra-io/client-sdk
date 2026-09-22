@@ -29,6 +29,8 @@ func (a *BindingsAPI) SearchBindings(ctx context.Context, tenant string, page, s
 		params.Set("type", string(*bindingType))
 	}
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMBindingControllerApiBindingDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "bindings", "search"), nil, params)
 }

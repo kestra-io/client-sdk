@@ -242,35 +242,80 @@ func paramToString(v interface{}) string {
 	return fmt.Sprintf("%v", v)
 }
 
-// parseQueryFilters converts a slice of QueryFilter objects into flattened query params.
-func ParseQueryFilters(param []QueryFilter) (map[string]string, error) {
-	kvpairs := map[string]string{}
-	for _, qf := range param {
+// queryFilterToSearchFilter converts a generated QueryFilter (the *ByQuery
+// model) into the internal SearchFilter used by the shared recursive serializer
+// (issue #246). Field names are mapped to their wire form here (toCamel +
+// query->q) so the resulting SearchFilterField is already the wire name, and the
+// logical combinator is lowercased to match the UI encoder. It recurses over
+// Children so grouped filters serialize identically to the SearchFilter path.
+func queryFilterToSearchFilter(qf QueryFilter) SearchFilter {
+	var sf SearchFilter
+	if qf.Field != nil {
 		fieldStr := fmt.Sprintf("%v", *qf.Field)
-		op := fmt.Sprintf("%v", *qf.Operation)
-
 		keyField := toCamel(fieldStr)
 		if strings.EqualFold(fieldStr, "query") {
 			keyField = "q"
 		}
+		sf.Field = SearchFilterField(keyField)
+	}
+	if qf.Operation != nil {
+		sf.Operation = SearchFilterOp(fmt.Sprintf("%v", *qf.Operation))
+	}
+	sf.Value = qf.Value
+	if qf.Logical != nil {
+		l := SearchFilterLogical(strings.ToLower(fmt.Sprintf("%v", *qf.Logical)))
+		sf.Logical = &l
+	}
+	for _, c := range qf.Children {
+		sf.Children = append(sf.Children, queryFilterToSearchFilter(c))
+	}
+	return sf
+}
 
-		// Expand map-like values for ANY field
-		if qf.Value != nil {
-			switch m := qf.Value.(type) {
-			case map[string]interface{}:
-				for k, v := range m {
-					kvpairs[fmt.Sprintf("filters[%s][%s][%s]", keyField, op, k)] = paramToString(v)
-				}
-				continue
-			case map[string]string:
-				for k, v := range m {
-					kvpairs[fmt.Sprintf("filters[%s][%s][%s]", keyField, op, k)] = paramToString(v)
-				}
-				continue
-			}
-		}
+// buildQueryFilterParams serializes a []QueryFilter through the shared recursive
+// serializer, returning ordered key/value pairs. It supports the full AND/OR +
+// one-level-nested group algorithm and returns an error for a structurally
+// invalid tree.
+func buildQueryFilterParams(filters []QueryFilter) ([]filterParam, error) {
+	converted := make([]SearchFilter, 0, len(filters))
+	for _, qf := range filters {
+		converted = append(converted, queryFilterToSearchFilter(qf))
+	}
+	return buildFilterParams(converted)
+}
 
-		kvpairs[fmt.Sprintf("filters[%s][%s]", keyField, op)] = paramToString(qf.Value)
+// addFilterQueryParams appends the serialized filters to params via Add, so
+// duplicate keys (e.g. OR children on the same field) survive and emission order
+// is stable. It returns an error for a structurally invalid tree instead of
+// panicking — the generated *ByQuery Execute surfaces it through its error
+// return.
+func addFilterQueryParams(params url.Values, filters []QueryFilter) error {
+	pairs, err := buildQueryFilterParams(filters)
+	if err != nil {
+		return err
+	}
+	for _, p := range pairs {
+		params.Add(p.Key, p.Value)
+	}
+	return nil
+}
+
+// ParseQueryFilters converts a slice of QueryFilter objects into flattened query
+// params.
+//
+// Deprecated: prefer addFilterQueryParams, which preserves duplicate keys and
+// emission order. This helper folds the ordered params into a map for backward
+// compatibility, so same-key filters (e.g. OR children on one field) collapse to
+// the last value. It now supports grouped filters and never nil-derefs a group
+// node.
+func ParseQueryFilters(param []QueryFilter) (map[string]string, error) {
+	pairs, err := buildQueryFilterParams(param)
+	if err != nil {
+		return nil, err
+	}
+	kvpairs := make(map[string]string, len(pairs))
+	for _, p := range pairs {
+		kvpairs[p.Key] = p.Value
 	}
 	return kvpairs, nil
 }
@@ -283,25 +328,10 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 	if v == reflect.ValueOf(nil) {
 		value = "null"
 	} else {
-		filters, isFilters := obj.([]QueryFilter)
-		if keyPrefix == "filters" && isFilters {
-			kvpairs, err := ParseQueryFilters(filters)
-			if err != nil {
-				panic(fmt.Sprintf("could not parse query filters, err: %s", err))
-			}
-
-			switch valuesMap := headerOrQueryParams.(type) {
-			case url.Values:
-				for k, v := range kvpairs {
-					valuesMap.Add(k, v)
-				}
-			case map[string]string:
-				for k, v := range kvpairs {
-					valuesMap[k] = v
-				}
-			}
-			return
-		}
+		// The `filters` param ([]QueryFilter) is serialized by the generated
+		// *ByQuery Execute methods via addFilterQueryParams, which surfaces
+		// structural errors through the method's error return. It is never routed
+		// through this reflection helper, so there is no panic path here.
 
 		switch v.Kind() {
 		case reflect.Invalid:

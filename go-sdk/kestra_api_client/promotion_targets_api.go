@@ -14,7 +14,9 @@ type PromotionTargetsAPI struct {
 func (a *PromotionTargetsAPI) ListPromotionTargets(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (map[string]interface{}, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "promotion-targets"), nil, params)
 }
 
