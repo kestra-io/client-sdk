@@ -134,6 +134,14 @@ describe('AppsApi', () => {
         expect(typeof result.total).toBe('number');
     });
 
+    it('searchAppsFromCatalog: hideExamples drops the example apps', async () => {
+        const all = await Apps.searchAppsFromCatalog({ page: 1, size: 10 });
+        const withoutExamples = await Apps.searchAppsFromCatalog({ page: 1, size: 10, hideExamples: true });
+
+        expect(withoutExamples.total ?? 0).toBeLessThanOrEqual(all.total ?? 0);
+        expect((withoutExamples.results ?? []).some((app) => app.example)).toBe(false);
+    });
+
     it('bulkDeleteApps: bulk deletes by UIDs', async () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
