@@ -507,8 +507,10 @@ public class ExecutionsApi extends BaseApi {
      *
      * <p>{@code inputs} maps each flow input id to its (possibly new) value; the values are sent
      * as {@code multipart/form-data}, one part per input. See {@link #toFormParams(Map)} for how
-     * each value type is encoded. Pass {@code null} or an empty map to replay without changing
-     * inputs.
+     * each value type is encoded. {@code inputs} is required: the endpoint rejects a call with no
+     * inputs body. To replay without changing inputs, use {@link #replayExecution} instead.
+     *
+     * @throws ApiException if {@code inputs} is null or empty.
      */
     public Execution replayExecutionWithInputs(
             @jakarta.annotation.Nonnull String executionId,
@@ -517,6 +519,11 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nullable Integer revision,
             @jakarta.annotation.Nullable String breakpoints,
             @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
+        if (inputs == null || inputs.isEmpty()) {
+            throw new ApiException(
+                "replayExecutionWithInputs requires a non-empty 'inputs' body; "
+                + "to replay without changing inputs, use replayExecution instead");
+        }
         return invoke("POST",
                 tenantPath(tenant, "executions", executionId, "actions", "replay-with-inputs"),
                 null, queryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints), null,

@@ -460,13 +460,6 @@ class TestReplay:
         assert result is not None
         assert result.id != execution_id
 
-    def test_replay_execution_with_inputs_basic(self, client, succeeded_execution):
-        execution_id, _, _ = succeeded_execution
-
-        result = client.executions.replay_execution_with_inputs(execution_id, TENANT)
-        assert result is not None
-        assert result.id is not None and result.id != ""
-
     def test_replay_execution_with_inputs_overrides_inputs(self, client, shared_flow):
         ns, _ = shared_flow
         flow_id = random_id()
@@ -916,13 +909,6 @@ class TestRestartBulk:
 
 
 class TestReplayBulk:
-    def test_replay_execution_with_inputs_basic(self, client, succeeded_execution):
-        execution_id, _, _ = succeeded_execution
-
-        result = client.executions.replay_execution_with_inputs(execution_id, TENANT)
-        assert result is not None
-        assert result.id is not None and result.id != ""
-
     def test_replay_executions_by_ids_basic(self, client, succeeded_execution):
         execution_id, _, _ = succeeded_execution
 

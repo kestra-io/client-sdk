@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"mime/multipart"
 	"net/url"
 	"os"
@@ -487,7 +488,9 @@ func (a *ExecutionsAPI) ReplayExecution(
 
 // ReplayExecutionWithInputs replays an execution from a specific task run, supplying
 // fresh inputs. The inputs go out as multipart form fields, which is what the endpoint
-// expects; use ReplayExecution when the original inputs should be reused.
+// expects. inputs is required: the endpoint rejects a call with no inputs body, so an
+// empty map returns an error before any HTTP request. Use ReplayExecution when the
+// original inputs should be reused.
 func (a *ExecutionsAPI) ReplayExecutionWithInputs(
 	ctx context.Context,
 	executionId, tenant string,
@@ -496,6 +499,9 @@ func (a *ExecutionsAPI) ReplayExecutionWithInputs(
 	breakpoints *string,
 	inputs map[string]string,
 ) (*Execution, error) {
+	if len(inputs) == 0 {
+		return nil, errors.New("ReplayExecutionWithInputs requires a non-empty 'inputs' body; to replay without changing inputs, use ReplayExecution instead")
+	}
 	path := tenantPath(tenant, "executions", executionId, "actions", "replay-with-inputs")
 	params := buildQueryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints)
 

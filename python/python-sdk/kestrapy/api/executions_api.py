@@ -2,6 +2,7 @@ import json
 from typing import Any, Dict, Generator, List, Optional
 
 from kestrapy.base_api import BaseApi
+from kestrapy.exceptions import ApiValueError
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.execution import Execution
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
@@ -361,9 +362,17 @@ class ExecutionsApi(BaseApi):
         """Replay an execution, overriding its inputs.
 
         ``inputs`` is the new set of flow inputs, encoded as ``multipart/form-data``
-        (see ``create_execution`` for the value conventions). Without it this behaves
-        like ``replay_execution``.
+        (see ``create_execution`` for the value conventions). It is required: the
+        endpoint rejects a call with no inputs body. To replay without changing
+        inputs, use ``replay_execution`` instead.
+
+        Raises ``ApiValueError`` if ``inputs`` is empty.
         """
+        if not inputs:
+            raise ApiValueError(
+                "replay_execution_with_inputs requires a non-empty 'inputs' body; "
+                "to replay without changing inputs, use replay_execution instead"
+            )
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,

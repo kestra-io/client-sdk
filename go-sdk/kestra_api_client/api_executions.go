@@ -3232,6 +3232,10 @@ func (r ApiReplayExecutionWithinputsRequest) Execute() (*Execution, *http.Respon
 /*
 ReplayExecutionWithinputs Create a new execution from an old one and start it from a specified task run id
 
+A non-empty FormData (the inputs multipart body) is required: the endpoint rejects a
+call with no inputs body, and Execute returns an error before any HTTP request if it is
+missing. To replay without changing inputs, use ReplayExecution instead.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param executionId the original execution id to clone
 	@param tenant
@@ -3278,6 +3282,10 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 	}
 	if r.breakpoints != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
+	}
+
+	if r.formData == nil || len(*r.formData) == 0 {
+		return localVarReturnValue, nil, reportError("replay-with-inputs requires a non-empty 'inputs' body (FormData); to replay without changing inputs, use ReplayExecution instead")
 	}
 
 	if r.formData != nil {
