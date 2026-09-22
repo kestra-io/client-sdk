@@ -361,8 +361,9 @@ class ExecutionsApi(BaseApi):
         """Replay an execution, overriding its inputs.
 
         ``inputs`` is the new set of flow inputs, encoded as ``multipart/form-data``
-        (see ``create_execution`` for the value conventions). Without it this behaves
-        like ``replay_execution``.
+        (see ``create_execution`` for the value conventions). The endpoint requires
+        this body: replaying without changing inputs is ``replay_execution``, not
+        this method called with no ``inputs``.
         """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
