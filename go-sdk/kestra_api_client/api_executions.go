@@ -708,7 +708,9 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	if r.includeNonTerminated != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
@@ -2117,7 +2119,9 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2495,7 +2499,9 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2966,7 +2972,9 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3582,7 +3590,9 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	if r.latestRevision != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "latestRevision", r.latestRevision, "form", "")
@@ -3961,7 +3971,9 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4360,7 +4372,9 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4528,7 +4542,9 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5089,7 +5105,9 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 	}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -5619,7 +5637,9 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	if r.newState != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "newState", r.newState, "form", "")
@@ -6026,7 +6046,9 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 	}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "newStatus", r.newStatus, "form", "")
 	// to determine the Content-Type header

@@ -16,7 +16,9 @@ type TenantAccessAPI struct {
 func (a *TenantAccessAPI) ListTenantAccess(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMTenantAccessControllerApiUserTenantAccess, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMTenantAccessControllerApiUserTenantAccess](&a.baseAPI, ctx, "GET", tenantPath(tenant, "tenant-access"), nil, params)
 }
 

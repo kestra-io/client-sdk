@@ -15,7 +15,9 @@ type TriggersAPI struct {
 func (a *TriggersAPI) SearchTriggers(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter, dateFilter *string) (*PagedResultsApiTriggerAndState, error) {
 	params := buildQueryParams("page", page, "size", size, "dateFilter", dateFilter)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiTriggerAndState](&a.baseAPI, ctx, "GET", tenantPath(tenant, "triggers", "search"), nil, params)
 }
 
@@ -27,7 +29,9 @@ func (a *TriggersAPI) SearchTriggersForFlow(ctx context.Context, tenant, namespa
 
 func (a *TriggersAPI) ExportTriggers(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return "", err
+	}
 	return a.doCSV(ctx, "GET", tenantPath(tenant, "triggers", "export", "by-query", "csv"), params)
 }
 
@@ -45,7 +49,9 @@ func (a *TriggersAPI) DisabledTriggersByIds(ctx context.Context, tenant string, 
 
 func (a *TriggersAPI) DisabledTriggersByQuery(ctx context.Context, tenant string, disabled *bool, filters []SearchFilter) (*ApiAsyncOperationResponse, error) {
 	params := buildQueryParams("disabled", disabled)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "set-disabled", "by-query"), nil, params)
 }
 
@@ -67,7 +73,9 @@ func (a *TriggersAPI) UnlockTriggersByIds(ctx context.Context, tenant string, tr
 
 func (a *TriggersAPI) UnlockTriggersByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*ApiAsyncOperationResponse, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "unlock", "by-query"), nil, params)
 }
 
@@ -105,7 +113,9 @@ func (a *TriggersAPI) DeleteBackfillByIds(ctx context.Context, tenant string, tr
 
 func (a *TriggersAPI) DeleteBackfillByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*ApiAsyncOperationResponse, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "backfill", "delete", "by-query"), nil, params)
 }
 
@@ -123,7 +133,9 @@ func (a *TriggersAPI) PauseBackfillByIds(ctx context.Context, tenant string, tri
 
 func (a *TriggersAPI) PauseBackfillByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*ApiAsyncOperationResponse, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "backfill", "pause", "by-query"), nil, params)
 }
 
@@ -137,6 +149,8 @@ func (a *TriggersAPI) UnpauseBackfillByIds(ctx context.Context, tenant string, t
 
 func (a *TriggersAPI) UnpauseBackfillByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*ApiAsyncOperationResponse, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "backfill", "unpause", "by-query"), nil, params)
 }

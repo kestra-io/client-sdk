@@ -525,6 +525,10 @@ __all__ = [
     "QueryFilter",
     "QueryFilterField",
     "QueryFilterLogical",
+    # Query filter DSL (issue #246) is imported from kestrapy.query directly
+    # (from kestrapy.query import where, and_, or_, eq, ...) and intentionally
+    # NOT re-exported at the package root, to avoid names like `regex` colliding
+    # with the `regex` package the generated models import.
     "QueryFilterOp",
     "QueueSubscriptionMode",
     "Quota",
@@ -1207,6 +1211,10 @@ from kestrapy.models.query_filter import QueryFilter as QueryFilter
 from kestrapy.models.query_filter_field import QueryFilterField as QueryFilterField
 from kestrapy.models.query_filter_logical import QueryFilterLogical as QueryFilterLogical
 from kestrapy.models.query_filter_op import QueryFilterOp as QueryFilterOp
+# Query filter DSL (issue #246): import from kestrapy.query directly, e.g.
+#   from kestrapy.query import where, and_, or_, eq, in_, regex
+# It is deliberately not re-exported here so `regex`/`prefix`/etc. do not shadow
+# names (notably the `regex` package) at the kestrapy package root.
 from kestrapy.models.queue_subscription_mode import QueueSubscriptionMode as QueueSubscriptionMode
 from kestrapy.models.quota import Quota as Quota
 from kestrapy.models.quota_behavior import QuotaBehavior as QuotaBehavior

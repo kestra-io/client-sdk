@@ -25,7 +25,9 @@ func (a *RolesAPI) DeleteRole(ctx context.Context, id, tenant string) error {
 func (a *RolesAPI) SearchRoles(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiRoleSummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiRoleSummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "roles", "search"), nil, params)
 }
 

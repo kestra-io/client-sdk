@@ -25,7 +25,9 @@ func (a *BlueprintsAPI) SearchBlueprints(ctx context.Context, kind, tenant strin
 	appendRepeatedParam(params, "sort", sort)
 	filters = appendStringFilter(filters, FilterQuery, q)
 	filters = appendSliceFilter(filters, FilterTags, tags)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsBlueprintControllerApiBlueprintItem](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "community", kind), nil, params)
 }
 
@@ -87,6 +89,8 @@ func (a *BlueprintsAPI) SearchInternalBlueprints(ctx context.Context, tenant str
 	appendRepeatedParam(params, "sort", sort)
 	filters = appendStringFilter(filters, FilterQuery, q)
 	filters = appendSliceFilter(filters, FilterTags, tags)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsBlueprint](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "custom"), nil, params)
 }
