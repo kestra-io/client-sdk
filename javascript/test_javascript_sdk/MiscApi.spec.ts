@@ -53,11 +53,6 @@ describe('MiscApi', () => {
         expect(result).toBeDefined();
     });
 
-    it.skip('generate: generates something', async () => {
-        const result = await Misc.generate();
-        expect(result).toBeDefined();
-    });
-
     it('usages: returns usages', async () => {
         const result = await Misc.usages();
         expect(result).toBeDefined();
@@ -122,10 +117,10 @@ describe('MiscApi — auth, license & setup', () => {
         }
     });
 
-    it('generate: returns a generated value as text', async () => {
+    it('generate: returns the usage report as a file, defaulting `from` to the current month', async () => {
         try {
             const result = await Misc.generate();
-            expect(typeof result).toBe('string');
+            expect(result).toBeInstanceOf(Blob);
         } catch (err) {
             expectHttpStatus(err);
         }
