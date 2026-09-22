@@ -2,8 +2,11 @@ package io.kestra.sdk.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Flow;
+import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Task;
+import io.kestra.sdk.model.Type;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -151,6 +154,63 @@ class FlowYamlTest {
         assertTrue(root.get("updated") == null, "updated must be stripped");
         // The java.time value nested in the task survived serialization.
         assertTrue(root.get("tasks").get(0).get("date").asText().startsWith("2026-02-03"), yaml);
+    }
+
+    @Test
+    void triggerAndInputPluginPropertiesSurviveSerialization() throws Exception {
+        // A typed Flow whose trigger and input carry plugin-specific properties.
+        // Before AbstractTrigger/InputObject gained @JsonAnyGetter/@JsonAnySetter
+        // these were silently dropped (only Task had the open-envelope treatment),
+        // so a Schedule trigger's cron/timezone or a SELECT input's values never
+        // reached the YAML source.
+        AbstractTrigger trigger = new AbstractTrigger()
+                .id("schedule")
+                .type("io.kestra.plugin.core.trigger.Schedule");
+        trigger.putAdditionalProperty("cron", "0 9 * * *");
+        trigger.putAdditionalProperty("timezone", "Europe/Paris");
+
+        InputObject input = new InputObject().id("tier").type(Type.SELECT);
+        input.putAdditionalProperty("values", List.of("gold", "silver"));
+        input.putAdditionalProperty("defaults", "gold");
+
+        Flow flow = new Flow();
+        flow.setId("with-trigger-and-input");
+        flow.setNamespace("company.team");
+        flow.setDisabled(false);
+        flow.setDraft(false);
+        flow.setDeleted(false);
+        flow.setTriggers(List.of(trigger));
+        flow.setInputs(List.of(input));
+        flow.setTasks(List.of(new Task().id("log").type("io.kestra.plugin.core.log.Log")
+                .putAdditionalProperty("message", "hi")));
+
+        JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
+
+        JsonNode triggerNode = root.get("triggers").get(0);
+        assertEquals("io.kestra.plugin.core.trigger.Schedule", triggerNode.get("type").asText());
+        assertEquals("0 9 * * *", triggerNode.get("cron").asText());
+        assertEquals("Europe/Paris", triggerNode.get("timezone").asText());
+
+        JsonNode inputNode = root.get("inputs").get(0);
+        assertEquals("SELECT", inputNode.get("type").asText());
+        assertEquals("gold", inputNode.get("values").get(0).asText());
+        assertEquals("silver", inputNode.get("values").get(1).asText());
+        assertEquals("gold", inputNode.get("defaults").asText());
+    }
+
+    @Test
+    void omitsEmptyCollections() throws Exception {
+        // The typed Flow model defaults its list fields to `new ArrayList<>()`, so
+        // without empty-collection stripping a bare flow would emit noisy
+        // `inputs: []`, `outputs: []`, `triggers: []`, ... which the other SDKs omit.
+        String yaml = FlowsApi.flowToYaml(buildFlow());
+
+        JsonNode root = YAML.readTree(yaml);
+        for (String field : new String[] {"inputs", "outputs", "labels", "errors", "triggers", "sla", "checks"}) {
+            assertTrue(root.get(field) == null, "empty collection must be omitted: " + field + "\n" + yaml);
+        }
+        // A populated list is still emitted.
+        assertTrue(root.get("tasks") != null && root.get("tasks").size() == 2, yaml);
     }
 
     @Test

@@ -237,17 +237,23 @@ public class FlowsApi extends BaseApi {
             if (node.isObject()) {
                 ((ObjectNode) node).remove(SERVER_MANAGED_FLOW_FIELDS);
             }
-            stripNulls(node);
+            stripEmpty(node);
             return YAML_MAPPER.writeValueAsString(node);
         } catch (JsonProcessingException | IllegalArgumentException e) {
             throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
         }
     }
 
-    // Removes null-valued fields from every object in the tree (at every depth),
-    // so the emitted YAML never carries `key: null` (valueToTree does not apply
-    // NON_NULL). Matches the null-omission behavior of the other SDKs.
-    private static void stripNulls(JsonNode node) {
+    // Removes null-valued and empty-array fields from every object in the tree
+    // (at every depth), so the emitted YAML never carries `key: null` nor noisy
+    // empty collections (valueToTree ignores NON_NULL, and the typed Flow model
+    // defaults its list fields to `new ArrayList<>()` rather than null). The
+    // other SDKs omit these entirely — Go via omitempty, Python because the
+    // fields default to None and are dropped by exclude_none — so stripping them
+    // here keeps Java's flow source in parity. Only null keys and already-empty
+    // arrays are dropped; array elements are never removed (positional values are
+    // preserved), so a populated list is left intact.
+    private static void stripEmpty(JsonNode node) {
         if (node.isObject()) {
             ObjectNode obj = (ObjectNode) node;
             java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = obj.fields();
@@ -255,13 +261,16 @@ public class FlowsApi extends BaseApi {
                 JsonNode value = it.next().getValue();
                 if (value.isNull()) {
                     it.remove();
-                } else {
-                    stripNulls(value);
+                    continue;
+                }
+                stripEmpty(value);
+                if (value.isArray() && value.isEmpty()) {
+                    it.remove();
                 }
             }
         } else if (node.isArray()) {
             for (JsonNode child : node) {
-                stripNulls(child);
+                stripEmpty(child);
             }
         }
     }

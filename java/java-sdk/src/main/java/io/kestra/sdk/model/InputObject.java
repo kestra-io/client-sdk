@@ -11,6 +11,10 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -256,6 +260,45 @@ public class InputObject {
     this.displayName = displayName;
   }
 
+  /**
+   * An input is an open envelope: type-specific properties (e.g. `values` on a
+   * SELECT input, `defaults`/`min`/`max` on numeric inputs) are carried here as
+   * free-form additional properties. Without this these properties would be
+   * silently dropped on (de)serialization.
+   */
+  private Map<String, Object> additionalProperties = new HashMap<>();
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   */
+  @JsonAnySetter
+  public InputObject putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+      this.additionalProperties = new HashMap<>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   */
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+      return null;
+    }
+    return this.additionalProperties.get(key);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -272,12 +315,13 @@ public class InputObject {
         Objects.equals(this.required, inputObject.required) &&
         Objects.equals(this.defaults, inputObject.defaults) &&
         Objects.equals(this.prefill, inputObject.prefill) &&
-        Objects.equals(this.displayName, inputObject.displayName);
+        Objects.equals(this.displayName, inputObject.displayName) &&
+        Objects.equals(this.additionalProperties, inputObject.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, description, dependsOn, required, defaults, prefill, displayName);
+    return Objects.hash(id, type, description, dependsOn, required, defaults, prefill, displayName, additionalProperties);
   }
 
   @Override
@@ -292,6 +336,7 @@ public class InputObject {
     sb.append("    defaults: ").append(toIndentedString(defaults)).append("\n");
     sb.append("    prefill: ").append(toIndentedString(prefill)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
