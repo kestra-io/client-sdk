@@ -3,7 +3,9 @@ package io.kestra.sdk.api;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
@@ -49,15 +51,22 @@ public class FlowsApi extends BaseApi {
     // Serializes a flow object to a YAML source string. The flow-write endpoints
     // are YAML-only (they do not accept JSON), so a native object is serialized
     // here and posted to the existing YAML endpoints. Configuration: block style,
-    // no document-start marker, no line wrapping, literal block scalars for
-    // multi-line strings, null fields omitted. Expressions like `{{ inputs.foo }}`
-    // are quoted (MINIMIZE_QUOTES stays disabled) and non-ASCII stays verbatim.
+    // no document-start marker, no line wrapping, null fields omitted. Expressions
+    // like `{{ inputs.foo }}` are quoted (MINIMIZE_QUOTES stays disabled) and
+    // non-ASCII stays verbatim. LITERAL_BLOCK_STYLE is intentionally NOT enabled:
+    // jackson-dataformat-yaml only honors it when MINIMIZE_QUOTES is on, which
+    // would unquote `{{ }}` expressions; multi-line strings are therefore emitted
+    // as (quoted) scalars that round-trip intact.
     private static final ObjectMapper YAML_MAPPER = YAMLMapper.builder()
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .disable(YAMLGenerator.Feature.SPLIT_LINES)
-            .enable(YAMLGenerator.Feature.LITERAL_BLOCK_STYLE)
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             .build();
+
+    // Read-only / server-managed flow fields that must never appear in a flow
+    // *source* body (`draft` is a query parameter, not a body field).
+    private static final java.util.Set<String> SERVER_MANAGED_FLOW_FIELDS = java.util.Set.of(
+            "deleted", "revision", "draft", "tenantId", "source", "updated");
 
     public FlowsApi() {
         super(Configuration.getDefaultApiClient());
@@ -193,7 +202,14 @@ public class FlowsApi extends BaseApi {
 
     static String flowToYaml(Object flow) throws ApiException {
         try {
-            return YAML_MAPPER.writeValueAsString(flow);
+            // First pass honors NON_NULL (drops null fields); re-parse so we can
+            // strip server-managed / read-only fields that must not appear in
+            // flow source, then re-emit.
+            JsonNode node = YAML_MAPPER.readTree(YAML_MAPPER.writeValueAsString(flow));
+            if (node.isObject()) {
+                ((ObjectNode) node).remove(SERVER_MANAGED_FLOW_FIELDS);
+            }
+            return YAML_MAPPER.writeValueAsString(node);
         } catch (JsonProcessingException e) {
             throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
         }

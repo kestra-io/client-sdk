@@ -70,6 +70,32 @@ describe('flowToYaml', () => {
         expect(parsed.labels).toEqual([{ key: 'env', value: 'prod' }]);
     });
 
+    it('strips server-managed fields (draft/deleted/revision/...) from flow source', () => {
+        const yaml = flowToYaml({
+            id: 'my-flow',
+            namespace: 'company.team',
+            disabled: false,
+            draft: false,
+            deleted: false,
+            revision: 7,
+            tenantId: 'main',
+            source: 'id: my-flow',
+            updated: '2026-01-01T00:00:00Z',
+            tasks: [{ id: 'log', type: 'io.kestra.plugin.core.log.Log', message: 'hi' }],
+        });
+        expect(yaml).not.toContain('draft:');
+        expect(yaml).not.toContain('deleted:');
+        expect(yaml).not.toContain('revision:');
+
+        const parsed = parseYaml(yaml);
+        for (const field of ['draft', 'deleted', 'revision', 'tenantId', 'source', 'updated']) {
+            expect(parsed[field]).toBeUndefined();
+        }
+        // Real content is preserved.
+        expect(parsed.id).toBe('my-flow');
+        expect(parsed.tasks[0].message).toBe('hi');
+    });
+
     it('omits null fields rather than emitting null', () => {
         const yaml = flowToYaml({
             id: 'f',

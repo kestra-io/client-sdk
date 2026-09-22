@@ -177,13 +177,25 @@ export function useClient() {
 export type FlowObjectInput = Flow | Record<string, unknown>
 
 /**
+ * Read-only / server-managed flow fields that must never appear in a flow
+ * *source* body. `draft` is a query parameter, not a body field.
+ */
+const SERVER_MANAGED_FLOW_FIELDS = ["deleted", "revision", "draft", "tenantId", "source", "updated"]
+
+/**
  * Serialize a flow object to a YAML source string (block style, no anchors,
  * `null` fields omitted). Kestra expressions like `{{ inputs.foo }}` are quoted
  * by the YAML emitter and multi-line strings become literal block scalars.
+ * Server-managed top-level fields are stripped so the YAML mirrors what a user
+ * writes as flow source.
  */
 export function flowToYaml(flow: FlowObjectInput): string {
+    const source: Record<string, unknown> = { ...(flow as Record<string, unknown>) }
+    for (const field of SERVER_MANAGED_FLOW_FIELDS) {
+        delete source[field]
+    }
     return stringifyYaml(
-        flow,
+        source,
         (_key, value) => (value === null ? undefined : value),
         { aliasDuplicateObjects: false },
     )

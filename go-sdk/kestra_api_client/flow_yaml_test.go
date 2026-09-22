@@ -102,6 +102,75 @@ func TestFlowToYAML_RoundTrip(t *testing.T) {
 	}
 }
 
+func TestFlowToYAML_ExcludesServerManagedFields(t *testing.T) {
+	// buildFlow sets Draft and Deleted (both false, so they would otherwise be
+	// emitted); revision is set here too. None may appear in flow source.
+	flow := buildFlow()
+	rev := int32(7)
+	flow.Revision = &rev
+
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	for _, needle := range []string{"draft:", "deleted:", "revision:"} {
+		if strings.Contains(out, needle) {
+			t.Errorf("server-managed field %q must not appear in flow source, got:\n%s", needle, out)
+		}
+	}
+
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v", err)
+	}
+	for _, key := range []string{"draft", "deleted", "revision", "tenantId", "source", "updated"} {
+		if _, present := parsed[key]; present {
+			t.Errorf("server-managed field %q must be absent, got:\n%s", key, out)
+		}
+	}
+}
+
+func TestFlowToYAML_NumberPrecision(t *testing.T) {
+	// A large int64 must stay an integer and keep full precision (the old
+	// json -> interface{} path coerced every number to float64).
+	const big int64 = 9007199254740993 // 2^53 + 1, not representable as float64
+	flow := map[string]interface{}{
+		"id":        "num-flow",
+		"namespace": "company.team",
+		"tasks": []map[string]interface{}{
+			{
+				"id":      "t",
+				"type":    "io.kestra.plugin.core.log.Log",
+				"timeout": big,
+			},
+		},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	if !strings.Contains(out, "9007199254740993") {
+		t.Errorf("large int64 lost precision, got:\n%s", out)
+	}
+
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v", err)
+	}
+	got := parsed["tasks"].([]interface{})[0].(map[string]interface{})["timeout"]
+	if v, ok := got.(int); ok {
+		if int64(v) != big {
+			t.Errorf("timeout = %d, want %d", v, big)
+		}
+	} else if v, ok := got.(int64); ok {
+		if v != big {
+			t.Errorf("timeout = %d, want %d", v, big)
+		}
+	} else {
+		t.Errorf("timeout decoded as %T (%v), want an integer", got, got)
+	}
+}
+
 func TestFlowToYAML_MapInput(t *testing.T) {
 	flow := map[string]interface{}{
 		"id":        "dict-flow",

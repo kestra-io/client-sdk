@@ -106,6 +106,24 @@ class FlowYamlTest {
     }
 
     @Test
+    void excludesServerManagedFields() throws Exception {
+        // buildFlow sets draft/deleted (both false, so they would otherwise be
+        // emitted); revision must not appear in flow source either.
+        Flow flow = buildFlow();
+        flow.setRevision(7);
+
+        String yaml = FlowsApi.flowToYaml(flow);
+        assertTrue(!yaml.contains("draft:"), yaml);
+        assertTrue(!yaml.contains("deleted:"), yaml);
+        assertTrue(!yaml.contains("revision:"), yaml);
+
+        JsonNode root = YAML.readTree(yaml);
+        for (String field : new String[] {"draft", "deleted", "revision", "tenantId", "source", "updated"}) {
+            assertTrue(root.get(field) == null, "field must be stripped: " + field);
+        }
+    }
+
+    @Test
     void taskAdditionalPropertiesRoundTripThroughModel() {
         // Deserialize -> the @JsonAnySetter must capture plugin props.
         Task task = new Task().id("log").type("io.kestra.plugin.core.log.Log");
