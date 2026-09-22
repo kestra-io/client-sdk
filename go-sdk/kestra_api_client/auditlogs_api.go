@@ -14,7 +14,9 @@ type AuditLogsAPI struct {
 func (a *AuditLogsAPI) SearchAuditLogs(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (map[string]interface{}, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "auditlogs", "search"), nil, params)
 }
 
@@ -23,7 +25,9 @@ func (a *AuditLogsAPI) SearchAuditLogs(ctx context.Context, tenant string, page,
 func (a *AuditLogsAPI) SearchAllAuditLogs(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (map[string]interface{}, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", superadminPath("auditlogs", "search"), nil, params)
 }
 
@@ -31,7 +35,9 @@ func (a *AuditLogsAPI) SearchAllAuditLogs(ctx context.Context, page, size *int, 
 // /api/v1/{tenant}/auditlogs/export.
 func (a *AuditLogsAPI) ExportAuditLogs(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return "", err
+	}
 	return a.doText(ctx, "GET", tenantPath(tenant, "auditlogs", "export"), params, contentCSV)
 }
 
@@ -39,7 +45,9 @@ func (a *AuditLogsAPI) ExportAuditLogs(ctx context.Context, tenant string, filte
 // only). Backs GET /api/v1/auditlogs/export.
 func (a *AuditLogsAPI) ExportAllAuditLogs(ctx context.Context, filters []SearchFilter) (string, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return "", err
+	}
 	return a.doText(ctx, "GET", superadminPath("auditlogs", "export"), params, contentCSV)
 }
 

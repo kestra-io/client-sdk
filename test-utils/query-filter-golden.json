@@ -1,0 +1,172 @@
+{
+  "$comment": [
+    "Shared golden vectors for complex query-filter serialization (issue #246).",
+    "Every SDK (Python, Java, Go, and later JS) asserts against THESE exact expected wire",
+    "strings so the implementations cannot drift. Do not edit expected output to make a",
+    "single SDK pass — fix the SDK. The contract is derived from the Kestra UI encoder",
+    "(kestra#16197: ui/.../filter/utils/helpers.ts `encodeFilterGroupsToQuery`).",
+    "",
+    "Node shapes:",
+    "  leaf  = {\"field\": <LOGICAL_ENUM_NAME>, \"op\": <OP>, \"value\": <string|[string]|{k:v}>}",
+    "  group = {\"logical\": \"AND\"|\"OR\", \"children\": [node, ...]}",
+    "Unified cross-SDK classification (issue #246 review): a node is a GROUP iff it",
+    "has a logical OR a non-empty children list. A group with no logical defaults to",
+    "AND. An empty children list on a leaf is ignored (the node stays a leaf). A node",
+    "that carries both a field and group data is ambiguous and raises client-side.",
+    "Case input is EITHER {\"where\": <node>} (built via the DSL where(...)) OR",
+    "{\"list\": [node, ...]} (a raw filter list passed straight to the serializer, no DSL).",
+    "",
+    "Field name mapping is each SDK's existing concern (Java filterFieldName / Python enum",
+    "value / Go SearchFilterField). The logical names below map to these wire names:",
+    "  NAMESPACE->namespace  FLOW_ID->flowId  SCOPE->scope  STATE->state  LABELS->labels  QUERY->q",
+    "",
+    "`expected` is the ORDERED list of key=value pairs (values NOT percent-encoded here;",
+    "each SDK compares against its own pre-escape representation).",
+    "Serialization rules pinned:",
+    "  - Top-level AND whose children are ALL leaves flattens to bare filters[field][OP]",
+    "    (byte-identical to the legacy flat list — the key backward-compat invariant).",
+    "  - Explicit filters[and][i]/filters[or][i] appears only when a nested group is present",
+    "    or the top logical is OR.",
+    "  - A group with exactly one child flattens to that child.",
+    "  - An empty group emits nothing.",
+    "  - IN / NOT_IN values are CSV-joined.",
+    "  - Map/LABELS values emit a [key] suffix.",
+    "  - Nesting is one level deep max; deeper must raise a client-side error (tested per-SDK)."
+  ],
+  "cases": [
+    {
+      "name": "flat_single_leaf",
+      "input": { "where": { "field": "FLOW_ID", "op": "EQUALS", "value": "my-flow" } },
+      "expected": ["filters[flowId][EQUALS]=my-flow"]
+    },
+    {
+      "name": "flat_and_of_leaves_via_where",
+      "input": { "where": { "logical": "AND", "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f" }
+      ] } },
+      "expected": [
+        "filters[namespace][EQUALS]=ns",
+        "filters[flowId][EQUALS]=f"
+      ]
+    },
+    {
+      "name": "raw_flat_list_backward_compat",
+      "input": { "list": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f" }
+      ] },
+      "expected": [
+        "filters[namespace][EQUALS]=ns",
+        "filters[flowId][EQUALS]=f"
+      ]
+    },
+    {
+      "name": "top_level_or",
+      "input": { "where": { "logical": "OR", "children": [
+        { "field": "SCOPE", "op": "EQUALS", "value": "s1" },
+        { "field": "SCOPE", "op": "EQUALS", "value": "s2" }
+      ] } },
+      "expected": [
+        "filters[or][0][scope][EQUALS]=s1",
+        "filters[or][1][scope][EQUALS]=s2"
+      ]
+    },
+    {
+      "name": "and_containing_or",
+      "input": { "where": { "logical": "AND", "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "logical": "OR", "children": [
+          { "field": "SCOPE", "op": "EQUALS", "value": "s1" },
+          { "field": "SCOPE", "op": "EQUALS", "value": "s2" }
+        ] }
+      ] } },
+      "expected": [
+        "filters[and][0][namespace][EQUALS]=ns",
+        "filters[and][1][or][0][scope][EQUALS]=s1",
+        "filters[and][1][or][1][scope][EQUALS]=s2"
+      ]
+    },
+    {
+      "name": "or_containing_and",
+      "input": { "where": { "logical": "OR", "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "logical": "AND", "children": [
+          { "field": "SCOPE", "op": "EQUALS", "value": "s1" },
+          { "field": "FLOW_ID", "op": "EQUALS", "value": "f" }
+        ] }
+      ] } },
+      "expected": [
+        "filters[or][0][namespace][EQUALS]=ns",
+        "filters[or][1][and][0][scope][EQUALS]=s1",
+        "filters[or][1][and][1][flowId][EQUALS]=f"
+      ]
+    },
+    {
+      "name": "single_child_group_flattens",
+      "input": { "where": { "logical": "OR", "children": [
+        { "field": "SCOPE", "op": "EQUALS", "value": "s1" }
+      ] } },
+      "expected": ["filters[scope][EQUALS]=s1"]
+    },
+    {
+      "name": "empty_group_emits_nothing",
+      "input": { "where": { "logical": "AND", "children": [] } },
+      "expected": []
+    },
+    {
+      "name": "in_operator_csv_flat",
+      "input": { "where": { "field": "STATE", "op": "IN", "value": ["RUNNING", "SUCCESS"] } },
+      "expected": ["filters[state][IN]=RUNNING,SUCCESS"]
+    },
+    {
+      "name": "in_operator_csv_inside_or",
+      "input": { "where": { "logical": "OR", "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "field": "STATE", "op": "IN", "value": ["RUNNING", "SUCCESS"] }
+      ] } },
+      "expected": [
+        "filters[or][0][namespace][EQUALS]=ns",
+        "filters[or][1][state][IN]=RUNNING,SUCCESS"
+      ]
+    },
+    {
+      "name": "labels_map_value_inside_and_or",
+      "input": { "where": { "logical": "AND", "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "logical": "OR", "children": [
+          { "field": "LABELS", "op": "EQUALS", "value": { "env": "prod" } },
+          { "field": "SCOPE", "op": "EQUALS", "value": "s1" }
+        ] }
+      ] } },
+      "expected": [
+        "filters[and][0][namespace][EQUALS]=ns",
+        "filters[and][1][or][0][labels][EQUALS][env]=prod",
+        "filters[and][1][or][1][scope][EQUALS]=s1"
+      ]
+    },
+    {
+      "name": "query_field_maps_to_q",
+      "input": { "where": { "field": "QUERY", "op": "EQUALS", "value": "hello" } },
+      "expected": ["filters[q][EQUALS]=hello"]
+    },
+    {
+      "name": "group_without_logical_defaults_to_and",
+      "input": { "list": [ { "children": [
+        { "field": "NAMESPACE", "op": "EQUALS", "value": "ns" },
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f" }
+      ] } ] },
+      "expected": [
+        "filters[namespace][EQUALS]=ns",
+        "filters[flowId][EQUALS]=f"
+      ]
+    },
+    {
+      "name": "leaf_with_empty_children_is_leaf",
+      "input": { "list": [
+        { "field": "FLOW_ID", "op": "EQUALS", "value": "f", "children": [] }
+      ] },
+      "expected": ["filters[flowId][EQUALS]=f"]
+    }
+  ]
+}

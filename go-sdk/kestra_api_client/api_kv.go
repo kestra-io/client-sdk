@@ -493,7 +493,9 @@ func (a *KVAPIService) ListAllKeysExecute(r ApiListAllKeysRequest) (*PagedResult
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

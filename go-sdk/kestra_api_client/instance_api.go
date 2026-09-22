@@ -14,7 +14,9 @@ type InstanceAPI struct {
 func (a *InstanceAPI) SearchServices(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsInstanceControllerApiServiceInstance, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsInstanceControllerApiServiceInstance](&a.baseAPI, ctx, "GET", superadminPath("instance", "services", "search"), nil, params)
 }
 
@@ -47,7 +49,9 @@ func (a *InstanceAPI) ListAllMcpServers(ctx context.Context, page, size *int, so
 func (a *InstanceAPI) ListVersionedPlugins(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiPluginArtifact, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsApiPluginArtifact](&a.baseAPI, ctx, "GET", superadminPath("instance", "versioned-plugins"), nil, params)
 }
 

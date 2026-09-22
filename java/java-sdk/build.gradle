@@ -104,6 +104,7 @@ ext {
     jackson_databind_nullable_version = "0.2.6"
     httpclient_version = "5.2.1"
     jodatime_version = "2.9.9"
+    junit_version = "4.13.2"
 }
 
 dependencies {
@@ -117,9 +118,16 @@ dependencies {
     implementation "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jackson_version"
     implementation "org.openapitools:jackson-databind-nullable:$jackson_databind_nullable_version"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
+    testImplementation "junit:junit:$junit_version"
     // JUnit 5 for the hand-written serialization unit tests (src/test).
+    // Pin the JUnit 5 versions through the platform BOM so the launcher resolves a
+    // concrete version even when ~/.m2 already has a jupiter POM cached (mavenLocal
+    // is first on the repo list); without the BOM `./gradlew check` fails with
+    // "Could not find org.junit.platform:junit-platform-launcher:".
     testImplementation platform('org.junit:junit-bom:5.13.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Gradle 9 no longer puts the JUnit Platform launcher on the test runtime
+    // classpath implicitly; without it the test worker fails to start.
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
     implementation "io.projectreactor:reactor-core:3.7.12"

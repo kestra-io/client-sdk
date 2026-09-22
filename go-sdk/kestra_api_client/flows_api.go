@@ -117,7 +117,9 @@ func (a *FlowsAPI) DeleteFlowsByIds(ctx context.Context, tenant string, ids []Id
 func (a *FlowsAPI) DeleteFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "delete", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	result, err := doJSON[BulkResponse](&a.baseAPI, ctx, "DELETE", path, nil, params)
 	if err != nil {
 		return nil, err
@@ -139,7 +141,9 @@ func (a *FlowsAPI) DisableFlowsByIds(ctx context.Context, tenant string, ids []I
 func (a *FlowsAPI) DisableFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "disable", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	result, err := doJSON[BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 	if err != nil {
 		return nil, err
@@ -161,7 +165,9 @@ func (a *FlowsAPI) EnableFlowsByIds(ctx context.Context, tenant string, ids []Id
 func (a *FlowsAPI) EnableFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "enable", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	result, err := doJSON[BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 	if err != nil {
 		return nil, err
@@ -178,7 +184,9 @@ func (a *FlowsAPI) SearchFlows(ctx context.Context, tenant string, page, size *i
 	path := tenantPath(tenant, "flows", "search")
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	result, err := doJSON[PagedResultsFlow](&a.baseAPI, ctx, "GET", path, nil, params)
 	if err != nil {
 		return nil, err
@@ -286,7 +294,9 @@ func (a *FlowsAPI) ExportFlowsByIds(ctx context.Context, tenant string, ids []Id
 func (a *FlowsAPI) ExportFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) ([]byte, error) {
 	path := tenantPath(tenant, "flows", "export", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return a.doDownloadBytes(ctx, "GET", path, nil, params)
 }
 
@@ -445,7 +455,9 @@ func (a *FlowsAPI) Expressions(ctx context.Context, tenant, yamlBody string, tas
 func (a *FlowsAPI) ExportFlowsByQueryCsv(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
 	path := tenantPath(tenant, "flows", "export", "by-query", "csv")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return "", err
+	}
 	return a.doText(ctx, "GET", path, params, contentCSV)
 }
 
