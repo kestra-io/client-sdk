@@ -190,6 +190,9 @@ const SERVER_MANAGED_FLOW_FIELDS = ["deleted", "revision", "draft", "tenantId", 
  * writes as flow source.
  */
 export function flowToYaml(flow: FlowObjectInput): string {
+    if (flow === null || flow === undefined) {
+        throw new TypeError("flow must not be null or undefined")
+    }
     const source: Record<string, unknown> = { ...(flow as Record<string, unknown>) }
     for (const field of SERVER_MANAGED_FLOW_FIELDS) {
         delete source[field]

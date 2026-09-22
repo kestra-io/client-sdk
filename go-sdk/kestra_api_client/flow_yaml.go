@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -43,6 +44,15 @@ var serverManagedFlowFields = map[string]bool{
 // Go's encoding/json emits map keys in sorted order; map inputs are therefore
 // emitted with alphabetically ordered keys.
 func flowToYAML(flow interface{}) (string, error) {
+	if flow == nil {
+		return "", fmt.Errorf("flow must not be nil")
+	}
+	// A typed but nil pointer (e.g. (*Flow)(nil)) marshals to JSON "null"; reject
+	// it so a nil object is never POSTed as flow source.
+	if rv := reflect.ValueOf(flow); rv.Kind() == reflect.Ptr && rv.IsNil() {
+		return "", fmt.Errorf("flow must not be nil")
+	}
+
 	jsonBytes, err := json.Marshal(flow)
 	if err != nil {
 		return "", fmt.Errorf("serialize flow to json: %w", err)
@@ -131,6 +141,11 @@ func jsonTokenToYAMLNode(dec *json.Decoder, tok json.Token) (*yaml.Node, error) 
 	case json.Number:
 		s := t.String()
 		if _, err := strconv.ParseInt(s, 10, 64); err == nil {
+			return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!int", Value: s}, nil
+		}
+		// A value above math.MaxInt64 is still an integer in the uint64 range;
+		// keep it an int rather than losing precision as a float.
+		if _, err := strconv.ParseUint(s, 10, 64); err == nil {
 			return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!int", Value: s}, nil
 		}
 		return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!float", Value: s}, nil

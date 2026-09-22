@@ -110,6 +110,13 @@ describe('flowToYaml', () => {
         expect(yaml).not.toContain('null');
     });
 
+    it('throws on null or undefined input', () => {
+        // @ts-expect-error deliberately passing null
+        expect(() => flowToYaml(null)).toThrow();
+        // @ts-expect-error deliberately passing undefined
+        expect(() => flowToYaml(undefined)).toThrow();
+    });
+
     it('keeps non-ASCII characters verbatim', () => {
         const yaml = flowToYaml({
             id: 'f',

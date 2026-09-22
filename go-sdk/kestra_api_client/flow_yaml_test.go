@@ -1,6 +1,7 @@
 package kestra_api_client
 
 import (
+	"encoding/json"
 	"strings"
 	"testing"
 
@@ -168,6 +169,40 @@ func TestFlowToYAML_NumberPrecision(t *testing.T) {
 		}
 	} else {
 		t.Errorf("timeout decoded as %T (%v), want an integer", got, got)
+	}
+}
+
+func TestFlowToYAML_UintPrecision(t *testing.T) {
+	// A value above math.MaxInt64 (uint64 range) must stay an integer, not fall
+	// through to a lossy float.
+	const big = "18446744073709551615" // math.MaxUint64
+	flow := map[string]interface{}{
+		"id":        "uint-flow",
+		"namespace": "company.team",
+		"tasks": []map[string]interface{}{
+			{"id": "t", "type": "io.kestra.plugin.core.log.Log", "big": json.RawMessage(big)},
+		},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	if !strings.Contains(out, big) {
+		t.Errorf("large uint64 lost precision, got:\n%s", out)
+	}
+	// Must be emitted as a bare integer, not quoted or exponential.
+	if strings.Contains(out, "1.8446744073709552e+19") {
+		t.Errorf("uint64 was coerced to float, got:\n%s", out)
+	}
+}
+
+func TestFlowToYAML_NilInput(t *testing.T) {
+	if _, err := flowToYAML(nil); err == nil {
+		t.Error("expected an error for nil input, got nil")
+	}
+	var typedNil *Flow
+	if _, err := flowToYAML(typedNil); err == nil {
+		t.Error("expected an error for a typed-nil *Flow, got nil")
 	}
 }
 

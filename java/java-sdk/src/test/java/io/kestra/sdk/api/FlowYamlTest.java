@@ -124,6 +124,27 @@ class FlowYamlTest {
     }
 
     @Test
+    void serializesJavaTimeValuesAndStripsUpdated() throws Exception {
+        // A Flow with a non-null `updated` (OffsetDateTime) and a java.time value
+        // nested in a task must serialize without InvalidDefinitionException (the
+        // mapper needs JavaTimeModule) and `updated` must not leak into the source.
+        Flow flow = buildFlow();
+        flow.setUpdated(java.time.OffsetDateTime.parse("2026-01-02T03:04:05Z"));
+
+        Task withDate = new Task().id("scheduled").type("io.kestra.plugin.core.trigger.Schedule");
+        withDate.putAdditionalProperty("date", java.time.OffsetDateTime.parse("2026-02-03T04:05:06Z"));
+        flow.setTasks(List.of(withDate));
+
+        String yaml = FlowsApi.flowToYaml(flow); // must not throw
+        assertTrue(!yaml.contains("updated:"), yaml);
+
+        JsonNode root = YAML.readTree(yaml);
+        assertTrue(root.get("updated") == null, "updated must be stripped");
+        // The java.time value nested in the task survived serialization.
+        assertTrue(root.get("tasks").get(0).get("date").asText().startsWith("2026-02-03"), yaml);
+    }
+
+    @Test
     void taskAdditionalPropertiesRoundTripThroughModel() {
         // Deserialize -> the @JsonAnySetter must capture plugin props.
         Task task = new Task().id("log").type("io.kestra.plugin.core.log.Log");

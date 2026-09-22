@@ -48,23 +48,38 @@ class FlowsApi(BaseApi):
         path = self._tenant_path(tenant, "flows", namespace, id)
         return self._json_request("PUT", path, FlowWithSource, body=body, content_type=self.YAML)
 
-    def create_flow_from_object(self, tenant: str, flow: Union[Flow, Dict[str, Any]]) -> FlowWithSource:
+    def create_flow_from_object(
+        self, tenant: str, flow: Union[Flow, Dict[str, Any]], draft: Optional[bool] = None
+    ) -> FlowWithSource:
         """Create a flow from a native object (Flow model or plain dict).
 
         The object is serialized to a YAML source string client-side (the write
-        endpoint is YAML-only) and delegated to :meth:`create_flow`.
+        endpoint is YAML-only). ``draft`` is forwarded as a query parameter
+        (never a body field).
         """
-        return self.create_flow(tenant, flow_to_yaml(flow))
+        path = self._tenant_path(tenant, "flows")
+        params = self._build_query_params(draft=draft)
+        return self._json_request(
+            "POST", path, FlowWithSource,
+            body=flow_to_yaml(flow), params=params, content_type=self.YAML,
+        )
 
     def update_flow_from_object(
-        self, namespace: str, id: str, tenant: str, flow: Union[Flow, Dict[str, Any]]
+        self, namespace: str, id: str, tenant: str,
+        flow: Union[Flow, Dict[str, Any]], draft: Optional[bool] = None
     ) -> FlowWithSource:
         """Update a flow from a native object (Flow model or plain dict).
 
         The object is serialized to a YAML source string client-side (the write
-        endpoint is YAML-only) and delegated to :meth:`update_flow`.
+        endpoint is YAML-only). ``draft`` is forwarded as a query parameter
+        (never a body field).
         """
-        return self.update_flow(namespace, id, tenant, flow_to_yaml(flow))
+        path = self._tenant_path(tenant, "flows", namespace, id)
+        params = self._build_query_params(draft=draft)
+        return self._json_request(
+            "PUT", path, FlowWithSource,
+            body=flow_to_yaml(flow), params=params, content_type=self.YAML,
+        )
 
     def delete_flow(self, namespace: str, id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "flows", namespace, id)

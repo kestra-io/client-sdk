@@ -48,24 +48,38 @@ func (a *FlowsAPI) UpdateFlow(ctx context.Context, namespace, id, tenant, yamlBo
 
 // CreateFlowFromObject creates a new flow from a native object (a *Flow / Flow
 // value, or a map). The object is serialized to a YAML source string
-// client-side (the write endpoint is YAML-only) and delegated to CreateFlow.
-func (a *FlowsAPI) CreateFlowFromObject(ctx context.Context, tenant string, flow interface{}) (*FlowWithSource, error) {
+// client-side (the write endpoint is YAML-only). draft is forwarded as a query
+// parameter (never a body field); pass nil to leave it unset.
+func (a *FlowsAPI) CreateFlowFromObject(ctx context.Context, tenant string, flow interface{}, draft *bool) (*FlowWithSource, error) {
 	yamlBody, err := flowToYAML(flow)
 	if err != nil {
 		return nil, err
 	}
-	return a.CreateFlow(ctx, tenant, yamlBody)
+	path := tenantPath(tenant, "flows")
+	params := buildQueryParams("draft", draft)
+	result, err := doJSONWithYAMLBody[FlowWithSource](&a.baseAPI, ctx, "POST", path, yamlBody, params)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
 }
 
 // UpdateFlowFromObject updates an existing flow from a native object (a *Flow /
 // Flow value, or a map). The object is serialized to a YAML source string
-// client-side (the write endpoint is YAML-only) and delegated to UpdateFlow.
-func (a *FlowsAPI) UpdateFlowFromObject(ctx context.Context, namespace, id, tenant string, flow interface{}) (*FlowWithSource, error) {
+// client-side (the write endpoint is YAML-only). draft is forwarded as a query
+// parameter (never a body field); pass nil to leave it unset.
+func (a *FlowsAPI) UpdateFlowFromObject(ctx context.Context, namespace, id, tenant string, flow interface{}, draft *bool) (*FlowWithSource, error) {
 	yamlBody, err := flowToYAML(flow)
 	if err != nil {
 		return nil, err
 	}
-	return a.UpdateFlow(ctx, namespace, id, tenant, yamlBody)
+	path := tenantPath(tenant, "flows", namespace, id)
+	params := buildQueryParams("draft", draft)
+	result, err := doJSONWithYAMLBody[FlowWithSource](&a.baseAPI, ctx, "PUT", path, yamlBody, params)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
 }
 
 // DeleteFlow deletes a flow by namespace and id.

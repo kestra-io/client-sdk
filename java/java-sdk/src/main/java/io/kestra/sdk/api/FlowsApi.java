@@ -5,11 +5,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.RFC3339JavaTimeModule;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
@@ -61,6 +65,14 @@ public class FlowsApi extends BaseApi {
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .disable(YAMLGenerator.Feature.SPLIT_LINES)
             .serializationInclusion(JsonInclude.Include.NON_NULL)
+            // Mirror ApiClient's date/enum/nullable handling so java.time values
+            // anywhere in the graph (e.g. Flow.updated, a trigger date) serialize
+            // instead of throwing InvalidDefinitionException.
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+            .addModule(new JavaTimeModule())
+            .addModule(new JsonNullableModule())
+            .addModule(new RFC3339JavaTimeModule())
             .build();
 
     // Read-only / server-managed flow fields that must never appear in a flow
@@ -104,6 +116,12 @@ public class FlowsApi extends BaseApi {
 
     private <T> T putYaml(String path, String body, TypeReference<T> returnType) throws ApiException {
         return invoke("PUT", path, body, Collections.emptyList(), Collections.emptyList(),
+                JSON, YAML, returnType);
+    }
+
+    private <T> T putYaml(String path, String body, List<Pair> queryParams,
+                          TypeReference<T> returnType) throws ApiException {
+        return invoke("PUT", path, body, queryParams, Collections.emptyList(),
                 JSON, YAML, returnType);
     }
 
@@ -177,27 +195,37 @@ public class FlowsApi extends BaseApi {
     /**
      * Create a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
      * or a plain {@code Map}). The object is serialized to a YAML source string
-     * client-side (the write endpoint is YAML-only) and delegated to
-     * {@link #createFlow(String, String)}.
+     * client-side (the write endpoint is YAML-only). {@code draft} is forwarded as
+     * a query parameter (never a body field); pass {@code null} to leave it unset.
      */
     public FlowWithSource createFlowFromObject(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull Object flow) throws ApiException {
-        return createFlow(tenant, flowToYaml(flow));
+            @jakarta.annotation.Nonnull Object flow,
+            @jakarta.annotation.Nullable Boolean draft) throws ApiException {
+        return postYaml(
+                tenantPath(tenant, "flows"),
+                flowToYaml(flow),
+                queryParams("draft", draft),
+                new TypeReference<>() {});
     }
 
     /**
      * Update a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
      * or a plain {@code Map}). The object is serialized to a YAML source string
-     * client-side (the write endpoint is YAML-only) and delegated to
-     * {@link #updateFlow(String, String, String, String)}.
+     * client-side (the write endpoint is YAML-only). {@code draft} is forwarded as
+     * a query parameter (never a body field); pass {@code null} to leave it unset.
      */
     public FlowWithSource updateFlowFromObject(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull Object flow) throws ApiException {
-        return updateFlow(namespace, id, tenant, flowToYaml(flow));
+            @jakarta.annotation.Nonnull Object flow,
+            @jakarta.annotation.Nullable Boolean draft) throws ApiException {
+        return putYaml(
+                tenantPath(tenant, "flows", namespace, id),
+                flowToYaml(flow),
+                queryParams("draft", draft),
+                new TypeReference<>() {});
     }
 
     static String flowToYaml(Object flow) throws ApiException {
