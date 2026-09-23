@@ -322,3 +322,66 @@ def test_ordinary_strings_keep_their_styles():
     assert "  message: hello world\n" in out
     assert "  expr: '{{ inputs.x }}'\n" in out
     assert "  script: |-\n    a\n    b\n" in out
+
+
+def _server_flow_payload():
+    # Shape of a real GET /flows/{namespace}/{id} response: the trigger carries
+    # no `when` (the 2.0 spec marks it required, the server never sends it).
+    return {
+        "id": "sched-flow",
+        "namespace": "company.team",
+        "revision": 1,
+        "updated": "2026-09-23T10:11:12.345Z",
+        "disabled": False,
+        "deleted": False,
+        "draft": False,
+        "tasks": [{"id": "log", "type": "io.kestra.plugin.core.log.Log", "message": "hi"}],
+        "triggers": [{
+            "id": "sched",
+            "type": "io.kestra.plugin.core.trigger.Schedule",
+            "disabled": True,
+            "cron": "0 0 1 1 *",
+            "timezone": "Europe/Paris",
+        }],
+        "source": "id: sched-flow\n",
+    }
+
+
+def test_server_trigger_without_when_round_trips_plugin_props():
+    from kestrapy.base_api import BaseApi
+    from kestrapy.models.flow_with_source import FlowWithSource
+
+    got = BaseApi._deserialize(_server_flow_payload(), FlowWithSource)
+    trigger = got.triggers[0]
+    assert trigger.when is None
+    assert trigger.additional_properties == {"cron": "0 0 1 1 *", "timezone": "Europe/Paris"}
+    assert isinstance(got.updated, datetime)
+
+    out = flow_to_yaml(got)
+    parsed = yaml.safe_load(out)
+    assert parsed["triggers"] == [{
+        "id": "sched",
+        "type": "io.kestra.plugin.core.trigger.Schedule",
+        "disabled": True,
+        "cron": "0 0 1 1 *",
+        "timezone": "Europe/Paris",
+    }]
+    assert "when" not in out
+
+
+def test_construct_model_fallback_keeps_undeclared_keys():
+    # If from_dict() ever fails again (spec/server drift), the fallback must not
+    # silently drop plugin-specific keys nor leave timestamps as raw strings.
+    from kestrapy.base_api import BaseApi
+    from kestrapy.models.abstract_trigger import AbstractTrigger
+    from kestrapy.models.flow_with_source import FlowWithSource
+
+    payload = _server_flow_payload()
+    payload["triggers"][0]["disabled"] = "not-a-bool"  # forces from_dict() to fail
+    trigger = BaseApi._construct_model(payload["triggers"][0], AbstractTrigger)
+    assert trigger.additional_properties == {"cron": "0 0 1 1 *", "timezone": "Europe/Paris"}
+    assert trigger.to_dict()["cron"] == "0 0 1 1 *"
+
+    flow = BaseApi._construct_model(payload, FlowWithSource)
+    assert flow.updated == datetime(2026, 9, 23, 10, 11, 12, 345000, tzinfo=timezone.utc)
+    assert flow.triggers[0].additional_properties["timezone"] == "Europe/Paris"

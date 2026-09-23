@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 import requests
 import sseclient
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 
 
 def _json_default(obj: Any) -> Any:
@@ -301,16 +301,22 @@ class BaseApi:
             return model_type.model_construct(**data) if hasattr(model_type, 'model_construct') else data
         fields = model_type.model_fields
         processed = {}
+        # Keys matching no declared field. model_construct() silently drops
+        # them, so for models with an `additional_properties` bag (e.g. a
+        # trigger's plugin-specific `cron`) they are preserved there instead.
+        extras = {}
         for key, value in data.items():
-            if value is None:
-                processed[key] = value
-                continue
             field_type = None
+            known = False
             for fname, finfo in fields.items():
                 if fname == key or getattr(finfo, 'alias', None) == key:
                     field_type = BaseApi._unwrap_optional(finfo.annotation)
+                    known = True
                     break
-            if field_type is None:
+            if not known or key == 'additional_properties':
+                extras[key] = value
+                continue
+            if value is None:
                 processed[key] = value
                 continue
             if isinstance(value, dict) and hasattr(field_type, 'model_fields'):
@@ -354,5 +360,17 @@ class BaseApi:
                 else:
                     processed[key] = value
             else:
-                processed[key] = value
+                processed[key] = BaseApi._validate_scalar(value, field_type)
+        if extras and 'additional_properties' in fields:
+            processed['additional_properties'] = extras
         return model_type.model_construct(**processed)
+
+    @staticmethod
+    def _validate_scalar(value: Any, field_type: Any) -> Any:
+        # Best-effort coercion of a scalar (e.g. an ISO timestamp string for a
+        # datetime field) so a constructed model does not keep the raw JSON
+        # value; the raw value is kept if it does not validate.
+        try:
+            return TypeAdapter(field_type).validate_python(value)
+        except Exception:
+            return value
