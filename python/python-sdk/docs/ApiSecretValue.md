@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_secret_value import ApiSecretValue
 
 # TODO update the JSON string below

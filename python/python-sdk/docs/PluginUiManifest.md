@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin_ui_manifest import PluginUiManifest
 
 # TODO update the JSON string below

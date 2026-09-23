@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.kill_switch import KillSwitch
 
 # TODO update the JSON string below

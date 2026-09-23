@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.audit_log_detail import AuditLogDetail
 
 # TODO update the JSON string below

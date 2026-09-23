@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**disable_flows_by_query**](FlowsApi.md#disable_flows_by_query) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**enable_flows_by_ids**](FlowsApi.md#enable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 [**enable_flows_by_query**](FlowsApi.md#enable_flows_by_query) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-[**export_flows**](FlowsApi.md#export_flows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
+[**export_flows_by_query_csv**](FlowsApi.md#export_flows_by_query_csv) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 [**export_flows_by_ids**](FlowsApi.md#export_flows_by_ids) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**export_flows_by_query**](FlowsApi.md#export_flows_by_query) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 [**expressions**](FlowsApi.md#expressions) | **POST** /api/v1/{tenant}/flows/expressions | Get available Pebble expressions for a flow
@@ -46,7 +46,7 @@ Method | HTTP request | Description
 
 
 # **apply_replace_by_source_code**
-> SourceSearchReplaceApplyResponse apply_replace_by_source_code(tenant, source_search_replace_apply_request)
+> SourceSearchReplaceApplyResponse apply_replace_by_source_code(tenant, body)
 
 Apply a Source Search replace-all operation
 
@@ -58,6 +58,8 @@ Replaces every match in the given flows and persists the new revisions. Flows th
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -73,7 +75,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Apply a Source Search replace-all operation
-        api_response = kestra_client.FlowsApi.apply_replace_by_source_code(tenant, source_search_replace_apply_request)
+        api_response = kestra_client.flows.apply_replace_by_source_code(tenant, source_search_replace_apply_request)
         print("The response of FlowsApi->apply_replace_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -88,7 +90,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_apply_request** | [**SourceSearchReplaceApplyRequest**](SourceSearchReplaceApplyRequest.md)| The search query, replacement and target flows | 
+ **body** | [**SourceSearchReplaceApplyRequest**](SourceSearchReplaceApplyRequest.md)| The search query, replacement and target flows | 
 
 ### Return type
 
@@ -125,6 +127,7 @@ Flow that already created but not in `flows` will be deleted if the query delete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -143,7 +146,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update from multiples yaml sources
-        api_response = kestra_client.FlowsApi.bulk_update_flows(tenant, delete=delete, namespace=namespace, allow_namespace_child=allow_namespace_child, body=body)
+        api_response = kestra_client.flows.bulk_update_flows(tenant, delete=delete, namespace=namespace, allow_namespace_child=allow_namespace_child, body=body)
         print("The response of FlowsApi->bulk_update_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -185,7 +188,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_flow**
-> FlowWithSource create_flow(tenant, body, draft=draft)
+> FlowWithSource create_flow(tenant, body)
 
 Create a flow from yaml source
 
@@ -195,6 +198,7 @@ Create a flow from yaml source
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -211,7 +215,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a flow from yaml source
-        api_response = kestra_client.FlowsApi.create_flow(tenant, body, draft=draft)
+        api_response = kestra_client.flows.create_flow(tenant, body)
         print("The response of FlowsApi->create_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -227,7 +231,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
- **draft** | **bool**| Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations. | [optional] [default to False]
 
 ### Return type
 
@@ -277,7 +280,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a flow
-        kestra_client.FlowsApi.delete_flow(namespace, id, tenant)
+        kestra_client.flows.delete_flow(namespace, id, tenant)
     except Exception as e:
         print("Exception when calling FlowsApi->delete_flow: %s\n" % e)
 ```
@@ -316,7 +319,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_flows_by_ids**
-> BulkResponse delete_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse delete_flows_by_ids(tenant, ids)
 
 Delete flows by their IDs.
 
@@ -326,6 +329,8 @@ Delete flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -341,7 +346,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete flows by their IDs.
-        api_response = kestra_client.FlowsApi.delete_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flows.delete_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->delete_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -356,7 +361,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -390,6 +395,8 @@ Delete flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -405,7 +412,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete flows returned by the query parameters.
-        api_response = kestra_client.FlowsApi.delete_flows_by_query(tenant, filters=filters)
+        api_response = kestra_client.flows.delete_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->delete_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -444,7 +451,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_revisions**
-> delete_revisions(namespace, id, revisions, tenant)
+> delete_revisions(namespace, id, tenant, revisions)
 
 Delete revisions for a flow
 
@@ -471,7 +478,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete revisions for a flow
-        kestra_client.FlowsApi.delete_revisions(namespace, id, revisions, tenant)
+        kestra_client.flows.delete_revisions(namespace, id, tenant, revisions)
     except Exception as e:
         print("Exception when calling FlowsApi->delete_revisions: %s\n" % e)
 ```
@@ -485,8 +492,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
- **revisions** | [**List[int]**](int.md)|  | 
  **tenant** | **str**|  | 
+ **revisions** | [**List[int]**](int.md)|  | 
 
 ### Return type
 
@@ -510,7 +517,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_flows_by_ids**
-> BulkResponse disable_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse disable_flows_by_ids(tenant, ids)
 
 Disable flows by their IDs.
 
@@ -520,6 +527,8 @@ Disable flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -535,7 +544,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable flows by their IDs.
-        api_response = kestra_client.FlowsApi.disable_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flows.disable_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->disable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -550,7 +559,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -584,6 +593,8 @@ Disable flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -599,7 +610,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable flows returned by the query parameters.
-        api_response = kestra_client.FlowsApi.disable_flows_by_query(tenant, filters=filters)
+        api_response = kestra_client.flows.disable_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->disable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -638,7 +649,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enable_flows_by_ids**
-> BulkResponse enable_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse enable_flows_by_ids(tenant, ids)
 
 Enable flows by their IDs.
 
@@ -648,6 +659,8 @@ Enable flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -663,7 +676,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Enable flows by their IDs.
-        api_response = kestra_client.FlowsApi.enable_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flows.enable_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->enable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -678,7 +691,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -712,6 +725,8 @@ Enable flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -727,7 +742,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Enable flows returned by the query parameters.
-        api_response = kestra_client.FlowsApi.enable_flows_by_query(tenant, filters=filters)
+        api_response = kestra_client.flows.enable_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->enable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -765,8 +780,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **export_flows**
-> List[str] export_flows(tenant, filters=filters)
+# **export_flows_by_query_csv**
+> List[str] export_flows_by_query_csv(tenant, filters=filters)
 
 Export all flows as a streamed CSV file
 
@@ -776,6 +791,8 @@ Export all flows as a streamed CSV file
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -791,11 +808,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Export all flows as a streamed CSV file
-        api_response = kestra_client.FlowsApi.export_flows(tenant, filters=filters)
-        print("The response of FlowsApi->export_flows:\n")
+        api_response = kestra_client.flows.export_flows_by_query_csv(tenant, filters=filters)
+        print("The response of FlowsApi->export_flows_by_query_csv:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->export_flows: %s\n" % e)
+        print("Exception when calling FlowsApi->export_flows_by_query_csv: %s\n" % e)
 ```
 
 
@@ -830,7 +847,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_flows_by_ids**
-> bytes export_flows_by_ids(tenant, id_with_namespace)
+> bytes export_flows_by_ids(tenant, ids)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -840,6 +857,8 @@ Export flows as a ZIP archive of yaml sources.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -855,7 +874,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = kestra_client.FlowsApi.export_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flows.export_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->export_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -870,7 +889,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -904,6 +923,8 @@ Export flows as a ZIP archive of yaml sources.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -919,7 +940,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = kestra_client.FlowsApi.export_flows_by_query(tenant, filters=filters)
+        api_response = kestra_client.flows.export_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->export_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -970,6 +991,7 @@ Returns a categorized map of expression strings available for autocompletion in 
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -986,7 +1008,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get available Pebble expressions for a flow
-        api_response = kestra_client.FlowsApi.expressions(tenant, body, task_id=task_id)
+        api_response = kestra_client.flows.expressions(tenant, body, task_id=task_id)
         print("The response of FlowsApi->expressions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1036,6 +1058,7 @@ Get a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1055,7 +1078,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a flow
-        api_response = kestra_client.FlowsApi.flow(namespace, id, tenant, source=source, revision=revision, allow_deleted=allow_deleted)
+        api_response = kestra_client.flows.flow(namespace, id, tenant, source=source, revision=revision, allow_deleted=allow_deleted)
         print("The response of FlowsApi->flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -1108,6 +1131,7 @@ Get flow dependencies
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1126,7 +1150,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get flow dependencies
-        api_response = kestra_client.FlowsApi.flow_dependencies(namespace, id, tenant, destination_only=destination_only, expand_all=expand_all)
+        api_response = kestra_client.flows.flow_dependencies(namespace, id, tenant, destination_only=destination_only, expand_all=expand_all)
         print("The response of FlowsApi->flow_dependencies:\n")
         pprint(api_response)
     except Exception as e:
@@ -1178,6 +1202,7 @@ Retrieve flow dependencies
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1194,7 +1219,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve flow dependencies
-        api_response = kestra_client.FlowsApi.flow_dependencies_from_namespace(namespace, tenant, destination_only=destination_only)
+        api_response = kestra_client.flows.flow_dependencies_from_namespace(namespace, tenant, destination_only=destination_only)
         print("The response of FlowsApi->flow_dependencies_from_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1234,7 +1259,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **flow_hashes_by_ids**
-> ApiFlowHashesResponse flow_hashes_by_ids(tenant, id_with_namespace)
+> ApiFlowHashesResponse flow_hashes_by_ids(tenant, ids)
 
 Batch-compute source hashes for flows by id (drift detection)
 
@@ -1244,6 +1269,8 @@ Batch-compute source hashes for flows by id (drift detection)
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1259,7 +1286,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Batch-compute source hashes for flows by id (drift detection)
-        api_response = kestra_client.FlowsApi.flow_hashes_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flows.flow_hashes_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->flow_hashes_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -1274,7 +1301,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)|  | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)|  | 
 
 ### Return type
 
@@ -1308,6 +1335,7 @@ Generate a graph for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1326,7 +1354,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Generate a graph for a flow
-        api_response = kestra_client.FlowsApi.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
+        api_response = kestra_client.flows.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
         print("The response of FlowsApi->generate_flow_graph:\n")
         pprint(api_response)
     except Exception as e:
@@ -1378,6 +1406,7 @@ Generate a graph for a flow source
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1394,7 +1423,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Generate a graph for a flow source
-        api_response = kestra_client.FlowsApi.generate_flow_graph_from_source(tenant, body, subflows=subflows)
+        api_response = kestra_client.flows.generate_flow_graph_from_source(tenant, body, subflows=subflows)
         print("The response of FlowsApi->generate_flow_graph_from_source:\n")
         pprint(api_response)
     except Exception as e:
@@ -1434,7 +1463,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **import_flows**
-> List[str] import_flows(tenant, fail_on_error=fail_on_error, file_upload=file_upload)
+> List[str] import_flows(tenant, fail_on_error=fail_on_error, file_content=file_content)
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
 
@@ -1444,6 +1473,7 @@ Name | Type | Description  | Notes
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1460,7 +1490,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         #     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = kestra_client.FlowsApi.import_flows(tenant, fail_on_error=fail_on_error, file_upload=file_upload)
+        api_response = kestra_client.flows.import_flows(tenant, fail_on_error=fail_on_error, file_content=file_upload)
         print("The response of FlowsApi->import_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -1476,7 +1506,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **fail_on_error** | **bool**| If should fail on invalid flows | [optional] [default to False]
- **file_upload** | **bytes**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
+ **file_content** | **bytes**|  | [optional] 
 
 ### Return type
 
@@ -1510,6 +1540,7 @@ List flows containing deprecated tasks
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1525,7 +1556,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List flows containing deprecated tasks
-        api_response = kestra_client.FlowsApi.list_deprecated(tenant, namespace=namespace)
+        api_response = kestra_client.flows.list_deprecated(tenant, namespace=namespace)
         print("The response of FlowsApi->list_deprecated:\n")
         pprint(api_response)
     except Exception as e:
@@ -1574,6 +1605,7 @@ List all distinct namespaces
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1589,7 +1621,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List all distinct namespaces
-        api_response = kestra_client.FlowsApi.list_distinct_namespaces(tenant, q=q)
+        api_response = kestra_client.flows.list_distinct_namespaces(tenant, q=q)
         print("The response of FlowsApi->list_distinct_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -1638,6 +1670,7 @@ Get revisions for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1655,7 +1688,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get revisions for a flow
-        api_response = kestra_client.FlowsApi.list_flow_revisions(namespace, id, tenant, allow_delete=allow_delete)
+        api_response = kestra_client.flows.list_flow_revisions(namespace, id, tenant, allow_delete=allow_delete)
         print("The response of FlowsApi->list_flow_revisions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1706,6 +1739,7 @@ Retrieve all flows from a given namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1721,7 +1755,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve all flows from a given namespace
-        api_response = kestra_client.FlowsApi.list_flows_by_namespace(namespace, tenant)
+        api_response = kestra_client.flows.list_flows_by_namespace(namespace, tenant)
         print("The response of FlowsApi->list_flows_by_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1760,7 +1794,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **preview_policies**
-> PolicyPreviewResponse preview_policies(tenant, policy_preview_request)
+> PolicyPreviewResponse preview_policies(tenant, body)
 
 Preview the governance policy effects (mutations + violations) on a flow source
 
@@ -1770,6 +1804,8 @@ Preview the governance policy effects (mutations + violations) on a flow source
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1785,7 +1821,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Preview the governance policy effects (mutations + violations) on a flow source
-        api_response = kestra_client.FlowsApi.preview_policies(tenant, policy_preview_request)
+        api_response = kestra_client.flows.preview_policies(tenant, policy_preview_request)
         print("The response of FlowsApi->preview_policies:\n")
         pprint(api_response)
     except Exception as e:
@@ -1800,7 +1836,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **policy_preview_request** | [**PolicyPreviewRequest**](PolicyPreviewRequest.md)|  | 
+ **body** | [**PolicyPreviewRequest**](PolicyPreviewRequest.md)|  | 
 
 ### Return type
 
@@ -1824,7 +1860,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **preview_replace_by_source_code**
-> SourceSearchReplacePreviewResponse preview_replace_by_source_code(tenant, source_search_replace_preview_request)
+> SourceSearchReplacePreviewResponse preview_replace_by_source_code(tenant, body)
 
 Preview a Source Search replace-all operation
 
@@ -1836,6 +1872,8 @@ Computes the matched lines and their proposed replacement for every matching flo
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1851,7 +1889,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Preview a Source Search replace-all operation
-        api_response = kestra_client.FlowsApi.preview_replace_by_source_code(tenant, source_search_replace_preview_request)
+        api_response = kestra_client.flows.preview_replace_by_source_code(tenant, source_search_replace_preview_request)
         print("The response of FlowsApi->preview_replace_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -1866,7 +1904,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_preview_request** | [**SourceSearchReplacePreviewRequest**](SourceSearchReplacePreviewRequest.md)| The search query and replacement | 
+ **body** | [**SourceSearchReplacePreviewRequest**](SourceSearchReplacePreviewRequest.md)| The search query and replacement | 
 
 ### Return type
 
@@ -1890,7 +1928,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replace_line_by_source_code**
-> SourceSearchReplaceApplyResponse replace_line_by_source_code(tenant, source_search_replace_line_request)
+> SourceSearchReplaceApplyResponse replace_line_by_source_code(tenant, body)
 
 Apply a Source Search replace on a single match line
 
@@ -1902,6 +1940,8 @@ Replaces the matches on one line of one flow and persists the new revision. Retu
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1917,7 +1957,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Apply a Source Search replace on a single match line
-        api_response = kestra_client.FlowsApi.replace_line_by_source_code(tenant, source_search_replace_line_request)
+        api_response = kestra_client.flows.replace_line_by_source_code(tenant, source_search_replace_line_request)
         print("The response of FlowsApi->replace_line_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -1932,7 +1972,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_line_request** | [**SourceSearchReplaceLineRequest**](SourceSearchReplaceLineRequest.md)| The search query, replacement and target match line | 
+ **body** | [**SourceSearchReplaceLineRequest**](SourceSearchReplaceLineRequest.md)| The search query, replacement and target match line | 
 
 ### Return type
 
@@ -1966,6 +2006,7 @@ Search for flow concurrency limits
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1980,7 +2021,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for flow concurrency limits
-        api_response = kestra_client.FlowsApi.search_concurrency_limits(tenant)
+        api_response = kestra_client.flows.search_concurrency_limits(tenant)
         print("The response of FlowsApi->search_concurrency_limits:\n")
         pprint(api_response)
     except Exception as e:
@@ -2028,6 +2069,8 @@ Search for flows
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2046,7 +2089,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for flows
-        api_response = kestra_client.FlowsApi.search_flows(tenant, page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.flows.search_flows(tenant, page=page, size=size, sort=sort, filters=filters)
         print("The response of FlowsApi->search_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -2098,6 +2141,8 @@ Search for flows source code
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2121,7 +2166,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for flows source code
-        api_response = kestra_client.FlowsApi.search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace, case_sensitive=case_sensitive, whole_word=whole_word, regex=regex, scope=scope)
+        api_response = kestra_client.flows.search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace, case_sensitive=case_sensitive, whole_word=whole_word, regex=regex, scope=scope)
         print("The response of FlowsApi->search_flows_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -2178,6 +2223,7 @@ Get a flow task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2196,7 +2242,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a flow task
-        api_response = kestra_client.FlowsApi.task_from_flow(namespace, id, task_id, tenant, revision=revision)
+        api_response = kestra_client.flows.task_from_flow(namespace, id, task_id, tenant, revision=revision)
         print("The response of FlowsApi->task_from_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -2248,6 +2294,8 @@ Update a flow concurrency limit
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2265,7 +2313,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a flow concurrency limit
-        api_response = kestra_client.FlowsApi.update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
+        api_response = kestra_client.flows.update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
         print("The response of FlowsApi->update_concurrency_limit:\n")
         pprint(api_response)
     except Exception as e:
@@ -2306,7 +2354,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flow**
-> FlowWithSource update_flow(namespace, id, tenant, body, draft=draft)
+> FlowWithSource update_flow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -2316,6 +2364,7 @@ Update a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2334,7 +2383,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a flow
-        api_response = kestra_client.FlowsApi.update_flow(namespace, id, tenant, body, draft=draft)
+        api_response = kestra_client.flows.update_flow(namespace, id, tenant, body)
         print("The response of FlowsApi->update_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -2352,7 +2401,6 @@ Name | Type | Description  | Notes
  **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
- **draft** | **bool**| Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations. | [optional] [default to False]
 
 ### Return type
 
@@ -2389,6 +2437,7 @@ Flow that already created but not in `flows` will be deleted if the query delete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2407,7 +2456,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a complete namespace from yaml source
-        api_response = kestra_client.FlowsApi.update_flows_in_namespace(namespace, tenant, body, delete=delete, override=override)
+        api_response = kestra_client.flows.update_flows_in_namespace(namespace, tenant, body, delete=delete, override=override)
         print("The response of FlowsApi->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -2459,6 +2508,7 @@ Validate a list of flows
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2474,7 +2524,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Validate a list of flows
-        api_response = kestra_client.FlowsApi.validate_flows(tenant, body)
+        api_response = kestra_client.flows.validate_flows(tenant, body)
         print("The response of FlowsApi->validate_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -2523,6 +2573,7 @@ Validate a task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2539,7 +2590,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Validate a task
-        api_response = kestra_client.FlowsApi.validate_task(section, tenant, body)
+        api_response = kestra_client.flows.validate_task(section, tenant, body)
         print("The response of FlowsApi->validate_task:\n")
         pprint(api_response)
     except Exception as e:
@@ -2589,6 +2640,7 @@ Validate trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -2604,7 +2656,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Validate trigger
-        api_response = kestra_client.FlowsApi.validate_trigger(tenant, body)
+        api_response = kestra_client.flows.validate_trigger(tenant, body)
         print("The response of FlowsApi->validate_trigger:\n")
         pprint(api_response)
     except Exception as e:

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.counts200_response import Counts200Response
 
 # TODO update the JSON string below

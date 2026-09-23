@@ -47,7 +47,7 @@ The repository currently ships SDKs for Python, Java, JavaScript, and Go. The sn
 
 - Install with `pip install kestrapy` (Python 3.9+).
 - Configure `Configuration.host` with the URL of your Kestra instance.
-- For Basic authentication set `configuration.username` and `configuration.password`. For service accounts set `configuration.access_token` to the API key and omit the username/password fields.
+- For Basic authentication set `configuration.username` and `configuration.password`. For service accounts pass the API key as `KestraClient(host=..., token=...)` (`KestraClient` does not read `configuration.access_token`).
 
 ```python
 from kestrapy import KestraClient, Configuration
@@ -70,11 +70,10 @@ configuration = Configuration()
 configuration.host = "https://<kestra-host>"
 configuration.username = "user@kestra.io"
 configuration.password = "password"  # replace with your Basic auth secrets
-# Service account alternative:
-# configuration = Configuration(host="https://<kestra-host>")
-# configuration.access_token = "<service-account-api-key>"
 
 client = KestraClient(configuration)
+# Service account alternative:
+# client = KestraClient(host="https://<kestra-host>", token="<service-account-api-key>")
 
 try:
     client.flows.create_flow(tenant, flow_yaml)
@@ -95,20 +94,20 @@ tasks:
         body=updated_flow_yaml,
     )
 
-    executions = client.executions.create_execution(
+    execution = client.executions.create_execution(
+        tenant=tenant,
         namespace=namespace,
         id=flow_id,
         wait=True,
-        tenant=tenant,
     )
-    print("Execution ID:", executions[0].execution.id)
+    print("Execution ID:", execution.id)
 except ApiException as err:
     print("Kestra API error:", err)
 ```
 
 ### Java (`io.kestra:kestra-api-client`)
 
-- Add the dependency to your build: `io.kestra:kestra-api-client:1.3.0`.
+- Add the dependency to your build: `io.kestra:kestra-api-client:2.0.1` (Java 25+).
 - Basic authentication uses the builder method `.basicAuth(username, password)`. Service accounts call `.tokenAuth("<service-account-api-key>")` instead.
 
 <details>
@@ -118,7 +117,7 @@ except ApiException as err:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 
@@ -128,7 +127,7 @@ except ApiException as err:
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("io.kestra:kestra-api-client:1.3.0")
+implementation("io.kestra:kestra-api-client:2.0.1")
 ```
 
 </details>
@@ -202,53 +201,53 @@ System.out.println("Execution " + execution.getId()
 ### JavaScript (`@kestra-io/kestra-sdk`)
 
 - Install with `npm install @kestra-io/kestra-sdk` or `yarn add @kestra-io/kestra-sdk`.
-- Instantiate `KestraClient` with `(host, accessToken, username, password)`. Supply either an access token for service accounts or username/password for Basic auth.
+- Configure the shared client once with `configureClient({ baseUrl, auth })`, then import the operations of each domain from its module (`@kestra-io/kestra-sdk/flows`, `/executions`, ...).
+- For Basic authentication return `"<username>:<password>"` from `auth`. For service accounts return the API key for the `bearer` scheme only — see [README_JAVASCRIPT_SDK.md](./README_JAVASCRIPT_SDK.md#configure-the-client).
 
-```javascript
-import KestraClient from "@kestra-io/kestra-sdk";
+```typescript
+import { configureClient } from "@kestra-io/kestra-sdk";
+import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
+import * as ExecutionsAPI from "@kestra-io/kestra-sdk/executions";
 
-const tenantId = "main";
+configureClient({
+  baseUrl: "https://<kestra-host>",
+  auth: () => "user@kestra.io:password",
+  // Service account alternative:
+  // auth: (auth) => (auth.scheme === "bearer" ? "<service-account-api-key>" : undefined),
+});
+
+const tenant = "main";
 const namespace = "demo";
 const flowId = "hello_from_sdk";
 
-const flowYaml = `id: hello_from_sdk
+await FlowsAPI.createFlow({
+  tenant,
+  body: `id: hello_from_sdk
 namespace: demo
 
 tasks:
   - id: log
     type: io.kestra.plugin.core.log.Log
     message: Hello from the SDK
-`;
+`,
+});
 
-const client = new KestraClient(
-  "https://<kestra-host>",
-  null,
-  "user@kestra.io",
-  "password"
-);
-// Service account alternative:
-// const client = new KestraClient("https://<kestra-host>", "<service-account-api-key>");
-
-await new Promise((resolve, reject) =>
-  client.flowsApi.createFlow(tenantId, flowYaml, (err, data) => (err ? reject(err) : resolve(data)))
-);
-
-const updatedFlowYaml = `id: hello_from_sdk
+await FlowsAPI.updateFlow({
+  tenant,
+  namespace,
+  id: flowId,
+  body: `id: hello_from_sdk
 namespace: demo
 
 tasks:
   - id: log
     type: io.kestra.plugin.core.log.Log
     message: Hello after update
-`;
+`,
+});
 
-await new Promise((resolve, reject) =>
-  client.flowsApi.updateFlow(flowId, namespace, tenantId, updatedFlowYaml, (err, data) => (err ? reject(err) : resolve(data)))
-);
-
-await new Promise((resolve, reject) =>
-  client.executionsApi.createExecution(namespace, flowId, true, tenantId, {}, (err, data) => (err ? reject(err) : resolve(data)))
-);
+const execution = await ExecutionsAPI.createExecution({ tenant, namespace, id: flowId, wait: true });
+console.log("Execution ID:", execution.id);
 ```
 
 ### Go (`github.com/kestra-io/client-sdk/go-sdk/v2`)

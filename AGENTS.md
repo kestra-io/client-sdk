@@ -54,6 +54,18 @@ to run for all three and tells you to edit the sources directly — running the 
 would delete and overwrite hand-written code, which is exactly the silent-signature-drop
 the section below warns about.
 
+### Hand-maintained docs (not regenerated)
+
+The published reference docs for the hand-written SDKs are edited by hand, not
+regenerated — keep them in sync with the code when you change a signature:
+
+- `python/python-sdk/README.md` is the PyPI `kestrapy` page; `go-sdk/kestra_api_client/README.md`
+  is the pkg.go.dev page. Fix these directly (do not restore generator boilerplate).
+- The per-method `docs/*.md` under `python/python-sdk` and `java/java-sdk` are gated in
+  CI by each SDK's `scripts/validate_doc_examples.py --check`, which validates every
+  `kestraClient`/`kestra_client` example call against the live signatures. Run it after
+  editing a method or its docs; a drifted example fails the build (#122).
+
 ## Signature Changes — Notify, Don't Block
 
 Java, Python and Go are **hand-written**, not generated — a manual rewrite can silently drop a parameter with no generator to catch it. This already happened to `resumeExecution`'s `inputs` param in Java, and independently to `create_execution` / `resume_execution` / `replay_execution_with_inputs` in Python.

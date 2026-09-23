@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.apps_controller_api_app import AppsControllerApiApp
 
 # TODO update the JSON string below

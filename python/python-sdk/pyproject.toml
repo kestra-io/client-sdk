@@ -3,7 +3,7 @@ name = "kestrapy"
 version = "2.0.0-rc1"
 description = "Kestra EE"
     authors = [
-    {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
+    {name = "Kestra",email = "hello@kestra.io"},
     ]
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Kestra EE"]
@@ -19,7 +19,8 @@ keywords = ["OpenAPI", "OpenAPI-Generator", "Kestra EE"]
     ]
 
     [project.urls]
-    Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+    Homepage = "https://kestra.io"
+    Repository = "https://github.com/kestra-io/client-sdk"
 
     [tool.poetry]
     requires-poetry = ">=2.0"

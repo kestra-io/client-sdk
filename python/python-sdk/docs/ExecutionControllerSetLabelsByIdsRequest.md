@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
 
 # TODO update the JSON string below

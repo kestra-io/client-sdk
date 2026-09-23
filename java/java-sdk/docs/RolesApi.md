@@ -16,7 +16,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteRoles
 
-> List&lt;ApiRoleSummary&gt; autocompleteRoles(tenant, apiAutocomplete)
+> List&lt;ApiRoleSummary&gt; autocompleteRoles(tenant, request)
 
 List roles for autocomplete
 
@@ -33,7 +33,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -43,7 +43,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
         try {
-            List<ApiRoleSummary> result = kestraClient.RolesApi().autocompleteRoles(tenant, apiAutocomplete);
+            List<ApiRoleSummary> result = kestraClient.roles().autocompleteRoles(tenant, apiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#autocompleteRoles");
@@ -62,7 +62,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
+| **request** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
 
 ### Return type
 
@@ -86,7 +86,7 @@ public class Example {
 
 ## createRole
 
-> IAMRoleControllerApiRoleDetail createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest)
+> IAMRoleControllerApiRoleDetail createRole(tenant, request)
 
 Create a role
 
@@ -103,7 +103,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -113,7 +113,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest = new IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
         try {
-            IAMRoleControllerApiRoleDetail result = kestraClient.RolesApi().createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
+            IAMRoleControllerApiRoleDetail result = kestraClient.roles().createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#createRole");
@@ -132,7 +132,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
+| **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
 
 ### Return type
 
@@ -174,7 +174,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -184,7 +184,7 @@ public class Example {
         String id = "id_example"; // String | The role id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.RolesApi().deleteRole(id, tenant);
+            kestraClient.roles().deleteRole(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#deleteRole");
             System.err.println("Status code: " + e.getCode());
@@ -226,7 +226,7 @@ null (empty response body)
 
 ## listRolesFromGivenIds
 
-> List&lt;Role&gt; listRolesFromGivenIds(tenant, apiIds)
+> List&lt;Role&gt; listRolesFromGivenIds(tenant, ids)
 
 List roles by ids
 
@@ -243,7 +243,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -253,7 +253,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiIds apiIds = new ApiIds(); // ApiIds | The ids that must be present on results
         try {
-            List<Role> result = kestraClient.RolesApi().listRolesFromGivenIds(tenant, apiIds);
+            List<Role> result = kestraClient.roles().listRolesFromGivenIds(tenant, apiIds);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#listRolesFromGivenIds");
@@ -272,7 +272,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiIds** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
+| **ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
 
 ### Return type
 
@@ -313,7 +313,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -323,7 +323,7 @@ public class Example {
         String id = "id_example"; // String | The role id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMRoleControllerApiRoleDetail result = kestraClient.RolesApi().role(id, tenant);
+            IAMRoleControllerApiRoleDetail result = kestraClient.roles().role(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#role");
@@ -367,7 +367,7 @@ public class Example {
 
 ## searchRoles
 
-> PagedResultsApiRoleSummary searchRoles(filters, tenant, page, size, sort)
+> PagedResultsApiRoleSummary searchRoles(tenant, page, size, sort, filters)
 
 Search for roles
 
@@ -384,7 +384,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -397,7 +397,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsApiRoleSummary result = kestraClient.RolesApi().searchRoles(filters, tenant, page, size, sort);
+            PagedResultsApiRoleSummary result = kestraClient.roles().searchRoles(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#searchRoles");
@@ -415,11 +415,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -443,7 +443,7 @@ public class Example {
 
 ## updateRole
 
-> IAMRoleControllerApiRoleDetail updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest)
+> IAMRoleControllerApiRoleDetail updateRole(id, tenant, request)
 
 Update a role
 
@@ -460,7 +460,7 @@ import io.kestra.sdk.api.RolesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -471,7 +471,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest = new IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
         try {
-            IAMRoleControllerApiRoleDetail result = kestraClient.RolesApi().updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
+            IAMRoleControllerApiRoleDetail result = kestraClient.roles().updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#updateRole");
@@ -491,7 +491,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The role id | |
 | **tenant** | **String**|  | |
-| **iaMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
+| **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
 
 ### Return type
 

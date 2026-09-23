@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_api_trigger_and_state import PagedResultsApiTriggerAndState
 
 # TODO update the JSON string below

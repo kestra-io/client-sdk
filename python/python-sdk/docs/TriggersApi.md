@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 
 # **create_backfill**
-> ApiTriggerState create_backfill(tenant, trigger_controller_api_create_backfill_request)
+> ApiTriggerState create_backfill(tenant, request)
 
 Create a backfill
 
@@ -40,6 +40,8 @@ Create a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -55,7 +57,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a backfill
-        api_response = kestra_client.TriggersApi.create_backfill(tenant, trigger_controller_api_create_backfill_request)
+        api_response = kestra_client.triggers.create_backfill(tenant, trigger_controller_api_create_backfill_request)
         print("The response of TriggersApi->create_backfill:\n")
         pprint(api_response)
     except Exception as e:
@@ -70,7 +72,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_create_backfill_request** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | 
+ **request** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | 
 
 ### Return type
 
@@ -95,7 +97,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_backfill**
-> ApiTriggerState delete_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState delete_backfill(tenant, trigger_id)
 
 Delete a backfill
 
@@ -105,6 +107,8 @@ Delete a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -120,7 +124,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a backfill
-        api_response = kestra_client.TriggersApi.delete_backfill(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.delete_backfill(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->delete_backfill:\n")
         pprint(api_response)
     except Exception as e:
@@ -135,7 +139,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -160,7 +164,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_backfill_by_ids**
-> ApiAsyncOperationResponse delete_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse delete_backfill_by_ids(tenant, trigger_ids)
 
 Delete backfill for given triggers asynchronously
 
@@ -170,6 +174,8 @@ Delete backfill for given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -185,7 +191,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete backfill for given triggers asynchronously
-        api_response = kestra_client.TriggersApi.delete_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.delete_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->delete_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -200,7 +206,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -235,6 +241,8 @@ Delete backfill for triggers matching query asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -250,7 +258,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete backfill for triggers matching query asynchronously
-        api_response = kestra_client.TriggersApi.delete_backfill_by_query(tenant, filters=filters)
+        api_response = kestra_client.triggers.delete_backfill_by_query(tenant, filters=filters)
         print("The response of TriggersApi->delete_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -290,7 +298,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_trigger**
-> delete_trigger(namespace, flow_id, trigger_id, tenant)
+> delete_trigger(tenant, namespace, flow_id, trigger_id)
 
 Delete a trigger
 
@@ -317,7 +325,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a trigger
-        kestra_client.TriggersApi.delete_trigger(namespace, flow_id, trigger_id, tenant)
+        kestra_client.triggers.delete_trigger(tenant, namespace, flow_id, trigger_id)
     except Exception as e:
         print("Exception when calling TriggersApi->delete_trigger: %s\n" % e)
 ```
@@ -329,10 +337,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -358,7 +366,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_ids**
-> ApiAsyncOperationResponse delete_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse delete_triggers_by_ids(tenant, trigger_ids)
 
 Delete given triggers asynchronously
 
@@ -368,6 +376,8 @@ Delete given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -383,7 +393,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete given triggers asynchronously
-        api_response = kestra_client.TriggersApi.delete_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.delete_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->delete_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -398,7 +408,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -423,7 +433,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_query**
-> ApiAsyncOperationResponse delete_triggers_by_query(tenant, delete_triggers_by_query_request)
+> ApiAsyncOperationResponse delete_triggers_by_query(tenant, request)
 
 Delete triggers by query parameters asynchronously
 
@@ -433,6 +443,8 @@ Delete triggers by query parameters asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -448,7 +460,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete triggers by query parameters asynchronously
-        api_response = kestra_client.TriggersApi.delete_triggers_by_query(tenant, delete_triggers_by_query_request)
+        api_response = kestra_client.triggers.delete_triggers_by_query(tenant, delete_triggers_by_query_request)
         print("The response of TriggersApi->delete_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -463,7 +475,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_triggers_by_query_request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
+ **request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
 
 ### Return type
 
@@ -488,7 +500,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_trigger_by_id**
-> ApiTriggerState disable_trigger_by_id(tenant, trigger_controller_api_disable_trigger_request)
+> ApiTriggerState disable_trigger_by_id(tenant, request)
 
 Disable/enable a trigger
 
@@ -498,6 +510,8 @@ Disable/enable a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -513,7 +527,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable/enable a trigger
-        api_response = kestra_client.TriggersApi.disable_trigger_by_id(tenant, trigger_controller_api_disable_trigger_request)
+        api_response = kestra_client.triggers.disable_trigger_by_id(tenant, trigger_controller_api_disable_trigger_request)
         print("The response of TriggersApi->disable_trigger_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -528,7 +542,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_disable_trigger_request** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | 
+ **request** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | 
 
 ### Return type
 
@@ -553,7 +567,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_ids**
-> ApiAsyncOperationResponse disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
+> ApiAsyncOperationResponse disabled_triggers_by_ids(tenant, request)
 
 Disable/enable given triggers asynchronously
 
@@ -563,6 +577,8 @@ Disable/enable given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -578,7 +594,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable/enable given triggers asynchronously
-        api_response = kestra_client.TriggersApi.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
+        api_response = kestra_client.triggers.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
         print("The response of TriggersApi->disabled_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -593,7 +609,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_set_disabled_request** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | 
+ **request** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | 
 
 ### Return type
 
@@ -618,7 +634,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_query**
-> ApiAsyncOperationResponse disabled_triggers_by_query(tenant, filters=filters, disabled=disabled, recover_missed_schedules=recover_missed_schedules)
+> ApiAsyncOperationResponse disabled_triggers_by_query(tenant, disabled=disabled, filters=filters)
 
 Disable/enable triggers by query parameters asynchronously
 
@@ -628,6 +644,8 @@ Disable/enable triggers by query parameters asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -645,7 +663,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable/enable triggers by query parameters asynchronously
-        api_response = kestra_client.TriggersApi.disabled_triggers_by_query(tenant, filters=filters, disabled=disabled, recover_missed_schedules=recover_missed_schedules)
+        api_response = kestra_client.triggers.disabled_triggers_by_query(tenant, filters=filters, disabled=disabled)
         print("The response of TriggersApi->disabled_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -660,9 +678,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
  **disabled** | **bool**| The disabled state | [optional] [default to True]
- **recover_missed_schedules** | **bool**| When true, missed schedules are recovered on enable according to the trigger&#39;s recoverMissedSchedules configuration; omitted or false, missed schedules are skipped | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
 
 ### Return type
 
@@ -697,6 +714,8 @@ Export all triggers as a streamed CSV file
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -712,7 +731,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Export all triggers as a streamed CSV file
-        api_response = kestra_client.TriggersApi.export_triggers(tenant, filters=filters)
+        api_response = kestra_client.triggers.export_triggers(tenant, filters=filters)
         print("The response of TriggersApi->export_triggers:\n")
         pprint(api_response)
     except Exception as e:
@@ -751,7 +770,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_backfill**
-> ApiTriggerState pause_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState pause_backfill(tenant, trigger_id)
 
 Pause a backfill
 
@@ -761,6 +780,8 @@ Pause a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -776,7 +797,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause a backfill
-        api_response = kestra_client.TriggersApi.pause_backfill(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.pause_backfill(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->pause_backfill:\n")
         pprint(api_response)
     except Exception as e:
@@ -791,7 +812,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -816,7 +837,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_backfill_by_ids**
-> ApiAsyncOperationResponse pause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse pause_backfill_by_ids(tenant, trigger_ids)
 
 Pause backfill for given triggers asynchronously
 
@@ -826,6 +847,8 @@ Pause backfill for given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -841,7 +864,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause backfill for given triggers asynchronously
-        api_response = kestra_client.TriggersApi.pause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.pause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->pause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -856,7 +879,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -891,6 +914,8 @@ Pause backfill for triggers matching query asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -906,7 +931,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause backfill for triggers matching query asynchronously
-        api_response = kestra_client.TriggersApi.pause_backfill_by_query(tenant, filters=filters)
+        api_response = kestra_client.triggers.pause_backfill_by_query(tenant, filters=filters)
         print("The response of TriggersApi->pause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -946,7 +971,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restart_trigger**
-> ApiTriggerState restart_trigger(namespace, flow_id, trigger_id, tenant)
+> ApiTriggerState restart_trigger(tenant, namespace, flow_id, trigger_id)
 
 Restart a trigger
 
@@ -956,6 +981,7 @@ Restart a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -973,7 +999,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Restart a trigger
-        api_response = kestra_client.TriggersApi.restart_trigger(namespace, flow_id, trigger_id, tenant)
+        api_response = kestra_client.triggers.restart_trigger(tenant, namespace, flow_id, trigger_id)
         print("The response of TriggersApi->restart_trigger:\n")
         pprint(api_response)
     except Exception as e:
@@ -987,10 +1013,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -1025,6 +1051,8 @@ Search for triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1044,7 +1072,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for triggers
-        api_response = kestra_client.TriggersApi.search_triggers(tenant, page=page, size=size, sort=sort, filters=filters, date_filter=date_filter)
+        api_response = kestra_client.triggers.search_triggers(tenant, page=page, size=size, sort=sort, filters=filters, date_filter=date_filter)
         print("The response of TriggersApi->search_triggers:\n")
         pprint(api_response)
     except Exception as e:
@@ -1087,7 +1115,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_triggers_for_flow**
-> PagedResultsApiTriggerState search_triggers_for_flow(namespace, flow_id, tenant, page=page, size=size, sort=sort, q=q)
+> PagedResultsApiTriggerState search_triggers_for_flow(tenant, namespace, flow_id, page=page, size=size, q=q, sort=sort)
 
 Get all triggers for a flow
 
@@ -1097,6 +1125,7 @@ Get all triggers for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1117,7 +1146,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get all triggers for a flow
-        api_response = kestra_client.TriggersApi.search_triggers_for_flow(namespace, flow_id, tenant, page=page, size=size, sort=sort, q=q)
+        api_response = kestra_client.triggers.search_triggers_for_flow(tenant, namespace, flow_id, page=page, size=size, sort=sort, q=q)
         print("The response of TriggersApi->search_triggers_for_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -1131,13 +1160,13 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
  **page** | **int**| The current page | [optional] [default to 1]
  **size** | **int**| The current page size | [optional] [default to 10]
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **q** | **str**| A string filter | [optional] 
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -1161,7 +1190,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_trigger**
-> ApiTriggerState unlock_trigger(namespace, flow_id, trigger_id, tenant)
+> ApiTriggerState unlock_trigger(tenant, namespace, flow_id, trigger_id)
 
 Unlock a trigger
 
@@ -1171,6 +1200,7 @@ Unlock a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1188,7 +1218,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock a trigger
-        api_response = kestra_client.TriggersApi.unlock_trigger(namespace, flow_id, trigger_id, tenant)
+        api_response = kestra_client.triggers.unlock_trigger(tenant, namespace, flow_id, trigger_id)
         print("The response of TriggersApi->unlock_trigger:\n")
         pprint(api_response)
     except Exception as e:
@@ -1202,10 +1232,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -1230,7 +1260,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_triggers_by_ids**
-> ApiAsyncOperationResponse unlock_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse unlock_triggers_by_ids(tenant, trigger_ids)
 
 Unlock given triggers asynchronously
 
@@ -1240,6 +1270,8 @@ Unlock given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1255,7 +1287,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock given triggers asynchronously
-        api_response = kestra_client.TriggersApi.unlock_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.unlock_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->unlock_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -1270,7 +1302,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -1305,6 +1337,8 @@ Unlock triggers by query parameters asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1320,7 +1354,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock triggers by query parameters asynchronously
-        api_response = kestra_client.TriggersApi.unlock_triggers_by_query(tenant, filters=filters)
+        api_response = kestra_client.triggers.unlock_triggers_by_query(tenant, filters=filters)
         print("The response of TriggersApi->unlock_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -1360,7 +1394,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unpause_backfill**
-> ApiTriggerState unpause_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState unpause_backfill(tenant, trigger_id)
 
 Unpause a backfill
 
@@ -1370,6 +1404,8 @@ Unpause a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1385,7 +1421,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause a backfill
-        api_response = kestra_client.TriggersApi.unpause_backfill(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.unpause_backfill(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->unpause_backfill:\n")
         pprint(api_response)
     except Exception as e:
@@ -1400,7 +1436,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -1425,7 +1461,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unpause_backfill_by_ids**
-> ApiAsyncOperationResponse unpause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse unpause_backfill_by_ids(tenant, trigger_ids)
 
 Unpause backfill for given triggers asynchronously
 
@@ -1435,6 +1471,8 @@ Unpause backfill for given triggers asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1450,7 +1488,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause backfill for given triggers asynchronously
-        api_response = kestra_client.TriggersApi.unpause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+        api_response = kestra_client.triggers.unpause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->unpause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -1465,7 +1503,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -1500,6 +1538,8 @@ Unpause backfill for triggers matching query asynchronously
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1515,7 +1555,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause backfill for triggers matching query asynchronously
-        api_response = kestra_client.TriggersApi.unpause_backfill_by_query(tenant, filters=filters)
+        api_response = kestra_client.triggers.unpause_backfill_by_query(tenant, filters=filters)
         print("The response of TriggersApi->unpause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:

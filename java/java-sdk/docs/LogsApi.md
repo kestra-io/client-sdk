@@ -32,7 +32,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -46,7 +46,7 @@ public class Example {
         String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
         try {
-            kestraClient.LogsApi().deleteLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            kestraClient.logs().deleteLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#deleteLogsFromExecution");
             System.err.println("Status code: " + e.getCode());
@@ -109,7 +109,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -121,7 +121,7 @@ public class Example {
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.LogsApi().deleteLogsFromFlow(namespace, flowId, triggerId, tenant);
+            kestraClient.logs().deleteLogsFromFlow(namespace, flowId, triggerId, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#deleteLogsFromFlow");
             System.err.println("Status code: " + e.getCode());
@@ -182,7 +182,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -196,7 +196,7 @@ public class Example {
         String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
         try {
-            File result = kestraClient.LogsApi().downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            File result = kestraClient.logs().downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#downloadLogsFromExecution");
@@ -260,7 +260,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -271,7 +271,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Flux<FollowLogEvent> result = kestraClient.LogsApi().followLogsFromExecution(executionId, tenant, filters);
+            Flux<FollowLogEvent> result = kestraClient.logs().followLogsFromExecution(executionId, tenant, filters);
             result.doOnNext(System.out::println).blockLast();
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#followLogsFromExecution");
@@ -332,7 +332,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -346,7 +346,7 @@ public class Example {
         String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
         try {
-            List<LogEntry> result = kestraClient.LogsApi().listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            List<LogEntry> result = kestraClient.logs().listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#listLogsFromExecution");
@@ -410,7 +410,7 @@ import io.kestra.sdk.api.LogsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -423,7 +423,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[timeRange][EQUALS]=P7D`, `filters[level][EQUALS]=DEBUG`
         try {
-            PagedResultsLogEntry result = kestraClient.LogsApi().searchLogs(tenant, page, size, sort, filters);
+            PagedResultsLogEntry result = kestraClient.logs().searchLogs(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#searchLogs");

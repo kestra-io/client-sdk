@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_secret_tag import ApiSecretTag
 
 # TODO update the JSON string below

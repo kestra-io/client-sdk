@@ -25,7 +25,7 @@ All URIs are relative to *http://localhost*
 
 ## createApiTokensForServiceAccount
 
-> Object createApiTokensForServiceAccount(id, createApiTokenRequest)
+> Object createApiTokensForServiceAccount(id, request)
 
 Create new API Token for a specific service account
 
@@ -42,7 +42,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -52,7 +52,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            Object result = kestraClient.ServiceAccountApi().createApiTokensForServiceAccount(id, createApiTokenRequest);
+            Object result = kestraClient.serviceAccount().createApiTokensForServiceAccount(id, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#createApiTokensForServiceAccount");
@@ -71,7 +71,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -95,7 +95,7 @@ public class Example {
 
 ## createApiTokensForServiceAccountWithTenant
 
-> Object createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest)
+> Object createApiTokensForServiceAccountWithTenant(id, tenant, request)
 
 Create new API Token for a specific service account
 
@@ -112,7 +112,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -123,7 +123,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            Object result = kestraClient.ServiceAccountApi().createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest);
+            Object result = kestraClient.serviceAccount().createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#createApiTokensForServiceAccountWithTenant");
@@ -143,7 +143,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
 | **tenant** | **String**|  | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -167,7 +167,7 @@ public class Example {
 
 ## createServiceAccount
 
-> IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(request)
 
 Create a service account
 
@@ -186,7 +186,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -195,7 +195,7 @@ public class Example {
 
         IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest = new IAMServiceAccountControllerApiCreateServiceAccountRequest(); // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceAccount().createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#createServiceAccount");
@@ -213,7 +213,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **iaMServiceAccountControllerApiCreateServiceAccountRequest** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | |
+| **request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | |
 
 ### Return type
 
@@ -237,7 +237,7 @@ public class Example {
 
 ## createServiceAccountForTenant
 
-> IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(tenant, request)
 
 Create a service account for the given tenant
 
@@ -254,7 +254,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -264,7 +264,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = new IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The service account
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.ServiceAccountApi().createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceAccount().createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#createServiceAccountForTenant");
@@ -283,7 +283,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMServiceAccountControllerApiServiceAccountRequest** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | |
+| **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | |
 
 ### Return type
 
@@ -325,7 +325,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -335,7 +335,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         String tokenId = "tokenId_example"; // String | The token id
         try {
-            Object result = kestraClient.ServiceAccountApi().deleteApiTokenForServiceAccount(id, tokenId);
+            Object result = kestraClient.serviceAccount().deleteApiTokenForServiceAccount(id, tokenId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#deleteApiTokenForServiceAccount");
@@ -395,7 +395,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -406,7 +406,7 @@ public class Example {
         String tokenId = "tokenId_example"; // String | The token id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.ServiceAccountApi().deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant);
+            Object result = kestraClient.serviceAccount().deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#deleteApiTokenForServiceAccountWithTenant");
@@ -469,7 +469,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -478,7 +478,7 @@ public class Example {
 
         String id = "id_example"; // String | The service account id
         try {
-            kestraClient.ServiceAccountApi().deleteServiceAccount(id);
+            kestraClient.serviceAccount().deleteServiceAccount(id);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#deleteServiceAccount");
             System.err.println("Status code: " + e.getCode());
@@ -537,7 +537,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -547,7 +547,7 @@ public class Example {
         String id = "id_example"; // String | The service account id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.ServiceAccountApi().deleteServiceAccountForTenant(id, tenant);
+            kestraClient.serviceAccount().deleteServiceAccountForTenant(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#deleteServiceAccountForTenant");
             System.err.println("Status code: " + e.getCode());
@@ -607,7 +607,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -616,7 +616,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            Object result = kestraClient.ServiceAccountApi().listApiTokensForServiceAccount(id);
+            Object result = kestraClient.serviceAccount().listApiTokensForServiceAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#listApiTokensForServiceAccount");
@@ -675,7 +675,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -685,7 +685,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.ServiceAccountApi().listApiTokensForServiceAccountWithTenant(id, tenant);
+            Object result = kestraClient.serviceAccount().listApiTokensForServiceAccountWithTenant(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#listApiTokensForServiceAccountWithTenant");
@@ -728,7 +728,7 @@ public class Example {
 
 ## listServiceAccounts
 
-> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(filters, page, size, sort)
+> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(page, size, sort, filters)
 
 List service accounts. Superadmin-only. 
 
@@ -745,7 +745,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -757,7 +757,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().listServiceAccounts(filters, page, size, sort);
+            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceAccount().listServiceAccounts(page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#listServiceAccounts");
@@ -775,10 +775,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -803,7 +803,7 @@ public class Example {
 
 ## patchServiceAccountDetails
 
-> IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(id, request)
 
 Update service account details
 
@@ -822,7 +822,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -832,7 +832,7 @@ public class Example {
         String id = "id_example"; // String | The service account id
         IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest = new IAMServiceAccountControllerApiPatchServiceAccountRequest(); // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceAccount().patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#patchServiceAccountDetails");
@@ -851,7 +851,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The service account id | |
-| **iaMServiceAccountControllerApiPatchServiceAccountRequest** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | |
+| **request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | |
 
 ### Return type
 
@@ -875,7 +875,7 @@ public class Example {
 
 ## patchServiceAccountSuperAdmin
 
-> patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest)
+> patchServiceAccountSuperAdmin(id, request)
 
 Update service account superadmin privileges
 
@@ -894,7 +894,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -904,7 +904,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = new ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
         try {
-            kestraClient.ServiceAccountApi().patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
+            kestraClient.serviceAccount().patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#patchServiceAccountSuperAdmin");
             System.err.println("Status code: " + e.getCode());
@@ -922,7 +922,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **apiPatchSuperAdminRequest** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
+| **request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
 
 ### Return type
 
@@ -966,7 +966,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -975,7 +975,7 @@ public class Example {
 
         String id = "id_example"; // String | The service account id
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().serviceAccount(id);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceAccount().serviceAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#serviceAccount");
@@ -1035,7 +1035,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1045,7 +1045,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.ServiceAccountApi().serviceAccountForTenant(id, tenant);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceAccount().serviceAccountForTenant(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#serviceAccountForTenant");
@@ -1089,7 +1089,7 @@ public class Example {
 
 ## updateServiceAccount
 
-> IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(id, tenant, request)
 
 Update a user service account
 
@@ -1106,7 +1106,7 @@ import io.kestra.sdk.api.ServiceAccountApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1117,7 +1117,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = new IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The user
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.ServiceAccountApi().updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceAccount().updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#updateServiceAccount");
@@ -1137,7 +1137,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
 | **tenant** | **String**|  | |
-| **iaMServiceAccountControllerApiServiceAccountRequest** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | |
+| **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | |
 
 ### Return type
 

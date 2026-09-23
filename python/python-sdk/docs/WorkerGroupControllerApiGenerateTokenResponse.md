@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.worker_group_controller_api_generate_token_response import WorkerGroupControllerApiGenerateTokenResponse
 
 # TODO update the JSON string below

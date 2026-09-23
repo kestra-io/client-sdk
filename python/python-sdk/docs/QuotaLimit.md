@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.quota_limit import QuotaLimit
 
 # TODO update the JSON string below

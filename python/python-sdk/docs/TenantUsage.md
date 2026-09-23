@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.tenant_usage import TenantUsage
 
 # TODO update the JSON string below

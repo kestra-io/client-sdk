@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.trigger_controller_api_create_backfill_request_backfill import TriggerControllerApiCreateBackfillRequestBackfill
 
 # TODO update the JSON string below

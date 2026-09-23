@@ -36,7 +36,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -47,7 +47,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String path = "path_example"; // String | The internal storage uri
         try {
-            kestraClient.FilesApi().createNamespaceDirectory(namespace, tenant, path);
+            kestraClient.files().createNamespaceDirectory(namespace, tenant, path);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#createNamespaceDirectory");
             System.err.println("Status code: " + e.getCode());
@@ -107,7 +107,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -119,7 +119,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         File fileContent = new File("/path/to/file"); // File | The file to upload
         try {
-            kestraClient.FilesApi().createNamespaceFile(namespace, path, tenant, fileContent);
+            kestraClient.files().createNamespaceFile(namespace, path, tenant, fileContent);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#createNamespaceFile");
             System.err.println("Status code: " + e.getCode());
@@ -180,7 +180,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -191,7 +191,7 @@ public class Example {
         String path = "path_example"; // String | The internal storage uri of the file / directory to delete
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.FilesApi().deleteFileDirectory(namespace, path, tenant);
+            kestraClient.files().deleteFileDirectory(namespace, path, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#deleteFileDirectory");
             System.err.println("Status code: " + e.getCode());
@@ -251,7 +251,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -261,7 +261,7 @@ public class Example {
         String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            byte[] result = kestraClient.FilesApi().exportNamespaceFiles(namespace, tenant);
+            byte[] result = kestraClient.files().exportNamespaceFiles(namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#exportNamespaceFiles");
@@ -321,7 +321,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -333,7 +333,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The revision, if not provided, the latest revision will be returned
         try {
-            File result = kestraClient.FilesApi().fileContent(namespace, path, tenant, revision);
+            File result = kestraClient.files().fileContent(namespace, path, tenant, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#fileContent");
@@ -395,7 +395,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -406,7 +406,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String path = "path_example"; // String | The internal storage uri
         try {
-            FileAttributes result = kestraClient.FilesApi().fileMetadatas(namespace, tenant, path);
+            FileAttributes result = kestraClient.files().fileMetadatas(namespace, tenant, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#fileMetadatas");
@@ -467,7 +467,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -478,7 +478,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String path = "path_example"; // String | The internal storage uri
         try {
-            List<NamespaceFileRevision> result = kestraClient.FilesApi().fileRevisions(namespace, tenant, path);
+            List<NamespaceFileRevision> result = kestraClient.files().fileRevisions(namespace, tenant, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#fileRevisions");
@@ -539,7 +539,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -550,7 +550,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String path = "path_example"; // String | The internal storage uri
         try {
-            List<FileAttributes> result = kestraClient.FilesApi().listNamespaceDirectoryFiles(namespace, tenant, path);
+            List<FileAttributes> result = kestraClient.files().listNamespaceDirectoryFiles(namespace, tenant, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#listNamespaceDirectoryFiles");
@@ -611,7 +611,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -623,7 +623,7 @@ public class Example {
         URI to = new URI(); // URI | The internal storage uri to move to
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.FilesApi().moveFileDirectory(namespace, from, to, tenant);
+            kestraClient.files().moveFileDirectory(namespace, from, to, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#moveFileDirectory");
             System.err.println("Status code: " + e.getCode());
@@ -684,7 +684,7 @@ import io.kestra.sdk.api.FilesApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -695,7 +695,7 @@ public class Example {
         String q = "q_example"; // String | The string the file path should contain
         String tenant = "tenant_example"; // String | 
         try {
-            List<String> result = kestraClient.FilesApi().searchNamespaceFiles(namespace, q, tenant);
+            List<String> result = kestraClient.files().searchNamespaceFiles(namespace, q, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#searchNamespaceFiles");
