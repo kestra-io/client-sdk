@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { parse as parseYaml } from 'yaml';
-import { flowToYaml } from '@kestra-io/kestra-sdk';
+import { flowToYaml } from '@kestra-io/kestra-sdk/flows';
+import * as Flows from '@kestra-io/kestra-sdk/flows';
+import * as Root from '@kestra-io/kestra-sdk';
 
 // Pure serialization tests for the object -> YAML layer used by
 // createFlowFromObject / updateFlowFromObject. No live Kestra server is needed.
@@ -127,5 +129,21 @@ describe('flowToYaml', () => {
         expect(yaml).toContain('grüß gott');
         expect(yaml).not.toContain('\\u');
         expect(parseYaml(yaml).tasks[0].message).toBe('grüß gott');
+    });
+});
+
+describe('flow-from-object entry points', () => {
+    it('lives on the /flows subpath next to the generated Flows operations', () => {
+        expect(typeof Flows.createFlowFromObject).toBe('function');
+        expect(typeof Flows.updateFlowFromObject).toBe('function');
+        expect(typeof Flows.flowToYaml).toBe('function');
+        expect(typeof Flows.createFlow).toBe('function');
+        expect(Flows.flowToYaml({ id: 'f', namespace: 'n', tasks: [] })).toBe('id: f\nnamespace: n\ntasks: []\n');
+    });
+
+    it('is not exported by the root entry (types + client setup only)', () => {
+        // The root must not pull the yaml package / Flows operations into bundles.
+        expect(Object.keys(Root).filter(k => /FromObject|flowToYaml/.test(k))).toEqual([]);
+        expect(typeof Root.configureClient).toBe('function');
     });
 });
