@@ -269,3 +269,56 @@ def test_multiline_emitted_as_block_scalar():
     yaml_str = flow_to_yaml(flow_dict)
     # Literal block scalar indicator for the multi-line string.
     assert "script: |" in yaml_str
+
+
+# Strings a YAML 1.1 / 1.2 or Jackson reader (Kestra's server) would re-type to a
+# boolean, null, number or timestamp if emitted as plain scalars.
+_TRICKY_YAML_STRINGS = [
+    "yes", "no", "on", "off", "Yes", "OFF", "YES", "y", "n", "true", "False",
+    "1_000", "12:30", "0755", "0x1F", "1e3", "1E-3", ".inf", "-.Inf", ".NaN",
+    "~", "null", "", "2026-09-23", "1.0", "+1",
+]
+
+
+def test_ambiguous_strings_are_quoted_and_round_trip():
+    out = flow_to_yaml({
+        "id": "tricky",
+        "namespace": "company.team",
+        "labels": {"approved": "yes"},
+        "tasks": [{
+            "id": "out",
+            "type": "io.kestra.plugin.core.output.OutputValues",
+            "values": list(_TRICKY_YAML_STRINGS),
+        }],
+    })
+
+    lines = out.splitlines()
+    start = lines.index("  values:") + 1
+    value_lines = lines[start:start + len(_TRICKY_YAML_STRINGS)]
+    for s, line in zip(_TRICKY_YAML_STRINGS, value_lines):
+        # Either quote style is fine; a plain scalar is not.
+        assert line in (f'  - "{s}"', f"  - '{s}'"), (s, out)
+    assert '  approved: "yes"' in lines, out
+
+    # PyYAML's safe_load is a YAML 1.1 reader: every value comes back as the
+    # exact original string.
+    parsed = yaml.safe_load(out)
+    assert parsed["tasks"][0]["values"] == _TRICKY_YAML_STRINGS
+    assert parsed["labels"]["approved"] == "yes"
+
+
+def test_ordinary_strings_keep_their_styles():
+    out = flow_to_yaml({
+        "id": "plain",
+        "namespace": "company.team",
+        "tasks": [{
+            "id": "t",
+            "type": "io.kestra.plugin.core.log.Log",
+            "message": "hello world",
+            "expr": "{{ inputs.x }}",
+            "script": "a\nb",
+        }],
+    })
+    assert "  message: hello world\n" in out
+    assert "  expr: '{{ inputs.x }}'\n" in out
+    assert "  script: |-\n    a\n    b\n" in out

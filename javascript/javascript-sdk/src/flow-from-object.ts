@@ -3,7 +3,7 @@
 // (via src/flows.ts) and on `/all`, never on the root entry, so consumers that
 // only import the root (types + client setup) don't bundle the `yaml` package
 // or the Flows operations.
-import { stringify as stringifyYaml } from "yaml"
+import { Document, Scalar, visit } from "yaml"
 import { createFlow, updateFlow } from "./openapi/sdk/Flows.gen"
 import type { Flow } from "./openapi/types.gen"
 
@@ -39,11 +39,47 @@ export function flowToYaml(flow: FlowObjectInput): string {
     for (const field of SERVER_MANAGED_FLOW_FIELDS) {
         delete source[field]
     }
-    return stringifyYaml(
+    const doc = new Document(
         source,
         (_key, value) => (value === null ? undefined : value),
         { aliasDuplicateObjects: false },
     )
+    // Force quotes on string values a YAML 1.1 reader (Kestra's server parses
+    // flow source with Jackson's YAMLParser) would re-type: the `yaml` library
+    // emits per YAML 1.2 and leaves e.g. `yes`, `off` or `1_000` plain.
+    visit(doc, {
+        Scalar(_key, node) {
+            if (typeof node.value === "string" && !node.value.includes("\n") && isAmbiguousYamlString(node.value)) {
+                node.type = Scalar.QUOTE_DOUBLE
+            }
+        },
+    })
+    return doc.toString()
+}
+
+/** Plain scalars some YAML reader resolves to a boolean or null (case-insensitive). */
+const AMBIGUOUS_YAML_WORDS = new Set(["", "~", "null", "y", "yes", "n", "no", "true", "false", "on", "off"])
+
+/**
+ * Strings a YAML 1.1 / 1.2 or Jackson reader may resolve to a number or
+ * timestamp: signed ints/floats with underscores and exponents (with or without
+ * a dot or exponent sign), hex/octal/binary, .inf/.nan, sexagesimal (12:30) and
+ * dates. Deliberately permissive: quoting a string that did not need it is
+ * harmless, leaving one plain is not.
+ */
+const AMBIGUOUS_YAML_SCALAR = new RegExp(
+    "^[-+]?(" +
+        "0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|" +
+        "[0-9][0-9_]*(\\.[0-9_]*)?(e[-+]?[0-9_]+)?|" +
+        "\\.[0-9][0-9_]*(e[-+]?[0-9_]+)?|" +
+        "\\.(inf|nan)|" +
+        "[0-9][0-9_]*(:[0-5]?[0-9])+(\\.[0-9_]*)?" +
+        ")$|^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}",
+    "i",
+)
+
+function isAmbiguousYamlString(value: string): boolean {
+    return AMBIGUOUS_YAML_WORDS.has(value.toLowerCase()) || AMBIGUOUS_YAML_SCALAR.test(value)
 }
 
 /**

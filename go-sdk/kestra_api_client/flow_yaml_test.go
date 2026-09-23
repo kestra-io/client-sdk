@@ -387,3 +387,77 @@ func TestFlowToYAML_CanonicalKeyOrderMap(t *testing.T) {
 		t.Errorf("expected 2-space indentation, got:\n%s", out)
 	}
 }
+
+// trickyYAMLStrings are strings that a YAML 1.1 / 1.2 or Jackson reader would
+// resolve to a boolean, null, number or timestamp if emitted as plain scalars.
+var trickyYAMLStrings = []string{
+	"yes", "no", "on", "off", "Yes", "OFF", "YES", "y", "n", "true", "False",
+	"1_000", "12:30", "0755", "0x1F", "1e3", "1E-3", ".inf", "-.Inf", ".NaN",
+	"~", "null", "", "2026-09-23", "1.0", "+1",
+}
+
+func TestFlowToYAML_QuotesAmbiguousStrings(t *testing.T) {
+	values := make([]interface{}, len(trickyYAMLStrings))
+	for i, s := range trickyYAMLStrings {
+		values[i] = s
+	}
+	flow := map[string]interface{}{
+		"id":        "tricky",
+		"namespace": "company.team",
+		"labels":    map[string]interface{}{"approved": "yes"},
+		"tasks": []map[string]interface{}{
+			{"id": "out", "type": "io.kestra.plugin.core.output.OutputValues", "values": values},
+		},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+
+	// Every tricky value is emitted as a quoted scalar in the text.
+	for _, s := range trickyYAMLStrings {
+		quoted := `- "` + s + `"`
+		if !strings.Contains(out, "\n      "+quoted+"\n") {
+			t.Errorf("value %q not emitted quoted (want line %q), got:\n%s", s, quoted, out)
+		}
+	}
+	if !strings.Contains(out, `approved: "yes"`) {
+		t.Errorf("label value yes not quoted, got:\n%s", out)
+	}
+
+	// Re-parsing gives back the exact original strings.
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v", err)
+	}
+	got := parsed["tasks"].([]interface{})[0].(map[string]interface{})["values"].([]interface{})
+	for i, s := range trickyYAMLStrings {
+		if got[i] != s {
+			t.Errorf("value %d = %#v (%T), want string %q", i, got[i], got[i], s)
+		}
+	}
+	if parsed["labels"].(map[string]interface{})["approved"] != "yes" {
+		t.Errorf("label approved = %#v, want \"yes\"", parsed["labels"])
+	}
+}
+
+func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
+	// Ordinary strings are not needlessly quoted; expressions and multi-line
+	// strings keep their existing styles.
+	flow := map[string]interface{}{
+		"id": "plain", "namespace": "company.team",
+		"tasks": []map[string]interface{}{{
+			"id": "t", "type": "io.kestra.plugin.core.log.Log",
+			"message": "hello world", "expr": "{{ inputs.x }}", "script": "a\nb",
+		}},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	for _, want := range []string{"message: hello world\n", `expr: '{{ inputs.x }}'` + "\n", "script: |-\n      a\n      b\n"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("expected %q in:\n%s", want, out)
+		}
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -232,6 +233,8 @@ func jsonTokenToYAMLNode(dec *json.Decoder, tok json.Token) (*yaml.Node, error) 
 		n := &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!str", Value: t}
 		if strings.Contains(t, "\n") {
 			n.Style = yaml.LiteralStyle
+		} else if isAmbiguousYAMLString(t) {
+			n.Style = yaml.DoubleQuotedStyle
 		}
 		return n, nil
 	case json.Number:
@@ -252,6 +255,37 @@ func jsonTokenToYAMLNode(dec *json.Decoder, tok json.Token) (*yaml.Node, error) 
 	default:
 		return nil, fmt.Errorf("unexpected token %v", tok)
 	}
+}
+
+// ambiguousYAMLWords are plain scalars that some YAML reader resolves to a
+// boolean or null rather than a string (compared case-insensitively). Kestra's
+// server parses flow source with Jackson's YAMLParser, which follows YAML 1.1
+// (yes/no/on/off are booleans), while yaml.v3 emits per YAML 1.2 and would
+// leave them plain.
+var ambiguousYAMLWords = map[string]bool{
+	"": true, "~": true, "null": true,
+	"y": true, "yes": true, "n": true, "no": true,
+	"true": true, "false": true, "on": true, "off": true,
+}
+
+// ambiguousYAMLScalar matches strings that a YAML 1.1 / 1.2 or Jackson reader
+// may resolve to a number or timestamp: signed ints/floats with underscores
+// and exponents (with or without a dot or exponent sign), hex/octal/binary,
+// .inf/.nan, sexagesimal (12:30) and dates. Deliberately permissive: quoting a
+// string that did not need it is harmless, leaving one plain is not.
+var ambiguousYAMLScalar = regexp.MustCompile(`(?i)^[-+]?(` +
+	`0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|` +
+	`[0-9][0-9_]*(\.[0-9_]*)?(e[-+]?[0-9_]+)?|` +
+	`\.[0-9][0-9_]*(e[-+]?[0-9_]+)?|` +
+	`\.(inf|nan)|` +
+	`[0-9][0-9_]*(:[0-5]?[0-9])+(\.[0-9_]*)?` +
+	`)$|^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}`)
+
+// isAmbiguousYAMLString reports whether a plain (unquoted) scalar holding s
+// could be read back as something other than the string s, so it must be
+// emitted quoted.
+func isAmbiguousYAMLString(s string) bool {
+	return ambiguousYAMLWords[strings.ToLower(s)] || ambiguousYAMLScalar.MatchString(s)
 }
 
 // stripServerManagedFields removes the read-only top-level flow fields from a

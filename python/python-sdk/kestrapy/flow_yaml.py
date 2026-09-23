@@ -29,6 +29,7 @@ Serialization rules:
 * non-ASCII characters are kept verbatim (never escaped to ``\\uXXXX``).
 """
 
+import re
 from datetime import date, datetime
 from enum import Enum
 from typing import Any, Dict, Union
@@ -50,12 +51,44 @@ class _KestraFlowDumper(yaml.SafeDumper):
         return True
 
 
+# Plain scalars some YAML reader resolves to a boolean or null (compared
+# case-insensitively).
+_AMBIGUOUS_YAML_WORDS = frozenset(
+    {"", "~", "null", "y", "yes", "n", "no", "true", "false", "on", "off"}
+)
+
+# Strings a YAML 1.1 / 1.2 or Jackson reader (Kestra's server parses flow source
+# with Jackson's YAMLParser) may resolve to a number or timestamp: signed
+# ints/floats with underscores and exponents (with or without a dot or exponent
+# sign), hex/octal/binary, .inf/.nan, sexagesimal (12:30) and dates. PyYAML's
+# own resolver is YAML 1.1 and leaves e.g. ``1e3`` (no dot) plain, which
+# Jackson reads as 1000.0. Deliberately permissive: quoting a string that did
+# not need it is harmless, leaving one plain is not.
+_AMBIGUOUS_YAML_SCALAR = re.compile(
+    r"^[-+]?("
+    r"0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|"
+    r"[0-9][0-9_]*(\.[0-9_]*)?(e[-+]?[0-9_]+)?|"
+    r"\.[0-9][0-9_]*(e[-+]?[0-9_]+)?|"
+    r"\.(inf|nan)|"
+    r"[0-9][0-9_]*(:[0-5]?[0-9])+(\.[0-9_]*)?"
+    r")$|^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}",
+    re.IGNORECASE,
+)
+
+
+def _is_ambiguous_yaml_string(data: str) -> bool:
+    return data.lower() in _AMBIGUOUS_YAML_WORDS or bool(_AMBIGUOUS_YAML_SCALAR.match(data))
+
+
 def _str_representer(dumper: yaml.Dumper, data: str) -> Any:
     # Emit multi-line strings as literal block scalars for readability and
-    # round-trip fidelity; single-line strings keep the default handling (which
-    # already quotes expressions like ``{{ ... }}`` when needed).
+    # round-trip fidelity; strings a YAML reader would re-type (yes, off, 1e3,
+    # 1_000, ...) are force-quoted; other single-line strings keep the default
+    # handling (which already quotes expressions like ``{{ ... }}``).
     if "\n" in data:
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
+    if _is_ambiguous_yaml_string(data):
+        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style='"')
     return dumper.represent_scalar("tag:yaml.org,2002:str", data)
 
 
