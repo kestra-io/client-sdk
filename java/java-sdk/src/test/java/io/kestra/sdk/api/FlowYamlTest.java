@@ -10,6 +10,7 @@ import io.kestra.sdk.model.Type;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -261,5 +262,42 @@ class FlowYamlTest {
         expectedTrigger.addAll(PLUGIN_KEYS);
         assertEquals(expectedTrigger, fieldNames(root.get("triggers").get(0)));
         assertEquals("v-zeta", root.get("tasks").get(0).get("zeta").asText());
+    }
+
+    @Test
+    void explicitEmptyListsInPluginPropertiesSurvive() throws Exception {
+        // Only the typed models' `new ArrayList<>()` defaults are hidden; an empty
+        // list the user sets explicitly in a plugin property (at any depth) is
+        // real content and must be emitted, like the Python/Go/JS SDKs do.
+        Map<String, Object> env = new LinkedHashMap<>();
+        env.put("paths", List.of());
+        env.put("name", "x");
+        Task shell = new Task().id("shell").type("io.kestra.plugin.scripts.shell.Commands");
+        shell.putAdditionalProperty("commands", List.of());
+        shell.putAdditionalProperty("env", env);
+
+        Flow flow = buildFlow();
+        flow.setTasks(List.of(shell));
+
+        String yaml = FlowsApi.flowToYaml(flow);
+        JsonNode root = YAML.readTree(yaml);
+        JsonNode task = root.get("tasks").get(0);
+        assertTrue(task.get("commands") != null && task.get("commands").isArray(), yaml);
+        assertEquals(0, task.get("commands").size(), yaml);
+        assertTrue(task.get("env").get("paths") != null && task.get("env").get("paths").isArray(), yaml);
+        assertEquals(0, task.get("env").get("paths").size(), yaml);
+        assertEquals("x", task.get("env").get("name").asText());
+
+        // The model defaults are still omitted (flow root and trigger level).
+        assertTrue(root.get("inputs") == null, yaml);
+        assertTrue(root.get("triggers") == null, yaml);
+        assertTrue(root.get("labels") == null, yaml);
+
+        AbstractTrigger trigger = new AbstractTrigger().id("tr").type("io.kestra.plugin.core.trigger.Schedule");
+        trigger.putAdditionalProperty("cron", "0 * * * *");
+        flow.setTriggers(List.of(trigger));
+        JsonNode triggerNode = YAML.readTree(FlowsApi.flowToYaml(flow)).get("triggers").get(0);
+        // `labels`/`stopAfter` defaults ([]) are omitted; plugin `cron` is kept.
+        assertEquals(List.of("id", "type", "disabled", "cron"), fieldNames(triggerNode));
     }
 }

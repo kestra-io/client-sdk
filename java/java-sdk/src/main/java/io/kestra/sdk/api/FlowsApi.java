@@ -65,6 +65,15 @@ public class FlowsApi extends BaseApi {
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .disable(YAMLGenerator.Feature.SPLIT_LINES)
             .serializationInclusion(JsonInclude.Include.NON_NULL)
+            // The typed models default their List fields to `new ArrayList<>()`;
+            // omit a declared List-typed property when it is empty. This config
+            // override is keyed on the *declared property type* (List), so it
+            // only applies to model properties: Map content (the @JsonAnyGetter
+            // plugin-specific properties and plain Map inputs) is serialized by
+            // the Map serializer and keeps an explicit `[]` the user set, like
+            // the Python/Go/JS SDKs do.
+            .withConfigOverride(List.class, o -> o.setInclude(JsonInclude.Value.construct(
+                    JsonInclude.Include.NON_EMPTY, JsonInclude.Include.NON_NULL)))
             // Mirror ApiClient's date/enum/nullable handling so java.time values
             // anywhere in the graph (e.g. Flow.updated, a trigger date) serialize
             // instead of throwing InvalidDefinitionException.
@@ -237,23 +246,22 @@ public class FlowsApi extends BaseApi {
             if (node.isObject()) {
                 ((ObjectNode) node).remove(SERVER_MANAGED_FLOW_FIELDS);
             }
-            stripEmpty(node);
+            stripNulls(node);
             return YAML_MAPPER.writeValueAsString(node);
         } catch (JsonProcessingException | IllegalArgumentException e) {
             throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
         }
     }
 
-    // Removes null-valued and empty-array fields from every object in the tree
-    // (at every depth), so the emitted YAML never carries `key: null` nor noisy
-    // empty collections (valueToTree ignores NON_NULL, and the typed Flow model
-    // defaults its list fields to `new ArrayList<>()` rather than null). The
-    // other SDKs omit these entirely — Go via omitempty, Python because the
-    // fields default to None and are dropped by exclude_none — so stripping them
-    // here keeps Java's flow source in parity. Only null keys and already-empty
-    // arrays are dropped; array elements are never removed (positional values are
-    // preserved), so a populated list is left intact.
-    private static void stripEmpty(JsonNode node) {
+    // Removes null-valued fields from every object in the tree (at every depth),
+    // so the emitted YAML never carries `key: null` (valueToTree can still carry
+    // null nodes, e.g. from an undefined JsonNullable). Empty collections are
+    // intentionally NOT removed here: the typed models' `new ArrayList<>()`
+    // defaults are already suppressed on declared properties by YAML_MAPPER's
+    // List config override, and an empty list inside a plugin-specific property
+    // is real content the user set (Python/Go/JS keep it too). Array elements
+    // are never removed.
+    private static void stripNulls(JsonNode node) {
         if (node.isObject()) {
             ObjectNode obj = (ObjectNode) node;
             java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = obj.fields();
@@ -263,14 +271,11 @@ public class FlowsApi extends BaseApi {
                     it.remove();
                     continue;
                 }
-                stripEmpty(value);
-                if (value.isArray() && value.isEmpty()) {
-                    it.remove();
-                }
+                stripNulls(value);
             }
         } else if (node.isArray()) {
             for (JsonNode child : node) {
-                stripEmpty(child);
+                stripNulls(child);
             }
         }
     }
