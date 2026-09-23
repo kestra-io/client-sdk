@@ -300,4 +300,63 @@ class FlowYamlTest {
         // `labels`/`stopAfter` defaults ([]) are omitted; plugin `cron` is kept.
         assertEquals(List.of("id", "type", "disabled", "cron"), fieldNames(triggerNode));
     }
+
+    // A typed round-trip of a flow read from the server: the ApiClient's mapper
+    // must keep oneOf-typed values (Output.value: object | string, and the task
+    // `assets` inputs/outputs) instead of deserializing them to null.
+    private static final String SERVER_FLOW_JSON = """
+            {
+              "id": "outputs-flow",
+              "namespace": "company.team",
+              "revision": 3,
+              "disabled": false,
+              "deleted": false,
+              "draft": false,
+              "outputs": [
+                {"id": "str", "type": "STRING", "value": "{{ outputs.ret.value }}"},
+                {"id": "obj", "type": "JSON", "value": {"a": 1, "b": ["x", "y"]}}
+              ],
+              "tasks": [
+                {
+                  "id": "ret",
+                  "type": "io.kestra.plugin.core.debug.Return",
+                  "format": "hello",
+                  "assets": {
+                    "inputs": [{"id": "in_table", "type": "io.kestra.plugin.ee.assets.Table"}],
+                    "outputs": "{{ outputs.ret.assets }}"
+                  }
+                }
+              ]
+            }
+            """;
+
+    @Test
+    void outputAndAssetValuesSurviveTypedRoundTrip() throws Exception {
+        io.kestra.sdk.model.FlowWithSource got = new io.kestra.sdk.internal.ApiClient().getObjectMapper()
+                .readValue(SERVER_FLOW_JSON, io.kestra.sdk.model.FlowWithSource.class);
+
+        JsonNode root = YAML.readTree(FlowsApi.flowToYaml(got));
+
+        JsonNode outputs = root.get("outputs");
+        assertEquals("str", outputs.get(0).get("id").asText());
+        assertEquals("{{ outputs.ret.value }}", outputs.get(0).get("value").asText());
+        assertEquals(1, outputs.get(1).get("value").get("a").asInt());
+        assertEquals("x", outputs.get(1).get("value").get("b").get(0).asText());
+        assertEquals("y", outputs.get(1).get("value").get("b").get(1).asText());
+
+        JsonNode assets = root.get("tasks").get(0).get("assets");
+        assertEquals("in_table", assets.get("inputs").get(0).get("id").asText());
+        assertEquals("io.kestra.plugin.ee.assets.Table", assets.get("inputs").get(0).get("type").asText());
+        assertEquals("{{ outputs.ret.assets }}", assets.get("outputs").asText());
+    }
+
+    @Test
+    void outputValueCanBeBuiltFromAPlainValue() throws Exception {
+        Flow flow = buildFlow();
+        flow.setOutputs(List.of(
+                new io.kestra.sdk.model.Output().id("o").type(Type.STRING)
+                        .value(io.kestra.sdk.model.OutputValue.of("{{ outputs.log.value }}"))));
+        JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
+        assertEquals("{{ outputs.log.value }}", root.get("outputs").get(0).get("value").asText());
+    }
 }
