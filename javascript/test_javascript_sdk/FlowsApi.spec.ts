@@ -303,6 +303,44 @@ describe('FlowsApi', () => {
         expect(resp.description).toBe('simple_flow_description_updated');
     });
 
+    // Create then update a flow from a native object (serialized to YAML client-side)
+    it('create_flow_from_object / update_flow_from_object', async () => {
+        const namespace = 'company.team';
+        const id = `from_object_${randomId()}`;
+        const message = 'Hello {{ flow.id }}\nsecond line';
+        const flow = {
+            id,
+            namespace,
+            description: 'from_object_description',
+            tasks: [{ id: 'hello', type: 'io.kestra.plugin.core.log.Log', message }],
+        };
+
+        const created = await Flows.createFlowFromObject({ flow });
+        expect(created.id).toBe(id);
+        expect(created.namespace).toBe(namespace);
+        expect(created.description).toBe('from_object_description');
+        // The plugin-specific `message` (expression + multi-line) round-trips from the server.
+        expect((created.tasks[0] as Record<string, unknown>).message).toBe(message);
+        expect(created.tasks[0].type).toBe('io.kestra.plugin.core.log.Log');
+
+        const updated = await Flows.updateFlowFromObject({
+            namespace,
+            id,
+            flow: {
+                ...flow,
+                description: 'from_object_description_updated',
+                tasks: [{ id: 'hello', type: 'io.kestra.plugin.core.log.Log', message: 'updated {{ flow.namespace }}' }],
+            },
+        });
+        expect(updated.id).toBe(id);
+        expect(updated.description).toBe('from_object_description_updated');
+        expect((updated.tasks[0] as Record<string, unknown>).message).toBe('updated {{ flow.namespace }}');
+        expect(updated.revision).toBe((created.revision ?? 0) + 1);
+
+        const fetched = await Flows.flow({ namespace, id });
+        expect((fetched.tasks?.[0] as Record<string, unknown>).message).toBe('updated {{ flow.namespace }}');
+    });
+
     // Validate flows (simple)
     it('validate_flows_simple', async () => {
         const body = getSimpleFlow();

@@ -183,6 +183,46 @@ class TestUpdateFlow:
 
 
 # ========================================================================
+# CRUD -- createFlowFromObject / updateFlowFromObject
+# ========================================================================
+
+
+class TestFlowFromObject:
+    def test_create_then_update_from_dict(self, client):
+        fid = random_id()
+        ns = random_namespace()
+        message = "Hello {{ flow.id }}\nsecond line"
+        flow = {
+            "id": fid,
+            "namespace": ns,
+            "description": "from_object_description",
+            "tasks": [
+                {"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": message},
+            ],
+        }
+
+        created = client.flows.create_flow_from_object(TENANT, flow)
+        assert created.id == fid
+        assert created.namespace == ns
+        assert created.description == "from_object_description"
+        assert created.tasks[0].type == "io.kestra.plugin.core.log.Log"
+        # The plugin-specific `message` (expression + multi-line) round-trips from the server.
+        assert created.tasks[0].additional_properties["message"] == message
+
+        updated_message = "updated {{ flow.namespace }}"
+        flow["description"] = "from_object_description_updated"
+        flow["tasks"][0]["message"] = updated_message
+        updated = client.flows.update_flow_from_object(ns, fid, TENANT, flow)
+        assert updated.id == fid
+        assert updated.description == "from_object_description_updated"
+        assert updated.tasks[0].additional_properties["message"] == updated_message
+        assert updated.revision == created.revision + 1
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.tasks[0].additional_properties["message"] == updated_message
+
+
+# ========================================================================
 # CRUD -- deleteFlow
 # ========================================================================
 
