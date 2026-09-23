@@ -9,6 +9,7 @@ import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.Type;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -220,5 +221,45 @@ class FlowYamlTest {
         task.putAdditionalProperty("message", "hi");
         assertEquals("hi", task.getAdditionalProperty("message"));
         assertEquals("hi", task.getAdditionalProperties().get("message"));
+    }
+
+    private static List<String> fieldNames(JsonNode node) {
+        List<String> names = new ArrayList<>();
+        node.fieldNames().forEachRemaining(names::add);
+        return names;
+    }
+
+    // Enough keys that HashMap iteration order differs from insertion order.
+    private static final List<String> PLUGIN_KEYS = List.of(
+            "zeta", "alpha", "message", "beta", "commands", "yankee", "delta",
+            "xray", "echo", "whiskey", "foxtrot", "victor");
+
+    @Test
+    void additionalPropertiesKeepInsertionOrder() throws Exception {
+        Task task = new Task().id("t").type("io.kestra.plugin.core.log.Log");
+        AbstractTrigger trigger = new AbstractTrigger().id("tr").type("io.kestra.plugin.core.trigger.Schedule");
+        InputObject input = new InputObject().id("in").type(Type.STRING);
+        for (String key : PLUGIN_KEYS) {
+            task.putAdditionalProperty(key, "v-" + key);
+            trigger.putAdditionalProperty(key, "v-" + key);
+            input.putAdditionalProperty(key, "v-" + key);
+        }
+        Flow flow = buildFlow();
+        flow.setTasks(List.of(task));
+        flow.setTriggers(List.of(trigger));
+        flow.setInputs(List.of(input));
+
+        JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
+
+        List<String> expected = new ArrayList<>(List.of("id", "type"));
+        expected.addAll(PLUGIN_KEYS);
+        assertEquals(expected, fieldNames(root.get("tasks").get(0)));
+        assertEquals(expected, fieldNames(root.get("inputs").get(0)));
+        // AbstractTrigger declares `disabled = false` as a model default; declared
+        // properties come before the additional (plugin) ones.
+        List<String> expectedTrigger = new ArrayList<>(List.of("id", "type", "disabled"));
+        expectedTrigger.addAll(PLUGIN_KEYS);
+        assertEquals(expectedTrigger, fieldNames(root.get("triggers").get(0)));
+        assertEquals("v-zeta", root.get("tasks").get(0).get("zeta").asText());
     }
 }

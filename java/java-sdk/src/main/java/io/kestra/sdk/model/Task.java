@@ -11,7 +11,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -474,7 +474,7 @@ public class Task {
    * task) are carried here as free-form additional properties. Without this
    * these properties would be silently dropped on (de)serialization.
    */
-  private Map<String, Object> additionalProperties = new HashMap<>();
+  private Map<String, Object> additionalProperties = new LinkedHashMap<>();
 
   /**
    * Set the additional (undeclared) property with the specified name and value.
@@ -483,7 +483,7 @@ public class Task {
   @JsonAnySetter
   public Task putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-      this.additionalProperties = new HashMap<>();
+      this.additionalProperties = new LinkedHashMap<>();
     }
     this.additionalProperties.put(key, value);
     return this;
