@@ -29,23 +29,26 @@ form used throughout this guide), or through `/all` if one import is preferable 
 
 ### Configure the client
 
-Import and configure the shared HTTP client once, at the entry point of your application:
+Configure the shared HTTP client once, at the entry point of your application.
+`configureClient` also installs the SDK's body/query serializers and error interceptors:
 
 ```ts
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureClient } from "@kestra-io/kestra-sdk";
 
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
     auth: () => "<username>:<password>",
 });
 ```
 
-For token-based authentication, pass the token directly:
+For token-based authentication (service-account API token / JWT), return the token only for
+the `bearer` scheme. Every operation declares both `bearer` and `basic` security, and the
+`basic` pass would otherwise overwrite the header with `Basic base64(<token>)`:
 
 ```ts
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
-    auth: () => "<your-api-token>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
+    auth: (auth) => (auth.scheme === "bearer" ? "<your-api-token>" : undefined),
 });
 ```
 
@@ -121,12 +124,12 @@ Configure the client once (see [Configure the client](#configure-the-client)), p
 call the domain modules:
 
 ```ts
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureClient } from "@kestra-io/kestra-sdk";
 import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
 import * as ExecutionsAPI from "@kestra-io/kestra-sdk/executions";
 
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
     auth: () => "root@root.com:Root!1234",
 });
 

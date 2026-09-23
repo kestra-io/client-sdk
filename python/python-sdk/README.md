@@ -71,15 +71,17 @@ configuration = Configuration(
     username=os.environ["KESTRA_USERNAME"],
     password=os.environ["KESTRA_PASSWORD"],
 )
-
-# ...or a bearer token (API token / JWT)
-configuration = Configuration(
-    host="http://localhost:8080",
-    access_token=os.environ["KESTRA_TOKEN"],
-)
-
 kestra_client = KestraClient(configuration)
+
+# ...or a bearer token (service-account API token / JWT)
+kestra_client = KestraClient(
+    host="http://localhost:8080",
+    token=os.environ["KESTRA_TOKEN"],
+)
 ```
+
+Pass bearer tokens with the `token=` keyword: `KestraClient` does not read
+`Configuration.access_token`.
 
 ## Errors
 
@@ -89,10 +91,46 @@ API calls raise `kestrapy.rest.ApiException` on non-2xx responses:
 from kestrapy.rest import ApiException
 
 try:
-    kestra_client.flows.get_flow(tenant, "company.team", "does_not_exist")
+    kestra_client.flows.flow("company.team", "does_not_exist", tenant)
 except ApiException as e:
     print(f"Kestra API returned {e.status}: {e.reason}")
 ```
+
+## Documentation for API Endpoints
+
+Per-method reference (signatures, parameters, examples) for the most-used APIs.
+Every `KestraClient` accessor is documented by its docstrings.
+
+Accessor | Reference
+------------- | -------------
+`kestra_client.executions` | [ExecutionsApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/ExecutionsApi.md)
+`kestra_client.flows` | [FlowsApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/FlowsApi.md)
+`kestra_client.groups` | [GroupsApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/GroupsApi.md)
+`kestra_client.kv` | [KVApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/KVApi.md)
+`kestra_client.logs` | [LogsApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/LogsApi.md)
+`kestra_client.namespaces` | [NamespacesApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/NamespacesApi.md)
+`kestra_client.roles` | [RolesApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/RolesApi.md)
+`kestra_client.service_account` | [ServiceAccountApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/ServiceAccountApi.md)
+`kestra_client.triggers` | [TriggersApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/TriggersApi.md)
+`kestra_client.users` | [UsersApi](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/UsersApi.md)
+
+## Documentation for Models
+
+Each model has a page under [`docs/`](https://github.com/kestra-io/client-sdk/tree/main/python/python-sdk/docs) named after the class, for
+example [`FlowWithSource`](https://github.com/kestra-io/client-sdk/blob/main/python/python-sdk/docs/FlowWithSource.md).
+
+## Documentation for Authorization
+
+<a id="basicAuth"></a>
+### basicAuth
+
+HTTP basic authentication: set `username` and `password` on the
+`Configuration` (or pass them to `KestraClient`).
+
+<a id="bearerAuth"></a>
+### bearerAuth
+
+Bearer token (service-account API token / JWT): `KestraClient(host=..., token=...)`.
 
 ## Development
 
