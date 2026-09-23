@@ -40,10 +40,16 @@ var serverManagedFlowFields = map[string]bool{
 // deleted, draft, tenantId, source, updated) are stripped, and null-valued map
 // keys are dropped at every depth (matching the typed path's omitempty).
 //
-// Key order: a typed *Flow marshals its struct fields in declaration order and
-// that order is preserved. A map input cannot preserve insertion order because
-// Go's encoding/json emits map keys in sorted order; map inputs are therefore
-// emitted with alphabetically ordered keys.
+// Key order: Go cannot preserve the caller's key order here. A map input is
+// emitted by encoding/json in sorted order, and the generated models' own
+// MarshalJSON also goes through a map (ToMap), so a typed *Flow comes out
+// sorted too. The serialized source is what the server stores and the UI
+// shows, so keys are reordered canonically after marshalling: at the flow
+// root, id, namespace, description, labels, inputs, variables, tasks, errors,
+// finally, afterExecution, triggers come first; in any nested mapping that has
+// both `id` and `type` (tasks, triggers, inputs at any depth), id and type come
+// first. All other keys keep their (alphabetical) order after those. The YAML
+// is emitted with 2-space indentation, the Kestra convention.
 func flowToYAML(flow interface{}) (string, error) {
 	if flow == nil {
 		return "", fmt.Errorf("flow must not be nil")
@@ -72,12 +78,96 @@ func flowToYAML(flow interface{}) (string, error) {
 	}
 
 	stripServerManagedFields(node)
+	reorderKeys(node, flowRootKeyOrder)
+	reorderNestedKeys(node)
 
-	out, err := yaml.Marshal(node)
-	if err != nil {
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetIndent(2)
+	if err := enc.Encode(node); err != nil {
 		return "", fmt.Errorf("serialize flow to yaml: %w", err)
 	}
-	return string(out), nil
+	if err := enc.Close(); err != nil {
+		return "", fmt.Errorf("serialize flow to yaml: %w", err)
+	}
+	return buf.String(), nil
+}
+
+// flowRootKeyOrder is the canonical key order of a flow source's root mapping.
+var flowRootKeyOrder = []string{
+	"id", "namespace", "description", "labels", "inputs", "variables",
+	"tasks", "errors", "finally", "afterExecution", "triggers",
+}
+
+// pluginKeyOrder is the canonical leading key order of any nested mapping that
+// carries both `id` and `type` (tasks, triggers, inputs at any depth).
+var pluginKeyOrder = []string{"id", "type"}
+
+// reorderKeys moves the given keys (when present) to the front of a mapping
+// node, in the given order; the remaining keys keep their existing order.
+func reorderKeys(m *yaml.Node, order []string) {
+	if m == nil || m.Kind != yaml.MappingNode {
+		return
+	}
+	front := make([]*yaml.Node, 0, len(m.Content))
+	used := make(map[int]bool, len(order))
+	for _, key := range order {
+		for i := 0; i+1 < len(m.Content); i += 2 {
+			if !used[i] && m.Content[i].Value == key {
+				front = append(front, m.Content[i], m.Content[i+1])
+				used[i] = true
+				break
+			}
+		}
+	}
+	for i := 0; i+1 < len(m.Content); i += 2 {
+		if !used[i] {
+			front = append(front, m.Content[i], m.Content[i+1])
+		}
+	}
+	m.Content = front
+}
+
+// reorderNestedKeys walks every node below the root and puts `id`, `type`
+// first in each mapping that has both keys.
+func reorderNestedKeys(n *yaml.Node) {
+	if n == nil {
+		return
+	}
+	switch n.Kind {
+	case yaml.MappingNode:
+		for i := 1; i < len(n.Content); i += 2 {
+			child := n.Content[i]
+			if child.Kind == yaml.MappingNode && hasKeys(child, pluginKeyOrder...) {
+				reorderKeys(child, pluginKeyOrder)
+			}
+			reorderNestedKeys(child)
+		}
+	case yaml.SequenceNode:
+		for _, child := range n.Content {
+			if child.Kind == yaml.MappingNode && hasKeys(child, pluginKeyOrder...) {
+				reorderKeys(child, pluginKeyOrder)
+			}
+			reorderNestedKeys(child)
+		}
+	}
+}
+
+// hasKeys reports whether a mapping node contains every given key.
+func hasKeys(m *yaml.Node, keys ...string) bool {
+	for _, key := range keys {
+		found := false
+		for i := 0; i+1 < len(m.Content); i += 2 {
+			if m.Content[i].Value == key {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return false
+		}
+	}
+	return true
 }
 
 // jsonTokenToYAMLNode builds a *yaml.Node from a JSON token stream, preserving

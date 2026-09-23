@@ -207,7 +207,7 @@ func TestFlowToYAML_DropsNilMapValues(t *testing.T) {
 				"id":      "log",
 				"type":    "io.kestra.plugin.core.log.Log",
 				"message": "hi",
-				"timeout": nil,                                        // nested nil
+				"timeout": nil,                                                           // nested nil
 				"retry":   map[string]interface{}{"type": "constant", "maxAttempt": nil}, // deeper nil
 			},
 		},
@@ -276,5 +276,114 @@ func TestFlowToYAML_MapInput(t *testing.T) {
 	}
 	if !strings.Contains(out, "grüß gott") {
 		t.Errorf("expected non-ASCII verbatim, got:\n%s", out)
+	}
+}
+
+// yamlKeys returns the keys of a YAML mapping node in document order.
+func yamlKeys(t *testing.T, n *yaml.Node) []string {
+	t.Helper()
+	if n.Kind != yaml.MappingNode {
+		t.Fatalf("expected a mapping node, got kind %v", n.Kind)
+	}
+	keys := make([]string, 0, len(n.Content)/2)
+	for i := 0; i+1 < len(n.Content); i += 2 {
+		keys = append(keys, n.Content[i].Value)
+	}
+	return keys
+}
+
+// yamlValue returns the value node of key in a mapping node.
+func yamlValue(t *testing.T, n *yaml.Node, key string) *yaml.Node {
+	t.Helper()
+	for i := 0; i+1 < len(n.Content); i += 2 {
+		if n.Content[i].Value == key {
+			return n.Content[i+1]
+		}
+	}
+	t.Fatalf("key %q not found", key)
+	return nil
+}
+
+func TestFlowToYAML_CanonicalKeyOrderTyped(t *testing.T) {
+	desc := "a flow"
+	flow := &Flow{
+		Id:          "my-flow",
+		Namespace:   "company.team",
+		Description: &desc,
+		Tasks: []Task{{
+			Id:   "hello",
+			Type: "io.kestra.plugin.core.log.Log",
+			AdditionalProperties: map[string]interface{}{
+				"message": "hi",
+			},
+		}},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	want := "id: my-flow\n" +
+		"namespace: company.team\n" +
+		"description: a flow\n" +
+		"tasks:\n" +
+		"  - id: hello\n" +
+		"    type: io.kestra.plugin.core.log.Log\n" +
+		"    message: hi\n" +
+		"disabled: false\n"
+	if out != want {
+		t.Errorf("unexpected YAML.\ngot:\n%s\nwant:\n%s", out, want)
+	}
+}
+
+func TestFlowToYAML_CanonicalKeyOrderMap(t *testing.T) {
+	flow := map[string]interface{}{
+		"triggers": []map[string]interface{}{
+			{"type": "io.kestra.plugin.core.trigger.Schedule", "cron": "0 * * * *", "id": "hourly"},
+		},
+		"tasks": []map[string]interface{}{
+			{
+				"type": "io.kestra.plugin.core.flow.Sequential",
+				"id":   "seq",
+				"tasks": []map[string]interface{}{
+					{"message": "x", "type": "io.kestra.plugin.core.log.Log", "id": "inner"},
+				},
+			},
+		},
+		"inputs": []map[string]interface{}{
+			{"type": "STRING", "defaults": "d", "id": "name"},
+		},
+		"labels":    map[string]interface{}{"team": "a"},
+		"namespace": "company.team",
+		"id":        "map-flow",
+		"zzz":       "extra",
+		"aaa":       "extra",
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+	var doc yaml.Node
+	if err := yaml.Unmarshal([]byte(out), &doc); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v", err)
+	}
+	root := doc.Content[0]
+	assertKeys := func(name string, got, want []string) {
+		t.Helper()
+		if strings.Join(got, ",") != strings.Join(want, ",") {
+			t.Errorf("%s key order = %v, want %v\nYAML:\n%s", name, got, want, out)
+		}
+	}
+	assertKeys("root", yamlKeys(t, root),
+		[]string{"id", "namespace", "labels", "inputs", "tasks", "triggers", "aaa", "zzz"})
+	seq := yamlValue(t, root, "tasks").Content[0]
+	assertKeys("task", yamlKeys(t, seq), []string{"id", "type", "tasks"})
+	assertKeys("nested task", yamlKeys(t, yamlValue(t, seq, "tasks").Content[0]),
+		[]string{"id", "type", "message"})
+	assertKeys("trigger", yamlKeys(t, yamlValue(t, root, "triggers").Content[0]),
+		[]string{"id", "type", "cron"})
+	assertKeys("input", yamlKeys(t, yamlValue(t, root, "inputs").Content[0]),
+		[]string{"id", "type", "defaults"})
+	if !strings.Contains(out, "\n  - id: seq\n    type: io.kestra.plugin.core.flow.Sequential\n") {
+		t.Errorf("expected 2-space indentation, got:\n%s", out)
 	}
 }
