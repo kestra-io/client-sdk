@@ -31715,7 +31715,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
         '422':
-          description: If the backfill end date is not after its start date
+          description: If the backfill end date is not after its start date, or if the trigger is not a schedule trigger
           content:
             application/problem+json:
               schema:
