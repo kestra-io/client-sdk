@@ -96,7 +96,7 @@ public class Example {
 
 ## autocompleteGroups
 
-> List&lt;ApiGroupSummary&gt; autocompleteGroups(filters, tenant, apiAutocomplete)
+> List&lt;ApiGroupSummary&gt; autocompleteGroups(tenant, request, filters)
 
 List groups for autocomplete
 
@@ -142,9 +142,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
-| **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
+| **request** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -168,7 +168,7 @@ public class Example {
 
 ## createGroup
 
-> IAMGroupControllerApiGroupDetail createGroup(tenant, iaMGroupControllerApiCreateGroupRequest)
+> IAMGroupControllerApiGroupDetail createGroup(tenant, request)
 
 Create a group
 
@@ -214,7 +214,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMGroupControllerApiCreateGroupRequest** | [**IAMGroupControllerApiCreateGroupRequest**](IAMGroupControllerApiCreateGroupRequest.md)| The group | |
+| **request** | [**IAMGroupControllerApiCreateGroupRequest**](IAMGroupControllerApiCreateGroupRequest.md)| The group | |
 
 ### Return type
 
@@ -458,7 +458,7 @@ public class Example {
 
 ## listGroupIds
 
-> List&lt;ApiGroupSummary&gt; listGroupIds(tenant, apiIds)
+> List&lt;ApiGroupSummary&gt; listGroupIds(tenant, ids)
 
 List groups by ids
 
@@ -504,7 +504,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiIds** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
+| **ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
 
 ### Return type
 
@@ -528,7 +528,7 @@ public class Example {
 
 ## searchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, filters, tenant, page, size, sort)
+> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, tenant, page, size, sort, filters)
 
 Search for users in a group
 
@@ -578,11 +578,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The group id | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -606,7 +606,7 @@ public class Example {
 
 ## searchGroups
 
-> PagedResultsApiGroupSummary searchGroups(filters, tenant, page, size, sort)
+> PagedResultsApiGroupSummary searchGroups(tenant, page, size, sort, filters)
 
 Search for groups
 
@@ -654,11 +654,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -760,7 +760,7 @@ public class Example {
 
 ## updateGroup
 
-> IAMGroupControllerApiGroupDetail updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest)
+> IAMGroupControllerApiGroupDetail updateGroup(id, tenant, request)
 
 Update a group
 
@@ -808,7 +808,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The group id | |
 | **tenant** | **String**|  | |
-| **iaMGroupControllerApiUpdateGroupRequest** | [**IAMGroupControllerApiUpdateGroupRequest**](IAMGroupControllerApiUpdateGroupRequest.md)| The group | |
+| **request** | [**IAMGroupControllerApiUpdateGroupRequest**](IAMGroupControllerApiUpdateGroupRequest.md)| The group | |
 
 ### Return type
 

@@ -25,7 +25,7 @@ All URIs are relative to *http://localhost*
 
 ## createApiTokensForServiceAccount
 
-> Object createApiTokensForServiceAccount(id, createApiTokenRequest)
+> Object createApiTokensForServiceAccount(id, request)
 
 Create new API Token for a specific service account
 
@@ -71,7 +71,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -95,7 +95,7 @@ public class Example {
 
 ## createApiTokensForServiceAccountWithTenant
 
-> Object createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest)
+> Object createApiTokensForServiceAccountWithTenant(id, tenant, request)
 
 Create new API Token for a specific service account
 
@@ -143,7 +143,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
 | **tenant** | **String**|  | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -167,7 +167,7 @@ public class Example {
 
 ## createServiceAccount
 
-> IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(request)
 
 Create a service account
 
@@ -213,7 +213,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **iaMServiceAccountControllerApiCreateServiceAccountRequest** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | |
+| **request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | |
 
 ### Return type
 
@@ -237,7 +237,7 @@ public class Example {
 
 ## createServiceAccountForTenant
 
-> IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(tenant, request)
 
 Create a service account for the given tenant
 
@@ -283,7 +283,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMServiceAccountControllerApiServiceAccountRequest** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | |
+| **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | |
 
 ### Return type
 
@@ -728,7 +728,7 @@ public class Example {
 
 ## listServiceAccounts
 
-> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(filters, page, size, sort)
+> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(page, size, sort, filters)
 
 List service accounts. Superadmin-only. 
 
@@ -775,10 +775,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -803,7 +803,7 @@ public class Example {
 
 ## patchServiceAccountDetails
 
-> IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(id, request)
 
 Update service account details
 
@@ -851,7 +851,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The service account id | |
-| **iaMServiceAccountControllerApiPatchServiceAccountRequest** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | |
+| **request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | |
 
 ### Return type
 
@@ -875,7 +875,7 @@ public class Example {
 
 ## patchServiceAccountSuperAdmin
 
-> patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest)
+> patchServiceAccountSuperAdmin(id, request)
 
 Update service account superadmin privileges
 
@@ -922,7 +922,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **apiPatchSuperAdminRequest** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
+| **request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
 
 ### Return type
 
@@ -1089,7 +1089,7 @@ public class Example {
 
 ## updateServiceAccount
 
-> IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest)
+> IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(id, tenant, request)
 
 Update a user service account
 
@@ -1137,7 +1137,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
 | **tenant** | **String**|  | |
-| **iaMServiceAccountControllerApiServiceAccountRequest** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | |
+| **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | |
 
 ### Return type
 

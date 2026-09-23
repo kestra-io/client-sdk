@@ -66,7 +66,7 @@ Method | HTTP request | Description
 
 
 # **create_execution**
-> ExecutionControllerExecutionResponse create_execution(namespace, id, tenant, labels=labels, wait=wait, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+> ExecutionControllerExecutionResponse create_execution(tenant, namespace, id, labels=labels, wait=wait, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, inputs=inputs)
 
 Create a new execution for a flow
 
@@ -114,15 +114,16 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
- **tenant** | **str**|  | 
  **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | [optional] 
  **wait** | **bool**| If the server will wait the end of the execution | [optional] [default to False]
  **revision** | **int**| The flow revision or latest if null | [optional] 
  **schedule_date** | **datetime**| Schedule the flow on a specific date | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
  **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
+ **inputs** | **Dict[str, Any]**|  | [optional] 
 
 ### Return type
 
@@ -216,7 +217,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_executions_by_ids**
-> BulkResponse delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+> BulkResponse delete_executions_by_ids(tenant, ids, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
 
 Delete a list of executions
 
@@ -261,7 +262,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The execution id | 
+ **ids** | [**List[str]**](str.md)| The execution id | 
  **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
  **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
  **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
@@ -365,7 +366,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **download_file_from_execution**
-> bytes download_file_from_execution(execution_id, path, tenant, format=format)
+> bytes download_file_from_execution(execution_id, path_uri, tenant)
 
 Download file for an execution
 
@@ -409,9 +410,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **path** | **str**| The internal storage uri | 
+ **path_uri** | **str**| The internal storage uri | 
  **tenant** | **str**|  | 
- **format** | [**FileFormat**](.md)| The requested file format; RAW returns the raw bytes (default), JSONL converts Ion records to JSON Lines | [optional] 
 
 ### Return type
 
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **eval_expression**
-> ExecutionControllerEvalResult eval_expression(execution_id, tenant, body)
+> ExecutionControllerEvalResult eval_expression(execution_id, tenant, expression)
 
 Evaluate a variable expression for this execution
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
- **body** | **str**| The Pebble expression that should be evaluated | 
+ **expression** | **str**| The Pebble expression that should be evaluated | 
 
 ### Return type
 
@@ -502,7 +502,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **eval_task_run_expression**
-> ExecutionControllerEvalResult eval_task_run_expression(execution_id, task_run_id, tenant, body)
+> ExecutionControllerEvalResult eval_task_run_expression(execution_id, task_run_id, tenant, expression)
 
 Evaluate a variable expression for this taskrun
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
  **execution_id** | **str**| The execution id | 
  **task_run_id** | **str**| The taskrun id | 
  **tenant** | **str**|  | 
- **body** | **str**| The Pebble expression that should be evaluated | 
+ **expression** | **str**| The Pebble expression that should be evaluated | 
 
 ### Return type
 
@@ -836,7 +836,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **file_metadatas_from_execution**
-> FileMetas file_metadatas_from_execution(execution_id, path, tenant)
+> FileMetas file_metadatas_from_execution(execution_id, path_uri, tenant)
 
 Get file meta information for an execution
 
@@ -878,7 +878,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **path** | **str**| The internal storage uri | 
+ **path_uri** | **str**| The internal storage uri | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -903,7 +903,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_distinct_execution_field_values**
-> List[str] find_distinct_execution_field_values(var_field, tenant, filters=filters, size=size)
+> List[str] find_distinct_execution_field_values(tenant, field, filters=filters, size=size)
 
 List distinct values for one of the executions filter fields, optionally narrowed by additional query filters
 
@@ -946,8 +946,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **var_field** | [**QueryFilterField**](.md)| The field whose distinct values to return. Must be a field supported by the EXECUTION resource. | 
  **tenant** | **str**|  | 
+ **field** | **str**|  | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Additional filters to narrow the distinct values. PHP-style nested query is used - examples: &#x60;filters[flowId][CONTAINS]&#x3D;test&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,WARNING&#x60; | [optional] 
  **size** | **int**| Maximum number of distinct values to return. | [optional] [default to 100]
 
@@ -973,7 +973,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **flow_from_execution**
-> FlowForExecution flow_from_execution(namespace, flow_id, tenant, revision=revision)
+> FlowForExecution flow_from_execution(tenant, namespace, flow_id, revision=revision)
 
 Get flow information's for an execution
 
@@ -1015,9 +1015,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace of the flow | 
  **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
  **revision** | **int**| The flow revision | [optional] 
 
 ### Return type
@@ -1241,7 +1241,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **force_run_by_ids**
-> ApiAsyncOperationResponse force_run_by_ids(tenant, request_body)
+> ApiAsyncOperationResponse force_run_by_ids(tenant, ids)
 
 Force run a list of executions asynchronously
 
@@ -1282,7 +1282,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -1511,7 +1511,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **kill_executions_by_ids**
-> ApiAsyncOperationResponse kill_executions_by_ids(tenant, request_body)
+> ApiAsyncOperationResponse kill_executions_by_ids(tenant, ids)
 
 Kill a list of executions asynchronously
 
@@ -1552,7 +1552,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -1646,7 +1646,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **latest_executions**
-> List[ExecutionControllerLastExecutionResponse] latest_executions(tenant, execution_repository_interface_flow_filter)
+> List[ExecutionControllerLastExecutionResponse] latest_executions(tenant, filters)
 
 Get the latest execution for given flows
 
@@ -1688,7 +1688,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **execution_repository_interface_flow_filter** | [**List[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
+ **filters** | [**List[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
 
 ### Return type
 
@@ -1906,7 +1906,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_executions_by_ids**
-> ApiAsyncOperationResponse pause_executions_by_ids(tenant, request_body)
+> ApiAsyncOperationResponse pause_executions_by_ids(tenant, ids)
 
 Pause a list of running executions asynchronously
 
@@ -1947,7 +1947,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -2041,7 +2041,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **preview_file_from_execution**
-> object preview_file_from_execution(execution_id, path, max_rows, tenant, encoding=encoding)
+> object preview_file_from_execution(execution_id, path_uri, tenant, max_rows=max_rows, encoding=encoding)
 
 Get file preview for an execution
 
@@ -2085,9 +2085,9 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **path** | **str**| The internal storage uri | 
- **max_rows** | **int**| The max row returns | 
+ **path_uri** | **str**|  | 
  **tenant** | **str**|  | 
+ **max_rows** | **int**| The max row returns | 
  **encoding** | **str**| The file encoding as Java charset name. Defaults to UTF-8 | [optional] [default to &#39;UTF-8&#39;]
 
 ### Return type
@@ -2184,7 +2184,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution_with_inputs**
-> Execution replay_execution_with_inputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+> Execution replay_execution_with_inputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints, inputs=inputs)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2232,6 +2232,7 @@ Name | Type | Description  | Notes
  **task_run_id** | **str**| The taskrun id | [optional] 
  **revision** | **int**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **inputs** | **Dict[str, Any]**|  | [optional] 
 
 ### Return type
 
@@ -2256,7 +2257,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_executions_by_ids**
-> ApiAsyncOperationResponse replay_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
+> ApiAsyncOperationResponse replay_executions_by_ids(tenant, ids, latest_revision=latest_revision)
 
 Create new executions from old ones asynchronously. Keep the flow revision
 
@@ -2298,7 +2299,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
  **latest_revision** | **bool**| If latest revision should be used | [optional] [default to False]
 
 ### Return type
@@ -2463,7 +2464,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restart_executions_by_ids**
-> ApiAsyncOperationResponse restart_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
+> ApiAsyncOperationResponse restart_executions_by_ids(tenant, ids)
 
 Restart a list of executions asynchronously
 
@@ -2505,8 +2506,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
- **latest_revision** | **bool**| If latest revision should be used | [optional] [default to False]
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -2532,7 +2532,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restart_executions_by_query**
-> ApiAsyncOperationResponse restart_executions_by_query(tenant, filters=filters, latest_revision=latest_revision)
+> ApiAsyncOperationResponse restart_executions_by_query(tenant, filters=filters)
 
 Restart executions filter by query parameters asynchronously
 
@@ -2576,7 +2576,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
- **latest_revision** | **bool**| If latest revision should be used | [optional] [default to False]
 
 ### Return type
 
@@ -2602,7 +2601,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **resume_execution**
-> Execution resume_execution(execution_id, tenant)
+> Execution resume_execution(execution_id, tenant, inputs=inputs)
 
 Resume a paused execution.
 
@@ -2644,6 +2643,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
+ **inputs** | **Dict[str, Any]**|  | [optional] 
 
 ### Return type
 
@@ -2736,7 +2736,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **resume_executions_by_ids**
-> ApiAsyncOperationResponse resume_executions_by_ids(tenant, request_body)
+> ApiAsyncOperationResponse resume_executions_by_ids(tenant, ids)
 
 Resume a list of paused executions asynchronously
 
@@ -2777,7 +2777,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -2871,7 +2871,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_executions**
-> PagedResultsApiLightExecution search_executions(tenant, page=page, size=size, sort=sort, filters=filters, date_filter=date_filter)
+> PagedResultsApiLightExecution search_executions(tenant, page=page, size=size, sort=sort, filters=filters)
 
 Search for executions
 
@@ -2921,7 +2921,6 @@ Name | Type | Description  | Notes
  **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
- **date_filter** | [**ExecutionRepositoryInterfaceDateFilter**](.md)| Which execution date field the time interval is applied to | [optional] 
 
 ### Return type
 
@@ -2945,7 +2944,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_executions_by_flow_id**
-> PagedResultsApiLightExecution search_executions_by_flow_id(namespace, flow_id, tenant, page=page, size=size)
+> PagedResultsApiLightExecution search_executions_by_flow_id(tenant, namespace, flow_id, page=page, size=size)
 
 Search for executions for a flow
 
@@ -2988,9 +2987,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
  **page** | **int**| The current page | [optional] [default to 1]
  **size** | **int**| The current page size | [optional] [default to 10]
 
@@ -3016,7 +3015,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_labels_on_terminated_execution**
-> Execution set_labels_on_terminated_execution(execution_id, tenant, label)
+> Execution set_labels_on_terminated_execution(execution_id, tenant, labels)
 
 Add or update labels of a terminated execution
 
@@ -3060,7 +3059,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
- **label** | [**List[Label]**](Label.md)| The labels to add to the execution | 
+ **labels** | [**List[Label]**](Label.md)| The labels to add to the execution | 
 
 ### Return type
 
@@ -3087,7 +3086,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_labels_on_terminated_executions_by_ids**
-> ApiAsyncOperationResponse set_labels_on_terminated_executions_by_ids(tenant, execution_controller_set_labels_by_ids_request)
+> ApiAsyncOperationResponse set_labels_on_terminated_executions_by_ids(tenant, request)
 
 Set labels on a list of executions asynchronously
 
@@ -3129,7 +3128,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **execution_controller_set_labels_by_ids_request** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | 
+ **request** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | 
 
 ### Return type
 
@@ -3155,7 +3154,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_labels_on_terminated_executions_by_query**
-> ApiAsyncOperationResponse set_labels_on_terminated_executions_by_query(tenant, label, filters=filters)
+> ApiAsyncOperationResponse set_labels_on_terminated_executions_by_query(tenant, labels, filters=filters)
 
 Set label on executions filter by query parameters asynchronously
 
@@ -3198,7 +3197,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **label** | [**List[Label]**](Label.md)| The labels to add to the execution | 
+ **labels** | [**List[Label]**](Label.md)| The labels to add to the execution | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
 
 ### Return type
@@ -3225,7 +3224,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook**
-> WebhookResponse trigger_execution_by_get_webhook(namespace, id, key, tenant)
+> WebhookResponse trigger_execution_by_get_webhook(tenant, namespace, id, key)
 
 Trigger a new execution by GET webhook trigger
 
@@ -3267,10 +3266,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -3294,7 +3293,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook_with_path**
-> WebhookResponse trigger_execution_by_get_webhook_with_path(namespace, id, key, path, tenant)
+> WebhookResponse trigger_execution_by_get_webhook_with_path(tenant, namespace, id, key, webhook_path)
 
 Trigger a new execution by GET webhook trigger
 
@@ -3337,11 +3336,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
- **tenant** | **str**|  | 
+ **webhook_path** | **str**|  | 
 
 ### Return type
 
@@ -3366,7 +3365,7 @@ Name | Type | Description  | Notes
 
 
 # **trigger_execution_by_post_webhook_with_path**
-> WebhookResponse trigger_execution_by_post_webhook_with_path(namespace, id, key, path, tenant, body=body)
+> WebhookResponse trigger_execution_by_post_webhook_with_path(tenant, namespace, id, key, webhook_path)
 
 Trigger a new execution by POST webhook trigger
 
@@ -3410,12 +3409,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
- **tenant** | **str**|  | 
- **body** | **str**| The webhook payload, of any content type. What the flow sees of it depends on the &#x60;fetchType&#x60; of the trigger: &#x60;trigger.body&#x60; by default, &#x60;trigger.uri&#x60; when the trigger stores it. A &#x60;multipart/form-data&#x60; payload is handled by a dedicated route: its file parts are stored in Kestra&#39;s internal storage and reach the flow as &#x60;trigger.parts&#x60;, its other parts as &#x60;trigger.formFields&#x60;. | [optional] 
+ **webhook_path** | **str**|  | 
 
 ### Return type
 
@@ -3440,7 +3438,7 @@ Name | Type | Description  | Notes
 
 
 # **trigger_execution_by_put_webhook_with_path**
-> WebhookResponse trigger_execution_by_put_webhook_with_path(namespace, id, key, path, tenant, body=body)
+> WebhookResponse trigger_execution_by_put_webhook_with_path(tenant, namespace, id, key, webhook_path)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3484,12 +3482,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
- **tenant** | **str**|  | 
- **body** | **str**| The webhook payload, of any content type. What the flow sees of it depends on the &#x60;fetchType&#x60; of the trigger: &#x60;trigger.body&#x60; by default, &#x60;trigger.uri&#x60; when the trigger stores it. A &#x60;multipart/form-data&#x60; payload is handled by a dedicated route: its file parts are stored in Kestra&#39;s internal storage and reach the flow as &#x60;trigger.parts&#x60;, its other parts as &#x60;trigger.formFields&#x60;. | [optional] 
+ **webhook_path** | **str**|  | 
 
 ### Return type
 
@@ -3513,7 +3510,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_execution**
-> Execution unqueue_execution(execution_id, state, tenant)
+> Execution unqueue_execution(execution_id, tenant, state=state)
 
 Unqueue an execution
 
@@ -3556,8 +3553,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **state** | [**StateType**](.md)| The new state of the execution | 
  **tenant** | **str**|  | 
+ **state** | [**StateType**](.md)| The new state of the execution | 
 
 ### Return type
 
@@ -3582,7 +3579,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_executions_by_ids**
-> ApiAsyncOperationResponse unqueue_executions_by_ids(state, tenant, request_body)
+> ApiAsyncOperationResponse unqueue_executions_by_ids(tenant, state, ids)
 
 Unqueue a list of executions asynchronously
 
@@ -3624,9 +3621,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | [**StateType**](.md)| The new state of the unqueued executions | 
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **state** | [**StateType**](.md)| The new state of the unqueued executions | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -3652,7 +3649,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_executions_by_query**
-> ApiAsyncOperationResponse unqueue_executions_by_query(tenant, filters=filters, new_state=new_state)
+> ApiAsyncOperationResponse unqueue_executions_by_query(tenant, new_state=new_state, filters=filters)
 
 Unqueue executions filter by query parameters asynchronously
 
@@ -3695,8 +3692,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
  **new_state** | [**StateType**](.md)| The new state of the unqueued executions | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
 
 ### Return type
 
@@ -3791,7 +3788,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_executions_status_by_ids**
-> ApiAsyncOperationResponse update_executions_status_by_ids(new_status, tenant, request_body)
+> ApiAsyncOperationResponse update_executions_status_by_ids(tenant, new_status, ids)
 
 Change executions state by id asynchronously
 
@@ -3833,9 +3830,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **new_status** | [**StateType**](.md)| The new state of the executions | 
  **tenant** | **str**|  | 
- **request_body** | [**List[str]**](str.md)| The list of executions id | 
+ **new_status** | [**StateType**](.md)| The new state of the executions | 
+ **ids** | [**List[str]**](str.md)| The list of executions id | 
 
 ### Return type
 
@@ -3861,7 +3858,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_executions_status_by_query**
-> ApiAsyncOperationResponse update_executions_status_by_query(new_status, tenant, filters=filters)
+> ApiAsyncOperationResponse update_executions_status_by_query(tenant, new_status, filters=filters)
 
 Change executions state by query parameters asynchronously
 
@@ -3903,8 +3900,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **new_status** | [**StateType**](.md)| The new state of the executions | 
  **tenant** | **str**|  | 
+ **new_status** | [**StateType**](.md)| The new state of the executions | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
 
 ### Return type
@@ -3931,7 +3928,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_task_run_state**
-> Execution update_task_run_state(execution_id, tenant, execution_controller_state_request)
+> Execution update_task_run_state(execution_id, tenant, request)
 
 Change state for a taskrun in an execution
 
@@ -3975,7 +3972,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
- **execution_controller_state_request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | 
+ **request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | 
 
 ### Return type
 
@@ -4000,7 +3997,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **validate_new_execution_inputs**
-> List[ExecutionControllerApiValidateExecutionInputsResponse] validate_new_execution_inputs(namespace, id, labels, tenant, revision=revision)
+> List[ExecutionControllerApiValidateExecutionInputsResponse] validate_new_execution_inputs(namespace, id, tenant, labels=labels, revision=revision, inputs=inputs)
 
 Validate the creation of a new execution for a flow
 
@@ -4045,9 +4042,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
- **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | 
  **tenant** | **str**|  | 
+ **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | 
  **revision** | **int**| The flow revision or latest if null | [optional] 
+ **inputs** | **Dict[str, Any]**|  | [optional] 
 
 ### Return type
 
@@ -4072,7 +4070,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **validate_resume_execution_inputs**
-> List[ExecutionControllerApiValidateExecutionInputsResponse] validate_resume_execution_inputs(execution_id, tenant)
+> List[ExecutionControllerApiValidateExecutionInputsResponse] validate_resume_execution_inputs(execution_id, tenant, inputs=inputs)
 
 Validate inputs to resume a paused execution.
 
@@ -4114,6 +4112,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
+ **inputs** | **Dict[str, Any]**|  | [optional] 
 
 ### Return type
 

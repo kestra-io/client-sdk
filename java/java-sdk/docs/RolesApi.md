@@ -16,7 +16,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteRoles
 
-> List&lt;ApiRoleSummary&gt; autocompleteRoles(tenant, apiAutocomplete)
+> List&lt;ApiRoleSummary&gt; autocompleteRoles(tenant, request)
 
 List roles for autocomplete
 
@@ -62,7 +62,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
+| **request** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
 
 ### Return type
 
@@ -86,7 +86,7 @@ public class Example {
 
 ## createRole
 
-> IAMRoleControllerApiRoleDetail createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest)
+> IAMRoleControllerApiRoleDetail createRole(tenant, request)
 
 Create a role
 
@@ -132,7 +132,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
+| **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
 
 ### Return type
 
@@ -226,7 +226,7 @@ null (empty response body)
 
 ## listRolesFromGivenIds
 
-> List&lt;Role&gt; listRolesFromGivenIds(tenant, apiIds)
+> List&lt;Role&gt; listRolesFromGivenIds(tenant, ids)
 
 List roles by ids
 
@@ -272,7 +272,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiIds** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
+| **ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | |
 
 ### Return type
 
@@ -367,7 +367,7 @@ public class Example {
 
 ## searchRoles
 
-> PagedResultsApiRoleSummary searchRoles(filters, tenant, page, size, sort)
+> PagedResultsApiRoleSummary searchRoles(tenant, page, size, sort, filters)
 
 Search for roles
 
@@ -415,11 +415,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -443,7 +443,7 @@ public class Example {
 
 ## updateRole
 
-> IAMRoleControllerApiRoleDetail updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest)
+> IAMRoleControllerApiRoleDetail updateRole(id, tenant, request)
 
 Update a role
 
@@ -491,7 +491,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The role id | |
 | **tenant** | **String**|  | |
-| **iaMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
+| **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | |
 
 ### Return type
 

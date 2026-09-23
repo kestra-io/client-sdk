@@ -262,7 +262,7 @@ null (empty response body)
 
 ## deleteFlowsByIds
 
-> BulkResponse deleteFlowsByIds(tenant, idWithNamespace)
+> BulkResponse deleteFlowsByIds(tenant, ids)
 
 Delete flows by their IDs.
 
@@ -308,7 +308,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **idWithNamespace** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
+| **ids** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
 
 ### Return type
 
@@ -402,7 +402,7 @@ public class Example {
 
 ## deleteRevisions
 
-> deleteRevisions(namespace, id, revisions, tenant)
+> deleteRevisions(namespace, id, tenant, revisions)
 
 Delete revisions for a flow
 
@@ -450,8 +450,8 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **revisions** | [**List&lt;Integer&gt;**](Integer.md)|  | |
 | **tenant** | **String**|  | |
+| **revisions** | [**List&lt;Integer&gt;**](Integer.md)|  | |
 
 ### Return type
 
@@ -475,7 +475,7 @@ null (empty response body)
 
 ## disableFlowsByIds
 
-> BulkResponse disableFlowsByIds(tenant, idWithNamespace)
+> BulkResponse disableFlowsByIds(tenant, ids)
 
 Disable flows by their IDs.
 
@@ -521,7 +521,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **idWithNamespace** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
+| **ids** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
 
 ### Return type
 
@@ -615,7 +615,7 @@ public class Example {
 
 ## enableFlowsByIds
 
-> BulkResponse enableFlowsByIds(tenant, idWithNamespace)
+> BulkResponse enableFlowsByIds(tenant, ids)
 
 Enable flows by their IDs.
 
@@ -661,7 +661,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **idWithNamespace** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
+| **ids** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
 
 ### Return type
 
@@ -755,7 +755,7 @@ public class Example {
 
 ## exportFlowsByIds
 
-> byte[] exportFlowsByIds(tenant, idWithNamespace)
+> byte[] exportFlowsByIds(tenant, ids)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -801,7 +801,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **idWithNamespace** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
+| **ids** | [**List&lt;IdWithNamespace&gt;**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | |
 
 ### Return type
 
@@ -1843,7 +1843,7 @@ public class Example {
 
 ## searchFlowsBySourceCode
 
-> PagedResultsSearchResultFlow searchFlowsBySourceCode(tenant, page, size, sort, q, namespace)
+> PagedResultsSearchResultFlow searchFlowsBySourceCode(tenant, page, size, sort, q, namespace, caseSensitive, wholeWord, regex, scope)
 
 Search for flows source code
 
@@ -1898,6 +1898,10 @@ public class Example {
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
+| **caseSensitive** | **.annotation.Nullable Boolean**|  | |
+| **wholeWord** | **.annotation.Nullable Boolean**|  | |
+| **regex** | **.annotation.Nullable Boolean**|  | |
+| **scope** | **.annotation.Nullable SourceSearchScope**|  | |
 
 ### Return type
 

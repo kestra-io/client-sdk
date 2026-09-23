@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **autocomplete_users**
-> List[IAMTenantAccessControllerApiUserTenantAccess] autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+> List[IAMTenantAccessControllerApiUserTenantAccess] autocomplete_users(tenant, request)
 
 List users for autocomplete
 
@@ -66,7 +66,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_tenant_access_controller_user_api_autocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | 
+ **request** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | 
 
 ### Return type
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_user**
-> CreateApiTokenResponse create_api_tokens_for_user(id, create_api_token_request)
+> CreateApiTokenResponse create_api_tokens_for_user(id, request)
 
 Create new API Token for a specific user
 
@@ -134,7 +134,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_user**
-> IAMUserControllerApiUser create_user(iam_user_controller_api_create_or_update_user_request)
+> IAMUserControllerApiUser create_user(request)
 
 Create a new user account
 
@@ -201,7 +201,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_user_controller_api_create_or_update_user_request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
+ **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
 
 ### Return type
 
@@ -619,7 +619,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user**
-> IAMUserControllerApiUser patch_user(id, me_controller_api_user_details_request)
+> IAMUserControllerApiUser patch_user(id, request)
 
 Update user details
 
@@ -663,7 +663,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **me_controller_api_user_details_request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
+ **request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
 
 ### Return type
 
@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_demo**
-> patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+> patch_user_demo(id, request)
 
 Update user demo
 
@@ -728,7 +728,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_patch_restricted_request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | 
+ **request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | 
 
 ### Return type
 
@@ -753,7 +753,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_instance_owner**
-> patch_user_instance_owner(id, api_patch_instance_owner_request)
+> patch_user_instance_owner(id, request)
 
 Update user instance-owner privileges
 
@@ -794,7 +794,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **api_patch_instance_owner_request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
+ **request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
 
 ### Return type
 
@@ -820,7 +820,7 @@ void (empty response body)
 
 
 # **patch_user_password**
-> IAMUserControllerApiUser patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+> IAMUserControllerApiUser patch_user_password(id, request)
 
 Update user password
 
@@ -864,7 +864,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_patch_user_password_request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | 
+ **request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | 
 
 ### Return type
 
@@ -889,7 +889,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_current_user_password**
-> object update_current_user_password(me_controller_api_update_password_request)
+> object update_current_user_password(request)
 
 Update authenticated user password
 
@@ -931,7 +931,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **me_controller_api_update_password_request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | 
+ **request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | 
 
 ### Return type
 
@@ -955,7 +955,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user**
-> IAMUserControllerApiUser update_user(id, iam_user_controller_api_create_or_update_user_request)
+> IAMUserControllerApiUser update_user(id, request)
 
 Update a user account
 
@@ -999,7 +999,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_create_or_update_user_request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
+ **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
 
 ### Return type
 
@@ -1024,7 +1024,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user_groups**
-> update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+> update_user_groups(id, tenant, request)
 
 Update the list of groups a user belongs to for the given tenant
 
@@ -1065,7 +1065,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user ID | 
  **tenant** | **str**|  | 
- **iam_user_group_controller_api_update_user_groups_request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | 
+ **request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | 
 
 ### Return type
 

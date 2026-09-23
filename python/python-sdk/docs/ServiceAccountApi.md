@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **create_api_tokens_for_service_account**
-> object create_api_tokens_for_service_account(id, create_api_token_request)
+> object create_api_tokens_for_service_account(id, request)
 
 Create new API Token for a specific service account
 
@@ -65,7 +65,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_service_account_with_tenant**
-> object create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+> object create_api_tokens_for_service_account_with_tenant(id, tenant, request)
 
 Create new API Token for a specific service account
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
  **tenant** | **str**|  | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_service_account**
-> IAMServiceAccountControllerApiServiceAccountDetail create_service_account(iam_service_account_controller_api_create_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountDetail create_service_account(request)
 
 Create a service account
 
@@ -199,7 +199,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_service_account_controller_api_create_service_account_request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | 
+ **request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | 
 
 ### Return type
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_service_account_for_tenant**
-> IAMServiceAccountControllerApiServiceAccountResponse create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountResponse create_service_account_for_tenant(tenant, request)
 
 Create a service account for the given tenant
 
@@ -265,7 +265,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_service_account_controller_api_service_account_request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | 
+ **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | 
 
 ### Return type
 
@@ -748,7 +748,7 @@ Name | Type | Description  | Notes
 
 
 # **patch_service_account_details**
-> IAMServiceAccountControllerApiServiceAccountDetail patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountDetail patch_service_account_details(id, request)
 
 Update service account details
 
@@ -792,7 +792,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The service account id | 
- **iam_service_account_controller_api_patch_service_account_request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | 
+ **request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | 
 
 ### Return type
 
@@ -816,7 +816,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_service_account_instance_owner**
-> patch_service_account_instance_owner(id, api_patch_instance_owner_request)
+> patch_service_account_instance_owner(id, request)
 
 Update service account instance-owner privileges
 
@@ -857,7 +857,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **api_patch_instance_owner_request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
+ **request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
 
 ### Return type
 
@@ -1015,7 +1015,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_service_account**
-> IAMServiceAccountControllerApiServiceAccountResponse update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountResponse update_service_account(id, tenant, request)
 
 Update a user service account
 
@@ -1059,7 +1059,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
  **tenant** | **str**|  | 
- **iam_service_account_controller_api_service_account_request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | 
+ **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | 
 
 ### Return type
 

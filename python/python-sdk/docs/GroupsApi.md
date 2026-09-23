@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **autocomplete_groups**
-> List[ApiGroupSummary] autocomplete_groups(tenant, api_autocomplete, filters=filters)
+> List[ApiGroupSummary] autocomplete_groups(tenant, request, filters=filters)
 
 List groups for autocomplete
 
@@ -132,7 +132,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **api_autocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
+ **request** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_group**
-> IAMGroupControllerApiGroupDetail create_group(tenant, iam_group_controller_api_create_group_request)
+> IAMGroupControllerApiGroupDetail create_group(tenant, request)
 
 Create a group
 
@@ -199,7 +199,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_group_controller_api_create_group_request** | [**IAMGroupControllerApiCreateGroupRequest**](IAMGroupControllerApiCreateGroupRequest.md)| The group | 
+ **request** | [**IAMGroupControllerApiCreateGroupRequest**](IAMGroupControllerApiCreateGroupRequest.md)| The group | 
 
 ### Return type
 
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_group_ids**
-> List[ApiGroupSummary] list_group_ids(tenant, api_ids)
+> List[ApiGroupSummary] list_group_ids(tenant, ids)
 
 List groups by ids
 
@@ -468,7 +468,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **api_ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
+ **ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
 
 ### Return type
 
@@ -712,7 +712,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_group**
-> IAMGroupControllerApiGroupDetail update_group(id, tenant, iam_group_controller_api_update_group_request)
+> IAMGroupControllerApiGroupDetail update_group(id, tenant, request)
 
 Update a group
 
@@ -756,7 +756,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The group id | 
  **tenant** | **str**|  | 
- **iam_group_controller_api_update_group_request** | [**IAMGroupControllerApiUpdateGroupRequest**](IAMGroupControllerApiUpdateGroupRequest.md)| The group | 
+ **request** | [**IAMGroupControllerApiUpdateGroupRequest**](IAMGroupControllerApiUpdateGroupRequest.md)| The group | 
 
 ### Return type
 

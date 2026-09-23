@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **autocomplete_namespaces**
-> List[str] autocomplete_namespaces(tenant, api_autocomplete)
+> List[str] autocomplete_namespaces(tenant, request)
 
 List namespaces for autocomplete
 
@@ -62,7 +62,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **api_autocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | 
+ **request** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | 
 
 ### Return type
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_secret**
-> List[ApiSecretMetaEE] patch_secret(namespace, key, tenant, api_secret_meta_ee)
+> List[ApiSecretMetaEE] patch_secret(namespace, key, tenant, meta)
 
 Patch a secret metadata for a namespace
 
@@ -519,7 +519,7 @@ Name | Type | Description  | Notes
  **namespace** | **str**| The namespace id | 
  **key** | **str**| The secret key | 
  **tenant** | **str**|  | 
- **api_secret_meta_ee** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | 
+ **meta** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | 
 
 ### Return type
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_secrets**
-> List[ApiSecretMetaEE] put_secrets(namespace, tenant, api_secret_value)
+> List[ApiSecretMetaEE] put_secrets(namespace, tenant, secret_value)
 
 Update secrets for a namespace
 
@@ -587,7 +587,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace id | 
  **tenant** | **str**|  | 
- **api_secret_value** | [**ApiSecretValue**](ApiSecretValue.md)|  | 
+ **secret_value** | [**ApiSecretValue**](ApiSecretValue.md)|  | 
 
 ### Return type
 

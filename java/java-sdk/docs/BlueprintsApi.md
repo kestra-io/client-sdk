@@ -247,7 +247,7 @@ public class Example {
 
 ## createFlowBlueprint
 
-> BlueprintControllerApiFlowBlueprint createFlowBlueprint(tenant, blueprintControllerFlowBlueprintCreateOrUpdate)
+> BlueprintControllerApiFlowBlueprint createFlowBlueprint(tenant, request)
 
 Create a Flow Blueprint
 
@@ -293,7 +293,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **blueprintControllerFlowBlueprintCreateOrUpdate** | [**BlueprintControllerFlowBlueprintCreateOrUpdate**](BlueprintControllerFlowBlueprintCreateOrUpdate.md)|  | |
+| **request** | [**BlueprintControllerFlowBlueprintCreateOrUpdate**](BlueprintControllerFlowBlueprintCreateOrUpdate.md)|  | |
 
 ### Return type
 
@@ -317,7 +317,7 @@ public class Example {
 
 ## createInternalBlueprints
 
-> BlueprintControllerApiBlueprintItemWithSource createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource)
+> BlueprintControllerApiBlueprintItemWithSource createInternalBlueprints(tenant, request)
 
 Create a new internal blueprint
 
@@ -365,7 +365,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **blueprintControllerApiBlueprintItemWithSource** | [**BlueprintControllerApiBlueprintItemWithSource**](BlueprintControllerApiBlueprintItemWithSource.md)| The internal blueprint to create | |
+| **request** | [**BlueprintControllerApiBlueprintItemWithSource**](BlueprintControllerApiBlueprintItemWithSource.md)| The internal blueprint to create | |
 
 ### Return type
 
@@ -819,7 +819,7 @@ public class Example {
 
 ## searchBlueprints
 
-> PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(kind, tenant, q, sort, tags, page, size)
+> PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(kind, tenant, sort, page, size, filters)
 
 List all blueprints
 
@@ -873,11 +873,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **kind** | [**BlueprintControllerKind**](.md)| The blueprint kind | [enum: APP, DASHBOARD, FLOW] |
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **sort** | **String**| The sort of current page | [optional] |
-| **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 1] |
+| **filters** | **.annotation.Nullable List&lt;QueryFilter&gt;**|  | |
 
 ### Return type
 
@@ -901,7 +900,7 @@ public class Example {
 
 ## searchInternalBlueprints
 
-> PagedResultsBlueprint searchInternalBlueprints(tenant, q, sort, tags, page, size, source)
+> PagedResultsBlueprint searchInternalBlueprints(tenant, sort, page, size, source, filters)
 
 List all internal blueprints
 
@@ -954,12 +953,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **sort** | **String**| The sort of current page | [optional] |
-| **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 1] |
 | **source** | **Boolean**| Whether to include the flow source in the response | [optional] [default to false] |
+| **filters** | **.annotation.Nullable List&lt;QueryFilter&gt;**|  | |
 
 ### Return type
 
@@ -983,7 +981,7 @@ public class Example {
 
 ## updateFlowBlueprint
 
-> BlueprintControllerApiFlowBlueprint updateFlowBlueprint(id, tenant, blueprintControllerFlowBlueprintCreateOrUpdate)
+> BlueprintControllerApiFlowBlueprint updateFlowBlueprint(id, tenant, request)
 
 Update a Flow Blueprint
 
@@ -1031,7 +1029,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The flow blueprint id to update | |
 | **tenant** | **String**|  | |
-| **blueprintControllerFlowBlueprintCreateOrUpdate** | [**BlueprintControllerFlowBlueprintCreateOrUpdate**](BlueprintControllerFlowBlueprintCreateOrUpdate.md)|  | |
+| **request** | [**BlueprintControllerFlowBlueprintCreateOrUpdate**](BlueprintControllerFlowBlueprintCreateOrUpdate.md)|  | |
 
 ### Return type
 
@@ -1055,7 +1053,7 @@ public class Example {
 
 ## updateInternalBlueprints
 
-> BlueprintWithFlowEntity updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource)
+> BlueprintWithFlowEntity updateInternalBlueprints(id, tenant, request)
 
 Update an internal blueprint
 
@@ -1105,7 +1103,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The id of the internal blueprint to update | |
 | **tenant** | **String**|  | |
-| **blueprintControllerApiBlueprintItemWithSource** | [**BlueprintControllerApiBlueprintItemWithSource**](BlueprintControllerApiBlueprintItemWithSource.md)| The new internal blueprint for update | |
+| **request** | [**BlueprintControllerApiBlueprintItemWithSource**](BlueprintControllerApiBlueprintItemWithSource.md)| The new internal blueprint for update | |
 
 ### Return type
 
@@ -1129,7 +1127,7 @@ public class Example {
 
 ## useBlueprintTemplate
 
-> BlueprintControllerUseBlueprintTemplateResponse useBlueprintTemplate(id, tenant, blueprintControllerUseBlueprintTemplateRequest)
+> BlueprintControllerUseBlueprintTemplateResponse useBlueprintTemplate(id, tenant, request)
 
 Use a Flow Blueprint template to generate a Flow source
 
@@ -1177,7 +1175,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The flow blueprint id to use | |
 | **tenant** | **String**|  | |
-| **blueprintControllerUseBlueprintTemplateRequest** | [**BlueprintControllerUseBlueprintTemplateRequest**](BlueprintControllerUseBlueprintTemplateRequest.md)|  | |
+| **request** | [**BlueprintControllerUseBlueprintTemplateRequest**](BlueprintControllerUseBlueprintTemplateRequest.md)|  | |
 
 ### Return type
 

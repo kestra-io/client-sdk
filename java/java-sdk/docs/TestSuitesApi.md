@@ -23,7 +23,7 @@ All URIs are relative to *http://localhost*
 
 ## createTestSuite
 
-> TestSuite createTestSuite(tenant, body)
+> TestSuite createTestSuite(tenant, yamlBody)
 
 Create a test from YAML source
 
@@ -71,7 +71,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The TestSuite source code | |
+| **yamlBody** | **String**| The TestSuite source code | |
 
 ### Return type
 
@@ -169,7 +169,7 @@ public class Example {
 
 ## deleteTestSuitesByIds
 
-> BulkResponse deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest)
+> BulkResponse deleteTestSuitesByIds(tenant, request)
 
 Delete multiple tests by id
 
@@ -217,7 +217,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
+| **request** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
 
 ### Return type
 
@@ -241,7 +241,7 @@ public class Example {
 
 ## disableTestSuitesByIds
 
-> BulkResponse disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest)
+> BulkResponse disableTestSuitesByIds(tenant, request)
 
 Disable multiple tests by id
 
@@ -289,7 +289,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
+| **request** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
 
 ### Return type
 
@@ -313,7 +313,7 @@ public class Example {
 
 ## enableTestSuitesByIds
 
-> BulkResponse enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest)
+> BulkResponse enableTestSuitesByIds(tenant, request)
 
 Enable multiple tests by id
 
@@ -361,7 +361,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
+| **request** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md)|  | |
 
 ### Return type
 
@@ -385,7 +385,7 @@ public class Example {
 
 ## runTestSuite
 
-> TestSuiteRunResult runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest)
+> TestSuiteRunResult runTestSuite(namespace, id, tenant, request)
 
 Run a full test
 
@@ -437,7 +437,7 @@ public class Example {
 | **namespace** | **String**| The TestSuite namespace | |
 | **id** | **String**| The TestSuite ID | |
 | **tenant** | **String**|  | |
-| **testSuiteControllerRunRequest** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md)|  | [optional] |
+| **request** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -461,7 +461,7 @@ public class Example {
 
 ## runTestSuitesByQuery
 
-> TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest)
+> TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(tenant, request)
 
 Run multiple TestSuites by query
 
@@ -509,7 +509,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **testSuiteServiceRunByQueryRequest** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md)|  | |
+| **request** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md)|  | |
 
 ### Return type
 
@@ -843,7 +843,7 @@ public class Example {
 
 ## testsLastResult
 
-> TestSuiteControllerTestsLastResultResponse testsLastResult(tenant, testSuiteControllerSearchTestsLastResult)
+> TestSuiteControllerTestsLastResultResponse testsLastResult(tenant, request)
 
 Get tests last result
 
@@ -891,7 +891,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **testSuiteControllerSearchTestsLastResult** | [**TestSuiteControllerSearchTestsLastResult**](TestSuiteControllerSearchTestsLastResult.md)|  | |
+| **request** | [**TestSuiteControllerSearchTestsLastResult**](TestSuiteControllerSearchTestsLastResult.md)|  | |
 
 ### Return type
 
@@ -915,7 +915,7 @@ public class Example {
 
 ## updateTestSuite
 
-> TestSuite updateTestSuite(namespace, id, tenant, body)
+> TestSuite updateTestSuite(namespace, id, tenant, yamlBody)
 
 Update a test from YAML source
 
@@ -967,7 +967,7 @@ public class Example {
 | **namespace** | **String**| The TestSuite namespace | |
 | **id** | **String**| The TestSuite ID | |
 | **tenant** | **String**|  | |
-| **body** | **String**| The TestSuite source code | |
+| **yamlBody** | **String**| The TestSuite source code | |
 
 ### Return type
 
@@ -991,7 +991,7 @@ public class Example {
 
 ## validateTestSuite
 
-> ValidateConstraintViolation validateTestSuite(tenant, body)
+> ValidateConstraintViolation validateTestSuite(tenant, yamlBody)
 
 Validate a test
 
@@ -1039,7 +1039,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The TestSuite source code | |
+| **yamlBody** | **String**| The TestSuite source code | |
 
 ### Return type
 

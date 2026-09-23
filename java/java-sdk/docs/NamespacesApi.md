@@ -20,7 +20,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteNamespaces
 
-> List&lt;String&gt; autocompleteNamespaces(tenant, apiAutocomplete)
+> List&lt;String&gt; autocompleteNamespaces(tenant, request)
 
 List namespaces for autocomplete
 
@@ -68,7 +68,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | |
+| **request** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | |
 
 ### Return type
 
@@ -512,7 +512,7 @@ public class Example {
 
 ## patchSecret
 
-> List&lt;ApiSecretMetaEE&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
+> List&lt;ApiSecretMetaEE&gt; patchSecret(namespace, key, tenant, meta)
 
 Patch a secret metadata for a namespace
 
@@ -562,7 +562,7 @@ public class Example {
 | **namespace** | **String**| The namespace id | |
 | **key** | **String**| The secret key | |
 | **tenant** | **String**|  | |
-| **apiSecretMetaEE** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | |
+| **meta** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | |
 
 ### Return type
 
@@ -586,7 +586,7 @@ public class Example {
 
 ## putSecrets
 
-> List&lt;ApiSecretMetaEE&gt; putSecrets(namespace, tenant, apiSecretValue)
+> List&lt;ApiSecretMetaEE&gt; putSecrets(namespace, tenant, secretValue)
 
 Update secrets for a namespace
 
@@ -634,7 +634,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
-| **apiSecretValue** | [**ApiSecretValue**](ApiSecretValue.md)|  | |
+| **secretValue** | [**ApiSecretValue**](ApiSecretValue.md)|  | |
 
 ### Return type
 
@@ -658,7 +658,7 @@ public class Example {
 
 ## searchNamespaces
 
-> PagedResultsNamespace searchNamespaces(tenant, q, page, size, sort, existing)
+> PagedResultsNamespace searchNamespaces(tenant, page, size, sort, existing, filters)
 
 Search for namespaces
 
@@ -708,11 +708,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **existing** | **Boolean**| Return only existing namespace | [optional] [default to false] |
+| **filters** | **String**| A string filter | [optional] |
 
 ### Return type
 

@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 
 # **create_backfill**
-> ApiTriggerState create_backfill(tenant, trigger_controller_api_create_backfill_request)
+> ApiTriggerState create_backfill(tenant, request)
 
 Create a backfill
 
@@ -72,7 +72,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_create_backfill_request** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | 
+ **request** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | 
 
 ### Return type
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_backfill**
-> ApiTriggerState delete_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState delete_backfill(tenant, trigger_id)
 
 Delete a backfill
 
@@ -139,7 +139,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_backfill_by_ids**
-> ApiAsyncOperationResponse delete_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse delete_backfill_by_ids(tenant, trigger_ids)
 
 Delete backfill for given triggers asynchronously
 
@@ -206,7 +206,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_trigger**
-> delete_trigger(namespace, flow_id, trigger_id, tenant)
+> delete_trigger(tenant, namespace, flow_id, trigger_id)
 
 Delete a trigger
 
@@ -337,10 +337,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -366,7 +366,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_ids**
-> ApiAsyncOperationResponse delete_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse delete_triggers_by_ids(tenant, trigger_ids)
 
 Delete given triggers asynchronously
 
@@ -408,7 +408,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_query**
-> ApiAsyncOperationResponse delete_triggers_by_query(tenant, delete_triggers_by_query_request)
+> ApiAsyncOperationResponse delete_triggers_by_query(tenant, request)
 
 Delete triggers by query parameters asynchronously
 
@@ -475,7 +475,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_triggers_by_query_request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
+ **request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
 
 ### Return type
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_trigger_by_id**
-> ApiTriggerState disable_trigger_by_id(tenant, trigger_controller_api_disable_trigger_request)
+> ApiTriggerState disable_trigger_by_id(tenant, request)
 
 Disable/enable a trigger
 
@@ -542,7 +542,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_disable_trigger_request** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | 
+ **request** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | 
 
 ### Return type
 
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_ids**
-> ApiAsyncOperationResponse disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
+> ApiAsyncOperationResponse disabled_triggers_by_ids(tenant, request)
 
 Disable/enable given triggers asynchronously
 
@@ -609,7 +609,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_set_disabled_request** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | 
+ **request** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | 
 
 ### Return type
 
@@ -634,7 +634,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_query**
-> ApiAsyncOperationResponse disabled_triggers_by_query(tenant, filters=filters, disabled=disabled, recover_missed_schedules=recover_missed_schedules)
+> ApiAsyncOperationResponse disabled_triggers_by_query(tenant, disabled=disabled, filters=filters)
 
 Disable/enable triggers by query parameters asynchronously
 
@@ -678,9 +678,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
  **disabled** | **bool**| The disabled state | [optional] [default to True]
- **recover_missed_schedules** | **bool**| When true, missed schedules are recovered on enable according to the trigger&#39;s recoverMissedSchedules configuration; omitted or false, missed schedules are skipped | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
 
 ### Return type
 
@@ -771,7 +770,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_backfill**
-> ApiTriggerState pause_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState pause_backfill(tenant, trigger_id)
 
 Pause a backfill
 
@@ -813,7 +812,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -838,7 +837,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_backfill_by_ids**
-> ApiAsyncOperationResponse pause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse pause_backfill_by_ids(tenant, trigger_ids)
 
 Pause backfill for given triggers asynchronously
 
@@ -880,7 +879,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -972,7 +971,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restart_trigger**
-> ApiTriggerState restart_trigger(namespace, flow_id, trigger_id, tenant)
+> ApiTriggerState restart_trigger(tenant, namespace, flow_id, trigger_id)
 
 Restart a trigger
 
@@ -1014,10 +1013,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -1116,7 +1115,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_triggers_for_flow**
-> PagedResultsApiTriggerState search_triggers_for_flow(namespace, flow_id, tenant, page=page, size=size, sort=sort, q=q)
+> PagedResultsApiTriggerState search_triggers_for_flow(tenant, namespace, flow_id, page=page, size=size, q=q, sort=sort)
 
 Get all triggers for a flow
 
@@ -1161,13 +1160,13 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
  **page** | **int**| The current page | [optional] [default to 1]
  **size** | **int**| The current page size | [optional] [default to 10]
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **q** | **str**| A string filter | [optional] 
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -1191,7 +1190,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_trigger**
-> ApiTriggerState unlock_trigger(namespace, flow_id, trigger_id, tenant)
+> ApiTriggerState unlock_trigger(tenant, namespace, flow_id, trigger_id)
 
 Unlock a trigger
 
@@ -1233,10 +1232,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **namespace** | **str**| The namespace | 
  **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
- **tenant** | **str**|  | 
 
 ### Return type
 
@@ -1261,7 +1260,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_triggers_by_ids**
-> ApiAsyncOperationResponse unlock_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse unlock_triggers_by_ids(tenant, trigger_ids)
 
 Unlock given triggers asynchronously
 
@@ -1303,7 +1302,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -1395,7 +1394,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unpause_backfill**
-> ApiTriggerState unpause_backfill(tenant, trigger_controller_api_trigger_id)
+> ApiTriggerState unpause_backfill(tenant, trigger_id)
 
 Unpause a backfill
 
@@ -1437,7 +1436,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_id** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 
@@ -1462,7 +1461,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unpause_backfill_by_ids**
-> ApiAsyncOperationResponse unpause_backfill_by_ids(tenant, trigger_controller_api_trigger_id)
+> ApiAsyncOperationResponse unpause_backfill_by_ids(tenant, trigger_ids)
 
 Unpause backfill for given triggers asynchronously
 
@@ -1504,7 +1503,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **trigger_controller_api_trigger_id** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
+ **trigger_ids** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md)|  | 
 
 ### Return type
 

@@ -87,7 +87,7 @@ public class Example {
 
 ## deleteKeyValues
 
-> KVControllerApiDeleteBulkResponse deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest)
+> KVControllerApiDeleteBulkResponse deleteKeyValues(namespace, tenant, request)
 
 Bulk-delete multiple key/value pairs from the given namespace.
 
@@ -135,7 +135,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
-| **kvControllerApiDeleteBulkRequest** | [**KVControllerApiDeleteBulkRequest**](KVControllerApiDeleteBulkRequest.md)| The keys | |
+| **request** | [**KVControllerApiDeleteBulkRequest**](KVControllerApiDeleteBulkRequest.md)| The keys | |
 
 ### Return type
 

@@ -46,7 +46,7 @@ Method | HTTP request | Description
 
 
 # **apply_replace_by_source_code**
-> SourceSearchReplaceApplyResponse apply_replace_by_source_code(tenant, source_search_replace_apply_request)
+> SourceSearchReplaceApplyResponse apply_replace_by_source_code(tenant, body)
 
 Apply a Source Search replace-all operation
 
@@ -90,7 +90,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_apply_request** | [**SourceSearchReplaceApplyRequest**](SourceSearchReplaceApplyRequest.md)| The search query, replacement and target flows | 
+ **body** | [**SourceSearchReplaceApplyRequest**](SourceSearchReplaceApplyRequest.md)| The search query, replacement and target flows | 
 
 ### Return type
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_flow**
-> FlowWithSource create_flow(tenant, body, draft=draft)
+> FlowWithSource create_flow(tenant, body)
 
 Create a flow from yaml source
 
@@ -231,7 +231,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
- **draft** | **bool**| Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations. | [optional] [default to False]
 
 ### Return type
 
@@ -320,7 +319,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_flows_by_ids**
-> BulkResponse delete_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse delete_flows_by_ids(tenant, ids)
 
 Delete flows by their IDs.
 
@@ -362,7 +361,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -452,7 +451,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_revisions**
-> delete_revisions(namespace, id, revisions, tenant)
+> delete_revisions(namespace, id, tenant, revisions)
 
 Delete revisions for a flow
 
@@ -493,8 +492,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
- **revisions** | [**List[int]**](int.md)|  | 
  **tenant** | **str**|  | 
+ **revisions** | [**List[int]**](int.md)|  | 
 
 ### Return type
 
@@ -518,7 +517,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_flows_by_ids**
-> BulkResponse disable_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse disable_flows_by_ids(tenant, ids)
 
 Disable flows by their IDs.
 
@@ -560,7 +559,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -650,7 +649,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enable_flows_by_ids**
-> BulkResponse enable_flows_by_ids(tenant, id_with_namespace)
+> BulkResponse enable_flows_by_ids(tenant, ids)
 
 Enable flows by their IDs.
 
@@ -692,7 +691,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -848,7 +847,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_flows_by_ids**
-> bytes export_flows_by_ids(tenant, id_with_namespace)
+> bytes export_flows_by_ids(tenant, ids)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -890,7 +889,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)| A list of tuple flow ID and namespace as flow identifiers | 
 
 ### Return type
 
@@ -1260,7 +1259,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **flow_hashes_by_ids**
-> ApiFlowHashesResponse flow_hashes_by_ids(tenant, id_with_namespace)
+> ApiFlowHashesResponse flow_hashes_by_ids(tenant, ids)
 
 Batch-compute source hashes for flows by id (drift detection)
 
@@ -1302,7 +1301,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **id_with_namespace** | [**List[IdWithNamespace]**](IdWithNamespace.md)|  | 
+ **ids** | [**List[IdWithNamespace]**](IdWithNamespace.md)|  | 
 
 ### Return type
 
@@ -1464,7 +1463,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **import_flows**
-> List[str] import_flows(tenant, fail_on_error=fail_on_error, file_upload=file_upload)
+> List[str] import_flows(tenant, fail_on_error=fail_on_error, file_content=file_content)
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
 
@@ -1507,7 +1506,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **fail_on_error** | **bool**| If should fail on invalid flows | [optional] [default to False]
- **file_upload** | **bytes**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
+ **file_content** | **bytes**|  | [optional] 
 
 ### Return type
 
@@ -1795,7 +1794,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **preview_policies**
-> PolicyPreviewResponse preview_policies(tenant, policy_preview_request)
+> PolicyPreviewResponse preview_policies(tenant, body)
 
 Preview the governance policy effects (mutations + violations) on a flow source
 
@@ -1837,7 +1836,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **policy_preview_request** | [**PolicyPreviewRequest**](PolicyPreviewRequest.md)|  | 
+ **body** | [**PolicyPreviewRequest**](PolicyPreviewRequest.md)|  | 
 
 ### Return type
 
@@ -1861,7 +1860,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **preview_replace_by_source_code**
-> SourceSearchReplacePreviewResponse preview_replace_by_source_code(tenant, source_search_replace_preview_request)
+> SourceSearchReplacePreviewResponse preview_replace_by_source_code(tenant, body)
 
 Preview a Source Search replace-all operation
 
@@ -1905,7 +1904,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_preview_request** | [**SourceSearchReplacePreviewRequest**](SourceSearchReplacePreviewRequest.md)| The search query and replacement | 
+ **body** | [**SourceSearchReplacePreviewRequest**](SourceSearchReplacePreviewRequest.md)| The search query and replacement | 
 
 ### Return type
 
@@ -1929,7 +1928,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replace_line_by_source_code**
-> SourceSearchReplaceApplyResponse replace_line_by_source_code(tenant, source_search_replace_line_request)
+> SourceSearchReplaceApplyResponse replace_line_by_source_code(tenant, body)
 
 Apply a Source Search replace on a single match line
 
@@ -1973,7 +1972,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **source_search_replace_line_request** | [**SourceSearchReplaceLineRequest**](SourceSearchReplaceLineRequest.md)| The search query, replacement and target match line | 
+ **body** | [**SourceSearchReplaceLineRequest**](SourceSearchReplaceLineRequest.md)| The search query, replacement and target match line | 
 
 ### Return type
 
@@ -2355,7 +2354,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flow**
-> FlowWithSource update_flow(namespace, id, tenant, body, draft=draft)
+> FlowWithSource update_flow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -2402,7 +2401,6 @@ Name | Type | Description  | Notes
  **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
- **draft** | **bool**| Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations. | [optional] [default to False]
 
 ### Return type
 

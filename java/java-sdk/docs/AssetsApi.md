@@ -166,7 +166,7 @@ public class Example {
 
 ## createAsset
 
-> AssetsControllerApiAsset createAsset(tenant, body)
+> AssetsControllerApiAsset createAsset(tenant, yamlBody)
 
 Create a new asset
 
@@ -212,7 +212,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The asset | |
+| **yamlBody** | **String**| The asset | |
 
 ### Return type
 
@@ -305,7 +305,7 @@ null (empty response body)
 
 ## deleteAssetLineageEventsByQuery
 
-> BulkResponse deleteAssetLineageEventsByQuery(filters, tenant)
+> BulkResponse deleteAssetLineageEventsByQuery(tenant, filters)
 
 Delete asset lineage events by query, hard-delete (purge) only
 
@@ -350,8 +350,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -375,7 +375,7 @@ public class Example {
 
 ## deleteAssetUsagesByQuery
 
-> BulkResponse deleteAssetUsagesByQuery(filters, tenant)
+> BulkResponse deleteAssetUsagesByQuery(tenant, filters)
 
 Delete asset usages by query, hard-delete (purge) only
 
@@ -420,8 +420,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -445,7 +445,7 @@ public class Example {
 
 ## deleteAssetsByIds
 
-> BulkResponse deleteAssetsByIds(tenant, requestBody)
+> BulkResponse deleteAssetsByIds(tenant, ids)
 
 Delete assets by asset ids
 
@@ -491,7 +491,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The asset ids | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The asset ids | |
 
 ### Return type
 
@@ -516,7 +516,7 @@ public class Example {
 
 ## deleteAssetsByQuery
 
-> BulkResponse deleteAssetsByQuery(filters, tenant, purge)
+> BulkResponse deleteAssetsByQuery(tenant, filters, purge)
 
 Delete assets by query
 
@@ -562,8 +562,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **purge** | **Boolean**| If true, will purge instead of soft-delete | [optional] [default to false] |
 
 ### Return type
@@ -589,7 +589,7 @@ public class Example {
 
 ## searchAssetLineageEvents
 
-> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(tenant, page, size, sort, filters)
 
 Search for asset lineage events
 
@@ -637,11 +637,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -665,7 +665,7 @@ public class Example {
 
 ## searchAssetUsages
 
-> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(tenant, page, size, sort, filters)
 
 Search for asset usages
 
@@ -713,11 +713,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -741,7 +741,7 @@ public class Example {
 
 ## searchAssets
 
-> PagedResultsAssetsControllerApiAsset searchAssets(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAsset searchAssets(tenant, page, size, sort, filters)
 
 Search for assets
 
@@ -789,11 +789,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 

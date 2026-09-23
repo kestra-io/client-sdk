@@ -21,7 +21,7 @@ All URIs are relative to *http://localhost*
 
 ## createDashboard
 
-> DashboardControllerDashboardResponse createDashboard(tenant, body)
+> DashboardControllerDashboardResponse createDashboard(tenant, yamlBody)
 
 Create a dashboard from yaml source
 
@@ -67,7 +67,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The dashboard definition as YAML | |
+| **yamlBody** | **String**| The dashboard definition as YAML | |
 
 ### Return type
 
@@ -161,7 +161,7 @@ public class Example {
 
 ## dashboardChartData
 
-> PagedResultsMapStringObject dashboardChartData(id, chartId, tenant, chartFiltersOverrides)
+> PagedResultsMapStringObject dashboardChartData(id, chartId, tenant, filters)
 
 Generate a dashboard chart data
 
@@ -211,7 +211,7 @@ public class Example {
 | **id** | **String**| The dashboard id | |
 | **chartId** | **String**| The chart id | |
 | **tenant** | **String**|  | |
-| **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
+| **filters** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
 
 ### Return type
 
@@ -372,7 +372,7 @@ null (empty response body)
 
 ## exportChart
 
-> byte[] exportChart(tenant, dashboardControllerPreviewRequest, format)
+> byte[] exportChart(tenant, request, format)
 
 Export a chart data to CSV or ION
 
@@ -419,7 +419,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
+| **request** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
 | **format** | **String**| The export format, CSV or ION | [optional] |
 
 ### Return type
@@ -444,7 +444,7 @@ public class Example {
 
 ## exportDashboardChart
 
-> byte[] exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format)
+> byte[] exportDashboardChart(id, chartId, tenant, filters, format)
 
 Export a dashboard chart data to CSV or ION
 
@@ -495,7 +495,7 @@ public class Example {
 | **id** | **String**| The dashboard id | |
 | **chartId** | **String**| The chart id | |
 | **tenant** | **String**|  | |
-| **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
+| **filters** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
 | **format** | **String**| The export format, CSV or ION | [optional] |
 
 ### Return type
@@ -520,7 +520,7 @@ public class Example {
 
 ## previewChart
 
-> PagedResultsMapStringObject previewChart(tenant, dashboardControllerPreviewRequest)
+> PagedResultsMapStringObject previewChart(tenant, request)
 
 Preview a chart data
 
@@ -566,7 +566,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
+| **request** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
 
 ### Return type
 
@@ -666,7 +666,7 @@ public class Example {
 
 ## updateDashboard
 
-> DashboardControllerDashboardResponse updateDashboard(id, tenant, body)
+> DashboardControllerDashboardResponse updateDashboard(id, tenant, yamlBody)
 
 Update a dashboard
 
@@ -714,7 +714,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The dashboard id | |
 | **tenant** | **String**|  | |
-| **body** | **String**| The dashboard definition as YAML | |
+| **yamlBody** | **String**| The dashboard definition as YAML | |
 
 ### Return type
 
@@ -738,7 +738,7 @@ public class Example {
 
 ## validateChart
 
-> ValidateConstraintViolation validateChart(tenant, body)
+> ValidateConstraintViolation validateChart(tenant, yamlBody)
 
 Validate a chart from yaml source
 
@@ -784,7 +784,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The chart definition as YAML | |
+| **yamlBody** | **String**| The chart definition as YAML | |
 
 ### Return type
 
@@ -808,7 +808,7 @@ public class Example {
 
 ## validateDashboard
 
-> ValidateConstraintViolation validateDashboard(tenant, body)
+> ValidateConstraintViolation validateDashboard(tenant, yamlBody)
 
 Validate dashboard from yaml source
 
@@ -854,7 +854,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The dashboard definition as YAML | |
+| **yamlBody** | **String**| The dashboard definition as YAML | |
 
 ### Return type
 

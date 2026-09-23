@@ -97,7 +97,7 @@ public class Example {
 
 ## bulkDeleteApps
 
-> Object bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest)
+> Object bulkDeleteApps(tenant, request)
 
 Delete existing apps
 
@@ -143,7 +143,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **appsControllerApiBulkOperationRequest** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
+| **request** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
 
 ### Return type
 
@@ -167,7 +167,7 @@ public class Example {
 
 ## bulkDisableApps
 
-> Object bulkDisableApps(tenant, appsControllerApiBulkOperationRequest)
+> Object bulkDisableApps(tenant, request)
 
 Disable existing apps
 
@@ -213,7 +213,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **appsControllerApiBulkOperationRequest** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
+| **request** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
 
 ### Return type
 
@@ -237,7 +237,7 @@ public class Example {
 
 ## bulkEnableApps
 
-> Object bulkEnableApps(tenant, appsControllerApiBulkOperationRequest)
+> Object bulkEnableApps(tenant, request)
 
 Enable existing apps
 
@@ -283,7 +283,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **appsControllerApiBulkOperationRequest** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
+| **request** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
 
 ### Return type
 
@@ -307,7 +307,7 @@ public class Example {
 
 ## bulkExportApps
 
-> byte[] bulkExportApps(tenant, appsControllerApiBulkOperationRequest)
+> byte[] bulkExportApps(tenant, request)
 
 Export apps as a ZIP archive of YAML sources.
 
@@ -353,7 +353,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **appsControllerApiBulkOperationRequest** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
+| **request** | [**AppsControllerApiBulkOperationRequest**](AppsControllerApiBulkOperationRequest.md)| The list of Apps UID | |
 
 ### Return type
 
@@ -447,7 +447,7 @@ public class Example {
 
 ## createApp
 
-> AppsControllerApiAppSource createApp(tenant, body)
+> AppsControllerApiAppSource createApp(tenant, yamlBody)
 
 Create a new app
 
@@ -493,7 +493,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The app | |
+| **yamlBody** | **String**| The app | |
 
 ### Return type
 
@@ -1019,7 +1019,7 @@ public class Example {
 
 ## searchApps
 
-> PagedResultsAppsControllerApiApp searchApps(filters, tenant, page, size, sort, tags, q, namespace, flowId)
+> PagedResultsAppsControllerApiApp searchApps(tenant, page, size, sort, filters)
 
 Search for apps
 
@@ -1071,15 +1071,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **flowId** | **String**| A flow id filter | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -1103,7 +1099,7 @@ public class Example {
 
 ## searchAppsFromCatalog
 
-> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(filters, tenant, page, size)
+> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(tenant, page, size, filters)
 
 Search for apps from catalog
 
@@ -1150,10 +1146,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -1249,7 +1245,7 @@ public class Example {
 
 ## updateApp
 
-> AppsControllerApiAppSource updateApp(uid, tenant, body)
+> AppsControllerApiAppSource updateApp(uid, tenant, yamlBody)
 
 Update an existing app
 
@@ -1297,7 +1293,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **uid** | **String**| The ID of the app | |
 | **tenant** | **String**|  | |
-| **body** | **String**| The app | |
+| **yamlBody** | **String**| The app | |
 
 ### Return type
 

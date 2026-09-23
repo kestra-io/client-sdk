@@ -58,7 +58,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, tenant, labels, wait, revision, scheduleDate, breakpoints, kind)
+> ExecutionControllerExecutionResponse createExecution(tenant, namespace, id, labels, wait, revision, scheduleDate, breakpoints, kind)
 
 Create a new execution for a flow
 
@@ -110,9 +110,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
 | **wait** | **Boolean**| If the server will wait the end of the execution | [optional] [default to false] |
 | **revision** | **Integer**| The flow revision or latest if null | [optional] |
@@ -219,7 +219,7 @@ null (empty response body)
 
 ## deleteExecutionsByIds
 
-> BulkResponse deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+> BulkResponse deleteExecutionsByIds(tenant, ids, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
 
 Delete a list of executions
 
@@ -269,7 +269,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The execution id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The execution id | |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
 | **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
 | **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
@@ -448,7 +448,7 @@ public class Example {
 
 ## evalExpression
 
-> ExecutionControllerEvalResult evalExpression(executionId, tenant, body)
+> ExecutionControllerEvalResult evalExpression(executionId, tenant, expression)
 
 Evaluate a variable expression for this execution
 
@@ -496,7 +496,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **body** | **String**| The Pebble expression that should be evaluated | |
+| **expression** | **String**| The Pebble expression that should be evaluated | |
 
 ### Return type
 
@@ -734,7 +734,7 @@ public class Example {
 
 ## flowFromExecution
 
-> FlowForExecution flowFromExecution(namespace, flowId, tenant, revision)
+> FlowForExecution flowFromExecution(tenant, namespace, flowId, revision)
 
 Get flow information&#39;s for an execution
 
@@ -781,9 +781,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace of the flow | |
 | **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **revision** | **Integer**| The flow revision | [optional] |
 
 ### Return type
@@ -1022,7 +1022,7 @@ public class Example {
 
 ## forceRunByIds
 
-> Object forceRunByIds(tenant, requestBody)
+> Object forceRunByIds(tenant, ids)
 
 Force run a list of executions asynchronously
 
@@ -1068,7 +1068,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1310,7 +1310,7 @@ public class Example {
 
 ## killExecutionsByIds
 
-> Object killExecutionsByIds(tenant, requestBody)
+> Object killExecutionsByIds(tenant, ids)
 
 Kill a list of executions asynchronously
 
@@ -1356,7 +1356,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1452,7 +1452,7 @@ public class Example {
 
 ## latestExecutions
 
-> List&lt;ExecutionControllerLastExecutionResponse&gt; latestExecutions(tenant, executionRepositoryInterfaceFlowFilter)
+> List&lt;ExecutionControllerLastExecutionResponse&gt; latestExecutions(tenant, filters)
 
 Get the latest execution for given flows
 
@@ -1498,7 +1498,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **executionRepositoryInterfaceFlowFilter** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
+| **filters** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
 
 ### Return type
 
@@ -1593,7 +1593,7 @@ public class Example {
 
 ## pauseExecutionsByIds
 
-> Object pauseExecutionsByIds(tenant, requestBody)
+> Object pauseExecutionsByIds(tenant, ids)
 
 Pause a list of running executions asynchronously
 
@@ -1639,7 +1639,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1890,7 +1890,7 @@ public class Example {
 
 ## replayExecutionsByIds
 
-> Object replayExecutionsByIds(tenant, requestBody, latestRevision)
+> Object replayExecutionsByIds(tenant, ids, latestRevision)
 
 Create new executions from old ones asynchronously. Keep the flow revision
 
@@ -1937,7 +1937,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 | **latestRevision** | **Boolean**| If latest revision should be used | [optional] [default to false] |
 
 ### Return type
@@ -2110,7 +2110,7 @@ public class Example {
 
 ## restartExecutionsByIds
 
-> Object restartExecutionsByIds(tenant, requestBody)
+> Object restartExecutionsByIds(tenant, ids)
 
 Restart a list of executions asynchronously
 
@@ -2156,7 +2156,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -2324,7 +2324,7 @@ public class Example {
 
 ## resumeExecutionsByIds
 
-> Object resumeExecutionsByIds(tenant, requestBody)
+> Object resumeExecutionsByIds(tenant, ids)
 
 Resume a list of paused executions asynchronously
 
@@ -2370,7 +2370,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -2543,7 +2543,7 @@ public class Example {
 
 ## searchExecutionsByFlowId
 
-> PagedResultsApiLightExecution searchExecutionsByFlowId(namespace, flowId, tenant, page, size)
+> PagedResultsApiLightExecution searchExecutionsByFlowId(tenant, namespace, flowId, page, size)
 
 Search for executions for a flow
 
@@ -2591,9 +2591,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 
@@ -2619,7 +2619,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecution
 
-> Execution setLabelsOnTerminatedExecution(executionId, tenant, label)
+> Execution setLabelsOnTerminatedExecution(executionId, tenant, labels)
 
 Add or update labels of a terminated execution
 
@@ -2667,7 +2667,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
+| **labels** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
 
 ### Return type
 
@@ -2694,7 +2694,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecutionsByIds
 
-> Object setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest)
+> Object setLabelsOnTerminatedExecutionsByIds(tenant, request)
 
 Set labels on a list of executions asynchronously
 
@@ -2740,7 +2740,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **executionControllerSetLabelsByIdsRequest** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | |
+| **request** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | |
 
 ### Return type
 
@@ -2766,7 +2766,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecutionsByQuery
 
-> Object setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters)
+> Object setLabelsOnTerminatedExecutionsByQuery(tenant, labels, filters)
 
 Set label on executions filter by query parameters asynchronously
 
@@ -2813,7 +2813,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
+| **labels** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
@@ -2839,7 +2839,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhook
 
-> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(tenant, namespace, id, key)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2886,10 +2886,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -2913,7 +2913,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhookWithPath
 
-> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByGetWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2961,11 +2961,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -2989,7 +2989,7 @@ public class Example {
 
 ## triggerExecutionByPostWebhookWithPath
 
-> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPostWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by POST webhook trigger
 
@@ -3037,11 +3037,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -3065,7 +3065,7 @@ public class Example {
 
 ## triggerExecutionByPutWebhookWithPath
 
-> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPutWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3113,11 +3113,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -3214,7 +3214,7 @@ public class Example {
 
 ## unqueueExecutionsByIds
 
-> Object unqueueExecutionsByIds(state, tenant, requestBody)
+> Object unqueueExecutionsByIds(tenant, state, ids)
 
 Unqueue a list of executions asynchronously
 
@@ -3260,9 +3260,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -3288,7 +3288,7 @@ public class Example {
 
 ## unqueueExecutionsByQuery
 
-> Object unqueueExecutionsByQuery(tenant, filters, newState)
+> Object unqueueExecutionsByQuery(tenant, newState, filters)
 
 Unqueue executions filter by query parameters asynchronously
 
@@ -3335,8 +3335,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -3434,7 +3434,7 @@ public class Example {
 
 ## updateExecutionsStatusByIds
 
-> Object updateExecutionsStatusByIds(newStatus, tenant, requestBody)
+> Object updateExecutionsStatusByIds(tenant, newStatus, ids)
 
 Change executions state by id asynchronously
 
@@ -3480,9 +3480,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -3508,7 +3508,7 @@ public class Example {
 
 ## updateExecutionsStatusByQuery
 
-> Object updateExecutionsStatusByQuery(newStatus, tenant, filters)
+> Object updateExecutionsStatusByQuery(tenant, newStatus, filters)
 
 Change executions state by query parameters asynchronously
 
@@ -3554,8 +3554,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
@@ -3581,7 +3581,7 @@ public class Example {
 
 ## updateTaskRunState
 
-> Execution updateTaskRunState(executionId, tenant, executionControllerStateRequest)
+> Execution updateTaskRunState(executionId, tenant, request)
 
 Change state for a taskrun in an execution
 
@@ -3629,7 +3629,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **executionControllerStateRequest** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | |
+| **request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | |
 
 ### Return type
 

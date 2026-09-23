@@ -19,6 +19,12 @@ Checks per call:
      argument whose name is a real parameter sits at the index that parameter
      occupies (catches tenant-last ordering).
 
+Checks per method signature line (``> ReturnType method(a, b, c)``) in
+docs/<Class>.md:
+  4. it lists exactly the parameters of one of the method's overloads, in
+     order — readers copy that line and the Parameters table as often as the
+     example, so a stale generator ordering there is the same drift.
+
 Run in CI with --check to gate the docs.
 """
 from __future__ import annotations
@@ -40,6 +46,7 @@ DOCS_GLOB = os.path.join(BASE, "docs", "*.md")
 # DOTALL so a call wrapped across several lines (hand-edited examples often are)
 # is matched rather than silently skipped; the non-greedy body plus the `)\s*;`
 # anchor still stops at the first statement terminator.
+SIGNATURE_LINE_RE = re.compile(r"^> (?:.* )?([a-zA-Z_][A-Za-z0-9_]*)\((.*)\)\s*$", re.MULTILINE)
 CALL_RE = re.compile(
     r"kestraClient\.([A-Za-z_][A-Za-z0-9_]*)\(\)\.([a-zA-Z_][A-Za-z0-9_]*)\((.*?)\)\s*;",
     re.DOTALL,
@@ -141,6 +148,20 @@ def validate() -> list[str]:
                 f"{where}: call does not match any overload "
                 f"(args: {args}, overloads: {overloads})"
             )
+
+        cls_methods = sigs.get(os.path.splitext(os.path.basename(path))[0], {})
+        for m in SIGNATURE_LINE_RE.finditer(text):
+            method, argstr = m.group(1), m.group(2)
+            overloads = cls_methods.get(method)
+            if not overloads:
+                continue
+            documented = [a.strip() for a in _top_level_split(argstr) if a.strip()]
+            if documented not in overloads:
+                lineno = text.count("\n", 0, m.start()) + 1
+                problems.append(
+                    f"{rel}:{lineno} {method}: signature line lists {documented} but the "
+                    f"overloads are {overloads}"
+                )
     return problems
 
 

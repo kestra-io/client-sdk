@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **autocomplete_roles**
-> List[ApiRoleSummary] autocomplete_roles(tenant, api_autocomplete)
+> List[ApiRoleSummary] autocomplete_roles(tenant, request)
 
 List roles for autocomplete
 
@@ -56,7 +56,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **api_autocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
+ **request** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
 
 ### Return type
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_role**
-> IAMRoleControllerApiRoleDetail create_role(tenant, iam_role_controller_api_role_create_or_update_request)
+> IAMRoleControllerApiRoleDetail create_role(tenant, request)
 
 Create a role
 
@@ -122,7 +122,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_role_controller_api_role_create_or_update_request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | 
+ **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | 
 
 ### Return type
 
@@ -210,7 +210,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_roles_from_given_ids**
-> List[Role] list_roles_from_given_ids(tenant, api_ids)
+> List[Role] list_roles_from_given_ids(tenant, ids)
 
 List roles by ids
 
@@ -252,7 +252,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **api_ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
+ **ids** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
 
 ### Return type
 
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_role**
-> IAMRoleControllerApiRoleDetail update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
+> IAMRoleControllerApiRoleDetail update_role(id, tenant, request)
 
 Update a role
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The role id | 
  **tenant** | **str**|  | 
- **iam_role_controller_api_role_create_or_update_request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | 
+ **request** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md)|  | 
 
 ### Return type
 

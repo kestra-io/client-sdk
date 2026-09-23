@@ -27,7 +27,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteUsers
 
-> List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt; autocompleteUsers(tenant, iaMTenantAccessControllerUserApiAutocomplete)
+> List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt; autocompleteUsers(tenant, request)
 
 List users for autocomplete
 
@@ -73,7 +73,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMTenantAccessControllerUserApiAutocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | |
+| **request** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | |
 
 ### Return type
 
@@ -97,7 +97,7 @@ public class Example {
 
 ## createApiTokensForUser
 
-> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+> CreateApiTokenResponse createApiTokensForUser(id, request)
 
 Create new API Token for a specific user
 
@@ -145,7 +145,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -170,7 +170,7 @@ public class Example {
 
 ## createUser
 
-> IAMUserControllerApiUser createUser(iaMUserControllerApiCreateOrUpdateUserRequest)
+> IAMUserControllerApiUser createUser(request)
 
 Create a new user account
 
@@ -216,7 +216,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **iaMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
+| **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
 
 ### Return type
 
@@ -666,7 +666,7 @@ public class Example {
 
 ## listUsers
 
-> PagedResultsIAMUserControllerApiUserSummary listUsers(filters, page, size, sort)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, sort, filters)
 
 Retrieve users
 
@@ -713,10 +713,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -740,7 +740,7 @@ public class Example {
 
 ## patchUser
 
-> IAMUserControllerApiUser patchUser(id, meControllerApiUserDetailsRequest)
+> IAMUserControllerApiUser patchUser(id, request)
 
 Update user details
 
@@ -788,7 +788,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | |
+| **request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | |
 
 ### Return type
 
@@ -812,7 +812,7 @@ public class Example {
 
 ## patchUserDemo
 
-> patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest)
+> patchUserDemo(id, request)
 
 Update user demo
 
@@ -859,7 +859,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiPatchRestrictedRequest** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | |
+| **request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | |
 
 ### Return type
 
@@ -884,7 +884,7 @@ null (empty response body)
 
 ## patchUserPassword
 
-> IAMUserControllerApiUser patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest)
+> IAMUserControllerApiUser patchUserPassword(id, request)
 
 Update user password
 
@@ -932,7 +932,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiPatchUserPasswordRequest** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | |
+| **request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | |
 
 ### Return type
 
@@ -957,7 +957,7 @@ public class Example {
 
 ## patchUserSuperAdmin
 
-> patchUserSuperAdmin(id, apiPatchSuperAdminRequest)
+> patchUserSuperAdmin(id, request)
 
 Update user superadmin privileges
 
@@ -1004,7 +1004,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **apiPatchSuperAdminRequest** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
+| **request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
 
 ### Return type
 
@@ -1029,7 +1029,7 @@ null (empty response body)
 
 ## updateCurrentUserPassword
 
-> Object updateCurrentUserPassword(meControllerApiUpdatePasswordRequest)
+> Object updateCurrentUserPassword(request)
 
 Update authenticated user password
 
@@ -1075,7 +1075,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | |
+| **request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | |
 
 ### Return type
 
@@ -1099,7 +1099,7 @@ public class Example {
 
 ## updateUser
 
-> IAMUserControllerApiUser updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest)
+> IAMUserControllerApiUser updateUser(id, request)
 
 Update a user account
 
@@ -1147,7 +1147,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
+| **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
 
 ### Return type
 
@@ -1172,7 +1172,7 @@ public class Example {
 
 ## updateUserGroups
 
-> updateUserGroups(id, tenant, iaMUserGroupControllerApiUpdateUserGroupsRequest)
+> updateUserGroups(id, tenant, request)
 
 Update the list of groups a user belongs to for the given tenant
 
@@ -1219,7 +1219,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user ID | |
 | **tenant** | **String**|  | |
-| **iaMUserGroupControllerApiUpdateUserGroupsRequest** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | |
+| **request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | |
 
 ### Return type
 

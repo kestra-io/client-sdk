@@ -32,7 +32,7 @@ All URIs are relative to *http://localhost*
 
 ## createBackfill
 
-> ApiTriggerState createBackfill(tenant, triggerControllerApiCreateBackfillRequest)
+> ApiTriggerState createBackfill(tenant, request)
 
 Create a backfill
 
@@ -78,7 +78,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiCreateBackfillRequest** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | |
+| **request** | [**TriggerControllerApiCreateBackfillRequest**](TriggerControllerApiCreateBackfillRequest.md)|  | |
 
 ### Return type
 
@@ -103,7 +103,7 @@ public class Example {
 
 ## deleteBackfill
 
-> ApiTriggerState deleteBackfill(tenant, triggerControllerApiTriggerId)
+> ApiTriggerState deleteBackfill(tenant, triggerId)
 
 Delete a backfill
 
@@ -149,7 +149,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -174,7 +174,7 @@ public class Example {
 
 ## deleteBackfillByIds
 
-> ApiAsyncOperationResponse deleteBackfillByIds(tenant, triggerControllerApiTriggerId)
+> ApiAsyncOperationResponse deleteBackfillByIds(tenant, triggerIds)
 
 Delete backfill for given triggers asynchronously
 
@@ -220,7 +220,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerIds** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -316,7 +316,7 @@ public class Example {
 
 ## deleteTrigger
 
-> deleteTrigger(namespace, flowId, triggerId, tenant)
+> deleteTrigger(tenant, namespace, flowId, triggerId)
 
 Delete a trigger
 
@@ -362,10 +362,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace | |
 | **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -391,7 +391,7 @@ null (empty response body)
 
 ## deleteTriggersByIds
 
-> ApiAsyncOperationResponse deleteTriggersByIds(tenant, triggerControllerApiTriggerId)
+> ApiAsyncOperationResponse deleteTriggersByIds(tenant, triggerIds)
 
 Delete given triggers asynchronously
 
@@ -437,7 +437,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerIds** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -462,7 +462,7 @@ public class Example {
 
 ## deleteTriggersByQuery
 
-> ApiAsyncOperationResponse deleteTriggersByQuery(tenant, deleteTriggersByQueryRequest)
+> ApiAsyncOperationResponse deleteTriggersByQuery(tenant, request)
 
 Delete triggers by query parameters asynchronously
 
@@ -508,7 +508,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteTriggersByQueryRequest** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | |
+| **request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | |
 
 ### Return type
 
@@ -533,7 +533,7 @@ public class Example {
 
 ## disableTriggerById
 
-> ApiTriggerState disableTriggerById(tenant, triggerControllerApiDisableTriggerRequest)
+> ApiTriggerState disableTriggerById(tenant, request)
 
 Disable/enable a trigger
 
@@ -579,7 +579,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiDisableTriggerRequest** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | |
+| **request** | [**TriggerControllerApiDisableTriggerRequest**](TriggerControllerApiDisableTriggerRequest.md)|  | |
 
 ### Return type
 
@@ -604,7 +604,7 @@ public class Example {
 
 ## disabledTriggersByIds
 
-> ApiAsyncOperationResponse disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest)
+> ApiAsyncOperationResponse disabledTriggersByIds(tenant, request)
 
 Disable/enable given triggers asynchronously
 
@@ -650,7 +650,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerSetDisabledRequest** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | |
+| **request** | [**TriggerControllerSetDisabledRequest**](TriggerControllerSetDisabledRequest.md)|  | |
 
 ### Return type
 
@@ -675,7 +675,7 @@ public class Example {
 
 ## disabledTriggersByQuery
 
-> ApiAsyncOperationResponse disabledTriggersByQuery(tenant, filters, disabled)
+> ApiAsyncOperationResponse disabledTriggersByQuery(tenant, disabled, filters)
 
 Disable/enable triggers by query parameters asynchronously
 
@@ -722,8 +722,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **disabled** | **Boolean**| The disabled state | [optional] [default to true] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -748,7 +748,7 @@ public class Example {
 
 ## exportTriggers
 
-> List&lt;String&gt; exportTriggers(filters, tenant)
+> List&lt;String&gt; exportTriggers(tenant, filters)
 
 Export all triggers as a streamed CSV file
 
@@ -793,8 +793,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| A list of filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| A list of filters | |
 
 ### Return type
 
@@ -818,7 +818,7 @@ public class Example {
 
 ## pauseBackfill
 
-> ApiTriggerState pauseBackfill(tenant, triggerControllerApiTriggerId)
+> ApiTriggerState pauseBackfill(tenant, triggerId)
 
 Pause a backfill
 
@@ -864,7 +864,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -889,7 +889,7 @@ public class Example {
 
 ## pauseBackfillByIds
 
-> ApiAsyncOperationResponse pauseBackfillByIds(tenant, triggerControllerApiTriggerId)
+> ApiAsyncOperationResponse pauseBackfillByIds(tenant, triggerIds)
 
 Pause backfill for given triggers asynchronously
 
@@ -935,7 +935,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerIds** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -1031,7 +1031,7 @@ public class Example {
 
 ## restartTrigger
 
-> ApiTriggerState restartTrigger(namespace, flowId, triggerId, tenant)
+> ApiTriggerState restartTrigger(tenant, namespace, flowId, triggerId)
 
 Restart a trigger
 
@@ -1078,10 +1078,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace | |
 | **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -1106,7 +1106,7 @@ public class Example {
 
 ## searchTriggers
 
-> PagedResultsApiTriggerAndState searchTriggers(tenant, page, size, sort, filters)
+> PagedResultsApiTriggerAndState searchTriggers(tenant, page, size, sort, filters, dateFilter)
 
 Search for triggers
 
@@ -1159,6 +1159,7 @@ public class Example {
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
+| **dateFilter** | **.annotation.Nullable String**|  | |
 
 ### Return type
 
@@ -1182,7 +1183,7 @@ public class Example {
 
 ## searchTriggersForFlow
 
-> PagedResultsApiTriggerState searchTriggersForFlow(namespace, flowId, tenant, page, size, sort, q)
+> PagedResultsApiTriggerState searchTriggersForFlow(tenant, namespace, flowId, page, size, q, sort)
 
 Get all triggers for a flow
 
@@ -1232,13 +1233,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace | |
 | **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **q** | **String**| A string filter | [optional] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 
@@ -1262,7 +1263,7 @@ public class Example {
 
 ## unlockTrigger
 
-> ApiTriggerState unlockTrigger(namespace, flowId, triggerId, tenant)
+> ApiTriggerState unlockTrigger(tenant, namespace, flowId, triggerId)
 
 Unlock a trigger
 
@@ -1309,10 +1310,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace | |
 | **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -1337,7 +1338,7 @@ public class Example {
 
 ## unlockTriggersByIds
 
-> ApiAsyncOperationResponse unlockTriggersByIds(tenant, triggerControllerApiTriggerId)
+> ApiAsyncOperationResponse unlockTriggersByIds(tenant, triggerIds)
 
 Unlock given triggers asynchronously
 
@@ -1383,7 +1384,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerIds** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -1479,7 +1480,7 @@ public class Example {
 
 ## unpauseBackfill
 
-> ApiTriggerState unpauseBackfill(tenant, triggerControllerApiTriggerId)
+> ApiTriggerState unpauseBackfill(tenant, triggerId)
 
 Unpause a backfill
 
@@ -1525,7 +1526,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerId** | [**TriggerControllerApiTriggerId**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 
@@ -1550,7 +1551,7 @@ public class Example {
 
 ## unpauseBackfillByIds
 
-> ApiAsyncOperationResponse unpauseBackfillByIds(tenant, triggerControllerApiTriggerId)
+> ApiAsyncOperationResponse unpauseBackfillByIds(tenant, triggerIds)
 
 Unpause backfill for given triggers asynchronously
 
@@ -1596,7 +1597,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **triggerControllerApiTriggerId** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
+| **triggerIds** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md)|  | |
 
 ### Return type
 

@@ -27,6 +27,11 @@ Checks per `kestra_client.<accessor>.<method>(...)` call found in docs/*.md:
      is a real parameter sits at the index that parameter occupies in the
      signature (catches tenant-last ordering);
   4. every keyword argument names a real parameter (catches q=/file_upload=).
+
+Checks per method signature line (`> ReturnType method(a, b, c=c)`):
+  5. it lists exactly the signature's parameters, in order — the reference
+     line and Parameters table are what readers copy when not using the
+     example, so a stale generator ordering there is the same #144 drift.
 """
 from __future__ import annotations
 
@@ -50,6 +55,7 @@ DOCS_GLOB = os.path.join(BASE, "docs", "*.md")
 # argument list (which may span lines or contain nested parentheses) is then
 # read by balancing the parentheses, so multi-line examples are validated
 # instead of silently skipped.
+_SIGNATURE_LINE_RE = re.compile(r"^> (?:.* )?([a-z_][a-z0-9_]*)\((.*)\)\s*$", re.MULTILINE)
 _CALL_OPEN_RE = re.compile(r"kestra_client\.([A-Za-z_][A-Za-z0-9_]*)\.([a-z_][a-z0-9_]*)\(")
 
 
@@ -153,6 +159,18 @@ def validate() -> list[str]:
             for kw in keywords:
                 if kw not in params:
                     problems.append(f"{where}: keyword '{kw}=' is not a parameter (params: {params})")
+
+        for m in _SIGNATURE_LINE_RE.finditer(text):
+            method, argstr = m.group(1), m.group(2)
+            if method not in sigs:
+                continue
+            documented = [a.split("=")[0].strip() for a in _split_args(argstr)]
+            if documented != sigs[method]:
+                lineno = text.count("\n", 0, m.start()) + 1
+                problems.append(
+                    f"{rel}:{lineno} {method}: signature line lists {documented} but the "
+                    f"signature is {sigs[method]}"
+                )
 
     return problems
 
