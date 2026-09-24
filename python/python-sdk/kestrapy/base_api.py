@@ -1,12 +1,13 @@
 import json
 import typing
 from datetime import date, datetime
+from functools import lru_cache
 from typing import Any, Dict, Generator, List, Optional, Type, TypeVar, Union, get_args, get_origin
 from urllib.parse import quote
 
 import requests
 import sseclient
-from pydantic import ValidationError
+from pydantic import PydanticUserError, TypeAdapter, ValidationError
 
 
 def _json_default(obj: Any) -> Any:
@@ -28,6 +29,28 @@ from kestrapy.exceptions import (
 )
 
 T = TypeVar('T')
+
+
+def _build_scalar_adapter(field_type: Any) -> Optional[TypeAdapter]:
+    # None when pydantic cannot build a schema for the annotation (the raw
+    # value is then kept as-is).
+    try:
+        return TypeAdapter(field_type)
+    except (PydanticUserError, NameError, TypeError):
+        return None
+
+
+# _construct_model validates every scalar of every (nested) model in a response,
+# and building a TypeAdapter costs ~100x a cached lookup, so adapters (including
+# the "cannot build one" result) are cached per annotation.
+_cached_scalar_adapter = lru_cache(maxsize=None)(_build_scalar_adapter)
+
+
+def _scalar_adapter(field_type: Any) -> Optional[TypeAdapter]:
+    try:
+        return _cached_scalar_adapter(field_type)
+    except TypeError:  # unhashable annotation: build it uncached
+        return _build_scalar_adapter(field_type)
 
 
 class BaseApi:
@@ -301,16 +324,22 @@ class BaseApi:
             return model_type.model_construct(**data) if hasattr(model_type, 'model_construct') else data
         fields = model_type.model_fields
         processed = {}
+        # Keys matching no declared field. model_construct() silently drops
+        # them, so for models with an `additional_properties` bag (e.g. a
+        # trigger's plugin-specific `cron`) they are preserved there instead.
+        extras = {}
         for key, value in data.items():
-            if value is None:
-                processed[key] = value
-                continue
             field_type = None
+            known = False
             for fname, finfo in fields.items():
                 if fname == key or getattr(finfo, 'alias', None) == key:
                     field_type = BaseApi._unwrap_optional(finfo.annotation)
+                    known = True
                     break
-            if field_type is None:
+            if not known or key == 'additional_properties':
+                extras[key] = value
+                continue
+            if value is None:
                 processed[key] = value
                 continue
             if isinstance(value, dict) and hasattr(field_type, 'model_fields'):
@@ -354,5 +383,20 @@ class BaseApi:
                 else:
                     processed[key] = value
             else:
-                processed[key] = value
+                processed[key] = BaseApi._validate_scalar(value, field_type)
+        if extras and 'additional_properties' in fields:
+            processed['additional_properties'] = extras
         return model_type.model_construct(**processed)
+
+    @staticmethod
+    def _validate_scalar(value: Any, field_type: Any) -> Any:
+        # Best-effort coercion of a scalar (e.g. an ISO timestamp string for a
+        # datetime field) so a constructed model does not keep the raw JSON
+        # value; the raw value is kept if it does not validate.
+        adapter = _scalar_adapter(field_type)
+        if adapter is None:
+            return value
+        try:
+            return adapter.validate_python(value)
+        except ValidationError:
+            return value

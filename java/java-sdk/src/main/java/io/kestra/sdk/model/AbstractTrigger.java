@@ -11,6 +11,10 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -436,6 +440,45 @@ public class AbstractTrigger {
     this.assets = assets;
   }
 
+  /**
+   * A trigger is an open envelope: plugin-specific properties (e.g. `cron` and
+   * `timezone` on a Schedule trigger) are carried here as free-form additional
+   * properties. Without this these properties would be silently dropped on
+   * (de)serialization.
+   */
+  private Map<String, Object> additionalProperties = new LinkedHashMap<>();
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   */
+  @JsonAnySetter
+  public AbstractTrigger putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+      this.additionalProperties = new LinkedHashMap<>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   */
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+      return null;
+    }
+    return this.additionalProperties.get(key);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -458,12 +501,13 @@ public class AbstractTrigger {
         Objects.equals(this.logToFile, abstractTrigger.logToFile) &&
         Objects.equals(this.failOnTriggerError, abstractTrigger.failOnTriggerError) &&
         Objects.equals(this.allowConcurrent, abstractTrigger.allowConcurrent) &&
-        Objects.equals(this.assets, abstractTrigger.assets);
+        Objects.equals(this.assets, abstractTrigger.assets) &&
+        Objects.equals(this.additionalProperties, abstractTrigger.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, when, disabled, workerSelector, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
+    return Objects.hash(id, type, version, description, when, disabled, workerSelector, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets, additionalProperties);
   }
 
   @Override
@@ -484,6 +528,7 @@ public class AbstractTrigger {
     sb.append("    failOnTriggerError: ").append(toIndentedString(failOnTriggerError)).append("\n");
     sb.append("    allowConcurrent: ").append(toIndentedString(allowConcurrent)).append("\n");
     sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

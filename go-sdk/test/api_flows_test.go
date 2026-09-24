@@ -450,6 +450,48 @@ tasks:
 		require.Equal(t, "simple_flow_description_updated", response.GetDescription())
 	})
 
+	t.Run("createAndUpdateFlowFromObjectTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		message := "Hello {{ flow.id }}\nsecond line"
+
+		// A plain map with a plugin-specific task property (Log.message).
+		flow := map[string]interface{}{
+			"id":          flowId,
+			"namespace":   namespace,
+			"description": "from_object_description",
+			"tasks": []map[string]interface{}{
+				{"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": message},
+			},
+		}
+		created, err := KestraTestClient().Flows().CreateFlowFromObject(ctx, MAIN_TENANT, flow, nil)
+		require.NoError(t, err)
+		require.Equal(t, flowId, created.GetId())
+		require.Equal(t, namespace, created.GetNamespace())
+		require.Equal(t, "from_object_description", created.GetDescription())
+		require.Len(t, created.Tasks, 1)
+		require.Equal(t, "io.kestra.plugin.core.log.Log", created.Tasks[0].Type)
+		// The plugin-specific `message` (expression + multi-line) round-trips from the server.
+		require.Equal(t, message, created.Tasks[0].AdditionalProperties["message"])
+
+		updatedMessage := "updated {{ flow.namespace }}"
+		flow["description"] = "from_object_description_updated"
+		flow["tasks"] = []map[string]interface{}{
+			{"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": updatedMessage},
+		}
+		updated, err := KestraTestClient().Flows().UpdateFlowFromObject(ctx, namespace, flowId, MAIN_TENANT, flow, nil)
+		require.NoError(t, err)
+		require.Equal(t, flowId, updated.GetId())
+		require.Equal(t, "from_object_description_updated", updated.GetDescription())
+		require.Equal(t, updatedMessage, updated.Tasks[0].AdditionalProperties["message"])
+		require.Equal(t, created.GetRevision()+1, updated.GetRevision())
+
+		fetched, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		require.Equal(t, updatedMessage, fetched.Tasks[0].AdditionalProperties["message"])
+	})
+
 	t.Run("validateFlowsTest_simpleFlow", func(t *testing.T) {
 		ctx := context.Background()
 

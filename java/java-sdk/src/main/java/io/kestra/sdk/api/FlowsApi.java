@@ -1,8 +1,21 @@
 package io.kestra.sdk.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import com.fasterxml.jackson.dataformat.yaml.util.StringQuotingChecker;
+import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.RFC3339JavaTimeModule;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
@@ -33,6 +46,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 public class FlowsApi extends BaseApi {
 
@@ -40,6 +55,90 @@ public class FlowsApi extends BaseApi {
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
     private static final String TEXT_CSV = "text/csv";
+
+    // Serializes a flow object to a YAML source string. The flow-write endpoints
+    // are YAML-only (they do not accept JSON), so a native object is serialized
+    // here and posted to the existing YAML endpoints. Configuration: block style,
+    // no document-start marker, no line wrapping, null fields omitted,
+    // non-ASCII verbatim. Strings are emitted plain where that is unambiguous
+    // (MINIMIZE_QUOTES) and multi-line strings as literal `|` blocks
+    // (LITERAL_BLOCK_STYLE), so the stored flow source reads like hand-written
+    // YAML, as with the Python/Go/JS SDKs. SnakeYAML still quotes any scalar it
+    // cannot emit plain (e.g. a `{{ inputs.foo }}` expression, which starts with
+    // `{`); FlowYamlQuotingChecker quotes the plain-safe strings Kestra's
+    // Jackson YAML reader would re-type (yes, off, 1_000, 1e3, ...).
+    private static final ObjectMapper YAML_MAPPER = YAMLMapper.builder(YAMLFactory.builder()
+                    .stringQuotingChecker(new FlowYamlQuotingChecker())
+                    .build())
+            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+            .disable(YAMLGenerator.Feature.SPLIT_LINES)
+            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+            .enable(YAMLGenerator.Feature.LITERAL_BLOCK_STYLE)
+            .serializationInclusion(JsonInclude.Include.NON_NULL)
+            // The typed models default their List fields to `new ArrayList<>()`;
+            // omit a declared List-typed property when it is empty. This config
+            // override is keyed on the *declared property type* (List), so it
+            // only applies to model properties: Map content (the @JsonAnyGetter
+            // plugin-specific properties and plain Map inputs) is serialized by
+            // the Map serializer and keeps an explicit `[]` the user set, like
+            // the Python/Go/JS SDKs do.
+            .withConfigOverride(List.class, o -> o.setInclude(JsonInclude.Value.construct(
+                    JsonInclude.Include.NON_EMPTY, JsonInclude.Include.NON_NULL)))
+            // Mirror ApiClient's date/enum/nullable handling so java.time values
+            // anywhere in the graph (e.g. Flow.updated, a trigger date) serialize
+            // instead of throwing InvalidDefinitionException.
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+            .addModule(new JavaTimeModule())
+            .addModule(new JsonNullableModule())
+            .addModule(new RFC3339JavaTimeModule())
+            .build();
+
+    // Read-only / server-managed flow fields that must never appear in a flow
+    // *source* body (`draft` is a query parameter, not a body field).
+    private static final java.util.Set<String> SERVER_MANAGED_FLOW_FIELDS = java.util.Set.of(
+            "deleted", "revision", "draft", "tenantId", "source", "updated");
+
+    // Plain scalars some YAML reader resolves to a boolean or null (compared
+    // case-insensitively).
+    private static final Set<String> AMBIGUOUS_YAML_WORDS = Set.of(
+            "", "~", "null", "y", "yes", "n", "no", "true", "false", "on", "off");
+
+    // Strings a YAML 1.1 / 1.2 or Jackson reader may resolve to a number or
+    // timestamp: signed ints/floats with underscores and exponents (with or
+    // without a dot or exponent sign), hex/octal/binary, .inf/.nan, sexagesimal
+    // (12:30) and dates. Deliberately permissive: quoting a string that did not
+    // need it is harmless, leaving one plain is not. Same predicate as the
+    // Python/Go/JS SDKs, pinned by test-utils/yaml-ambiguous-strings.json.
+    private static final Pattern AMBIGUOUS_YAML_SCALAR = Pattern.compile("^[-+]?("
+            + "0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|"
+            + "[0-9][0-9_]*(\\.[0-9_]*)?(e[-+]?[0-9_]+)?|"
+            + "\\.[0-9][0-9_]*(e[-+]?[0-9_]+)?|"
+            + "\\.(inf|nan)|"
+            + "[0-9][0-9_]*(:[0-5]?[0-9])+(\\.[0-9_]*)?"
+            + ")$|^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}", Pattern.CASE_INSENSITIVE);
+
+    static boolean isAmbiguousYamlString(String s) {
+        return AMBIGUOUS_YAML_WORDS.contains(s.toLowerCase(java.util.Locale.ROOT))
+                || AMBIGUOUS_YAML_SCALAR.matcher(s).find();
+    }
+
+    // Jackson's default checker only knows the reserved words and a narrow
+    // number shape, so e.g. `1_000` or `1e3` would be emitted plain and read back
+    // as a number; also quote everything isAmbiguousYamlString flags.
+    private static final class FlowYamlQuotingChecker extends StringQuotingChecker.Default {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public boolean needToQuoteName(String name) {
+            return super.needToQuoteName(name) || isAmbiguousYamlString(name);
+        }
+
+        @Override
+        public boolean needToQuoteValue(String value) {
+            return super.needToQuoteValue(value) || isAmbiguousYamlString(value);
+        }
+    }
 
     public FlowsApi() {
         super(Configuration.getDefaultApiClient());
@@ -77,6 +176,12 @@ public class FlowsApi extends BaseApi {
 
     private <T> T putYaml(String path, String body, TypeReference<T> returnType) throws ApiException {
         return invoke("PUT", path, body, Collections.emptyList(), Collections.emptyList(),
+                JSON, YAML, returnType);
+    }
+
+    private <T> T putYaml(String path, String body, List<Pair> queryParams,
+                          TypeReference<T> returnType) throws ApiException {
+        return invoke("PUT", path, body, queryParams, Collections.emptyList(),
                 JSON, YAML, returnType);
     }
 
@@ -145,6 +250,85 @@ public class FlowsApi extends BaseApi {
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         delete(tenantPath(tenant, "flows", namespace, id), Collections.emptyList());
+    }
+
+    /**
+     * Create a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
+     * or a plain {@code Map}). The object is serialized to a YAML source string
+     * client-side (the write endpoint is YAML-only). {@code draft} is forwarded as
+     * a query parameter (never a body field); pass {@code null} to leave it unset.
+     */
+    public FlowWithSource createFlowFromObject(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Object flow,
+            @jakarta.annotation.Nullable Boolean draft) throws ApiException {
+        return postYaml(
+                tenantPath(tenant, "flows"),
+                flowToYaml(flow),
+                queryParams("draft", draft),
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Update a flow from a native object (a {@link io.kestra.sdk.model.Flow} model
+     * or a plain {@code Map}). The object is serialized to a YAML source string
+     * client-side (the write endpoint is YAML-only). {@code draft} is forwarded as
+     * a query parameter (never a body field); pass {@code null} to leave it unset.
+     */
+    public FlowWithSource updateFlowFromObject(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Object flow,
+            @jakarta.annotation.Nullable Boolean draft) throws ApiException {
+        return putYaml(
+                tenantPath(tenant, "flows", namespace, id),
+                flowToYaml(flow),
+                queryParams("draft", draft),
+                new TypeReference<>() {});
+    }
+
+    static String flowToYaml(Object flow) throws ApiException {
+        try {
+            // Build the tree directly, strip server-managed / read-only fields
+            // that must not appear in flow source, drop null nodes at every depth,
+            // then emit once.
+            JsonNode node = YAML_MAPPER.valueToTree(flow);
+            if (node.isObject()) {
+                ((ObjectNode) node).remove(SERVER_MANAGED_FLOW_FIELDS);
+            }
+            stripNulls(node);
+            return YAML_MAPPER.writeValueAsString(node);
+        } catch (JsonProcessingException | IllegalArgumentException e) {
+            throw new ApiException("Failed to serialize flow to YAML: " + e.getMessage());
+        }
+    }
+
+    // Removes null-valued fields from every object in the tree (at every depth),
+    // so the emitted YAML never carries `key: null` (valueToTree can still carry
+    // null nodes, e.g. from an undefined JsonNullable). Empty collections are
+    // intentionally NOT removed here: the typed models' `new ArrayList<>()`
+    // defaults are already suppressed on declared properties by YAML_MAPPER's
+    // List config override, and an empty list inside a plugin-specific property
+    // is real content the user set (Python/Go/JS keep it too). Array elements
+    // are never removed.
+    private static void stripNulls(JsonNode node) {
+        if (node.isObject()) {
+            ObjectNode obj = (ObjectNode) node;
+            java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = obj.fields();
+            while (it.hasNext()) {
+                JsonNode value = it.next().getValue();
+                if (value.isNull()) {
+                    it.remove();
+                    continue;
+                }
+                stripNulls(value);
+            }
+        } else if (node.isArray()) {
+            for (JsonNode child : node) {
+                stripNulls(child);
+            }
+        }
     }
 
     // ========================================================================

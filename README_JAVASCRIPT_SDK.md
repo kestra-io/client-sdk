@@ -21,7 +21,7 @@ The SDK is organized into domain-specific modules (e.g. `flows`, `executions`, `
 | --- | --- |
 | `@kestra-io/kestra-sdk` | `useClient` / `configureClient` / `setMockClient`, and every generated **type** |
 | `@kestra-io/kestra-sdk/client` | the shared HTTP client |
-| `@kestra-io/kestra-sdk/<module>` | the operations of one module, e.g. `/flows`, `/executions` |
+| `@kestra-io/kestra-sdk/<module>` | the operations of one module, e.g. `/flows`, `/executions` (`/flows` also carries the hand-written `createFlowFromObject` / `updateFlowFromObject` / `flowToYaml`) |
 | `@kestra-io/kestra-sdk/all` | every operation at once — named exports, plus the namespace as `default` |
 
 The root entry exports no operations. Reach an operation through its module (the tree-shakeable
@@ -173,6 +173,44 @@ const execution = await ExecutionsAPI.createExecution({
 console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
 ```
 <!-- /snippet -->
+
+## Create or update a flow from an object
+
+The flow-write endpoints only accept YAML source. `createFlowFromObject` / `updateFlowFromObject`
+take a flow as a plain object (or the typed `Flow` model), serialize it to YAML client-side and call
+`createFlow` / `updateFlow`. They live on the `/flows` subpath with the other flow operations
+(`flowToYaml` is exported there too, if you only want the YAML):
+
+```typescript
+import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
+
+const created = await FlowsAPI.createFlowFromObject({
+  tenant,
+  flow: {
+    id: "hello_from_object",
+    namespace: "company.team",
+    tasks: [
+      {
+        id: "hello",
+        type: "io.kestra.plugin.core.log.Log",
+        // Plugin-specific properties are carried through verbatim.
+        message: "Hello {{ flow.id }}!",
+      },
+    ],
+  },
+});
+
+await FlowsAPI.updateFlowFromObject({
+  tenant,
+  namespace: created.namespace,
+  id: created.id,
+  flow: { ...created, description: "Updated from an object" },
+});
+```
+
+Server-managed fields (`revision`, `deleted`, `draft`, `tenantId`, `source`, `updated`) are stripped
+from the serialized source, and `null` fields are omitted. `draft` is passed as a parameter, not in
+`flow`.
 
 ## Complex queries (AND / OR filters)
 

@@ -1,6 +1,7 @@
-from typing import Any, Dict, Generator, List, Optional
+from typing import Any, Dict, Generator, List, Optional, Union
 
 from kestrapy.base_api import BaseApi
+from kestrapy.flow_yaml import flow_to_yaml
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.concurrency_limit import ConcurrencyLimit
 from kestrapy.models.flow import Flow
@@ -46,6 +47,39 @@ class FlowsApi(BaseApi):
     def update_flow(self, namespace: str, id: str, tenant: str, body: str) -> FlowWithSource:
         path = self._tenant_path(tenant, "flows", namespace, id)
         return self._json_request("PUT", path, FlowWithSource, body=body, content_type=self.YAML)
+
+    def create_flow_from_object(
+        self, tenant: str, flow: Union[Flow, Dict[str, Any]], draft: Optional[bool] = None
+    ) -> FlowWithSource:
+        """Create a flow from a native object (Flow model or plain dict).
+
+        The object is serialized to a YAML source string client-side (the write
+        endpoint is YAML-only). ``draft`` is forwarded as a query parameter
+        (never a body field).
+        """
+        path = self._tenant_path(tenant, "flows")
+        params = self._build_query_params(draft=draft)
+        return self._json_request(
+            "POST", path, FlowWithSource,
+            body=flow_to_yaml(flow), params=params, content_type=self.YAML,
+        )
+
+    def update_flow_from_object(
+        self, namespace: str, id: str, tenant: str,
+        flow: Union[Flow, Dict[str, Any]], draft: Optional[bool] = None
+    ) -> FlowWithSource:
+        """Update a flow from a native object (Flow model or plain dict).
+
+        The object is serialized to a YAML source string client-side (the write
+        endpoint is YAML-only). ``draft`` is forwarded as a query parameter
+        (never a body field).
+        """
+        path = self._tenant_path(tenant, "flows", namespace, id)
+        params = self._build_query_params(draft=draft)
+        return self._json_request(
+            "PUT", path, FlowWithSource,
+            body=flow_to_yaml(flow), params=params, content_type=self.YAML,
+        )
 
     def delete_flow(self, namespace: str, id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "flows", namespace, id)

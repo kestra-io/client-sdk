@@ -11,6 +11,10 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -464,6 +468,45 @@ public class Task {
     this.assets = JsonNullable.<AssetsDeclaration>of(assets);
   }
 
+  /**
+   * A Task is an open envelope: plugin-specific properties (e.g. `message` on a
+   * Log task, `commands` on a Shell task, or a nested `tasks` list on a flowable
+   * task) are carried here as free-form additional properties. Without this
+   * these properties would be silently dropped on (de)serialization.
+   */
+  private Map<String, Object> additionalProperties = new LinkedHashMap<>();
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   */
+  @JsonAnySetter
+  public Task putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+      this.additionalProperties = new LinkedHashMap<>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   */
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+      return null;
+    }
+    return this.additionalProperties.get(key);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -487,7 +530,8 @@ public class Task {
         Objects.equals(this.when, task.when) &&
         Objects.equals(this.allowWarning, task.allowWarning) &&
         Objects.equals(this.taskCache, task.taskCache) &&
-        equalsNullable(this.assets, task.assets);
+        equalsNullable(this.assets, task.assets) &&
+        Objects.equals(this.additionalProperties, task.additionalProperties);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -496,7 +540,7 @@ public class Task {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerSelector, logLevel, allowFailure, logToFile, when, allowWarning, taskCache, hashCodeNullable(assets));
+    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerSelector, logLevel, allowFailure, logToFile, when, allowWarning, taskCache, hashCodeNullable(assets), additionalProperties);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -525,6 +569,7 @@ public class Task {
     sb.append("    allowWarning: ").append(toIndentedString(allowWarning)).append("\n");
     sb.append("    taskCache: ").append(toIndentedString(taskCache)).append("\n");
     sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
