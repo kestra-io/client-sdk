@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest
 
 # TODO update the JSON string below

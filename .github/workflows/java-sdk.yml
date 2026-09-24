@@ -68,6 +68,12 @@ jobs:
       - name: Check README example is in sync with its tested source
         run: java ../../test-utils/EmbedSnippets.java --check ../../README.md
 
+      # Static doc check — validates every kestraClient.<accessor>().<method>(...)
+      # call in docs/*.md against the hand-written SDK signatures (no JVM/server
+      # needed). Catches the generator drift #222 left behind (#122).
+      - name: Check docs/*.md examples match the SDK signatures
+        run: python3 scripts/validate_doc_examples.py --check
+
       # Gradle check
       - name: Build with Gradle
         if: inputs.skip-test != 'true'

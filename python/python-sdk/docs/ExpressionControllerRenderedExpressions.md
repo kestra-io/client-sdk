@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.expression_controller_rendered_expressions import ExpressionControllerRenderedExpressions
 
 # TODO update the JSON string below

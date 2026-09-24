@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.server_instance import ServerInstance
 
 # TODO update the JSON string below

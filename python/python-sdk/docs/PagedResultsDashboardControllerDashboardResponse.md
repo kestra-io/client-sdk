@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_dashboard_controller_dashboard_response import PagedResultsDashboardControllerDashboardResponse
 
 # TODO update the JSON string below

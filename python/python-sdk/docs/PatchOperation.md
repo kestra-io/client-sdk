@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.patch_operation import PatchOperation
 
 # TODO update the JSON string below

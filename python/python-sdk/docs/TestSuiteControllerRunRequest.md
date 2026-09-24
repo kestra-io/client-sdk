@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest
 
 # TODO update the JSON string below

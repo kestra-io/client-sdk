@@ -16,7 +16,6 @@ Method | HTTP request | Description
 [**patch_user**](UsersApi.md#patch_user) | **PATCH** /api/v1/users/{id} | Update user details
 [**patch_user_demo**](UsersApi.md#patch_user_demo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
 [**patch_user_instance_owner**](UsersApi.md#patch_user_instance_owner) | **PATCH** /api/v1/users/{id}/instanceowner | Update user instance-owner privileges
-[**patch_user_instance_owner_legacy**](UsersApi.md#patch_user_instance_owner_legacy) | **PATCH** /api/v1/users/{id}/superadmin | Update user instance-owner privileges (deprecated)
 [**patch_user_password**](UsersApi.md#patch_user_password) | **PATCH** /api/v1/users/{id}/password | Update user password
 [**update_current_user_password**](UsersApi.md#update_current_user_password) | **PUT** /api/v1/me/password | Update authenticated user password
 [**update_user**](UsersApi.md#update_user) | **PUT** /api/v1/users/{id} | Update a user account
@@ -25,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **autocomplete_users**
-> List[IAMTenantAccessControllerApiUserTenantAccess] autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+> List[IAMTenantAccessControllerApiUserTenantAccess] autocomplete_users(tenant, request)
 
 List users for autocomplete
 
@@ -35,6 +34,8 @@ List users for autocomplete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -50,7 +51,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List users for autocomplete
-        api_response = kestra_client.UsersApi.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+        api_response = kestra_client.users.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
         print("The response of UsersApi->autocomplete_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -65,7 +66,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_tenant_access_controller_user_api_autocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | 
+ **request** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | 
 
 ### Return type
 
@@ -89,7 +90,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_user**
-> CreateApiTokenResponse create_api_tokens_for_user(id, create_api_token_request)
+> CreateApiTokenResponse create_api_tokens_for_user(id, request)
 
 Create new API Token for a specific user
 
@@ -101,6 +102,8 @@ Instance-owner-only. Create a new API token for a user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -116,7 +119,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific user
-        api_response = kestra_client.UsersApi.create_api_tokens_for_user(id, create_api_token_request)
+        api_response = kestra_client.users.create_api_tokens_for_user(id, create_api_token_request)
         print("The response of UsersApi->create_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -131,7 +134,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -156,7 +159,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_user**
-> IAMUserControllerApiUser create_user(iam_user_controller_api_create_or_update_user_request)
+> IAMUserControllerApiUser create_user(request)
 
 Create a new user account
 
@@ -168,6 +171,8 @@ Instance-owner-only. Create a new user account with an optional password based a
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -182,7 +187,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new user account
-        api_response = kestra_client.UsersApi.create_user(iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->create_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -196,7 +201,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_user_controller_api_create_or_update_user_request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
+ **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
 
 ### Return type
 
@@ -248,7 +253,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific user and token id
-        kestra_client.UsersApi.delete_api_token_for_user(id, token_id)
+        kestra_client.users.delete_api_token_for_user(id, token_id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_api_token_for_user: %s\n" % e)
 ```
@@ -310,7 +315,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user refresh token
-        kestra_client.UsersApi.delete_refresh_token(id)
+        kestra_client.users.delete_refresh_token(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_refresh_token: %s\n" % e)
 ```
@@ -373,7 +378,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user
-        kestra_client.UsersApi.delete_user(id)
+        kestra_client.users.delete_user(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
@@ -422,6 +427,7 @@ Instance-owner-only. Deletes a specific authentication method from a user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -437,7 +443,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete user auth method
-        api_response = kestra_client.UsersApi.delete_user_auth_method(id, auth)
+        api_response = kestra_client.users.delete_user_auth_method(id, auth)
         print("The response of UsersApi->delete_user_auth_method:\n")
         pprint(api_response)
     except Exception as e:
@@ -489,6 +495,7 @@ Instance-owner-only. Get all API token existing for a user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -503,7 +510,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific user
-        api_response = kestra_client.UsersApi.list_api_tokens_for_user(id)
+        api_response = kestra_client.users.list_api_tokens_for_user(id)
         print("The response of UsersApi->list_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -552,6 +559,8 @@ Retrieve users
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -569,7 +578,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve users
-        api_response = kestra_client.UsersApi.list_users(page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.users.list_users(page=page, size=size, sort=sort, filters=filters)
         print("The response of UsersApi->list_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -610,7 +619,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user**
-> IAMUserControllerApiUser patch_user(id, me_controller_api_user_details_request)
+> IAMUserControllerApiUser patch_user(id, request)
 
 Update user details
 
@@ -622,6 +631,8 @@ Instance-owner-only. Updates the the details of a user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -637,7 +648,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user details
-        api_response = kestra_client.UsersApi.patch_user(id, me_controller_api_user_details_request)
+        api_response = kestra_client.users.patch_user(id, me_controller_api_user_details_request)
         print("The response of UsersApi->patch_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -652,7 +663,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **me_controller_api_user_details_request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
+ **request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
 
 ### Return type
 
@@ -676,7 +687,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_demo**
-> patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+> patch_user_demo(id, request)
 
 Update user demo
 
@@ -688,6 +699,7 @@ Instance-owner-only. Updates whether a user is for demo.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -703,7 +715,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user demo
-        kestra_client.UsersApi.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+        kestra_client.users.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
     except Exception as e:
         print("Exception when calling UsersApi->patch_user_demo: %s\n" % e)
 ```
@@ -716,7 +728,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_patch_restricted_request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | 
+ **request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | 
 
 ### Return type
 
@@ -741,7 +753,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_instance_owner**
-> patch_user_instance_owner(id, api_patch_instance_owner_request)
+> patch_user_instance_owner(id, request)
 
 Update user instance-owner privileges
 
@@ -753,6 +765,7 @@ Instance-owner-only. Updates whether a user is an instance owner.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -768,7 +781,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user instance-owner privileges
-        kestra_client.UsersApi.patch_user_instance_owner(id, api_patch_instance_owner_request)
+        kestra_client.users.patch_user_instance_owner(id, api_patch_instance_owner_request)
     except Exception as e:
         print("Exception when calling UsersApi->patch_user_instance_owner: %s\n" % e)
 ```
@@ -781,7 +794,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **api_patch_instance_owner_request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
+ **request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
 
 ### Return type
 
@@ -805,73 +818,9 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **patch_user_instance_owner_legacy**
-> patch_user_instance_owner_legacy(id, api_patch_super_admin_request)
-
-Update user instance-owner privileges (deprecated)
-
-Deprecated: use PATCH {id}/instanceowner instead.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-    api_patch_super_admin_request = kestrapy.ApiPatchSuperAdminRequest() # ApiPatchSuperAdminRequest | 
-
-    try:
-        # Update user instance-owner privileges (deprecated)
-        kestra_client.UsersApi.patch_user_instance_owner_legacy(id, api_patch_super_admin_request)
-    except Exception as e:
-        print("Exception when calling UsersApi->patch_user_instance_owner_legacy: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
- **api_patch_super_admin_request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | User successfully updated |  -  |
-**404** | User not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_password**
-> IAMUserControllerApiUser patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+> IAMUserControllerApiUser patch_user_password(id, request)
 
 Update user password
 
@@ -883,6 +832,8 @@ Instance-owner-only. Updates the password of a user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -898,7 +849,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.UsersApi.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+        api_response = kestra_client.users.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
         print("The response of UsersApi->patch_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -913,7 +864,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_patch_user_password_request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | 
+ **request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | 
 
 ### Return type
 
@@ -938,7 +889,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_current_user_password**
-> object update_current_user_password(me_controller_api_update_password_request)
+> object update_current_user_password(request)
 
 Update authenticated user password
 
@@ -950,6 +901,8 @@ Changes the login password for the authenticated user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -964,7 +917,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update authenticated user password
-        api_response = kestra_client.UsersApi.update_current_user_password(me_controller_api_update_password_request)
+        api_response = kestra_client.users.update_current_user_password(me_controller_api_update_password_request)
         print("The response of UsersApi->update_current_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -978,7 +931,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **me_controller_api_update_password_request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | 
+ **request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | 
 
 ### Return type
 
@@ -1002,7 +955,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user**
-> IAMUserControllerApiUser update_user(id, iam_user_controller_api_create_or_update_user_request)
+> IAMUserControllerApiUser update_user(id, request)
 
 Update a user account
 
@@ -1014,6 +967,8 @@ Instance-owner-only. Update an existing user account with an optional password b
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1029,7 +984,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user account
-        api_response = kestra_client.UsersApi.update_user(id, iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.users.update_user(id, iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->update_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -1044,7 +999,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **iam_user_controller_api_create_or_update_user_request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
+ **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
 
 ### Return type
 
@@ -1069,7 +1024,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user_groups**
-> update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+> update_user_groups(id, tenant, request)
 
 Update the list of groups a user belongs to for the given tenant
 
@@ -1079,6 +1034,7 @@ Update the list of groups a user belongs to for the given tenant
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1095,7 +1051,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update the list of groups a user belongs to for the given tenant
-        kestra_client.UsersApi.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+        kestra_client.users.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
     except Exception as e:
         print("Exception when calling UsersApi->update_user_groups: %s\n" % e)
 ```
@@ -1109,7 +1065,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user ID | 
  **tenant** | **str**|  | 
- **iam_user_group_controller_api_update_user_groups_request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | 
+ **request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | 
 
 ### Return type
 
@@ -1147,6 +1103,7 @@ Instance-owner-only. Get user account details.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1161,7 +1118,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a user
-        api_response = kestra_client.UsersApi.user(id)
+        api_response = kestra_client.users.user(id)
         print("The response of UsersApi->user:\n")
         pprint(api_response)
     except Exception as e:

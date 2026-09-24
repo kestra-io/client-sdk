@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.map_resource_list_action import MapResourceListAction
 
 # TODO update the JSON string below

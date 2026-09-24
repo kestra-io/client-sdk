@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.flow_service_task_deprecation import FlowServiceTaskDeprecation
 
 # TODO update the JSON string below

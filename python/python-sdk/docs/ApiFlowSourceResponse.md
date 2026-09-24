@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_flow_source_response import ApiFlowSourceResponse
 
 # TODO update the JSON string below

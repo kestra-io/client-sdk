@@ -27,7 +27,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteUsers
 
-> List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt; autocompleteUsers(tenant, iaMTenantAccessControllerUserApiAutocomplete)
+> List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt; autocompleteUsers(tenant, request)
 
 List users for autocomplete
 
@@ -44,7 +44,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -54,7 +54,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete = new IAMTenantAccessControllerUserApiAutocomplete(); // IAMTenantAccessControllerUserApiAutocomplete | Autocomplete request
         try {
-            List<IAMTenantAccessControllerApiUserTenantAccess> result = kestraClient.UsersApi().autocompleteUsers(tenant, iaMTenantAccessControllerUserApiAutocomplete);
+            List<IAMTenantAccessControllerApiUserTenantAccess> result = kestraClient.users().autocompleteUsers(tenant, iaMTenantAccessControllerUserApiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#autocompleteUsers");
@@ -73,7 +73,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **iaMTenantAccessControllerUserApiAutocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | |
+| **request** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | |
 
 ### Return type
 
@@ -97,7 +97,7 @@ public class Example {
 
 ## createApiTokensForUser
 
-> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+> CreateApiTokenResponse createApiTokensForUser(id, request)
 
 Create new API Token for a specific user
 
@@ -116,7 +116,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -126,7 +126,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            CreateApiTokenResponse result = kestraClient.UsersApi().createApiTokensForUser(id, createApiTokenRequest);
+            CreateApiTokenResponse result = kestraClient.users().createApiTokensForUser(id, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#createApiTokensForUser");
@@ -145,7 +145,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
+| **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
 
 ### Return type
 
@@ -170,7 +170,7 @@ public class Example {
 
 ## createUser
 
-> IAMUserControllerApiUser createUser(iaMUserControllerApiCreateOrUpdateUserRequest)
+> IAMUserControllerApiUser createUser(request)
 
 Create a new user account
 
@@ -189,7 +189,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -198,7 +198,7 @@ public class Example {
 
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = new IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
+            IAMUserControllerApiUser result = kestraClient.users().createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#createUser");
@@ -216,7 +216,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **iaMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
+| **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
 
 ### Return type
 
@@ -260,7 +260,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -270,7 +270,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         String tokenId = "tokenId_example"; // String | The token id
         try {
-            kestraClient.UsersApi().deleteApiTokenForUser(id, tokenId);
+            kestraClient.users().deleteApiTokenForUser(id, tokenId);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#deleteApiTokenForUser");
             System.err.println("Status code: " + e.getCode());
@@ -330,7 +330,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -339,7 +339,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            kestraClient.UsersApi().deleteRefreshToken(id);
+            kestraClient.users().deleteRefreshToken(id);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#deleteRefreshToken");
             System.err.println("Status code: " + e.getCode());
@@ -400,7 +400,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -409,7 +409,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            kestraClient.UsersApi().deleteUser(id);
+            kestraClient.users().deleteUser(id);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#deleteUser");
             System.err.println("Status code: " + e.getCode());
@@ -470,7 +470,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -480,7 +480,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         String auth = "auth_example"; // String | The user auth method id
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().deleteUserAuthMethod(id, auth);
+            IAMUserControllerApiUser result = kestraClient.users().deleteUserAuthMethod(id, auth);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#deleteUserAuthMethod");
@@ -543,7 +543,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -552,7 +552,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            Object result = kestraClient.UsersApi().impersonate(id);
+            Object result = kestraClient.users().impersonate(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#impersonate");
@@ -614,7 +614,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -623,7 +623,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            ApiTokenList result = kestraClient.UsersApi().listApiTokensForUser(id);
+            ApiTokenList result = kestraClient.users().listApiTokensForUser(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#listApiTokensForUser");
@@ -666,7 +666,7 @@ public class Example {
 
 ## listUsers
 
-> PagedResultsIAMUserControllerApiUserSummary listUsers(filters, page, size, sort)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, sort, filters)
 
 Retrieve users
 
@@ -683,7 +683,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -695,7 +695,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMUserControllerApiUserSummary result = kestraClient.UsersApi().listUsers(filters, page, size, sort);
+            PagedResultsIAMUserControllerApiUserSummary result = kestraClient.users().listUsers(page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#listUsers");
@@ -713,10 +713,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -740,7 +740,7 @@ public class Example {
 
 ## patchUser
 
-> IAMUserControllerApiUser patchUser(id, meControllerApiUserDetailsRequest)
+> IAMUserControllerApiUser patchUser(id, request)
 
 Update user details
 
@@ -759,7 +759,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -769,7 +769,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest = new MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().patchUser(id, meControllerApiUserDetailsRequest);
+            IAMUserControllerApiUser result = kestraClient.users().patchUser(id, meControllerApiUserDetailsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#patchUser");
@@ -788,7 +788,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | |
+| **request** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | |
 
 ### Return type
 
@@ -812,7 +812,7 @@ public class Example {
 
 ## patchUserDemo
 
-> patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest)
+> patchUserDemo(id, request)
 
 Update user demo
 
@@ -831,7 +831,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -841,7 +841,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest = new IAMUserControllerApiPatchRestrictedRequest(); // IAMUserControllerApiPatchRestrictedRequest | 
         try {
-            kestraClient.UsersApi().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
+            kestraClient.users().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#patchUserDemo");
             System.err.println("Status code: " + e.getCode());
@@ -859,7 +859,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiPatchRestrictedRequest** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | |
+| **request** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | |
 
 ### Return type
 
@@ -884,7 +884,7 @@ null (empty response body)
 
 ## patchUserPassword
 
-> IAMUserControllerApiUser patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest)
+> IAMUserControllerApiUser patchUserPassword(id, request)
 
 Update user password
 
@@ -903,7 +903,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -913,7 +913,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = new IAMUserControllerApiPatchUserPasswordRequest(); // IAMUserControllerApiPatchUserPasswordRequest | 
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
+            IAMUserControllerApiUser result = kestraClient.users().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#patchUserPassword");
@@ -932,7 +932,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiPatchUserPasswordRequest** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | |
+| **request** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | |
 
 ### Return type
 
@@ -957,7 +957,7 @@ public class Example {
 
 ## patchUserSuperAdmin
 
-> patchUserSuperAdmin(id, apiPatchSuperAdminRequest)
+> patchUserSuperAdmin(id, request)
 
 Update user superadmin privileges
 
@@ -976,7 +976,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -986,7 +986,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = new ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
         try {
-            kestraClient.UsersApi().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
+            kestraClient.users().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#patchUserSuperAdmin");
             System.err.println("Status code: " + e.getCode());
@@ -1004,7 +1004,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **apiPatchSuperAdminRequest** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
+| **request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | |
 
 ### Return type
 
@@ -1029,7 +1029,7 @@ null (empty response body)
 
 ## updateCurrentUserPassword
 
-> Object updateCurrentUserPassword(meControllerApiUpdatePasswordRequest)
+> Object updateCurrentUserPassword(request)
 
 Update authenticated user password
 
@@ -1048,7 +1048,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1057,7 +1057,7 @@ public class Example {
 
         MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest = new MeControllerApiUpdatePasswordRequest(); // MeControllerApiUpdatePasswordRequest | 
         try {
-            Object result = kestraClient.UsersApi().updateCurrentUserPassword(meControllerApiUpdatePasswordRequest);
+            Object result = kestraClient.users().updateCurrentUserPassword(meControllerApiUpdatePasswordRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#updateCurrentUserPassword");
@@ -1075,7 +1075,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | |
+| **request** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | |
 
 ### Return type
 
@@ -1099,7 +1099,7 @@ public class Example {
 
 ## updateUser
 
-> IAMUserControllerApiUser updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest)
+> IAMUserControllerApiUser updateUser(id, request)
 
 Update a user account
 
@@ -1118,7 +1118,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1128,7 +1128,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = new IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
+            IAMUserControllerApiUser result = kestraClient.users().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#updateUser");
@@ -1147,7 +1147,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user id | |
-| **iaMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
+| **request** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | |
 
 ### Return type
 
@@ -1172,7 +1172,7 @@ public class Example {
 
 ## updateUserGroups
 
-> updateUserGroups(id, tenant, iaMUserGroupControllerApiUpdateUserGroupsRequest)
+> updateUserGroups(id, tenant, request)
 
 Update the list of groups a user belongs to for the given tenant
 
@@ -1189,7 +1189,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1200,7 +1200,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest = new IAMUserGroupControllerApiUpdateUserGroupsRequest(); // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
         try {
-            kestraClient.UsersApi().updateUserGroups(id, tenant, iaMUserGroupControllerApiUpdateUserGroupsRequest);
+            kestraClient.users().updateUserGroups(id, tenant, iaMUserGroupControllerApiUpdateUserGroupsRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#updateUserGroups");
             System.err.println("Status code: " + e.getCode());
@@ -1219,7 +1219,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The user ID | |
 | **tenant** | **String**|  | |
-| **iaMUserGroupControllerApiUpdateUserGroupsRequest** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | |
+| **request** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | |
 
 ### Return type
 
@@ -1264,7 +1264,7 @@ import io.kestra.sdk.api.UsersApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1273,7 +1273,7 @@ public class Example {
 
         String id = "id_example"; // String | The user id
         try {
-            IAMUserControllerApiUser result = kestraClient.UsersApi().user(id);
+            IAMUserControllerApiUser result = kestraClient.users().user(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#user");

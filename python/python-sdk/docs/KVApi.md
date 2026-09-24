@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**delete_key_values**](KVApi.md#delete_key_values) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 [**key_value**](KVApi.md#key_value) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 [**list_all_keys**](KVApi.md#list_all_keys) | **GET** /api/v1/{tenant}/kv | List all keys
-[**list_keys_with_inheritence**](KVApi.md#list_keys_with_inheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
+[**list_keys_with_inheritance**](KVApi.md#list_keys_with_inheritance) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 [**set_key_value**](KVApi.md#set_key_value) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 
 
@@ -23,6 +23,7 @@ Delete a key-value pair
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -39,7 +40,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a key-value pair
-        api_response = kestra_client.KVApi.delete_key_value(namespace, key, tenant)
+        api_response = kestra_client.kv.delete_key_value(namespace, key, tenant)
         print("The response of KVApi->delete_key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -79,7 +80,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_key_values**
-> KVControllerApiDeleteBulkResponse delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
+> KVControllerApiDeleteBulkResponse delete_key_values(namespace, tenant, request)
 
 Bulk-delete multiple key/value pairs from the given namespace.
 
@@ -89,6 +90,8 @@ Bulk-delete multiple key/value pairs from the given namespace.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -105,7 +108,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Bulk-delete multiple key/value pairs from the given namespace.
-        api_response = kestra_client.KVApi.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
+        api_response = kestra_client.kv.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
         print("The response of KVApi->delete_key_values:\n")
         pprint(api_response)
     except Exception as e:
@@ -121,7 +124,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace id | 
  **tenant** | **str**|  | 
- **kv_controller_api_delete_bulk_request** | [**KVControllerApiDeleteBulkRequest**](KVControllerApiDeleteBulkRequest.md)| The keys | 
+ **request** | [**KVControllerApiDeleteBulkRequest**](KVControllerApiDeleteBulkRequest.md)| The keys | 
 
 ### Return type
 
@@ -155,6 +158,7 @@ Get value for a key
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -171,7 +175,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get value for a key
-        api_response = kestra_client.KVApi.key_value(namespace, key, tenant)
+        api_response = kestra_client.kv.key_value(namespace, key, tenant)
         print("The response of KVApi->key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -221,6 +225,8 @@ List all keys
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -239,7 +245,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List all keys
-        api_response = kestra_client.KVApi.list_all_keys(tenant, page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.kv.list_all_keys(tenant, page=page, size=size, sort=sort, filters=filters)
         print("The response of KVApi->list_all_keys:\n")
         pprint(api_response)
     except Exception as e:
@@ -280,8 +286,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_keys_with_inheritence**
-> List[KVEntry] list_keys_with_inheritence(namespace, tenant)
+# **list_keys_with_inheritance**
+> List[KVEntry] list_keys_with_inheritance(namespace, tenant)
 
 List all keys for inherited namespaces
 
@@ -291,6 +297,7 @@ List all keys for inherited namespaces
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -306,11 +313,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List all keys for inherited namespaces
-        api_response = kestra_client.KVApi.list_keys_with_inheritence(namespace, tenant)
-        print("The response of KVApi->list_keys_with_inheritence:\n")
+        api_response = kestra_client.kv.list_keys_with_inheritance(namespace, tenant)
+        print("The response of KVApi->list_keys_with_inheritance:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->list_keys_with_inheritence: %s\n" % e)
+        print("Exception when calling KVApi->list_keys_with_inheritance: %s\n" % e)
 ```
 
 
@@ -372,7 +379,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Puts a key-value pair in store
-        kestra_client.KVApi.set_key_value(namespace, key, tenant, body)
+        kestra_client.kv.set_key_value(namespace, key, tenant, body)
     except Exception as e:
         print("Exception when calling KVApi->set_key_value: %s\n" % e)
 ```

@@ -37,7 +37,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -48,7 +48,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Boolean allowDeleted = false; // Boolean | Get asset even if soft deleted
         try {
-            AssetsControllerApiAsset result = kestraClient.AssetsApi().asset(id, tenant, allowDeleted);
+            AssetsControllerApiAsset result = kestraClient.assets().asset(id, tenant, allowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#asset");
@@ -109,7 +109,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -121,7 +121,7 @@ public class Example {
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
         try {
-            AssetTopologyGraph result = kestraClient.AssetsApi().assetDependencies(id, tenant, destinationOnly, expandAll);
+            AssetTopologyGraph result = kestraClient.assets().assetDependencies(id, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#assetDependencies");
@@ -166,7 +166,7 @@ public class Example {
 
 ## createAsset
 
-> AssetsControllerApiAsset createAsset(tenant, body)
+> AssetsControllerApiAsset createAsset(tenant, yamlBody)
 
 Create a new asset
 
@@ -183,7 +183,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -193,7 +193,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The asset
         try {
-            AssetsControllerApiAsset result = kestraClient.AssetsApi().createAsset(tenant, body);
+            AssetsControllerApiAsset result = kestraClient.assets().createAsset(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#createAsset");
@@ -212,7 +212,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The asset | |
+| **yamlBody** | **String**| The asset | |
 
 ### Return type
 
@@ -253,7 +253,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -263,7 +263,7 @@ public class Example {
         String id = "id_example"; // String | The ID of the asset
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.AssetsApi().deleteAsset(id, tenant);
+            kestraClient.assets().deleteAsset(id, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAsset");
             System.err.println("Status code: " + e.getCode());
@@ -305,7 +305,7 @@ null (empty response body)
 
 ## deleteAssetLineageEventsByQuery
 
-> BulkResponse deleteAssetLineageEventsByQuery(filters, tenant)
+> BulkResponse deleteAssetLineageEventsByQuery(tenant, filters)
 
 Delete asset lineage events by query, hard-delete (purge) only
 
@@ -322,7 +322,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -332,7 +332,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
         try {
-            BulkResponse result = kestraClient.AssetsApi().deleteAssetLineageEventsByQuery(filters, tenant);
+            BulkResponse result = kestraClient.assets().deleteAssetLineageEventsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetLineageEventsByQuery");
@@ -350,8 +350,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -375,7 +375,7 @@ public class Example {
 
 ## deleteAssetUsagesByQuery
 
-> BulkResponse deleteAssetUsagesByQuery(filters, tenant)
+> BulkResponse deleteAssetUsagesByQuery(tenant, filters)
 
 Delete asset usages by query, hard-delete (purge) only
 
@@ -392,7 +392,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -402,7 +402,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
         try {
-            BulkResponse result = kestraClient.AssetsApi().deleteAssetUsagesByQuery(filters, tenant);
+            BulkResponse result = kestraClient.assets().deleteAssetUsagesByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetUsagesByQuery");
@@ -420,8 +420,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -445,7 +445,7 @@ public class Example {
 
 ## deleteAssetsByIds
 
-> BulkResponse deleteAssetsByIds(tenant, requestBody)
+> BulkResponse deleteAssetsByIds(tenant, ids)
 
 Delete assets by asset ids
 
@@ -462,7 +462,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -472,7 +472,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The asset ids
         try {
-            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.assets().deleteAssetsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetsByIds");
@@ -491,7 +491,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The asset ids | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The asset ids | |
 
 ### Return type
 
@@ -516,7 +516,7 @@ public class Example {
 
 ## deleteAssetsByQuery
 
-> BulkResponse deleteAssetsByQuery(filters, tenant, purge)
+> BulkResponse deleteAssetsByQuery(tenant, filters, purge)
 
 Delete assets by query
 
@@ -533,7 +533,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -544,7 +544,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Boolean purge = false; // Boolean | If true, will purge instead of soft-delete
         try {
-            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByQuery(filters, tenant, purge);
+            BulkResponse result = kestraClient.assets().deleteAssetsByQuery(tenant, filters, purge);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetsByQuery");
@@ -562,8 +562,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **purge** | **Boolean**| If true, will purge instead of soft-delete | [optional] [default to false] |
 
 ### Return type
@@ -589,7 +589,7 @@ public class Example {
 
 ## searchAssetLineageEvents
 
-> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(tenant, page, size, sort, filters)
 
 Search for asset lineage events
 
@@ -606,7 +606,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -619,7 +619,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.AssetsApi().searchAssetLineageEvents(filters, tenant, page, size, sort);
+            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.assets().searchAssetLineageEvents(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssetLineageEvents");
@@ -637,11 +637,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -665,7 +665,7 @@ public class Example {
 
 ## searchAssetUsages
 
-> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(tenant, page, size, sort, filters)
 
 Search for asset usages
 
@@ -682,7 +682,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -695,7 +695,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAssetUsage result = kestraClient.AssetsApi().searchAssetUsages(filters, tenant, page, size, sort);
+            PagedResultsAssetsControllerApiAssetUsage result = kestraClient.assets().searchAssetUsages(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssetUsages");
@@ -713,11 +713,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
@@ -741,7 +741,7 @@ public class Example {
 
 ## searchAssets
 
-> PagedResultsAssetsControllerApiAsset searchAssets(filters, tenant, page, size, sort)
+> PagedResultsAssetsControllerApiAsset searchAssets(tenant, page, size, sort, filters)
 
 Search for assets
 
@@ -758,7 +758,7 @@ import io.kestra.sdk.api.AssetsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -771,7 +771,7 @@ public class Example {
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAsset result = kestraClient.AssetsApi().searchAssets(filters, tenant, page, size, sort);
+            PagedResultsAssetsControllerApiAsset result = kestraClient.assets().searchAssets(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssets");
@@ -789,11 +789,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 

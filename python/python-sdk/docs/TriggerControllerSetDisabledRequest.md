@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.trigger_controller_set_disabled_request import TriggerControllerSetDisabledRequest
 
 # TODO update the JSON string below

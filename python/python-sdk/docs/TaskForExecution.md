@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.task_for_execution import TaskForExecution
 
 # TODO update the JSON string below

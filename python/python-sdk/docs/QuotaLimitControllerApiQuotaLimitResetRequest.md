@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.quota_limit_controller_api_quota_limit_reset_request import QuotaLimitControllerApiQuotaLimitResetRequest
 
 # TODO update the JSON string below
