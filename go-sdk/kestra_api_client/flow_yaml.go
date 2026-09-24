@@ -190,6 +190,11 @@ func jsonTokenToYAMLNode(dec *json.Decoder, tok json.Token) (*yaml.Node, error) 
 					return nil, fmt.Errorf("unexpected non-string object key %v", keyTok)
 				}
 				keyNode := &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!str", Value: key}
+				// Jackson always reads mapping keys as strings, so this is only
+				// for consistency with the Python/JS/Java SDKs, which quote them.
+				if isAmbiguousYAMLString(key) {
+					keyNode.Style = yaml.DoubleQuotedStyle
+				}
 				valTok, err := dec.Token()
 				if err != nil {
 					return nil, err
@@ -272,7 +277,9 @@ var ambiguousYAMLWords = map[string]bool{
 // may resolve to a number or timestamp: signed ints/floats with underscores
 // and exponents (with or without a dot or exponent sign), hex/octal/binary,
 // .inf/.nan, sexagesimal (12:30) and dates. Deliberately permissive: quoting a
-// string that did not need it is harmless, leaving one plain is not.
+// string that did not need it is harmless, leaving one plain is not. Same
+// predicate as the Python/JS/Java SDKs, pinned by
+// test-utils/yaml-ambiguous-strings.json.
 var ambiguousYAMLScalar = regexp.MustCompile(`(?i)^[-+]?(` +
 	`0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|` +
 	`[0-9][0-9_]*(\.[0-9_]*)?(e[-+]?[0-9_]+)?|` +

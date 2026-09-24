@@ -36,6 +36,9 @@ public interface OutputValue {
     return new Value(value);
   }
 
+  /** The raw value this holds (a {@code String}, {@code Map}, {@code List}, ...). */
+  Object getValue();
+
   /** The raw value, serialized and deserialized as-is. */
   final class Value implements OutputValue {
     private final Object value;
@@ -46,6 +49,7 @@ public interface OutputValue {
     }
 
     @JsonValue
+    @Override
     public Object getValue() {
       return value;
     }

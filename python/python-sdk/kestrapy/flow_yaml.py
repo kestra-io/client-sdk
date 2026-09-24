@@ -26,7 +26,8 @@ Serialization rules:
   datetimes, ``bytes`` decoded as UTF-8) are converted at every depth; a truly
   unsupported value raises a clear :class:`TypeError` naming its type rather than
   a low-level ``yaml.representer.RepresenterError``;
-* non-ASCII characters are kept verbatim (never escaped to ``\\uXXXX``).
+* non-ASCII characters are kept verbatim (never escaped to ``\\uXXXX``);
+* long lines are never folded.
 """
 
 import re
@@ -63,7 +64,8 @@ _AMBIGUOUS_YAML_WORDS = frozenset(
 # sign), hex/octal/binary, .inf/.nan, sexagesimal (12:30) and dates. PyYAML's
 # own resolver is YAML 1.1 and leaves e.g. ``1e3`` (no dot) plain, which
 # Jackson reads as 1000.0. Deliberately permissive: quoting a string that did
-# not need it is harmless, leaving one plain is not.
+# not need it is harmless, leaving one plain is not. Same predicate as the
+# Go/JS/Java SDKs, pinned by test-utils/yaml-ambiguous-strings.json.
 _AMBIGUOUS_YAML_SCALAR = re.compile(
     r"^[-+]?("
     r"0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|"
@@ -163,4 +165,7 @@ def flow_to_yaml(flow: Union[Dict[str, Any], Any]) -> str:
         default_flow_style=False,
         allow_unicode=True,
         sort_keys=False,
+        # Never fold long lines: the YAML is the flow source the server stores
+        # and the UI shows (Go and Java don't fold either).
+        width=float("inf"),
     )

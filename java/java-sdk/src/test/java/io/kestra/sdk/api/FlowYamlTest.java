@@ -1,6 +1,7 @@
 package io.kestra.sdk.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Flow;
@@ -9,6 +10,7 @@ import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.Type;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -358,5 +360,84 @@ class FlowYamlTest {
                         .value(io.kestra.sdk.model.OutputValue.of("{{ outputs.log.value }}"))));
         JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
         assertEquals("{{ outputs.log.value }}", root.get("outputs").get(0).get("value").asText());
+        assertEquals("{{ outputs.log.value }}", flow.getOutputs().get(0).getValue().getValue());
+    }
+
+    @Test
+    void ambiguousStringsAreQuotedAndRoundTrip() throws Exception {
+        JsonNode fixture = new ObjectMapper().readTree(ambiguousStringsFixture());
+        List<String> mustQuote = new ArrayList<>();
+        fixture.get("mustQuote").forEach(n -> mustQuote.add(n.asText()));
+        List<String> staysPlain = new ArrayList<>();
+        fixture.get("staysPlain").forEach(n -> staysPlain.add(n.asText()));
+
+        // An empty key is left out: emitters write it in their own form
+        // (SnakeYAML uses the complex-key `? ""`), which still reads back as "".
+        Map<String, Object> keyed = new LinkedHashMap<>();
+        mustQuote.stream().filter(s -> !s.isEmpty()).forEach(s -> keyed.put(s, "k"));
+        Map<String, Object> task = new LinkedHashMap<>();
+        task.put("id", "out");
+        task.put("type", "io.kestra.plugin.core.output.OutputValues");
+        task.put("values", mustQuote);
+        task.put("keyed", keyed);
+        task.put("plain", staysPlain);
+        Map<String, Object> flow = new LinkedHashMap<>();
+        flow.put("id", "tricky");
+        flow.put("namespace", "company.team");
+        flow.put("tasks", List.of(task));
+
+        String yaml = FlowsApi.flowToYaml(flow);
+
+        for (String s : mustQuote) {
+            assertTrue(yaml.contains("\n  - \"" + s + "\"\n"), "value " + s + " not quoted:\n" + yaml);
+        }
+        for (String s : keyed.keySet()) {
+            assertTrue(yaml.contains("\n    \"" + s + "\": k\n"), "key " + s + " not quoted:\n" + yaml);
+        }
+        for (String s : staysPlain) {
+            assertTrue(yaml.contains("\n  - " + s + "\n"), "value " + s + " not plain:\n" + yaml);
+        }
+
+        // Jackson's YAML reader is what Kestra parses flow source with: every
+        // value comes back as the exact original string, not a boolean/number.
+        JsonNode values = YAML.readTree(yaml).get("tasks").get(0).get("values");
+        assertEquals(mustQuote.size(), values.size());
+        for (int i = 0; i < mustQuote.size(); i++) {
+            assertTrue(values.get(i).isTextual(), mustQuote.get(i) + " re-typed to " + values.get(i).getNodeType());
+            assertEquals(mustQuote.get(i), values.get(i).asText());
+        }
+    }
+
+    @Test
+    void multiLineStringsAreLiteralBlocksAndExpressionsStayQuoted() throws Exception {
+        Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log");
+        log.putAdditionalProperty("message", "line1\nline2\n");
+        log.putAdditionalProperty("expr", "{{ inputs.foo }}");
+        Flow flow = new Flow();
+        flow.setId("p");
+        flow.setNamespace("ns");
+        flow.setTasks(List.of(log));
+
+        String yaml = FlowsApi.flowToYaml(flow);
+
+        assertTrue(yaml.contains("id: p\n"), yaml);
+        assertTrue(yaml.contains("  message: |\n    line1\n    line2\n"), yaml);
+        assertTrue(yaml.contains("  expr: \"{{ inputs.foo }}\"\n")
+                || yaml.contains("  expr: '{{ inputs.foo }}'\n"), yaml);
+        JsonNode t = YAML.readTree(yaml).get("tasks").get(0);
+        assertEquals("line1\nline2\n", t.get("message").asText());
+        assertEquals("{{ inputs.foo }}", t.get("expr").asText());
+    }
+
+    private static File ambiguousStringsFixture() {
+        File dir = new File(System.getProperty("user.dir")).getAbsoluteFile();
+        while (dir != null) {
+            File candidate = new File(dir, "test-utils/yaml-ambiguous-strings.json");
+            if (candidate.isFile()) {
+                return candidate;
+            }
+            dir = dir.getParentFile();
+        }
+        throw new IllegalStateException("could not locate test-utils/yaml-ambiguous-strings.json from " + System.getProperty("user.dir"));
     }
 }

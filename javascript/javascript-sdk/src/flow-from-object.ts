@@ -44,9 +44,9 @@ export function flowToYaml(flow: FlowObjectInput): string {
         (_key, value) => (value === null ? undefined : value),
         { aliasDuplicateObjects: false },
     )
-    // Force quotes on string values a YAML 1.1 reader (Kestra's server parses
-    // flow source with Jackson's YAMLParser) would re-type: the `yaml` library
-    // emits per YAML 1.2 and leaves e.g. `yes`, `off` or `1_000` plain.
+    // Force quotes on string keys and values a YAML 1.1 reader (Kestra's server
+    // parses flow source with Jackson's YAMLParser) would re-type: the `yaml`
+    // library emits per YAML 1.2 and leaves e.g. `yes`, `off` or `1_000` plain.
     visit(doc, {
         Scalar(_key, node) {
             if (typeof node.value === "string" && !node.value.includes("\n") && isAmbiguousYamlString(node.value)) {
@@ -54,7 +54,9 @@ export function flowToYaml(flow: FlowObjectInput): string {
             }
         },
     })
-    return doc.toString()
+    // lineWidth 0: never fold long lines (the YAML is the flow source the
+    // server stores and the UI shows; Go and Java don't fold either).
+    return doc.toString({ lineWidth: 0 })
 }
 
 /** Plain scalars some YAML reader resolves to a boolean or null (case-insensitive). */
@@ -65,7 +67,8 @@ const AMBIGUOUS_YAML_WORDS = new Set(["", "~", "null", "y", "yes", "n", "no", "t
  * timestamp: signed ints/floats with underscores and exponents (with or without
  * a dot or exponent sign), hex/octal/binary, .inf/.nan, sexagesimal (12:30) and
  * dates. Deliberately permissive: quoting a string that did not need it is
- * harmless, leaving one plain is not.
+ * harmless, leaving one plain is not. Same predicate as the Python/Go/Java SDKs,
+ * pinned by test-utils/yaml-ambiguous-strings.json.
  */
 const AMBIGUOUS_YAML_SCALAR = new RegExp(
     "^[-+]?(" +

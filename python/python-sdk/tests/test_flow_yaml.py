@@ -6,8 +6,10 @@
 These are pure serialization tests: no live Kestra server is involved.
 """
 
+import json
 from datetime import datetime, timezone
 from enum import Enum
+from pathlib import Path
 
 import pytest
 import yaml
@@ -271,16 +273,27 @@ def test_multiline_emitted_as_block_scalar():
     assert "script: |" in yaml_str
 
 
-# Strings a YAML 1.1 / 1.2 or Jackson reader (Kestra's server) would re-type to a
-# boolean, null, number or timestamp if emitted as plain scalars.
-_TRICKY_YAML_STRINGS = [
-    "yes", "no", "on", "off", "Yes", "OFF", "YES", "y", "n", "true", "False",
-    "1_000", "12:30", "0755", "0x1F", "1e3", "1E-3", ".inf", "-.Inf", ".NaN",
-    "~", "null", "", "2026-09-23", "1.0", "+1",
-]
+def _load_ambiguous_strings_fixture() -> dict:
+    """Load test-utils/yaml-ambiguous-strings.json, the contract shared by all
+    four SDKs: strings a YAML 1.1 / Jackson reader (Kestra's server) would
+    re-type to a boolean, null, number or timestamp must be emitted quoted;
+    ordinary strings stay plain."""
+    for parent in Path(__file__).resolve().parents:
+        candidate = parent / "test-utils" / "yaml-ambiguous-strings.json"
+        if candidate.is_file():
+            return json.loads(candidate.read_text())
+    raise FileNotFoundError("Could not locate test-utils/yaml-ambiguous-strings.json")
+
+
+_AMBIGUOUS = _load_ambiguous_strings_fixture()
+_MUST_QUOTE = _AMBIGUOUS["mustQuote"]
+_STAYS_PLAIN = _AMBIGUOUS["staysPlain"]
 
 
 def test_ambiguous_strings_are_quoted_and_round_trip():
+    # An empty key is left out: emitters write it in their own form, which
+    # still reads back as "".
+    keyed = {s: "k" for s in _MUST_QUOTE if s}
     out = flow_to_yaml({
         "id": "tricky",
         "namespace": "company.team",
@@ -288,23 +301,48 @@ def test_ambiguous_strings_are_quoted_and_round_trip():
         "tasks": [{
             "id": "out",
             "type": "io.kestra.plugin.core.output.OutputValues",
-            "values": list(_TRICKY_YAML_STRINGS),
+            "values": list(_MUST_QUOTE),
+            "keyed": keyed,
+            "plain": list(_STAYS_PLAIN),
         }],
     })
 
     lines = out.splitlines()
     start = lines.index("  values:") + 1
-    value_lines = lines[start:start + len(_TRICKY_YAML_STRINGS)]
-    for s, line in zip(_TRICKY_YAML_STRINGS, value_lines):
+    value_lines = lines[start:start + len(_MUST_QUOTE)]
+    for s, line in zip(_MUST_QUOTE, value_lines):
         # Either quote style is fine; a plain scalar is not.
         assert line in (f'  - "{s}"', f"  - '{s}'"), (s, out)
+    for s in keyed:
+        assert f'    "{s}": k' in lines or f"    '{s}': k" in lines, (s, out)
+    for s in _STAYS_PLAIN:
+        assert f"  - {s}" in lines, (s, out)
     assert '  approved: "yes"' in lines, out
 
-    # PyYAML's safe_load is a YAML 1.1 reader: every value comes back as the
-    # exact original string.
+    # PyYAML's safe_load is a YAML 1.1 reader: every value and key comes back
+    # as the exact original string.
     parsed = yaml.safe_load(out)
-    assert parsed["tasks"][0]["values"] == _TRICKY_YAML_STRINGS
+    assert parsed["tasks"][0]["values"] == _MUST_QUOTE
+    assert parsed["tasks"][0]["keyed"] == keyed
+    assert parsed["tasks"][0]["plain"] == _STAYS_PLAIN
     assert parsed["labels"]["approved"] == "yes"
+
+
+def test_long_lines_are_not_folded():
+    long_text = " ".join(["a very long single line description"] * 5)
+    long_expr = "{{ " + "x" * 120 + " }}"
+    out = flow_to_yaml({
+        "id": "long",
+        "namespace": "company.team",
+        "description": long_text,
+        "tasks": [{"id": "t", "type": "io.kestra.plugin.core.log.Log", "message": long_expr}],
+    })
+
+    assert f"description: {long_text}\n" in out, out
+    assert f"message: '{long_expr}'" in out, out
+    parsed = yaml.safe_load(out)
+    assert parsed["description"] == long_text
+    assert parsed["tasks"][0]["message"] == long_expr
 
 
 def test_ordinary_strings_keep_their_styles():

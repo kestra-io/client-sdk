@@ -3,6 +3,9 @@ import { parse as parseYaml } from 'yaml';
 import { flowToYaml } from '@kestra-io/kestra-sdk/flows';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Root from '@kestra-io/kestra-sdk';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import All, * as AllNamed from '@kestra-io/kestra-sdk/all';
 
 // Pure serialization tests for the object -> YAML layer used by
 // createFlowFromObject / updateFlowFromObject. No live Kestra server is needed.
@@ -146,27 +149,59 @@ describe('flow-from-object entry points', () => {
         expect(Object.keys(Root).filter(k => /FromObject|flowToYaml/.test(k))).toEqual([]);
         expect(typeof Root.configureClient).toBe('function');
     });
+
+    it('exposes every helper on /all without colliding with a generated name', () => {
+        // `/all` spreads the generated and flow-from-object namespaces into its
+        // default export and `export *`s both: a shared name would silently let
+        // flow-from-object win in the default export while the named export is
+        // dropped (ESM) or resolves to the generated one (vitest's transform),
+        // so the default and named exports would disagree on that name.
+        expect(Object.keys(All).sort()).toEqual(Object.keys(AllNamed).filter(k => k !== 'default').sort());
+        for (const [k, v] of Object.entries(All)) {
+            expect((AllNamed as Record<string, unknown>)[k], k).toBe(v);
+        }
+        for (const k of ['createFlowFromObject', 'updateFlowFromObject', 'flowToYaml'] as const) {
+            expect(typeof AllNamed[k], k).toBe('function');
+            expect(AllNamed[k], k).toBe(Flows[k]);
+            expect(All[k], k).toBe(Flows[k]);
+        }
+    });
 });
 
-// Strings a YAML 1.1 / 1.2 or Jackson reader (Kestra's server) would re-type to
-// a boolean, null, number or timestamp if emitted as plain scalars.
-const TRICKY_YAML_STRINGS = [
-    'yes', 'no', 'on', 'off', 'Yes', 'OFF', 'YES', 'y', 'n', 'true', 'False',
-    '1_000', '12:30', '0755', '0x1F', '1e3', '1E-3', '.inf', '-.Inf', '.NaN',
-    '~', 'null', '', '2026-09-23', '1.0', '+1',
-];
+// Shared contract asserted by all four SDKs (test-utils/yaml-ambiguous-strings.json):
+// strings a YAML 1.1 / Jackson reader (Kestra's server) would re-type to a
+// boolean, null, number or timestamp must be emitted quoted; ordinary strings
+// stay plain.
+const AMBIGUOUS: { mustQuote: string[]; staysPlain: string[] } = JSON.parse(
+    readFileSync(resolve(import.meta.dirname, '../../test-utils/yaml-ambiguous-strings.json'), 'utf8'),
+);
 
 describe('flowToYaml ambiguous strings', () => {
+    // An empty key is left out: emitters write it in their own form, which
+    // still reads back as "".
+    const keyed = Object.fromEntries(AMBIGUOUS.mustQuote.filter(s => s !== '').map(s => [s, 'k']));
     const yaml = flowToYaml({
         id: 'tricky',
         namespace: 'company.team',
         labels: { approved: 'yes' },
-        tasks: [{ id: 'out', type: 'io.kestra.plugin.core.output.OutputValues', values: TRICKY_YAML_STRINGS }],
+        tasks: [{
+            id: 'out',
+            type: 'io.kestra.plugin.core.output.OutputValues',
+            values: AMBIGUOUS.mustQuote,
+            keyed,
+            plain: AMBIGUOUS.staysPlain,
+        }],
     });
 
-    it('emits every ambiguous string as a quoted scalar', () => {
-        for (const s of TRICKY_YAML_STRINGS) {
+    it('emits every ambiguous string as a quoted scalar, as a value and as a key', () => {
+        for (const s of AMBIGUOUS.mustQuote) {
             expect(yaml, `value ${JSON.stringify(s)}`).toContain(`\n      - "${s}"\n`);
+        }
+        for (const s of Object.keys(keyed)) {
+            expect(yaml, `key ${JSON.stringify(s)}`).toContain(`\n      "${s}": k\n`);
+        }
+        for (const s of AMBIGUOUS.staysPlain) {
+            expect(yaml, `value ${JSON.stringify(s)}`).toContain(`\n      - ${s}\n`);
         }
         expect(yaml).toContain('approved: "yes"');
     });
@@ -174,9 +209,27 @@ describe('flowToYaml ambiguous strings', () => {
     it('re-parses to the exact original strings under YAML 1.2 and YAML 1.1', () => {
         for (const version of ['1.2', '1.1'] as const) {
             const parsed = parseYaml(yaml, { version });
-            expect(parsed.tasks[0].values, `YAML ${version}`).toEqual(TRICKY_YAML_STRINGS);
+            expect(parsed.tasks[0].values, `YAML ${version}`).toEqual(AMBIGUOUS.mustQuote);
+            expect(parsed.tasks[0].keyed, `YAML ${version}`).toEqual(keyed);
+            expect(parsed.tasks[0].plain, `YAML ${version}`).toEqual(AMBIGUOUS.staysPlain);
             expect(parsed.labels.approved).toBe('yes');
         }
+    });
+
+    it('never folds long lines', () => {
+        const description = Array(5).fill('a very long single line description').join(' ');
+        const expr = `{{ ${'x'.repeat(120)} }}`;
+        const out = flowToYaml({
+            id: 'long',
+            namespace: 'company.team',
+            description,
+            tasks: [{ id: 't', type: 'io.kestra.plugin.core.log.Log', message: expr }],
+        });
+        expect(out).toContain(`description: ${description}\n`);
+        expect(out).toContain(`    message: "${expr}"\n`);
+        const parsed = parseYaml(out);
+        expect(parsed.description).toBe(description);
+        expect(parsed.tasks[0].message).toBe(expr);
     });
 
     it('keeps ordinary strings plain, expressions quoted and multi-line as literal blocks', () => {

@@ -2,6 +2,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"os"
 	"strings"
 	"testing"
 
@@ -388,25 +389,51 @@ func TestFlowToYAML_CanonicalKeyOrderMap(t *testing.T) {
 	}
 }
 
-// trickyYAMLStrings are strings that a YAML 1.1 / 1.2 or Jackson reader would
-// resolve to a boolean, null, number or timestamp if emitted as plain scalars.
-var trickyYAMLStrings = []string{
-	"yes", "no", "on", "off", "Yes", "OFF", "YES", "y", "n", "true", "False",
-	"1_000", "12:30", "0755", "0x1F", "1e3", "1E-3", ".inf", "-.Inf", ".NaN",
-	"~", "null", "", "2026-09-23", "1.0", "+1",
+// ambiguousStringsFixture is the shared contract in
+// test-utils/yaml-ambiguous-strings.json, asserted by all four SDKs: strings a
+// YAML 1.1 / Jackson reader (Kestra's server) would re-type to a boolean, null,
+// number or timestamp must be emitted quoted; ordinary strings stay plain.
+type ambiguousStringsFixture struct {
+	MustQuote  []string `json:"mustQuote"`
+	StaysPlain []string `json:"staysPlain"`
+}
+
+func loadAmbiguousStringsFixture(t *testing.T) ambiguousStringsFixture {
+	t.Helper()
+	data, err := os.ReadFile("../../test-utils/yaml-ambiguous-strings.json")
+	if err != nil {
+		t.Fatalf("read fixture: %v", err)
+	}
+	var f ambiguousStringsFixture
+	if err := json.Unmarshal(data, &f); err != nil {
+		t.Fatalf("unmarshal fixture: %v", err)
+	}
+	return f
 }
 
 func TestFlowToYAML_QuotesAmbiguousStrings(t *testing.T) {
-	values := make([]interface{}, len(trickyYAMLStrings))
-	for i, s := range trickyYAMLStrings {
+	fixture := loadAmbiguousStringsFixture(t)
+	values := make([]interface{}, len(fixture.MustQuote))
+	for i, s := range fixture.MustQuote {
 		values[i] = s
+	}
+	// An empty key is left out: emitters write it in their own form, which
+	// still reads back as "".
+	keyed := map[string]interface{}{}
+	for _, s := range fixture.MustQuote {
+		if s != "" {
+			keyed[s] = "k"
+		}
 	}
 	flow := map[string]interface{}{
 		"id":        "tricky",
 		"namespace": "company.team",
 		"labels":    map[string]interface{}{"approved": "yes"},
 		"tasks": []map[string]interface{}{
-			{"id": "out", "type": "io.kestra.plugin.core.output.OutputValues", "values": values},
+			{
+				"id": "out", "type": "io.kestra.plugin.core.output.OutputValues",
+				"values": values, "keyed": keyed, "plain": fixture.StaysPlain,
+			},
 		},
 	}
 	out, err := flowToYAML(flow)
@@ -414,11 +441,22 @@ func TestFlowToYAML_QuotesAmbiguousStrings(t *testing.T) {
 		t.Fatalf("flowToYAML returned error: %v", err)
 	}
 
-	// Every tricky value is emitted as a quoted scalar in the text.
-	for _, s := range trickyYAMLStrings {
+	// Every ambiguous value and key is emitted as a quoted scalar in the text;
+	// ordinary strings stay plain.
+	for _, s := range fixture.MustQuote {
 		quoted := `- "` + s + `"`
 		if !strings.Contains(out, "\n      "+quoted+"\n") {
 			t.Errorf("value %q not emitted quoted (want line %q), got:\n%s", s, quoted, out)
+		}
+	}
+	for s := range keyed {
+		if !strings.Contains(out, "\n      \""+s+"\": k\n") {
+			t.Errorf("key %q not emitted quoted, got:\n%s", s, out)
+		}
+	}
+	for _, s := range fixture.StaysPlain {
+		if !strings.Contains(out, "\n      - "+s+"\n") {
+			t.Errorf("value %q not emitted plain, got:\n%s", s, out)
 		}
 	}
 	if !strings.Contains(out, `approved: "yes"`) {
@@ -431,7 +469,7 @@ func TestFlowToYAML_QuotesAmbiguousStrings(t *testing.T) {
 		t.Fatalf("re-parsing YAML failed: %v", err)
 	}
 	got := parsed["tasks"].([]interface{})[0].(map[string]interface{})["values"].([]interface{})
-	for i, s := range trickyYAMLStrings {
+	for i, s := range fixture.MustQuote {
 		if got[i] != s {
 			t.Errorf("value %d = %#v (%T), want string %q", i, got[i], got[i], s)
 		}

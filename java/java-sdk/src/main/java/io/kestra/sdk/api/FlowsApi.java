@@ -8,8 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import com.fasterxml.jackson.dataformat.yaml.util.StringQuotingChecker;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import io.kestra.sdk.internal.ApiClient;
@@ -44,6 +46,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 public class FlowsApi extends BaseApi {
 
@@ -55,15 +59,21 @@ public class FlowsApi extends BaseApi {
     // Serializes a flow object to a YAML source string. The flow-write endpoints
     // are YAML-only (they do not accept JSON), so a native object is serialized
     // here and posted to the existing YAML endpoints. Configuration: block style,
-    // no document-start marker, no line wrapping, null fields omitted. Expressions
-    // like `{{ inputs.foo }}` are quoted (MINIMIZE_QUOTES stays disabled) and
-    // non-ASCII stays verbatim. LITERAL_BLOCK_STYLE is intentionally NOT enabled:
-    // jackson-dataformat-yaml only honors it when MINIMIZE_QUOTES is on, which
-    // would unquote `{{ }}` expressions; multi-line strings are therefore emitted
-    // as (quoted) scalars that round-trip intact.
-    private static final ObjectMapper YAML_MAPPER = YAMLMapper.builder()
+    // no document-start marker, no line wrapping, null fields omitted,
+    // non-ASCII verbatim. Strings are emitted plain where that is unambiguous
+    // (MINIMIZE_QUOTES) and multi-line strings as literal `|` blocks
+    // (LITERAL_BLOCK_STYLE), so the stored flow source reads like hand-written
+    // YAML, as with the Python/Go/JS SDKs. SnakeYAML still quotes any scalar it
+    // cannot emit plain (e.g. a `{{ inputs.foo }}` expression, which starts with
+    // `{`); FlowYamlQuotingChecker quotes the plain-safe strings Kestra's
+    // Jackson YAML reader would re-type (yes, off, 1_000, 1e3, ...).
+    private static final ObjectMapper YAML_MAPPER = YAMLMapper.builder(YAMLFactory.builder()
+                    .stringQuotingChecker(new FlowYamlQuotingChecker())
+                    .build())
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .disable(YAMLGenerator.Feature.SPLIT_LINES)
+            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+            .enable(YAMLGenerator.Feature.LITERAL_BLOCK_STYLE)
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             // The typed models default their List fields to `new ArrayList<>()`;
             // omit a declared List-typed property when it is empty. This config
@@ -88,6 +98,47 @@ public class FlowsApi extends BaseApi {
     // *source* body (`draft` is a query parameter, not a body field).
     private static final java.util.Set<String> SERVER_MANAGED_FLOW_FIELDS = java.util.Set.of(
             "deleted", "revision", "draft", "tenantId", "source", "updated");
+
+    // Plain scalars some YAML reader resolves to a boolean or null (compared
+    // case-insensitively).
+    private static final Set<String> AMBIGUOUS_YAML_WORDS = Set.of(
+            "", "~", "null", "y", "yes", "n", "no", "true", "false", "on", "off");
+
+    // Strings a YAML 1.1 / 1.2 or Jackson reader may resolve to a number or
+    // timestamp: signed ints/floats with underscores and exponents (with or
+    // without a dot or exponent sign), hex/octal/binary, .inf/.nan, sexagesimal
+    // (12:30) and dates. Deliberately permissive: quoting a string that did not
+    // need it is harmless, leaving one plain is not. Same predicate as the
+    // Python/Go/JS SDKs, pinned by test-utils/yaml-ambiguous-strings.json.
+    private static final Pattern AMBIGUOUS_YAML_SCALAR = Pattern.compile("^[-+]?("
+            + "0x[0-9a-f_]+|0o[0-7_]+|0b[01_]+|"
+            + "[0-9][0-9_]*(\\.[0-9_]*)?(e[-+]?[0-9_]+)?|"
+            + "\\.[0-9][0-9_]*(e[-+]?[0-9_]+)?|"
+            + "\\.(inf|nan)|"
+            + "[0-9][0-9_]*(:[0-5]?[0-9])+(\\.[0-9_]*)?"
+            + ")$|^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}", Pattern.CASE_INSENSITIVE);
+
+    static boolean isAmbiguousYamlString(String s) {
+        return AMBIGUOUS_YAML_WORDS.contains(s.toLowerCase(java.util.Locale.ROOT))
+                || AMBIGUOUS_YAML_SCALAR.matcher(s).find();
+    }
+
+    // Jackson's default checker only knows the reserved words and a narrow
+    // number shape, so e.g. `1_000` or `1e3` would be emitted plain and read back
+    // as a number; also quote everything isAmbiguousYamlString flags.
+    private static final class FlowYamlQuotingChecker extends StringQuotingChecker.Default {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public boolean needToQuoteName(String name) {
+            return super.needToQuoteName(name) || isAmbiguousYamlString(name);
+        }
+
+        @Override
+        public boolean needToQuoteValue(String value) {
+            return super.needToQuoteValue(value) || isAmbiguousYamlString(value);
+        }
+    }
 
     public FlowsApi() {
         super(Configuration.getDefaultApiClient());
