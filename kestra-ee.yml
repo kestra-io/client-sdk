@@ -36160,6 +36160,10 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/Input_Object_'
+        templateArgumentsOrder:
+          type: array
+          items:
+            type: string
     BlueprintWithFlowEntity:
       required:
       - deleted
