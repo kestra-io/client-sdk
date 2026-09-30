@@ -8127,6 +8127,83 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/apps/catalog/namespaces:
+    get:
+      tags:
+      - Apps
+      summary: Search for the namespaces of the apps from catalog, with how many apps each holds
+      operationId: searchAppsFromCatalogNamespaces
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: hideExamples
+        in: query
+        description: Exclude the apps flagged as examples
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: searchAppsFromCatalogNamespaces 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsController.ApiAppCatalogNamespaces'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/disable:
     post:
       tags:
@@ -35294,6 +35371,30 @@ components:
           type: string
         example:
           type: boolean
+        namespace:
+          type: string
+    AppsController.ApiAppCatalogNamespace:
+      type: object
+      properties:
+        namespace:
+          type: string
+        count:
+          type: integer
+          format: int64
+    AppsController.ApiAppCatalogNamespaces:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppsController.ApiAppCatalogNamespace'
+        total:
+          type: integer
+          format: int64
+        exampleCount:
+          type: integer
+          format: int64
+      description: Same wire shape as ApiAppCatalog, so the grouped view keeps the example count the flat one reports.
     AppsController.ApiAppSource:
       type: object
       properties:
