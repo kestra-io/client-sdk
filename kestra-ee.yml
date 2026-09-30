@@ -7950,6 +7950,389 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/app-templates:
+    get:
+      tags:
+      - App Templates
+      summary: Search for app templates
+      description: Requires BLUEPRINT permission with the LIST action.
+      operationId: searchAppTemplates
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: searchAppTemplates 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_AppTemplateController.ApiAppTemplate_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - App Templates
+      summary: Create an app template
+      description: Requires BLUEPRINT permission with the CREATE action.
+      operationId: createAppTemplate
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.AppTemplateCreateOrUpdate'
+        required: true
+      responses:
+        '200':
+          description: createAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}:
+    get:
+      tags:
+      - App Templates
+      summary: Retrieve an app template
+      description: Requires BLUEPRINT permission with the VIEW action.
+      operationId: appTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: appTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - App Templates
+      summary: Update an app template
+      description: Requires BLUEPRINT permission with the UPDATE action.
+      operationId: updateAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.AppTemplateCreateOrUpdate'
+        required: true
+      responses:
+        '200':
+          description: updateAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - App Templates
+      summary: Delete an app template
+      description: Requires BLUEPRINT permission with the DELETE action.
+      operationId: deleteAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: deleteAppTemplate 200 response
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}/render:
+    post:
+      tags:
+      - App Templates
+      summary: Render an app template
+      description: Renders the flow and the app of a template for the given namespace and argument values, and reports what blocks each of them from being created. Requires BLUEPRINT permission with the VIEW action, and the CREATE action on the FLOW and APP resources of the given namespace.
+      operationId: renderAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.RenderAppTemplateRequest'
+        required: true
+      responses:
+        '200':
+          description: renderAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateService.RenderedAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}/validate:
+    post:
+      tags:
+      - App Templates
+      summary: Validate the argument values of an app template
+      description: Resolves the arguments of a template against the values already provided, so conditional arguments ('dependsOn') and validation errors can be rendered by the form. Requires BLUEPRINT permission with the VIEW action.
+      operationId: validateAppTemplateArguments
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.ValidateAppTemplateArgumentsRequest'
+        required: true
+      responses:
+        '200':
+          description: validateAppTemplateArguments 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -35311,6 +35694,93 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppResponse.UIBlock'
+    AppTemplateController.ApiAppTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Input_Object_'
+        flow:
+          type: string
+        app:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+    AppTemplateController.AppTemplateCreateOrUpdate:
+      required:
+      - app
+      - flow
+      - title
+      type: object
+      properties:
+        title:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Input_Object_'
+        flow:
+          minLength: 1
+          type: string
+        app:
+          minLength: 1
+          type: string
+    AppTemplateController.RenderAppTemplateRequest:
+      required:
+      - namespace
+      type: object
+      properties:
+        namespace:
+          minLength: 1
+          type: string
+        argumentValues:
+          type: object
+          additionalProperties:
+            type: object
+    AppTemplateController.ValidateAppTemplateArgumentsRequest:
+      type: object
+      properties:
+        argumentValues:
+          type: object
+          additionalProperties:
+            type: object
+    AppTemplateService.RenderedAppTemplate:
+      type: object
+      properties:
+        flow:
+          $ref: '#/components/schemas/AppTemplateService.RenderedResource'
+        app:
+          $ref: '#/components/schemas/AppTemplateService.RenderedResource'
+    AppTemplateService.RenderedResource:
+      type: object
+      properties:
+        source:
+          type: string
+        id:
+          type: string
+        problems:
+          type: array
+          items:
+            type: string
     AppsController.ApiApp:
       type: object
       properties:
@@ -36370,6 +36840,12 @@ components:
           flow:
             minLength: 1
             type: string
+          app:
+            type: string
+          arguments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Input_Object_'
     Breakpoint:
       required:
       - id
@@ -40728,6 +41204,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiTriggerState'
+        total:
+          type: integer
+          format: int64
+    PagedResults_AppTemplateController.ApiAppTemplate_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
         total:
           type: integer
           format: int64
