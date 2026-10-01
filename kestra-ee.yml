@@ -11010,7 +11010,7 @@ paths:
       tags:
       - Misc
       summary: Configure basic authentication for the instance.
-      description: Sets up basic authentication credentials. Once credentials already exist, the request must also carry the current password.
+      description: Sets up basic authentication credentials. Once credentials already exist, the request must also carry the current password. Rejected when the credentials are set in the configuration file.
       operationId: createBasicAuth
       parameters:
       - name: tenant
@@ -40688,6 +40688,8 @@ components:
         isAiApiKeyConfigured:
           type: boolean
         isBasicAuthInitialized:
+          type: boolean
+        isBasicAuthManagedByConfig:
           type: boolean
         pluginsHash:
           type: integer
