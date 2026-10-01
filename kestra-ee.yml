@@ -41967,6 +41967,10 @@ components:
           type: string
         description:
           type: string
+        aliases:
+          type: array
+          items:
+            type: string
     PluginArtifact:
       type: object
       properties:
