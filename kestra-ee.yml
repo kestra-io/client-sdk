@@ -4726,6 +4726,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/ticketing-systems:
+    get:
+      tags:
+      - Plugins
+      summary: Get the list of installed ticketing systems
+      description: Feeds the ticketing-system picker on a Case. Returns one entry per installed plugin that exposes at least one task implementing TicketingTaskInterface, named after the plugin manifest's X-Kestra-Title.
+      operationId: listTicketingSystems
+      responses:
+        '200':
+          description: listTicketingSystems 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_PluginController.ApiTicketingSystem_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/triggers:
     get:
       tags:
@@ -41601,6 +41636,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_PluginController.ApiTicketingSystem_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginController.ApiTicketingSystem'
+        total:
+          type: integer
+          format: int64
     PagedResults_PluginController.ApiTriggerPlugin_:
       required:
       - results
@@ -41961,6 +42009,13 @@ components:
           type: array
           items:
             type: string
+    PluginController.ApiTicketingSystem:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
     PluginController.ApiTriggerPlugin:
       type: object
       properties:
