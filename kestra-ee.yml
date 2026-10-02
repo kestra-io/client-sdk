@@ -35785,6 +35785,8 @@ components:
           type: string
         stream:
           type: string
+        window:
+          $ref: '#/components/schemas/AppWindow'
         layout:
           $ref: '#/components/schemas/AppResponse.UILayout'
     AppResponse.UIBlock:
@@ -35883,6 +35885,15 @@ components:
           type: array
           items:
             type: string
+    AppWindow:
+      type: object
+      properties:
+        width:
+          title: The width the app is rendered at.
+          pattern: ^\d+(\.\d+)?(px|rem|em|ch|vw|%)$
+          type: string
+          description: A CSS length, for example `800px`, `60rem` or `100%`. It is capped at the width of the browser window, so a narrow screen still gets the whole width. When left unset, the app grows with the window up to a width that keeps text readable.
+          x-pattern-message: must be a CSS length such as 800px, 60rem or 100%
     AppsController.ApiApp:
       type: object
       properties:
