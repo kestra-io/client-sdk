@@ -36214,6 +36214,34 @@ components:
       enum:
       - ASSET
       - FLOW
+    AssetTtlFlowService.TtlFlowLevel:
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowScope'
+        flowId:
+          type: string
+        exists:
+          type: boolean
+    AssetTtlFlowService.TtlFlowScope:
+      type: string
+      enum:
+      - ASSET
+      - NAMESPACE
+      - TENANT
+    AssetTtlFlowService.TtlFlows:
+      type: object
+      properties:
+        namespace:
+          type: string
+        expiring:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowLevel'
+        expired:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowLevel'
     AssetUsage.Direction:
       type: string
       enum:
@@ -36258,6 +36286,10 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/AssetsController.ApiAssetLock'
+        ttlFlows:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetTtlFlowService.TtlFlows'
     AssetsController.ApiAssetLineageEvent:
       type: object
       properties:
