@@ -18998,6 +18998,69 @@ paths:
       - basicAuth: []
       x-sdk-customization:
         x-multipart: 'true'
+  /api/v1/{tenant}/executions/{executionId}/actions/replay/validate:
+    post:
+      tags:
+      - Executions
+      summary: Validate that a replay is possible. If a taskRunId and a revision are set, it validate that the modification done on the flow is compatible with a relay (no structural changes before the taskRunId)
+      operationId: validateReplayExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: On success
+        '409':
+          description: if the execution cannot be replayed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/actions/restart:
     post:
       tags:
