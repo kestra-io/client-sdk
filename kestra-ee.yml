@@ -9849,6 +9849,72 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/assets/bulk:
+    post:
+      tags:
+      - Assets
+      summary: Create or update multiple assets
+      description: 'Every document is upserted on its id, except one naming a `deployment` in its metadata while an asset with that id already exists outside that deployment: it is left untouched and reported as skipped. With `dryRun`, the payload is validated and classified without being written, which is what an import preview needs.'
+      operationId: createAssets
+      parameters:
+      - name: dryRun
+        in: query
+        description: If true, validate and classify the payload without writing anything
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: A list of asset sources split with "---"
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: createAssets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.BulkAssets'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/by-ids:
     delete:
       tags:
@@ -36402,6 +36468,25 @@ components:
         taskRunId:
           type: string
           nullable: true
+    AssetsController.BulkAssets:
+      title: The assets a bulk upsert creates and updates, by id
+      type: object
+      properties:
+        created:
+          title: The ids of the assets that did not exist yet
+          type: array
+          items:
+            type: string
+        updated:
+          title: The ids of the assets that already existed
+          type: array
+          items:
+            type: string
+        skipped:
+          title: The ids left untouched because an asset with that id already exists outside the deployment the document names
+          type: array
+          items:
+            type: string
     AssetsController.PatchAsset:
       type: object
       properties:
