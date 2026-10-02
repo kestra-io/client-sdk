@@ -21635,8 +21635,8 @@ paths:
       - Flows
       summary: Update a complete namespace from yaml source
       description: |-
-        All flow will be created / updated for this namespace.
-        Flow that already created but not in `flows` will be deleted if the query delete is `true`
+        All flows will be created / updated for this namespace.
+        Existing flows missing from `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
       - name: namespace
@@ -21665,7 +21665,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: A list of flows source code
+        description: A list of flow files
       responses:
         '200':
           description: updateFlowsInNamespace 200 response
