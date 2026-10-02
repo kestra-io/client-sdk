@@ -17428,7 +17428,8 @@ paths:
       parameters:
       - name: latestRevision
         in: query
-        description: If latest revision should be used
+        description: 'Deprecated, will be removed in 2.2: creates new executions on the latest revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: boolean
@@ -17506,7 +17507,8 @@ paths:
             $ref: '#/components/schemas/QueryFilter'
       - name: latestRevision
         in: query
-        description: If latest revision should be used
+        description: 'Deprecated, will be removed in 2.2: creates new executions on the latest revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: boolean
@@ -19065,7 +19067,8 @@ paths:
     post:
       tags:
       - Executions
-      summary: Restart a new execution from an old one
+      summary: Restart an execution
+      description: 'Restarts the execution from its failed task runs, on the revision it already ran on. Passing a revision creates a new execution instead, which is deprecated: use the replay action for that.'
       operationId: restartExecution
       parameters:
       - name: executionId
@@ -19076,7 +19079,8 @@ paths:
           type: string
       - name: revision
         in: query
-        description: The flow revision to use for new execution
+        description: 'Deprecated, will be removed in 2.2: creates a new execution on this revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: integer
@@ -32839,7 +32843,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete triggers by query parameters asynchronously
+      summary: Delete orphan trigger state matching the query
       operationId: deleteTriggersByQuery
       parameters:
       - name: tenant
@@ -32861,7 +32865,7 @@ paths:
         required: true
       responses:
         '202':
-          description: Accepted
+          description: Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued.
           content:
             application/json:
               schema:
@@ -32897,7 +32901,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete given triggers asynchronously
+      summary: Delete orphan trigger state for the given triggers
       operationId: deleteTriggersByIds
       parameters:
       - name: tenant
@@ -32915,7 +32919,7 @@ paths:
         required: true
       responses:
         '202':
-          description: Accepted
+          description: Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued.
           content:
             application/json:
               schema:
@@ -33522,7 +33526,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete a trigger
+      summary: Delete orphan trigger state
       operationId: deleteTrigger
       parameters:
       - name: namespace
@@ -33552,7 +33556,7 @@ paths:
         '204':
           description: On success
         '409':
-          description: If the trigger cannot be deleted
+          description: If the flow still declares the trigger, or the scheduler failed to delete the trigger state
           content:
             application/problem+json:
               schema:
