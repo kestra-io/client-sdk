@@ -57,13 +57,6 @@ public class ExecutionsApi extends BaseApi {
         super(apiClient);
     }
 
-    private List<Pair> multiParams(String name, @jakarta.annotation.Nullable List<String> values) {
-        if (values == null || values.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return apiClient.parameterToPairs("multi", name, values);
-    }
-
     /**
      * Turns a flow-inputs mapping into multipart form parts, one part per input id.
      *
