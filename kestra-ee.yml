@@ -20312,6 +20312,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
