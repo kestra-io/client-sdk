@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **execution_id** | **str** |  | [optional] 
 **execution_state** | **str** |  | [optional] 
 **case_id** | **str** |  | [optional] 
+**deduplication_key** | **str** |  | [optional] 
 
 ## Example
 
