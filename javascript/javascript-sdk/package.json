@@ -28,6 +28,8 @@
     "./cluster": "./dist/cluster.js",
     "./dashboards": "./dist/dashboards.js",
     "./dashboards-admin": "./dist/dashboards-admin.js",
+    "./default": "./dist/default.js",
+    "./default-admin": "./dist/default-admin.js",
     "./enterprise-only-routes": "./dist/enterprise-only-routes.js",
     "./executions": "./dist/executions.js",
     "./expressions": "./dist/expressions.js",
