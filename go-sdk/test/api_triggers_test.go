@@ -50,6 +50,24 @@ func createBackfillForTrigger(ctx context.Context, flowId string, triggerId stri
 	return KestraTestClient().Triggers().CreateBackfill(ctx, MAIN_TENANT, req)
 }
 
+// awaitTriggerState waits for the scheduler to persist the trigger state, which is what the
+// delete endpoints act on (the flow definition alone is not enough).
+func awaitTriggerState(t *testing.T, ctx context.Context, namespace string, flowId string, triggerId string) {
+	t.Helper()
+	require.Eventually(t, func() bool {
+		page, err := KestraTestClient().Triggers().SearchTriggersForFlow(ctx, MAIN_TENANT, namespace, flowId, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
+		if err != nil {
+			return false
+		}
+		for _, state := range page.GetResults() {
+			if state.GetTriggerId() == triggerId {
+				return true
+			}
+		}
+		return false
+	}, 20*time.Second, 500*time.Millisecond, "trigger state %s never persisted for %s/%s", triggerId, namespace, flowId)
+}
+
 func triggerIdRef(namespace string, flowId string, triggerId string) kestra_api_client.TriggerControllerApiTriggerId {
 	return kestra_api_client.TriggerControllerApiTriggerId{
 		Namespace: kestra_api_client.PtrString(namespace),
@@ -383,9 +401,18 @@ func TestTriggersAPI_All(t *testing.T) {
 		ctx := context.Background()
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
+		awaitTriggerState(t, ctx, namespace, flowId, triggerId)
 
+		// Only orphan trigger state can be deleted: deleting state the flow still declares
+		// would unschedule it until Kestra restarts, so the server refuses with 409.
 		err := KestraTestClient().Triggers().DeleteTrigger(ctx, MAIN_TENANT, namespace, flowId, triggerId)
-		require.NoError(t, err)
+		var apiErr *kestra_api_client.ApiError
+		require.ErrorAs(t, err, &apiErr, "expected an ApiError")
+		require.Equal(t, 409, apiErr.StatusCode)
+		require.Contains(t, string(apiErr.Body), "because the flow still declares it")
+
+		// The refused delete left the trigger state in place.
+		awaitTriggerState(t, ctx, namespace, flowId, triggerId)
 	})
 
 	t.Run("deleteTriggersByIdsTest", func(t *testing.T) {
@@ -395,11 +422,14 @@ func TestTriggersAPI_All(t *testing.T) {
 		ctx := context.Background()
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
+		awaitTriggerState(t, ctx, namespace, flowId, triggerId)
 
+		// A trigger the flow still declares is skipped, so no delete is queued.
 		trigId := triggerIdRef(namespace, flowId, triggerId)
 		resp, err := KestraTestClient().Triggers().DeleteTriggersByIds(ctx, MAIN_TENANT, []kestra_api_client.TriggerControllerApiTriggerId{trigId})
 		require.NoError(t, err)
 		require.NotNil(t, resp)
+		require.Equal(t, int32(0), resp.GetTotalItems())
 	})
 
 	t.Run("deleteTriggersByQueryTest", func(t *testing.T) {
@@ -409,7 +439,9 @@ func TestTriggersAPI_All(t *testing.T) {
 		ctx := context.Background()
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
+		awaitTriggerState(t, ctx, namespace, flowId, triggerId)
 
+		// The only matching trigger is still declared by its flow, so no delete is queued.
 		req := kestra_api_client.DeleteTriggersByQueryRequest{
 			Filters: []kestra_api_client.SearchFilter{
 				{
@@ -422,5 +454,6 @@ func TestTriggersAPI_All(t *testing.T) {
 		resp, err := KestraTestClient().Triggers().DeleteTriggersByQuery(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 		require.NotNil(t, resp)
+		require.Equal(t, int32(0), resp.GetTotalItems())
 	})
 }
