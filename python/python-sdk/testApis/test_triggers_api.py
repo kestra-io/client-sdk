@@ -16,6 +16,7 @@ from kestrapy import (
     DeleteTriggersByQueryRequest,
     ApiException,
 )
+from kestrapy.exceptions import ConflictException
 
 def schedule_flow_yaml(flow_id, ns):
     return (
@@ -47,6 +48,18 @@ def _create_schedule_flow(client):
     create_flow(client, schedule_flow_yaml(flow_id, ns))
     time.sleep(0.5)
     return ns, flow_id
+
+
+def _wait_for_trigger_state(client, ns, flow_id, attempts=20, interval=0.25):
+    """Wait until the scheduler has persisted the trigger state the delete endpoints act on."""
+    for _ in range(attempts):
+        page = client.triggers.search_triggers_for_flow(
+            tenant=TENANT, namespace=ns, flow_id=flow_id, page=1, size=10
+        )
+        if any(t.get("triggerId") == "schedule_trigger" for t in page.get("results") or []):
+            return
+        time.sleep(interval)
+    raise AssertionError(f"trigger schedule_trigger never persisted for {ns}/{flow_id}")
 
 
 # ========================================================================
@@ -328,35 +341,47 @@ def test_unlock_triggers_by_ids_basic(client):
 # ========================================================================
 
 
-def test_delete_trigger_basic(client):
+def test_delete_trigger_still_declared_conflict(client):
     ns, flow_id = _create_schedule_flow(client)
+    _wait_for_trigger_state(client, ns, flow_id)
 
-    # Should not raise
-    client.triggers.delete_trigger(
-        tenant=TENANT, namespace=ns, flow_id=flow_id, trigger_id="schedule_trigger"
-    )
+    # Only orphan trigger state can be deleted: deleting state the flow still declares
+    # would unschedule it until Kestra restarts, so the server refuses with 409.
+    with pytest.raises(ConflictException) as exc_info:
+        client.triggers.delete_trigger(
+            tenant=TENANT, namespace=ns, flow_id=flow_id, trigger_id="schedule_trigger"
+        )
+    assert exc_info.value.status == 409
+    assert "because the flow still declares it" in exc_info.value.body
+
+    # The refused delete left the trigger state in place.
+    _wait_for_trigger_state(client, ns, flow_id)
 
 
 def test_delete_triggers_by_ids_basic(client):
     ns, flow_id = _create_schedule_flow(client)
+    _wait_for_trigger_state(client, ns, flow_id)
 
     trigger_ids = [trigger_id_dict(ns, flow_id)]
 
+    # A trigger the flow still declares is skipped, so no delete is queued.
     result = client.triggers.delete_triggers_by_ids(
         tenant=TENANT, trigger_ids=trigger_ids
     )
 
-    assert result is not None
+    assert result["totalItems"] == 0
 
 
 def test_delete_triggers_by_query_basic(client):
     ns, flow_id = _create_schedule_flow(client)
+    _wait_for_trigger_state(client, ns, flow_id)
 
+    # The only matching trigger is still declared by its flow, so no delete is queued.
     request = DeleteTriggersByQueryRequest(filters=[ns_filter(ns)])
 
     result = client.triggers.delete_triggers_by_query(tenant=TENANT, request=request)
 
-    assert result is not None
+    assert result["totalItems"] == 0
 
 
 # ========================================================================

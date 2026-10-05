@@ -426,7 +426,7 @@ describe('TriggersApiTest', () => {
         expect(enabled.disabled).toBe(false);
     }, 120000);
 
-    it('deleteTriggerTest', async () => {
+    it('deleteTriggerTest: a trigger the flow still declares answers 409', async () => {
         const flowId = `deleteTriggerTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;
         const namespace = `test.triggers.${randomId()}`;
@@ -434,46 +434,44 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
 
-        // Persist a non-default (disabled) trigger context so the delete has something to reset.
-        const disabled = await Triggers.disableTriggerById({ namespace, flowId, triggerId, disabled: true });
-        expect(disabled.disabled).toBe(true);
+        // Only orphan trigger state can be deleted: deleting state the flow still declares
+        // would unschedule it until Kestra restarts, so the server refuses with 409.
+        await expect(Triggers.deleteTrigger({ namespace, flowId, triggerId })).rejects.toMatchObject({
+            status: 409,
+            message: expect.stringContaining('because the flow still declares it'),
+        });
 
-        await Triggers.deleteTrigger({ namespace, flowId, triggerId });
-
-        // With the context removed, the trigger is rebuilt from the flow definition,
-        // so the disabled flag is back to its default (non-disabled) value.
-        const page = await Triggers.searchTriggersForFlow({ page: 1, size: 10, namespace, flowId });
-        const results = page?.results ?? (Array.isArray(page) ? page : []);
-        const found = results.find((t: any) => t.triggerId === triggerId || t.id === triggerId || t.trigger?.id === triggerId);
-        expect(found?.disabled ?? false).toBe(false);
+        // The refused delete left the trigger state in place.
+        expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
     }, 120000);
 
-    it('deleteTriggersByIdsTest', async () => {
+    it('deleteTriggersByIdsTest: a trigger the flow still declares is skipped', async () => {
         const flowId = `deleteTriggersByIdsTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
 
-        // Asynchronous bulk operation: assert the operation response is returned
-        // (mirrors the Java SDK suite, which only checks reachability here).
+        // Asynchronous bulk operation: totalItems counts the orphan deletes queued, and the
+        // only trigger passed is still declared by its flow.
         const resp = await Triggers.deleteTriggersByIds({ body: [{ namespace, flowId, triggerId }] });
-        expect(resp).toBeDefined();
-        expect(typeof resp).toBe('object');
+        expect(resp.totalItems).toBe(0);
     }, 120000);
 
-    it('deleteTriggersByQueryTest', async () => {
+    it('deleteTriggersByQueryTest: a trigger the flow still declares is skipped', async () => {
         const flowId = `deleteTriggersByQueryTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
 
+        // The only matching trigger is still declared by its flow, so no delete is queued.
         const resp = await Triggers.deleteTriggersByQuery({
             filters: [{ field: 'namespace', operation: 'EQUALS', value: namespace as any }],
         });
-        expect(resp).toBeDefined();
-        expect(typeof resp).toBe('object');
+        expect(resp.totalItems).toBe(0);
     }, 120000);
 
     it('exportTriggersTest', async () => {
