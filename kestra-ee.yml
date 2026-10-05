@@ -45104,6 +45104,13 @@ components:
       - index
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+        constraints:
+          type: string
+          deprecated: true
         index:
           type: integer
           format: int32
@@ -45112,8 +45119,6 @@ components:
         namespace:
           type: string
         flow:
-          type: string
-        constraints:
           type: string
         outdated:
           type: boolean
@@ -45129,6 +45134,22 @@ components:
           type: array
           items:
             type: string
+    ValidationError:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: What is wrong.
+          example: must not be null
+        pointer:
+          type: string
+          description: RFC 6901 JSON Pointer locating the error in the submitted document.
+          example: /tasks/0/message
+        path:
+          type: string
+          description: Human-friendly path locating the error, naming tasks and inputs by id. Not a JSON Pointer.
+          example: tasks[my-task].message
+      description: A single validation error, located in the submitted source.
     ValuePathExpression:
       type: object
       properties:
