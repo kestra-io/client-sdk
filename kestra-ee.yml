@@ -26063,6 +26063,54 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{id}/variables-by-namespace:
+    get:
+      tags:
+      - Namespaces
+      summary: List the variables defined at each level of a namespace hierarchy, from the root down to the namespace itself
+      operationId: variablesByNamespace
+      parameters:
+      - name: id
+        in: path
+        description: The namespace id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: variablesByNamespace 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamespaceController.ApiNamespaceVariablesHierarchy'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials:
     get:
       tags:
@@ -41245,6 +41293,22 @@ components:
       properties:
         namespace:
           type: string
+    NamespaceController.ApiNamespaceVariables:
+      type: object
+      properties:
+        namespace:
+          type: string
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+    NamespaceController.ApiNamespaceVariablesHierarchy:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamespaceController.ApiNamespaceVariables'
     NamespaceFileRevision:
       type: object
       properties:
