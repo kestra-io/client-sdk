@@ -112,7 +112,8 @@ public class PoliciesApiTest {
         // constraint violation payload rather than throwing.
         ValidateConstraintViolation result = api().validatePolicy(TENANT, "id: bad-" + randomId() + "\nrules: []\n");
 
-        assertThat(result.getConstraints()).isNotNull();
+        // Not just isNotNull(): since kestra#19999 a valid source also returns "" here.
+        assertThat(result.getConstraints()).isNotBlank();
     }
 
     @Test

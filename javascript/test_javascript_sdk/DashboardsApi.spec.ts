@@ -206,7 +206,7 @@ describe('DashboardsApi', () => {
 
         // A valid chart yields no `constraints`: null on older servers, "" since
         // kestra#19999 derives the deprecated field from the (empty) `errors` list.
-        expect((result as any).constraints ?? '').toBe('');
+        expect(result.constraints ?? '').toBe('');
     });
 
     it('previewChart: previews an ad-hoc chart over a namespace with one execution', async () => {
