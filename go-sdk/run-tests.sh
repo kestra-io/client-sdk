@@ -45,7 +45,12 @@ for KESTRA_VERSION in $versions; do
   log_and_run sh -c 'go build ./...'
 
   echo "start tests"
-  log_and_run sh -c 'go test ./...'
+  log_and_run sh -c 'go test ./...' || {
+     echo "go tests failed. Dumping Kestra container logs:";
+     docker compose -f docker-compose-ci.yml ps -a;
+     docker compose -f docker-compose-ci.yml logs --tail=500;
+     exit 1;
+  }
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down

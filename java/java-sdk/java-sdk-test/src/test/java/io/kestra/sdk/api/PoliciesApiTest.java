@@ -119,7 +119,8 @@ public class PoliciesApiTest {
     void validateInstancePolicy_validSource_hasNoViolation() throws ApiException {
         ValidateConstraintViolation result = api().validateInstancePolicy(policySource(policyId(), "valid"));
 
-        assertThat(result.getConstraints()).isNull();
+        // null on older servers, "" since kestra#19999 derives it from `errors`.
+        assertThat(result.getConstraints()).isNullOrEmpty();
     }
 
     // ========================================================================
