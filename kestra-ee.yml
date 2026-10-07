@@ -34828,10 +34828,6 @@ components:
       title: GitHub App Credential Response
       type: object
       properties:
-        type:
-          description: Credential type
-          allOf:
-          - $ref: '#/components/schemas/CredentialType'
         id:
           type: string
           description: Credential ID
@@ -34847,6 +34843,10 @@ components:
         tenantId:
           type: string
           description: Tenant ID
+        type:
+          description: Credential type
+          allOf:
+          - $ref: '#/components/schemas/CredentialType'
         tokenCaching:
           description: Token caching configuration
           allOf:
@@ -34868,10 +34868,6 @@ components:
       title: OAuth2 Credential Response
       type: object
       properties:
-        type:
-          description: Credential type
-          allOf:
-          - $ref: '#/components/schemas/CredentialType'
         id:
           type: string
           description: Credential ID
@@ -34887,6 +34883,10 @@ components:
         tenantId:
           type: string
           description: Tenant ID
+        type:
+          description: Credential type
+          allOf:
+          - $ref: '#/components/schemas/CredentialType'
         tokenEndpoint:
           type: string
           description: OAuth2 token endpoint URL
@@ -35733,10 +35733,6 @@ components:
       - value
       type: object
       properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiSecretTag'
         key:
           minLength: 1
           type: string
@@ -35745,6 +35741,10 @@ components:
           type: string
         description:
           type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiSecretTag'
     ApiTaskRun:
       required:
       - id
@@ -36938,8 +36938,6 @@ components:
       - VALUE
       - SECRET
     AuthProperty_String_:
-      required:
-      - type
       type: object
       properties:
         type:
@@ -39738,10 +39736,9 @@ components:
       - email
       type: object
       properties:
-        createUserIfNotExist:
-          type: boolean
-        instanceOwner:
-          type: boolean
+        email:
+          minLength: 1
+          type: string
         roles:
           type: array
           items:
@@ -39750,9 +39747,10 @@ components:
           type: array
           items:
             type: string
-        email:
-          minLength: 1
-          type: string
+        instanceOwner:
+          type: boolean
+        createUserIfNotExist:
+          type: boolean
     IAMInvitationController.ApiInvitationDetail:
       type: object
       properties:
@@ -39802,6 +39800,11 @@ components:
       - permissions
       type: object
       properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
         permissions:
           type: object
           properties:
@@ -39889,11 +39892,6 @@ components:
               type: array
             UNKNOWN:
               type: array
-        name:
-          minLength: 1
-          type: string
-        description:
-          type: string
         isDefault:
           type: boolean
     IAMRoleController.ApiRoleDetail:
@@ -40062,15 +40060,15 @@ components:
       - name
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         name:
           pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         instanceOwner:
           type: boolean
         username:
@@ -40107,15 +40105,15 @@ components:
       - name
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         name:
           pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         instanceOwner:
           type: boolean
       description: 'Update payload for a service account. It carries no `username`: the login is chosen at creation and is immutable, so exposing it here would let a caller send a value that is silently dropped.'
@@ -40222,14 +40220,6 @@ components:
       - email
       type: object
       properties:
-        tenants:
-          type: array
-          items:
-            type: string
-        groups:
-          type: array
-          items:
-            type: string
         firstName:
           type: string
         lastName:
@@ -40242,6 +40232,14 @@ components:
           type: boolean
         restricted:
           type: boolean
+        tenants:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
     IAMUserController.ApiDeleteUsersRequest:
       required:
       - ids
@@ -40609,12 +40607,12 @@ components:
     Isolation:
       type: object
       properties:
+        enabled:
+          type: boolean
         deniedServices:
           type: array
           items:
             $ref: '#/components/schemas/ServiceType'
-        enabled:
-          type: boolean
     KVController.ApiDeleteBulkRequest:
       type: object
       properties:
@@ -43906,18 +43904,14 @@ components:
     ServiceInstance:
       type: object
       properties:
-        server:
-          $ref: '#/components/schemas/ServerInstance'
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/Metric'
-        state:
-          $ref: '#/components/schemas/Service.ServiceState'
         id:
           type: string
         type:
           $ref: '#/components/schemas/ServiceType'
+        state:
+          $ref: '#/components/schemas/Service.ServiceState'
+        server:
+          $ref: '#/components/schemas/ServerInstance'
         createdAt:
           type: string
           format: date-time
@@ -43932,6 +43926,10 @@ components:
           type: object
           additionalProperties:
             type: object
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
         seqId:
           type: integer
           format: int64
@@ -44301,9 +44299,6 @@ components:
     State:
       required:
       - current
-      - getDuration
-      - getEndDate
-      - getStartDate
       - histories
       type: object
       properties:
@@ -44326,17 +44321,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/State.History'
-        getDuration:
-          type: string
-          readOnly: true
-        getStartDate:
-          type: string
-          format: date-time
-          readOnly: true
-        getEndDate:
-          type: string
-          format: date-time
-          readOnly: true
     State.History:
       required:
       - date
