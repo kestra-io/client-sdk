@@ -18809,7 +18809,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Execution'
         '409':
-          description: if the executions is already finished
+          description: if the execution is already finished and has no running task or sub-execution left to kill
           content:
             application/problem+json:
               schema:
