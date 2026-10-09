@@ -4726,6 +4726,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/ticketing-systems:
+    get:
+      tags:
+      - Plugins
+      summary: Get the list of installed ticketing systems
+      description: Feeds the ticketing-system picker on a Case. Returns one entry per installed plugin that exposes at least one task implementing TicketingTaskInterface, named after the plugin manifest's X-Kestra-Title.
+      operationId: listTicketingSystems
+      responses:
+        '200':
+          description: listTicketingSystems 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_PluginController.ApiTicketingSystem_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/triggers:
     get:
       tags:
@@ -7950,6 +7985,389 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/app-templates:
+    get:
+      tags:
+      - App Templates
+      summary: Search for app templates
+      description: Requires BLUEPRINT permission with the LIST action.
+      operationId: searchAppTemplates
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: searchAppTemplates 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_AppTemplateController.ApiAppTemplate_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - App Templates
+      summary: Create an app template
+      description: Requires BLUEPRINT permission with the CREATE action.
+      operationId: createAppTemplate
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.AppTemplateCreateOrUpdate'
+        required: true
+      responses:
+        '200':
+          description: createAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}:
+    get:
+      tags:
+      - App Templates
+      summary: Retrieve an app template
+      description: Requires BLUEPRINT permission with the VIEW action.
+      operationId: appTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: appTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - App Templates
+      summary: Update an app template
+      description: Requires BLUEPRINT permission with the UPDATE action.
+      operationId: updateAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.AppTemplateCreateOrUpdate'
+        required: true
+      responses:
+        '200':
+          description: updateAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - App Templates
+      summary: Delete an app template
+      description: Requires BLUEPRINT permission with the DELETE action.
+      operationId: deleteAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: deleteAppTemplate 200 response
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}/render:
+    post:
+      tags:
+      - App Templates
+      summary: Render an app template
+      description: Renders the flow and the app of a template for the given namespace and argument values, and reports what blocks each of them from being created. Requires BLUEPRINT permission with the VIEW action, and the CREATE action on the FLOW and APP resources of the given namespace.
+      operationId: renderAppTemplate
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.RenderAppTemplateRequest'
+        required: true
+      responses:
+        '200':
+          description: renderAppTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppTemplateService.RenderedAppTemplate'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/app-templates/{id}/validate:
+    post:
+      tags:
+      - App Templates
+      summary: Validate the argument values of an app template
+      description: Resolves the arguments of a template against the values already provided, so conditional arguments ('dependsOn') and validation errors can be rendered by the form. Requires BLUEPRINT permission with the VIEW action.
+      operationId: validateAppTemplateArguments
+      parameters:
+      - name: id
+        in: path
+        description: The app template id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppTemplateController.ValidateAppTemplateArgumentsRequest'
+        required: true
+      responses:
+        '200':
+          description: validateAppTemplateArguments 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -8104,6 +8522,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppsController.ApiAppCatalog'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/apps/catalog/namespaces:
+    get:
+      tags:
+      - Apps
+      summary: Search for the namespaces of the apps from catalog, with how many apps each holds
+      operationId: searchAppsFromCatalogNamespaces
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: hideExamples
+        in: query
+        description: Exclude the apps flagged as examples
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: searchAppsFromCatalogNamespaces 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsController.ApiAppCatalogNamespaces'
         '401':
           description: Authentication required
           content:
@@ -9354,6 +9849,72 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/assets/bulk:
+    post:
+      tags:
+      - Assets
+      summary: Create or update multiple assets
+      description: 'Every document is upserted on its id, except one naming a `deployment` in its metadata while an asset with that id already exists outside that deployment: it is left untouched and reported as skipped. With `dryRun`, the payload is validated and classified without being written, which is what an import preview needs.'
+      operationId: createAssets
+      parameters:
+      - name: dryRun
+        in: query
+        description: If true, validate and classify the payload without writing anything
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: A list of asset sources split with "---"
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: createAssets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.BulkAssets'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/by-ids:
     delete:
       tags:
@@ -10550,7 +11111,7 @@ paths:
       tags:
       - Misc
       summary: Configure basic authentication for the instance.
-      description: Sets up basic authentication credentials. Once credentials already exist, the request must also carry the current password.
+      description: Sets up basic authentication credentials. Once credentials already exist, the request must also carry the current password. Rejected when the credentials are set in the configuration file.
       operationId: createBasicAuth
       parameters:
       - name: tenant
@@ -11899,6 +12460,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlueprintController.UseBlueprintTemplateResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/blueprints/flows/{id}/use-template/validate:
+    post:
+      tags:
+      - Blueprints
+      summary: Validate the template arguments of a Flow Blueprint template
+      description: Resolves the template arguments against the values already provided, so conditional arguments ('dependsOn') and validation errors can be rendered by the form. Requires BLUEPRINT permission.
+      operationId: validateBlueprintTemplateArguments
+      parameters:
+      - name: id
+        in: path
+        description: The flow blueprint id to use
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlueprintController.UseBlueprintTemplateRequest'
+        required: true
+      responses:
+        '200':
+          description: validateBlueprintTemplateArguments 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse'
         '401':
           description: Authentication required
           content:
@@ -16878,7 +17494,8 @@ paths:
       parameters:
       - name: latestRevision
         in: query
-        description: If latest revision should be used
+        description: 'Deprecated, will be removed in 2.2: creates new executions on the latest revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: boolean
@@ -16956,7 +17573,8 @@ paths:
             $ref: '#/components/schemas/QueryFilter'
       - name: latestRevision
         in: query
-        description: If latest revision should be used
+        description: 'Deprecated, will be removed in 2.2: creates new executions on the latest revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: boolean
@@ -18097,6 +18715,67 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/interrupt:
+    post:
+      tags:
+      - Executions
+      summary: Interrupt a running task run
+      operationId: interruptTaskRun
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the taskRun id and the state to apply to it
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecutionController.StateRequest'
+        required: true
+      responses:
+        '200':
+          description: On success
+        '409':
+          description: if the task run cannot be interrupted
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '404':
+          description: if the execution or the task run is not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/actions/kill:
     delete:
       tags:
@@ -18130,7 +18809,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Execution'
         '409':
-          description: if the executions is already finished
+          description: if the execution is already finished and has no running task or sub-execution left to kill
           content:
             application/problem+json:
               schema:
@@ -18448,11 +19127,75 @@ paths:
       - basicAuth: []
       x-sdk-customization:
         x-multipart: 'true'
+  /api/v1/{tenant}/executions/{executionId}/actions/replay/validate:
+    post:
+      tags:
+      - Executions
+      summary: Validate that a replay is possible. If a taskRunId and a revision are set, it validate that the modification done on the flow is compatible with a relay (no structural changes before the taskRunId)
+      operationId: validateReplayExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: On success
+        '409':
+          description: if the execution cannot be replayed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/actions/restart:
     post:
       tags:
       - Executions
-      summary: Restart a new execution from an old one
+      summary: Restart an execution
+      description: 'Restarts the execution from its failed task runs, on the revision it already ran on. Passing a revision creates a new execution instead, which is deprecated: use the replay action for that.'
       operationId: restartExecution
       parameters:
       - name: executionId
@@ -18463,7 +19206,8 @@ paths:
           type: string
       - name: revision
         in: query
-        description: The flow revision to use for new execution
+        description: 'Deprecated, will be removed in 2.2: creates a new execution on this revision, use replay instead.'
+        deprecated: true
         explode: false
         schema:
           type: integer
@@ -19629,6 +20373,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -21022,8 +21772,8 @@ paths:
       - Flows
       summary: Update a complete namespace from yaml source
       description: |-
-        All flow will be created / updated for this namespace.
-        Flow that already created but not in `flows` will be deleted if the query delete is `true`
+        All flows will be created / updated for this namespace.
+        Existing flows missing from `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
       - name: namespace
@@ -21052,7 +21802,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: A list of flows source code
+        description: A list of flow files
       responses:
         '200':
           description: updateFlowsInNamespace 200 response
@@ -25380,6 +26130,54 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{id}/variables-by-namespace:
+    get:
+      tags:
+      - Namespaces
+      summary: List the variables defined at each level of a namespace hierarchy, from the root down to the namespace itself
+      operationId: variablesByNamespace
+      parameters:
+      - name: id
+        in: path
+        description: The namespace id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: variablesByNamespace 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamespaceController.ApiNamespaceVariablesHierarchy'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials:
     get:
       tags:
@@ -27875,6 +28673,122 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/plugins/{cls}/endpoints/{name}/{executionId}/{taskRunId}:
+    get:
+      operationId: get_7
+      parameters:
+      - name: cls
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: executionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: get_7 200 response
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+    post:
+      operationId: post
+      parameters:
+      - name: cls
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: executionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: object
+      responses:
+        '200':
+          description: post 200 response
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
   /api/v1/{tenant}/policies:
     post:
       tags:
@@ -32226,7 +33140,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete triggers by query parameters asynchronously
+      summary: Delete orphan trigger state matching the query
       operationId: deleteTriggersByQuery
       parameters:
       - name: tenant
@@ -32248,7 +33162,7 @@ paths:
         required: true
       responses:
         '202':
-          description: Accepted
+          description: Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued.
           content:
             application/json:
               schema:
@@ -32284,7 +33198,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete given triggers asynchronously
+      summary: Delete orphan trigger state for the given triggers
       operationId: deleteTriggersByIds
       parameters:
       - name: tenant
@@ -32302,7 +33216,7 @@ paths:
         required: true
       responses:
         '202':
-          description: Accepted
+          description: Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued.
           content:
             application/json:
               schema:
@@ -32909,7 +33823,7 @@ paths:
     delete:
       tags:
       - Triggers
-      summary: Delete a trigger
+      summary: Delete orphan trigger state
       operationId: deleteTrigger
       parameters:
       - name: namespace
@@ -32939,7 +33853,7 @@ paths:
         '204':
           description: On success
         '409':
-          description: If the trigger cannot be deleted
+          description: If the flow still declares the trigger, or the scheduler failed to delete the trigger state
           content:
             application/problem+json:
               schema:
@@ -33914,10 +34828,6 @@ components:
       title: GitHub App Credential Response
       type: object
       properties:
-        type:
-          description: Credential type
-          allOf:
-          - $ref: '#/components/schemas/CredentialType'
         id:
           type: string
           description: Credential ID
@@ -33933,6 +34843,10 @@ components:
         tenantId:
           type: string
           description: Tenant ID
+        type:
+          description: Credential type
+          allOf:
+          - $ref: '#/components/schemas/CredentialType'
         tokenCaching:
           description: Token caching configuration
           allOf:
@@ -33954,10 +34868,6 @@ components:
       title: OAuth2 Credential Response
       type: object
       properties:
-        type:
-          description: Credential type
-          allOf:
-          - $ref: '#/components/schemas/CredentialType'
         id:
           type: string
           description: Credential ID
@@ -33973,6 +34883,10 @@ components:
         tenantId:
           type: string
           description: Tenant ID
+        type:
+          description: Credential type
+          allOf:
+          - $ref: '#/components/schemas/CredentialType'
         tokenEndpoint:
           type: string
           description: OAuth2 token endpoint URL
@@ -34819,10 +35733,6 @@ components:
       - value
       type: object
       properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiSecretTag'
         key:
           minLength: 1
           type: string
@@ -34831,6 +35741,10 @@ components:
           type: string
         description:
           type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiSecretTag'
     ApiTaskRun:
       required:
       - id
@@ -35168,6 +36082,8 @@ components:
           type: string
         stream:
           type: string
+        window:
+          $ref: '#/components/schemas/AppWindow'
         layout:
           $ref: '#/components/schemas/AppResponse.UILayout'
     AppResponse.UIBlock:
@@ -35179,6 +36095,102 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppResponse.UIBlock'
+    AppTemplateController.ApiAppTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Input_Object_'
+        flow:
+          type: string
+        app:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+    AppTemplateController.AppTemplateCreateOrUpdate:
+      required:
+      - app
+      - flow
+      - title
+      type: object
+      properties:
+        title:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Input_Object_'
+        flow:
+          minLength: 1
+          type: string
+        app:
+          minLength: 1
+          type: string
+    AppTemplateController.RenderAppTemplateRequest:
+      required:
+      - namespace
+      type: object
+      properties:
+        namespace:
+          minLength: 1
+          type: string
+        argumentValues:
+          type: object
+          additionalProperties:
+            type: object
+    AppTemplateController.ValidateAppTemplateArgumentsRequest:
+      type: object
+      properties:
+        argumentValues:
+          type: object
+          additionalProperties:
+            type: object
+    AppTemplateService.RenderedAppTemplate:
+      type: object
+      properties:
+        flow:
+          $ref: '#/components/schemas/AppTemplateService.RenderedResource'
+        app:
+          $ref: '#/components/schemas/AppTemplateService.RenderedResource'
+    AppTemplateService.RenderedResource:
+      type: object
+      properties:
+        source:
+          type: string
+        id:
+          type: string
+        problems:
+          type: array
+          items:
+            type: string
+    AppWindow:
+      type: object
+      properties:
+        width:
+          title: The width the app is rendered at.
+          pattern: ^\d+(\.\d+)?(px|rem|em|ch|vw|%)$
+          type: string
+          description: A CSS length, for example `800px`, `60rem` or `100%`. It is capped at the width of the browser window, so a narrow screen still gets the whole width. When left unset, the app grows with the window up to a width that keeps text readable.
+          x-pattern-message: must be a CSS length such as 800px, 60rem or 100%
     AppsController.ApiApp:
       type: object
       properties:
@@ -35239,6 +36251,30 @@ components:
           type: string
         example:
           type: boolean
+        namespace:
+          type: string
+    AppsController.ApiAppCatalogNamespace:
+      type: object
+      properties:
+        namespace:
+          type: string
+        count:
+          type: integer
+          format: int64
+    AppsController.ApiAppCatalogNamespaces:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppsController.ApiAppCatalogNamespace'
+        total:
+          type: integer
+          format: int64
+        exampleCount:
+          type: integer
+          format: int64
+      description: Same wire shape as ApiAppCatalog, so the grouped view keeps the example count the flat one reports.
     AppsController.ApiAppSource:
       type: object
       properties:
@@ -35486,6 +36522,34 @@ components:
       enum:
       - ASSET
       - FLOW
+    AssetTtlFlowService.TtlFlowLevel:
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowScope'
+        flowId:
+          type: string
+        exists:
+          type: boolean
+    AssetTtlFlowService.TtlFlowScope:
+      type: string
+      enum:
+      - ASSET
+      - NAMESPACE
+      - TENANT
+    AssetTtlFlowService.TtlFlows:
+      type: object
+      properties:
+        namespace:
+          type: string
+        expiring:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowLevel'
+        expired:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetTtlFlowService.TtlFlowLevel'
     AssetUsage.Direction:
       type: string
       enum:
@@ -35530,6 +36594,10 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/AssetsController.ApiAssetLock'
+        ttlFlows:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetTtlFlowService.TtlFlows'
     AssetsController.ApiAssetLineageEvent:
       type: object
       properties:
@@ -35631,6 +36699,25 @@ components:
         taskRunId:
           type: string
           nullable: true
+    AssetsController.BulkAssets:
+      title: The assets a bulk upsert creates and updates, by id
+      type: object
+      properties:
+        created:
+          title: The ids of the assets that did not exist yet
+          type: array
+          items:
+            type: string
+        updated:
+          title: The ids of the assets that already existed
+          type: array
+          items:
+            type: string
+        skipped:
+          title: The ids left untouched because an asset with that id already exists outside the deployment the document names
+          type: array
+          items:
+            type: string
     AssetsController.PatchAsset:
       type: object
       properties:
@@ -35851,8 +36938,6 @@ components:
       - VALUE
       - SECRET
     AuthProperty_String_:
-      required:
-      - type
       type: object
       properties:
         type:
@@ -36112,6 +37197,42 @@ components:
           format: date-time
         template:
           $ref: '#/components/schemas/BlueprintTemplate'
+    BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse:
+      required:
+      - inputs
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse.ApiTemplateArgument'
+    BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse.ApiTemplateArgument:
+      required:
+      - errors
+      - input
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input_Object_'
+        value:
+          type: object
+        enabled:
+          type: boolean
+        isDefault:
+          type: boolean
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse.ApiTemplateArgumentError'
+    BlueprintController.ApiValidateBlueprintTemplateArgumentsResponse.ApiTemplateArgumentError:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+        renderError:
+          type: boolean
     BlueprintController.FlowBlueprintCreateOrUpdate:
       required:
       - source
@@ -36160,6 +37281,10 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/Input_Object_'
+        templateArgumentsOrder:
+          type: array
+          items:
+            type: string
     BlueprintWithFlowEntity:
       required:
       - deleted
@@ -36174,6 +37299,12 @@ components:
           flow:
             minLength: 1
             type: string
+          app:
+            type: string
+          arguments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Input_Object_'
     Breakpoint:
       required:
       - id
@@ -36907,6 +38038,10 @@ components:
           format: int32
         behavior:
           $ref: '#/components/schemas/Concurrency.Behavior'
+        queueLimit:
+          minimum: 1
+          type: integer
+          format: int32
     Concurrency.Behavior:
       type: string
       enum:
@@ -37146,6 +38281,8 @@ components:
           type: string
         timeWindow:
           $ref: '#/components/schemas/TimeWindow'
+        queryTimeout:
+          type: string
         charts:
           type: array
           items:
@@ -37605,6 +38742,8 @@ components:
         executionDepth:
           type: integer
           format: int32
+        taskRunStatistic:
+          $ref: '#/components/schemas/TaskRunStatistic'
     ExecutionRepositoryInterface.DateFilter:
       type: string
       enum:
@@ -38601,10 +39740,9 @@ components:
       - email
       type: object
       properties:
-        createUserIfNotExist:
-          type: boolean
-        instanceOwner:
-          type: boolean
+        email:
+          minLength: 1
+          type: string
         roles:
           type: array
           items:
@@ -38613,9 +39751,10 @@ components:
           type: array
           items:
             type: string
-        email:
-          minLength: 1
-          type: string
+        instanceOwner:
+          type: boolean
+        createUserIfNotExist:
+          type: boolean
     IAMInvitationController.ApiInvitationDetail:
       type: object
       properties:
@@ -38665,6 +39804,11 @@ components:
       - permissions
       type: object
       properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
         permissions:
           type: object
           properties:
@@ -38752,11 +39896,6 @@ components:
               type: array
             UNKNOWN:
               type: array
-        name:
-          minLength: 1
-          type: string
-        description:
-          type: string
         isDefault:
           type: boolean
     IAMRoleController.ApiRoleDetail:
@@ -38925,15 +40064,15 @@ components:
       - name
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         name:
           pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         instanceOwner:
           type: boolean
         username:
@@ -38970,15 +40109,15 @@ components:
       - name
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         name:
           pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
         instanceOwner:
           type: boolean
       description: 'Update payload for a service account. It carries no `username`: the login is chosen at creation and is immutable, so exposing it here would let a caller send a value that is silently dropped.'
@@ -39085,14 +40224,6 @@ components:
       - email
       type: object
       properties:
-        tenants:
-          type: array
-          items:
-            type: string
-        groups:
-          type: array
-          items:
-            type: string
         firstName:
           type: string
         lastName:
@@ -39105,6 +40236,14 @@ components:
           type: boolean
         restricted:
           type: boolean
+        tenants:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
     IAMUserController.ApiDeleteUsersRequest:
       required:
       - ids
@@ -39472,12 +40611,12 @@ components:
     Isolation:
       type: object
       properties:
+        enabled:
+          type: boolean
         deniedServices:
           type: array
           items:
             $ref: '#/components/schemas/ServiceType'
-        enabled:
-          type: boolean
     KVController.ApiDeleteBulkRequest:
       type: object
       properties:
@@ -40013,10 +41152,14 @@ components:
           type: boolean
         isBasicAuthInitialized:
           type: boolean
+        isBasicAuthManagedByConfig:
+          type: boolean
         pluginsHash:
           type: integer
           format: int64
         isPluginAutoInstallEnabled:
+          type: boolean
+        isPluginEndpointsEnabled:
           type: boolean
     MiscController.EEConfiguration:
       type: object
@@ -40101,6 +41244,9 @@ components:
         gracePeriod:
           type: string
           format: date-time
+        expiryWarningDays:
+          type: integer
+          format: int64
     MiscController.LoginConfiguration:
       type: object
       properties:
@@ -40216,6 +41362,22 @@ components:
       properties:
         namespace:
           type: string
+    NamespaceController.ApiNamespaceVariables:
+      type: object
+      properties:
+        namespace:
+          type: string
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+    NamespaceController.ApiNamespaceVariablesHierarchy:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamespaceController.ApiNamespaceVariables'
     NamespaceFileRevision:
       type: object
       properties:
@@ -40525,6 +41687,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiTriggerState'
+        total:
+          type: integer
+          format: int64
+    PagedResults_AppTemplateController.ApiAppTemplate_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppTemplateController.ApiAppTemplate'
         total:
           type: integer
           format: int64
@@ -40907,6 +42082,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_PluginController.ApiTicketingSystem_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginController.ApiTicketingSystem'
+        total:
+          type: integer
+          format: int64
     PagedResults_PluginController.ApiTriggerPlugin_:
       required:
       - results
@@ -41225,6 +42413,10 @@ components:
           type: string
         description:
           type: string
+        aliases:
+          type: array
+          items:
+            type: string
     PluginArtifact:
       type: object
       properties:
@@ -41267,6 +42459,13 @@ components:
           type: array
           items:
             type: string
+    PluginController.ApiTicketingSystem:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
     PluginController.ApiTriggerPlugin:
       type: object
       properties:
@@ -42709,18 +43908,14 @@ components:
     ServiceInstance:
       type: object
       properties:
-        server:
-          $ref: '#/components/schemas/ServerInstance'
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/Metric'
-        state:
-          $ref: '#/components/schemas/Service.ServiceState'
         id:
           type: string
         type:
           $ref: '#/components/schemas/ServiceType'
+        state:
+          $ref: '#/components/schemas/Service.ServiceState'
+        server:
+          $ref: '#/components/schemas/ServerInstance'
         createdAt:
           type: string
           format: date-time
@@ -42735,6 +43930,10 @@ components:
           type: object
           additionalProperties:
             type: object
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
         seqId:
           type: integer
           format: int64
@@ -43104,9 +44303,6 @@ components:
     State:
       required:
       - current
-      - getDuration
-      - getEndDate
-      - getStartDate
       - histories
       type: object
       properties:
@@ -43129,17 +44325,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/State.History'
-        getDuration:
-          type: string
-          readOnly: true
-        getStartDate:
-          type: string
-          format: date-time
-          readOnly: true
-        getEndDate:
-          type: string
-          format: date-time
-          readOnly: true
     State.History:
       required:
       - date
@@ -43419,6 +44604,23 @@ components:
         logFile:
           type: string
           format: uri
+          nullable: true
+    TaskRunStatistic:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        durationSumMs:
+          type: integer
+          format: int64
+        durationMinMs:
+          type: integer
+          format: int64
+          nullable: true
+        durationMaxMs:
+          type: integer
+          format: int64
           nullable: true
     TaskWithVersion:
       type: object
@@ -44021,6 +45223,13 @@ components:
       - index
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+        constraints:
+          type: string
+          deprecated: true
         index:
           type: integer
           format: int32
@@ -44029,8 +45238,6 @@ components:
         namespace:
           type: string
         flow:
-          type: string
-        constraints:
           type: string
         outdated:
           type: boolean
@@ -44046,6 +45253,22 @@ components:
           type: array
           items:
             type: string
+    ValidationError:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: What is wrong.
+          example: must not be null
+        pointer:
+          type: string
+          description: RFC 6901 JSON Pointer locating the error in the submitted document.
+          example: /tasks/0/message
+        path:
+          type: string
+          description: Human-friendly path locating the error, naming tasks and inputs by id. Not a JSON Pointer.
+          example: tasks[my-task].message
+      description: A single validation error, located in the submitted source.
     ValuePathExpression:
       type: object
       properties:
