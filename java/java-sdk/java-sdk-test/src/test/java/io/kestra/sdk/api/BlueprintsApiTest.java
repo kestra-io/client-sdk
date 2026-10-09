@@ -290,6 +290,7 @@ public class BlueprintsApiTest {
                 logFlowYaml(randomId(), randomId()));
 
         assertThat(result).isNotNull();
-        assertThat(result.getConstraints()).isNull();
+        // null on older servers, "" since kestra#19999 derives it from `errors`.
+        assertThat(result.getConstraints()).isNullOrEmpty();
     }
 }

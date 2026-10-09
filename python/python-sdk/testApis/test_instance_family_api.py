@@ -259,7 +259,8 @@ def test_validate_instance_policy_reports_constraints_on_garbage(client):
         outcome = client.policies.validate_instance_policy("id: not-a-real-policy")
     assert outcome is not None
     # The validation outcome always carries its positional index; a malformed
-    # source populates `constraints`, a valid one leaves it None.
+    # source populates `constraints`, a valid one leaves it None (or "" since
+    # kestra#19999 derives it from the new `errors` list).
     assert outcome.index is not None
 
 
