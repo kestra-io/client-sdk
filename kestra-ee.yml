@@ -38038,6 +38038,10 @@ components:
           format: int32
         behavior:
           $ref: '#/components/schemas/Concurrency.Behavior'
+        queueLimit:
+          minimum: 1
+          type: integer
+          format: int32
     Concurrency.Behavior:
       type: string
       enum:
