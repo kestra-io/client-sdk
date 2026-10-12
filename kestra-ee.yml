@@ -33390,6 +33390,7 @@ paths:
           - TRIGGER_STATE
           - EXECUTION_ID
           - TASK_ID
+          - LOOP_RUN_VALUE
           - TASK_RUN_ID
           - ATTEMPT_NUMBER
           - CHILD_FILTER
@@ -43085,6 +43086,7 @@ components:
       - triggerState
       - executionId
       - taskId
+      - loopRunValue
       - taskRunId
       - attemptNumber
       - childFilter
@@ -43143,6 +43145,7 @@ components:
       - TRIGGER_STATE
       - EXECUTION_ID
       - TASK_ID
+      - LOOP_RUN_VALUE
       - TASK_RUN_ID
       - ATTEMPT_NUMBER
       - CHILD_FILTER
