@@ -3768,6 +3768,40 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/notifications/follow:
+    get:
+      tags:
+      - Notifications
+      summary: Follow live notification updates for the authenticated user
+      description: 'Server-Sent Events stream: pushes every notification created or updated for the current user, restricted to their currently accessible tenants. The SSE event id is `created` or `updated`.'
+      operationId: listenUserNotifications
+      responses:
+        '200':
+          description: listenUserNotifications 200 response
+          content:
+            text/event-stream:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Notification_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
   /api/v1/notifications/history:
     get:
       tags:
@@ -3816,11 +3850,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/notifications/read-all:
     post:
       tags:
@@ -3853,11 +3882,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/notifications/since:
     get:
       tags:
@@ -3899,11 +3923,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/notifications/unread-count:
     get:
       tags:
@@ -3936,11 +3955,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/notifications/{id}/read:
     post:
       tags:
@@ -3975,11 +3989,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/notifications/{id}/unread:
     post:
       tags:
@@ -4014,11 +4023,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/pebble/filters:
     get:
       tags:
@@ -33391,6 +33395,8 @@ paths:
           - EXECUTION_ID
           - TASK_ID
           - LOOP_RUN_VALUE
+          - OPERATION_ID
+          - OPERATION_OUTCOME
           - TASK_RUN_ID
           - ATTEMPT_NUMBER
           - CHILD_FILTER
@@ -36797,6 +36803,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Asset'
+    AsyncOperationType.ResourceType:
+      type: string
+      enum:
+      - EXECUTION
+      - TRIGGER
     AttributeReference:
       type: object
       properties:
@@ -38467,6 +38478,25 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/FollowLogEvent'
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        comment:
+          type: string
+          nullable: true
+        retry:
+          type: string
+          nullable: true
+    Event_Notification_:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Notification'
         id:
           type: string
           nullable: true
@@ -41403,28 +41433,45 @@ components:
       - title
       - type
       - updatedDate
-      - userId
       type: object
       properties:
+        outcome:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/NotificationOutcome'
+        ongoing:
+          type: boolean
         id:
           type: string
         userId:
           type: string
+          nullable: true
         tenantId:
           type: string
           nullable: true
         type:
-          $ref: '#/components/schemas/NotificationType'
+          type: string
+        asyncOperationType:
+          type: string
+          nullable: true
+        resourceType:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AsyncOperationType.ResourceType'
         title:
           type: string
         referenceId:
           type: string
           nullable: true
-        current:
+        succeededItems:
           type: integer
           format: int32
           nullable: true
-        total:
+        failedItems:
+          type: integer
+          format: int32
+          nullable: true
+        totalItems:
           type: integer
           format: int32
           nullable: true
@@ -41465,19 +41512,12 @@ components:
         serverTime:
           type: string
           format: date-time
-    NotificationType:
+    NotificationOutcome:
       type: string
       enum:
-      - GENERIC
-      - CASE_CREATED
-      - CASE_ASSIGNED
-      - CASE_STATUS_CHANGED
-      - CASE_COMMENTED
-      - CASE_SEVERITY_CHANGED
-      - CASE_SLA_ACKNOWLEDGEMENT_BREACHED
-      - CASE_SLA_RESOLUTION_BREACHED
-      - HUMAN_TASK_PENDING
-      - SYSTEM_EXECUTION_FAILED
+      - SUCCEEDED
+      - PARTIAL
+      - FAILED
     OAuth2Config:
       type: object
       properties:
@@ -43094,6 +43134,8 @@ components:
       - executionId
       - taskId
       - loopRunValue
+      - operationId
+      - operationOutcome
       - taskRunId
       - attemptNumber
       - childFilter
@@ -43153,6 +43195,8 @@ components:
       - EXECUTION_ID
       - TASK_ID
       - LOOP_RUN_VALUE
+      - OPERATION_ID
+      - OPERATION_OUTCOME
       - TASK_RUN_ID
       - ATTEMPT_NUMBER
       - CHILD_FILTER
