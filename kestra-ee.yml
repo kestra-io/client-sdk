@@ -15564,7 +15564,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedResults_Map_String.Object__'
+                $ref: '#/components/schemas/DashboardController.ChartData'
         '401':
           description: Authentication required
           content:
@@ -15963,7 +15963,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedResults_Map_String.Object__'
+                $ref: '#/components/schemas/DashboardController.ChartData'
         '401':
           description: Authentication required
           content:
@@ -38278,6 +38278,25 @@ components:
         count:
           type: integer
           format: int64
+    DashboardController.ChartData:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: object
+        total:
+          type: integer
+          format: int64
+        ignoredFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter.Field'
     DashboardController.DashboardResponse:
       required:
       - deleted
@@ -42086,21 +42105,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KVEntry'
-        total:
-          type: integer
-          format: int64
-    PagedResults_Map_String.Object__:
-      required:
-      - results
-      - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: object
         total:
           type: integer
           format: int64
