@@ -14,6 +14,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from kestrapy.models.case_action import CaseAction
 from kestrapy.models.case_severity import CaseSeverity
 from kestrapy.models.case_status import CaseStatus
@@ -46,8 +47,10 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
     execution_state: Optional[StrictStr] = Field(default=None, alias="executionState")
     case_id: Optional[StrictStr] = Field(default=None, alias="caseId")
     deduplication_key: Optional[StrictStr] = Field(default=None, alias="deduplicationKey")
+    template_id: Optional[StrictStr] = Field(default=None, alias="templateId")
+    resolution_reasons: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True)]], Field(min_length=1)]] = Field(default=None, alias="resolutionReasons")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId", "deduplicationKey"]
+    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId", "deduplicationKey", "templateId", "resolutionReasons"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -188,6 +191,16 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
         if self.deduplication_key is None and "deduplication_key" in self.model_fields_set:
             _dict['deduplicationKey'] = None
 
+        # set to None if template_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.template_id is None and "template_id" in self.model_fields_set:
+            _dict['templateId'] = None
+
+        # set to None if resolution_reasons (nullable) is None
+        # and model_fields_set contains the field
+        if self.resolution_reasons is None and "resolution_reasons" in self.model_fields_set:
+            _dict['resolutionReasons'] = None
+
         return _dict
 
     @classmethod
@@ -218,7 +231,9 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
             "executionId": obj.get("executionId"),
             "executionState": obj.get("executionState"),
             "caseId": obj.get("caseId"),
-            "deduplicationKey": obj.get("deduplicationKey")
+            "deduplicationKey": obj.get("deduplicationKey"),
+            "templateId": obj.get("templateId"),
+            "resolutionReasons": obj.get("resolutionReasons")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
