@@ -9858,7 +9858,7 @@ paths:
       tags:
       - Assets
       summary: Create or update multiple assets
-      description: 'Every document is upserted on its id, except one naming a `deployment` in its metadata while an asset with that id already exists outside that deployment: it is left untouched and reported as skipped. With `dryRun`, the payload is validated and classified without being written, which is what an import preview needs.'
+      description: 'Every document is upserted on its id, except one naming a deployment in its `partOf` while an asset with that id already exists outside that deployment: it is left untouched and reported as skipped. With `dryRun`, the payload is validated and classified without being written, which is what an import preview needs.'
       operationId: createAssets
       parameters:
       - name: dryRun
@@ -9926,6 +9926,12 @@ paths:
       summary: Delete assets by asset ids
       operationId: deleteAssetsByIds
       parameters:
+      - name: children
+        in: query
+        description: Whether the assets that are part of a deleted one are detached from it or deleted with it
+        explode: false
+        schema:
+          $ref: '#/components/schemas/AssetService.ChildrenPolicy'
       - name: tenant
         in: path
         required: true
@@ -10005,6 +10011,12 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: children
+        in: query
+        description: Whether the assets that are part of a deleted one are detached from it or deleted with it; a purge is a raw sweep and takes no policy
+        explode: false
+        schema:
+          $ref: '#/components/schemas/AssetService.ChildrenPolicy'
       - name: tenant
         in: path
         required: true
@@ -10017,136 +10029,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
-        '401':
-          description: Authentication required
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-        '403':
-          description: Access denied
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-        '500':
-          description: Internal server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
-  /api/v1/{tenant}/assets/lineage-events/by-query:
-    delete:
-      tags:
-      - Assets
-      summary: Delete asset lineage events by query, hard-delete (purge) only
-      operationId: deleteAssetLineageEventsByQuery
-      parameters:
-      - name: filters
-        in: query
-        description: Filters
-        required: true
-        explode: false
-        schema:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryFilter'
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkResponse'
-        '401':
-          description: Authentication required
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-        '403':
-          description: Access denied
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-        '500':
-          description: Internal server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-kestra:
-        edition: ee
-  /api/v1/{tenant}/assets/lineage-events/search:
-    get:
-      tags:
-      - Assets
-      summary: Search for asset lineage events
-      operationId: searchAssetLineageEvents
-      parameters:
-      - name: page
-        in: query
-        description: The current page
-        explode: false
-        schema:
-          minimum: 1
-          type: integer
-          format: int32
-          default: 1
-      - name: size
-        in: query
-        description: The current page size
-        explode: false
-        schema:
-          maximum: 1000
-          minimum: 1
-          type: integer
-          format: int32
-          default: 10
-      - name: sort
-        in: query
-        description: The sort of current page
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
-      - name: filters
-        in: query
-        description: Filters
-        required: true
-        explode: false
-        schema:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryFilter'
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: searchAssetLineageEvents 200 response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PagedResults_AssetsController.ApiAssetLineageEvent_'
         '401':
           description: Authentication required
           content:
@@ -10510,6 +10392,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: children
+        in: query
+        description: Whether the assets that are part of this one are detached from it or deleted with it
+        explode: false
+        schema:
+          $ref: '#/components/schemas/AssetService.ChildrenPolicy'
       - name: tenant
         in: path
         required: true
@@ -10665,7 +10553,7 @@ paths:
     get:
       tags:
       - Assets
-      summary: Get an asset dependencies
+      summary: Get the relation graph around an asset
       operationId: getAssetDependencies
       parameters:
       - name: id
@@ -10674,20 +10562,29 @@ paths:
         required: true
         schema:
           type: string
-      - name: destinationOnly
+      - name: kinds
         in: query
-        description: If true, list only destination dependencies, otherwise list also source dependencies
+        description: Relation kinds to include, defaults to every current-state kind
         explode: false
         schema:
-          type: boolean
-          default: false
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/RelationKind'
       - name: expandAll
         in: query
-        description: If true, expand all dependencies recursively
+        description: If true, expand transitively through lineage kinds
         explode: false
         schema:
           type: boolean
           default: false
+      - name: hubCursor
+        in: query
+        description: When this asset is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -10699,7 +10596,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetTopologyGraph'
+                $ref: '#/components/schemas/AssetRelationGraph'
         '401':
           description: Authentication required
           content:
@@ -10804,6 +10701,369 @@ paths:
       responses:
         '200':
           description: unlockAsset 200 response
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/assets/{id}/parent:
+    put:
+      tags:
+      - Assets
+      summary: Set the asset this one is part of
+      operationId: setAssetParent
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The parent asset
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetRelationRef'
+        required: true
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: setAssetParent 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiAsset'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Assets
+      summary: Detach the asset from the one it is part of
+      operationId: clearAssetParent
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: clearAssetParent 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiAsset'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/assets/{id}/relations:
+    get:
+      tags:
+      - Assets
+      summary: One page of the relations of an asset for one kind and direction
+      operationId: getAssetRelations
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: kind
+        in: query
+        description: The relation kind
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/RelationKind'
+      - name: direction
+        in: query
+        description: The side of the asset in the relation, as reported by the summary group being expanded
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/RelationDirection'
+      - name: after
+        in: query
+        description: The nextCursor of the previous page
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: size
+        in: query
+        description: The page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 20
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: getAssetRelations 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiRelationPage'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Assets
+      summary: Create a relation from an asset by hand
+      description: Only current-state kinds can be drawn by hand, and PART_OF goes through the parent endpoint instead. Creating the same relation twice overwrites the role and marks the relation manual, reviving it if it had been removed.
+      operationId: createAssetRelation
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The relation to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetsController.ApiRelationRequest'
+        required: true
+      responses:
+        '200':
+          description: createAssetRelation 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiRelation'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/assets/{id}/relations/summary:
+    get:
+      tags:
+      - Assets
+      summary: Summarize the relations of an asset, grouped by kind and direction
+      operationId: getAssetRelationSummary
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Items per group
+        explode: false
+        schema:
+          maximum: 50
+          minimum: 1
+          type: integer
+          format: int32
+          default: 5
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: getAssetRelationSummary 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsController.ApiRelationSummary'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/assets/{id}/relations/{uid}:
+    delete:
+      tags:
+      - Assets
+      summary: Remove one relation of an asset
+      description: A derived relation is tombstoned rather than deleted, so the next run that produces it does not bring it back. A declared one is deleted, but comes back if a peer still declares it.
+      operationId: deleteAssetRelation
+      parameters:
+      - name: id
+        in: path
+        description: The asset id
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: path
+        description: The uid of the relation
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '423':
+          description: Asset locked
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: deleteAssetRelation 200 response
         '401':
           description: Authentication required
           content:
@@ -22028,6 +22288,83 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/{namespace}/{id}/asset-dependencies:
+    get:
+      tags:
+      - Assets
+      summary: Get the relation graph around a flow
+      operationId: getFlowAssetDependencies
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: kinds
+        in: query
+        description: Relation kinds to include, defaults to every current-state kind
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/RelationKind'
+      - name: expandAll
+        in: query
+        description: If true, expand transitively through lineage kinds
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: hubCursor
+        in: query
+        description: When this flow is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: getFlowAssetDependencies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRelationGraph'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/{namespace}/{id}/dependencies:
     get:
       tags:
@@ -33364,6 +33701,9 @@ paths:
           - QUERY
           - SCOPE
           - NAMESPACE
+          - FLOW_NAMESPACE
+          - TARGET_NAMESPACE
+          - TARGET_ASSET_TYPE
           - KIND
           - POLICY_SCOPE
           - ENFORCEMENT
@@ -33389,6 +33729,9 @@ paths:
           - EMAIL
           - TIME_RANGE
           - PARENT_ID
+          - ORIGIN
+          - SOURCE_ID
+          - TARGET_ID
           - TRIGGER_EXECUTION_ID
           - TRIGGER_ID
           - TRIGGER_STATE
@@ -36448,6 +36791,20 @@ components:
           x-pattern-message: must be a UTC instant with millis (yyyy-MM-dd'T'HH:mm:ss.SSS'Z'), or empty for no expiry
         owner:
           type: string
+        partOf:
+          title: The asset this one is part of.
+          description: At most one parent. Parent depth is limited by the service layer, not by this model.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetRelationRef'
+        related:
+          title: Assets related to this one.
+          maxItems: 50
+          type: array
+          description: 'Declaration only: turned into RELATED relations when the asset is written, and not persisted on the asset by the platform.'
+          nullable: true
+          items:
+            $ref: '#/components/schemas/AssetRelationRef'
         namespace:
           maxLength: 150
           minLength: 1
@@ -36491,44 +36848,106 @@ components:
           type: string
         type:
           type: string
-    AssetTopologyGraph:
+    AssetRelationGraph:
       type: object
       properties:
         nodes:
           type: array
           items:
-            $ref: '#/components/schemas/AssetTopologyGraph.Node'
+            $ref: '#/components/schemas/AssetRelationGraph.Node'
         edges:
           type: array
           items:
-            $ref: '#/components/schemas/AssetTopologyGraph.Edge'
-    AssetTopologyGraph.Edge:
+            $ref: '#/components/schemas/AssetRelationGraph.Edge'
+        truncated:
+          type: boolean
+    AssetRelationGraph.Edge:
       type: object
       properties:
         source:
           type: string
         target:
           type: string
-        relation:
-          $ref: '#/components/schemas/Relation_1'
-    AssetTopologyGraph.Node:
-      required:
-      - uid
+        kind:
+          $ref: '#/components/schemas/RelationKind'
+        directed:
+          type: boolean
+        role:
+          type: string
+          nullable: true
+        origin:
+          $ref: '#/components/schemas/RelationOrigin'
+        taskType:
+          type: string
+          nullable: true
+    AssetRelationGraph.Node:
       type: object
       properties:
         uid:
           type: string
         namespace:
           type: string
+          nullable: true
         id:
           type: string
+          nullable: true
         type:
-          $ref: '#/components/schemas/AssetTopologyGraph.Node.NodeType'
-    AssetTopologyGraph.Node.NodeType:
+          $ref: '#/components/schemas/NodeType'
+        assetType:
+          type: string
+          nullable: true
+        displayName:
+          type: string
+          nullable: true
+        producer:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetWriteSummary'
+        runs:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/AssetWriteSummary'
+        collapsed:
+          type: boolean
+        totalDegree:
+          type: integer
+          format: int64
+          nullable: true
+        nextCursor:
+          type: string
+          nullable: true
+        exhausted:
+          type: boolean
+    AssetRelationRef:
+      title: A reference to another asset of the same tenant.
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: The id of the referenced asset.
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._:-]*
+          type: string
+        namespace:
+          title: 'The namespace of the referenced asset, informational: asset ids are unique per tenant.'
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-z0-9][a-z0-9._-]*
+          type: string
+          nullable: true
+        role:
+          title: The role this asset plays in the relation, for example primary or backup.
+          maxLength: 100
+          type: string
+          nullable: true
+    AssetService.ChildrenPolicy:
       type: string
       enum:
-      - ASSET
-      - FLOW
+      - DETACH
+      - DELETE
     AssetTtlFlowService.TtlFlowLevel:
       type: object
       properties:
@@ -36562,6 +36981,24 @@ components:
       enum:
       - INPUT
       - OUTPUT
+    AssetWriteSummary:
+      type: object
+      properties:
+        executionId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        taskId:
+          type: string
+        taskType:
+          type: string
+        state:
+          $ref: '#/components/schemas/State.Type'
+        created:
+          type: string
+          format: date-time
     AssetsController.ApiAsset:
       type: object
       properties:
@@ -36589,6 +37026,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FlowAction'
+        partOf:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetRelationRef'
         created:
           type: string
           format: date-time
@@ -36605,43 +37046,6 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/AssetTtlFlowService.TtlFlows'
-    AssetsController.ApiAssetLineageEvent:
-      type: object
-      properties:
-        uid:
-          type: string
-        namespace:
-          type: string
-        flowId:
-          type: string
-        flowRevision:
-          type: integer
-          format: int32
-        executionId:
-          type: string
-        taskId:
-          type: string
-        taskRunId:
-          type: string
-        state:
-          type: string
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetIdentifier'
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetIdentifier'
-        created:
-          type: string
-          format: date-time
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
     AssetsController.ApiAssetLock:
       type: object
       properties:
@@ -36686,6 +37090,126 @@ components:
         created:
           type: string
           format: date-time
+    AssetsController.ApiRelation:
+      type: object
+      properties:
+        uid:
+          type: string
+        kind:
+          $ref: '#/components/schemas/RelationKind'
+        role:
+          type: string
+          nullable: true
+        origin:
+          $ref: '#/components/schemas/RelationOrigin'
+        state:
+          $ref: '#/components/schemas/RelationState'
+        source:
+          $ref: '#/components/schemas/AssetsController.ApiRelationNode'
+        target:
+          $ref: '#/components/schemas/AssetsController.ApiRelationNode'
+        provenance:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/RelationProvenance'
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+    AssetsController.ApiRelationGroup:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/RelationKind'
+        direction:
+          $ref: '#/components/schemas/RelationDirection'
+        total:
+          type: integer
+          format: int64
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetsController.ApiRelationItem'
+        nextCursor:
+          type: string
+          nullable: true
+    AssetsController.ApiRelationItem:
+      type: object
+      properties:
+        relation:
+          $ref: '#/components/schemas/AssetsController.ApiRelation'
+        node:
+          $ref: '#/components/schemas/AssetsController.ApiRelationNode'
+        asset:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AssetsController.ApiAsset'
+    AssetsController.ApiRelationNode:
+      type: object
+      properties:
+        uid:
+          type: string
+        namespace:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/NodeType'
+        assetType:
+          type: string
+          nullable: true
+    AssetsController.ApiRelationPage:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetsController.ApiRelationItem'
+        total:
+          type: integer
+          format: int64
+        nextCursor:
+          type: string
+          nullable: true
+    AssetsController.ApiRelationRequest:
+      required:
+      - direction
+      - kind
+      - targetId
+      type: object
+      properties:
+        kind:
+          title: The kind of relation to create.
+          allOf:
+          - $ref: '#/components/schemas/RelationKind'
+        direction:
+          title: The side the asset takes; ignored by an undirected kind.
+          allOf:
+          - $ref: '#/components/schemas/RelationDirection'
+        targetId:
+          title: The id of the asset or flow at the other end.
+          minLength: 1
+          type: string
+        targetNamespace:
+          title: The namespace at the other end, required when it is a flow.
+          type: string
+          nullable: true
+        role:
+          title: The role the other end plays, for example primary or backup.
+          maxLength: 100
+          type: string
+          nullable: true
+    AssetsController.ApiRelationSummary:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetsController.ApiRelationGroup'
     AssetsController.AssetLockRequest:
       type: object
       properties:
@@ -41446,6 +41970,12 @@ components:
         id:
           pattern: ^[a-z0-9][a-z0-9._-]*
           type: string
+    NodeType:
+      type: string
+      enum:
+      - ASSET
+      - FLOW
+      - TASK_RUN
     Notification:
       required:
       - createdDate
@@ -41780,19 +42310,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppsController.ApiApp'
-        total:
-          type: integer
-          format: int64
-    PagedResults_AssetsController.ApiAssetLineageEvent_:
-      required:
-      - results
-      - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetsController.ApiAssetLineageEvent'
         total:
           type: integer
           format: int64
@@ -43107,6 +43624,9 @@ components:
       - q
       - scope
       - namespace
+      - flowNamespace
+      - targetNamespace
+      - targetAssetType
       - kind
       - POLICY_SCOPE
       - ENFORCEMENT
@@ -43132,6 +43652,9 @@ components:
       - email
       - timeRange
       - parentId
+      - origin
+      - sourceId
+      - targetId
       - triggerExecutionId
       - triggerId
       - triggerState
@@ -43168,6 +43691,9 @@ components:
       - QUERY
       - SCOPE
       - NAMESPACE
+      - FLOW_NAMESPACE
+      - TARGET_NAMESPACE
+      - TARGET_ASSET_TYPE
       - KIND
       - POLICY_SCOPE
       - ENFORCEMENT
@@ -43193,6 +43719,9 @@ components:
       - EMAIL
       - TIME_RANGE
       - PARENT_ID
+      - ORIGIN
+      - SOURCE_ID
+      - TARGET_ID
       - TRIGGER_EXECUTION_ID
       - TRIGGER_ID
       - TRIGGER_STATE
@@ -43324,6 +43853,62 @@ components:
           $ref: '#/components/schemas/RelationType'
         value:
           type: string
+    RelationDirection:
+      type: string
+      enum:
+      - OUTBOUND
+      - INBOUND
+      - BOTH
+    RelationKind:
+      type: string
+      enum:
+      - PRODUCES
+      - CONSUMED_BY
+      - UPSTREAM_OF
+      - PART_OF
+      - RELATED
+      - WRITES
+      - READS
+      - UNKNOWN
+    RelationOrigin:
+      type: string
+      enum:
+      - DERIVED
+      - DECLARED
+      - MANUAL
+    RelationProvenance:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          type: integer
+          format: int32
+        executionId:
+          type: string
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        taskType:
+          type: string
+          nullable: true
+        state:
+          $ref: '#/components/schemas/State.Type'
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+    RelationState:
+      type: string
+      enum:
+      - ACTIVE
+      - REMOVED
     RelationType:
       type: string
       enum:
@@ -43334,11 +43919,6 @@ components:
       - AFTER_EXECUTION
       - PARALLEL
       - DYNAMIC
-    Relation_1:
-      type: string
-      enum:
-      - UPSERT
-      - USED_BY
     Resolution:
       type: object
       properties:
