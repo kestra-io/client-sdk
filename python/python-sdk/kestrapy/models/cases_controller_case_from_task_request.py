@@ -49,8 +49,9 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
     deduplication_key: Optional[StrictStr] = Field(default=None, alias="deduplicationKey")
     template_id: Optional[StrictStr] = Field(default=None, alias="templateId")
     resolution_reasons: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True)]], Field(min_length=1)]] = Field(default=None, alias="resolutionReasons")
+    require_resolution_note: Optional[StrictBool] = Field(default=None, alias="requireResolutionNote")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId", "deduplicationKey", "templateId", "resolutionReasons"]
+    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId", "deduplicationKey", "templateId", "resolutionReasons", "requireResolutionNote"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -201,6 +202,11 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
         if self.resolution_reasons is None and "resolution_reasons" in self.model_fields_set:
             _dict['resolutionReasons'] = None
 
+        # set to None if require_resolution_note (nullable) is None
+        # and model_fields_set contains the field
+        if self.require_resolution_note is None and "require_resolution_note" in self.model_fields_set:
+            _dict['requireResolutionNote'] = None
+
         return _dict
 
     @classmethod
@@ -233,7 +239,8 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
             "caseId": obj.get("caseId"),
             "deduplicationKey": obj.get("deduplicationKey"),
             "templateId": obj.get("templateId"),
-            "resolutionReasons": obj.get("resolutionReasons")
+            "resolutionReasons": obj.get("resolutionReasons"),
+            "requireResolutionNote": obj.get("requireResolutionNote")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

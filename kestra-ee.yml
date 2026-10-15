@@ -36483,6 +36483,8 @@ components:
           type: array
           items:
             type: string
+        requireResolutionNote:
+          type: boolean
         autoAttach:
           type: array
           items:
@@ -36776,6 +36778,9 @@ components:
           items:
             minLength: 1
             type: string
+        requireResolutionNote:
+          type: boolean
+          nullable: true
     CasesController.CaseUpdateRequest:
       type: object
       properties:
