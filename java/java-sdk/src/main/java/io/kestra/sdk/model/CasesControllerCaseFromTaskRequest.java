@@ -51,7 +51,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_CASE_ID,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_DEDUPLICATION_KEY,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_TEMPLATE_ID,
-  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_RESOLUTION_REASONS
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_RESOLUTION_REASONS,
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_REQUIRE_RESOLUTION_NOTE
 })
 @JsonTypeName("CasesController.CaseFromTaskRequest")
 public class CasesControllerCaseFromTaskRequest {
@@ -117,6 +118,9 @@ public class CasesControllerCaseFromTaskRequest {
 
   public static final String JSON_PROPERTY_RESOLUTION_REASONS = "resolutionReasons";
   @jakarta.annotation.Nullable  private List<String> resolutionReasons;
+
+  public static final String JSON_PROPERTY_REQUIRE_RESOLUTION_NOTE = "requireResolutionNote";
+  @jakarta.annotation.Nullable  private Boolean requireResolutionNote;
 
   public CasesControllerCaseFromTaskRequest() {
   }
@@ -657,6 +661,30 @@ public class CasesControllerCaseFromTaskRequest {
     this.resolutionReasons = resolutionReasons;
   }
 
+  public CasesControllerCaseFromTaskRequest requireResolutionNote(@jakarta.annotation.Nullable Boolean requireResolutionNote) {
+
+    this.requireResolutionNote = requireResolutionNote;
+    return this;
+  }
+
+  /**
+   * Whether resolving the case requires a note, overriding its template's.
+   * @return requireResolutionNote
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRE_RESOLUTION_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequireResolutionNote() {
+    return requireResolutionNote;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRE_RESOLUTION_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequireResolutionNote(@jakarta.annotation.Nullable Boolean requireResolutionNote) {
+    this.requireResolutionNote = requireResolutionNote;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -686,12 +714,13 @@ public class CasesControllerCaseFromTaskRequest {
         Objects.equals(this.caseId, casesControllerCaseFromTaskRequest.caseId) &&
         Objects.equals(this.deduplicationKey, casesControllerCaseFromTaskRequest.deduplicationKey) &&
         Objects.equals(this.templateId, casesControllerCaseFromTaskRequest.templateId) &&
-        Objects.equals(this.resolutionReasons, casesControllerCaseFromTaskRequest.resolutionReasons);
+        Objects.equals(this.resolutionReasons, casesControllerCaseFromTaskRequest.resolutionReasons) &&
+        Objects.equals(this.requireResolutionNote, casesControllerCaseFromTaskRequest.requireResolutionNote);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, actions, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState, caseId, deduplicationKey, templateId, resolutionReasons);
+    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, actions, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState, caseId, deduplicationKey, templateId, resolutionReasons, requireResolutionNote);
   }
 
   @Override
@@ -719,6 +748,7 @@ public class CasesControllerCaseFromTaskRequest {
     sb.append("    deduplicationKey: ").append(toIndentedString(deduplicationKey)).append("\n");
     sb.append("    templateId: ").append(toIndentedString(templateId)).append("\n");
     sb.append("    resolutionReasons: ").append(toIndentedString(resolutionReasons)).append("\n");
+    sb.append("    requireResolutionNote: ").append(toIndentedString(requireResolutionNote)).append("\n");
     sb.append("}");
     return sb.toString();
   }
