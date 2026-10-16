@@ -36908,6 +36908,7 @@ components:
       - FLOW
       - DASHBOARD
       - APP
+      - TEST_SUITE
     Assertion:
       required:
       - value
