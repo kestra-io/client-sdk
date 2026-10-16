@@ -276,7 +276,7 @@ describe('CasesApi', () => {
         const sinceCreated = new Date(Date.now() - 5000).toISOString();
         const created = await createCase({ namespace, severity: 'CRITICAL' });
         const search = (overrides: Partial<Parameters<typeof Cases.searchCaseEvents>[0]> = {}) =>
-            Cases.searchCaseEvents({ sinceCreated, events: ['CREATED'], severities: ['CRITICAL'], namespace, size: 1000, ...overrides });
+            Cases.searchCaseEvents({ sinceCreated, sinceId: '', events: ['CREATED'], severities: ['CRITICAL'], namespace, size: 1000, ...overrides });
         const containsCase = (page: Awaited<ReturnType<typeof search>>) =>
             (page.results ?? []).some(entry => entry.case?.id === created.id);
 
