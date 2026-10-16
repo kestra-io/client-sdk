@@ -46,7 +46,9 @@ describe('AssetsApi', () => {
         expect(resultSize).toBeLessThanOrEqual(2);
     });
 
-    it('searchAssetLineageEvents: returns a paged result', async () => {
+    // lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the
+    // function disappears from the generated SDK on the next regeneration.
+    it.skip('searchAssetLineageEvents: returns a paged result', async () => {
         const result = await Assets.searchAssetLineageEvents({ page: 1, size: 10 });
         expect(result).toBeDefined();
         expect(result.results).toBeDefined();

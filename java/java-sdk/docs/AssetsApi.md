@@ -8,11 +8,11 @@ All URIs are relative to *http://localhost*
 | [**assetDependencies**](AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies |
 | [**createAsset**](AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset |
 | [**deleteAsset**](AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset |
-| [**deleteAssetLineageEventsByQuery**](AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only |
+| [**deleteAssetLineageEventsByQuery**](AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only **(deprecated)** |
 | [**deleteAssetUsagesByQuery**](AssetsApi.md#deleteAssetUsagesByQuery) | **DELETE** /api/v1/{tenant}/assets/usages/by-query | Delete asset usages by query, hard-delete (purge) only |
 | [**deleteAssetsByIds**](AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids |
 | [**deleteAssetsByQuery**](AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query |
-| [**searchAssetLineageEvents**](AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events |
+| [**searchAssetLineageEvents**](AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events **(deprecated)** |
 | [**searchAssetUsages**](AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages |
 | [**searchAssets**](AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets |
 
@@ -305,6 +305,8 @@ null (empty response body)
 
 ## deleteAssetLineageEventsByQuery
 
+> **Deprecated:** the lineage-event routes were removed in Kestra develop (kestra-ee `091e7d441`, after 2.0.x) and answer 403 there. This method still works against Kestra 2.0.x.
+
 > BulkResponse deleteAssetLineageEventsByQuery(tenant, filters)
 
 Delete asset lineage events by query, hard-delete (purge) only
@@ -588,6 +590,8 @@ public class Example {
 
 
 ## searchAssetLineageEvents
+
+> **Deprecated:** the lineage-event routes were removed in Kestra develop (kestra-ee `091e7d441`, after 2.0.x) and answer 403 there. This method still works against Kestra 2.0.x.
 
 > PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(tenant, page, size, sort, filters)
 

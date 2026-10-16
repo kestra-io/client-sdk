@@ -41,6 +41,7 @@ def test_search_assets_with_pagination(client):
     assert len(result.results) <= 2
 
 
+@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 def test_search_asset_lineage_events_basic(client):
     result = client.assets.search_asset_lineage_events(tenant=TENANT, page=1, size=10)
 
@@ -90,6 +91,7 @@ def test_search_assets_with_sort(client):
     assert ids.index(id1) < ids.index(id2)
 
 
+@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 def test_search_asset_lineage_events_with_filters(client):
     result = client.assets.search_asset_lineage_events(
         tenant=TENANT,
@@ -364,6 +366,7 @@ def test_delete_assets_by_query_basic(client):
     assert result is not None
 
 
+@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 def test_delete_asset_lineage_events_by_query_basic(client):
     result = client.assets.delete_asset_lineage_events_by_query(
         tenant=TENANT, filters=[ns_filter("nonexistent")]
