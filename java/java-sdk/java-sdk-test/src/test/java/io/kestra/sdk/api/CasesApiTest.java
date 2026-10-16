@@ -554,7 +554,7 @@ public class CasesApiTest {
         var page = await().atMost(Duration.ofSeconds(30)).pollInterval(Duration.ofMillis(500))
             .until(() -> searchEvents(namespace, since, "", List.of("CREATED"), List.of(CaseSeverity.CRITICAL)), found -> containsCase(found, caseId));
 
-        assertThat(containsCase(searchEvents(namespace, since, "", List.of("COMMENTED"), List.of(CaseSeverity.CRITICAL)), caseId)).isFalse();
+        assertThat(containsCase(searchEvents(namespace, since, "", List.of("COMMENT"), List.of(CaseSeverity.CRITICAL)), caseId)).isFalse();
         assertThat(containsCase(searchEvents(namespace, since, "", List.of("CREATED"), List.of(CaseSeverity.LOW)), caseId)).isFalse();
         assertThat(containsCase(
             searchEvents(namespace, String.valueOf(page.get("nextSinceCreated")), String.valueOf(page.get("nextSinceId")), List.of("CREATED"), List.of(CaseSeverity.CRITICAL)),

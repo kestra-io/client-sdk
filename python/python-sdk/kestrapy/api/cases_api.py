@@ -5,6 +5,9 @@ from kestrapy.base_api import BaseApi
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.cases_controller_api_case import CasesControllerApiCase
 from kestrapy.models.cases_controller_api_case_event import CasesControllerApiCaseEvent
+from kestrapy.models.cases_controller_api_case_event_search_result import (
+    CasesControllerApiCaseEventSearchResult,
+)
 from kestrapy.models.paged_results_cases_controller_api_case import (
     PagedResultsCasesControllerApiCase,
 )
@@ -158,6 +161,17 @@ class CasesApi(BaseApi):
         path = self._tenant_path(tenant, "cases", id, "unfollow")
         return self._json_request("POST", path, CasesControllerApiCase)
 
+    # ---- external ticket ----
+
+    def set_case_ticket(self, tenant: str, id: str, body: Dict[str, Any]) -> CasesControllerApiCase:
+        """Link an external ticket (``system``, ``key``, ``url``) to a case, replacing any existing one."""
+        path = self._tenant_path(tenant, "cases", id, "ticket")
+        return self._json_request("PUT", path, CasesControllerApiCase, body=body)
+
+    def delete_case_ticket(self, tenant: str, id: str) -> CasesControllerApiCase:
+        path = self._tenant_path(tenant, "cases", id, "ticket")
+        return self._json_request("DELETE", path, CasesControllerApiCase)
+
     # ---- events / comments / attachments ----
 
     def case_events(
@@ -166,6 +180,30 @@ class CasesApi(BaseApi):
         path = self._tenant_path(tenant, "cases", id, "events")
         params = self._build_query_params(page=page, size=size)
         return self._json_request("GET", path, PagedResultsCasesControllerApiCaseEvent, params=params)
+
+    def search_case_events(
+        self,
+        tenant: str,
+        since_created: Optional[str] = None,
+        since_id: Optional[str] = None,
+        events: Optional[List[str]] = None,
+        severities: Optional[List[str]] = None,
+        namespace: Optional[str] = None,
+        assignees: Optional[List[str]] = None,
+        size: Optional[int] = None,
+    ) -> CasesControllerApiCaseEventSearchResult:
+        """Walk case events across all cases in creation order, resuming strictly after
+        the ``since_created``/``since_id`` cursor returned by the previous page."""
+        path = self._tenant_path(tenant, "cases", "events", "search")
+        params = list(
+            self._build_query_params(
+                sinceCreated=since_created, sinceId=since_id, namespace=namespace, size=size
+            ).items()
+        )
+        self._append_repeated_param(params, "events", events)
+        self._append_repeated_param(params, "severities", severities)
+        self._append_repeated_param(params, "assignees", assignees)
+        return self._json_request("GET", path, CasesControllerApiCaseEventSearchResult, params=params)
 
     def add_case_comment(
         self,

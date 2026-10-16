@@ -71,7 +71,15 @@ type Case struct {
 	Origin             interface{}   `json:"origin,omitempty"`
 	TemplateId         string        `json:"templateId,omitempty"`
 	AutoAttach         []interface{} `json:"autoAttach,omitempty"`
+	Ticket             *CaseTicket   `json:"ticket,omitempty"`
 	Deleted            bool          `json:"deleted"`
+}
+
+// CaseTicket is the external ticket (GitHub issue, Jira issue, ...) linked to a case.
+type CaseTicket struct {
+	System string `json:"system"`
+	Key    string `json:"key"`
+	Url    string `json:"url"`
 }
 
 // CaseEvent mirrors CasesController.ApiCaseEvent (a comment or lifecycle event).
@@ -85,6 +93,33 @@ type CaseEvent struct {
 	Payload     map[string]interface{} `json:"payload,omitempty"`
 	Attachments []interface{}          `json:"attachments,omitempty"`
 	Created     *time.Time             `json:"created,omitempty"`
+}
+
+// CaseEventSearchResult mirrors CasesController.ApiCaseEventSearchResult: a page
+// of events across cases, and the cursor to pass back to resume after it.
+type CaseEventSearchResult struct {
+	Results          []CaseEventWithCase `json:"results"`
+	NextSinceCreated *time.Time          `json:"nextSinceCreated,omitempty"`
+	NextSinceId      string              `json:"nextSinceId,omitempty"`
+	HasMore          bool                `json:"hasMore"`
+}
+
+// CaseEventWithCase mirrors CasesController.ApiCaseEventWithCase.
+type CaseEventWithCase struct {
+	Event CaseEvent   `json:"event"`
+	Case  TriggerCase `json:"case"`
+}
+
+// TriggerCase mirrors CasesController.ApiTriggerCase, the case an event belongs to.
+type TriggerCase struct {
+	Id          string      `json:"id"`
+	Title       string      `json:"title,omitempty"`
+	Description string      `json:"description,omitempty"`
+	Severity    string      `json:"severity,omitempty"`
+	Status      string      `json:"status,omitempty"`
+	Namespace   string      `json:"namespace,omitempty"`
+	Url         string      `json:"url,omitempty"`
+	Ticket      *CaseTicket `json:"ticket,omitempty"`
 }
 
 // CaseExecution mirrors CasesController.ApiCaseExecution (a linked execution,
@@ -256,6 +291,13 @@ type CaseFromExecutionsRequest struct {
 type CaseFromExecutionsByQueryRequest struct {
 	Case    *CaseCreateRequest `json:"case"`
 	Filters []QueryFilter      `json:"filters"`
+}
+
+// CaseTicketRequest mirrors CasesController.CaseTicketRequest.
+type CaseTicketRequest struct {
+	System string `json:"system"`
+	Key    string `json:"key"`
+	Url    string `json:"url"`
 }
 
 // CaseAttachAssetRequest mirrors CasesController.AttachAssetRequest.
