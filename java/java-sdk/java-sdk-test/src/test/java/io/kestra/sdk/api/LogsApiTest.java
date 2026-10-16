@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BinaryOperator;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -22,10 +23,34 @@ public class LogsApiTest {
         return client().logs();
     }
 
+    /** Two tasks logging at different levels, so level and task filters have something to exclude. */
+    static String multiTaskLogFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: hello
+                    type: io.kestra.plugin.core.log.Log
+                    message: info message
+                  - id: warn
+                    type: io.kestra.plugin.core.log.Log
+                    level: WARN
+                    message: warn message
+                """.formatted(id, ns);
+    }
+
     static String createExecutionWithLogs() throws ApiException {
+        return createExecution((id, ns) -> logFlowYaml(id, ns));
+    }
+
+    static String createMultiTaskExecutionWithLogs() throws ApiException {
+        return createExecution(LogsApiTest::multiTaskLogFlowYaml);
+    }
+
+    static String createExecution(BinaryOperator<String> flowYaml) throws ApiException {
         String ns = randomId();
         String id = randomId();
-        createFlow(logFlowYaml(id, ns));
+        createFlow(flowYaml.apply(id, ns));
         ExecutionControllerExecutionResponse exec = client().executions()
                 .createExecution(TENANT, ns, id, null, null, null, null, null, null);
 
@@ -45,7 +70,7 @@ public class LogsApiTest {
     void listLogsFromExecution_basic() throws ApiException {
         String executionId = createExecutionWithLogs();
 
-        List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, null, null, null, null);
+        List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, null);
 
         assertThat(logs).isNotNull().isNotEmpty();
         assertThat(logs.get(0).getExecutionId()).isEqualTo(executionId);
@@ -53,20 +78,24 @@ public class LogsApiTest {
 
     @Test
     void listLogsFromExecution_withMinLevel() throws ApiException {
-        String executionId = createExecutionWithLogs();
+        String executionId = createMultiTaskExecutionWithLogs();
 
-        List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, Level.INFO, null, null, null);
-
-        assertThat(logs).isNotNull();
-        logs.forEach(log -> assertThat(log.getLevel()).isNotNull());
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, List.of(minLevelFilter("WARN")));
+            assertThat(logs).isNotNull().isNotEmpty();
+            assertThat(logs).allSatisfy(log ->
+                    assertThat(log.getLevel()).isIn(Level.WARN, Level.ERROR));
+            assertThat(logs).anySatisfy(log ->
+                    assertThat(log.getMessage()).contains("warn message"));
+        });
     }
 
     @Test
     void listLogsFromExecution_withTaskId() throws ApiException {
-        String executionId = createExecutionWithLogs();
+        String executionId = createMultiTaskExecutionWithLogs();
 
         await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
-            List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, null, null, "hello", null);
+            List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, List.of(taskIdFilter("hello")));
             assertThat(logs).isNotNull().isNotEmpty();
             assertThat(logs).allSatisfy(log ->
                     assertThat(log.getTaskId()).isEqualTo("hello"));
@@ -81,10 +110,21 @@ public class LogsApiTest {
     void downloadLogsFromExecution_basic() throws ApiException {
         String executionId = createExecutionWithLogs();
 
-        File file = api().downloadLogsFromExecution(executionId, TENANT, null, null, null, null);
+        File file = api().downloadLogsFromExecution(executionId, TENANT, null);
 
         assertThat(file).isNotNull();
         assertThat(file.length()).isGreaterThan(0);
+    }
+
+    @Test
+    void downloadLogsFromExecution_withMinLevel() throws ApiException {
+        String executionId = createMultiTaskExecutionWithLogs();
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            File file = api().downloadLogsFromExecution(executionId, TENANT, List.of(minLevelFilter("WARN")));
+            assertThat(file).isNotNull();
+            assertThat(file).content().contains("warn message").doesNotContain("info message");
+        });
     }
 
     // ========================================================================
