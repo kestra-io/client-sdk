@@ -52,6 +52,9 @@ func (a *AssetsAPI) DeleteAssetsByQuery(ctx context.Context, tenant string, filt
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "by-query"), nil, params)
 }
 
+// Deprecated: the lineage-event store and its routes were removed in Kestra develop
+// (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
+// against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
 func (a *AssetsAPI) DeleteAssetLineageEventsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	params := buildQueryParams()
 	if err := appendFilterParams(params, filters); err != nil {
@@ -77,6 +80,9 @@ func (a *AssetsAPI) SearchAssets(ctx context.Context, tenant string, page, size 
 	return doJSON[*PagedResultsAssetsControllerApiAsset](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "search"), nil, params)
 }
 
+// Deprecated: the lineage-event store and its routes were removed in Kestra develop
+// (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
+// against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
 func (a *AssetsAPI) SearchAssetLineageEvents(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetLineageEvent, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
