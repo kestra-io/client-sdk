@@ -13534,6 +13534,108 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/cases/events/search:
+    get:
+      tags:
+      - Cases
+      summary: Search case events forward from a cursor
+      description: Walks the case timeline in creation order for the CaseEvent trigger. Only events whose case the caller may read are returned.
+      operationId: searchCaseEvents
+      parameters:
+      - name: sinceCreated
+        in: query
+        description: Resume strictly after this event creation instant
+        explode: false
+        schema:
+          type: string
+          format: date-time
+          nullable: true
+      - name: sinceId
+        in: query
+        description: Resume strictly after this event id, breaking a tie on sinceCreated
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: events
+        in: query
+        description: Event types to keep, all of them when empty
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/CaseEventType'
+      - name: severities
+        in: query
+        description: Case severities to keep, all of them when empty
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/CaseSeverity'
+      - name: namespace
+        in: query
+        description: Keep cases in this namespace and its subtree
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: assignees
+        in: query
+        description: Keep cases assigned to any of these user or group ids
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: size
+        in: query
+        description: How many events to examine
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: searchCaseEvents 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApiCaseEventSearchResult'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/cases/from-executions:
     post:
       tags:
@@ -15080,6 +15182,105 @@ paths:
       responses:
         '200':
           description: changeStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApiCase'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/ticket:
+    put:
+      tags:
+      - Cases
+      summary: Link an external ticket to a case, replacing any existing one
+      operationId: setTicket
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasesController.CaseTicketRequest'
+        required: true
+      responses:
+        '200':
+          description: setTicket 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApiCase'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Unlink the external ticket from a case
+      operationId: deleteTicket
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: deleteTicket 200 response
           content:
             application/json:
               schema:
@@ -37892,6 +38093,8 @@ components:
       - EXECUTION_UNLINKED
       - ASSET_LINKED
       - ASSET_UNLINKED
+      - TICKET_LINKED
+      - TICKET_UNLINKED
       - ACTION_ATTACHED
       - ACTION_DETACHED
       - ACTION_UPDATED
@@ -38035,6 +38238,15 @@ components:
             $ref: '#/components/schemas/FlowAction'
         isDefault:
           type: boolean
+    CaseTicket:
+      type: object
+      properties:
+        system:
+          type: string
+        key:
+          type: string
+        url:
+          type: string
     CasesController.ApiCase:
       type: object
       properties:
@@ -38102,6 +38314,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AutoAttach'
+        ticket:
+          $ref: '#/components/schemas/CaseTicket'
         deleted:
           type: boolean
     CasesController.ApiCaseAsset:
@@ -38137,6 +38351,29 @@ components:
         created:
           type: string
           format: date-time
+    CasesController.ApiCaseEventSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CasesController.ApiCaseEventWithCase'
+        nextSinceCreated:
+          type: string
+          format: date-time
+          nullable: true
+        nextSinceId:
+          type: string
+          nullable: true
+        hasMore:
+          type: boolean
+    CasesController.ApiCaseEventWithCase:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CasesController.ApiCaseEvent'
+        case:
+          $ref: '#/components/schemas/CasesController.ApiTriggerCase'
     CasesController.ApiCaseExecution:
       type: object
       properties:
@@ -38191,6 +38428,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CasesController.ApiSubjectRef'
+    CasesController.ApiTriggerCase:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        severity:
+          $ref: '#/components/schemas/CaseSeverity'
+        status:
+          $ref: '#/components/schemas/CaseStatus'
+        namespace:
+          type: string
+        url:
+          type: string
+        ticket:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/CaseTicket'
     CasesController.AssignRequest:
       type: object
       properties:
@@ -38373,6 +38631,26 @@ components:
           maxLength: 250
           type: string
           nullable: true
+    CasesController.CaseTicketRequest:
+      required:
+      - key
+      - system
+      - url
+      type: object
+      properties:
+        system:
+          maxLength: 255
+          minLength: 1
+          type: string
+        key:
+          maxLength: 255
+          minLength: 1
+          type: string
+        url:
+          maxLength: 1024
+          minLength: 1
+          pattern: ^https?://.*
+          type: string
     CasesController.CaseUpdateRequest:
       type: object
       properties:
