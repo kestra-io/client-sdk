@@ -39500,6 +39500,8 @@ components:
           type: string
         renderError:
           type: boolean
+        path:
+          type: string
     ExecutionController.EvalResult:
       type: object
       properties:
@@ -45992,6 +45994,7 @@ components:
       - EMAIL
       - FORM
       - REUSABLE_INPUTS
+      - TABLE
     UnitTest:
       required:
       - assertions
