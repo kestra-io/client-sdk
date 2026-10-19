@@ -41722,6 +41722,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoopRun.Parent'
+        parseValues:
+          type: boolean
     LoopRun.Parent:
       type: object
       properties:
@@ -41733,6 +41735,8 @@ components:
           nullable: true
         value:
           type: string
+        parseValues:
+          type: boolean
     MaintenanceStatusResponse:
       type: object
       properties:
