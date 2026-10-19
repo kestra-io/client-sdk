@@ -10520,6 +10520,12 @@ paths:
               $ref: '#/components/schemas/AssetsController.RunAssetActionRequest'
         required: true
       responses:
+        '409':
+          description: The action's conditions do not hold on the asset in its current state
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '200':
           description: runAssetAction 200 response
           content:
@@ -34787,6 +34793,7 @@ paths:
 components:
   schemas:
     AbstractFilter.FilterType:
+      title: How the field is compared to the value.
       type: string
       enum:
       - CONTAINS
@@ -37232,6 +37239,10 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/AssetRelationRef'
+        actionAvailability:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetsController.ApiAssetActionAvailability'
         created:
           type: string
           format: date-time
@@ -37248,6 +37259,19 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/AssetTtlFlowService.TtlFlows'
+    AssetsController.ApiAssetActionAvailability:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        available:
+          type: boolean
+        unmet:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowActionAvailability.UnmetCondition'
     AssetsController.ApiAssetLock:
       type: object
       properties:
@@ -38884,18 +38908,6 @@ components:
           minimum: 0
           type: integer
           format: int32
-    Condition:
-      required:
-      - field
-      - operator
-      type: object
-      properties:
-        field:
-          type: string
-        operator:
-          $ref: '#/components/schemas/AbstractFilter.FilterType'
-        value:
-          type: object
     ConnectionMode:
       type: string
       description: Connection mode (SERVER or CLIENT)
@@ -39728,6 +39740,31 @@ components:
           additionalProperties:
             type: string
           description: Rendered values keyed by their raw expression
+    FieldCondition:
+      title: A condition on one field of a resource.
+      required:
+      - field
+      - operator
+      type: object
+      properties:
+        field:
+          title: The field this condition reads.
+          minLength: 1
+          type: string
+        operator:
+          title: How the field is compared to the value.
+          allOf:
+          - $ref: '#/components/schemas/AbstractFilter.FilterType'
+        value:
+          title: The value the field is compared to.
+          description: A list for `IN` and `NOT_IN`, ignored by `IS_NULL` and `IS_NOT_NULL`.
+          nullable: true
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+          - type: boolean
+          - type: array
     FileAttributes:
       type: object
       properties:
@@ -39925,6 +39962,27 @@ components:
           title: The label displayed on this action.
           type: string
           nullable: true
+        when:
+          title: The conditions under which this action is offered.
+          maxItems: 20
+          type: array
+          description: All conditions must hold, and an action without conditions is always offered. A field the resource does not have reads as null, so `NOT_EQUAL_TO`, `NOT_IN` and `NOT_CONTAINS` hold on it. A field is read as `status`, `namespace` or `metadata.<key>` on an asset.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/FieldCondition'
+    FlowActionAvailability.UnmetCondition:
+      type: object
+      properties:
+        condition:
+          $ref: '#/components/schemas/FieldCondition'
+        current:
+          nullable: true
+          anyOf:
+          - type: string
+          - type: number
+            format: double
+          - type: boolean
+          - type: array
     FlowController.FlowWithDeprecatedTasks:
       type: object
       properties:
@@ -44485,7 +44543,7 @@ components:
         where:
           type: array
           items:
-            $ref: '#/components/schemas/Condition'
+            $ref: '#/components/schemas/FieldCondition'
     RuleAction:
       title: The severity of the violation — BLOCK rejects the resource, WARN only reports.
       type: string
