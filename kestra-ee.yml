@@ -25233,6 +25233,7 @@ paths:
       tags:
       - Logs
       summary: Get logs for a specific execution, taskrun or task
+      description: All logs are returned unless `page` or `size` is set.
       operationId: listLogsFromExecution
       parameters:
       - name: executionId
@@ -25241,6 +25242,25 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        description: The current page, enables pagination when set
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          nullable: true
+      - name: size
+        in: query
+        description: The current page size, enables pagination when set (defaults to 10)
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          nullable: true
       - name: filters
         in: query
         description: Filters
