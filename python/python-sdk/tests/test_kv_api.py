@@ -70,3 +70,25 @@ def test_get_key_value(client_and_mock_session):
     assert call_args[0].upper() == "GET"
     assert "test-namespace" in call_args[1]
     assert "test-key" in call_args[1]
+
+# 1. Arrange: Setup mock response
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.json.return_value = True
+    mock_session.request.return_value = mock_resp
+
+    # 2. Act: Call delete_key_value method
+    result = client.kv.delete_key_value(
+        namespace="test-namespace",
+        key="test-key",
+        tenant="test-tenant"
+    )
+
+    # 3. Assert: Verify result and HTTP request parameters
+    assert result == True
+    assert mock_session.request.called
+
+    call_args, _ = mock_session.request.call_args
+    assert call_args[0].upper() == "DELETE"
+    assert "test-namespace" in call_args[1]
+    assert "test-key" in call_args[1]
