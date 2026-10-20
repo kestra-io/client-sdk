@@ -252,7 +252,11 @@ func queryFilterToSearchFilter(qf QueryFilter) SearchFilter {
 	var sf SearchFilter
 	if qf.Field != nil {
 		fieldStr := fmt.Sprintf("%v", *qf.Field)
-		keyField := toCamel(fieldStr)
+		keyField := fieldStr
+		// Convert only if legacy delimited/upper format (e.g. FLOW_ID, flow_id)
+		if strings.ContainsAny(fieldStr, "_- ") || (fieldStr == strings.ToUpper(fieldStr) && strings.ToLower(fieldStr) != strings.ToUpper(fieldStr)) {
+			keyField = toCamel(fieldStr)
+		}
 		if strings.EqualFold(fieldStr, "query") {
 			keyField = "q"
 		}
