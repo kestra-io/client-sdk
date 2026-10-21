@@ -39313,6 +39313,11 @@ components:
         condition:
           type: string
           nullable: true
+    DescriptionDisplayMode:
+      type: string
+      enum:
+      - TEXT
+      - TOOLTIP
     DocumentationWithSchema:
       type: object
       properties:
@@ -41425,6 +41430,11 @@ components:
         description:
           title: The description of the input.
           type: string
+        descriptionDisplayMode:
+          title: How the description of the input is displayed.
+          description: '`TEXT` renders the description as a text block between the label and the field, `TOOLTIP` renders it as a hoverable icon next to the label. Defaults to `TEXT`.'
+          allOf:
+          - $ref: '#/components/schemas/DescriptionDisplayMode'
         dependsOn:
           title: The dependencies of the input.
           allOf:
