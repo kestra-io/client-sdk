@@ -10753,7 +10753,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AssetRelationRef'
+              $ref: '#/components/schemas/AssetsController.ApiParentRequest'
         required: true
       responses:
         '423':
@@ -37438,6 +37438,29 @@ components:
         created:
           type: string
           format: date-time
+    AssetsController.ApiParentRequest:
+      required:
+      - parentId
+      type: object
+      properties:
+        parentId:
+          title: The id of the referenced asset.
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._:-]*
+          type: string
+        namespace:
+          title: 'The namespace of the referenced asset, informational: asset ids are unique per tenant.'
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-z0-9][a-z0-9._-]*
+          type: string
+          nullable: true
+        role:
+          title: The role this asset plays in the relation, for example primary or backup.
+          maxLength: 100
+          type: string
+          nullable: true
     AssetsController.ApiRelation:
       type: object
       properties:
