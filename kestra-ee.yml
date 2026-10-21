@@ -32807,7 +32807,7 @@ paths:
       tags:
       - TestSuites
       summary: Run multiple TestSuites by query
-      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE permission with the EXECUTE action.
+      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE and FLOW permissions with the EXECUTE action.
       operationId: runTestSuitesByQuery
       parameters:
       - name: tenant
@@ -33174,7 +33174,7 @@ paths:
       tags:
       - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TESTSUITE permission with the EXECUTE action.
+      description: Executes all test cases in the specified test. Requires TESTSUITE and FLOW permissions with the EXECUTE action.
       operationId: runTestSuite
       parameters:
       - name: namespace
