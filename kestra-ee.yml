@@ -35563,7 +35563,7 @@ components:
           items:
             $ref: '#/components/schemas/Breakpoint'
         loopRun:
-          $ref: '#/components/schemas/LoopRun'
+          $ref: '#/components/schemas/ApiLoopRun'
     ApiFlowHashBatch.Ref:
       title: Flow Reference
       type: object
@@ -35800,7 +35800,43 @@ components:
         kind:
           $ref: '#/components/schemas/ExecutionKind'
         loopRun:
-          $ref: '#/components/schemas/LoopRun'
+          $ref: '#/components/schemas/ApiLoopRun'
+    ApiLoopRun:
+      required:
+      - taskId
+      - taskRunId
+      - value
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        index:
+          type: integer
+          format: int32
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
+        parents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiLoopRun.Parent'
+    ApiLoopRun.Parent:
+      required:
+      - value
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
     ApiMcpServer:
       required:
       - id
