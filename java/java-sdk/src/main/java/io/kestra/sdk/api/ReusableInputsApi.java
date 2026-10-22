@@ -40,10 +40,21 @@ public class ReusableInputsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String body,
             @jakarta.annotation.Nullable Boolean failIfExists) throws ApiException {
+        return createOrUpdateReusableInputs(namespace, id, tenant, body, failIfExists, null);
+    }
+
+    /** Creates or updates a block from its YAML source; with {@code draft}, the revision is saved as a draft, which executions skip and which may be invalid. */
+    public ReusableInputsWithSource createOrUpdateReusableInputs(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String body,
+            @jakarta.annotation.Nullable Boolean failIfExists,
+            @jakarta.annotation.Nullable Boolean draft) throws ApiException {
         return invoke("PUT",
                 tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id),
                 body,
-                queryParams("failIfExists", failIfExists),
+                queryParams("failIfExists", failIfExists, "draft", draft),
                 Collections.emptyList(),
                 JSON, YAML,
                 new TypeReference<>() {});
@@ -55,10 +66,23 @@ public class ReusableInputsApi extends BaseApi {
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer revision) throws ApiException {
+        return reusableInputs(namespace, id, tenant, revision, null);
+    }
+
+    /**
+     * Retrieves a block, resolving namespace inheritance. Without {@code allowDraft}, the revision an execution would use
+     * is returned: the latest that isn't a draft, unless {@code revision} is set; a block with only drafts fails with a 422.
+     */
+    public ReusableInputsWithSource reusableInputs(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer revision,
+            @jakarta.annotation.Nullable Boolean allowDraft) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id),
                 null,
-                queryParams("revision", revision),
+                queryParams("revision", revision, "allowDraft", allowDraft),
                 Collections.emptyList(),
                 JSON, null,
                 new TypeReference<>() {});
@@ -85,10 +109,23 @@ public class ReusableInputsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size) throws ApiException {
+        return listReusableInputs(namespace, tenant, page, size, null);
+    }
+
+    /**
+     * Lists the blocks visible from a namespace, including those inherited from parent namespaces. Without
+     * {@code allowDraft}, only the blocks an execution can use are listed, each as the revision it would run.
+     */
+    public PagedResultsReusableInputsWithSource listReusableInputs(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable Boolean allowDraft) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "namespaces", namespace, "reusable-inputs"),
                 null,
-                queryParams("page", page, "size", size),
+                queryParams("page", page, "size", size, "allowDraft", allowDraft),
                 Collections.emptyList(),
                 JSON, null,
                 new TypeReference<>() {});
