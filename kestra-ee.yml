@@ -28724,6 +28724,13 @@ paths:
           type: integer
           format: int32
           default: 10
+      - name: allowDraft
+        in: query
+        description: 'Include draft revisions: without it, only the ones an execution can use are listed, each as the revision it would run'
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -28783,6 +28790,13 @@ paths:
           type: integer
           format: int32
           nullable: true
+      - name: allowDraft
+        in: query
+        description: 'Include draft revisions: without it, the revision an execution would use is returned, the latest that isn''t a draft unless a revision is set'
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -28837,6 +28851,13 @@ paths:
       - name: failIfExists
         in: query
         description: Reject instead of overwriting if a block with this id already exists in the namespace
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: draft
+        in: query
+        description: Save the revision as a draft, which executions skip and which may be invalid
         explode: false
         schema:
           type: boolean
@@ -28969,6 +28990,81 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ReusableInputsWithSource'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}/validate:
+    post:
+      tags:
+      - Reusable Inputs
+      summary: Validate reusable inputs from their YAML source, without saving them
+      operationId: validate
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: query
+        description: The revision being edited, to tell whether a newer one was saved in the meantime; omitted when creating
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+          application/yaml:
+            schema:
+              type: string
+          text/plain:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: validate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReusableInputsValidation'
         '401':
           description: Authentication required
           content:
@@ -44504,6 +44600,18 @@ components:
           type: string
         required:
           type: boolean
+    ReusableInputsValidation:
+      type: object
+      properties:
+        outdated:
+          type: boolean
+          description: Whether a revision newer than the one being edited was saved in the meantime.
+        errors:
+          type: array
+          description: Every error found, each located by the id of the input and a JSON Pointer into the source.
+          items:
+            $ref: '#/components/schemas/ValidationError'
+      description: The result of validating reusable inputs from their YAML source.
     ReusableInputsWithSource:
       title: Reusable inputs with source
       required:
@@ -44554,6 +44662,16 @@ components:
         deleted:
           title: Whether the block is soft-deleted.
           type: boolean
+          readOnly: true
+        draft:
+          title: Whether this revision is a draft.
+          type: boolean
+          description: Executions skip draft revisions and use the latest revision that isn't a draft, unless a revision is set explicitly.
+          readOnly: true
+        updatedBy:
+          title: The username of the user or service account that saved this revision.
+          type: string
+          nullable: true
           readOnly: true
         source:
           title: The block's YAML source, as written in the editor.
