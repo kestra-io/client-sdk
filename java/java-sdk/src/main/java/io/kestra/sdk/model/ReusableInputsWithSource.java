@@ -37,7 +37,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ReusableInputsWithSource.JSON_PROPERTY_CREATED,
   ReusableInputsWithSource.JSON_PROPERTY_UPDATED,
   ReusableInputsWithSource.JSON_PROPERTY_DELETED,
-  ReusableInputsWithSource.JSON_PROPERTY_SOURCE
+  ReusableInputsWithSource.JSON_PROPERTY_SOURCE,
+  ReusableInputsWithSource.JSON_PROPERTY_DRAFT,
+  ReusableInputsWithSource.JSON_PROPERTY_UPDATED_BY
 })
 @JsonTypeName("ReusableInputsWithSource")
 public class ReusableInputsWithSource {
@@ -70,6 +72,12 @@ public class ReusableInputsWithSource {
 
   public static final String JSON_PROPERTY_SOURCE = "source";
   @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nullable  private Boolean draft;
+
+  public static final String JSON_PROPERTY_UPDATED_BY = "updatedBy";
+  @jakarta.annotation.Nullable  private String updatedBy;
 
   public ReusableInputsWithSource() {
   }
@@ -322,6 +330,54 @@ public class ReusableInputsWithSource {
     this.source = source;
   }
 
+  public ReusableInputsWithSource draft(@jakarta.annotation.Nullable Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this revision is a draft. Executions skip draft revisions and use the latest revision that isn&#39;t a draft, unless a revision is set explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDraft(@jakarta.annotation.Nullable Boolean draft) {
+    this.draft = draft;
+  }
+
+  public ReusableInputsWithSource updatedBy(@jakarta.annotation.Nullable String updatedBy) {
+    
+    this.updatedBy = updatedBy;
+    return this;
+  }
+
+  /**
+   * The username of the user or service account that saved this revision.
+   * @return updatedBy
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUpdatedBy() {
+    return updatedBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedBy(@jakarta.annotation.Nullable String updatedBy) {
+    this.updatedBy = updatedBy;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -340,12 +396,14 @@ public class ReusableInputsWithSource {
         Objects.equals(this.created, reusableInputsWithSource.created) &&
         Objects.equals(this.updated, reusableInputsWithSource.updated) &&
         Objects.equals(this.deleted, reusableInputsWithSource.deleted) &&
-        Objects.equals(this.source, reusableInputsWithSource.source);
+        Objects.equals(this.source, reusableInputsWithSource.source) &&
+        Objects.equals(this.draft, reusableInputsWithSource.draft) &&
+        Objects.equals(this.updatedBy, reusableInputsWithSource.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, id, description, inputs, revision, last, created, updated, deleted, source);
+    return Objects.hash(namespace, id, description, inputs, revision, last, created, updated, deleted, source, draft, updatedBy);
   }
 
   @Override
@@ -362,6 +420,8 @@ public class ReusableInputsWithSource {
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
     sb.append("}");
     return sb.toString();
   }
