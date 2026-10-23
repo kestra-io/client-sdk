@@ -12618,7 +12618,7 @@ paths:
       tags:
       - Cases
       summary: Create a case from a task run, or attach to a matching open case
-      description: 'Creates a case from a task run, or attaches the triggering execution to a matching already-open case, used by the `CreateCase` plugin task. A match is the same tenant + `deduplicationKey` when one is set, otherwise the same flow namespace/id + task id. The find-or-create is serialized per match through a lock, and fails with a 503 when the lock cannot be taken in time rather than risk a duplicate case. Unlike #createCaseFromRequest, title/description are stored verbatim: the task has already rendered any Pebble expressions itself.'
+      description: 'Creates a case from a task run, or attaches the triggering execution to a matching already-open case, used by the `CreateCase` plugin task. A match is the same tenant + `deduplicationKey` when one is set, otherwise the same flow namespace/id + task id. The find-or-create is serialized per match through a lock, and fails with a 503 when the lock cannot be taken in time rather than risk a duplicate case. The case is pre-filled from `templateId`, or from the tenant''s default template when unset. Unlike #createCaseFromRequest, a title/description sent by the task is stored verbatim since the task has already rendered it; only the template''s title pattern and description are rendered here.'
       operationId: createFromTask
       parameters:
       - name: tenant
@@ -13962,6 +13962,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CasesController.ApiCase'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/resolution-rules:
+    get:
+      tags:
+      - Cases
+      summary: Retrieve the resolution reasons accepted for a case and whether a note is required
+      description: An empty reasons list accepts any reason.
+      operationId: resolutionRules
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: resolutionRules 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApiResolutionRules'
         '401':
           description: Authentication required
           content:
@@ -36194,6 +36242,12 @@ components:
           $ref: '#/components/schemas/Origin'
         templateId:
           type: string
+        resolutionReasons:
+          type: array
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
         autoAttach:
           type: array
           items:
@@ -36267,6 +36321,15 @@ components:
           format: date-time
         assignees:
           $ref: '#/components/schemas/CasesController.ApiSubjects'
+    CasesController.ApiResolutionRules:
+      type: object
+      properties:
+        resolutionReasons:
+          type: array
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
     CasesController.ApiSubjectRef:
       type: object
       properties:
@@ -36468,6 +36531,19 @@ components:
         deduplicationKey:
           maxLength: 250
           type: string
+          nullable: true
+        templateId:
+          type: string
+          nullable: true
+        resolutionReasons:
+          minItems: 1
+          type: array
+          nullable: true
+          items:
+            minLength: 1
+            type: string
+        requireResolutionNote:
+          type: boolean
           nullable: true
     CasesController.CaseUpdateRequest:
       type: object
