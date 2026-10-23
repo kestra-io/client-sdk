@@ -54,33 +54,6 @@ func TestAssetsAPI_All(t *testing.T) {
 		require.Empty(t, result.Results)
 	})
 
-	t.Run("searchAssetLineageEvents_basic", func(t *testing.T) {
-		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-		ctx := context.Background()
-
-		result, err := KestraTestClient().Assets().SearchAssetLineageEvents(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
-		require.NoError(t, err)
-		require.NotNil(t, result)
-		require.NotNil(t, result.Results)
-	})
-
-	t.Run("searchAssetLineageEvents_withFilters", func(t *testing.T) {
-		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-		ctx := context.Background()
-
-		filters := []kestra_api_client.SearchFilter{
-			{
-				Field:     kestra_api_client.FilterNamespace,
-				Operation: kestra_api_client.OpEquals,
-				Value:     "nonexistent_ns_" + randomId(),
-			},
-		}
-		result, err := KestraTestClient().Assets().SearchAssetLineageEvents(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
-		require.NoError(t, err)
-		require.NotNil(t, result)
-		require.Empty(t, result.Results)
-	})
-
 	t.Run("searchAssetUsages_basic", func(t *testing.T) {
 		ctx := context.Background()
 
@@ -321,16 +294,88 @@ description: updated by the sdk
 		require.NoError(t, err)
 	})
 
-	t.Run("assetDependencies_basic", func(t *testing.T) {
+	t.Run("assetDependencies_withKinds", func(t *testing.T) {
 		ctx := context.Background()
-		id := randomId()
+		source, upstream, related := createAsset(t, ctx), createAsset(t, ctx), createAsset(t, ctx)
+		createRelation(t, ctx, source, kestra_api_client.RELATIONKIND_UPSTREAM_OF, kestra_api_client.RELATIONDIRECTION_OUTBOUND, upstream)
+		createRelation(t, ctx, source, kestra_api_client.RELATIONKIND_RELATED, kestra_api_client.RELATIONDIRECTION_BOTH, related)
 
-		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		// each kind reaches a different asset, so both nodes are only there if both kinds were bound
+		graph, err := KestraTestClient().Assets().AssetDependencies(ctx, source, MAIN_TENANT,
+			[]kestra_api_client.RelationKind{kestra_api_client.RELATIONKIND_UPSTREAM_OF, kestra_api_client.RELATIONKIND_RELATED}, nil, nil)
+		require.NoError(t, err)
+		require.Subset(t, graphNodeIds(graph), []string{source, upstream, related})
+
+		onlyRelated, err := KestraTestClient().Assets().AssetDependencies(ctx, source, MAIN_TENANT,
+			[]kestra_api_client.RelationKind{kestra_api_client.RELATIONKIND_RELATED}, nil, nil)
+		require.NoError(t, err)
+		require.NotContains(t, graphNodeIds(onlyRelated), upstream)
+	})
+
+	t.Run("assetRelations_createListDelete", func(t *testing.T) {
+		ctx := context.Background()
+		source, target := createAsset(t, ctx), createAsset(t, ctx)
+
+		relation := createRelation(t, ctx, source, kestra_api_client.RELATIONKIND_UPSTREAM_OF, kestra_api_client.RELATIONDIRECTION_OUTBOUND, target)
+		require.NotEmpty(t, relation.Uid)
+		require.Equal(t, kestra_api_client.RELATIONKIND_UPSTREAM_OF, relation.Kind)
+		require.Equal(t, kestra_api_client.RELATIONORIGIN_MANUAL, relation.Origin)
+
+		summary, err := KestraTestClient().Assets().AssetRelationSummary(ctx, source, MAIN_TENANT, kestra_api_client.PtrInt(5))
+		require.NoError(t, err)
+		group := findRelationGroup(summary, kestra_api_client.RELATIONKIND_UPSTREAM_OF)
+		require.NotNil(t, group, "summary should have an UPSTREAM_OF group")
+		require.GreaterOrEqual(t, group.Total, int64(1))
+
+		page, err := KestraTestClient().Assets().AssetRelations(ctx, source, MAIN_TENANT, group.Kind, group.Direction, nil, kestra_api_client.PtrInt(20))
+		require.NoError(t, err)
+		uids := make([]string, 0, len(page.Results))
+		for _, item := range page.Results {
+			uids = append(uids, item.Relation.Uid)
+		}
+		require.Contains(t, uids, relation.Uid)
+
+		err = KestraTestClient().Assets().DeleteAssetRelation(ctx, source, relation.Uid, MAIN_TENANT)
 		require.NoError(t, err)
 
-		result, err := KestraTestClient().Assets().AssetDependencies(ctx, created.GetId(), MAIN_TENANT, nil, nil)
+		after, err := KestraTestClient().Assets().AssetRelationSummary(ctx, source, MAIN_TENANT, nil)
 		require.NoError(t, err)
-		require.NotNil(t, result)
+		if remaining := findRelationGroup(after, kestra_api_client.RELATIONKIND_UPSTREAM_OF); remaining != nil {
+			require.Less(t, remaining.Total, group.Total)
+		}
+	})
+
+	t.Run("assetParent_setThenClear", func(t *testing.T) {
+		ctx := context.Background()
+		parent, child := createAsset(t, ctx), createAsset(t, ctx)
+
+		updated, err := KestraTestClient().Assets().SetAssetParent(ctx, child, MAIN_TENANT, kestra_api_client.AssetsControllerApiParentRequest{ParentId: parent})
+		require.NoError(t, err)
+		require.Equal(t, parent, updated.GetPartOf().Id)
+
+		read, err := KestraTestClient().Assets().Asset(ctx, child, MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.True(t, read.HasPartOf())
+		require.Equal(t, parent, read.GetPartOf().Id)
+
+		_, err = KestraTestClient().Assets().ClearAssetParent(ctx, child, MAIN_TENANT)
+		require.NoError(t, err)
+
+		cleared, err := KestraTestClient().Assets().Asset(ctx, child, MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.False(t, cleared.HasPartOf())
+	})
+
+	t.Run("flowAssetDependencies_basic", func(t *testing.T) {
+		ctx := context.Background()
+		flowId := randomId()
+		ns := randomId()
+		createSimpleFlow(ctx, flowId, ns)
+
+		graph, err := KestraTestClient().Assets().FlowAssetDependencies(ctx, ns, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, graph)
+		require.Contains(t, graphNodeIds(graph), flowId)
 	})
 
 	t.Run("deleteAssetsByIds_basic", func(t *testing.T) {
@@ -356,22 +401,6 @@ description: updated by the sdk
 			},
 		}
 		result, err := KestraTestClient().Assets().DeleteAssetsByQuery(ctx, MAIN_TENANT, filters, nil)
-		require.NoError(t, err)
-		require.NotNil(t, result)
-	})
-
-	t.Run("deleteAssetLineageEventsByQuery_basic", func(t *testing.T) {
-		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-		ctx := context.Background()
-
-		filters := []kestra_api_client.SearchFilter{
-			{
-				Field:     kestra_api_client.FilterNamespace,
-				Operation: kestra_api_client.OpEquals,
-				Value:     "nonexistent",
-			},
-		}
-		result, err := KestraTestClient().Assets().DeleteAssetLineageEventsByQuery(ctx, MAIN_TENANT, filters)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 	})
@@ -412,4 +441,43 @@ description: updated by the sdk
 		require.Contains(t, ids, id1)
 		require.Contains(t, ids, id2)
 	})
+}
+
+func createAsset(t *testing.T, ctx context.Context) string {
+	created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(randomId()))
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		_ = KestraTestClient().Assets().DeleteAsset(context.Background(), created.GetId(), MAIN_TENANT)
+	})
+	return created.GetId()
+}
+
+func createRelation(t *testing.T, ctx context.Context, id string, kind kestra_api_client.RelationKind, direction kestra_api_client.RelationDirection, targetId string) *kestra_api_client.AssetsControllerApiRelation {
+	relation, err := KestraTestClient().Assets().CreateAssetRelation(ctx, id, MAIN_TENANT, kestra_api_client.AssetsControllerApiRelationRequest{
+		Kind:      kind,
+		Direction: direction,
+		TargetId:  targetId,
+	})
+	require.NoError(t, err)
+	require.NotNil(t, relation)
+	return relation
+}
+
+func findRelationGroup(summary *kestra_api_client.AssetsControllerApiRelationSummary, kind kestra_api_client.RelationKind) *kestra_api_client.AssetsControllerApiRelationGroup {
+	for i := range summary.Groups {
+		if summary.Groups[i].Kind == kind {
+			return &summary.Groups[i]
+		}
+	}
+	return nil
+}
+
+func graphNodeIds(graph *kestra_api_client.AssetRelationGraph) []string {
+	ids := make([]string, 0, len(graph.Nodes))
+	for _, n := range graph.Nodes {
+		if n.Id != nil {
+			ids = append(ids, *n.Id)
+		}
+	}
+	return ids
 }

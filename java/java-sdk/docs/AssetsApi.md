@@ -5,16 +5,21 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**asset**](AssetsApi.md#asset) | **GET** /api/v1/{tenant}/assets/{id} | Retrieve an asset |
-| [**assetDependencies**](AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies |
+| [**assetDependencies**](AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get the relation graph around an asset |
+| [**assetRelationSummary**](AssetsApi.md#assetRelationSummary) | **GET** /api/v1/{tenant}/assets/{id}/relations/summary | Summarize the relations of an asset, grouped by kind and direction |
+| [**assetRelations**](AssetsApi.md#assetRelations) | **GET** /api/v1/{tenant}/assets/{id}/relations | One page of the relations of an asset for one kind and direction |
+| [**clearAssetParent**](AssetsApi.md#clearAssetParent) | **DELETE** /api/v1/{tenant}/assets/{id}/parent | Detach the asset from the one it is part of |
 | [**createAsset**](AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset |
+| [**createAssetRelation**](AssetsApi.md#createAssetRelation) | **POST** /api/v1/{tenant}/assets/{id}/relations | Create a relation from an asset by hand |
 | [**deleteAsset**](AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset |
-| [**deleteAssetLineageEventsByQuery**](AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only **(deprecated)** |
+| [**deleteAssetRelation**](AssetsApi.md#deleteAssetRelation) | **DELETE** /api/v1/{tenant}/assets/{id}/relations/{uid} | Remove one relation of an asset |
 | [**deleteAssetUsagesByQuery**](AssetsApi.md#deleteAssetUsagesByQuery) | **DELETE** /api/v1/{tenant}/assets/usages/by-query | Delete asset usages by query, hard-delete (purge) only |
 | [**deleteAssetsByIds**](AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids |
 | [**deleteAssetsByQuery**](AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query |
-| [**searchAssetLineageEvents**](AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events **(deprecated)** |
+| [**flowAssetDependencies**](AssetsApi.md#flowAssetDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/asset-dependencies | Get the relation graph around a flow |
 | [**searchAssetUsages**](AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages |
 | [**searchAssets**](AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets |
+| [**setAssetParent**](AssetsApi.md#setAssetParent) | **PUT** /api/v1/{tenant}/assets/{id}/parent | Set the asset this one is part of |
 
 
 
@@ -92,9 +97,86 @@ public class Example {
 
 ## assetDependencies
 
-> AssetTopologyGraph assetDependencies(id, tenant, destinationOnly, expandAll)
+> AssetRelationGraph assetDependencies(id, tenant, kinds, expandAll, hubCursor)
 
-Get an asset dependencies
+Get the relation graph around an asset
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+import io.kestra.sdk.model.*;
+import java.util.Arrays;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
+        List<RelationKind> kinds = Arrays.asList(RelationKind.UPSTREAM_OF, RelationKind.RELATED); // List<RelationKind> | Relation kinds to include, defaults to every current-state kind
+        Boolean expandAll = false; // Boolean | If true, expand transitively through lineage kinds
+        String hubCursor = null; // String | When this asset is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call
+        try {
+            AssetRelationGraph result = kestraClient.assets().assetDependencies(id, tenant, kinds, expandAll, hubCursor);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#assetDependencies");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **tenant** | **String**|  | |
+| **kinds** | [**List&lt;RelationKind&gt;**](RelationKind.md)| Relation kinds to include, defaults to every current-state kind | [optional] |
+| **expandAll** | **Boolean**| If true, expand transitively through lineage kinds | [optional] [default to false] |
+| **hubCursor** | **String**| When this asset is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call | [optional] |
+
+### Return type
+
+[**AssetRelationGraph**](AssetRelationGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getAssetDependencies 200 response |  -  |
+
+## assetRelationSummary
+
+> AssetsControllerApiRelationSummary assetRelationSummary(id, tenant, limit)
+
+Summarize the relations of an asset, grouped by kind and direction
 
 ### Example
 
@@ -118,13 +200,12 @@ public class Example {
 
         String id = "id_example"; // String | The asset id
         String tenant = "tenant_example"; // String | 
-        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
+        Integer limit = 5; // Integer | Items per group
         try {
-            AssetTopologyGraph result = kestraClient.assets().assetDependencies(id, tenant, destinationOnly, expandAll);
+            AssetsControllerApiRelationSummary result = kestraClient.assets().assetRelationSummary(id, tenant, limit);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AssetsApi#assetDependencies");
+            System.err.println("Exception when calling AssetsApi#assetRelationSummary");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -141,12 +222,11 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The asset id | |
 | **tenant** | **String**|  | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false] |
+| **limit** | **Integer**| Items per group | [optional] [default to 5] |
 
 ### Return type
 
-[**AssetTopologyGraph**](AssetTopologyGraph.md)
+[**AssetsControllerApiRelationSummary**](AssetsControllerApiRelationSummary.md)
 
 ### Authorization
 
@@ -161,8 +241,154 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | getAssetDependencies 200 response |  -  |
+| **200** | getAssetRelationSummary 200 response |  -  |
 
+## assetRelations
+
+> AssetsControllerApiRelationPage assetRelations(id, tenant, kind, direction, after, size)
+
+One page of the relations of an asset for one kind and direction
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+import io.kestra.sdk.model.*;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
+        RelationKind kind = RelationKind.UPSTREAM_OF; // RelationKind | The relation kind
+        RelationDirection direction = RelationDirection.OUTBOUND; // RelationDirection | The side of the asset in the relation, as reported by the summary group being expanded
+        String after = null; // String | The nextCursor of the previous page
+        Integer size = 20; // Integer | The page size
+        try {
+            AssetsControllerApiRelationPage result = kestraClient.assets().assetRelations(id, tenant, kind, direction, after, size);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#assetRelations");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **tenant** | **String**|  | |
+| **kind** | [**RelationKind**](RelationKind.md)| The relation kind | |
+| **direction** | [**RelationDirection**](RelationDirection.md)| The side of the asset in the relation, as reported by the summary group being expanded | |
+| **after** | **String**| The nextCursor of the previous page | [optional] |
+| **size** | **Integer**| The page size | [optional] [default to 20] |
+
+### Return type
+
+[**AssetsControllerApiRelationPage**](AssetsControllerApiRelationPage.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getAssetRelations 200 response |  -  |
+
+## clearAssetParent
+
+> AssetsControllerApiAsset clearAssetParent(id, tenant)
+
+Detach the asset from the one it is part of
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
+        try {
+            AssetsControllerApiAsset result = kestraClient.assets().clearAssetParent(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#clearAssetParent");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**AssetsControllerApiAsset**](AssetsControllerApiAsset.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | clearAssetParent 200 response |  -  |
 
 ## createAsset
 
@@ -234,6 +460,80 @@ public class Example {
 | **200** | createAsset 200 response |  -  |
 
 
+## createAssetRelation
+
+> AssetsControllerApiRelation createAssetRelation(id, tenant, request)
+
+Create a relation from an asset by hand
+
+Only current-state kinds can be drawn by hand, and PART_OF goes through the parent endpoint instead (see `setAssetParent`). Creating the same relation twice overwrites the role and marks the relation manual, reviving it if it had been removed.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+import io.kestra.sdk.model.*;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
+        AssetsControllerApiRelationRequest request = new AssetsControllerApiRelationRequest().kind(RelationKind.UPSTREAM_OF).direction(RelationDirection.OUTBOUND).targetId("other_asset"); // AssetsControllerApiRelationRequest | 
+        try {
+            AssetsControllerApiRelation result = kestraClient.assets().createAssetRelation(id, tenant, request);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#createAssetRelation");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **tenant** | **String**|  | |
+| **request** | [**AssetsControllerApiRelationRequest**](AssetsControllerApiRelationRequest.md)|  | |
+
+### Return type
+
+[**AssetsControllerApiRelation**](AssetsControllerApiRelation.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | createAssetRelation 201 response |  -  |
+
 ## deleteAsset
 
 > deleteAsset(id, tenant)
@@ -303,13 +603,13 @@ null (empty response body)
 | **200** | deleteAsset 200 response |  -  |
 
 
-## deleteAssetLineageEventsByQuery
+## deleteAssetRelation
 
-> **Deprecated:** the lineage-event routes were removed in Kestra develop (kestra-ee `091e7d441`, after 2.0.x) and answer 403 there. This method still works against Kestra 2.0.x.
+> deleteAssetRelation(id, uid, tenant)
 
-> BulkResponse deleteAssetLineageEventsByQuery(tenant, filters)
+Remove one relation of an asset
 
-Delete asset lineage events by query, hard-delete (purge) only
+A derived relation is tombstoned rather than deleted, so the next run that produces it does not bring it back. A declared one is deleted, but comes back if a peer still declares it.
 
 ### Example
 
@@ -331,13 +631,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String id = "id_example"; // String | The asset id
+        String uid = "uid_example"; // String | The uid of the relation
         String tenant = "tenant_example"; // String | 
         try {
-            BulkResponse result = kestraClient.assets().deleteAssetLineageEventsByQuery(tenant, filters);
-            System.out.println(result);
+            kestraClient.assets().deleteAssetRelation(id, uid, tenant);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AssetsApi#deleteAssetLineageEventsByQuery");
+            System.err.println("Exception when calling AssetsApi#deleteAssetRelation");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -352,12 +652,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **uid** | **String**| The uid of the relation | |
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+null (empty response body)
 
 ### Authorization
 
@@ -366,14 +667,13 @@ public class Example {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | deleteAssetLineageEventsByQuery 200 response |  -  |
-
+| **204** | deleteAssetRelation 204 response |  -  |
 
 ## deleteAssetUsagesByQuery
 
@@ -589,13 +889,11 @@ public class Example {
 | **400** | If any assetId didn&#39;t match an existing asset |  -  |
 
 
-## searchAssetLineageEvents
+## flowAssetDependencies
 
-> **Deprecated:** the lineage-event routes were removed in Kestra develop (kestra-ee `091e7d441`, after 2.0.x) and answer 403 there. This method still works against Kestra 2.0.x.
+> AssetRelationGraph flowAssetDependencies(namespace, id, tenant, kinds, expandAll, hubCursor)
 
-> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(tenant, page, size, sort, filters)
-
-Search for asset lineage events
+Get the relation graph around a flow
 
 ### Example
 
@@ -607,6 +905,8 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.AssetsApi;
+import io.kestra.sdk.model.*;
+import java.util.Arrays;
 
 public class Example {
     public static void main(String[] args) {
@@ -617,16 +917,17 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        List<RelationKind> kinds = Arrays.asList(RelationKind.UPSTREAM_OF, RelationKind.RELATED); // List<RelationKind> | Relation kinds to include, defaults to every current-state kind
+        Boolean expandAll = false; // Boolean | If true, expand transitively through lineage kinds
+        String hubCursor = null; // String | When this flow is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call
         try {
-            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.assets().searchAssetLineageEvents(tenant, page, size, sort, filters);
+            AssetRelationGraph result = kestraClient.assets().flowAssetDependencies(namespace, id, tenant, kinds, expandAll, hubCursor);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AssetsApi#searchAssetLineageEvents");
+            System.err.println("Exception when calling AssetsApi#flowAssetDependencies");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -641,15 +942,16 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
 | **tenant** | **String**|  | |
-| **page** | **Integer**| The current page | [optional] [default to 1] |
-| **size** | **Integer**| The current page size | [optional] [default to 10] |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **kinds** | [**List&lt;RelationKind&gt;**](RelationKind.md)| Relation kinds to include, defaults to every current-state kind | [optional] |
+| **expandAll** | **Boolean**| If true, expand transitively through lineage kinds | [optional] [default to false] |
+| **hubCursor** | **String**| When this flow is itself a collapsed hub, the nextCursor of the page already shown; pages a "load more relations" call | [optional] |
 
 ### Return type
 
-[**PagedResultsAssetsControllerApiAssetLineageEvent**](PagedResultsAssetsControllerApiAssetLineageEvent.md)
+[**AssetRelationGraph**](AssetRelationGraph.md)
 
 ### Authorization
 
@@ -664,8 +966,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | searchAssetLineageEvents 200 response |  -  |
-
+| **200** | getFlowAssetDependencies 200 response |  -  |
 
 ## searchAssetUsages
 
@@ -817,4 +1118,76 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchAssets 200 response |  -  |
+
+## setAssetParent
+
+> AssetsControllerApiAsset setAssetParent(id, tenant, parent)
+
+Set the asset this one is part of
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+import io.kestra.sdk.model.*;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
+        AssetsControllerApiParentRequest parent = new AssetsControllerApiParentRequest().parentId("parent_asset"); // AssetsControllerApiParentRequest | 
+        try {
+            AssetsControllerApiAsset result = kestraClient.assets().setAssetParent(id, tenant, parent);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#setAssetParent");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The asset id | |
+| **tenant** | **String**|  | |
+| **parent** | [**AssetsControllerApiParentRequest**](AssetsControllerApiParentRequest.md)|  | |
+
+### Return type
+
+[**AssetsControllerApiAsset**](AssetsControllerApiAsset.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | setAssetParent 200 response |  -  |
 
