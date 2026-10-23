@@ -9,6 +9,7 @@ function makeTenant(id: string): Tenant {
         id,
         name: `Test Tenant ${id}`,
         deleted: false,
+        type: 'DEFAULT',
     };
 }
 

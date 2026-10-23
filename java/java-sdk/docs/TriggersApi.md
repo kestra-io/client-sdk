@@ -8,9 +8,9 @@ All URIs are relative to *http://localhost*
 | [**deleteBackfill**](TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill |
 | [**deleteBackfillByIds**](TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers asynchronously |
 | [**deleteBackfillByQuery**](TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for triggers matching query asynchronously |
-| [**deleteTrigger**](TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger |
-| [**deleteTriggersByIds**](TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers asynchronously |
-| [**deleteTriggersByQuery**](TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters asynchronously |
+| [**deleteTrigger**](TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete orphan trigger state |
+| [**deleteTriggersByIds**](TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete orphan trigger state for the given triggers |
+| [**deleteTriggersByQuery**](TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete orphan trigger state matching the query |
 | [**disableTriggerById**](TriggersApi.md#disableTriggerById) | **PUT** /api/v1/{tenant}/triggers/set-disabled | Disable/enable a trigger |
 | [**disabledTriggersByIds**](TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers asynchronously |
 | [**disabledTriggersByQuery**](TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters asynchronously |
@@ -318,7 +318,7 @@ public class Example {
 
 > deleteTrigger(tenant, namespace, flowId, triggerId)
 
-Delete a trigger
+Delete orphan trigger state
 
 ### Example
 
@@ -386,14 +386,14 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **200** | deleteTrigger 200 response |  -  |
 | **204** | On success |  -  |
-| **409** | If the trigger cannot be deleted |  -  |
+| **409** | If the flow still declares the trigger, or the scheduler failed to delete the trigger state |  -  |
 
 
 ## deleteTriggersByIds
 
 > ApiAsyncOperationResponse deleteTriggersByIds(tenant, triggerIds)
 
-Delete given triggers asynchronously
+Delete orphan trigger state for the given triggers
 
 ### Example
 
@@ -457,14 +457,14 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | deleteTriggersByIds 200 response |  -  |
-| **202** | Accepted |  -  |
+| **202** | Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued. |  -  |
 
 
 ## deleteTriggersByQuery
 
 > ApiAsyncOperationResponse deleteTriggersByQuery(tenant, request)
 
-Delete triggers by query parameters asynchronously
+Delete orphan trigger state matching the query
 
 ### Example
 
@@ -528,7 +528,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | deleteTriggersByQuery 200 response |  -  |
-| **202** | Accepted |  -  |
+| **202** | Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued. |  -  |
 
 
 ## disableTriggerById

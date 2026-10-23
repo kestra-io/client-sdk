@@ -324,9 +324,9 @@ Class | Method | HTTP request | Description
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers asynchronously
 *TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for triggers matching query asynchronously
-*TriggersApi* | [**deleteTrigger**](docs/TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
-*TriggersApi* | [**deleteTriggersByIds**](docs/TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers asynchronously
-*TriggersApi* | [**deleteTriggersByQuery**](docs/TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters asynchronously
+*TriggersApi* | [**deleteTrigger**](docs/TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete orphan trigger state
+*TriggersApi* | [**deleteTriggersByIds**](docs/TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete orphan trigger state for the given triggers
+*TriggersApi* | [**deleteTriggersByQuery**](docs/TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete orphan trigger state matching the query
 *TriggersApi* | [**disableTriggerById**](docs/TriggersApi.md#disableTriggerById) | **PUT** /api/v1/{tenant}/triggers/set-disabled | Disable/enable a trigger
 *TriggersApi* | [**disabledTriggersByIds**](docs/TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers asynchronously
 *TriggersApi* | [**disabledTriggersByQuery**](docs/TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters asynchronously

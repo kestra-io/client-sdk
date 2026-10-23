@@ -295,41 +295,55 @@ public class TriggersApiTest {
     // ========================================================================
 
     @Test
-    void deleteTrigger_basic() throws ApiException, InterruptedException {
+    void deleteTrigger_stillDeclared_conflict() throws ApiException, InterruptedException {
         String ns = randomId();
         String flowId = randomId();
         createFlow(scheduleFlowYaml(flowId, ns));
         awaitTriggerRegistered(ns, flowId);
 
-        assertThatCode(() -> api().deleteTrigger(TENANT, ns, flowId, "schedule_trigger"))
-                .doesNotThrowAnyException();
+        // Only orphan trigger state can be deleted: deleting state the flow still declares
+        // would unschedule it until Kestra restarts, so the server refuses with 409.
+        assertThatThrownBy(() -> api().deleteTrigger(TENANT, ns, flowId, "schedule_trigger"))
+                .isInstanceOfSatisfying(ApiException.class, e -> {
+                    assertThat(e.getCode()).isEqualTo(409);
+                    assertThat(e.getResponseBody()).contains("because the flow still declares it");
+                });
+
+        // The refused delete left the trigger state in place.
+        awaitTriggerRegistered(ns, flowId);
     }
 
     @Test
-    void deleteTriggersByIds_basic() throws ApiException {
+    void deleteTriggersByIds_basic() throws ApiException, InterruptedException {
         String ns = randomId();
         String flowId = randomId();
         createFlow(scheduleFlowYaml(flowId, ns));
+        awaitTriggerRegistered(ns, flowId);
 
+        // A trigger the flow still declares is skipped, so no delete is queued.
         List<TriggerControllerApiTriggerId> triggerIds = List.of(triggerId(ns, flowId));
 
         ApiAsyncOperationResponse result = api().deleteTriggersByIds(TENANT, triggerIds);
 
         assertThat(result).isNotNull();
+        assertThat(result.getTotalItems()).isZero();
     }
 
     @Test
-    void deleteTriggersByQuery_basic() throws ApiException {
+    void deleteTriggersByQuery_basic() throws ApiException, InterruptedException {
         String ns = randomId();
         String flowId = randomId();
         createFlow(scheduleFlowYaml(flowId, ns));
+        awaitTriggerRegistered(ns, flowId);
 
+        // The only matching trigger is still declared by its flow, so no delete is queued.
         DeleteTriggersByQueryRequest request = new DeleteTriggersByQueryRequest()
                 .filters(List.of(nsFilter(ns)));
 
         ApiAsyncOperationResponse result = api().deleteTriggersByQuery(TENANT, request);
 
         assertThat(result).isNotNull();
+        assertThat(result.getTotalItems()).isZero();
     }
 
     // ========================================================================

@@ -271,6 +271,42 @@ describe('CasesApi', () => {
         expect(Array.isArray(timeline.results)).toBe(true);
     });
 
+    it('searchCaseEvents: filters on event and severity, then resumes from the returned cursor', async () => {
+        const namespace = `cases.test.${randomId()}`;
+        const sinceCreated = new Date(Date.now() - 5000).toISOString();
+        const created = await createCase({ namespace, severity: 'CRITICAL' });
+        const search = (overrides: Partial<Parameters<typeof Cases.searchCaseEvents>[0]> = {}) =>
+            Cases.searchCaseEvents({ sinceCreated, sinceId: '', events: ['CREATED'], severities: ['CRITICAL'], namespace, size: 1000, ...overrides });
+        const containsCase = (page: Awaited<ReturnType<typeof search>>) =>
+            (page.results ?? []).some(entry => entry.case?.id === created.id);
+
+        let page = await search();
+        for (const deadline = Date.now() + 30_000; !containsCase(page) && Date.now() < deadline;) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+            page = await search();
+        }
+        expect(containsCase(page)).toBe(true);
+
+        expect(containsCase(await search({ events: ['COMMENT'] }))).toBe(false);
+        expect(containsCase(await search({ severities: ['LOW'] }))).toBe(false);
+        expect(containsCase(await search({ sinceCreated: page.nextSinceCreated, sinceId: page.nextSinceId }))).toBe(false);
+    });
+
+    it('setTicket + deleteTicket: replaces the linked ticket, then unlinks it', async () => {
+        const created = await createCase();
+
+        await Cases.setTicket({ id: created.id ?? '', system: 'GitHub', key: 'acme/ops#412', url: 'https://github.com/acme/ops/issues/412' });
+        const replaced = await Cases.setTicket({ id: created.id ?? '', system: 'Atlassian Jira', key: 'OPS-7', url: 'https://acme.atlassian.net/browse/OPS-7' });
+        expect(replaced.ticket?.key).toBe('OPS-7');
+
+        const removed = await Cases.deleteTicket({ id: created.id ?? '' });
+        expect(removed.ticket ?? null).toBeNull();
+    });
+
+    it('setTicket: 404s on a case that does not exist', async () => {
+        await expectStatus(Cases.setTicket({ id: randomId(), system: 'GitHub', key: 'acme/ops#412', url: 'https://github.com/acme/ops/issues/412' }), 404);
+    });
+
     it('downloadAttachment: 404s for an attachment that does not exist', async () => {
         const created = await createCase();
 
