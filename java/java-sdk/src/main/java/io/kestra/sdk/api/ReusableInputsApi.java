@@ -43,7 +43,10 @@ public class ReusableInputsApi extends BaseApi {
         return createOrUpdateReusableInputs(namespace, id, tenant, body, failIfExists, null);
     }
 
-    /** Creates or updates a block from its YAML source; with {@code draft}, the revision is saved as a draft, which executions skip and which may be invalid. */
+    /**
+     * Creates or updates a block from its YAML source. With {@code draft}, the revision is saved as a draft,
+     * which executions skip and which may be invalid.
+     */
     public ReusableInputsWithSource createOrUpdateReusableInputs(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
@@ -60,7 +63,10 @@ public class ReusableInputsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    /** Retrieves a block, resolving namespace inheritance: the closest namespace defining it wins. */
+    /**
+     * Retrieves a block, resolving namespace inheritance: the closest namespace defining it wins. Returns the revision
+     * an execution would use, skipping drafts; see the overload taking {@code allowDraft}.
+     */
     public ReusableInputsWithSource reusableInputs(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
@@ -70,8 +76,9 @@ public class ReusableInputsApi extends BaseApi {
     }
 
     /**
-     * Retrieves a block, resolving namespace inheritance. Without {@code allowDraft}, the revision an execution would use
-     * is returned: the latest that isn't a draft, unless {@code revision} is set; a block with only drafts fails with a 422.
+     * Retrieves a block, resolving namespace inheritance. Without {@code allowDraft}, the revision an execution
+     * would use is returned: the latest that isn't a draft, unless {@code revision} is set; a block with only
+     * drafts fails with a 422.
      */
     public ReusableInputsWithSource reusableInputs(
             @jakarta.annotation.Nonnull String namespace,
@@ -103,7 +110,10 @@ public class ReusableInputsApi extends BaseApi {
     // List & Revisions
     // ========================================================================
 
-    /** Lists the blocks visible from a namespace, including those inherited from parent namespaces. */
+    /**
+     * Lists the blocks visible from a namespace, including those inherited from parent namespaces, as the revision
+     * an execution would use, skipping drafts; see the overload taking {@code allowDraft}.
+     */
     public PagedResultsReusableInputsWithSource listReusableInputs(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String tenant,
