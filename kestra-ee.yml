@@ -44828,6 +44828,8 @@ components:
           minLength: 1
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
+        id:
+          type: string
         'on':
           $ref: '#/components/schemas/RuleTarget'
         where:
