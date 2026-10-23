@@ -25327,6 +25327,18 @@ paths:
           type: integer
           format: int32
           nullable: true
+      - name: sort
+        in: query
+        description: The sort of the page, defaults to `timestamp:asc`
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+        examples:
+          Sort by timestamp in descending order:
+            value: timestamp:desc
       - name: filters
         in: query
         description: Filters
