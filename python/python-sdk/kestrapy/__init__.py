@@ -13,11 +13,6 @@ __version__ = "2.0.0-rc1"
 
 # Define package exports
 __all__ = [
-    "CaseTicket",
-    "CasesControllerApiCaseEventSearchResult",
-    "CasesControllerApiCaseEventWithCase",
-    "CasesControllerApiTriggerCase",
-    "CasesControllerCaseTicketRequest",
     "ExecutionsApi",
     "FlowsApi",
     "GroupsApi",
@@ -630,7 +625,6 @@ __all__ = [
     "TenantControllerSetTenantDefaultDashboardsRequest",
     "TenantInterface",
     "TenantPreferencesSettings",
-    "TenantType",
     "TenantUsage",
     "TestState",
     "TestSuite",
@@ -880,17 +874,13 @@ from kestrapy.models.case_templates_controller_api_case_template import CaseTemp
 from kestrapy.models.case_templates_controller_api_subject_ref import CaseTemplatesControllerApiSubjectRef as CaseTemplatesControllerApiSubjectRef
 from kestrapy.models.case_templates_controller_api_subjects import CaseTemplatesControllerApiSubjects as CaseTemplatesControllerApiSubjects
 from kestrapy.models.case_templates_controller_case_template_request import CaseTemplatesControllerCaseTemplateRequest as CaseTemplatesControllerCaseTemplateRequest
-from kestrapy.models.case_ticket import CaseTicket as CaseTicket
 from kestrapy.models.cases_controller_api_case import CasesControllerApiCase as CasesControllerApiCase
 from kestrapy.models.cases_controller_api_case_asset import CasesControllerApiCaseAsset as CasesControllerApiCaseAsset
 from kestrapy.models.cases_controller_api_case_event import CasesControllerApiCaseEvent as CasesControllerApiCaseEvent
-from kestrapy.models.cases_controller_api_case_event_search_result import CasesControllerApiCaseEventSearchResult as CasesControllerApiCaseEventSearchResult
-from kestrapy.models.cases_controller_api_case_event_with_case import CasesControllerApiCaseEventWithCase as CasesControllerApiCaseEventWithCase
 from kestrapy.models.cases_controller_api_case_execution import CasesControllerApiCaseExecution as CasesControllerApiCaseExecution
 from kestrapy.models.cases_controller_api_case_summary import CasesControllerApiCaseSummary as CasesControllerApiCaseSummary
 from kestrapy.models.cases_controller_api_subject_ref import CasesControllerApiSubjectRef as CasesControllerApiSubjectRef
 from kestrapy.models.cases_controller_api_subjects import CasesControllerApiSubjects as CasesControllerApiSubjects
-from kestrapy.models.cases_controller_api_trigger_case import CasesControllerApiTriggerCase as CasesControllerApiTriggerCase
 from kestrapy.models.cases_controller_assign_request import CasesControllerAssignRequest as CasesControllerAssignRequest
 from kestrapy.models.cases_controller_attach_action_request import CasesControllerAttachActionRequest as CasesControllerAttachActionRequest
 from kestrapy.models.cases_controller_attach_asset_request import CasesControllerAttachAssetRequest as CasesControllerAttachAssetRequest
@@ -898,7 +888,6 @@ from kestrapy.models.cases_controller_auto_attach_request import CasesController
 from kestrapy.models.cases_controller_cancel_request import CasesControllerCancelRequest as CasesControllerCancelRequest
 from kestrapy.models.cases_controller_case_create_request import CasesControllerCaseCreateRequest as CasesControllerCaseCreateRequest
 from kestrapy.models.cases_controller_case_from_task_request import CasesControllerCaseFromTaskRequest as CasesControllerCaseFromTaskRequest
-from kestrapy.models.cases_controller_case_ticket_request import CasesControllerCaseTicketRequest as CasesControllerCaseTicketRequest
 from kestrapy.models.cases_controller_case_update_request import CasesControllerCaseUpdateRequest as CasesControllerCaseUpdateRequest
 from kestrapy.models.cases_controller_from_executions_by_query_request import CasesControllerFromExecutionsByQueryRequest as CasesControllerFromExecutionsByQueryRequest
 from kestrapy.models.cases_controller_from_executions_request import CasesControllerFromExecutionsRequest as CasesControllerFromExecutionsRequest
@@ -1320,7 +1309,6 @@ from kestrapy.models.tenant_controller_apps_catalog_config_response import Tenan
 from kestrapy.models.tenant_controller_set_tenant_default_dashboards_request import TenantControllerSetTenantDefaultDashboardsRequest as TenantControllerSetTenantDefaultDashboardsRequest
 from kestrapy.models.tenant_interface import TenantInterface as TenantInterface
 from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings as TenantPreferencesSettings
-from kestrapy.models.tenant_type import TenantType as TenantType
 from kestrapy.models.tenant_usage import TenantUsage as TenantUsage
 from kestrapy.models.test_state import TestState as TestState
 from kestrapy.models.test_suite import TestSuite as TestSuite

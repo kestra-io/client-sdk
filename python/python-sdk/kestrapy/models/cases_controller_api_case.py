@@ -19,7 +19,6 @@ from kestrapy.models.auto_attach import AutoAttach
 from kestrapy.models.case_action import CaseAction
 from kestrapy.models.case_severity import CaseSeverity
 from kestrapy.models.case_status import CaseStatus
-from kestrapy.models.case_ticket import CaseTicket
 from kestrapy.models.cases_controller_api_subjects import CasesControllerApiSubjects
 from kestrapy.models.custom_field import CustomField
 from kestrapy.models.origin import Origin
@@ -59,10 +58,9 @@ class CasesControllerApiCase(BaseModel):
     origin: Optional[Origin] = None
     template_id: Optional[StrictStr] = Field(default=None, alias="templateId")
     auto_attach: Optional[List[AutoAttach]] = Field(default=None, alias="autoAttach")
-    ticket: Optional[CaseTicket] = None
     deleted: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "tenantId", "namespace", "title", "description", "severity", "status", "assignees", "watchers", "customFields", "sla", "acknowledgementSla", "resolutionSla", "created", "updated", "acknowledgedAt", "resolvedAt", "resolution", "resolvedBy", "resolvedByName", "actions", "assetIds", "createdBy", "origin", "templateId", "autoAttach", "ticket", "deleted"]
+    __properties: ClassVar[List[str]] = ["id", "tenantId", "namespace", "title", "description", "severity", "status", "assignees", "watchers", "customFields", "sla", "acknowledgementSla", "resolutionSla", "created", "updated", "acknowledgedAt", "resolvedAt", "resolution", "resolvedBy", "resolvedByName", "actions", "assetIds", "createdBy", "origin", "templateId", "autoAttach", "deleted"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -147,9 +145,6 @@ class CasesControllerApiCase(BaseModel):
                 if _item_auto_attach:
                     _items.append(_item_auto_attach.to_dict())
             _dict['autoAttach'] = _items
-        # override the default output from pydantic by calling `to_dict()` of ticket
-        if self.ticket:
-            _dict['ticket'] = self.ticket.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -193,7 +188,6 @@ class CasesControllerApiCase(BaseModel):
             "origin": Origin.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "templateId": obj.get("templateId"),
             "autoAttach": [AutoAttach.from_dict(_item) for _item in obj["autoAttach"]] if obj.get("autoAttach") is not None else None,
-            "ticket": CaseTicket.from_dict(obj["ticket"]) if obj.get("ticket") is not None else None,
             "deleted": obj.get("deleted")
         })
         # store additional fields in additional_properties
