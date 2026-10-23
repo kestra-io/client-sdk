@@ -37112,11 +37112,14 @@ components:
         message:
           type: string
     AppsController.ApiBulkOperationRequest:
+      required:
+      - uids
       type: object
       properties:
         uids:
           type: array
           items:
+            minLength: 1
             type: string
     AppsController.ApiBulkOperationResponse:
       type: object
