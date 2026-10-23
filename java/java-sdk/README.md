@@ -119,16 +119,21 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**streamEventsFromApp**](docs/AppsApi.md#streamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app.
 *AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
 *AssetsApi* | [**asset**](docs/AssetsApi.md#asset) | **GET** /api/v1/{tenant}/assets/{id} | Retrieve an asset
-*AssetsApi* | [**assetDependencies**](docs/AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies
+*AssetsApi* | [**assetDependencies**](docs/AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get the relation graph around an asset
+*AssetsApi* | [**assetRelationSummary**](docs/AssetsApi.md#assetRelationSummary) | **GET** /api/v1/{tenant}/assets/{id}/relations/summary | Summarize the relations of an asset, grouped by kind and direction
+*AssetsApi* | [**assetRelations**](docs/AssetsApi.md#assetRelations) | **GET** /api/v1/{tenant}/assets/{id}/relations | One page of the relations of an asset for one kind and direction
+*AssetsApi* | [**clearAssetParent**](docs/AssetsApi.md#clearAssetParent) | **DELETE** /api/v1/{tenant}/assets/{id}/parent | Detach the asset from the one it is part of
 *AssetsApi* | [**createAsset**](docs/AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset
+*AssetsApi* | [**createAssetRelation**](docs/AssetsApi.md#createAssetRelation) | **POST** /api/v1/{tenant}/assets/{id}/relations | Create a relation from an asset by hand
 *AssetsApi* | [**deleteAsset**](docs/AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset
-*AssetsApi* | [**deleteAssetLineageEventsByQuery**](docs/AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only
+*AssetsApi* | [**deleteAssetRelation**](docs/AssetsApi.md#deleteAssetRelation) | **DELETE** /api/v1/{tenant}/assets/{id}/relations/{uid} | Remove one relation of an asset
 *AssetsApi* | [**deleteAssetUsagesByQuery**](docs/AssetsApi.md#deleteAssetUsagesByQuery) | **DELETE** /api/v1/{tenant}/assets/usages/by-query | Delete asset usages by query, hard-delete (purge) only
 *AssetsApi* | [**deleteAssetsByIds**](docs/AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids
 *AssetsApi* | [**deleteAssetsByQuery**](docs/AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query
-*AssetsApi* | [**searchAssetLineageEvents**](docs/AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events
+*AssetsApi* | [**flowAssetDependencies**](docs/AssetsApi.md#flowAssetDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/asset-dependencies | Get the relation graph around a flow
 *AssetsApi* | [**searchAssetUsages**](docs/AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages
 *AssetsApi* | [**searchAssets**](docs/AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets
+*AssetsApi* | [**setAssetParent**](docs/AssetsApi.md#setAssetParent) | **PUT** /api/v1/{tenant}/assets/{id}/parent | Set the asset this one is part of
 *BlueprintsApi* | [**blueprint**](docs/BlueprintsApi.md#blueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
 *BlueprintsApi* | [**blueprintGraph**](docs/BlueprintsApi.md#blueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
 *BlueprintsApi* | [**blueprintSource**](docs/BlueprintsApi.md#blueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code
@@ -413,15 +418,23 @@ Class | Method | HTTP request | Description
  - [AssertionRunError](docs/AssertionRunError.md)
  - [Asset](docs/Asset.md)
  - [AssetIdentifier](docs/AssetIdentifier.md)
+ - [AssetRelationGraph](docs/AssetRelationGraph.md)
+ - [AssetRelationGraphEdge](docs/AssetRelationGraphEdge.md)
+ - [AssetRelationGraphNode](docs/AssetRelationGraphNode.md)
+ - [AssetRelationRef](docs/AssetRelationRef.md)
+ - [AssetWriteSummary](docs/AssetWriteSummary.md)
  - [AssetsControllerApiAsset](docs/AssetsControllerApiAsset.md)
- - [AssetsControllerApiAssetLineageEvent](docs/AssetsControllerApiAssetLineageEvent.md)
  - [AssetsControllerApiAssetUsage](docs/AssetsControllerApiAssetUsage.md)
+ - [AssetsControllerApiParentRequest](docs/AssetsControllerApiParentRequest.md)
+ - [AssetsControllerApiRelation](docs/AssetsControllerApiRelation.md)
+ - [AssetsControllerApiRelationGroup](docs/AssetsControllerApiRelationGroup.md)
+ - [AssetsControllerApiRelationItem](docs/AssetsControllerApiRelationItem.md)
+ - [AssetsControllerApiRelationNode](docs/AssetsControllerApiRelationNode.md)
+ - [AssetsControllerApiRelationPage](docs/AssetsControllerApiRelationPage.md)
+ - [AssetsControllerApiRelationRequest](docs/AssetsControllerApiRelationRequest.md)
+ - [AssetsControllerApiRelationSummary](docs/AssetsControllerApiRelationSummary.md)
  - [AssetsDeclaration](docs/AssetsDeclaration.md)
  - [AssetsInOut](docs/AssetsInOut.md)
- - [AssetTopologyGraph](docs/AssetTopologyGraph.md)
- - [AssetTopologyGraphEdge](docs/AssetTopologyGraphEdge.md)
- - [AssetTopologyGraphNode](docs/AssetTopologyGraphNode.md)
- - [AssetTopologyGraphNodeNodeType](docs/AssetTopologyGraphNodeNodeType.md)
  - [AttributeReference](docs/AttributeReference.md)
  - [AuditLog](docs/AuditLog.md)
  - [AuditLogControllerApiAuditLogItem](docs/AuditLogControllerApiAuditLogItem.md)
@@ -629,6 +642,7 @@ Class | Method | HTTP request | Description
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
+ - [NodeType](docs/NodeType.md)
  - [Output](docs/Output.md)
  - [OutputControllerTaskOutputInformation](docs/OutputControllerTaskOutputInformation.md)
  - [OutputValue](docs/OutputValue.md)
@@ -640,7 +654,6 @@ Class | Method | HTTP request | Description
  - [PagedResultsAppsControllerApiApp](docs/PagedResultsAppsControllerApiApp.md)
  - [PagedResultsAppsControllerApiAppCatalogItem](docs/PagedResultsAppsControllerApiAppCatalogItem.md)
  - [PagedResultsAssetsControllerApiAsset](docs/PagedResultsAssetsControllerApiAsset.md)
- - [PagedResultsAssetsControllerApiAssetLineageEvent](docs/PagedResultsAssetsControllerApiAssetLineageEvent.md)
  - [PagedResultsAssetsControllerApiAssetUsage](docs/PagedResultsAssetsControllerApiAssetUsage.md)
  - [PagedResultsAuditLogControllerApiAuditLogItem](docs/PagedResultsAuditLogControllerApiAuditLogItem.md)
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
@@ -701,8 +714,12 @@ Class | Method | HTTP request | Description
  - [Quota](docs/Quota.md)
  - [QuotaBehavior](docs/QuotaBehavior.md)
  - [RBACServiceRoleAssignmentRoleOrigin](docs/RBACServiceRoleAssignmentRoleOrigin.md)
- - [Relation](docs/Relation.md)
  - [Relation1](docs/Relation1.md)
+ - [RelationDirection](docs/RelationDirection.md)
+ - [RelationKind](docs/RelationKind.md)
+ - [RelationOrigin](docs/RelationOrigin.md)
+ - [RelationProvenance](docs/RelationProvenance.md)
+ - [RelationState](docs/RelationState.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
  - [ScimResourceType](docs/ScimResourceType.md)
