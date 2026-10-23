@@ -13,6 +13,16 @@ jobs:
     name: Announce Go SDK release
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # The tag is already the release, so this only stops a next/* tag from being announced and indexed.
+      - name: Check release ref
+        uses: ./.github/actions/check-release-ref
+        with:
+          version: ${{ github.ref_name }}
+
       - name: Trigger pkg.go.dev indexing
         run: |
           VERSION="${GITHUB_REF_NAME#go-sdk/}"
