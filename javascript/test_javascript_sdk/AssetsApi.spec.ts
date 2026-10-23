@@ -46,14 +46,6 @@ describe('AssetsApi', () => {
         expect(resultSize).toBeLessThanOrEqual(2);
     });
 
-    // lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the
-    // function disappears from the generated SDK on the next regeneration.
-    it.skip('searchAssetLineageEvents: returns a paged result', async () => {
-        const result = await Assets.searchAssetLineageEvents({ page: 1, size: 10 });
-        expect(result).toBeDefined();
-        expect(result.results).toBeDefined();
-    });
-
     it('searchAssetUsages: returns a paged result', async () => {
         const result = await Assets.searchAssetUsages({ page: 1, size: 10 });
         expect(result).toBeDefined();
@@ -99,12 +91,77 @@ describe('AssetsApi', () => {
         expect(result.count).toBe(0);
     });
 
-    it('assetDependencies: retrieves dependencies for an asset', async () => {
-        const id = randomId();
-        const created = await Assets.createAsset({ body: assetYaml(id) });
+    it('assetDependencies: returns the relation graph around an asset, filtered on several kinds', async () => {
+        const source = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const target = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        await Assets.createAssetRelation({ id: source, kind: 'UPSTREAM_OF', direction: 'OUTBOUND', targetId: target });
 
-        const result = await Assets.assetDependencies({ id: created.id ?? "" });
-        expect(result).toBeDefined();
+        const graph = await Assets.assetDependencies({ id: source, kinds: ['UPSTREAM_OF', 'RELATED'] });
+        expect(graph.nodes?.map(node => node.id)).toEqual(expect.arrayContaining([source, target]));
+        expect(graph.edges?.some(edge => edge.kind === 'UPSTREAM_OF')).toBe(true);
+    });
+
+    it('createAssetRelation + assetRelationSummary + assetRelations: a manual relation shows up in its group', async () => {
+        const source = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const target = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+
+        const relation = await Assets.createAssetRelation({ id: source, kind: 'UPSTREAM_OF', direction: 'OUTBOUND', targetId: target, role: 'primary' });
+        expect(relation.kind).toBe('UPSTREAM_OF');
+        expect(relation.origin).toBe('MANUAL');
+        expect(relation.role).toBe('primary');
+
+        const summary = await Assets.assetRelationSummary({ id: source, limit: 5 });
+        const group = summary.groups?.find(g => g.kind === 'UPSTREAM_OF');
+        expect(group?.total).toBe(1);
+
+        const page = await Assets.assetRelations({ id: source, kind: 'UPSTREAM_OF', direction: group?.direction ?? 'OUTBOUND', size: 10 });
+        expect(page.total).toBe(1);
+        expect(page.results?.[0]?.relation?.uid).toBe(relation.uid);
+        expect(page.results?.[0]?.node?.id).toBe(target);
+    });
+
+    it('deleteAssetRelation: removes the relation from the summary', async () => {
+        const source = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const target = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const relation = await Assets.createAssetRelation({ id: source, kind: 'RELATED', direction: 'BOTH', targetId: target });
+
+        await Assets.deleteAssetRelation({ id: source, uid: relation.uid ?? "" });
+
+        const summary = await Assets.assetRelationSummary({ id: source });
+        const total = summary.groups?.filter(g => g.kind === 'RELATED').reduce((sum, g) => sum + (g.total ?? 0), 0) ?? 0;
+        expect(total).toBe(0);
+    });
+
+    it('setAssetParent + clearAssetParent: attaches then detaches the parent', async () => {
+        const parent = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const child = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+
+        const attached = await Assets.setAssetParent({ id: child, parentId: parent });
+        expect(attached.partOf?.id).toBe(parent);
+        expect((await Assets.asset({ id: child })).partOf?.id).toBe(parent);
+
+        const detached = await Assets.clearAssetParent({ id: child });
+        expect(detached.partOf ?? null).toBeNull();
+    });
+
+    it('clearAssetParent: detaches an asset declared as part of another', async () => {
+        const parent = (await Assets.createAsset({ body: assetYaml(randomId()) })).id ?? "";
+        const child = (await Assets.createAsset({ body: `${assetYaml(randomId())}partOf:\n  id: ${parent}\n` })).id ?? "";
+        expect((await Assets.asset({ id: child })).partOf?.id).toBe(parent);
+
+        const detached = await Assets.clearAssetParent({ id: child });
+        expect(detached.id).toBe(child);
+        expect(detached.partOf ?? null).toBeNull();
+    });
+
+    it('flowAssetDependencies: returns the relation graph around a flow', async () => {
+        const flowId = randomId();
+        const namespace = randomId();
+        await Flows.createFlow({ body: logFlowYaml(flowId, namespace) });
+
+        const graph = await Assets.flowAssetDependencies({ namespace, id: flowId, kinds: ['PRODUCES', 'CONSUMED_BY'] });
+        expect(graph).toBeDefined();
+        expect(graph.nodes).toBeDefined();
     });
 
     it('patchAsset: updates only the fields the patch carries', async () => {

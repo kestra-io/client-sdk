@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetRelationRef;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetsControllerApiAsset.JSON_PROPERTY_DISPLAY_NAME,
   AssetsControllerApiAsset.JSON_PROPERTY_DESCRIPTION,
   AssetsControllerApiAsset.JSON_PROPERTY_METADATA,
+  AssetsControllerApiAsset.JSON_PROPERTY_PART_OF,
   AssetsControllerApiAsset.JSON_PROPERTY_CREATED,
   AssetsControllerApiAsset.JSON_PROPERTY_UPDATED,
   AssetsControllerApiAsset.JSON_PROPERTY_DELETED
@@ -55,6 +57,9 @@ public class AssetsControllerApiAsset {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @jakarta.annotation.Nullable  private Map<String, Object> metadata = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PART_OF = "partOf";
+  @jakarta.annotation.Nullable  private AssetRelationRef partOf;
 
   public static final String JSON_PROPERTY_CREATED = "created";
   @jakarta.annotation.Nullable  private OffsetDateTime created;
@@ -220,6 +225,30 @@ public class AssetsControllerApiAsset {
     this.metadata = metadata;
   }
 
+  public AssetsControllerApiAsset partOf(@jakarta.annotation.Nullable AssetRelationRef partOf) {
+    
+    this.partOf = partOf;
+    return this;
+  }
+
+  /**
+   * Get partOf
+   * @return partOf
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PART_OF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AssetRelationRef getPartOf() {
+    return partOf;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PART_OF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPartOf(@jakarta.annotation.Nullable AssetRelationRef partOf) {
+    this.partOf = partOf;
+  }
+
   public AssetsControllerApiAsset created(@jakarta.annotation.Nullable OffsetDateTime created) {
     
     this.created = created;
@@ -307,6 +336,7 @@ public class AssetsControllerApiAsset {
         Objects.equals(this.displayName, assetsControllerApiAsset.displayName) &&
         Objects.equals(this.description, assetsControllerApiAsset.description) &&
         Objects.equals(this.metadata, assetsControllerApiAsset.metadata) &&
+        Objects.equals(this.partOf, assetsControllerApiAsset.partOf) &&
         Objects.equals(this.created, assetsControllerApiAsset.created) &&
         Objects.equals(this.updated, assetsControllerApiAsset.updated) &&
         Objects.equals(this.deleted, assetsControllerApiAsset.deleted);
@@ -314,7 +344,7 @@ public class AssetsControllerApiAsset {
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, id, type, displayName, description, metadata, created, updated, deleted);
+    return Objects.hash(namespace, id, type, displayName, description, metadata, partOf, created, updated, deleted);
   }
 
   @Override
@@ -327,6 +357,7 @@ public class AssetsControllerApiAsset {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    partOf: ").append(toIndentedString(partOf)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");

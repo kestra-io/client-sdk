@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **display_name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **metadata** | **Dict[str, object]** |  | [optional] 
+**part_of** | [**AssetRelationRef**](AssetRelationRef.md) |  | [optional] 
 **created** | **datetime** |  | [optional] 
 **updated** | **datetime** |  | [optional] 
 **deleted** | **bool** |  | [optional] 

@@ -15,6 +15,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.asset_relation_ref import AssetRelationRef
 from kestrapy.models.assets_controller_api_asset_lock import AssetsControllerApiAssetLock
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,12 +30,13 @@ class AssetsControllerApiAsset(BaseModel):
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     description: Optional[StrictStr] = None
     metadata: Optional[Dict[str, Dict[str, Any]]] = None
+    part_of: Optional[AssetRelationRef] = Field(default=None, alias="partOf")
     created: Optional[datetime] = None
     updated: Optional[datetime] = None
     deleted: Optional[StrictBool] = None
     lock: Optional[AssetsControllerApiAssetLock] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "id", "type", "displayName", "description", "metadata", "created", "updated", "deleted", "lock"]
+    __properties: ClassVar[List[str]] = ["namespace", "id", "type", "displayName", "description", "metadata", "partOf", "created", "updated", "deleted", "lock"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,6 +79,9 @@ class AssetsControllerApiAsset(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of part_of
+        if self.part_of:
+            _dict['partOf'] = self.part_of.to_dict()
         # override the default output from pydantic by calling `to_dict()` of lock
         if self.lock:
             _dict['lock'] = self.lock.to_dict()
@@ -84,6 +89,11 @@ class AssetsControllerApiAsset(BaseModel):
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
+
+        # set to None if part_of (nullable) is None
+        # and model_fields_set contains the field
+        if self.part_of is None and "part_of" in self.model_fields_set:
+            _dict['partOf'] = None
 
         # set to None if lock (nullable) is None
         # and model_fields_set contains the field
@@ -108,6 +118,7 @@ class AssetsControllerApiAsset(BaseModel):
             "displayName": obj.get("displayName"),
             "description": obj.get("description"),
             "metadata": obj.get("metadata"),
+            "partOf": AssetRelationRef.from_dict(obj["partOf"]) if obj.get("partOf") is not None else None,
             "created": obj.get("created"),
             "updated": obj.get("updated"),
             "deleted": obj.get("deleted"),

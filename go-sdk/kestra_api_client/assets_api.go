@@ -35,9 +35,54 @@ func (a *AssetsAPI) UnlockAsset(ctx context.Context, id, tenant string, executio
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "assets", id, "lock"), nil, params)
 }
 
-func (a *AssetsAPI) AssetDependencies(ctx context.Context, id, tenant string, destinationOnly, expandAll *bool) (*AssetTopologyGraph, error) {
-	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
-	return doJSON[*AssetTopologyGraph](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id, "dependencies"), nil, params)
+// A nil kinds includes every current-state kind.
+func (a *AssetsAPI) AssetDependencies(ctx context.Context, id, tenant string, kinds []RelationKind, expandAll *bool, hubCursor *string) (*AssetRelationGraph, error) {
+	params := buildQueryParams("expandAll", expandAll, "hubCursor", hubCursor)
+	appendRepeatedParam(params, "kinds", relationKindStrings(kinds))
+	return doJSON[*AssetRelationGraph](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id, "dependencies"), nil, params)
+}
+
+// A nil kinds includes every current-state kind.
+func (a *AssetsAPI) FlowAssetDependencies(ctx context.Context, namespace, id, tenant string, kinds []RelationKind, expandAll *bool, hubCursor *string) (*AssetRelationGraph, error) {
+	params := buildQueryParams("expandAll", expandAll, "hubCursor", hubCursor)
+	appendRepeatedParam(params, "kinds", relationKindStrings(kinds))
+	return doJSON[*AssetRelationGraph](&a.baseAPI, ctx, "GET", tenantPath(tenant, "flows", namespace, id, "asset-dependencies"), nil, params)
+}
+
+func (a *AssetsAPI) AssetRelationSummary(ctx context.Context, id, tenant string, limit *int) (*AssetsControllerApiRelationSummary, error) {
+	params := buildQueryParams("limit", limit)
+	return doJSON[*AssetsControllerApiRelationSummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id, "relations", "summary"), nil, params)
+}
+
+// Take direction from the summary group being expanded; it is not derivable from kind alone.
+func (a *AssetsAPI) AssetRelations(ctx context.Context, id, tenant string, kind RelationKind, direction RelationDirection, after *string, size *int) (*AssetsControllerApiRelationPage, error) {
+	params := buildQueryParams("kind", string(kind), "direction", string(direction), "after", after, "size", size)
+	return doJSON[*AssetsControllerApiRelationPage](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id, "relations"), nil, params)
+}
+
+// PART_OF is not created here: it goes through SetAssetParent.
+func (a *AssetsAPI) CreateAssetRelation(ctx context.Context, id, tenant string, request AssetsControllerApiRelationRequest) (*AssetsControllerApiRelation, error) {
+	return doJSON[*AssetsControllerApiRelation](&a.baseAPI, ctx, "POST", tenantPath(tenant, "assets", id, "relations"), request, nil)
+}
+
+func (a *AssetsAPI) DeleteAssetRelation(ctx context.Context, id, uid, tenant string) error {
+	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "assets", id, "relations", uid), nil, nil)
+}
+
+func (a *AssetsAPI) SetAssetParent(ctx context.Context, id, tenant string, parent AssetsControllerApiParentRequest) (*AssetsControllerApiAsset, error) {
+	return doJSON[*AssetsControllerApiAsset](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "assets", id, "parent"), parent, nil)
+}
+
+func (a *AssetsAPI) ClearAssetParent(ctx context.Context, id, tenant string) (*AssetsControllerApiAsset, error) {
+	return doJSON[*AssetsControllerApiAsset](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", id, "parent"), nil, nil)
+}
+
+func relationKindStrings(kinds []RelationKind) []string {
+	out := make([]string, len(kinds))
+	for i, k := range kinds {
+		out[i] = string(k)
+	}
+	return out
 }
 
 func (a *AssetsAPI) DeleteAssetsByIds(ctx context.Context, tenant string, ids []string) (*BulkResponse, error) {
@@ -50,17 +95,6 @@ func (a *AssetsAPI) DeleteAssetsByQuery(ctx context.Context, tenant string, filt
 		return nil, err
 	}
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "by-query"), nil, params)
-}
-
-// Deprecated: the lineage-event store and its routes were removed in Kestra develop
-// (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
-// against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
-func (a *AssetsAPI) DeleteAssetLineageEventsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
-	params := buildQueryParams()
-	if err := appendFilterParams(params, filters); err != nil {
-		return nil, err
-	}
-	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "lineage-events", "by-query"), nil, params)
 }
 
 func (a *AssetsAPI) DeleteAssetUsagesByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
@@ -78,18 +112,6 @@ func (a *AssetsAPI) SearchAssets(ctx context.Context, tenant string, page, size 
 		return nil, err
 	}
 	return doJSON[*PagedResultsAssetsControllerApiAsset](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "search"), nil, params)
-}
-
-// Deprecated: the lineage-event store and its routes were removed in Kestra develop
-// (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
-// against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
-func (a *AssetsAPI) SearchAssetLineageEvents(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetLineageEvent, error) {
-	params := buildQueryParams("page", page, "size", size)
-	appendRepeatedParam(params, "sort", sort)
-	if err := appendFilterParams(params, filters); err != nil {
-		return nil, err
-	}
-	return doJSON[*PagedResultsAssetsControllerApiAssetLineageEvent](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "lineage-events", "search"), nil, params)
 }
 
 func (a *AssetsAPI) SearchAssetUsages(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetUsage, error) {
