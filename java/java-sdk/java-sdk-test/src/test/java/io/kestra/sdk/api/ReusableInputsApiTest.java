@@ -96,6 +96,74 @@ public class ReusableInputsApiTest {
     }
 
     // ========================================================================
+    // Drafts
+    // ========================================================================
+
+    @Test
+    void createOrUpdateReusableInputs_draft() throws ApiException {
+        String namespace = randomId();
+        String id = randomId();
+        ReusableInputsWithSource published = create(namespace, id);
+
+        ReusableInputsWithSource draft = api().createOrUpdateReusableInputs(namespace, id, TENANT, source(namespace, id, "in progress"), null, true);
+
+        assertThat(published.getDraft()).isFalse();
+        assertThat(published.getUpdatedBy()).isNotBlank();
+        assertThat(draft.getDraft()).isTrue();
+        assertThat(draft.getRevision()).isEqualTo(2);
+        assertThat(draft.getUpdatedBy()).isEqualTo(published.getUpdatedBy());
+    }
+
+    @Test
+    void reusableInputs_skipsDraftsUnlessAllowed() throws ApiException {
+        String namespace = randomId();
+        String id = randomId();
+        create(namespace, id);
+        api().createOrUpdateReusableInputs(namespace, id, TENANT, source(namespace, id, "in progress"), null, true);
+
+        ReusableInputsWithSource forExecution = api().reusableInputs(namespace, id, TENANT, null);
+        assertThat(forExecution.getRevision()).isEqualTo(1);
+        assertThat(forExecution.getDraft()).isFalse();
+
+        ReusableInputsWithSource latest = api().reusableInputs(namespace, id, TENANT, null, true);
+        assertThat(latest.getRevision()).isEqualTo(2);
+        assertThat(latest.getDraft()).isTrue();
+        assertThat(latest.getDescription()).isEqualTo("in progress");
+    }
+
+    @Test
+    void reusableInputs_draftsOnly() throws ApiException {
+        String namespace = randomId();
+        String id = randomId();
+        api().createOrUpdateReusableInputs(namespace, id, TENANT, source(namespace, id), null, true);
+
+        assertThatThrownBy(() -> api().reusableInputs(namespace, id, TENANT, null))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(422));
+        assertThat(api().reusableInputs(namespace, id, TENANT, null, true).getDraft()).isTrue();
+    }
+
+    @Test
+    void listReusableInputs_excludesDraftsOnlyUnlessAllowed() throws ApiException {
+        String namespace = randomId();
+        String published = randomId();
+        String draftsOnly = randomId();
+        create(namespace, published);
+        api().createOrUpdateReusableInputs(namespace, published, TENANT, source(namespace, published, "in progress"), null, true);
+        api().createOrUpdateReusableInputs(namespace, draftsOnly, TENANT, source(namespace, draftsOnly), null, true);
+
+        PagedResultsReusableInputsWithSource forExecution = api().listReusableInputs(namespace, TENANT, null, null);
+        assertThat(forExecution.getResults())
+                .extracting(ReusableInputsWithSource::getId, ReusableInputsWithSource::getRevision)
+                .containsExactly(tuple(published, 1));
+
+        PagedResultsReusableInputsWithSource withDrafts = api().listReusableInputs(namespace, TENANT, null, null, true);
+        assertThat(withDrafts.getResults())
+                .extracting(ReusableInputsWithSource::getId, ReusableInputsWithSource::getDraft)
+                .containsExactlyInAnyOrder(tuple(published, true), tuple(draftsOnly, true));
+    }
+
+    // ========================================================================
     // Namespace inheritance
     // ========================================================================
 
