@@ -1,13 +1,15 @@
 name: SDK freshness check (latest Kestra)
 
 # Daily, non-blocking early-warning run. It exercises every SDK's e2e test
-# suite against a Kestra EE server built from the *latest* line (`develop`,
-# i.e. the 2.x bleeding edge) so we catch API breaking changes proactively
-# instead of discovering the drift at release time (#250).
+# suite on two targets so we catch API breaking changes proactively instead of
+# discovering the drift at release time (#250):
+#   - `next`: the newest next/v<X.Y> branch against a Kestra EE server built
+#     from `develop` (skipped when there is none); a 401 storm or schema
+#     mismatch here is a *signal*.
+#   - `main`: main against the latest patch of its Kestra line, which catches
+#     a new patch release breaking main between two SDK changes.
 #
 # This workflow deliberately:
-#   - forces the server to `develop` (it does NOT honour the stable pin used by
-#     the per-PR pipelines); a 401 storm or schema mismatch here is a *signal*.
 #   - skips the code-hygiene checks (README-sync, generate-diff) that the per-PR
 #     workflows run — those validate the repo, not drift against the live server.
 #   - never gates PRs/releases: it only runs on a schedule / manual dispatch and
@@ -21,26 +23,48 @@ on:
 permissions:
   contents: read
 
-env:
-  # Bleeding-edge target. Bypasses the compute-version branch logic on purpose.
-  KESTRA_VERSION: develop
-
 jobs:
-  check:
-    name: ${{ matrix.sdk }} SDK vs latest Kestra
+  next-branch:
+    name: Find the newest next/* branch
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.find.outputs.branch }}
+      targets: ${{ steps.find.outputs.targets }}
+    steps:
+      # Without a next/* branch, only main is checked: main against develop would alert every day.
+      - id: find
+        run: |
+          branch=$(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}" 'refs/heads/next/v*' \
+            | sed 's|.*refs/heads/||' | sort -V | tail -1)
+          echo "branch=${branch}" >> $GITHUB_OUTPUT
+          echo "targets=$([ -n "$branch" ] && echo '["next","main"]' || echo '["main"]')" >> $GITHUB_OUTPUT
+
+  check:
+    name: ${{ matrix.sdk }} SDK (${{ matrix.target }})
+    needs: next-branch
+    # setup-python has no Python 3.9 build for Ubuntu 26.04 (ubuntu-latest)
+    runs-on: ${{ matrix.sdk == 'python' && 'ubuntu-24.04' || 'ubuntu-latest' }}
     strategy:
       fail-fast: false # one SDK failing must not hide the others
       matrix:
-        include:
-          - sdk: python
-          - sdk: go
-          - sdk: java
-          - sdk: javascript
+        sdk: [python, go, java, javascript]
+        target: ${{ fromJSON(needs.next-branch.outputs.targets) }}
     env:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.target == 'next' && needs.next-branch.outputs.branch || 'main' }}
+
+      - name: Compute Kestra version
+        id: main-version
+        if: matrix.target == 'main'
+        uses: ./.github/actions/compute-version
+        with:
+          branch: main
+
+      - name: Set Kestra version
+        run: echo "KESTRA_VERSION=${{ matrix.target == 'next' && 'develop' || steps.main-version.outputs.kestra_version }}" >> $GITHUB_ENV
 
       # --- SDK-specific toolchains (only the matching leg's steps run) ---
       - name: Set up Python
@@ -79,8 +103,6 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          # 'develop' is not a v* version, so this resolves to the current
-          # (non-legacy) license file.
           kestra_version: ${{ env.KESTRA_VERSION }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
@@ -88,7 +110,7 @@ jobs:
       - name: Write application secrets
         run: echo "${{ steps.license.outputs.license }}" | base64 -d > test-utils/docker-setup/application-secrets.yml
 
-      # --- Run each SDK's existing test suite against the live develop server ---
+      # --- Run each SDK's existing test suite against the live server ---
       - name: Test Python SDK
         if: matrix.sdk == 'python'
         working-directory: ./python/python-sdk
@@ -105,7 +127,7 @@ jobs:
         run: sh run-tests.sh "$KESTRA_VERSION"
 
       # JS generates from the committed spec, then e2e-tests against the live
-      # develop server — so drift between the committed spec and the live API
+      # server — so drift between the committed spec and the live API
       # surfaces as failing tests.
       - name: Generate JavaScript SDK
         if: matrix.sdk == 'javascript'
@@ -128,6 +150,6 @@ jobs:
         with:
           channel: "C09FE0QCN2E" # #_int_alert-plugins-build
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          suffix: ${{ matrix.sdk }} SDK vs Kestra ${{ env.KESTRA_VERSION }}
+          suffix: ${{ matrix.sdk }} SDK (${{ matrix.target }}) vs Kestra ${{ env.KESTRA_VERSION }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
           extra-text: "regenerate the SDK from the latest spec, or treat as a real upstream breaking change"
