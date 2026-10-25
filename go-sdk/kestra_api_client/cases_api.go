@@ -130,34 +130,12 @@ func (a *CasesAPI) UnfollowCase(ctx context.Context, tenant, id string) (*Case, 
 	return doJSON[*Case](&a.baseAPI, ctx, "POST", tenantPath(tenant, "cases", id, "unfollow"), nil, nil)
 }
 
-// ---- external ticket ----
-
-// SetCaseTicket links an external ticket to a case, replacing any existing one.
-func (a *CasesAPI) SetCaseTicket(ctx context.Context, tenant, id string, request CaseTicketRequest) (*Case, error) {
-	return doJSON[*Case](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "cases", id, "ticket"), request, nil)
-}
-
-// DeleteCaseTicket unlinks the external ticket from a case.
-func (a *CasesAPI) DeleteCaseTicket(ctx context.Context, tenant, id string) (*Case, error) {
-	return doJSON[*Case](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "cases", id, "ticket"), nil, nil)
-}
-
 // ---- events / comments / attachments ----
 
 // CaseEvents returns a page of a case's events (comments and lifecycle events).
 func (a *CasesAPI) CaseEvents(ctx context.Context, tenant, id string, page, size *int) (*PagedResultsCaseEvent, error) {
 	params := buildQueryParams("page", page, "size", size)
 	return doJSON[*PagedResultsCaseEvent](&a.baseAPI, ctx, "GET", tenantPath(tenant, "cases", id, "events"), nil, params)
-}
-
-// SearchCaseEvents walks events across cases in creation order, resuming strictly
-// after the sinceCreated/sinceId cursor returned by the previous page.
-func (a *CasesAPI) SearchCaseEvents(ctx context.Context, tenant string, sinceCreated, sinceId *string, events, severities []string, namespace *string, assignees []string, size *int) (*CaseEventSearchResult, error) {
-	params := buildQueryParams("sinceCreated", sinceCreated, "sinceId", sinceId, "namespace", namespace, "size", size)
-	appendRepeatedParam(params, "events", events)
-	appendRepeatedParam(params, "severities", severities)
-	appendRepeatedParam(params, "assignees", assignees)
-	return doJSON[*CaseEventSearchResult](&a.baseAPI, ctx, "GET", tenantPath(tenant, "cases", "events", "search"), nil, params)
 }
 
 // AddCaseComment posts a comment on a case, with an optional markdown body and an

@@ -5,12 +5,14 @@ on:
     branches:
       - main
       - "releases/v*"
+      - "next/v*"
     paths:
       - 'java/**'
   pull_request:
     branches:
       - main
       - "releases/v*"
+      - "next/v*"
     paths:
       - 'java/**'
   workflow_dispatch:
@@ -23,6 +25,11 @@ on:
           - "true"
           - "false"
         default: "false"
+
+# Serializes runs per branch so two close next/* pushes can't publish their snapshots out of order.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/next/') }}
 
 jobs:
   test:
@@ -123,3 +130,58 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
           suffix: Java SDK
+
+  publish-snapshot:
+    name: Publish Java SDK snapshot
+    needs: test
+    # next/v<X.Y> publishes <X.Y>.0-SNAPSHOT to the Central Portal snapshots repository
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/next/')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./java/java-sdk
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Resolve snapshot version from branch
+        id: version
+        run: |
+          LINE="${GITHUB_REF_NAME#next/v}"
+          if [[ ! "$LINE" =~ ^[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::$GITHUB_REF_NAME does not match next/v<X.Y>"
+            exit 1
+          fi
+          echo "version=$LINE.0-SNAPSHOT" >> $GITHUB_OUTPUT
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: "temurin"
+          java-version: 25
+
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Publish - Snapshot package to Maven Central
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USER }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_GPG_KEYID: ${{ secrets.SONATYPE_GPG_KEYID }}
+          SONATYPE_GPG_PASSWORD: ${{ secrets.SONATYPE_GPG_PASSWORD }}
+          SONATYPE_GPG_FILE: ${{ secrets.SONATYPE_GPG_FILE}}
+        run: |
+          mkdir -p ~/.gradle/
+          echo "signing.keyId=${SONATYPE_GPG_KEYID}" > ~/.gradle/gradle.properties
+          echo "signing.password=${SONATYPE_GPG_PASSWORD}" >> ~/.gradle/gradle.properties
+          echo "signing.secretKeyRingFile=${HOME}/.gradle/secring.gpg" >> ~/.gradle/gradle.properties
+          echo ${SONATYPE_GPG_FILE} | base64 -d > ~/.gradle/secring.gpg
+          ./gradlew publishToMavenCentral -Pversion=${{ steps.version.outputs.version }}
+
+      - name: Slack - Notify snapshot failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Java SDK snapshot
