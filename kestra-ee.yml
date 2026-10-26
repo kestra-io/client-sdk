@@ -8864,6 +8864,12 @@ paths:
               type: string
         required: true
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewApp 200 response
           content:
@@ -8921,6 +8927,12 @@ paths:
                 type: string
                 format: binary
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewDispatchApp 200 response
           content:
