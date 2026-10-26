@@ -12,6 +12,9 @@ import static org.assertj.core.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BlueprintsApiTest {
 
+    // The graph endpoint parses the blueprint, and the catalog can list first one the server can't parse.
+    private static final String PINNED_FLOW_BLUEPRINT_ID = "schedule-condition-weekend";
+
     static BlueprintsApi api() {
         return client().blueprints();
     }
@@ -213,17 +216,10 @@ public class BlueprintsApiTest {
 
     @Test
     void blueprintGraph_basic() throws ApiException {
-        PagedResultsBlueprintControllerApiBlueprintItem search =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 1, null);
+        java.util.Map<String, Object> result =
+                api().blueprintGraph(PINNED_FLOW_BLUEPRINT_ID, BlueprintControllerKind.FLOW, TENANT);
 
-        if (search.getResults() != null && !search.getResults().isEmpty()) {
-            String bpId = search.getResults().get(0).getId();
-
-            java.util.Map<String, Object> result =
-                    api().blueprintGraph(bpId, BlueprintControllerKind.FLOW, TENANT);
-
-            assertThat(result).isNotNull();
-        }
+        assertThat(result).isNotNull().isNotEmpty();
     }
 
     @Test

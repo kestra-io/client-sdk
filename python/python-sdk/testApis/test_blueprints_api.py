@@ -16,6 +16,9 @@ from kestrapy import (
     ApiException,
 )
 
+# The graph endpoint parses the blueprint, and the catalog can list first one the server can't parse.
+PINNED_FLOW_BLUEPRINT_ID = "schedule-condition-weekend"
+
 
 # ========================================================================
 # Community Blueprints
@@ -270,18 +273,16 @@ def test_blueprint_basic(client):
 
 
 def test_blueprint_graph_basic(client):
-    search = _community_search(
-        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
-    )
-
-    if search.results and len(search.results) > 0:
-        bp_id = search.results[0].id
-
+    try:
         result = client.blueprints.blueprint_graph(
-            id=bp_id, kind=BlueprintControllerKind.FLOW, tenant=TENANT
+            id=PINNED_FLOW_BLUEPRINT_ID, kind=BlueprintControllerKind.FLOW, tenant=TENANT
         )
+    except ApiException as e:
+        if e.status in (502, 503, 504):
+            pytest.skip(f"community blueprints upstream unavailable: {e.status}")
+        raise
 
-        assert result is not None
+    assert result
 
 
 @pytest.mark.skip(reason="Community blueprint source requires external access")

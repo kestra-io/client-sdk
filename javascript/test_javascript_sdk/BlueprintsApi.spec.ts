@@ -174,11 +174,9 @@ describe('BlueprintsApi — community + flow-blueprint helpers', () => {
     });
 
     // Retrieve the topology graph of a community blueprint
+    // Pinned: the graph endpoint parses the blueprint, and the catalog can list first one the server can't parse.
     it('blueprintGraph: retrieves a community blueprint graph', async () => {
-        const first = await firstCommunityFlowBlueprint();
-        const id = first.id as string;
-
-        const graph = await Blueprints.blueprintGraph({ id, kind });
+        const graph = await Blueprints.blueprintGraph({ id: 'schedule-condition-weekend', kind });
         expect(graph).toBeDefined();
         expect(typeof graph).toBe('object');
         // A flow topology graph is a non-empty object (nodes/edges/clusters keys).

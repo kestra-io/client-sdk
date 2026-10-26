@@ -8,6 +8,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// The graph endpoint parses the blueprint, and the catalog can list first one the server can't parse.
+const pinnedFlowBlueprintId = "schedule-condition-weekend"
+
 func createFlowBlueprintRequest(title string) kestra_api_client.BlueprintControllerFlowBlueprintCreateOrUpdate {
 	return kestra_api_client.BlueprintControllerFlowBlueprintCreateOrUpdate{
 		Title:  title,
@@ -82,16 +85,9 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("blueprintGraph_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil)
+		result, err := KestraTestClient().Blueprints().BlueprintGraph(ctx, pinnedFlowBlueprintId, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT)
 		require.NoError(t, err)
-
-		if len(search.Results) > 0 {
-			bpId := search.Results[0].GetId()
-
-			result, err := KestraTestClient().Blueprints().BlueprintGraph(ctx, bpId, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT)
-			require.NoError(t, err)
-			require.NotNil(t, result)
-		}
+		require.NotEmpty(t, result)
 	})
 
 	t.Run("blueprintSource_basic", func(t *testing.T) {
