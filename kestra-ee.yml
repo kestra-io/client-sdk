@@ -36872,6 +36872,8 @@ components:
           type: string
         window:
           $ref: '#/components/schemas/AppWindow'
+        watermark:
+          $ref: '#/components/schemas/AppWatermark'
         layout:
           $ref: '#/components/schemas/AppResponse.UILayout'
     AppResponse.UIBlock:
@@ -36970,6 +36972,18 @@ components:
           type: array
           items:
             type: string
+    AppWatermark:
+      type: object
+      properties:
+        enabled:
+          title: Whether the watermark is displayed.
+          type: boolean
+          description: Set to `false` to remove the watermark from the app. Defaults to `true`.
+          default: true
+        content:
+          title: The content of the watermark.
+          type: string
+          description: Markdown, for example `Powered by [Acme](https://acme.io)`. When left unset, the Kestra watermark is displayed. Ignored when `enabled` is `false`.
     AppWindow:
       type: object
       properties:
