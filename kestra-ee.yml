@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Instance-owner-only are not tenant-scoped.
-  version: 2.0.7
+  version: 2.0.8
 tags:
 - name: Flows
   description: Flows api
@@ -40,6 +40,7 @@ paths:
       tags:
       - Audit Logs
       summary: Export all audit logs as a streamed CSV file
+      description: Instance-owner-only.
       operationId: exportAuditLogsForAllTenants
       parameters:
       - name: filters
@@ -85,7 +86,8 @@ paths:
     get:
       tags:
       - Audit Logs
-      summary: Search for audit logs across all tenants, required to be an instance owner
+      summary: Search for audit logs across all tenants
+      description: Instance-owner-only.
       operationId: searchAuditLogsForAllTenants
       parameters:
       - name: page
@@ -158,7 +160,7 @@ paths:
       tags:
       - Audit Logs
       summary: Retrieve the diff between audit logs from global resource like users
-      description: Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+      description: Instance-owner-only. Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
       operationId: getGlobalResourceDiffFromAuditLog
       parameters:
       - name: id
@@ -574,7 +576,7 @@ paths:
       - Cluster
       - Maintenance
       summary: Enter cluster maintenance mode
-      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
+      description: Instance-owner-only. Requires a role with the INFRASTRUCTURE permission.
       operationId: enterMaintenance
       responses:
         '200':
@@ -612,7 +614,7 @@ paths:
       - Cluster
       - Maintenance
       summary: Exit cluster maintenance mode
-      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
+      description: Instance-owner-only. Requires a role with the INFRASTRUCTURE permission.
       operationId: exitMaintenance
       responses:
         '200':
@@ -650,7 +652,7 @@ paths:
       - Cluster
       - Maintenance
       summary: Get maintenance mode status
-      description: Returns maintenance mode status and per-service readiness.
+      description: Instance-owner-only. Returns maintenance mode status and per-service readiness.
       operationId: maintenanceStatus
       responses:
         '200':
@@ -687,6 +689,7 @@ paths:
       tags:
       - Mcp
       summary: List all MCP servers across all tenants
+      description: Instance-owner-only.
       operationId: listAllMcpServers
       parameters:
       - name: page
@@ -797,6 +800,7 @@ paths:
       tags:
       - Policies
       summary: Create an instance-scope policy from its YAML source
+      description: Instance-owner-only.
       operationId: createInstancePolicy
       requestBody:
         content:
@@ -839,6 +843,7 @@ paths:
       tags:
       - Policies
       summary: Delete instance-scope policies by their IDs
+      description: Instance-owner-only.
       operationId: deleteInstancePoliciesByIds
       requestBody:
         content:
@@ -883,6 +888,7 @@ paths:
       tags:
       - Policies
       summary: Export every instance-scope policy as YAML documents joined by '---'
+      description: Instance-owner-only.
       operationId: exportInstancePolicies
       responses:
         '200':
@@ -920,6 +926,7 @@ paths:
       tags:
       - Policies
       summary: Export instance-scope policies by their IDs as YAML documents joined by '---'
+      description: Instance-owner-only.
       operationId: exportInstancePoliciesByIds
       requestBody:
         content:
@@ -965,6 +972,7 @@ paths:
       tags:
       - Policies
       summary: Search instance-scope policies, including the read-only STATIC policies declared in configuration
+      description: Instance-owner-only.
       operationId: searchInstancePolicies
       parameters:
       - name: page
@@ -1034,6 +1042,7 @@ paths:
       tags:
       - Policies
       summary: Validate an instance-scope policy YAML source without persisting it
+      description: Instance-owner-only.
       operationId: validateInstancePolicy
       requestBody:
         content:
@@ -1076,6 +1085,7 @@ paths:
       tags:
       - Policies
       summary: Get an instance-scope policy, or with scope=STATIC a read-only policy declared in configuration
+      description: Instance-owner-only.
       operationId: getInstancePolicy
       parameters:
       - name: id
@@ -1123,6 +1133,7 @@ paths:
       tags:
       - Policies
       summary: Update an instance-scope policy from its YAML source
+      description: Instance-owner-only.
       operationId: updateInstancePolicy
       parameters:
       - name: id
@@ -1170,6 +1181,7 @@ paths:
       tags:
       - Policies
       summary: Delete an instance-scope policy
+      description: Instance-owner-only.
       operationId: deleteInstancePolicy
       parameters:
       - name: id
@@ -1208,6 +1220,7 @@ paths:
       tags:
       - Policies
       summary: Dry-run an instance-scope policy, or with scope=STATIC a policy declared in configuration, against every flow
+      description: Instance-owner-only.
       operationId: evaluateInstancePolicy
       parameters:
       - name: id
@@ -1273,7 +1286,7 @@ paths:
       tags:
       - Services
       summary: List all active services
-      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
+      description: Instance-owner-only. Requires a role with the INFRASTRUCTURE permission.
       operationId: getActiveServices
       responses:
         '200':
@@ -1310,7 +1323,7 @@ paths:
       tags:
       - Services
       summary: Search for a service (e.g. Worker, Executor, etc)
-      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
+      description: Instance-owner-only. Requires a role with the INFRASTRUCTURE permission.
       operationId: searchServices
       parameters:
       - name: page
@@ -1383,7 +1396,7 @@ paths:
       tags:
       - Services
       summary: Retrieve details of a specific service
-      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
+      description: Instance-owner-only. Requires a role with the INFRASTRUCTURE permission.
       operationId: getService
       parameters:
       - name: id
@@ -2013,7 +2026,7 @@ paths:
       tags:
       - Worker Groups
       summary: List all worker groups
-      description: Instance owner only. Lists all worker groups with their configuration and token summaries.
+      description: Instance-owner-only. Lists all worker groups with their configuration and token summaries.
       operationId: list
       parameters:
       - name: filters
@@ -2059,7 +2072,7 @@ paths:
       tags:
       - Worker Groups
       summary: Create a worker group
-      description: Instance owner only. Creates a new worker group with routing configuration.
+      description: Instance-owner-only. Creates a new worker group with routing configuration.
       operationId: create
       requestBody:
         content:
@@ -2102,7 +2115,7 @@ paths:
       tags:
       - Worker Groups
       summary: Get worker group detail
-      description: Instance owner only. Retrieves details of a specific worker group including token summaries.
+      description: Instance-owner-only. Retrieves details of a specific worker group including token summaries.
       operationId: get
       parameters:
       - name: id
@@ -2145,7 +2158,7 @@ paths:
       tags:
       - Worker Groups
       summary: Update a worker group
-      description: 'Instance owner only. Replaces the worker group''s full desired state (name, description, subscriptions) in a single transactional save. Subscriptions absent from the submitted list are dropped; the underlying WorkerQueue is preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for one-off edits. When the Worker Queues feature is disabled, subscriptions are immutable: the stored set is preserved and only the name and description are updated.'
+      description: 'Instance-owner-only. Replaces the worker group''s full desired state (name, description, subscriptions) in a single transactional save. Subscriptions absent from the submitted list are dropped; the underlying WorkerQueue is preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for one-off edits. When the Worker Queues feature is disabled, subscriptions are immutable: the stored set is preserved and only the name and description are updated.'
       operationId: update
       parameters:
       - name: id
@@ -2194,7 +2207,7 @@ paths:
       tags:
       - Worker Groups
       summary: Delete a worker group
-      description: Instance owner only.
+      description: Instance-owner-only.
       operationId: delete
       parameters:
       - name: id
@@ -2259,7 +2272,7 @@ paths:
       tags:
       - Worker Groups
       summary: Live capacity snapshot for a worker group
-      description: Instance owner only. Returns the live allocated and used slot counts per subscription, aggregated across all running workers in the group. Backed by service-liveness metrics emitted by the controller.
+      description: Instance-owner-only. Returns the live allocated and used slot counts per subscription, aggregated across all running workers in the group. Backed by service-liveness metrics emitted by the controller.
       operationId: getCapacity
       parameters:
       - name: id
@@ -2303,7 +2316,7 @@ paths:
       tags:
       - Worker Groups
       summary: Add a Worker Queue subscription to a worker group
-      description: Instance owner only. Adds a subscription edge from the worker group to an existing WorkerQueue identified by its id (or the reserved "default" sentinel for the global default queue). Returns the updated worker group.
+      description: Instance-owner-only. Adds a subscription edge from the worker group to an existing WorkerQueue identified by its id (or the reserved "default" sentinel for the global default queue). Returns the updated worker group.
       operationId: addSubscription
       parameters:
       - name: id
@@ -2353,7 +2366,7 @@ paths:
       tags:
       - Worker Groups
       summary: Remove a subscription by WorkerQueue id
-      description: Instance owner only. Drops the subscription edge from this worker group to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains available for other worker groups and can be re-subscribed later.
+      description: Instance-owner-only. Drops the subscription edge from this worker group to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains available for other worker groups and can be re-subscribed later.
       operationId: removeSubscription
       parameters:
       - name: id
@@ -2402,7 +2415,7 @@ paths:
       tags:
       - Worker Groups
       summary: Update a subscription's reserved capacity
-      description: Instance owner only. Updates the {@code reservedPercent} commitment on an existing subscription. Tags are immutable on a subscription (they belong to the WorkerQueue itself); only the worker-group-side reservation can be edited via this endpoint.
+      description: Instance-owner-only. Updates the {@code reservedPercent} commitment on an existing subscription. Tags are immutable on a subscription (they belong to the WorkerQueue itself); only the worker-group-side reservation can be edited via this endpoint.
       operationId: updateSubscriptionReservation
       parameters:
       - name: id
@@ -2458,7 +2471,7 @@ paths:
       tags:
       - Worker Groups
       summary: Generate a registration token
-      description: Instance owner only. Generates a new registration token for the worker group. The plaintext token is returned only once.
+      description: Instance-owner-only. Generates a new registration token for the worker group. The plaintext token is returned only once.
       operationId: generateToken
       parameters:
       - name: id
@@ -2508,7 +2521,7 @@ paths:
       tags:
       - Worker Groups
       summary: Delete a registration token
-      description: Instance owner only. Permanently deletes a token from the worker group.
+      description: Instance-owner-only. Permanently deletes a token from the worker group.
       operationId: deleteToken
       parameters:
       - name: id
@@ -2558,7 +2571,7 @@ paths:
       tags:
       - Worker Groups
       summary: Revoke a registration token
-      description: Instance owner only. Revokes a token, preventing further authentication.
+      description: Instance-owner-only. Revokes a token, preventing further authentication.
       operationId: revokeToken
       parameters:
       - name: id
@@ -2608,7 +2621,7 @@ paths:
       tags:
       - Worker Groups
       summary: List running workers for a worker group
-      description: Instance owner only. Lists all running workers registered to this worker group, with their metrics.
+      description: Instance-owner-only. Lists all running workers registered to this worker group, with their metrics.
       operationId: listRunningWorkers
       parameters:
       - name: id
@@ -2652,7 +2665,7 @@ paths:
       tags:
       - WorkerQueues
       summary: List all Worker Queues
-      description: Instance owner only. Lists all Worker Queues with their tag set, tenant scope, and active worker count.
+      description: Instance-owner-only. Lists all Worker Queues with their tag set, tenant scope, and active worker count.
       operationId: list_1
       responses:
         '200':
@@ -2688,7 +2701,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Create a Worker Queue
-      description: Instance owner only. Creates a new Worker Queue with the given tag set and tenant scope.
+      description: Instance-owner-only. Creates a new Worker Queue with the given tag set and tenant scope.
       operationId: create_1
       requestBody:
         description: The Worker Queue definition
@@ -2732,7 +2745,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Get Worker Queue detail
-      description: Instance owner only. Retrieves details of a specific Worker Queue including its active workers.
+      description: Instance-owner-only. Retrieves details of a specific Worker Queue including its active workers.
       operationId: get_1
       parameters:
       - name: id
@@ -2774,7 +2787,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Update a Worker Queue
-      description: Instance owner only. Updates a Worker Queue's tags, tenant scope, name, and description. The id is immutable.
+      description: Instance-owner-only. Updates a Worker Queue's tags, tenant scope, name, and description. The id is immutable.
       operationId: update_1
       parameters:
       - name: id
@@ -2823,7 +2836,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Delete a Worker Queue
-      description: Instance owner only.
+      description: Instance-owner-only.
       operationId: delete_1
       parameters:
       - name: id
@@ -2874,7 +2887,7 @@ paths:
       tags:
       - WorkerQueues
       summary: List worker groups subscribing to a Worker Queue
-      description: Instance owner only. Returns the worker groups that subscribe to this Worker Queue. A non-empty list means the queue cannot be deleted until the subscription(s) are removed.
+      description: Instance-owner-only. Returns the worker groups that subscribe to this Worker Queue. A non-empty list means the queue cannot be deleted until the subscription(s) are removed.
       operationId: subscribers
       parameters:
       - name: id
@@ -2923,7 +2936,7 @@ paths:
       tags:
       - Worker Auth
       summary: List all registered workers
-      description: Instance owner only. Lists all workers that have registered with the controller.
+      description: Instance-owner-only. Lists all workers that have registered with the controller.
       operationId: list_2
       responses:
         '200':
@@ -2960,7 +2973,7 @@ paths:
       tags:
       - Worker Auth
       summary: Get worker credentials ID
-      description: Instance owner only. Retrieves details of a specific registered worker.
+      description: Instance-owner-only. Retrieves details of a specific registered worker.
       operationId: get_2
       parameters:
       - name: id
@@ -3003,7 +3016,7 @@ paths:
       tags:
       - Worker Auth
       summary: Revoke worker credentials
-      description: Instance owner only. Revokes a worker's credentials, forcing it to re-register.
+      description: Instance-owner-only. Revokes a worker's credentials, forcing it to re-register.
       operationId: revoke
       parameters:
       - name: id
@@ -3339,7 +3352,7 @@ paths:
       tags:
       - Misc
       summary: Force the refresh of the license online
-      description: Only for Instance Owners.
+      description: Instance-owner-only.
       operationId: refreshLicense
       responses:
         '200':
@@ -5030,7 +5043,8 @@ paths:
     get:
       tags:
       - ServiceAccount
-      summary: 'List service accounts. Instance-owner-only. '
+      summary: List service accounts
+      description: Instance-owner-only.
       operationId: listServiceAccounts
       parameters:
       - name: page
@@ -6120,6 +6134,7 @@ paths:
       tags:
       - Tenants
       summary: Get default dashboards for this tenant
+      description: Instance-owner-only.
       operationId: getDefaultDashboards
       parameters:
       - name: id
@@ -6162,6 +6177,7 @@ paths:
       tags:
       - Tenants
       summary: Update default dashboards for the entire tenant
+      description: Instance-owner-only.
       operationId: setTenantDefaultDashboards
       parameters:
       - name: id
@@ -6211,6 +6227,7 @@ paths:
       tags:
       - Users
       summary: Retrieve users
+      description: Instance-owner-only.
       operationId: listUsers
       parameters:
       - name: page
@@ -14144,6 +14161,7 @@ paths:
       tags:
       - Flows
       summary: Search for flow concurrency limits
+      description: Instance-owner-only.
       operationId: searchConcurrencyLimitsasInstanceOwner
       parameters:
       - name: tenant
@@ -14233,6 +14251,7 @@ paths:
       tags:
       - Flows
       summary: Update a flow concurrency limit
+      description: Instance-owner-only.
       operationId: updateConcurrencyLimitasInstanceOwner
       parameters:
       - name: namespace
@@ -15291,6 +15310,7 @@ paths:
       tags:
       - Tenants
       summary: Get tenant dependencies
+      description: Instance-owner-only.
       operationId: getFlowDependenciesFromTenant
       parameters:
       - name: destinationOnly
@@ -28787,6 +28807,7 @@ paths:
       tags:
       - Quotas
       summary: Search for quota limits
+      description: Instance-owner-only.
       operationId: searchQuotaLimits
       parameters:
       - name: tenant
@@ -28831,6 +28852,7 @@ paths:
       tags:
       - Quotas
       summary: Reset a quota limit
+      description: Instance-owner-only.
       operationId: resetQuotaLimit
       parameters:
       - name: tenant
@@ -31082,7 +31104,7 @@ paths:
       tags:
       - TestSuites
       summary: Run multiple TestSuites by query
-      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE permission with the EXECUTE action.
+      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE and FLOW permissions with the EXECUTE action.
       operationId: runTestSuitesByQuery
       parameters:
       - name: tenant
@@ -31443,7 +31465,7 @@ paths:
       tags:
       - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TESTSUITE permission with the EXECUTE action.
+      description: Executes all test cases in the specified test. Requires TESTSUITE and FLOW permissions with the EXECUTE action.
       operationId: runTestSuite
       parameters:
       - name: namespace
@@ -32912,6 +32934,16 @@ paths:
       summary: Retrieve usage information for the current tenant
       operationId: tenantUsage
       parameters:
+      - name: days
+        in: query
+        description: The rolling window, in days, the execution figures cover
+        explode: false
+        schema:
+          maximum: 30
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
       - name: tenant
         in: path
         required: true
@@ -32954,6 +32986,16 @@ paths:
       summary: Retrieve instance usage information
       operationId: getUsages
       parameters:
+      - name: days
+        in: query
+        description: The rolling window, in days, the execution figures cover
+        explode: false
+        schema:
+          maximum: 30
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
       - name: tenant
         in: path
         required: true
@@ -34950,14 +34992,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiAuth'
+      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
@@ -35080,11 +35122,14 @@ components:
         message:
           type: string
     AppsController.ApiBulkOperationRequest:
+      required:
+      - uids
       type: object
       properties:
         uids:
           type: array
           items:
+            minLength: 1
             type: string
     AppsController.ApiBulkOperationResponse:
       type: object
@@ -42051,6 +42096,8 @@ components:
           title: The type of the rule.
           minLength: 1
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
+          type: string
+        id:
           type: string
         'on':
           $ref: '#/components/schemas/RuleTarget'
