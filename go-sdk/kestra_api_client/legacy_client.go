@@ -173,32 +173,9 @@ func parameterValueToString(obj interface{}, key string) string {
 	return fmt.Sprintf("%v", dataMap[key])
 }
 
-// isCamelCase reports whether s is already a modern lowerCamelCase wire name,
-// i.e. starts with a lowercase ASCII letter and contains only ASCII letters and
-// digits. Used to skip normalization for values such as "flowId" and "startDate"
-// while still normalizing legacy forms such as "FLOW_ID" or "flow_id".
-func isCamelCase(s string) bool {
-	if s == "" {
-		return false
-	}
-	for i, r := range s {
-		switch {
-		case r >= 'a' && r <= 'z':
-			// ok anywhere
-		case r >= 'A' && r <= 'Z':
-			if i == 0 {
-				return false
-			}
-		case r >= '0' && r <= '9':
-			if i == 0 {
-				return false
-			}
-		default:
-			return false
-		}
-	}
-	return true
-}
+// lowerCamelRe matches a modern lowerCamelCase wire name such as "flowId"
+// or "startDate".
+var lowerCamelRe = regexp.MustCompile(`^[a-z][a-zA-Z0-9]*$`)
 
 // toCamel converts strings like "flow_id", "flow-id", "flow id" into "flowId".
 func toCamel(s string) string {
@@ -282,7 +259,7 @@ func queryFilterToSearchFilter(qf QueryFilter) SearchFilter {
 	if qf.Field != nil {
 		fieldStr := fmt.Sprintf("%v", *qf.Field)
 		keyField := fieldStr
-		if !isCamelCase(fieldStr) {
+		if !lowerCamelRe.MatchString(fieldStr) {
 			keyField = toCamel(fieldStr)
 		}
 		if strings.EqualFold(fieldStr, "query") {
