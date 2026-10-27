@@ -34867,6 +34867,16 @@ paths:
       summary: Retrieve usage information for the current tenant
       operationId: tenantUsage
       parameters:
+      - name: days
+        in: query
+        description: The rolling window, in days, the execution figures cover
+        explode: false
+        schema:
+          maximum: 30
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
       - name: tenant
         in: path
         required: true
@@ -34909,6 +34919,16 @@ paths:
       summary: Retrieve instance usage information
       operationId: getUsages
       parameters:
+      - name: days
+        in: query
+        description: The rolling window, in days, the execution figures cover
+        explode: false
+        schema:
+          maximum: 30
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
       - name: tenant
         in: path
         required: true
