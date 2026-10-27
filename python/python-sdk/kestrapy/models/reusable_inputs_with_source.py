@@ -34,8 +34,10 @@ class ReusableInputsWithSource(BaseModel):
     updated: Optional[datetime] = None
     deleted: Optional[StrictBool] = None
     source: Optional[StrictStr] = None
+    draft: Optional[StrictBool] = Field(default=None, description="Executions skip draft revisions and use the latest revision that isn't a draft, unless a revision is set explicitly.")
+    updated_by: Optional[StrictStr] = Field(default=None, alias="updatedBy")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "id", "description", "inputs", "revision", "last", "created", "updated", "deleted", "source"]
+    __properties: ClassVar[List[str]] = ["namespace", "id", "description", "inputs", "revision", "last", "created", "updated", "deleted", "source", "draft", "updatedBy"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -107,6 +109,11 @@ class ReusableInputsWithSource(BaseModel):
         if self.updated is None and "updated" in self.model_fields_set:
             _dict['updated'] = None
 
+        # set to None if updated_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_by is None and "updated_by" in self.model_fields_set:
+            _dict['updatedBy'] = None
+
         return _dict
 
     @classmethod
@@ -128,7 +135,9 @@ class ReusableInputsWithSource(BaseModel):
             "created": obj.get("created"),
             "updated": obj.get("updated"),
             "deleted": obj.get("deleted"),
-            "source": obj.get("source")
+            "source": obj.get("source"),
+            "draft": obj.get("draft"),
+            "updatedBy": obj.get("updatedBy")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

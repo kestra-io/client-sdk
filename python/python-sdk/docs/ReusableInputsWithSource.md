@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **updated** | **datetime** | When this revision was created. | [optional] [readonly] 
 **deleted** | **bool** | Whether the block is soft-deleted. | [optional] [readonly] 
 **source** | **str** | The block&#39;s YAML source, as written in the editor. | [optional] [readonly] 
+**draft** | **bool** | Whether this revision is a draft. Executions skip draft revisions and use the latest revision that isn&#39;t a draft, unless a revision is set explicitly. | [optional] [readonly] 
+**updated_by** | **str** | The username of the user or service account that saved this revision. | [optional] [readonly] 
 
 ## Example
 
