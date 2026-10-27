@@ -31,7 +31,6 @@ Name | Type | Description | Notes
 **origin** | [**Origin**](Origin.md) |  | [optional] 
 **template_id** | **str** |  | [optional] 
 **auto_attach** | [**List[AutoAttach]**](AutoAttach.md) |  | [optional] 
-**ticket** | [**CaseTicket**](CaseTicket.md) |  | [optional] 
 **deleted** | **bool** |  | [optional] 
 
 ## Example

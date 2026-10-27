@@ -3,7 +3,6 @@ package test
 import (
 	"context"
 	"testing"
-	"time"
 
 	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
@@ -430,68 +429,4 @@ func TestCasesAPI_Assets(t *testing.T) {
 		require.NotNil(t, page)
 		require.Equal(t, int64(0), page.Total)
 	})
-}
-
-func TestCasesAPI_Ticket(t *testing.T) {
-	client := KestraTestClient()
-	ctx := context.Background()
-	c := newCase(t, ctx, randomId(), "ticketed case")
-
-	_, err := client.Cases().SetCaseTicket(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseTicketRequest{
-		System: "GitHub", Key: "acme/ops#412", Url: "https://github.com/acme/ops/issues/412",
-	})
-	require.NoError(t, err)
-
-	replaced, err := client.Cases().SetCaseTicket(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseTicketRequest{
-		System: "Atlassian Jira", Key: "OPS-7", Url: "https://acme.atlassian.net/browse/OPS-7",
-	})
-	require.NoError(t, err)
-	require.NotNil(t, replaced.Ticket)
-	require.Equal(t, "OPS-7", replaced.Ticket.Key)
-
-	removed, err := client.Cases().DeleteCaseTicket(ctx, MAIN_TENANT, c.Id)
-	require.NoError(t, err)
-	require.Nil(t, removed.Ticket)
-
-	_, err = client.Cases().SetCaseTicket(ctx, MAIN_TENANT, randomId(), kestra_api_client.CaseTicketRequest{
-		System: "GitHub", Key: "acme/ops#412", Url: "https://github.com/acme/ops/issues/412",
-	})
-	require.Error(t, err)
-}
-
-func TestCasesAPI_SearchCaseEvents(t *testing.T) {
-	client := KestraTestClient()
-	ctx := context.Background()
-	namespace := randomId()
-	since := time.Now().Add(-5 * time.Second).UTC().Format(time.RFC3339Nano)
-	c, err := client.Cases().CreateCase(ctx, MAIN_TENANT, kestra_api_client.CaseCreateRequest{
-		Namespace: namespace, Title: "searched case", Severity: "CRITICAL",
-	})
-	require.NoError(t, err)
-	t.Cleanup(func() { _ = client.Cases().DeleteCase(ctx, MAIN_TENANT, c.Id) })
-
-	search := func(sinceCreated, sinceId string, events, severities []string) *kestra_api_client.CaseEventSearchResult {
-		page, err := client.Cases().SearchCaseEvents(ctx, MAIN_TENANT, &sinceCreated, &sinceId, events, severities, &namespace, nil, intPtr(1000))
-		require.NoError(t, err)
-		return page
-	}
-	containsCase := func(page *kestra_api_client.CaseEventSearchResult) bool {
-		for _, entry := range page.Results {
-			if entry.Case.Id == c.Id {
-				return true
-			}
-		}
-		return false
-	}
-
-	var page *kestra_api_client.CaseEventSearchResult
-	require.Eventually(t, func() bool {
-		page = search(since, "", []string{"CREATED"}, []string{"CRITICAL"})
-		return containsCase(page)
-	}, 30*time.Second, 500*time.Millisecond)
-
-	require.False(t, containsCase(search(since, "", []string{"COMMENT"}, []string{"CRITICAL"})))
-	require.False(t, containsCase(search(since, "", []string{"CREATED"}, []string{"LOW"})))
-	require.NotNil(t, page.NextSinceCreated)
-	require.False(t, containsCase(search(page.NextSinceCreated.Format(time.RFC3339Nano), page.NextSinceId, []string{"CREATED"}, []string{"CRITICAL"})))
 }

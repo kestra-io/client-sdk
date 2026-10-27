@@ -9,8 +9,6 @@ Request bodies are sent as plain dicts (the wrapper accepts ``Dict[str, Any]``),
 so the field names below are the backend's camelCase JSON keys.
 """
 import contextlib
-import time
-from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -208,79 +206,6 @@ def test_download_case_attachment_missing_raises(client):
     finally:
         with contextlib.suppress(Exception):
             client.cases.delete_case(TENANT, created.id)
-
-
-def _search_events(client, namespace, since_created, since_id, events, severities):
-    return client.cases.search_case_events(
-        TENANT,
-        since_created=since_created,
-        since_id=since_id,
-        events=events,
-        severities=severities,
-        namespace=namespace,
-        size=1000,
-    )
-
-
-def _contains_case(page, case_id):
-    return any(entry.case is not None and entry.case.id == case_id for entry in page.results or [])
-
-
-def test_search_case_events_filters_and_resumes_from_the_returned_cursor(client):
-    namespace = f"io.kestra.sdk.{random_id()}"
-    since = (datetime.now(timezone.utc) - timedelta(seconds=5)).isoformat()
-    with _tolerate_gating("create_case"):
-        created = _create_case(client, namespace=namespace, severity="CRITICAL")
-    try:
-        deadline = time.monotonic() + 30
-        page = _search_events(client, namespace, since, "", ["CREATED"], ["CRITICAL"])
-        while not _contains_case(page, created.id) and time.monotonic() < deadline:
-            time.sleep(0.5)
-            page = _search_events(client, namespace, since, "", ["CREATED"], ["CRITICAL"])
-        assert _contains_case(page, created.id)
-
-        assert not _contains_case(_search_events(client, namespace, since, "", ["COMMENT"], ["CRITICAL"]), created.id)
-        assert not _contains_case(_search_events(client, namespace, since, "", ["CREATED"], ["LOW"]), created.id)
-        resumed = _search_events(
-            client, namespace, page.next_since_created.isoformat(), page.next_since_id, ["CREATED"], ["CRITICAL"]
-        )
-        assert not _contains_case(resumed, created.id)
-    finally:
-        with contextlib.suppress(Exception):
-            client.cases.delete_case(TENANT, created.id)
-
-
-# --------------------------------------------------------------------------- #
-# External ticket
-# --------------------------------------------------------------------------- #
-
-def test_set_case_ticket_replaces_then_delete_removes_it(client):
-    with _tolerate_gating("create_case"):
-        created = _create_case(client)
-    try:
-        client.cases.set_case_ticket(
-            TENANT, created.id,
-            {"system": "GitHub", "key": "acme/ops#412", "url": "https://github.com/acme/ops/issues/412"},
-        )
-        replaced = client.cases.set_case_ticket(
-            TENANT, created.id,
-            {"system": "Atlassian Jira", "key": "OPS-7", "url": "https://acme.atlassian.net/browse/OPS-7"},
-        )
-        assert replaced.ticket is not None and replaced.ticket.key == "OPS-7"
-
-        removed = client.cases.delete_case_ticket(TENANT, created.id)
-        assert removed.ticket is None
-    finally:
-        with contextlib.suppress(Exception):
-            client.cases.delete_case(TENANT, created.id)
-
-
-def test_set_case_ticket_on_an_unknown_case_raises_not_found(client):
-    with _tolerate_gating("set_case_ticket"), pytest.raises(NotFoundException):
-        client.cases.set_case_ticket(
-            TENANT, random_id(),
-            {"system": "GitHub", "key": "acme/ops#412", "url": "https://github.com/acme/ops/issues/412"},
-        )
 
 
 # --------------------------------------------------------------------------- #

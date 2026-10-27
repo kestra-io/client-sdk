@@ -14,7 +14,7 @@ services:
       start_period: 5s
 
   # ---------------------------------------------------------------------------
-  # The kestra-ee 2.0 develop image has a time-driven heap leak in the SCHEDULER
+  # The kestra-ee 2.0 images have a time-driven heap leak in the SCHEDULER
   # (DefaultSchedulableTriggerFetcher chains unbounded Micronaut ExecutionFlow
   # ops every poll; old gen fills, Full GC reclaims ~0, JVM dies with
   # OutOfMemoryError). The leak is not the SDK's bug and has no upstream fix yet.
@@ -35,7 +35,7 @@ services:
   # ---------------------------------------------------------------------------
   kestra:
     container_name: python-sdk-test-kestra
-    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:develop${KESTRA_IMAGE_SUFFIX}"
+    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:${KESTRA_VERSION}${KESTRA_IMAGE_SUFFIX}"
     pull_policy: always
     user: "root"
     command: server standalone
