@@ -38038,6 +38038,7 @@ components:
       - IMPERSONATE
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
+      - PASSWORD_EXPIRED
       - PROMOTE
       - UNKNOWN
     AuthConfig:
@@ -42265,6 +42266,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MeController.ApiOwnedGroup'
+        passwordExpiresAt:
+          type: string
+          format: date-time
     MeController.ApiOwnedGroup:
       type: object
       properties:
@@ -43564,6 +43568,16 @@ components:
         passwordAllowedSpecialCharacters:
           type: string
           default: '!@#$%^&*_-'
+        passwordMaxAge:
+          type: string
+          nullable: true
+        passwordExpiryWarning:
+          type: string
+          default: P7D
+        passwordHistorySize:
+          type: integer
+          format: int32
+          default: 0
         passwordReset:
           $ref: '#/components/schemas/PasswordConfiguration.PasswordReset'
         passwordValidate:
