@@ -38061,6 +38061,19 @@ components:
           type: array
           items:
             type: string
+        saml:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AuthController.Auth.Saml'
+    AuthController.Auth.Saml:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: 'always `true`: the field is omitted when SAML is disabled'
+        displayName:
+          type: string
+          description: the provider name shown on the login button
     AuthController.ForgottenPasswordRequest:
       type: object
       properties:
