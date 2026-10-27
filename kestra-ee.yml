@@ -29346,6 +29346,71 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/outputs/searchable/{executionId}:
+    get:
+      tags:
+      - Outputs
+      summary: List the searchable outputs of an execution
+      operationId: listSearchableOutputs
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: listSearchableOutputs 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_OutputController.SearchableOutputInformation_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/outputs/tasks/{executionId}:
     get:
       tags:
@@ -34145,6 +34210,7 @@ paths:
           - LABELS
           - TAGS
           - METADATA
+          - OUTPUTS
           - ASSET_EXPIRY
           - FLOW_ID
           - FLOW_REVISION
@@ -42779,6 +42845,15 @@ components:
           type: string
         required:
           type: boolean
+        searchable:
+          type: boolean
+    OutputController.SearchableOutputInformation:
+      type: object
+      properties:
+        outputId:
+          type: string
+        value:
+          type: string
     OutputController.TaskOutputInformation:
       type: object
       properties:
@@ -43306,6 +43381,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Namespace'
+        total:
+          type: integer
+          format: int64
+    PagedResults_OutputController.SearchableOutputInformation_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputController.SearchableOutputInformation'
         total:
           type: integer
           format: int64
@@ -44291,6 +44379,7 @@ components:
       - labels
       - tags
       - metadata
+      - outputs
       - assetExpiry
       - flowId
       - flowRevision
@@ -44358,6 +44447,7 @@ components:
       - LABELS
       - TAGS
       - METADATA
+      - OUTPUTS
       - ASSET_EXPIRY
       - FLOW_ID
       - FLOW_REVISION
