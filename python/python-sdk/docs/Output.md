@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
 **description** | **str** |  | [optional] 
-**value** | [**OutputValue**](OutputValue.md) |  | 
+**value** | [**OutputValue**](OutputValue.md) |  | [optional] 
 **type** | [**Type**](Type.md) |  | 
 **display_name** | **str** |  | [optional] 
 **required** | **bool** |  | [optional] 
