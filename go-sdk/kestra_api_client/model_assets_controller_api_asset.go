@@ -27,6 +27,7 @@ type AssetsControllerApiAsset struct {
 	Created *time.Time `json:"created,omitempty"`
 	Updated *time.Time `json:"updated,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`
+	PartOf *AssetRelationRef `json:"partOf,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -337,6 +338,38 @@ func (o *AssetsControllerApiAsset) SetDeleted(v bool) {
 	o.Deleted = &v
 }
 
+// GetPartOf returns the PartOf field value if set, zero value otherwise.
+func (o *AssetsControllerApiAsset) GetPartOf() AssetRelationRef {
+	if o == nil || IsNil(o.PartOf) {
+		var ret AssetRelationRef
+		return ret
+	}
+	return *o.PartOf
+}
+
+// GetPartOfOk returns a tuple with the PartOf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsControllerApiAsset) GetPartOfOk() (*AssetRelationRef, bool) {
+	if o == nil || IsNil(o.PartOf) {
+		return nil, false
+	}
+	return o.PartOf, true
+}
+
+// HasPartOf returns a boolean if a field has been set.
+func (o *AssetsControllerApiAsset) HasPartOf() bool {
+	if o != nil && !IsNil(o.PartOf) {
+		return true
+	}
+
+	return false
+}
+
+// SetPartOf gets a reference to the given AssetRelationRef and assigns it to the PartOf field.
+func (o *AssetsControllerApiAsset) SetPartOf(v AssetRelationRef) {
+	o.PartOf = &v
+}
+
 func (o AssetsControllerApiAsset) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -374,6 +407,9 @@ func (o AssetsControllerApiAsset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
 	}
+	if !IsNil(o.PartOf) {
+		toSerialize["partOf"] = o.PartOf
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -405,6 +441,7 @@ func (o *AssetsControllerApiAsset) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "updated")
 		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "partOf")
 		o.AdditionalProperties = additionalProperties
 	}
 
