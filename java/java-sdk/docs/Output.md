@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
 |**description** | **String** |  |  [optional] |
-|**value** | [**OutputValue**](OutputValue.md) |  |  |
+|**value** | [**OutputValue**](OutputValue.md) |  |  [optional] |
 |**type** | **Type** |  |  |
 |**displayName** | **String** |  |  [optional] |
 |**required** | **Boolean** |  |  [optional] |

@@ -20,7 +20,7 @@ var _ MappedNullable = &Output{}
 type Output struct {
 	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
 	Description *string `json:"description,omitempty"`
-	Value OutputValue `json:"value"`
+	Value *OutputValue `json:"value,omitempty"`
 	Type Type `json:"type"`
 	DisplayName *string `json:"displayName,omitempty"`
 	Required *bool `json:"required,omitempty"`
@@ -33,10 +33,9 @@ type _Output Output
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOutput(id string, value OutputValue, type_ Type) *Output {
+func NewOutput(id string, type_ Type) *Output {
 	this := Output{}
 	this.Id = id
-	this.Value = value
 	this.Type = type_
 	return &this
 }
@@ -105,28 +104,36 @@ func (o *Output) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *Output) GetValue() OutputValue {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret OutputValue
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Output) GetValueOk() (*OutputValue, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *Output) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given OutputValue and assigns it to the Value field.
 func (o *Output) SetValue(v OutputValue) {
-	o.Value = v
+	o.Value = &v
 }
 
 // GetType returns the Type field value
@@ -231,7 +238,9 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["value"] = o.Value
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 	toSerialize["type"] = o.Type
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
@@ -253,7 +262,6 @@ func (o *Output) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"value",
 		"type",
 	}
 

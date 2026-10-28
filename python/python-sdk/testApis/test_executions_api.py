@@ -13,6 +13,7 @@ from kestrapy import (
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
     log_flow_yaml_with_labels,
     create_execution,
     create_flow,
@@ -65,6 +66,21 @@ tasks:
   - id: echo
     type: io.kestra.plugin.core.log.Log
     message: "{{{{ inputs.greeting }}}}"
+"""
+
+
+def _output_flow_yaml(flow_id, ns):
+    return f"""\
+id: {flow_id}
+namespace: {ns}
+tasks:
+  - id: return
+    type: io.kestra.plugin.core.debug.Return
+    format: hello
+outputs:
+  - id: flow_output
+    type: STRING
+    value: "{{{{ outputs.return.value }}}}"
 """
 
 
@@ -352,6 +368,22 @@ class TestGraphAndFlow:
         result = client.executions.flow_from_execution_by_id(execution_id, TENANT)
         assert result is not None
         assert result.id == flow_id
+
+    def test_flow_from_execution_with_outputs(self, client):
+        # The flow-for-execution exposes declared outputs without their `value` expression.
+        ns = random_namespace()
+        flow_id = random_id()
+        create_flow(client, _output_flow_yaml(flow_id, ns))
+        execution_id = _execute_flow(client, ns, flow_id).id
+        wait_for_execution(client, execution_id)
+
+        by_id = client.executions.flow_from_execution_by_id(execution_id, TENANT)
+        by_flow = client.executions.flow_from_execution(TENANT, ns, flow_id)
+
+        for result in (by_id, by_flow):
+            assert result.id == flow_id
+            assert [output.id for output in result.outputs] == ["flow_output"]
+            assert result.outputs[0].value is None
 
 
 # ========================================================================
