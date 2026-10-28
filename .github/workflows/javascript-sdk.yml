@@ -49,9 +49,10 @@ on:
 permissions:
   contents: read
 
-# Serializes runs per branch so two close next/* pushes can't publish their snapshots out of order.
+# Serializes runs per branch and trigger: two close next/* pushes can't publish their snapshots out of order,
+# and a test run dispatched on a new develop image never cancels a push that is publishing.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/next/') }}
 
 jobs:
