@@ -3815,6 +3815,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/history:
     get:
       tags:
@@ -3863,6 +3866,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/read-all:
     post:
       tags:
@@ -3895,6 +3901,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/since:
     get:
       tags:
@@ -3936,6 +3945,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/unread-count:
     get:
       tags:
@@ -3968,6 +3980,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/{id}/read:
     post:
       tags:
@@ -4002,6 +4017,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/notifications/{id}/unread:
     post:
       tags:
@@ -4036,6 +4054,9 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/pebble/filters:
     get:
       tags:
