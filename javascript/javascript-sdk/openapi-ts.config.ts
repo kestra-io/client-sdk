@@ -28,9 +28,9 @@ const normalizeYamlRequestBodyMediaType = (
 
 const NOTIFICATIONS_PATH_PREFIX = "/api/v1/notifications/";
 
-// The spec dropped `security` and `x-kestra: {edition: ee}` from the notifications routes (the EE
-// controller @Replaces the OSS one, which carries neither), so the client sent them unauthenticated
-// and got a 401. Restore what earlier specs declared; remove once kestra-ee fixes the spec.
+// The notifications routes moved to OSS (kestra#19857) and the spec no longer declares `security`
+// on them: the EE controller @Replaces the OSS one, and only the subclass is @Secured. The client
+// then sent them unauthenticated and got a 401. Restore it; remove once kestra-ee fixes the spec.
 const restoreNotificationsSecurity = (
     _method: string,
     path: string,
@@ -38,7 +38,6 @@ const restoreNotificationsSecurity = (
 ): void => {
     if (!path.startsWith(NOTIFICATIONS_PATH_PREFIX) || operation.security) return;
     operation.security = [{ bearerAuth: [] }, { basicAuth: [] }];
-    operation["x-kestra"] ??= { edition: "ee" };
 };
 
 const generateHash = (str: string) => {
