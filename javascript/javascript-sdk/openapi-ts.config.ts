@@ -29,8 +29,9 @@ const normalizeYamlRequestBodyMediaType = (
 const NOTIFICATIONS_PATH_PREFIX = "/api/v1/notifications/";
 
 // The notifications routes moved to OSS (kestra#19857) and the spec no longer declares `security`
-// on them: the EE controller @Replaces the OSS one, and only the subclass is @Secured. The client
-// then sent them unauthenticated and got a 401. Restore it; remove once kestra-ee fixes the spec.
+// on them: kestra-ee#11341 turned the EE controller into a subclass of the OSS one and dropped its
+// `implements SecuritySchemeControllerAnnotation`. The client then sent them unauthenticated and got
+// a 401. Restore it; remove once kestra-ee fixes the spec.
 const restoreNotificationsSecurity = (
     _method: string,
     path: string,
