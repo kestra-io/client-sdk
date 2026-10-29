@@ -26,6 +26,21 @@ const normalizeYamlRequestBodyMediaType = (
     delete content[RFC_YAML_MEDIA_TYPE];
 };
 
+const NOTIFICATIONS_PATH_PREFIX = "/api/v1/notifications/";
+
+// The spec dropped `security` and `x-kestra: {edition: ee}` from the notifications routes (the EE
+// controller @Replaces the OSS one, which carries neither), so the client sent them unauthenticated
+// and got a 401. Restore what earlier specs declared; remove once kestra-ee fixes the spec.
+const restoreNotificationsSecurity = (
+    _method: string,
+    path: string,
+    operation: any,
+): void => {
+    if (!path.startsWith(NOTIFICATIONS_PATH_PREFIX) || operation.security) return;
+    operation.security = [{ bearerAuth: [] }, { basicAuth: [] }];
+    operation["x-kestra"] ??= { edition: "ee" };
+};
+
 const generateHash = (str: string) => {
     let hash = 0;
     for (const char of str) {
@@ -45,6 +60,7 @@ export default {
             operations: (method: string, path: string, operation: any): void => {
                 normalizeYamlRequestBodyMediaType(method, path, operation);
                 fixYamlSourceRequestBodyContentType(method, path, operation);
+                restoreNotificationsSecurity(method, path, operation);
             },
         },
     },
