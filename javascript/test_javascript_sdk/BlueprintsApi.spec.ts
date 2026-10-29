@@ -219,7 +219,7 @@ describe('BlueprintsApi — community + flow-blueprint helpers', () => {
     it('validateFlowBlueprint: a valid source reports no constraints', async () => {
         const body = logFlowYaml(randomId(), randomId());
         const resp = await Blueprints.validateFlowBlueprint({ body });
-        expect(resp.constraints ?? '').toBe('');
+        expect(resp.errors ?? []).toEqual([]);
     });
 
     // Use a created flow blueprint as a template to generate a flow source
