@@ -37317,9 +37317,9 @@ components:
         lessThanOrEqualTo:
           $ref: '#/components/schemas/Property_Double_'
         in:
-          $ref: '#/components/schemas/Property_List_String__'
+          $ref: '#/components/schemas/Property_List_Object__'
         notIn:
-          $ref: '#/components/schemas/Property_List_String__'
+          $ref: '#/components/schemas/Property_List_Object__'
         isNull:
           $ref: '#/components/schemas/Property_Boolean_'
         isNotNull:
@@ -44384,7 +44384,7 @@ components:
       oneOf:
       - type: object
       - type: string
-    Property_List_String__:
+    Property_List_Object__:
       type: object
       properties:
         expression:
@@ -44392,7 +44392,7 @@ components:
         value:
           type: array
           items:
-            type: string
+            type: object
       oneOf:
       - type: object
       - type: string
