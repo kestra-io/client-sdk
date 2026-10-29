@@ -204,9 +204,8 @@ describe('DashboardsApi', () => {
             body: executionsTableChartYaml('validate-chart', namespace),
         });
 
-        // A valid chart yields no `constraints`: null on older servers, "" since
-        // kestra#19999 derives the deprecated field from the (empty) `errors` list.
-        expect(result.constraints ?? '').toBe('');
+        // `errors` is omitted when empty; it replaces the deprecated `constraints`.
+        expect(result.errors ?? []).toEqual([]);
     });
 
     it('previewChart: previews an ad-hoc chart over a namespace with one execution', async () => {

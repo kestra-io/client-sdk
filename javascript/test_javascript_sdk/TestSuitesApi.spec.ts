@@ -218,8 +218,7 @@ describe('TestSuitesApiTest', () => {
         expect(vr?.warnings ?? []).toHaveLength(0);
         expect(vr?.infos ?? []).toHaveLength(0);
         expect(vr?.deprecationPaths ?? []).toHaveLength(0);
-        // null on older servers, "" since kestra#19999 derives it from `errors`.
-        expect(vr?.constraints ?? '').toBe('');
+        expect(vr?.errors ?? []).toEqual([]);
     });
 
     it('validateTestSuiteTest_invalid', async () => {
@@ -232,14 +231,8 @@ describe('TestSuitesApiTest', () => {
 
         const vr = await TestSuites.validateTestSuite({ body: yaml, tenant: tenantId });
 
-        // Normalize to an array of strings
-        const constraintsRaw = vr?.constraints ?? [];
-        const constraints = Array.isArray(constraintsRaw)
-            ? constraintsRaw
-            : String(constraintsRaw)
-                .split(/\r?\n/)
-                .map(s => s.trim())
-                .filter(Boolean);
+        // Render each error as the server's `path: detail` line (ValidationError.toLine)
+        const constraints = (vr?.errors ?? []).map(e => (e.path ? `${e.path}: ${e.detail}` : e.detail));
 
         // Assert only that these messages are present (order/extra lines ignored)
         expect(constraints).toEqual(
