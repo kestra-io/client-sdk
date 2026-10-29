@@ -13182,6 +13182,108 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/cases/approvals/cancel/by-ids:
+    post:
+      tags:
+      - Cases
+      summary: Cancel the pending approvals behind approval cases, without a decision
+      operationId: cancelApprovalsByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: The cancelled count and the case ids the caller may not review or that have nothing pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApprovalCancelResult'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/approvals/reviewable/by-ids:
+    post:
+      tags:
+      - Cases
+      summary: Tell which approval cases the caller may review
+      operationId: reviewableApprovalsByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: The case ids with a pending approval the caller is assigned to review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesController.ApprovalReviewableResult'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/cases/assignees:
     get:
       tags:
@@ -13206,7 +13308,7 @@ paths:
         schema:
           nullable: true
           allOf:
-          - $ref: '#/components/schemas/ExecutionRepositoryInterface.DateFilter'
+          - $ref: '#/components/schemas/CasesController.CaseDateFilter'
       - name: tenant
         in: path
         required: true
@@ -13481,7 +13583,7 @@ paths:
         schema:
           nullable: true
           allOf:
-          - $ref: '#/components/schemas/ExecutionRepositoryInterface.DateFilter'
+          - $ref: '#/components/schemas/CasesController.CaseDateFilter'
       - name: tenant
         in: path
         required: true
@@ -13546,7 +13648,7 @@ paths:
         schema:
           nullable: true
           allOf:
-          - $ref: '#/components/schemas/ExecutionRepositoryInterface.DateFilter'
+          - $ref: '#/components/schemas/CasesController.CaseDateFilter'
       - name: tenant
         in: path
         required: true
@@ -13898,7 +14000,7 @@ paths:
         schema:
           nullable: true
           allOf:
-          - $ref: '#/components/schemas/ExecutionRepositoryInterface.DateFilter'
+          - $ref: '#/components/schemas/CasesController.CaseDateFilter'
       - name: tenant
         in: path
         required: true
@@ -19024,6 +19126,77 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/cancel-approval:
+    post:
+      tags:
+      - Executions
+      summary: Cancel an Approval request without a decision.
+      operationId: cancelApproval
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The Approval task run id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+        '404':
+          description: if the task run does not exist in the execution
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: if the task run is not paused, it was already decided or cancelled
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: if the task run is not an Approval
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/actions/change-status:
     post:
       tags:
@@ -20016,6 +20189,243 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/review:
+    post:
+      tags:
+      - Executions
+      summary: Approve or deny an Approval task run. The reviewer comment is the multipart part named `kestra_review_comment`, any other part is an input of the Approval task.
+      operationId: reviewExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The Approval task run id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: decision
+        in: query
+        description: The decision
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/ExecutionController.ReviewDecision'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The reviewer inputs, plus the optional `kestra_review_comment` part
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+      responses:
+        '200':
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+        '404':
+          description: if the task run does not exist in the execution
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: if the task run is not paused, it was already decided or cancelled
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: if the task run is not an Approval or the decision is refused
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-sdk-customization:
+        x-multipart: 'true'
+  /api/v1/{tenant}/executions/{executionId}/actions/review/allowed:
+    get:
+      tags:
+      - Executions
+      summary: Tell whether the current user may review or cancel an Approval task run
+      operationId: isReviewAllowed
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The Approval task run id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionController.ApiReviewAllowed'
+        '404':
+          description: if the execution does not exist
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/review/validate:
+    post:
+      tags:
+      - Executions
+      summary: Validate a review of an Approval task run. The reviewer comment is the multipart part named `kestra_review_comment`, any other part is an input of the Approval task.
+      operationId: validateReviewExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The Approval task run id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: decision
+        in: query
+        description: The decision
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/ExecutionController.ReviewDecision'
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The reviewer inputs, plus the optional `kestra_review_comment` part
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+      responses:
+        '200':
+          description: On success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse'
+        '404':
+          description: if the task run does not exist in the execution
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: if the task run is not paused, it was already decided or cancelled
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: if the task run is not an Approval or the decision is refused
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -35383,6 +35793,7 @@ components:
       - REPLAY
       - PAUSE
       - RESUME
+      - REVIEW
       - UNQUEUE
       - FORCE_RUN
       - FOLLOW
@@ -37136,6 +37547,20 @@ components:
           type: string
           description: A CSS length, for example `800px`, `60rem` or `100%`. It is capped at the width of the browser window, so a narrow screen still gets the whole width. When left unset, the app grows with the window up to a width that keeps text readable.
           x-pattern-message: must be a CSS length such as 800px, 60rem or 100%
+    Approval.CommentRequired:
+      type: string
+      enum:
+      - NEVER
+      - ALWAYS
+      - ON_DENY
+      - ON_APPROVE
+    Approval.Decisions:
+      type: object
+      properties:
+        approve:
+          $ref: '#/components/schemas/Property_String_'
+        deny:
+          $ref: '#/components/schemas/Property_String_'
     AppsController.ApiApp:
       type: object
       properties:
@@ -37198,6 +37623,8 @@ components:
           type: boolean
         namespace:
           type: string
+        needsApproval:
+          type: boolean
     AppsController.ApiAppCatalogNamespace:
       type: object
       properties:
@@ -38544,6 +38971,7 @@ components:
       - ASSIGNED
       - EXECUTION_LINKED
       - EXECUTION_UNLINKED
+      - APPROVAL_DECIDED
       - ASSET_LINKED
       - ASSET_UNLINKED
       - TICKET_LINKED
@@ -38556,6 +38984,11 @@ components:
       - AUTO_ATTACH_DISABLED
       - SLA_ACKNOWLEDGEMENT_BREACHED
       - SLA_RESOLUTION_BREACHED
+    CaseKind:
+      type: string
+      enum:
+      - DEFAULT
+      - APPROVAL
     CaseSeverity:
       type: string
       enum:
@@ -38769,6 +39202,8 @@ components:
             $ref: '#/components/schemas/AutoAttach'
         ticket:
           $ref: '#/components/schemas/CaseTicket'
+        kind:
+          $ref: '#/components/schemas/CaseKind'
         deleted:
           type: boolean
     CasesController.ApiCaseAsset:
@@ -38845,6 +39280,8 @@ components:
           format: date-time
         found:
           type: boolean
+        taskRunId:
+          type: string
     CasesController.ApiCaseSummary:
       type: object
       properties:
@@ -38902,6 +39339,26 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/CaseTicket'
+    CasesController.ApprovalCancelResult:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number of approvals cancelled
+          format: int32
+        refused:
+          type: array
+          description: The ids of the cases that were skipped
+          items:
+            type: string
+    CasesController.ApprovalReviewableResult:
+      type: object
+      properties:
+        reviewable:
+          type: array
+          description: The ids of the cases whose approval the caller may review
+          items:
+            type: string
     CasesController.AssignRequest:
       type: object
       properties:
@@ -39012,6 +39469,14 @@ components:
           nullable: true
           items:
             $ref: '#/components/schemas/FlowAction'
+    CasesController.CaseDateFilter:
+      type: string
+      enum:
+      - CREATED
+      - UPDATED
+      - START_DATE
+      - END_DATE
+      - START_OR_END_DATE
     CasesController.CaseFromTaskRequest:
       required:
       - flowId
@@ -39457,6 +39922,9 @@ components:
             RUNNING:
               type: integer
               format: int64
+            PAUSING:
+              type: integer
+              format: int64
             PAUSED:
               type: integer
               format: int64
@@ -39885,6 +40353,12 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/LoopRun'
+    ExecutionController.ApiReviewAllowed:
+      type: object
+      properties:
+        allowed:
+          type: boolean
+          description: Whether the current user may review or cancel the Approval task run
     ExecutionController.ApiValidateExecutionInputsResponse:
       required:
       - checks
@@ -39997,6 +40471,11 @@ components:
           format: date-time
         status:
           $ref: '#/components/schemas/State.Type'
+    ExecutionController.ReviewDecision:
+      type: string
+      enum:
+      - APPROVE
+      - DENY
     ExecutionController.SetLabelsByIdsRequest:
       required:
       - executionLabels
@@ -44340,6 +44819,16 @@ components:
       enum:
       - SUCCESS
       - FAILED
+    Property_Approval.CommentRequired_:
+      type: object
+      properties:
+        expression:
+          type: string
+        value:
+          $ref: '#/components/schemas/Approval.CommentRequired'
+      oneOf:
+      - type: object
+      - type: string
     Property_AssetFailureBehavior_:
       type: object
       properties:
@@ -45840,6 +46329,7 @@ components:
       - CREATED
       - SUBMITTED
       - RUNNING
+      - PAUSING
       - PAUSED
       - RESTARTED
       - KILLING
@@ -46043,6 +46533,10 @@ components:
             $ref: '#/components/schemas/Input_Object_'
         subflowId:
           $ref: '#/components/schemas/ExecutableTask.SubflowId'
+        decisions:
+          $ref: '#/components/schemas/Approval.Decisions'
+        commentRequired:
+          $ref: '#/components/schemas/Property_Approval.CommentRequired_'
     TaskRun:
       required:
       - executionId
