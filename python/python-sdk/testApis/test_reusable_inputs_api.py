@@ -1,7 +1,7 @@
 import pytest
 
 from test_helpers import TENANT, random_id, random_namespace, register_namespace
-from kestrapy.exceptions import ConflictException, NotFoundException
+from kestrapy.exceptions import ConflictException, NotFoundException, UnprocessableEntityException
 
 
 def reusable_inputs_source(namespace, block_id, description="shared inputs"):
@@ -18,9 +18,9 @@ def reusable_inputs_source(namespace, block_id, description="shared inputs"):
     )
 
 
-def create_block(client, namespace, block_id, **kwargs):
+def create_block(client, namespace, block_id, draft=None, **kwargs):
     return client.reusable_inputs.create_or_update_reusable_inputs(
-        namespace, block_id, TENANT, reusable_inputs_source(namespace, block_id, **kwargs)
+        namespace, block_id, TENANT, reusable_inputs_source(namespace, block_id, **kwargs), draft=draft
     )
 
 
@@ -59,6 +59,56 @@ def test_reusable_inputs(client):
 
     assert found.id == block_id
     assert len(found.inputs) == 2
+
+
+def test_create_or_update_reusable_inputs_draft(client):
+    namespace, block_id = random_namespace(), random_id()
+    published = create_block(client, namespace, block_id)
+
+    draft = create_block(client, namespace, block_id, draft=True, description="in progress")
+
+    assert published.draft is False
+    assert published.updated_by
+    assert draft.draft is True
+    assert draft.revision == 2
+    assert draft.updated_by == published.updated_by
+
+
+def test_reusable_inputs_skips_drafts_unless_allowed(client):
+    namespace, block_id = random_namespace(), random_id()
+    create_block(client, namespace, block_id)
+    create_block(client, namespace, block_id, draft=True, description="in progress")
+
+    for_execution = client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT)
+    assert for_execution.revision == 1
+    assert for_execution.draft is False
+
+    latest = client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT, allow_draft=True)
+    assert latest.revision == 2
+    assert latest.draft is True
+    assert latest.description == "in progress"
+
+
+def test_reusable_inputs_drafts_only(client):
+    namespace, block_id = random_namespace(), random_id()
+    create_block(client, namespace, block_id, draft=True)
+
+    with pytest.raises(UnprocessableEntityException):
+        client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT)
+    assert client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT, allow_draft=True).draft is True
+
+
+def test_list_reusable_inputs_excludes_drafts_only_unless_allowed(client):
+    namespace, published, drafts_only = random_namespace(), random_id(), random_id()
+    create_block(client, namespace, published)
+    create_block(client, namespace, published, draft=True, description="in progress")
+    create_block(client, namespace, drafts_only, draft=True)
+
+    for_execution = client.reusable_inputs.list_reusable_inputs(namespace, TENANT)
+    assert [(b.id, b.revision) for b in for_execution.results] == [(published, 1)]
+
+    with_drafts = client.reusable_inputs.list_reusable_inputs(namespace, TENANT, allow_draft=True)
+    assert sorted((b.id, b.draft) for b in with_drafts.results) == sorted([(published, True), (drafts_only, True)])
 
 
 def test_reusable_inputs_resolves_namespace_inheritance(client):
