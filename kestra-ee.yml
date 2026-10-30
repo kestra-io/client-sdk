@@ -27247,6 +27247,55 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{id}/stored-configuration:
+    get:
+      tags:
+      - Namespaces
+      summary: Get the stored storage and secrets manager settings of a namespace
+      description: Lists each configured key with a marker in place of its value, so an editor can show what is set without reading a credential. Sending the marker back on update keeps that value.
+      operationId: storedConfiguration
+      parameters:
+      - name: id
+        in: path
+        description: The namespace id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: storedConfiguration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamespaceController.ApiStoredConfiguration'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{id}/variables-by-namespace:
     get:
       tags:
@@ -43119,6 +43168,8 @@ components:
           type: string
         version:
           type: string
+        type:
+          type: string
     MiscController.Preview:
       type: object
       properties:
@@ -43231,6 +43282,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NamespaceController.ApiNamespaceVariables'
+    NamespaceController.ApiStoredConfiguration:
+      type: object
+      properties:
+        storageConfiguration:
+          type: object
+          additionalProperties:
+            type: object
+        secretConfiguration:
+          type: object
+          additionalProperties:
+            type: object
     NamespaceFileRevision:
       type: object
       properties:
