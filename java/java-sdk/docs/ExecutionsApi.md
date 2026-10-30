@@ -3189,7 +3189,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **state** | [**StateType**](.md)| The new state of the execution | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **state** | [**StateType**](.md)| The new state of the execution | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 
 ### Return type
 
@@ -3261,7 +3261,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
@@ -3335,7 +3335,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
@@ -3408,7 +3408,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **status** | [**StateType**](.md)| The new state of the execution | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **status** | [**StateType**](.md)| The new state of the execution | [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -3481,7 +3481,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
@@ -3555,7 +3555,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type

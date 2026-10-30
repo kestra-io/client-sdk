@@ -20,6 +20,7 @@ type DailyExecutionStatisticsExecutionCounts struct {
 	CREATED *int64 `json:"CREATED,omitempty"`
 	SUBMITTED *int64 `json:"SUBMITTED,omitempty"`
 	RUNNING *int64 `json:"RUNNING,omitempty"`
+	PAUSING *int64 `json:"PAUSING,omitempty"`
 	PAUSED *int64 `json:"PAUSED,omitempty"`
 	RESTARTED *int64 `json:"RESTARTED,omitempty"`
 	KILLING *int64 `json:"KILLING,omitempty"`
@@ -150,6 +151,38 @@ func (o *DailyExecutionStatisticsExecutionCounts) HasRUNNING() bool {
 // SetRUNNING gets a reference to the given int64 and assigns it to the RUNNING field.
 func (o *DailyExecutionStatisticsExecutionCounts) SetRUNNING(v int64) {
 	o.RUNNING = &v
+}
+
+// GetPAUSING returns the PAUSING field value if set, zero value otherwise.
+func (o *DailyExecutionStatisticsExecutionCounts) GetPAUSING() int64 {
+	if o == nil || IsNil(o.PAUSING) {
+		var ret int64
+		return ret
+	}
+	return *o.PAUSING
+}
+
+// GetPAUSINGOk returns a tuple with the PAUSING field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DailyExecutionStatisticsExecutionCounts) GetPAUSINGOk() (*int64, bool) {
+	if o == nil || IsNil(o.PAUSING) {
+		return nil, false
+	}
+	return o.PAUSING, true
+}
+
+// HasPAUSING returns a boolean if a field has been set.
+func (o *DailyExecutionStatisticsExecutionCounts) HasPAUSING() bool {
+	if o != nil && !IsNil(o.PAUSING) {
+		return true
+	}
+
+	return false
+}
+
+// SetPAUSING gets a reference to the given int64 and assigns it to the PAUSING field.
+func (o *DailyExecutionStatisticsExecutionCounts) SetPAUSING(v int64) {
+	o.PAUSING = &v
 }
 
 // GetPAUSED returns the PAUSED field value if set, zero value otherwise.
@@ -619,6 +652,9 @@ func (o DailyExecutionStatisticsExecutionCounts) ToMap() (map[string]interface{}
 	if !IsNil(o.RUNNING) {
 		toSerialize["RUNNING"] = o.RUNNING
 	}
+	if !IsNil(o.PAUSING) {
+		toSerialize["PAUSING"] = o.PAUSING
+	}
 	if !IsNil(o.PAUSED) {
 		toSerialize["PAUSED"] = o.PAUSED
 	}
@@ -686,6 +722,7 @@ func (o *DailyExecutionStatisticsExecutionCounts) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "CREATED")
 		delete(additionalProperties, "SUBMITTED")
 		delete(additionalProperties, "RUNNING")
+		delete(additionalProperties, "PAUSING")
 		delete(additionalProperties, "PAUSED")
 		delete(additionalProperties, "RESTARTED")
 		delete(additionalProperties, "KILLING")

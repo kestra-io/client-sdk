@@ -28,6 +28,8 @@ public enum StateType {
   
   RUNNING("RUNNING"),
   
+  PAUSING("PAUSING"),
+  
   PAUSED("PAUSED"),
   
   RESTARTED("RESTARTED"),
