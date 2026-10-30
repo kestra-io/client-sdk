@@ -24,6 +24,7 @@ class StateType(str, Enum):
     CREATED = 'CREATED'
     SUBMITTED = 'SUBMITTED'
     RUNNING = 'RUNNING'
+    PAUSING = 'PAUSING'
     PAUSED = 'PAUSED'
     RESTARTED = 'RESTARTED'
     KILLING = 'KILLING'
