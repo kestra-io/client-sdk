@@ -173,6 +173,10 @@ func parameterValueToString(obj interface{}, key string) string {
 	return fmt.Sprintf("%v", dataMap[key])
 }
 
+// lowerCamelRe matches a modern lowerCamelCase wire name such as "flowId"
+// or "startDate".
+var lowerCamelRe = regexp.MustCompile(`^[a-z][a-zA-Z0-9]*$`)
+
 // toCamel converts strings like "flow_id", "flow-id", "flow id" into "flowId".
 func toCamel(s string) string {
 	parts := strings.FieldsFunc(strings.TrimSpace(s), func(r rune) bool {
@@ -244,15 +248,20 @@ func paramToString(v interface{}) string {
 
 // queryFilterToSearchFilter converts a generated QueryFilter (the *ByQuery
 // model) into the internal SearchFilter used by the shared recursive serializer
-// (issue #246). Field names are mapped to their wire form here (toCamel +
-// query->q) so the resulting SearchFilterField is already the wire name, and the
-// logical combinator is lowercased to match the UI encoder. It recurses over
-// Children so grouped filters serialize identically to the SearchFilter path.
+// (issue #246). Modern lowerCamelCase wire names such as "flowId" and
+// "startDate" are preserved as is; only legacy forms such as "FLOW_ID" and
+// "flow_id" are normalized with toCamel. The special "query" field still maps
+// to "q". The logical combinator is lowercased to match the UI encoder. It
+// recurses over Children so grouped filters serialize identically to the
+// SearchFilter path.
 func queryFilterToSearchFilter(qf QueryFilter) SearchFilter {
 	var sf SearchFilter
 	if qf.Field != nil {
 		fieldStr := fmt.Sprintf("%v", *qf.Field)
-		keyField := toCamel(fieldStr)
+		keyField := fieldStr
+		if !lowerCamelRe.MatchString(fieldStr) {
+			keyField = toCamel(fieldStr)
+		}
 		if strings.EqualFold(fieldStr, "query") {
 			keyField = "q"
 		}
