@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_C_R_E_A_T_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_S_U_B_M_I_T_T_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_U_N_N_I_N_G,
+  DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_P_A_U_S_I_N_G,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_P_A_U_S_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_S_T_A_R_T_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_K_I_L_L_I_N_G,
@@ -51,6 +52,9 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   public static final String JSON_PROPERTY_R_U_N_N_I_N_G = "RUNNING";
   @jakarta.annotation.Nullable  private Long RUNNING;
+
+  public static final String JSON_PROPERTY_P_A_U_S_I_N_G = "PAUSING";
+  @jakarta.annotation.Nullable  private Long PAUSING;
 
   public static final String JSON_PROPERTY_P_A_U_S_E_D = "PAUSED";
   @jakarta.annotation.Nullable  private Long PAUSED;
@@ -167,6 +171,30 @@ public class DailyExecutionStatisticsExecutionCounts {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRUNNING(@jakarta.annotation.Nullable Long RUNNING) {
     this.RUNNING = RUNNING;
+  }
+
+  public DailyExecutionStatisticsExecutionCounts PAUSING(@jakarta.annotation.Nullable Long PAUSING) {
+    
+    this.PAUSING = PAUSING;
+    return this;
+  }
+
+  /**
+   * Get PAUSING
+   * @return PAUSING
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_P_A_U_S_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getPAUSING() {
+    return PAUSING;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_P_A_U_S_I_N_G)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPAUSING(@jakarta.annotation.Nullable Long PAUSING) {
+    this.PAUSING = PAUSING;
   }
 
   public DailyExecutionStatisticsExecutionCounts PAUSED(@jakarta.annotation.Nullable Long PAUSED) {
@@ -517,6 +545,7 @@ public class DailyExecutionStatisticsExecutionCounts {
     return Objects.equals(this.CREATED, dailyExecutionStatisticsExecutionCounts.CREATED) &&
         Objects.equals(this.SUBMITTED, dailyExecutionStatisticsExecutionCounts.SUBMITTED) &&
         Objects.equals(this.RUNNING, dailyExecutionStatisticsExecutionCounts.RUNNING) &&
+        Objects.equals(this.PAUSING, dailyExecutionStatisticsExecutionCounts.PAUSING) &&
         Objects.equals(this.PAUSED, dailyExecutionStatisticsExecutionCounts.PAUSED) &&
         Objects.equals(this.RESTARTED, dailyExecutionStatisticsExecutionCounts.RESTARTED) &&
         Objects.equals(this.KILLING, dailyExecutionStatisticsExecutionCounts.KILLING) &&
@@ -535,7 +564,7 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @Override
   public int hashCode() {
-    return Objects.hash(CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED);
+    return Objects.hash(CREATED, SUBMITTED, RUNNING, PAUSING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED);
   }
 
   @Override
@@ -545,6 +574,7 @@ public class DailyExecutionStatisticsExecutionCounts {
     sb.append("    CREATED: ").append(toIndentedString(CREATED)).append("\n");
     sb.append("    SUBMITTED: ").append(toIndentedString(SUBMITTED)).append("\n");
     sb.append("    RUNNING: ").append(toIndentedString(RUNNING)).append("\n");
+    sb.append("    PAUSING: ").append(toIndentedString(PAUSING)).append("\n");
     sb.append("    PAUSED: ").append(toIndentedString(PAUSED)).append("\n");
     sb.append("    RESTARTED: ").append(toIndentedString(RESTARTED)).append("\n");
     sb.append("    KILLING: ").append(toIndentedString(KILLING)).append("\n");

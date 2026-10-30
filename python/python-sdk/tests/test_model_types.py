@@ -3,6 +3,8 @@
 from kestrapy.models.type import Type
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.flow import Flow
+from kestrapy.models.state_type import StateType
+from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
 
 
 def test_type_form_value_exists():
@@ -43,3 +45,12 @@ def test_validate_scalar_coerces_and_caches_adapters():
 
     # A value that does not validate is kept as-is.
     assert BaseApi._validate_scalar("not-a-date", datetime) == "not-a-date"
+
+
+def test_state_type_pausing_value_exists():
+    assert StateType("PAUSING") == StateType.PAUSING
+
+
+def test_daily_execution_counts_reads_pausing():
+    counts = DailyExecutionStatisticsExecutionCounts.from_dict({"PAUSING": 3})
+    assert counts.pausing == 3
