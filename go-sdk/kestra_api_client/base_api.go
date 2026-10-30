@@ -121,6 +121,10 @@ func appendRepeatedParam(params url.Values, key string, values []string) {
 }
 
 func (b *baseAPI) doRequest(ctx context.Context, method, path string, body io.Reader, params url.Values, accept, contentType string) (*http.Response, error) {
+	return b.doRequestWithHeaders(ctx, method, path, body, params, nil, accept, contentType)
+}
+
+func (b *baseAPI) doRequestWithHeaders(ctx context.Context, method, path string, body io.Reader, params url.Values, headers map[string]string, accept, contentType string) (*http.Response, error) {
 	u := b.client.baseURL + path
 	if len(params) > 0 {
 		u += "?" + params.Encode()
@@ -132,6 +136,9 @@ func (b *baseAPI) doRequest(ctx context.Context, method, path string, body io.Re
 	}
 
 	for k, v := range b.client.headers {
+		req.Header.Set(k, v)
+	}
+	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
 	if b.client.authHeader != "" {
@@ -297,7 +304,11 @@ func (b *baseAPI) doVoidYAML(ctx context.Context, method, path string, yamlBody 
 }
 
 func (b *baseAPI) doVoidText(ctx context.Context, method, path string, textBody string, params url.Values) error {
-	resp, err := b.doRequest(ctx, method, path, strings.NewReader(textBody), params, "", contentPlainText)
+	return b.doVoidTextWithHeaders(ctx, method, path, textBody, params, nil)
+}
+
+func (b *baseAPI) doVoidTextWithHeaders(ctx context.Context, method, path string, textBody string, params url.Values, headers map[string]string) error {
+	resp, err := b.doRequestWithHeaders(ctx, method, path, strings.NewReader(textBody), params, headers, "", contentPlainText)
 	if err != nil {
 		return err
 	}
