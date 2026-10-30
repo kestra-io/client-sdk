@@ -9,6 +9,8 @@
 
 * `RUNNING` (value: `'RUNNING'`)
 
+* `PAUSING` (value: `'PAUSING'`)
+
 * `PAUSED` (value: `'PAUSED'`)
 
 * `RESTARTED` (value: `'RESTARTED'`)
