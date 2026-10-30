@@ -44175,7 +44175,7 @@ components:
         passwordExpiryWarning:
           type: string
           default: P7D
-        passwordHistorySize:
+        preventReuseOfLastPasswords:
           type: integer
           format: int32
           default: 0
