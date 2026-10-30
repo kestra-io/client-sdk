@@ -116,13 +116,23 @@ public abstract class BaseApi {
                          String accept, String contentType,
                          Map<String, Object> formParams,
                          TypeReference<T> returnType) throws ApiException {
+    return invoke(method, path, body, queryParams, collectionQueryParams,
+            accept, contentType, new HashMap<>(), formParams, returnType);
+  }
+
+  protected <T> T invoke(String method, String path, Object body,
+                         List<Pair> queryParams, List<Pair> collectionQueryParams,
+                         String accept, String contentType,
+                         Map<String, String> headerParams,
+                         Map<String, Object> formParams,
+                         TypeReference<T> returnType) throws ApiException {
     return apiClient.invokeAPI(
             path, method,
             queryParams != null ? queryParams : Collections.emptyList(),
             collectionQueryParams != null ? collectionQueryParams : Collections.emptyList(),
             "",
             body,
-            new HashMap<>(),
+            headerParams != null ? headerParams : new HashMap<>(),
             new HashMap<>(),
             formParams != null ? formParams : new HashMap<>(),
             accept, contentType, AUTH, returnType

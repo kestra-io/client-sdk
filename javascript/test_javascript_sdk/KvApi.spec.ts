@@ -106,6 +106,19 @@ describe('KVApi (typed)', () => {
         expect(created).toMatchObject({ namespace, key });
     });
 
+    it('setKeyValue: with ttl and description', async () => {
+        const namespace = randomId();
+        const key = `test_set_key_value_ttl_${randomId()}`;
+
+        await Kv.setKeyValue({ namespace, key, body: '"v"', ttl: 'PT1H', description: 'a described key' });
+        // Large page size so the just-created entry isn't lost to pagination.
+        const result = await Kv.listAllKeys({ page: 1, size: 1000 });
+
+        const created = result.results.find((e) => e.namespace === namespace && e.key === key);
+        expect(created).toMatchObject({ namespace, key, description: 'a described key' });
+        expect(created?.expirationDate).toBeDefined();
+    });
+
     it('list_keys_with_inheritence: List keys for inherited namespaces', async () => {
         const key = `test_list_keys_with_inheritence_${randomId()}`;
         const value = 'value-inherited';
