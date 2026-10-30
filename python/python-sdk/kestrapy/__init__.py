@@ -136,14 +136,22 @@ __all__ = [
     "Asset",
     "AssetFailureBehavior",
     "AssetIdentifier",
-    "AssetTopologyGraph",
-    "AssetTopologyGraphEdge",
-    "AssetTopologyGraphNode",
-    "AssetTopologyGraphNodeNodeType",
+    "AssetRelationGraph",
+    "AssetRelationGraphEdge",
+    "AssetRelationGraphNode",
+    "AssetRelationRef",
+    "AssetWriteSummary",
     "AssetsControllerApiAsset",
-    "AssetsControllerApiAssetLineageEvent",
     "AssetsControllerApiAssetLock",
     "AssetsControllerApiAssetUsage",
+    "AssetsControllerApiParentRequest",
+    "AssetsControllerApiRelation",
+    "AssetsControllerApiRelationGroup",
+    "AssetsControllerApiRelationItem",
+    "AssetsControllerApiRelationNode",
+    "AssetsControllerApiRelationPage",
+    "AssetsControllerApiRelationRequest",
+    "AssetsControllerApiRelationSummary",
     "AssetsControllerAssetLockRequest",
     "AssetsDeclaration",
     "AssetsInOut",
@@ -419,6 +427,7 @@ __all__ = [
     "NamespaceAllowedNamespace",
     "NamespaceFileRevision",
     "NamespaceLight",
+    "NodeType",
     "Notification",
     "NotificationControllerApiMarkAllRead",
     "NotificationControllerApiNotificationHistory",
@@ -442,7 +451,6 @@ __all__ = [
     "PagedResultsAppsControllerApiApp",
     "PagedResultsAppsControllerApiAppCatalogItem",
     "PagedResultsAssetsControllerApiAsset",
-    "PagedResultsAssetsControllerApiAssetLineageEvent",
     "PagedResultsAssetsControllerApiAssetUsage",
     "PagedResultsAuditLogControllerApiAuditLogItem",
     "PagedResultsBlueprint",
@@ -542,7 +550,11 @@ __all__ = [
     "QuotaLimitControllerApiQuotaLimitResetRequest",
     "RBACServiceRoleAssignmentRoleOrigin",
     "Relation",
-    "Relation1",
+    "RelationDirection",
+    "RelationKind",
+    "RelationOrigin",
+    "RelationProvenance",
+    "RelationState",
     "RelationType",
     "Resolution",
     "Resource",
@@ -821,14 +833,22 @@ from kestrapy.models.assertion_run_error import AssertionRunError as AssertionRu
 from kestrapy.models.asset import Asset as Asset
 from kestrapy.models.asset_failure_behavior import AssetFailureBehavior as AssetFailureBehavior
 from kestrapy.models.asset_identifier import AssetIdentifier as AssetIdentifier
-from kestrapy.models.asset_topology_graph import AssetTopologyGraph as AssetTopologyGraph
-from kestrapy.models.asset_topology_graph_edge import AssetTopologyGraphEdge as AssetTopologyGraphEdge
-from kestrapy.models.asset_topology_graph_node import AssetTopologyGraphNode as AssetTopologyGraphNode
-from kestrapy.models.asset_topology_graph_node_node_type import AssetTopologyGraphNodeNodeType as AssetTopologyGraphNodeNodeType
+from kestrapy.models.asset_relation_graph import AssetRelationGraph as AssetRelationGraph
+from kestrapy.models.asset_relation_graph_edge import AssetRelationGraphEdge as AssetRelationGraphEdge
+from kestrapy.models.asset_relation_graph_node import AssetRelationGraphNode as AssetRelationGraphNode
+from kestrapy.models.asset_relation_ref import AssetRelationRef as AssetRelationRef
+from kestrapy.models.asset_write_summary import AssetWriteSummary as AssetWriteSummary
 from kestrapy.models.assets_controller_api_asset import AssetsControllerApiAsset as AssetsControllerApiAsset
-from kestrapy.models.assets_controller_api_asset_lineage_event import AssetsControllerApiAssetLineageEvent as AssetsControllerApiAssetLineageEvent
 from kestrapy.models.assets_controller_api_asset_lock import AssetsControllerApiAssetLock as AssetsControllerApiAssetLock
 from kestrapy.models.assets_controller_api_asset_usage import AssetsControllerApiAssetUsage as AssetsControllerApiAssetUsage
+from kestrapy.models.assets_controller_api_parent_request import AssetsControllerApiParentRequest as AssetsControllerApiParentRequest
+from kestrapy.models.assets_controller_api_relation import AssetsControllerApiRelation as AssetsControllerApiRelation
+from kestrapy.models.assets_controller_api_relation_group import AssetsControllerApiRelationGroup as AssetsControllerApiRelationGroup
+from kestrapy.models.assets_controller_api_relation_item import AssetsControllerApiRelationItem as AssetsControllerApiRelationItem
+from kestrapy.models.assets_controller_api_relation_node import AssetsControllerApiRelationNode as AssetsControllerApiRelationNode
+from kestrapy.models.assets_controller_api_relation_page import AssetsControllerApiRelationPage as AssetsControllerApiRelationPage
+from kestrapy.models.assets_controller_api_relation_request import AssetsControllerApiRelationRequest as AssetsControllerApiRelationRequest
+from kestrapy.models.assets_controller_api_relation_summary import AssetsControllerApiRelationSummary as AssetsControllerApiRelationSummary
 from kestrapy.models.assets_controller_asset_lock_request import AssetsControllerAssetLockRequest as AssetsControllerAssetLockRequest
 from kestrapy.models.assets_declaration import AssetsDeclaration as AssetsDeclaration
 from kestrapy.models.assets_in_out import AssetsInOut as AssetsInOut
@@ -1109,6 +1129,7 @@ from kestrapy.models.namespace import Namespace as Namespace
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace as NamespaceAllowedNamespace
 from kestrapy.models.namespace_file_revision import NamespaceFileRevision as NamespaceFileRevision
 from kestrapy.models.namespace_light import NamespaceLight as NamespaceLight
+from kestrapy.models.node_type import NodeType as NodeType
 from kestrapy.models.notification import Notification as Notification
 from kestrapy.models.notification_controller_api_mark_all_read import NotificationControllerApiMarkAllRead as NotificationControllerApiMarkAllRead
 from kestrapy.models.notification_controller_api_notification_history import NotificationControllerApiNotificationHistory as NotificationControllerApiNotificationHistory
@@ -1132,7 +1153,6 @@ from kestrapy.models.paged_results_api_trigger_state import PagedResultsApiTrigg
 from kestrapy.models.paged_results_apps_controller_api_app import PagedResultsAppsControllerApiApp as PagedResultsAppsControllerApiApp
 from kestrapy.models.paged_results_apps_controller_api_app_catalog_item import PagedResultsAppsControllerApiAppCatalogItem as PagedResultsAppsControllerApiAppCatalogItem
 from kestrapy.models.paged_results_assets_controller_api_asset import PagedResultsAssetsControllerApiAsset as PagedResultsAssetsControllerApiAsset
-from kestrapy.models.paged_results_assets_controller_api_asset_lineage_event import PagedResultsAssetsControllerApiAssetLineageEvent as PagedResultsAssetsControllerApiAssetLineageEvent
 from kestrapy.models.paged_results_assets_controller_api_asset_usage import PagedResultsAssetsControllerApiAssetUsage as PagedResultsAssetsControllerApiAssetUsage
 from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem as PagedResultsAuditLogControllerApiAuditLogItem
 from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint as PagedResultsBlueprint
@@ -1232,7 +1252,11 @@ from kestrapy.models.quota_limit import QuotaLimit as QuotaLimit
 from kestrapy.models.quota_limit_controller_api_quota_limit_reset_request import QuotaLimitControllerApiQuotaLimitResetRequest as QuotaLimitControllerApiQuotaLimitResetRequest
 from kestrapy.models.rbac_service_role_assignment_role_origin import RBACServiceRoleAssignmentRoleOrigin as RBACServiceRoleAssignmentRoleOrigin
 from kestrapy.models.relation import Relation as Relation
-from kestrapy.models.relation1 import Relation1 as Relation1
+from kestrapy.models.relation_direction import RelationDirection as RelationDirection
+from kestrapy.models.relation_kind import RelationKind as RelationKind
+from kestrapy.models.relation_origin import RelationOrigin as RelationOrigin
+from kestrapy.models.relation_provenance import RelationProvenance as RelationProvenance
+from kestrapy.models.relation_state import RelationState as RelationState
 from kestrapy.models.relation_type import RelationType as RelationType
 from kestrapy.models.resolution import Resolution as Resolution
 from kestrapy.models.resource import Resource as Resource

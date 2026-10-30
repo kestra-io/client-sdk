@@ -26,7 +26,7 @@ class Output(BaseModel):
     """ # noqa: E501
     id: Annotated[str, Field(min_length=1, strict=True)]
     description: Optional[StrictStr] = None
-    value: OutputValue
+    value: Optional[OutputValue] = None
     type: Type
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     required: Optional[StrictBool] = None

@@ -1,0 +1,22 @@
+name: Develop image first failure
+description: >
+  Tells whether a test run dispatched on a new Kestra develop image is the first to fail since the last
+  green one, so the failure alert names the suspects only when the image actually broke the tests.
+outputs:
+  first:
+    description: '"true" when the previous completed run of this workflow on this branch, push or dispatch, did not fail'
+    value: ${{ steps.previous.outputs.first }}
+runs:
+  using: composite
+  steps:
+    - id: previous
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        previous=$(gh run list --repo "${GITHUB_REPOSITORY}" --workflow "${GITHUB_WORKFLOW}" --branch "${GITHUB_REF_NAME}" \
+          --status completed --limit 20 --json databaseId,conclusion \
+          --jq "[.[] | select(.databaseId != ${GITHUB_RUN_ID} and (.conclusion == \"success\" or .conclusion == \"failure\"))][0].conclusion // \"\"")
+        if [[ "${previous}" != "failure" ]]; then
+          echo "first=true" >> "${GITHUB_OUTPUT}"
+        fi

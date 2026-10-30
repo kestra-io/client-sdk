@@ -25,10 +25,21 @@ on:
           - "true"
           - "false"
         default: "false"
+      kestra-commit-author:
+        description: "GitHub login of the author of the Kestra EE commit the develop image was built from"
+        required: false
+        type: string
+        default: ""
+      kestra-changes:
+        description: "Slack links to the Kestra EE and OSS changes since the previous develop image"
+        required: false
+        type: string
+        default: ""
 
-# Serializes runs per branch so two close next/* pushes can't publish their snapshots out of order.
+# Serializes runs per branch and trigger: two close next/* pushes can't publish their snapshots out of order,
+# and a test run dispatched on a new develop image never cancels a push that is publishing.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/next/') }}
 
 jobs:
@@ -122,6 +133,11 @@ jobs:
           fail-on-error: "false"
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check whether this develop image is the first to fail
+        id: first-failure
+        if: failure() && github.event_name == 'workflow_dispatch' && inputs.kestra-changes != ''
+        uses: ./.github/actions/develop-image-first-failure
+
       - name: Slack - Notify CI failure
         if: failure() && github.event_name != 'pull_request'
         uses: kestra-io/actions/composite/slack-status@main
@@ -129,6 +145,8 @@ jobs:
           channel: 'C09FE0QCN2E'
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          committer-login: ${{ steps.first-failure.outputs.first == 'true' && inputs.kestra-commit-author || '' }}
+          extra-text: ${{ steps.first-failure.outputs.first == 'true' && format('First failure on a new Kestra develop image, built from {0}', inputs.kestra-changes) || '' }}
           suffix: Java SDK
 
   publish-snapshot:

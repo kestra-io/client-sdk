@@ -5,6 +5,7 @@ import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -35,16 +36,6 @@ public class AssetsApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
         assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
-    }
-
-    @Test
-    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-    void searchAssetLineageEvents_basic() throws ApiException {
-        PagedResultsAssetsControllerApiAssetLineageEvent result =
-                api().searchAssetLineageEvents(TENANT, 1, 10, null, null);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
     }
 
     @Test
@@ -84,16 +75,6 @@ public class AssetsApiTest {
                 .toList();
         assertThat(ids).contains(id1, id2);
         assertThat(ids.indexOf(id1)).isLessThan(ids.indexOf(id2));
-    }
-
-    @Test
-    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-    void searchAssetLineageEvents_withFilters() throws ApiException {
-        PagedResultsAssetsControllerApiAssetLineageEvent result =
-                api().searchAssetLineageEvents(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
-
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isEmpty();
     }
 
     @Test
@@ -285,9 +266,106 @@ public class AssetsApiTest {
         String id = randomId();
         AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
 
-        AssetTopologyGraph result = api().assetDependencies(created.getId(), TENANT, null, null);
+        AssetRelationGraph result = api().assetDependencies(created.getId(), TENANT, null, null, null);
 
         assertThat(result).isNotNull();
+        assertThat(result.getNodes()).extracting(AssetRelationGraphNode::getId).contains(created.getId());
+    }
+
+    @Test
+    void assetDependencies_withSeveralKinds() throws ApiException {
+        String source = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        String target = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        createUpstreamRelation(source, target);
+
+        // UPSTREAM_OF second: a server only reading the first kind would miss the target node
+        AssetRelationGraph graph = api().assetDependencies(source, TENANT,
+                List.of(RelationKind.RELATED, RelationKind.UPSTREAM_OF), null, null);
+
+        assertThat(graph.getNodes()).extracting(AssetRelationGraphNode::getId).contains(source, target);
+        assertThat(graph.getEdges()).anySatisfy(edge -> assertThat(edge.getKind()).isEqualTo(RelationKind.UPSTREAM_OF));
+    }
+
+    @Test
+    void flowAssetDependencies_basic() throws ApiException {
+        FlowWithSource flow = createLogFlow();
+
+        AssetRelationGraph graph = api().flowAssetDependencies(flow.getNamespace(), flow.getId(), TENANT,
+                List.of(RelationKind.PRODUCES, RelationKind.CONSUMED_BY), null, null);
+
+        assertThat(graph).isNotNull();
+        assertThat(graph.getNodes()).isNotNull();
+    }
+
+    // ========================================================================
+    // Relations
+    // ========================================================================
+
+    static AssetsControllerApiRelation createUpstreamRelation(String source, String target) throws ApiException {
+        return api().createAssetRelation(source, TENANT, new AssetsControllerApiRelationRequest()
+                .kind(RelationKind.UPSTREAM_OF)
+                .direction(RelationDirection.OUTBOUND)
+                .targetId(target));
+    }
+
+    static Optional<AssetsControllerApiRelationGroup> upstreamGroup(String id) throws ApiException {
+        return api().assetRelationSummary(id, TENANT, null).getGroups().stream()
+                .filter(group -> group.getKind() == RelationKind.UPSTREAM_OF)
+                .findFirst();
+    }
+
+    @Test
+    void createAssetRelation_listedInSummaryAndPage() throws ApiException {
+        String source = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        String target = api().createAsset(TENANT, assetYaml(randomId())).getId();
+
+        AssetsControllerApiRelation relation = createUpstreamRelation(source, target);
+
+        assertThat(relation.getUid()).isNotBlank();
+        assertThat(relation.getKind()).isEqualTo(RelationKind.UPSTREAM_OF);
+        assertThat(relation.getOrigin()).isEqualTo(RelationOrigin.MANUAL);
+        assertThat(relation.getSource().getId()).isEqualTo(source);
+        assertThat(relation.getTarget().getId()).isEqualTo(target);
+
+        AssetsControllerApiRelationGroup group = upstreamGroup(source).orElseThrow();
+        assertThat(group.getTotal()).isGreaterThanOrEqualTo(1L);
+        assertThat(group.getResults()).extracting(item -> item.getRelation().getUid()).contains(relation.getUid());
+
+        AssetsControllerApiRelationPage page = api().assetRelations(source, TENANT,
+                group.getKind(), group.getDirection(), null, 10);
+        assertThat(page.getTotal()).isGreaterThanOrEqualTo(1L);
+        assertThat(page.getResults()).anySatisfy(item -> {
+            assertThat(item.getRelation().getUid()).isEqualTo(relation.getUid());
+            assertThat(item.getNode().getId()).isEqualTo(target);
+        });
+    }
+
+    @Test
+    void deleteAssetRelation_removesItFromSummary() throws ApiException {
+        String source = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        String target = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        AssetsControllerApiRelation relation = createUpstreamRelation(source, target);
+        long before = upstreamGroup(source).orElseThrow().getTotal();
+
+        api().deleteAssetRelation(source, relation.getUid(), TENANT);
+
+        assertThat(upstreamGroup(source).map(AssetsControllerApiRelationGroup::getTotal).orElse(0L))
+                .isLessThan(before);
+    }
+
+    @Test
+    void setAssetParent_thenClear() throws ApiException {
+        String child = api().createAsset(TENANT, assetYaml(randomId())).getId();
+        String parent = api().createAsset(TENANT, assetYaml(randomId())).getId();
+
+        AssetsControllerApiAsset updated = api().setAssetParent(child, TENANT, new AssetsControllerApiParentRequest().parentId(parent));
+        assertThat(updated.getPartOf()).isNotNull();
+        assertThat(updated.getPartOf().getId()).isEqualTo(parent);
+        assertThat(api().asset(child, TENANT, null).getPartOf().getId()).isEqualTo(parent);
+
+        AssetsControllerApiAsset cleared = api().clearAssetParent(child, TENANT);
+        assertThat(cleared.getPartOf()).isNull();
+        assertThat(api().asset(child, TENANT, null).getPartOf()).isNull();
     }
 
     // ========================================================================
@@ -309,16 +387,6 @@ public class AssetsApiTest {
         QueryFilter filter = nsFilter("nonexistent");
 
         BulkResponse result = api().deleteAssetsByQuery(TENANT, List.of(filter), null);
-
-        assertThat(result).isNotNull();
-    }
-
-    @Test
-    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-    void deleteAssetLineageEventsByQuery_basic() throws ApiException {
-        QueryFilter filter = nsFilter("nonexistent");
-
-        BulkResponse result = api().deleteAssetLineageEventsByQuery(TENANT, List.of(filter));
 
         assertThat(result).isNotNull();
     }

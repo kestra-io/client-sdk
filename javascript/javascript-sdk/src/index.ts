@@ -172,6 +172,7 @@ export const featureToSlugMap: Record<string, string> = {
     "tenants": "/governance/tenants",
     "ai": "",
     "apps": "/scalability/apps",
+    "app-templates": "/scalability/apps",
     "assets": "/governance/assets",
     "cases": "/governance/cases",
     "promote": "/governance/promote",

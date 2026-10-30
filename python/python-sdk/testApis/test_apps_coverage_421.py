@@ -78,7 +78,8 @@ def test_stream_app_events_unknown_is_gated_or_missing(client):
 
 
 def test_preview_dispatch_app_unknown_is_gated_or_missing(client):
-    with pytest.raises((NotFoundException, ForbiddenException, ServiceException, BadRequestException)):
+    # Kestra 2.1 parses the app source before looking the app up, so it may answer 422.
+    with pytest.raises((NotFoundException, ForbiddenException, ServiceException, BadRequestException, UnprocessableEntityException)):
         resp = client.apps.preview_dispatch_app(
             f"missing-{random_id()}", TENANT,
             {"__kestra_app_source__": _APP_YAML},

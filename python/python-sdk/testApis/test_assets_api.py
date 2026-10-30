@@ -10,7 +10,11 @@ from test_helpers import (
     create_execution,
 )
 from kestrapy import ApiException
+from kestrapy.models.assets_controller_api_parent_request import AssetsControllerApiParentRequest
+from kestrapy.models.assets_controller_api_relation_request import AssetsControllerApiRelationRequest
 from kestrapy.models.assets_controller_asset_lock_request import AssetsControllerAssetLockRequest
+from kestrapy.models.relation_direction import RelationDirection
+from kestrapy.models.relation_kind import RelationKind
 
 
 def asset_yaml(asset_id):
@@ -19,6 +23,24 @@ def asset_yaml(asset_id):
         f"name: Test Asset {asset_id}\n"
         "type: TABLE\n"
     )
+
+
+def create_asset(client):
+    return client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(random_id()))
+
+
+def relate(client, source_id, target_id, kind):
+    return client.assets.create_asset_relation(
+        id=source_id, tenant=TENANT,
+        request=AssetsControllerApiRelationRequest(
+            kind=kind, direction=RelationDirection.OUTBOUND, target_id=target_id,
+        ),
+    )
+
+
+def summary_group(client, asset_id, kind):
+    summary = client.assets.asset_relation_summary(id=asset_id, tenant=TENANT)
+    return next((g for g in summary.groups or [] if g.kind == kind), None)
 
 
 # ========================================================================
@@ -39,14 +61,6 @@ def test_search_assets_with_pagination(client):
     assert result is not None
     assert result.results is not None
     assert len(result.results) <= 2
-
-
-@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-def test_search_asset_lineage_events_basic(client):
-    result = client.assets.search_asset_lineage_events(tenant=TENANT, page=1, size=10)
-
-    assert result is not None
-    assert result.results is not None
 
 
 def test_search_asset_usages_basic(client):
@@ -89,19 +103,6 @@ def test_search_assets_with_sort(client):
     assert id1 in ids
     assert id2 in ids
     assert ids.index(id1) < ids.index(id2)
-
-
-@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-def test_search_asset_lineage_events_with_filters(client):
-    result = client.assets.search_asset_lineage_events(
-        tenant=TENANT,
-        page=1,
-        size=10,
-        filters=[ns_filter(f"nonexistent_ns_{random_id()}")],
-    )
-
-    assert result is not None
-    assert len(result.results) == 0
 
 
 def test_search_asset_usages_with_filters(client):
@@ -300,24 +301,99 @@ def test_unlock_asset_execution_owned_lock_mismatched_execution_id_is_noop(clien
 
 
 def test_asset_dependencies_basic(client):
-    asset_id = random_id()
-    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    created = create_asset(client)
 
     result = client.assets.asset_dependencies(id=created.id, tenant=TENANT)
 
     assert result is not None
+    assert created.id in [n.id for n in result.nodes]
 
 
-def test_asset_dependencies_with_destination_only_and_expand_all(client):
-    asset_id = random_id()
-    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+def test_asset_dependencies_with_two_kinds_returns_both_relations(client):
+    source = create_asset(client)
+    upstream_target = create_asset(client)
+    related_target = create_asset(client)
+    relate(client, source.id, upstream_target.id, RelationKind.UPSTREAM_OF)
+    relate(client, source.id, related_target.id, RelationKind.RELATED)
 
     result = client.assets.asset_dependencies(
-        id=created.id, tenant=TENANT,
-        destination_only=True, expand_all=True,
+        id=source.id, tenant=TENANT,
+        kinds=[RelationKind.UPSTREAM_OF, RelationKind.RELATED], expand_all=True,
+    )
+
+    node_ids = [n.id for n in result.nodes]
+    assert source.id in node_ids
+    assert upstream_target.id in node_ids
+    assert related_target.id in node_ids
+    assert {e.kind for e in result.edges} == {RelationKind.UPSTREAM_OF, RelationKind.RELATED}
+
+
+def test_flow_asset_dependencies_basic(client):
+    flow = create_log_flow(client)
+
+    result = client.assets.flow_asset_dependencies(
+        namespace=flow.namespace, id=flow.id, tenant=TENANT,
+        kinds=[RelationKind.PRODUCES, RelationKind.CONSUMED_BY], expand_all=True,
     )
 
     assert result is not None
+    assert result.nodes is not None
+
+
+# ========================================================================
+# Relations
+# ========================================================================
+
+
+def test_create_asset_relation_shows_in_summary_and_relations(client):
+    source = create_asset(client)
+    target = create_asset(client)
+
+    relation = relate(client, source.id, target.id, RelationKind.UPSTREAM_OF)
+
+    assert relation.uid
+    assert relation.kind == RelationKind.UPSTREAM_OF
+    assert relation.target.id == target.id
+
+    group = summary_group(client, source.id, RelationKind.UPSTREAM_OF)
+    assert group is not None
+    assert group.total >= 1
+
+    page = client.assets.asset_relations(
+        id=source.id, tenant=TENANT, kind=RelationKind.UPSTREAM_OF, direction=group.direction, size=10,
+    )
+    assert page.total >= 1
+    assert relation.uid in [item.relation.uid for item in page.results]
+
+
+def test_delete_asset_relation_removes_it_from_summary(client):
+    source = create_asset(client)
+    target = create_asset(client)
+    relation = relate(client, source.id, target.id, RelationKind.RELATED)
+    assert summary_group(client, source.id, RelationKind.RELATED).total == 1
+
+    client.assets.delete_asset_relation(id=source.id, uid=relation.uid, tenant=TENANT)
+
+    group = summary_group(client, source.id, RelationKind.RELATED)
+    assert group is None or group.total == 0
+
+
+# ========================================================================
+# Parent
+# ========================================================================
+
+
+def test_set_and_clear_asset_parent(client):
+    child = create_asset(client)
+    parent = create_asset(client)
+
+    updated = client.assets.set_asset_parent(id=child.id, tenant=TENANT, parent=AssetsControllerApiParentRequest(parent_id=parent.id))
+    assert updated.part_of.id == parent.id
+    assert client.assets.asset(id=child.id, tenant=TENANT).part_of.id == parent.id
+
+    cleared = client.assets.clear_asset_parent(id=child.id, tenant=TENANT)
+    assert cleared.part_of is None
+    assert client.assets.asset(id=child.id, tenant=TENANT).part_of is None
 
 
 def test_asset_get_with_allow_deleted(client):
@@ -360,15 +436,6 @@ def test_delete_assets_by_query_with_purge(client):
 
 def test_delete_assets_by_query_basic(client):
     result = client.assets.delete_assets_by_query(
-        tenant=TENANT, filters=[ns_filter("nonexistent")]
-    )
-
-    assert result is not None
-
-
-@pytest.mark.skip(reason="lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
-def test_delete_asset_lineage_events_by_query_basic(client):
-    result = client.assets.delete_asset_lineage_events_by_query(
         tenant=TENANT, filters=[ns_filter("nonexistent")]
     )
 

@@ -40,7 +40,7 @@ public class Output {
   @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @jakarta.annotation.Nonnull  private OutputValue value;
+  @jakarta.annotation.Nullable  private OutputValue value;
 
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nonnull  private Type type;
@@ -102,7 +102,7 @@ public class Output {
     this.description = description;
   }
 
-  public Output value(@jakarta.annotation.Nonnull OutputValue value) {
+  public Output value(@jakarta.annotation.Nullable OutputValue value) {
     
     this.value = value;
     return this;
@@ -112,8 +112,8 @@ public class Output {
    * Get value
    * @return value
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OutputValue getValue() {
     return value;
@@ -121,8 +121,8 @@ public class Output {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@jakarta.annotation.Nonnull OutputValue value) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable OutputValue value) {
     this.value = value;
   }
 

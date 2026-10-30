@@ -87,7 +87,7 @@ public abstract class BaseApi {
     return apiClient.parameterToPairs("csv", "filters", filters);
   }
 
-  protected List<Pair> csvParams(String name, @jakarta.annotation.Nullable List<String> values) {
+  protected List<Pair> csvParams(String name, @jakarta.annotation.Nullable List<?> values) {
     if (values == null || values.isEmpty()) {
       return Collections.emptyList();
     }
