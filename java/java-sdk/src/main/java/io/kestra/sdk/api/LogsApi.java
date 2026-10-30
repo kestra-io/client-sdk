@@ -58,30 +58,22 @@ public class LogsApi extends BaseApi {
     public List<LogEntry> listLogsFromExecution(
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable Level minLevel,
-            @jakarta.annotation.Nullable String taskRunId,
-            @jakarta.annotation.Nullable String taskId,
-            @jakarta.annotation.Nullable Integer attempt) throws ApiException {
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         return get(
                 tenantPath(tenant, "logs", executionId),
-                queryParams("minLevel", minLevel, "taskRunId", taskRunId,
-                        "taskId", taskId, "attempt", attempt),
                 Collections.emptyList(),
+                filterParams(filters),
                 new TypeReference<>() {});
     }
 
     public File downloadLogsFromExecution(
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable Level minLevel,
-            @jakarta.annotation.Nullable String taskRunId,
-            @jakarta.annotation.Nullable String taskId,
-            @jakarta.annotation.Nullable Integer attempt) throws ApiException {
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         return get(
                 tenantPath(tenant, "logs", executionId, "download"),
-                queryParams("minLevel", minLevel, "taskRunId", taskRunId,
-                        "taskId", taskId, "attempt", attempt),
                 Collections.emptyList(),
+                filterParams(filters),
                 TEXT_PLAIN,
                 new TypeReference<>() {});
     }

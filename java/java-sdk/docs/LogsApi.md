@@ -165,7 +165,7 @@ null (empty response body)
 
 ## downloadLogsFromExecution
 
-> File downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt)
+> File downloadLogsFromExecution(executionId, tenant, filters)
 
 Download logs for a specific execution, taskrun or task
 
@@ -191,12 +191,9 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
-        String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String taskId = "taskId_example"; // String | The task id
-        Integer attempt = 56; // Integer | The attempt number
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            File result = kestraClient.logs().downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            File result = kestraClient.logs().downloadLogsFromExecution(executionId, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#downloadLogsFromExecution");
@@ -216,10 +213,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
-| **taskRunId** | **String**| The taskrun id | [optional] |
-| **taskId** | **String**| The task id | [optional] |
-| **attempt** | **Integer**| The attempt number | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -315,7 +309,7 @@ public class Example {
 
 ## listLogsFromExecution
 
-> List&lt;LogEntry&gt; listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt)
+> List&lt;LogEntry&gt; listLogsFromExecution(executionId, tenant, filters)
 
 Get logs for a specific execution, taskrun or task
 
@@ -341,12 +335,9 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
-        String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String taskId = "taskId_example"; // String | The task id
-        Integer attempt = 56; // Integer | The attempt number
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            List<LogEntry> result = kestraClient.logs().listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            List<LogEntry> result = kestraClient.logs().listLogsFromExecution(executionId, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#listLogsFromExecution");
@@ -366,10 +357,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
-| **taskRunId** | **String**| The taskrun id | [optional] |
-| **taskId** | **String**| The task id | [optional] |
-| **attempt** | **Integer**| The attempt number | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
