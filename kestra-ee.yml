@@ -7315,10 +7315,6 @@ paths:
                     type: array
                   AUDITLOG:
                     type: array
-                  SYSTEM_SETTINGS:
-                    type: array
-                  TENANT_SETTINGS:
-                    type: array
                   TESTSUITE:
                     type: array
                   ASSET:
@@ -7358,6 +7354,8 @@ paths:
                   SECURITY_INTEGRATION:
                     type: array
                   CASE_TEMPLATE:
+                    type: array
+                  SYSTEM_SETTINGS:
                     type: array
                   BANNER:
                     type: array
@@ -41726,10 +41724,6 @@ components:
               type: array
             AUDITLOG:
               type: array
-            SYSTEM_SETTINGS:
-              type: array
-            TENANT_SETTINGS:
-              type: array
             TESTSUITE:
               type: array
             ASSET:
@@ -41769,6 +41763,8 @@ components:
             SECURITY_INTEGRATION:
               type: array
             CASE_TEMPLATE:
+              type: array
+            SYSTEM_SETTINGS:
               type: array
             BANNER:
               type: array
@@ -41824,10 +41820,6 @@ components:
               type: array
             AUDITLOG:
               type: array
-            SYSTEM_SETTINGS:
-              type: array
-            TENANT_SETTINGS:
-              type: array
             TESTSUITE:
               type: array
             ASSET:
@@ -41867,6 +41859,8 @@ components:
             SECURITY_INTEGRATION:
               type: array
             CASE_TEMPLATE:
+              type: array
+            SYSTEM_SETTINGS:
               type: array
             BANNER:
               type: array
@@ -45341,8 +45335,6 @@ components:
       - BLUEPRINT
       - APP
       - AUDITLOG
-      - SYSTEM_SETTINGS
-      - TENANT_SETTINGS
       - TESTSUITE
       - ASSET
       - USER
@@ -45363,6 +45355,7 @@ components:
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
       - CASE_TEMPLATE
+      - SYSTEM_SETTINGS
       - BANNER
       - KILL_SWITCH
       - TENANT
@@ -45533,10 +45526,6 @@ components:
               type: array
             AUDITLOG:
               type: array
-            SYSTEM_SETTINGS:
-              type: array
-            TENANT_SETTINGS:
-              type: array
             TESTSUITE:
               type: array
             ASSET:
@@ -45576,6 +45565,8 @@ components:
             SECURITY_INTEGRATION:
               type: array
             CASE_TEMPLATE:
+              type: array
+            SYSTEM_SETTINGS:
               type: array
             BANNER:
               type: array
