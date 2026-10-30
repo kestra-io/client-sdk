@@ -45682,6 +45682,7 @@ components:
       type: string
       enum:
       - MAX_DURATION
+      - AVG_DURATION
       - EXECUTION_ASSERTION
     Schema:
       required:
