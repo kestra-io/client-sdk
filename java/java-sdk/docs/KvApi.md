@@ -377,7 +377,7 @@ public class Example {
 
 ## setKeyValue
 
-> setKeyValue(namespace, key, tenant, body)
+> setKeyValue(namespace, key, tenant, body, ttl, description)
 
 Puts a key-value pair in store
 
@@ -405,8 +405,10 @@ public class Example {
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The value of the key
+        String ttl = "PT1H"; // String | The time-to-live of the key, as an ISO-8601 duration (e.g. PT1H)
+        String description = "description_example"; // String | The description of the key
         try {
-            kestraClient.kv().setKeyValue(namespace, key, tenant, body);
+            kestraClient.kv().setKeyValue(namespace, key, tenant, body, ttl, description);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#setKeyValue");
             System.err.println("Status code: " + e.getCode());
@@ -427,6 +429,8 @@ public class Example {
 | **key** | **String**| The key | |
 | **tenant** | **String**|  | |
 | **body** | **String**| The value of the key | |
+| **ttl** | **String**| The time-to-live of the key, as an ISO-8601 duration (e.g. PT1H) | [optional] |
+| **description** | **String**| The description of the key | [optional] |
 
 ### Return type
 
