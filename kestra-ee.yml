@@ -40480,6 +40480,8 @@ components:
           type: boolean
         path:
           type: string
+        detail:
+          type: string
     ExecutionController.EvalResult:
       type: object
       properties:
@@ -45408,6 +45410,13 @@ components:
           description: Every error found, each located by the id of the input and a JSON Pointer into the source.
           items:
             $ref: '#/components/schemas/ValidationError'
+        columnValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ValueOption'
+          description: The values of the TABLE columns that take them from an expression, rendered with the defaults of the other inputs, keyed by the JSON Pointer of the column.
       description: The result of validating reusable inputs from their YAML source.
     ReusableInputsWithSource:
       title: Reusable inputs with source
@@ -47334,6 +47343,31 @@ components:
           description: Human-friendly path locating the error, naming tasks and inputs by id. Not a JSON Pointer.
           example: tasks[my-task].message
       description: A single validation error, located in the submitted source.
+    ValueOption:
+      required:
+      - label
+      - value
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      description: A select option. Accepts either a plain string (used as both label and value) or an object with `label` and `value` fields.
+      anyOf:
+      - type: string
+      - $ref: '#/components/schemas/ValueOption_1'
+    ValueOption_1:
+      required:
+      - label
+      - value
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      description: Object form of a select option.
     ValuePathExpression:
       type: object
       properties:
