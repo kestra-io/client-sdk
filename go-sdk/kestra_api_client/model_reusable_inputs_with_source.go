@@ -36,6 +36,10 @@ type ReusableInputsWithSource struct {
 	Deleted *bool `json:"deleted,omitempty"`
 	// The block's YAML source, as written in the editor.
 	Source *string `json:"source,omitempty"`
+	// Whether this revision is a draft. Executions skip draft revisions and use the latest revision that isn't a draft, unless a revision is set explicitly.
+	Draft *bool `json:"draft,omitempty"`
+	// The username of the user or service account that saved this revision.
+	UpdatedBy NullableString `json:"updatedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -370,6 +374,80 @@ func (o *ReusableInputsWithSource) SetSource(v string) {
 	o.Source = &v
 }
 
+// GetDraft returns the Draft field value if set, zero value otherwise.
+func (o *ReusableInputsWithSource) GetDraft() bool {
+	if o == nil || IsNil(o.Draft) {
+		var ret bool
+		return ret
+	}
+	return *o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReusableInputsWithSource) GetDraftOk() (*bool, bool) {
+	if o == nil || IsNil(o.Draft) {
+		return nil, false
+	}
+	return o.Draft, true
+}
+
+// HasDraft returns a boolean if a field has been set.
+func (o *ReusableInputsWithSource) HasDraft() bool {
+	if o != nil && !IsNil(o.Draft) {
+		return true
+	}
+
+	return false
+}
+
+// SetDraft gets a reference to the given bool and assigns it to the Draft field.
+func (o *ReusableInputsWithSource) SetDraft(v bool) {
+	o.Draft = &v
+}
+
+// GetUpdatedBy returns the UpdatedBy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ReusableInputsWithSource) GetUpdatedBy() string {
+	if o == nil || IsNil(o.UpdatedBy.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UpdatedBy.Get()
+}
+
+// GetUpdatedByOk returns a tuple with the UpdatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ReusableInputsWithSource) GetUpdatedByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UpdatedBy.Get(), o.UpdatedBy.IsSet()
+}
+
+// HasUpdatedBy returns a boolean if a field has been set.
+func (o *ReusableInputsWithSource) HasUpdatedBy() bool {
+	if o != nil && o.UpdatedBy.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedBy gets a reference to the given NullableString and assigns it to the UpdatedBy field.
+func (o *ReusableInputsWithSource) SetUpdatedBy(v string) {
+	o.UpdatedBy.Set(&v)
+}
+// SetUpdatedByNil sets the value for UpdatedBy to be an explicit nil
+func (o *ReusableInputsWithSource) SetUpdatedByNil() {
+	o.UpdatedBy.Set(nil)
+}
+
+// UnsetUpdatedBy ensures that no value is present for UpdatedBy, not even an explicit nil
+func (o *ReusableInputsWithSource) UnsetUpdatedBy() {
+	o.UpdatedBy.Unset()
+}
+
 func (o ReusableInputsWithSource) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -401,6 +479,12 @@ func (o ReusableInputsWithSource) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Draft) {
+		toSerialize["draft"] = o.Draft
+	}
+	if o.UpdatedBy.IsSet() {
+		toSerialize["updatedBy"] = o.UpdatedBy.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -458,6 +542,8 @@ func (o *ReusableInputsWithSource) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "updated")
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "source")
+		delete(additionalProperties, "draft")
+		delete(additionalProperties, "updatedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 
