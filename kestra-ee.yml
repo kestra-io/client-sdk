@@ -7396,6 +7396,132 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/acls/scopes:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve the scope of each permission
+      description: Returns, for each resource and action, whether the permission can be granted by a binding restricted to a namespace (NAMESPACE) or only by a tenant-wide one (TENANT).
+      operationId: listPermissionScopes
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The scope of each permission
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  FLOW:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  EXECUTION:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  TRIGGER:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  NAMESPACE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  KVSTORE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  REUSABLE_INPUTS:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  DASHBOARD:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  SECRET:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  CREDENTIAL:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  BLUEPRINT:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  APP:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  AUDITLOG:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  TESTSUITE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  ASSET:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  USER:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  GROUP:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  ROLE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  BINDING:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  SERVICE_ACCOUNT:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  INVITATION:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  COPILOT:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  MCP_SERVER:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  SUPPORT:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  POLICY:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  CASE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  PROMOTION_TARGET:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  APP_EXECUTION:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  NAMESPACE_FILE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  TESTSUITE_RUN:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  TENANT_ACCESS:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  SECURITY_INTEGRATION:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  CASE_TEMPLATE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  SYSTEM_SETTINGS:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  BANNER:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  KILL_SWITCH:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  TENANT:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  VERSIONED_PLUGIN:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  WORKER_GROUP:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  WORKER_QUEUE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  INSTANCE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  UNKNOWN:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+        '403':
+          description: Requires a ROLE or BINDING permission
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/acls/templates:
     get:
       tags:
@@ -11500,19 +11626,25 @@ paths:
         required: true
       responses:
         '200':
-          description: createBinding 200 response
+          description: Binding successfully created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IAMBindingController.ApiBindingDetail'
-        '401':
-          description: Authentication required
+        '403':
+          description: Insufficient privileges to create a binding on the whole tenant
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-        '403':
-          description: Access denied
+        '422':
+          description: Invalid binding, or a namespace binding whose role grants tenant-level permissions
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
           content:
             application/problem+json:
               schema:
@@ -11551,21 +11683,27 @@ paths:
         required: true
       responses:
         '200':
-          description: bulkCreateBinding 200 response
+          description: Bindings successfully created
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/IAMBindingController.ApiBindingDetail'
-        '401':
-          description: Authentication required
+        '403':
+          description: Insufficient privileges to create a binding on the whole tenant
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-        '403':
-          description: Access denied
+        '422':
+          description: Invalid binding, or a namespace binding whose role grants tenant-level permissions; no binding is created
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
           content:
             application/problem+json:
               schema:
@@ -11748,14 +11886,14 @@ paths:
       responses:
         '204':
           description: On success
-        '401':
-          description: Authentication required
+        '403':
+          description: Insufficient privileges to delete a binding on the whole tenant
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
-        '403':
-          description: Access denied
+        '401':
+          description: Authentication required
           content:
             application/problem+json:
               schema:
@@ -31605,6 +31743,12 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: Invalid role, or a tenant-level permission added to a role bound to a namespace
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -42752,6 +42896,11 @@ components:
         inMaintenance:
           type: integer
           format: int32
+    Map_Action.PermissionScope_:
+      type: object
+      properties:
+        empty:
+          type: boolean
     Map_Object.Object_:
       type: object
       properties:
