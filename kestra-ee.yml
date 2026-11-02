@@ -25500,6 +25500,74 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/invitations/bulk:
+    post:
+      tags:
+      - Invitations
+      summary: Create invitations in bulk
+      description: Creates one invitation per email address with the same roles, groups and options, and sends an email for each if the mail server is enabled. Every address is validated before anything is created, and the whole request is rejected if any of them is invalid or already invited. If sending an email fails, the invitations created before it are kept.
+      operationId: createInvitations
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Create one invitation per email address
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IAMInvitationController.ApiInvitationBulkCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Invitations successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IAMInvitationController.ApiInvitationBulkCreateResponse'
+        '400':
+          description: One or more email addresses cannot be invited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Insufficient privileges to create the requested invitations
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '404':
+          description: A role or a group of the request does not exist
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: The request is invalid, for example it holds no email address or more than 25
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/invitations/email/{email}:
     get:
       tags:
@@ -41769,6 +41837,40 @@ components:
           type: string
           description: of the group.
       description: Represents updatable properties for a Group.
+    IAMInvitationController.ApiInvitationBulkCreateRequest:
+      required:
+      - emails
+      type: object
+      properties:
+        emails:
+          maxItems: 25
+          minItems: 1
+          type: array
+          items:
+            minLength: 1
+            type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMInvitationController.ApiInvitationRole'
+        groups:
+          type: array
+          items:
+            type: string
+        instanceOwner:
+          type: boolean
+        createUserIfNotExist:
+          type: boolean
+    IAMInvitationController.ApiInvitationBulkCreateResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        invitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMInvitationController.ApiInvitationDetail'
     IAMInvitationController.ApiInvitationCreateRequest:
       required:
       - email
