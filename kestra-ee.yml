@@ -1720,7 +1720,7 @@ paths:
       tags:
       - Plugins
       summary: Uninstall plugin artifacts
-      description: Instance-owner-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Uninstalls plugin artifacts installed through plugin management. Uninstalls nothing and returns 409 if one is bundled with the Kestra image, or 404 if one is not installed. Requires INFRASTRUCTURE permission.
       operationId: uninstallVersionedPlugins
       requestBody:
         description: List of plugins
