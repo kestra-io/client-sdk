@@ -57,6 +57,7 @@
     "./scim-configuration": "./dist/scim-configuration.js",
     "./scim-groups": "./dist/scim-groups.js",
     "./scim-users": "./dist/scim-users.js",
+    "./searchable-data": "./dist/searchable-data.js",
     "./secrets": "./dist/secrets.js",
     "./security-integrations": "./dist/security-integrations.js",
     "./service-account": "./dist/service-account.js",
