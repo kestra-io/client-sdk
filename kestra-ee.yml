@@ -34066,6 +34066,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: revision
+        in: query
+        description: The revision to retrieve, the current one by default
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -34196,6 +34204,125 @@ paths:
             application/json:
               schema:
                 type: object
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/tests/{namespace}/{id}/revisions:
+    get:
+      tags:
+      - TestSuites
+      summary: Get revisions for a test
+      description: Lists the revisions of a test, oldest first. Requires TEST permission with the READ action.
+      operationId: listTestSuiteRevisions
+      parameters:
+      - name: namespace
+        in: path
+        description: The TestSuite namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The TestSuite ID
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: listTestSuiteRevisions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestSuite'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - TestSuites
+      summary: Delete revisions for a test
+      description: Deletes the given revisions of a test; deleting its current revision deletes the test itself. Requires TEST permission with the DELETE action.
+      operationId: deleteTestSuiteRevisions
+      parameters:
+      - name: namespace
+        in: path
+        description: The TestSuite namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The TestSuite ID
+        required: true
+        schema:
+          type: string
+      - name: revisions
+        in: query
+        description: The revisions to delete
+        required: true
+        explode: false
+        schema:
+          minItems: 1
+          type: array
+          items:
+            minimum: 1
+            type: integer
+            format: int32
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: deleteTestSuiteRevisions 200 response
         '401':
           description: Authentication required
           content:
@@ -47367,6 +47494,23 @@ components:
           type: boolean
         disabled:
           type: boolean
+        revision:
+          minimum: 1
+          type: integer
+          description: The revision of the test suite, bumped on every save.
+          format: int32
+          readOnly: true
+        updated:
+          type: string
+          description: When this revision was saved.
+          format: date-time
+          nullable: true
+          readOnly: true
+        updatedBy:
+          type: string
+          description: The username of the user or service account that saved this revision.
+          nullable: true
+          readOnly: true
     TestSuiteController.RunRequest:
       type: object
       properties:
