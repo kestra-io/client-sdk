@@ -4618,6 +4618,129 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/installed:
+    get:
+      tags:
+      - Plugins
+      summary: List installed plugins
+      description: Lists the plugin artifacts installed on this server, whether they ship with the Kestra image or were installed through plugin management, with the source of each version and whether a newer compatible version exists.
+      operationId: listInstalledPlugins
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int32
+          default: 1000
+      - name: sort
+        in: query
+        description: A list of sort fields
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+      responses:
+        '200':
+          description: listInstalledPlugins 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResults_ApiInstalledPlugin_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/plugins/installed/{groupId}/{artifactId}:
+    get:
+      tags:
+      - Plugins
+      summary: Retrieve an installed plugin
+      description: Retrieves a plugin artifact installed on this server, with every installed version and its source. An artifact whose file name does not follow the Kestra naming convention has no group identifier, and is only returned by the list.
+      operationId: getInstalledPlugin
+      parameters:
+      - name: groupId
+        in: path
+        description: The Maven group identifier of the plugin artifact
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        description: The Maven identifier of the plugin artifact
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: getInstalledPlugin 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInstalledPlugin'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/plugins/pluginUiManifest:
     post:
       tags:
@@ -36717,6 +36840,54 @@ components:
           description: Credentials available at this level
           items:
             $ref: '#/components/schemas/ApiInheritedCredentialsResponse.InheritedCredential'
+    ApiInstalledPlugin:
+      type: object
+      properties:
+        groupId:
+          type: string
+          nullable: true
+        artifactId:
+          type: string
+        group:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        versionable:
+          type: boolean
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiInstalledPlugin.InstalledVersion'
+        updateStatus:
+          $ref: '#/components/schemas/ApiInstalledPlugin.UpdateStatus'
+        latestVersion:
+          type: string
+          nullable: true
+        latestReleaseNotesUrl:
+          type: string
+          nullable: true
+    ApiInstalledPlugin.InstalledVersion:
+      type: object
+      properties:
+        version:
+          type: string
+        bundled:
+          type: boolean
+        managed:
+          type: boolean
+        loaded:
+          type: boolean
+        releaseNotesUrl:
+          type: string
+          nullable: true
+    ApiInstalledPlugin.UpdateStatus:
+      type: string
+      enum:
+      - UP_TO_DATE
+      - UPDATE_AVAILABLE
+      - UNKNOWN
     ApiInstanceMcpServer:
       type: object
       properties:
@@ -43777,6 +43948,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiGroupSummary'
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiInstalledPlugin_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiInstalledPlugin'
         total:
           type: integer
           format: int64
