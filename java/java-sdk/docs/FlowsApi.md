@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**bulkUpdateFlows**](FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources |
+| [**concurrencyLimit**](FlowsApi.md#concurrencyLimit) | **GET** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Get the concurrency limit of a flow |
 | [**createFlow**](FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source |
 | [**deleteFlow**](FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow |
 | [**deleteFlowsByIds**](FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs. |
@@ -27,11 +28,11 @@ All URIs are relative to *http://localhost*
 | [**listDistinctNamespaces**](FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces |
 | [**listFlowRevisions**](FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow |
 | [**listFlowsByNamespace**](FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace |
-| [**searchConcurrencyLimits**](FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits |
+| [**searchConcurrencyLimits**](FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow, namespace and tenant concurrency limits |
 | [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows |
 | [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code |
 | [**taskFromFlow**](FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task |
-| [**updateConcurrencyLimit**](FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit |
+| [**updateConcurrencyLimit**](FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit | Update a flow, namespace or tenant concurrency limit |
 | [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
 | [**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source |
 | [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
@@ -116,6 +117,81 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | bulkUpdateFlows 200 response |  -  |
+
+
+## concurrencyLimit
+
+> ConcurrencyLimit concurrencyLimit(namespace, flowId, tenant)
+
+Get the concurrency limit of a flow
+
+The server answers 404 until the counter exists, which happens once the flow (declaring a concurrency limit) has run.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | 
+        String flowId = "flowId_example"; // String | 
+        String tenant = "tenant_example"; // String | 
+        try {
+            ConcurrencyLimit result = kestraClient.flows().concurrencyLimit(namespace, flowId, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#concurrencyLimit");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**|  | |
+| **flowId** | **String**|  | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getConcurrencyLimit 200 response |  -  |
+| **404** | The flow has no concurrency-limit counter yet |  -  |
 
 
 ## createFlow
@@ -1699,9 +1775,11 @@ public class Example {
 
 ## searchConcurrencyLimits
 
-> PagedResultsConcurrencyLimit searchConcurrencyLimits(tenant)
+> PagedResultsConcurrencyLimit searchConcurrencyLimits(tenant, page, size)
 
-Search for flow concurrency limits
+Search for flow, namespace and tenant concurrency limits
+
+Each result carries the number of `running` and `queued` executions. A namespace limit has an empty `flowId`, the tenant limit an empty `namespace` and `flowId`. Only the limits of the namespaces whose flows the user can view are returned. The `searchConcurrencyLimits(tenant)` overload returns the first page.
 
 ### Example
 
@@ -1724,8 +1802,10 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
+        Integer page = 1; // Integer | The current page
+        Integer size = 25; // Integer | The current page size
         try {
-            PagedResultsConcurrencyLimit result = kestraClient.flows().searchConcurrencyLimits(tenant);
+            PagedResultsConcurrencyLimit result = kestraClient.flows().searchConcurrencyLimits(tenant, page, size);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchConcurrencyLimits");
@@ -1744,6 +1824,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 25] |
 
 ### Return type
 
@@ -2003,7 +2085,9 @@ public class Example {
 
 > ConcurrencyLimit updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit)
 
-Update a flow concurrency limit
+Update a flow, namespace or tenant concurrency limit
+
+Sets the running-execution counter to `concurrencyLimit.getRunning()`. Pass an empty `flowId` to target a namespace limit, and an empty `namespace` and `flowId` for the tenant limit. Only `running` is read from `concurrencyLimit`. The limit must already exist, otherwise the server answers 404. Requires the `UPDATE_CONCURRENCY_LIMIT` permission on the `FLOW` resource for the namespace, or tenant-wide for the tenant limit.
 
 ### Example
 
@@ -2028,7 +2112,7 @@ public class Example {
         String namespace = "namespace_example"; // String | 
         String flowId = "flowId_example"; // String | 
         String tenant = "tenant_example"; // String | 
-        ConcurrencyLimit concurrencyLimit = new ConcurrencyLimit(); // ConcurrencyLimit | 
+        ConcurrencyLimit concurrencyLimit = new ConcurrencyLimit().running(0); // ConcurrencyLimit | only running is sent
         try {
             ConcurrencyLimit result = kestraClient.flows().updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit);
             System.out.println(result);
@@ -2051,7 +2135,7 @@ public class Example {
 | **namespace** | **String**|  | |
 | **flowId** | **String**|  | |
 | **tenant** | **String**|  | |
-| **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | |
+| **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)| Only `running` is sent | |
 
 ### Return type
 
@@ -2071,6 +2155,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | updateConcurrencyLimit 200 response |  -  |
+| **404** | No such concurrency limit |  -  |
 
 
 ## updateFlow

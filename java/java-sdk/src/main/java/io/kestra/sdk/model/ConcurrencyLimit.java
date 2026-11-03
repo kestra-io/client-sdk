@@ -26,7 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConcurrencyLimit.JSON_PROPERTY_TENANT_ID,
   ConcurrencyLimit.JSON_PROPERTY_NAMESPACE,
   ConcurrencyLimit.JSON_PROPERTY_FLOW_ID,
-  ConcurrencyLimit.JSON_PROPERTY_RUNNING
+  ConcurrencyLimit.JSON_PROPERTY_RUNNING,
+  ConcurrencyLimit.JSON_PROPERTY_QUEUED
 })
 public class ConcurrencyLimit {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
@@ -40,6 +41,9 @@ public class ConcurrencyLimit {
 
   public static final String JSON_PROPERTY_RUNNING = "running";
   @jakarta.annotation.Nullable  private Integer running;
+
+  public static final String JSON_PROPERTY_QUEUED = "queued";
+  @jakarta.annotation.Nullable  private Integer queued;
 
   public ConcurrencyLimit() {
   }
@@ -140,6 +144,30 @@ public class ConcurrencyLimit {
     this.running = running;
   }
 
+  public ConcurrencyLimit queued(@jakarta.annotation.Nullable Integer queued) {
+    
+    this.queued = queued;
+    return this;
+  }
+
+  /**
+   * Number of queued executions; only set on the results of searchConcurrencyLimits.
+   * @return queued
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUEUED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getQueued() {
+    return queued;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUEUED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQueued(@jakarta.annotation.Nullable Integer queued) {
+    this.queued = queued;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -152,12 +180,13 @@ public class ConcurrencyLimit {
     return Objects.equals(this.tenantId, concurrencyLimit.tenantId) &&
         Objects.equals(this.namespace, concurrencyLimit.namespace) &&
         Objects.equals(this.flowId, concurrencyLimit.flowId) &&
-        Objects.equals(this.running, concurrencyLimit.running);
+        Objects.equals(this.running, concurrencyLimit.running) &&
+        Objects.equals(this.queued, concurrencyLimit.queued);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tenantId, namespace, flowId, running);
+    return Objects.hash(tenantId, namespace, flowId, running, queued);
   }
 
   @Override
@@ -168,6 +197,7 @@ public class ConcurrencyLimit {
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
     sb.append("    running: ").append(toIndentedString(running)).append("\n");
+    sb.append("    queued: ").append(toIndentedString(queued)).append("\n");
     sb.append("}");
     return sb.toString();
   }

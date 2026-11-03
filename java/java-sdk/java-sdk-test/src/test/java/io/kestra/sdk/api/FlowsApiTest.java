@@ -11,9 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.awaitility.Awaitility.await;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FlowsApiTest {
@@ -1179,47 +1182,77 @@ public class FlowsApiTest {
     // Concurrency
     // ========================================================================
 
-    @Test
-    void searchConcurrencyLimits_basic() throws ApiException {
-        PagedResultsConcurrencyLimit result = api().searchConcurrencyLimits(TENANT);
+    // A concurrency-limit counter only exists once a flow declaring `concurrency` has run, so these
+    // tests start one execution (running) and, for search, a second one queued behind limit 1.
+    static String sleepConcurrencyFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                concurrency:
+                  behavior: QUEUE
+                  limit: 1
+                tasks:
+                  - id: wait
+                    type: io.kestra.plugin.core.flow.Sleep
+                    duration: PT10S
+                """.formatted(id, ns);
+    }
 
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
+    private static String startExecutionInState(String ns, String id, StateType expected) throws ApiException {
+        String executionId = client().executions()
+                .createExecution(TENANT, ns, id, null, null, null, null, null, null).getId();
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(200, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = client().executions().execution(executionId, TENANT);
+            return exec.getState() != null && exec.getState().getCurrent() == expected;
+        });
+        return executionId;
     }
 
     @Test
-    @Disabled("Concurrency limit PUT returns 404 on this kestra-ee image — may require specific EE feature/plugin")
-    void updateConcurrencyLimit_set() throws ApiException {
+    void searchConcurrencyLimits_runningAndQueued() throws ApiException {
         String id = randomId();
         String ns = randomId();
-        createFlow(concurrencyFlowYaml(id, ns, 1));
+        createFlow(sleepConcurrencyFlowYaml(id, ns));
+        startExecutionInState(ns, id, StateType.RUNNING);
+        startExecutionInState(ns, id, StateType.QUEUED);
 
-        ConcurrencyLimit limit = new ConcurrencyLimit()
-                .tenantId(TENANT)
-                .namespace(ns)
-                .flowId(id)
-                .running(5);
+        AtomicReference<ConcurrencyLimit> found = new AtomicReference<>();
+        await().atMost(10, TimeUnit.SECONDS).pollInterval(200, TimeUnit.MILLISECONDS).until(() -> {
+            PagedResultsConcurrencyLimit result = api().searchConcurrencyLimits(TENANT, 1, 1000);
+            result.getResults().stream()
+                    .filter(l -> ns.equals(l.getNamespace()) && id.equals(l.getFlowId()))
+                    .findFirst()
+                    .ifPresent(found::set);
+            return found.get() != null;
+        });
 
-        ConcurrencyLimit result = api().updateConcurrencyLimit(ns, id, TENANT, limit);
+        assertThat(found.get().getRunning()).isEqualTo(1);
+        assertThat(found.get().getQueued()).isEqualTo(1);
+    }
 
-        assertThat(result).isNotNull();
+    @Test
+    void updateConcurrencyLimit_resetsRunning() throws ApiException {
+        String id = randomId();
+        String ns = randomId();
+        createFlow(sleepConcurrencyFlowYaml(id, ns));
+        startExecutionInState(ns, id, StateType.RUNNING);
+
+        assertThat(api().concurrencyLimit(ns, id, TENANT).getRunning()).isEqualTo(1);
+
+        ConcurrencyLimit result = api().updateConcurrencyLimit(ns, id, TENANT, new ConcurrencyLimit().running(0));
+
         assertThat(result.getNamespace()).isEqualTo(ns);
         assertThat(result.getFlowId()).isEqualTo(id);
+        assertThat(result.getRunning()).isZero();
     }
 
     @Test
-    @Disabled("Concurrency limit PUT returns 404 on this kestra-ee image — may require specific EE feature/plugin")
-    void updateConcurrencyLimit_update() throws ApiException {
+    void updateConcurrencyLimit_unknownLimitIs404() {
         String id = randomId();
         String ns = randomId();
-        createFlow(concurrencyFlowYaml(id, ns, 3));
 
-        ConcurrencyLimit limit = new ConcurrencyLimit()
-                .tenantId(TENANT).namespace(ns).flowId(id).running(10);
-        ConcurrencyLimit result = api().updateConcurrencyLimit(ns, id, TENANT, limit);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getFlowId()).isEqualTo(id);
+        assertThatThrownBy(() -> api().updateConcurrencyLimit(ns, id, TENANT, new ConcurrencyLimit().running(0)))
+                .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.getCode()).isEqualTo(404));
     }
 
     // ========================================================================
