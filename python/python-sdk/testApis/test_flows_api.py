@@ -12,6 +12,7 @@ from kestrapy import (
     QueryFilter,
     QueryFilterField,
     QueryFilterOp,
+    StateType,
 )
 from test_helpers import (
     TENANT,
@@ -21,9 +22,9 @@ from test_helpers import (
     log_flow_yaml_with_description,
     log_flow_yaml_with_labels,
     two_task_flow_yaml,
-    concurrency_flow_yaml,
     invalid_task_flow_yaml,
     create_flow,
+    create_execution,
     create_log_flow,
     simple_flow_fixture,
     complete_flow_body,
@@ -1040,38 +1041,77 @@ class TestTaskFromFlow:
 # ========================================================================
 
 
+def _sleep_concurrency_flow_yaml(flow_id, namespace):
+    return f"""\
+id: {flow_id}
+namespace: {namespace}
+concurrency:
+  behavior: QUEUE
+  limit: 1
+tasks:
+  - id: wait
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT10S
+"""
+
+
+def _start_execution_in_state(client, namespace, flow_id, expected, timeout=30):
+    execution_id = create_execution(client, namespace, flow_id).id
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        execution = client.executions.execution(execution_id, TENANT)
+        if execution.state is not None and execution.state.current == expected:
+            return execution_id
+        time.sleep(0.2)
+    raise TimeoutError(f"Execution {execution_id} did not reach {expected} within {timeout}s")
+
+
+# A concurrency-limit counter only exists once a flow declaring `concurrency` has run,
+# so these tests start one execution (running) and, for search, a second one queued
+# behind limit 1.
 class TestConcurrency:
-    def test_search_concurrency_limits(self, client):
-        result = client.flows.search_concurrency_limits(TENANT)
-
-        assert result is not None
-        assert result.results is not None
-
-    @pytest.mark.skip(reason="Concurrency limit PUT returns 404 on this kestra-ee image")
-    def test_update_concurrency_limit_set(self, client):
+    def test_search_concurrency_limits_running_and_queued(self, client):
         fid = random_id()
         ns = random_namespace()
-        create_flow(client, concurrency_flow_yaml(fid, ns, 1))
+        create_flow(client, _sleep_concurrency_flow_yaml(fid, ns))
+        _start_execution_in_state(client, ns, fid, StateType.RUNNING)
+        _start_execution_in_state(client, ns, fid, StateType.QUEUED)
 
-        limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=5)
+        found = None
+        deadline = time.time() + 10
+        while found is None and time.time() < deadline:
+            result = client.flows.search_concurrency_limits(TENANT, page=1, size=1000)
+            found = next((l for l in result.results if l.namespace == ns and l.flow_id == fid), None)
+            if found is None:
+                time.sleep(0.2)
 
+        assert found is not None
+        assert found.running == 1
+        assert found.queued == 1
+
+    def test_update_concurrency_limit_resets_running(self, client):
+        fid = random_id()
+        ns = random_namespace()
+        create_flow(client, _sleep_concurrency_flow_yaml(fid, ns))
+        _start_execution_in_state(client, ns, fid, StateType.RUNNING)
+
+        assert client.flows.concurrency_limit(ns, fid, TENANT).running == 1
+
+        limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=0)
         result = client.flows.update_concurrency_limit(ns, fid, TENANT, limit)
 
-        assert result is not None
         assert result.namespace == ns
         assert result.flow_id == fid
+        assert result.running == 0
 
-    @pytest.mark.skip(reason="Concurrency limit PUT returns 404 on this kestra-ee image")
-    def test_update_concurrency_limit_update(self, client):
+    def test_update_concurrency_limit_unknown_is_404(self, client):
         fid = random_id()
         ns = random_namespace()
-        create_flow(client, concurrency_flow_yaml(fid, ns, 3))
+        limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=0)
 
-        limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=10)
-        result = client.flows.update_concurrency_limit(ns, fid, TENANT, limit)
-
-        assert result is not None
-        assert result.flow_id == fid
+        with pytest.raises(ApiException) as exc:
+            client.flows.update_concurrency_limit(ns, fid, TENANT, limit)
+        assert exc.value.status == 404
 
 
 # ========================================================================
