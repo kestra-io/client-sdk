@@ -22,6 +22,8 @@ type ConcurrencyLimit struct {
 	Namespace string `json:"namespace"`
 	FlowId string `json:"flowId"`
 	Running *int32 `json:"running,omitempty"`
+	// Number of queued executions; only set on the results of SearchConcurrencyLimits.
+	Queued *int32 `json:"queued,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,6 +153,34 @@ func (o *ConcurrencyLimit) SetRunning(v int32) {
 	o.Running = &v
 }
 
+// GetQueued returns the Queued field value if set, zero value otherwise.
+func (o *ConcurrencyLimit) GetQueued() int32 {
+	if o == nil || IsNil(o.Queued) {
+		var ret int32
+		return ret
+	}
+	return *o.Queued
+}
+
+// GetQueuedOk returns a tuple with the Queued field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConcurrencyLimit) GetQueuedOk() (*int32, bool) {
+	if o == nil || IsNil(o.Queued) {
+		return nil, false
+	}
+	return o.Queued, true
+}
+
+// HasQueued returns a boolean if a field has been set.
+func (o *ConcurrencyLimit) HasQueued() bool {
+	return o != nil && !IsNil(o.Queued)
+}
+
+// SetQueued gets a reference to the given int32 and assigns it to the Queued field.
+func (o *ConcurrencyLimit) SetQueued(v int32) {
+	o.Queued = &v
+}
+
 func (o ConcurrencyLimit) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -166,6 +196,9 @@ func (o ConcurrencyLimit) ToMap() (map[string]interface{}, error) {
 	toSerialize["flowId"] = o.FlowId
 	if !IsNil(o.Running) {
 		toSerialize["running"] = o.Running
+	}
+	if !IsNil(o.Queued) {
+		toSerialize["queued"] = o.Queued
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -216,6 +249,7 @@ func (o *ConcurrencyLimit) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "flowId")
 		delete(additionalProperties, "running")
+		delete(additionalProperties, "queued")
 		o.AdditionalProperties = additionalProperties
 	}
 

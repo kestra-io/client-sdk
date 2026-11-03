@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
@@ -597,11 +598,58 @@ tasks:
 		require.NotNil(t, result)
 	})
 
+	// A concurrency-limit counter only exists once a flow declaring `concurrency` has run, so
+	// both tests start one execution (running) and a second one (queued behind limit 1).
 	t.Run("searchConcurrencyLimitsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
 		ctx := context.Background()
-		result, err := KestraTestClient().Flows().SearchConcurrencyLimits(ctx, MAIN_TENANT)
+		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
+
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 100*time.Millisecond)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
+		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_QUEUED), 5*time.Second, 100*time.Millisecond)
+
+		size := 1000
+		var found *kestra_api_client.ConcurrencyLimit
+		require.Eventually(t, func() bool {
+			result, err := KestraTestClient().Flows().SearchConcurrencyLimits(ctx, MAIN_TENANT, nil, &size)
+			if err != nil {
+				return false
+			}
+			for i := range result.Results {
+				if result.Results[i].Namespace == namespace && result.Results[i].FlowId == flowId {
+					found = &result.Results[i]
+					return true
+				}
+			}
+			return false
+		}, 5*time.Second, 200*time.Millisecond)
+		require.Equal(t, int32(1), found.GetRunning())
+		require.Equal(t, int32(1), found.GetQueued())
+	})
+
+	t.Run("updateConcurrencyLimitTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
+
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 100*time.Millisecond)
+
+		current, err := KestraTestClient().Flows().ConcurrencyLimit(ctx, namespace, flowId, MAIN_TENANT)
 		require.NoError(t, err)
-		require.NotNil(t, result)
+		require.Equal(t, int32(1), current.GetRunning())
+
+		limit := kestra_api_client.ConcurrencyLimit{}
+		limit.SetRunning(0)
+		updated, err := KestraTestClient().Flows().UpdateConcurrencyLimit(ctx, namespace, flowId, MAIN_TENANT, limit)
+		require.NoError(t, err)
+		require.Equal(t, namespace, updated.Namespace)
+		require.Equal(t, flowId, updated.FlowId)
+		require.Equal(t, int32(0), updated.GetRunning())
 	})
 
 	t.Run("expressionsTest", func(t *testing.T) {

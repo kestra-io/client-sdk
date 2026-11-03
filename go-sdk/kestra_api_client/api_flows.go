@@ -2742,6 +2742,20 @@ type ApiSearchConcurrencyLimitsRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
 	tenant     string
+	page       *int32
+	size       *int32
+}
+
+// The current page
+func (r ApiSearchConcurrencyLimitsRequest) Page(page int32) ApiSearchConcurrencyLimitsRequest {
+	r.page = &page
+	return r
+}
+
+// The current page size
+func (r ApiSearchConcurrencyLimitsRequest) Size(size int32) ApiSearchConcurrencyLimitsRequest {
+	r.size = &size
+	return r
 }
 
 func (r ApiSearchConcurrencyLimitsRequest) GetTenant() string {
@@ -2753,7 +2767,7 @@ func (r ApiSearchConcurrencyLimitsRequest) Execute() (*PagedResultsConcurrencyLi
 }
 
 /*
-SearchConcurrencyLimits Search for flow concurrency limits
+SearchConcurrencyLimits Search for flow, namespace and tenant concurrency limits
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -2789,6 +2803,13 @@ func (a *FlowsAPIService) SearchConcurrencyLimitsExecute(r ApiSearchConcurrencyL
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3419,7 +3440,10 @@ func (r ApiUpdateConcurrencyLimitRequest) Execute() (*ConcurrencyLimit, *http.Re
 }
 
 /*
-UpdateConcurrencyLimit Update a flow concurrency limit
+UpdateConcurrencyLimit Update a flow, namespace or tenant concurrency limit
+
+Sets the running-execution counter to the Running field of the given ConcurrencyLimit. Pass an
+empty flowId to target a namespace limit, and an empty namespace and flowId for the tenant limit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param flowId
@@ -3453,9 +3477,8 @@ func (a *FlowsAPIService) UpdateConcurrencyLimitExecute(r ApiUpdateConcurrencyLi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	// Since Kestra 2.1 the namespace and flow are sent in the body, not the path.
+	localVarPath := localBasePath + "/api/v1/{tenant}/concurrency-limit"
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3483,7 +3506,7 @@ func (a *FlowsAPIService) UpdateConcurrencyLimitExecute(r ApiUpdateConcurrencyLi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.concurrencyLimit
+	localVarPostBody = concurrencyLimitUpdateRequest{Namespace: r.namespace, FlowId: r.flowId, Running: r.concurrencyLimit.Running}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
