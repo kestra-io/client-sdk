@@ -1,8 +1,9 @@
 // FlowsApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE, expectStatus } from './_utils.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
+import * as Executions from '@kestra-io/kestra-sdk/executions';
+import type { ConcurrencyLimitControllerConcurrencyLimitSearchResult, StateType } from '@kestra-io/kestra-sdk';
 
 // ---------- helpers ----------
 async function createSimpleFlow() {
@@ -437,64 +438,76 @@ tasks:
 `;
 }
 
+/** Flow whose single 10s Sleep holds its concurrency slot (limit 1, QUEUE). */
+function sleepConcurrencyFlow(id: string, namespace: string) {
+    return `id: ${id}
+namespace: ${namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT10S
+`;
+}
+
+async function startExecutionInState(namespace: string, id: string, expected: StateType, timeoutMs = 10_000) {
+    const { id: executionId } = await Executions.createExecution({ namespace, id });
+    const deadline = Date.now() + timeoutMs;
+    while (Date.now() < deadline) {
+        const exec = await Executions.execution({ executionId });
+        if (exec.state?.current === expected) return executionId;
+        await sleep(100);
+    }
+    throw new Error(`execution ${executionId} did not reach ${expected} within ${timeoutMs}ms`);
+}
+
 describe('FlowsApi — long tail', () => {
-    // Search for flow concurrency limits
+    // A concurrency-limit counter only exists once a flow declaring `concurrency` has run,
+    // so these tests start one execution (running) and, for search, a second one queued
+    // behind limit 1. Updating an unknown counter is a 404.
     it('search_concurrency_limits', async () => {
-        const resp = await Flows.searchConcurrencyLimitsAsInstanceOwner({});
-        expect(resp).toBeDefined();
-        expect(Array.isArray(resp.results)).toBe(true);
+        const ns = randomId();
+        const flowId = randomId();
+        await Flows.createFlow({ body: sleepConcurrencyFlow(flowId, ns) });
+        await startExecutionInState(ns, flowId, 'RUNNING');
+        await startExecutionInState(ns, flowId, 'QUEUED');
+
+        let found: ConcurrencyLimitControllerConcurrencyLimitSearchResult | undefined;
+        const deadline = Date.now() + 10_000;
+        while (!found && Date.now() < deadline) {
+            const resp = await Flows.searchConcurrencyLimits({ page: 1, size: MAX_PAGE_SIZE });
+            found = resp.results.find((l) => l.namespace === ns && l.flowId === flowId);
+            if (!found) await sleep(200);
+        }
+
+        expect(found?.running).toBe(1);
+        expect(found?.queued).toBe(1);
     });
 
-    // Update a flow concurrency limit
-    // The concurrency-limit PUT is feature-gated on some Kestra EE images (returns 404);
-    // the Java SDK suite disables the equivalent test for that reason. We still exercise the
-    // SDK wrapper and accept either a successful echo or an HTTP error from the gated endpoint.
     it('update_concurrency_limit', async () => {
-        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        await Flows.createFlow({ body: flowBody });
+        const ns = randomId();
+        const flowId = randomId();
+        await Flows.createFlow({ body: sleepConcurrencyFlow(flowId, ns) });
+        await startExecutionInState(ns, flowId, 'RUNNING');
 
-        try {
-            const resp = await Flows.updateConcurrencyLimitAsInstanceOwner({
-                namespace: flowNamespace,
-                flowId,
-                tenantId,
-                running: 5,
-            });
-            expect(resp.namespace).toBe(flowNamespace);
-            expect(resp.flowId).toBe(flowId);
-        } catch (err: unknown) {
-            const status = (err as any)?.status ?? (err as any)?.response?.status;
-            expect(status).toBeGreaterThanOrEqual(400);
-        }
+        const current = await Flows.concurrencyLimit({ namespace: ns, flowId });
+        expect(current.running).toBe(1);
+
+        const resp = await Flows.updateConcurrencyLimit({ namespace: ns, flowId, running: 0 });
+        expect(resp.namespace).toBe(ns);
+        expect(resp.flowId).toBe(flowId);
+        expect(resp.running).toBe(0);
     });
 
-    // Get the concurrency limit of a flow
-    // Behind the same feature gate as the PUT above, so the read is only asserted when
-    // the write went through; a gated image must at least fail the write with an HTTP error.
-    it('get_concurrency_limit', async () => {
-        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        await Flows.createFlow({ body: flowBody });
-
-        let limitWasSet = false;
-        try {
-            await Flows.updateConcurrencyLimitAsInstanceOwner({
-                namespace: flowNamespace,
-                flowId,
-                tenantId,
-                running: 3,
-            });
-            limitWasSet = true;
-        } catch (err: unknown) {
-            const status = (err as any)?.status ?? (err as any)?.response?.status;
-            expect(status).toBeGreaterThanOrEqual(400);
-        }
-
-        if (!limitWasSet) return;
-
-        const resp = await Flows.concurrencyLimit({ namespace: flowNamespace, flowId });
-        expect(resp.namespace).toBe(flowNamespace);
-        expect(resp.flowId).toBe(flowId);
-        expect(resp.running).toBe(3);
+    it('update_concurrency_limit_unknown', async () => {
+        await expectStatus(
+            Flows.updateConcurrencyLimit({ namespace: randomId(), flowId: randomId(), running: 0 }),
+            404,
+        );
     });
 
     // List flows containing deprecated tasks
