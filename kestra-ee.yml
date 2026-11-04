@@ -41357,6 +41357,10 @@ components:
             $ref: '#/components/schemas/TaskFixture'
         trigger:
           $ref: '#/components/schemas/TriggerFixture'
+        labels:
+          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
+          oneOf:
+          - $ref: '#/components/schemas/Map_Object.Object_'
     Flow:
       required:
       - deleted
