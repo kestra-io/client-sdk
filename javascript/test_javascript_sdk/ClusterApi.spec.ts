@@ -14,7 +14,7 @@ async function waitForMaintenance(expected: boolean): Promise<boolean> {
     return false;
 }
 
-describe.sequential('ClusterApi', () => {
+describe('ClusterApi', () => {
     it('maintenanceStatus: reports not-in-maintenance before entering it', async () => {
         const result = await Cluster.maintenanceStatus();
         // This test runs first in the sequential block, before enterMaintenance.
