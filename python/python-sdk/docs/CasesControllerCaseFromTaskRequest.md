@@ -24,6 +24,9 @@ Name | Type | Description | Notes
 **execution_state** | **str** |  | [optional] 
 **case_id** | **str** |  | [optional] 
 **deduplication_key** | **str** |  | [optional] 
+**template_id** | **str** |  | [optional] 
+**resolution_reasons** | **List[str]** |  | [optional] 
+**require_resolution_note** | **bool** |  | [optional] 
 
 ## Example
 
