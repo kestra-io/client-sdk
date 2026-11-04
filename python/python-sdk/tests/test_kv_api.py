@@ -85,7 +85,7 @@ def test_get_key_value(client_and_mock_session):
     )
 
     # 3. Assert: Verify result and HTTP request parameters
-    assert result == True
+    assert result is True
     assert mock_session.request.called
 
     call_args, _ = mock_session.request.call_args
