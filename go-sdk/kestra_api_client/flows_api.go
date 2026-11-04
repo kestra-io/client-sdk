@@ -376,20 +376,45 @@ func (a *FlowsAPI) TaskFromFlow(ctx context.Context, namespace, id, taskId, tena
 // Concurrency
 // ========================================================================
 
-// SearchConcurrencyLimits searches for concurrency limits.
-func (a *FlowsAPI) SearchConcurrencyLimits(ctx context.Context, tenant string) (*PagedResultsConcurrencyLimit, error) {
+// SearchConcurrencyLimits searches for the flow, namespace and tenant concurrency limits of a tenant.
+// Each result carries the number of running and queued executions. A namespace limit has an empty
+// FlowId, and the tenant limit has both an empty Namespace and FlowId.
+func (a *FlowsAPI) SearchConcurrencyLimits(ctx context.Context, tenant string, page, size *int) (*PagedResultsConcurrencyLimit, error) {
 	path := tenantPath(tenant, "concurrency-limit", "search")
-	result, err := doJSON[PagedResultsConcurrencyLimit](&a.baseAPI, ctx, "GET", path, nil, nil)
+	params := buildQueryParams("page", page, "size", size)
+	result, err := doJSON[PagedResultsConcurrencyLimit](&a.baseAPI, ctx, "GET", path, nil, params)
 	if err != nil {
 		return nil, err
 	}
 	return &result, nil
 }
 
-// UpdateConcurrencyLimit updates a concurrency limit for a flow.
-func (a *FlowsAPI) UpdateConcurrencyLimit(ctx context.Context, namespace, flowId, tenant string, limit ConcurrencyLimit) (*ConcurrencyLimit, error) {
+// ConcurrencyLimit retrieves the concurrency limit of a flow. The server answers 404 until the
+// counter exists, which happens once the flow (declaring a concurrency limit) has run.
+func (a *FlowsAPI) ConcurrencyLimit(ctx context.Context, namespace, flowId, tenant string) (*ConcurrencyLimit, error) {
 	path := tenantPath(tenant, "concurrency-limit", namespace, flowId)
-	result, err := doJSON[ConcurrencyLimit](&a.baseAPI, ctx, "PUT", path, limit, nil)
+	result, err := doJSON[ConcurrencyLimit](&a.baseAPI, ctx, "GET", path, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// concurrencyLimitUpdateRequest is the body of PUT /api/v1/{tenant}/concurrency-limit.
+type concurrencyLimitUpdateRequest struct {
+	Namespace string `json:"namespace"`
+	FlowId    string `json:"flowId"`
+	Running   *int32 `json:"running"`
+}
+
+// UpdateConcurrencyLimit sets the running-execution counter of a concurrency limit to limit.Running.
+// Pass an empty flowId to target a namespace limit, and an empty namespace and flowId to target the
+// tenant limit. The limit must already exist (it is created when a flow with a concurrency limit
+// runs), otherwise the server answers 404. Only limit.Running is sent; its other fields are ignored.
+func (a *FlowsAPI) UpdateConcurrencyLimit(ctx context.Context, namespace, flowId, tenant string, limit ConcurrencyLimit) (*ConcurrencyLimit, error) {
+	path := tenantPath(tenant, "concurrency-limit")
+	body := concurrencyLimitUpdateRequest{Namespace: namespace, FlowId: flowId, Running: limit.Running}
+	result, err := doJSON[ConcurrencyLimit](&a.baseAPI, ctx, "PUT", path, body, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apply_replace_by_source_code**](FlowsApi.md#apply_replace_by_source_code) | **POST** /api/v1/{tenant}/flows/source/replace/apply | Apply a Source Search replace-all operation
 [**bulk_update_flows**](FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
+[**concurrency_limit**](FlowsApi.md#concurrency_limit) | **GET** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Get the concurrency limit of a flow
 [**create_flow**](FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 [**delete_flow**](FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
 [**delete_flows_by_ids**](FlowsApi.md#delete_flows_by_ids) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
@@ -33,11 +34,11 @@ Method | HTTP request | Description
 [**preview_policies**](FlowsApi.md#preview_policies) | **POST** /api/v1/{tenant}/flows/policies/preview | Preview the governance policy effects (mutations + violations) on a flow source
 [**preview_replace_by_source_code**](FlowsApi.md#preview_replace_by_source_code) | **POST** /api/v1/{tenant}/flows/source/replace/preview | Preview a Source Search replace-all operation
 [**replace_line_by_source_code**](FlowsApi.md#replace_line_by_source_code) | **POST** /api/v1/{tenant}/flows/source/replace/line | Apply a Source Search replace on a single match line
-[**search_concurrency_limits**](FlowsApi.md#search_concurrency_limits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
+[**search_concurrency_limits**](FlowsApi.md#search_concurrency_limits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow, namespace and tenant concurrency limits
 [**search_flows**](FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**search_flows_by_source_code**](FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 [**task_from_flow**](FlowsApi.md#task_from_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
-[**update_concurrency_limit**](FlowsApi.md#update_concurrency_limit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
+[**update_concurrency_limit**](FlowsApi.md#update_concurrency_limit) | **PUT** /api/v1/{tenant}/concurrency-limit | Update a flow, namespace or tenant concurrency limit
 [**update_flow**](FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 [**update_flows_in_namespace**](FlowsApi.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**validate_flows**](FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
@@ -184,6 +185,76 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | bulkUpdateFlows 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **concurrency_limit**
+> ConcurrencyLimit concurrency_limit(namespace, flow_id, tenant)
+
+Get the concurrency limit of a flow
+
+The server answers 404 until the counter exists, which happens once the flow (declaring a concurrency limit) has run.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from pprint import pprint
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | 
+    flow_id = 'flow_id_example' # str | 
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get the concurrency limit of a flow
+        api_response = kestra_client.flows.concurrency_limit(namespace, flow_id, tenant)
+        print("The response of FlowsApi->concurrency_limit:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FlowsApi->concurrency_limit: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**|  | 
+ **flow_id** | **str**|  | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getConcurrencyLimit 200 response |  -  |
+**404** | The flow has no concurrency-limit counter yet |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1996,9 +2067,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_concurrency_limits**
-> PagedResultsConcurrencyLimit search_concurrency_limits(tenant)
+> PagedResultsConcurrencyLimit search_concurrency_limits(tenant, page=page, size=size)
 
-Search for flow concurrency limits
+Search for flow, namespace and tenant concurrency limits
+
+Each result carries the number of `running` and `queued` executions. A namespace limit has an empty `flow_id`, the tenant limit an empty `namespace` and `flow_id`. Only the limits of the namespaces whose flows the user can view are returned.
 
 ### Example
 
@@ -2018,10 +2091,12 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 25 # int | The current page size (optional) (default to 25)
 
     try:
-        # Search for flow concurrency limits
-        api_response = kestra_client.flows.search_concurrency_limits(tenant)
+        # Search for flow, namespace and tenant concurrency limits
+        api_response = kestra_client.flows.search_concurrency_limits(tenant, page=page, size=size)
         print("The response of FlowsApi->search_concurrency_limits:\n")
         pprint(api_response)
     except Exception as e:
@@ -2036,6 +2111,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 25]
 
 ### Return type
 
@@ -2286,7 +2363,9 @@ Name | Type | Description  | Notes
 # **update_concurrency_limit**
 > ConcurrencyLimit update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
 
-Update a flow concurrency limit
+Update a flow, namespace or tenant concurrency limit
+
+Sets the running-execution counter to `concurrency_limit.running`. Pass an empty `flow_id` to target a namespace limit, and an empty `namespace` and `flow_id` for the tenant limit. Only `running` is read from `concurrency_limit`. The limit must already exist, otherwise the server answers 404. Requires the `UPDATE_CONCURRENCY_LIMIT` permission on the `FLOW` resource for the namespace, or tenant-wide for the tenant limit.
 
 ### Example
 
@@ -2309,10 +2388,10 @@ with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | 
     flow_id = 'flow_id_example' # str | 
     tenant = 'tenant_example' # str | 
-    concurrency_limit = kestrapy.ConcurrencyLimit() # ConcurrencyLimit | 
+    concurrency_limit = kestrapy.ConcurrencyLimit(tenant_id=tenant, namespace=namespace, flow_id=flow_id, running=0) # ConcurrencyLimit | only running is sent
 
     try:
-        # Update a flow concurrency limit
+        # Update a flow, namespace or tenant concurrency limit
         api_response = kestra_client.flows.update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
         print("The response of FlowsApi->update_concurrency_limit:\n")
         pprint(api_response)
@@ -2330,7 +2409,7 @@ Name | Type | Description  | Notes
  **namespace** | **str**|  | 
  **flow_id** | **str**|  | 
  **tenant** | **str**|  | 
- **concurrency_limit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
+ **concurrency_limit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)| Only `running` is sent | 
 
 ### Return type
 
@@ -2350,6 +2429,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | updateConcurrencyLimit 200 response |  -  |
+**404** | No such concurrency limit |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

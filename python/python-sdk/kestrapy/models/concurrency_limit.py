@@ -25,8 +25,9 @@ class ConcurrencyLimit(BaseModel):
     namespace: StrictStr
     flow_id: StrictStr = Field(alias="flowId")
     running: Optional[StrictInt] = None
+    queued: Optional[StrictInt] = Field(default=None, description="Number of queued executions; only set on the results of search_concurrency_limits.")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["tenantId", "namespace", "flowId", "running"]
+    __properties: ClassVar[List[str]] = ["tenantId", "namespace", "flowId", "running", "queued"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +90,8 @@ class ConcurrencyLimit(BaseModel):
             "tenantId": obj.get("tenantId"),
             "namespace": obj.get("namespace"),
             "flowId": obj.get("flowId"),
-            "running": obj.get("running")
+            "running": obj.get("running"),
+            "queued": obj.get("queued")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

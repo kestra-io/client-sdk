@@ -342,9 +342,30 @@ class FlowsApi(BaseApi):
     # Concurrency
     # ========================================================================
 
-    def search_concurrency_limits(self, tenant: str) -> PagedResultsConcurrencyLimit:
+    def search_concurrency_limits(
+        self,
+        tenant: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+    ) -> PagedResultsConcurrencyLimit:
+        """Search for the flow, namespace and tenant concurrency limits of a tenant.
+
+        Each result carries the number of ``running`` and ``queued`` executions. A
+        namespace limit has an empty ``flow_id``, the tenant limit an empty
+        ``namespace`` and ``flow_id``.
+        """
         path = self._tenant_path(tenant, "concurrency-limit", "search")
-        return self._json_request("GET", path, PagedResultsConcurrencyLimit)
+        params = self._build_query_params(page=page, size=size)
+        return self._json_request("GET", path, PagedResultsConcurrencyLimit, params=params)
+
+    def concurrency_limit(self, namespace: str, flow_id: str, tenant: str) -> ConcurrencyLimit:
+        """Get the concurrency limit of a flow.
+
+        The server answers 404 until the counter exists, which happens once the
+        flow (declaring a concurrency limit) has run.
+        """
+        path = self._tenant_path(tenant, "concurrency-limit", namespace, flow_id)
+        return self._json_request("GET", path, ConcurrencyLimit)
 
     def update_concurrency_limit(
         self,
@@ -353,8 +374,17 @@ class FlowsApi(BaseApi):
         tenant: str,
         concurrency_limit: ConcurrencyLimit,
     ) -> ConcurrencyLimit:
-        path = self._tenant_path(tenant, "concurrency-limit", namespace, flow_id)
-        return self._json_request("PUT", path, ConcurrencyLimit, body=concurrency_limit)
+        """Set the running-execution counter of a concurrency limit to ``concurrency_limit.running``.
+
+        Pass an empty ``flow_id`` to target a namespace limit, and an empty
+        ``namespace`` and ``flow_id`` for the tenant limit. Only ``running`` is read
+        from ``concurrency_limit``. The limit must already exist, otherwise the
+        server answers 404.
+        """
+        # Since Kestra 2.1 the namespace and flow are sent in the body, not the path.
+        path = self._tenant_path(tenant, "concurrency-limit")
+        body = {"namespace": namespace, "flowId": flow_id, "running": concurrency_limit.running}
+        return self._json_request("PUT", path, ConcurrencyLimit, body=body)
 
     # ========================================================================
     # Validation

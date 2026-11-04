@@ -625,22 +625,59 @@ public class FlowsApi extends BaseApi {
     // Concurrency
     // ========================================================================
 
+    /**
+     * Search for the flow, namespace and tenant concurrency limits of a tenant, with the number of
+     * running and queued executions of each. A namespace limit has an empty {@code flowId}, the tenant
+     * limit an empty {@code namespace} and {@code flowId}. Returns the server's first page (25 items).
+     */
     public PagedResultsConcurrencyLimit searchConcurrencyLimits(
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return searchConcurrencyLimits(tenant, null, null);
+    }
+
+    public PagedResultsConcurrencyLimit searchConcurrencyLimits(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size) throws ApiException {
         return get(
                 tenantPath(tenant, "concurrency-limit", "search"),
+                queryParams("page", page, "size", size), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Get the concurrency limit of a flow. The server answers 404 until the counter exists, which
+     * happens once the flow (declaring a concurrency limit) has run.
+     */
+    public ConcurrencyLimit concurrencyLimit(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String flowId,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return get(
+                tenantPath(tenant, "concurrency-limit", namespace, flowId),
                 Collections.emptyList(), Collections.emptyList(),
                 new TypeReference<>() {});
     }
 
+    /**
+     * Set the running-execution counter of a concurrency limit to {@code concurrencyLimit.getRunning()}.
+     * Pass an empty {@code flowId} to target a namespace limit, and an empty {@code namespace} and
+     * {@code flowId} for the tenant limit. The limit must already exist, otherwise the server answers
+     * 404. Only {@code running} is read from {@code concurrencyLimit}; its other fields are ignored.
+     */
     public ConcurrencyLimit updateConcurrencyLimit(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String flowId,
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit) throws ApiException {
+        // Since Kestra 2.1 the namespace and flow are sent in the body, not the path.
+        Map<String, Object> body = new HashMap<>();
+        body.put("namespace", namespace);
+        body.put("flowId", flowId);
+        body.put("running", concurrencyLimit.getRunning());
         return putJson(
-                tenantPath(tenant, "concurrency-limit", namespace, flowId),
-                concurrencyLimit,
+                tenantPath(tenant, "concurrency-limit"),
+                body,
                 new TypeReference<>() {});
     }
 
