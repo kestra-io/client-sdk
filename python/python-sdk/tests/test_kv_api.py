@@ -11,7 +11,7 @@ def client_and_mock_session():
     with patch("requests.Session") as mock_session_cls:
         mock_session = MagicMock()
         mock_session_cls.return_value = mock_session
-        c = KestraClient("http://localhost:8080")
+        c = KestraClient(host="http://localhost:8080")
         c._session = mock_session
         yield c, mock_session
 
@@ -46,7 +46,8 @@ def test_set_key_value(client_and_mock_session):
     assert "namespaces" in call_args[1]
     assert "test-namespace" in call_args[1]
     assert "test-key" in call_args[1]
-    assert call_kwargs.get("data") == "test-value" or call_kwargs.get("body") == "test-value" or call_kwargs.get("content") == "test-value"
+    assert call_kwargs["data"] == "test-value"
+    assert call_kwargs["headers"]["Content-Type"] == "text/plain"
 
 
 def test_get_key_value(client_and_mock_session):
@@ -71,7 +72,12 @@ def test_get_key_value(client_and_mock_session):
     assert "test-namespace" in call_args[1]
     assert "test-key" in call_args[1]
 
-# 1. Arrange: Setup mock response
+
+def test_delete_key_value(client_and_mock_session):
+    """Test that delete_key_value sends a DELETE request to the KV endpoint."""
+    client, mock_session = client_and_mock_session
+
+    # 1. Arrange: Setup mock response
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.json.return_value = True
@@ -81,7 +87,7 @@ def test_get_key_value(client_and_mock_session):
     result = client.kv.delete_key_value(
         namespace="test-namespace",
         key="test-key",
-        tenant="test-tenant"
+        tenant="test-tenant",
     )
 
     # 3. Assert: Verify result and HTTP request parameters
