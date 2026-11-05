@@ -34408,6 +34408,61 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/tests/{namespace}/{id}/stop:
+    post:
+      tags:
+      - TestSuites
+      summary: Stop a running test
+      description: Kills the running executions of the test that the caller can access, which ends the pending run in ERROR. Requires TESTSUITE and FLOW permissions with the EXECUTE action.
+      operationId: stopTestSuite
+      parameters:
+      - name: namespace
+        in: path
+        description: The TestSuite namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The TestSuite ID
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: stopTestSuite 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSuiteController.StopResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/triggers/backfill/create:
     put:
       tags:
@@ -47531,6 +47586,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TestSuiteController.TestSuiteApiId'
+    TestSuiteController.StopResponse:
+      type: object
+      properties:
+        executionIds:
+          type: array
+          items:
+            type: string
     TestSuiteController.TestSuiteApiId:
       required:
       - id
