@@ -38952,6 +38952,11 @@ components:
           type: array
           items:
             type: string
+        normalizedIds:
+          title: The id a document gave, mapped to the id its asset is stored by, for each id the server changed
+          type: object
+          additionalProperties:
+            type: string
     AssetsController.PatchAsset:
       type: object
       properties:
