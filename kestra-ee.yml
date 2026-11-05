@@ -47798,6 +47798,9 @@ components:
             $ref: '#/components/schemas/Assertion'
         expectedState:
           $ref: '#/components/schemas/State.Type'
+        maxDuration:
+          type: string
+          description: The maximum time the tested execution may run. When it is reached, the execution is killed and the test case ends in ERROR.
     UnitTestResult:
       required:
       - assertionResults
