@@ -7054,7 +7054,7 @@ paths:
       tags:
       - Users
       summary: Impersonate a user
-      description: Instance-owner-only. Allows an admin to impersonate another user.
+      description: Instance-owner-only. Allows an admin to impersonate another user or a service account.
       operationId: impersonate
       parameters:
       - name: id
@@ -7065,7 +7065,7 @@ paths:
           type: string
       responses:
         '404':
-          description: User not found
+          description: User or service account not found
           content:
             application/problem+json:
               schema:
@@ -36348,7 +36348,6 @@ components:
       - MANAGE_MEMBERS
       - MANAGE_GROUP_MEMBERSHIP
       - USE
-      - IMPERSONATE
       - UPDATE_CONCURRENCY_LIMIT
       - UNKNOWN
     AgentMessageRole:
@@ -43167,6 +43166,7 @@ components:
       - JSON
     KillSwitch:
       required:
+      - enabled
       - evaluationType
       - name
       - startDate
