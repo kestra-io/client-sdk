@@ -10,6 +10,7 @@
 |**CREATED** | **Long** |  |  [optional] |
 |**SUBMITTED** | **Long** |  |  [optional] |
 |**RUNNING** | **Long** |  |  [optional] |
+|**PAUSING** | **Long** |  |  [optional] |
 |**PAUSED** | **Long** |  |  [optional] |
 |**RESTARTED** | **Long** |  |  [optional] |
 |**KILLING** | **Long** |  |  [optional] |

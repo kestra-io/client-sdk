@@ -24,6 +24,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
     created: Optional[StrictInt] = Field(default=None, alias="CREATED")
     submitted: Optional[StrictInt] = Field(default=None, alias="SUBMITTED")
     running: Optional[StrictInt] = Field(default=None, alias="RUNNING")
+    pausing: Optional[StrictInt] = Field(default=None, alias="PAUSING")
     paused: Optional[StrictInt] = Field(default=None, alias="PAUSED")
     restarted: Optional[StrictInt] = Field(default=None, alias="RESTARTED")
     killing: Optional[StrictInt] = Field(default=None, alias="KILLING")
@@ -39,7 +40,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
     breakpoint: Optional[StrictInt] = Field(default=None, alias="BREAKPOINT")
     resubmitted: Optional[StrictInt] = Field(default=None, alias="RESUBMITTED")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["CREATED", "SUBMITTED", "RUNNING", "PAUSED", "RESTARTED", "KILLING", "SUCCESS", "WARNING", "FAILED", "KILLED", "CANCELLED", "QUEUED", "RETRYING", "RETRIED", "SKIPPED", "BREAKPOINT", "RESUBMITTED"]
+    __properties: ClassVar[List[str]] = ["CREATED", "SUBMITTED", "RUNNING", "PAUSING", "PAUSED", "RESTARTED", "KILLING", "SUCCESS", "WARNING", "FAILED", "KILLED", "CANCELLED", "QUEUED", "RETRYING", "RETRIED", "SKIPPED", "BREAKPOINT", "RESUBMITTED"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,6 +103,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
             "CREATED": obj.get("CREATED"),
             "SUBMITTED": obj.get("SUBMITTED"),
             "RUNNING": obj.get("RUNNING"),
+            "PAUSING": obj.get("PAUSING"),
             "PAUSED": obj.get("PAUSED"),
             "RESTARTED": obj.get("RESTARTED"),
             "KILLING": obj.get("KILLING"),
