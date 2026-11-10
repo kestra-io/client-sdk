@@ -42,6 +42,48 @@ public class FlowsApiTest {
         assertThat(result.getTasks()).isNotEmpty();
     }
 
+    /**
+     * Labels are an array of {key, value} on the wire at every level — on the flow,
+     * on an SLA and on a trigger. The spec's oneOf for the nested ones resolved to a
+     * marker interface, so Jackson wanted a polymorphic type id and createFlow threw
+     * outright on any flow carrying trigger or SLA labels.
+     */
+    @Test
+    void createFlow_withLabelsOnFlowSlaAndTrigger() throws ApiException {
+        String ns = randomId();
+        String id = randomId();
+        FlowWithSource created = api().createFlow(TENANT, """
+                id: %s
+                namespace: %s
+                labels:
+                  owner: data-team
+                sla:
+                  - id: max
+                    type: MAX_DURATION
+                    duration: PT1H
+                    behavior: NONE
+                    labels:
+                      sla: breached
+                tasks:
+                  - id: h
+                    type: io.kestra.plugin.core.log.Log
+                    message: hi
+                triggers:
+                  - id: sched
+                    type: io.kestra.plugin.core.trigger.Schedule
+                    cron: "0 0 * * *"
+                    labels:
+                      team: data
+                """.formatted(id, ns));
+
+        assertThat(created.getLabels()).extracting(Label::getKey).contains("owner");
+
+        FlowWithSource fetched = api().flow(ns, id, TENANT, true, null, null);
+        assertThat(fetched.getLabels()).extracting(Label::getKey).contains("owner");
+        assertThat(fetched.getSla().getFirst().getLabels()).extracting(Label::getKey).contains("sla");
+        assertThat(fetched.getTriggers().getFirst().getLabels()).extracting(Label::getKey).contains("team");
+    }
+
     @Test
     @Disabled("Kestra 2.0: stricter validation rejects the fixture — Schedule Trigger 'monthly' now requires declared inputs (422)")
     void createFlow_complete() throws ApiException {

@@ -12,6 +12,8 @@
 
 package io.kestra.sdk.model;
 
+import io.kestra.sdk.model.Label;
+import java.util.List;
 import java.util.Objects;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.SLABehavior;
-import io.kestra.sdk.model.SLALabels;
 import io.kestra.sdk.model.SLAType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -46,7 +47,7 @@ public class SLA {
   @jakarta.annotation.Nonnull  private SLABehavior behavior;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private SLALabels labels;
+  @jakarta.annotation.Nullable  private List<Label> labels;
 
   public SLA() {
   }
@@ -123,7 +124,7 @@ public class SLA {
     this.behavior = behavior;
   }
 
-  public SLA labels(@jakarta.annotation.Nullable SLALabels labels) {
+  public SLA labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -136,14 +137,14 @@ public class SLA {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SLALabels getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable SLALabels labels) {
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
