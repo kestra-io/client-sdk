@@ -45784,8 +45784,8 @@ components:
       - targetNamespace
       - targetAssetType
       - kind
-      - POLICY_SCOPE
-      - ENFORCEMENT
+      - policyScope
+      - enforcement
       - labels
       - tags
       - metadata
@@ -45804,8 +45804,8 @@ components:
       - expirationDate
       - state
       - status
-      - SEVERITY
-      - ASSIGNEE
+      - severity
+      - assignee
       - email
       - timeRange
       - parentId
