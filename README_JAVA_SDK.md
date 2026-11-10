@@ -54,3 +54,28 @@
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
 Use the `io.kestra.sdk.KestraClient` manually written that gather everything in one client.
+
+## Upgrading from 1.0.x
+
+1.3.0 replaced the generated API classes with hand-written ones (#222). Code written against 1.0.x does not compile as is.
+
+- Parameter order changed. Path parameters come first, then `tenant`, then optional parameters. Query parameters that were required in 1.0.x (`wait`, `source`, `isOnKillCascade`, ...) are now nullable and come after `tenant`. Some methods take `tenant` first, for example `createExecution` and `searchExecutions`.
+- Some return types changed, for example `searchExecutions` returns `PagedResultsApiLightExecution` and `killExecution` returns `Execution`.
+- The `additionalHeaders` and `additionalFormDatas` overloads were removed.
+  - Flow inputs: pass a `Map<String, Object> inputs` to `createExecution`, `resumeExecution` or `replayExecutionWithInputs`. The `createExecution` and `replayExecutionWithInputs` overloads need 1.3.3 or later.
+  - Custom headers: set them on an `ApiClient` and build the API from it. That client does not carry the `KestraClient` auth, so add the `Authorization` header there too.
+
+```java
+// 1.0.x
+executionsApi.createExecution(namespace, flowId, true, tenant, null, null, null, null, null, formData);
+
+// 1.3.3+
+kestraClient.executions().createExecution(tenant, namespace, flowId, null, true, null, null, null, null, inputs);
+```
+
+```java
+var apiClient = new ApiClient();
+apiClient.setBasePath("https://my-kestra-instance.org");
+apiClient.addDefaultHeader("X-Custom-Header", "value");
+var executions = new ExecutionsApi(apiClient);
+```
