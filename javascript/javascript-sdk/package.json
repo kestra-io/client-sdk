@@ -36,6 +36,7 @@
     "./files": "./dist/files.js",
     "./flows": "./dist/flows.js",
     "./groups": "./dist/groups.js",
+    "./instance": "./dist/instance.js",
     "./invitations": "./dist/invitations.js",
     "./kill-switches": "./dist/kill-switches.js",
     "./kv": "./dist/kv.js",

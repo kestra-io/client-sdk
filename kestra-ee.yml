@@ -1290,6 +1290,43 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/instance/retention-policy:
+    get:
+      tags:
+      - Instance
+      summary: Retrieve the default retention policy
+      description: Instance-owner-only. The policy chosen at instance setup, which the tenant creation form starts from. Returns 404 when none was chosen.
+      operationId: getRetentionPolicy
+      responses:
+        '200':
+          description: getRetentionPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetentionPolicy'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/services/active:
     get:
       tags:
@@ -5832,7 +5869,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tenant'
+              $ref: '#/components/schemas/ApiTenantCreation'
         required: true
       responses:
         '200':
@@ -37767,6 +37804,22 @@ components:
             type: boolean
           logo:
             type: string
+    ApiTenantCreation:
+      required:
+      - deleted
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Tenant'
+      - type: object
+        properties:
+          deleted:
+            type: boolean
+          retentionPolicy:
+            description: Retention policy of the daily `retention` system flow generated in the new tenant. Without it, the tenant gets the instance default retention policy, if there is one. A policy that keeps both executions and logs forever generates no flow.
+            nullable: true
+            writeOnly: true
+            allOf:
+            - $ref: '#/components/schemas/RetentionPolicy'
     ApiTenantSummary:
       type: object
       properties:
@@ -46110,6 +46163,25 @@ components:
           type: string
         required:
           type: boolean
+    RetentionPolicy:
+      type: object
+      properties:
+        executionsDays:
+          minimum: 1
+          type: integer
+          description: Days a finished execution is kept, null to keep executions forever.
+          format: int32
+          nullable: true
+        logsDays:
+          minimum: 1
+          type: integer
+          description: Days a log is kept, null to keep logs forever.
+          format: int32
+          nullable: true
+        keepFailedExecutions:
+          type: boolean
+          description: Whether failed executions and their logs are never purged.
+      description: Retention windows of the daily flow that purges the executions and logs of a tenant.
     ReusableInputsValidation:
       type: object
       properties:
@@ -46832,6 +46904,8 @@ components:
           $ref: '#/components/schemas/PasswordConfiguration'
         haveAuthNotBasic:
           type: boolean
+        hasPurgeFlow:
+          type: boolean
     SetupConfiguration.SetupData:
       type: object
       properties:
@@ -46841,6 +46915,10 @@ components:
           type: string
         tenant:
           $ref: '#/components/schemas/Tenant'
+        retentionPolicy:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/RetentionPolicy'
     SlaConfig:
       type: object
       properties:
