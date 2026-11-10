@@ -25,6 +25,8 @@
 
 * `RESUME` (value: `'RESUME'`)
 
+* `REVIEW` (value: `'REVIEW'`)
+
 * `UNQUEUE` (value: `'UNQUEUE'`)
 
 * `FORCE_RUN` (value: `'FORCE_RUN'`)
@@ -66,6 +68,8 @@
 * `MANAGE_GROUP_MEMBERSHIP` (value: `'MANAGE_GROUP_MEMBERSHIP'`)
 
 * `USE` (value: `'USE'`)
+
+* `UPDATE_CONCURRENCY_LIMIT` (value: `'UPDATE_CONCURRENCY_LIMIT'`)
 
 * `IMPERSONATE` (value: `'IMPERSONATE'`)
 
