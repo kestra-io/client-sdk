@@ -63,7 +63,7 @@ Use the `io.kestra.sdk.KestraClient` manually written that gather everything in 
 - Some return types changed, for example `searchExecutions` returns `PagedResultsApiLightExecution` and `killExecution` returns `Execution`.
 - The `additionalHeaders` and `additionalFormDatas` overloads were removed.
   - Flow inputs: pass a `Map<String, Object> inputs` to `createExecution`, `resumeExecution` or `replayExecutionWithInputs`. The `createExecution` and `replayExecutionWithInputs` overloads need 1.3.3 or later.
-  - Custom headers: set them on an `ApiClient` and build the API from it. That client does not carry the `KestraClient` auth, so add the `Authorization` header there too.
+  - Custom headers: set them on an `ApiClient` and build the API from it. Set auth on the same client with `setBearerToken(...)` or `setUsername(...)` and `setPassword(...)`.
 
 ```java
 // 1.0.x
@@ -76,6 +76,7 @@ kestraClient.executions().createExecution(tenant, namespace, flowId, null, true,
 ```java
 var apiClient = new ApiClient();
 apiClient.setBasePath("https://my-kestra-instance.org");
+apiClient.setBearerToken("your-api-token");
 apiClient.addDefaultHeader("X-Custom-Header", "value");
 var executions = new ExecutionsApi(apiClient);
 ```
