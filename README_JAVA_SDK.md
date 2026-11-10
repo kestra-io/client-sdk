@@ -68,10 +68,10 @@ Use the `io.kestra.sdk.KestraClient` manually written that gather everything in 
 - Java 25 is required. The 2.0 jar is compiled for Java 25 (1.3.x ran on Java 21).
 - Single-execution actions (kill, resume, restart, replay, ...) call the 2.0 `/actions/` paths, so the 2.0 SDK does not work against Kestra 1.3.
 - Removed: `DashboardsApi.exportChartToCsv`, `DashboardsApi.exportDashboardChartDataToCSV`, `NamespacesApi.inheritedPluginDefaults`, `NamespacesApi.exportPluginDefaults`, `NamespacesApi.importPluginDefaults`.
-- Search methods dropped `q` and `tags` in favour of `filters` (`List<QueryFilter>`): `searchApps`, `searchBlueprints`, `searchInternalBlueprints`, `searchGroups`, `searchRoles`, `searchNamespaces`. `searchTriggers` gained a trailing `dateFilter` parameter.
+- Search methods dropped `q` and `tags` in favour of `filters` (`List<QueryFilter>`): `searchApps` (also `namespace` and `flowId`), `searchBlueprints`, `searchInternalBlueprints`, `searchGroups`, `searchRoles`, `searchNamespaces`. `searchTriggers` gained a trailing `dateFilter` parameter.
 - `searchFlowsBySourceCode` returns `PagedResultsSourceSearchResult` and takes `caseSensitive`, `wholeWord`, `regex` and `scope`.
-- Trigger, SLA and `FlowForExecution` labels are `List<Label>`. `SLALabels` and `TheLabelsToPassToTheExecutionCreated` were removed.
-- `Permission` follows the Kestra 2.0 IAM model: `SETTING` became `SYSTEM_SETTINGS`/`TENANT_SETTINGS`, `TEST` became `TESTSUITE`, `AI_COPILOT` became `COPILOT`, and `IMPERSONATE`, `APPEXECUTION` and `GROUP_MEMBERSHIP` were removed.
+- From 1.3.2 or earlier: trigger, SLA and `FlowForExecution` labels are `List<Label>`, and `SLALabels` and `TheLabelsToPassToTheExecutionCreated` were removed. 1.3.3 already binds them this way.
+- `Permission` follows the Kestra 2.0 IAM model: `SETTING` became `SYSTEM_SETTINGS`/`TENANT_SETTINGS`, `TEST` became `TESTSUITE`, `AI_COPILOT` became `COPILOT`, `APPEXECUTION` became `APP_EXECUTION`, and `IMPERSONATE` and `GROUP_MEMBERSHIP` were removed.
 
 ## Upgrading from 1.0.x to 1.3.x
 
@@ -81,7 +81,7 @@ Use the `io.kestra.sdk.KestraClient` manually written that gather everything in 
 - Some return types changed, for example `searchExecutions` returns `PagedResultsApiLightExecution` and `killExecution` returns `Execution`.
 - The `additionalHeaders` and `additionalFormDatas` overloads were removed.
   - Flow inputs: pass a `Map<String, Object> inputs` to `createExecution`, `resumeExecution` or `replayExecutionWithInputs`. The `createExecution` and `replayExecutionWithInputs` overloads need 1.3.3 or 2.0.2 and later.
-  - Custom headers: set them on an `ApiClient` and build the API from it. That client does not carry the `KestraClient` auth, so add the `Authorization` header there too.
+  - Custom headers: set them on an `ApiClient` and build the API from it. Set auth on the same client with `setBearerToken(...)` or `setUsername(...)` and `setPassword(...)`.
 
 ```java
 // 1.0.x
@@ -94,6 +94,7 @@ kestraClient.executions().createExecution(tenant, namespace, flowId, null, true,
 ```java
 var apiClient = new ApiClient();
 apiClient.setBasePath("https://my-kestra-instance.org");
+apiClient.setBearerToken("your-api-token");
 apiClient.addDefaultHeader("X-Custom-Header", "value");
 var executions = new ExecutionsApi(apiClient);
 ```
