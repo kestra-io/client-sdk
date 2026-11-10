@@ -22,13 +22,79 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum Action {
   
-  READ("READ"),
+  VIEW("VIEW"),
+  
+  LIST("LIST"),
   
   CREATE("CREATE"),
   
   UPDATE("UPDATE"),
   
   DELETE("DELETE"),
+  
+  EXECUTE("EXECUTE"),
+  
+  RESTART("RESTART"),
+  
+  KILL("KILL"),
+  
+  REPLAY("REPLAY"),
+  
+  PAUSE("PAUSE"),
+  
+  RESUME("RESUME"),
+  
+  REVIEW("REVIEW"),
+  
+  UNQUEUE("UNQUEUE"),
+  
+  FORCE_RUN("FORCE_RUN"),
+  
+  FOLLOW("FOLLOW"),
+  
+  TEMPLATE("TEMPLATE"),
+  
+  CHANGE_LABELS("CHANGE_LABELS"),
+  
+  ACCESS_LOGS("ACCESS_LOGS"),
+  
+  ACCESS_OUTPUTS("ACCESS_OUTPUTS"),
+  
+  ACCESS_FILES("ACCESS_FILES"),
+  
+  EXPORT("EXPORT"),
+  
+  IMPORT("IMPORT"),
+  
+  DISABLE("DISABLE"),
+  
+  ENABLE("ENABLE"),
+  
+  VALIDATE("VALIDATE"),
+  
+  UNLOCK("UNLOCK"),
+  
+  LOCK("LOCK"),
+  
+  BACKFILL("BACKFILL"),
+  
+  PROMOTE("PROMOTE"),
+  
+  MANAGE_FILES("MANAGE_FILES"),
+  
+  MANAGE_MEMBERS("MANAGE_MEMBERS"),
+  
+  MANAGE_GROUP_MEMBERSHIP("MANAGE_GROUP_MEMBERSHIP"),
+  
+  USE("USE"),
+  
+  UPDATE_CONCURRENCY_LIMIT("UPDATE_CONCURRENCY_LIMIT"),
+  
+  IMPERSONATE("IMPERSONATE"),
+  
+  READ("READ"),
+  
+  UNKNOWN("UNKNOWN"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 

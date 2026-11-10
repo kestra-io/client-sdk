@@ -28,11 +28,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * IAMTenantAccessControllerApiUserPermission
  */
 @JsonPropertyOrder({
+  IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_RESOURCE,
   IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_PERMISSION,
   IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_ACTIONS
 })
 @JsonTypeName("IAMTenantAccessController.ApiUserPermission")
 public class IAMTenantAccessControllerApiUserPermission {
+  public static final String JSON_PROPERTY_RESOURCE = "resource";
+  @jakarta.annotation.Nullable  private Resource resource;
+
   public static final String JSON_PROPERTY_PERMISSION = "permission";
   @jakarta.annotation.Nullable  private Permission permission;
 
@@ -40,6 +44,30 @@ public class IAMTenantAccessControllerApiUserPermission {
   @jakarta.annotation.Nullable  private List<Action> actions = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserPermission() {
+  }
+
+  public IAMTenantAccessControllerApiUserPermission resource(@jakarta.annotation.Nullable Resource resource) {
+    
+    this.resource = resource;
+    return this;
+  }
+
+  /**
+   * Get resource
+   * @return resource
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Resource getResource() {
+    return resource;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResource(@jakarta.annotation.Nullable Resource resource) {
+    this.resource = resource;
   }
 
   public IAMTenantAccessControllerApiUserPermission permission(@jakarta.annotation.Nullable Permission permission) {
@@ -107,19 +135,21 @@ public class IAMTenantAccessControllerApiUserPermission {
       return false;
     }
     IAMTenantAccessControllerApiUserPermission iaMTenantAccessControllerApiUserPermission = (IAMTenantAccessControllerApiUserPermission) o;
-    return Objects.equals(this.permission, iaMTenantAccessControllerApiUserPermission.permission) &&
+    return Objects.equals(this.resource, iaMTenantAccessControllerApiUserPermission.resource) &&
+        Objects.equals(this.permission, iaMTenantAccessControllerApiUserPermission.permission) &&
         Objects.equals(this.actions, iaMTenantAccessControllerApiUserPermission.actions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(permission, actions);
+    return Objects.hash(resource, permission, actions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IAMTenantAccessControllerApiUserPermission {\n");
+    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
     sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
     sb.append("}");

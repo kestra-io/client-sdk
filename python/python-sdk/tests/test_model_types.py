@@ -5,6 +5,10 @@ from kestrapy.models.input_object import InputObject
 from kestrapy.models.flow import Flow
 from kestrapy.models.state_type import StateType
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
+from kestrapy.models.iam_tenant_access_controller_api_user_permission import IAMTenantAccessControllerApiUserPermission
+from kestrapy.models.resource import Resource
+from kestrapy.models.action import Action
+from kestrapy.models.case_event_type import CaseEventType
 
 
 def test_type_form_value_exists():
@@ -54,3 +58,16 @@ def test_state_type_pausing_value_exists():
 def test_daily_execution_counts_reads_pausing():
     counts = DailyExecutionStatisticsExecutionCounts.from_dict({"PAUSING": 3})
     assert counts.pausing == 3
+
+
+def test_user_permission_reads_every_action_the_server_sends():
+    permission = IAMTenantAccessControllerApiUserPermission.from_dict(
+        {"resource": "CASE", "actions": ["VIEW", "LIST", "REVIEW", "UPDATE_CONCURRENCY_LIMIT"]}
+    )
+    assert permission.resource == Resource.CASE
+    assert permission.actions[2] == Action.REVIEW
+
+
+def test_case_event_type_reads_the_approval_and_ticket_events():
+    for value in ["APPROVAL_DECIDED", "TICKET_LINKED", "TICKET_UNLINKED"]:
+        assert CaseEventType(value).value == value
