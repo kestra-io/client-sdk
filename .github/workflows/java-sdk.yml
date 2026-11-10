@@ -41,7 +41,7 @@ jobs:
       run:
         working-directory: ./java/java-sdk
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Compute Kestra version
         id: version
@@ -49,7 +49,7 @@ jobs:
 
       # Caches
       - name: Gradle cache
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ~/.gradle/caches
@@ -61,13 +61,13 @@ jobs:
 
       # JDK
       - name: Set up JDK
-        uses: actions/setup-java@v6
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: "temurin"
           java-version: 25
 
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v6
+        uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
 
       # Static doc check — runs the JDK single-file tool (no Kestra container
       # needed, so it fails fast). Guarantees the README usage snippet is
@@ -87,7 +87,7 @@ jobs:
         run: ./gradlew check
 
       - name: GCP - Auth with github service account
-        uses: "google-github-actions/auth@v3"
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -111,7 +111,7 @@ jobs:
           sh run-tests.sh $KESTRA_VERSION
 
       - name: Test - Publish Test Results
-        uses: dorny/test-reporter@v3
+        uses: dorny/test-reporter@d1b5dff021aa968b288b02285a8bf47471c5928a # v3.2.0
         if: inputs.skip-test != 'true'
         with:
           name: Java Tests Report (${{ steps.version.outputs.kestra_version }})
@@ -141,7 +141,7 @@ jobs:
       run:
         working-directory: ./java/java-sdk
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Resolve snapshot version from branch
         id: version
@@ -154,13 +154,13 @@ jobs:
           echo "version=$LINE.0-SNAPSHOT" >> $GITHUB_OUTPUT
 
       - name: Set up JDK
-        uses: actions/setup-java@v6
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: "temurin"
           java-version: 25
 
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v6
+        uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
 
       - name: Publish - Snapshot package to Maven Central
         env:
