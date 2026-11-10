@@ -38167,10 +38167,16 @@ components:
       properties:
         width:
           title: The width the app is rendered at.
-          pattern: ^\d+(\.\d+)?(px|rem|em|ch|vw|%)$
+          pattern: ^(AUTO|NARROW|WIDE|\d+(\.\d+)?(px|rem|em|ch|vw|%))$
           type: string
-          description: A CSS length, for example `800px`, `60rem` or `100%`. It is capped at the width of the browser window, so a narrow screen still gets the whole width. When left unset, the app grows with the window up to a width that keeps text readable.
-          x-pattern-message: must be a CSS length such as 800px, 60rem or 100%
+          description: |-
+            Either a preset that adapts to the screen, or a fixed CSS length.
+
+            - `AUTO`: the default, same as leaving the property unset. The app grows with the window up to a width that keeps it readable, with text in a reading column and data blocks across the whole app.
+            - `NARROW`: for form-only apps. The app stays at the width of the reading column on large screens and takes the whole width on small ones.
+            - `WIDE`: for data-dense apps such as tables, logs or grids. The app uses most of the window on large screens, without the cap of `AUTO`.
+            - A CSS length, for example `800px`, `60rem` or `100%`. It is capped at the width of the browser window, so a narrow screen still gets the whole width.
+          x-pattern-message: must be AUTO, NARROW, WIDE or a CSS length such as 800px, 60rem or 100%
     Approval.CommentRequired:
       type: string
       enum:
