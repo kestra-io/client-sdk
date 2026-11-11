@@ -786,8 +786,6 @@ func (o *Execution) UnmarshalJSON(data []byte) (err error) {
 		"flowRevision",
 		"state",
 		"originalId",
-		"deleted",
-		"metadata",
 	}
 
 	allProperties := make(map[string]interface{})

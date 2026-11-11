@@ -37660,11 +37660,9 @@ components:
           nullable: true
     Execution:
       required:
-      - deleted
       - flowId
       - flowRevision
       - id
-      - metadata
       - namespace
       - originalId
       - state
