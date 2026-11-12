@@ -14,7 +14,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.assets_in_out import AssetsInOut
 from kestrapy.models.state import State
 from kestrapy.models.task_run_attempt import TaskRunAttempt
 from typing import Optional, Set
@@ -29,13 +28,12 @@ class ApiTaskRun(BaseModel):
     parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
     value: Optional[StrictStr] = None
     attempts: Optional[List[TaskRunAttempt]] = None
-    asset_emits: Optional[List[AssetsInOut]] = Field(default=None, alias="assetEmits")
     state: State
     iteration: Optional[StrictInt] = None
     dynamic: Optional[StrictBool] = None
     force_execution: Optional[StrictBool] = Field(default=None, alias="forceExecution")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "taskId", "parentTaskRunId", "value", "attempts", "assetEmits", "state", "iteration", "dynamic", "forceExecution"]
+    __properties: ClassVar[List[str]] = ["id", "taskId", "parentTaskRunId", "value", "attempts", "state", "iteration", "dynamic", "forceExecution"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,13 +83,6 @@ class ApiTaskRun(BaseModel):
                 if _item_attempts:
                     _items.append(_item_attempts.to_dict())
             _dict['attempts'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in asset_emits (list)
-        _items = []
-        if self.asset_emits:
-            for _item_asset_emits in self.asset_emits:
-                if _item_asset_emits:
-                    _items.append(_item_asset_emits.to_dict())
-            _dict['assetEmits'] = _items
         # override the default output from pydantic by calling `to_dict()` of state
         if self.state:
             _dict['state'] = self.state.to_dict()
@@ -117,7 +108,6 @@ class ApiTaskRun(BaseModel):
             "parentTaskRunId": obj.get("parentTaskRunId"),
             "value": obj.get("value"),
             "attempts": [TaskRunAttempt.from_dict(_item) for _item in obj["attempts"]] if obj.get("attempts") is not None else None,
-            "assetEmits": [AssetsInOut.from_dict(_item) for _item in obj["assetEmits"]] if obj.get("assetEmits") is not None else None,
             "state": State.from_dict(obj["state"]) if obj.get("state") is not None else None,
             "iteration": obj.get("iteration"),
             "dynamic": obj.get("dynamic"),
