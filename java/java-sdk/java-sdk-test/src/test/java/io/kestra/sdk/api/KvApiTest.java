@@ -89,6 +89,23 @@ public class KvApiTest {
     }
 
     @Test
+    void setKeyValue_withTtlAndDescription() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "ttl_key", TENANT, "\"value\"", "PT1H", "a described key");
+
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, List.of(nsFilter(ns)));
+        assertThat(result.getResults())
+                .filteredOn(e -> "ttl_key".equals(e.getKey()))
+                .singleElement()
+                .satisfies(e -> {
+                    assertThat(e.getDescription()).isEqualTo("a described key");
+                    assertThat(e.getExpirationDate()).isNotNull();
+                });
+    }
+
+    @Test
     void keyValue_notFound() {
         assertThatThrownBy(() -> api().keyValue("nonexistent_ns_" + randomId(), "nonexistent", TENANT))
                 .isInstanceOf(ApiException.class);

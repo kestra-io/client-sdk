@@ -55,10 +55,27 @@ public class KvApi extends BaseApi {
             @jakarta.annotation.Nonnull String key,
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String body) throws ApiException {
+        setKeyValue(namespace, key, tenant, body, null, null);
+    }
+
+    public void setKeyValue(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String key,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String body,
+            @jakarta.annotation.Nullable String ttl,
+            @jakarta.annotation.Nullable String description) throws ApiException {
+        Map<String, String> headers = new HashMap<>();
+        if (ttl != null) {
+            headers.put("ttl", ttl);
+        }
+        if (description != null) {
+            headers.put("description", description);
+        }
         invoke("PUT",
                 tenantPath(tenant, "namespaces", namespace, "kv", key),
                 body, Collections.emptyList(), Collections.emptyList(),
-                null, TEXT_PLAIN, null);
+                null, TEXT_PLAIN, headers, null, null);
     }
 
     public KVControllerKvDetail keyValue(

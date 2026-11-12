@@ -238,5 +238,41 @@ func TestKVAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, fetched)
 		require.Equal(t, kestra_api_client.KVTYPE_STRING, fetched.GetType())
+
+		entry := findKvEntry(t, ctx, namespace, key)
+		_, hasExpiration := entry.GetExpirationDateOk()
+		require.True(t, hasExpiration)
 	})
+
+	t.Run("setKeyValueWithOptionsTest", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		key := "test_set_key_value_options_" + randomId()
+
+		err := KestraTestClient().Kv().SetKeyValueWithOptions(ctx, namespace, key, MAIN_TENANT, "\"value\"", kestra_api_client.PtrString("PT1H"), kestra_api_client.PtrString("a described key"))
+		require.NoError(t, err)
+
+		entry := findKvEntry(t, ctx, namespace, key)
+		require.Equal(t, "a described key", entry.GetDescription())
+		_, hasExpiration := entry.GetExpirationDateOk()
+		require.True(t, hasExpiration)
+	})
+}
+
+func findKvEntry(t *testing.T, ctx context.Context, namespace, key string) kestra_api_client.KVEntry {
+	t.Helper()
+	nsFilter := kestra_api_client.SearchFilter{
+		Field:     kestra_api_client.FilterNamespace,
+		Operation: kestra_api_client.OpEquals,
+		Value:     namespace,
+	}
+	result, err := KestraTestClient().Kv().ListAllKeys(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(100), nil, []kestra_api_client.SearchFilter{nsFilter})
+	require.NoError(t, err)
+	for _, entry := range result.GetResults() {
+		if entry.GetKey() == key {
+			return entry
+		}
+	}
+	require.Failf(t, "key not listed", "%s/%s", namespace, key)
+	return kestra_api_client.KVEntry{}
 }
