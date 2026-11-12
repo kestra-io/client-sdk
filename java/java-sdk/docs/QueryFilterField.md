@@ -61,6 +61,8 @@
 
 * `TASK_RUN_ID` (value: `"TASK_RUN_ID"`)
 
+* `ATTEMPT_NUMBER` (value: `"ATTEMPT_NUMBER"`)
+
 * `CHILD_FILTER` (value: `"CHILD_FILTER"`)
 
 * `WORKER_ID` (value: `"WORKER_ID"`)
