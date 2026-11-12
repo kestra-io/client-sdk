@@ -16,16 +16,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-/**
- * Kestra 2.0 reads only {@code filters[...]} on {@code GET /logs/{executionId}} and
- * {@code /download}; the old {@code minLevel}/{@code taskRunId}/{@code taskId}/{@code attempt}
- * query params are ignored, so every log came back regardless of what was asked for.
- * This test runs without a live server: it captures what {@link LogsApi} passes to
- * {@code invoke(...)} and asserts the filters are sent and nothing else.
- */
+// Kestra 2.0 ignores the legacy params on these endpoints, so only filters[...] may be sent.
 public class LogsApiExecutionFiltersTest {
 
-    /** Captures the request {@link LogsApi} builds instead of making an HTTP call. */
     static class RequestCapturingLogsApi extends LogsApi {
         String path;
         String accept;
@@ -56,21 +49,21 @@ public class LogsApiExecutionFiltersTest {
 
     @Test
     void listLogsFromExecution_sendsFilters() throws ApiException {
-        RequestCapturingLogsApi api = new RequestCapturingLogsApi();
+        var api = new RequestCapturingLogsApi();
 
         api.listLogsFromExecution(EXECUTION_ID, TENANT, FILTERS);
 
-        assertThat(api.path).endsWith("/logs/" + EXECUTION_ID);
+        assertThat(api.path).endsWith("/logs/%s".formatted(EXECUTION_ID));
         assertSentOnlyFilters(api);
     }
 
     @Test
     void downloadLogsFromExecution_sendsFilters() throws ApiException {
-        RequestCapturingLogsApi api = new RequestCapturingLogsApi();
+        var api = new RequestCapturingLogsApi();
 
         api.downloadLogsFromExecution(EXECUTION_ID, TENANT, FILTERS);
 
-        assertThat(api.path).endsWith("/logs/" + EXECUTION_ID + "/download");
+        assertThat(api.path).endsWith("/logs/%s/download".formatted(EXECUTION_ID));
         assertThat(api.accept).isEqualTo("text/plain");
         assertSentOnlyFilters(api);
     }
@@ -78,12 +71,12 @@ public class LogsApiExecutionFiltersTest {
     @Test
     void listAndDownloadLogsFromExecution_withoutFilters_sendNoParams() throws ApiException {
         for (List<QueryFilter> filters : Arrays.asList(null, List.<QueryFilter>of())) {
-            RequestCapturingLogsApi list = new RequestCapturingLogsApi();
+            var list = new RequestCapturingLogsApi();
             list.listLogsFromExecution(EXECUTION_ID, TENANT, filters);
             assertThat(list.queryParams).isEmpty();
             assertThat(list.collectionQueryParams).isEmpty();
 
-            RequestCapturingLogsApi download = new RequestCapturingLogsApi();
+            var download = new RequestCapturingLogsApi();
             download.downloadLogsFromExecution(EXECUTION_ID, TENANT, filters);
             assertThat(download.queryParams).isEmpty();
             assertThat(download.collectionQueryParams).isEmpty();

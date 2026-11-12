@@ -69,6 +69,7 @@ Use the `io.kestra.sdk.KestraClient` manually written that gather everything in 
 - Single-execution actions (kill, resume, restart, replay, ...) call the 2.0 `/actions/` paths, so the 2.0 SDK does not work against Kestra 1.3.
 - Removed: `DashboardsApi.exportChartToCsv`, `DashboardsApi.exportDashboardChartDataToCSV`, `NamespacesApi.inheritedPluginDefaults`, `NamespacesApi.exportPluginDefaults`, `NamespacesApi.importPluginDefaults`.
 - Search methods dropped `q` and `tags` in favour of `filters` (`List<QueryFilter>`): `searchApps` (also `namespace` and `flowId`), `searchBlueprints`, `searchInternalBlueprints`, `searchGroups`, `searchRoles`, `searchNamespaces`. `searchTriggers` gained a trailing `dateFilter` parameter.
+- `listLogsFromExecution` and `downloadLogsFromExecution` take `filters` (`List<QueryFilter>`) instead of `minLevel`, `taskRunId`, `taskId` and `attempt`, which Kestra 2.0 ignores on these endpoints.
 - `searchFlowsBySourceCode` returns `PagedResultsSourceSearchResult` and takes `caseSensitive`, `wholeWord`, `regex` and `scope`.
 - From 1.3.2 or earlier: trigger, SLA and `FlowForExecution` labels are `List<Label>`, and `SLALabels` and `TheLabelsToPassToTheExecutionCreated` were removed. 1.3.3 already binds them this way.
 - `Permission` follows the Kestra 2.0 IAM model: `SETTING` became `SYSTEM_SETTINGS`/`TENANT_SETTINGS`, `TEST` became `TESTSUITE`, `AI_COPILOT` became `COPILOT`, `APPEXECUTION` became `APP_EXECUTION`, and `IMPERSONATE` and `GROUP_MEMBERSHIP` were removed.
