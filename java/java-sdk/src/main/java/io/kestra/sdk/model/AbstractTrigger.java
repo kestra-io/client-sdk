@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.StateType;
-import io.kestra.sdk.model.WorkerSelector;
+import io.kestra.sdk.model.FlowWorkerSelector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import io.kestra.sdk.model.Label;
@@ -70,7 +70,7 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  private Boolean disabled = false;
 
   public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
-  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
+  @jakarta.annotation.Nullable  private FlowWorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
   @jakarta.annotation.Nullable  private Level logLevel;
@@ -240,7 +240,7 @@ public class AbstractTrigger {
     this.disabled = disabled;
   }
 
-  public AbstractTrigger workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+  public AbstractTrigger workerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
     
     this.workerSelector = workerSelector;
     return this;
@@ -253,14 +253,14 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerSelector getWorkerSelector() {
+  public FlowWorkerSelector getWorkerSelector() {
     return workerSelector;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+  public void setWorkerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
     this.workerSelector = workerSelector;
   }
 

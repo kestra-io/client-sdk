@@ -30,7 +30,7 @@ type Task struct {
 	Timeout *string `json:"timeout,omitempty"`
 	Disabled *bool `json:"disabled,omitempty"`
 	// Routing requirements (tags + fallback) for this task.
-	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	WorkerSelector *FlowWorkerSelector `json:"workerSelector,omitempty"`
 	// Identifiers of `enforcement: REFERENCE` governance policies to attach to this task and everything nested under it (Enterprise Edition only).
 	PolicyRefs []string `json:"policyRefs,omitempty"`
 	LogLevel *Level `json:"logLevel,omitempty"`
@@ -308,9 +308,9 @@ func (o *Task) SetDisabled(v bool) {
 }
 
 // GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
-func (o *Task) GetWorkerSelector() WorkerSelector {
+func (o *Task) GetWorkerSelector() FlowWorkerSelector {
 	if o == nil || IsNil(o.WorkerSelector) {
-		var ret WorkerSelector
+		var ret FlowWorkerSelector
 		return ret
 	}
 	return *o.WorkerSelector
@@ -318,7 +318,7 @@ func (o *Task) GetWorkerSelector() WorkerSelector {
 
 // GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+func (o *Task) GetWorkerSelectorOk() (*FlowWorkerSelector, bool) {
 	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *Task) HasWorkerSelector() bool {
 	return false
 }
 
-// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
-func (o *Task) SetWorkerSelector(v WorkerSelector) {
+// SetWorkerSelector gets a reference to the given FlowWorkerSelector and assigns it to the WorkerSelector field.
+func (o *Task) SetWorkerSelector(v FlowWorkerSelector) {
 	o.WorkerSelector = &v
 }
 

@@ -18,7 +18,7 @@
 |**inputs** | [**List&lt;InputObject&gt;**](InputObject.md) |  |  [optional] |
 |**outputs** | [**List&lt;Output&gt;**](Output.md) |  |  [optional] |
 |**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
+|**workerSelector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) |  |  [optional] |
 |**concurrency** | [**Concurrency**](Concurrency.md) |  |  [optional] |
 |**sla** | [**List&lt;SLA&gt;**](SLA.md) |  |  [optional] |
 |**source** | **String** |  |  [optional] |

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **when** | **str** | A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (&#x60;true&#x60;, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions. | 
 **disabled** | **bool** |  | [optional] [default to False]
-**worker_selector** | [**WorkerSelector**](WorkerSelector.md) | Routing requirements (tags + fallback) for this trigger. | [optional] 
+**worker_selector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) | Routing requirements (tags + fallback) for this trigger. | [optional] 
 **policy_refs** | **List[str]** | Identifiers of &#x60;enforcement: REFERENCE&#x60; governance policies to attach to this trigger and everything nested under it (Enterprise Edition; ignored in the open-source edition). | [optional] 
 **log_level** | [**Level**](Level.md) |  | [optional] 
 **labels** | [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 

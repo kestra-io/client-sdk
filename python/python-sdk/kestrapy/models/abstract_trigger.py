@@ -19,7 +19,7 @@ from kestrapy.models.assets_declaration import AssetsDeclaration
 from kestrapy.models.level import Level
 from kestrapy.models.state_type import StateType
 from kestrapy.models.the_labels_to_pass_to_the_execution_created import TheLabelsToPassToTheExecutionCreated
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -36,7 +36,7 @@ class AbstractTrigger(BaseModel):
     # every real trigger payload (dropping plugin props like `cron` downstream).
     when: Optional[StrictStr] = Field(default=None, description="A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.")
     disabled: Optional[StrictBool] = False
-    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this trigger.", alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this trigger.", alias="workerSelector")
     policy_refs: Optional[List[StrictStr]] = Field(default=None, description="Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition; ignored in the open-source edition).", alias="policyRefs")
     log_level: Optional[Level] = Field(default=None, alias="logLevel")
     labels: Optional[TheLabelsToPassToTheExecutionCreated] = None
@@ -135,7 +135,7 @@ class AbstractTrigger(BaseModel):
             "description": obj.get("description"),
             "when": obj.get("when"),
             "disabled": obj.get("disabled") if obj.get("disabled") is not None else False,
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "policyRefs": obj.get("policyRefs"),
             "logLevel": obj.get("logLevel"),
             "labels": TheLabelsToPassToTheExecutionCreated.from_dict(obj["labels"]) if obj.get("labels") is not None else None,

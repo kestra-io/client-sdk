@@ -19,7 +19,7 @@ from kestrapy.models.assets_declaration import AssetsDeclaration
 from kestrapy.models.cache import Cache
 from kestrapy.models.level import Level
 from kestrapy.models.property_duration import PropertyDuration
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,7 +34,7 @@ class Task(BaseModel):
     retry: Optional[Dict[str, Any]] = Field(default=None, description="Retry policy applied when the task fails.")
     timeout: Optional[PropertyDuration] = None
     disabled: Optional[StrictBool] = None
-    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this task.", alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this task.", alias="workerSelector")
     policy_refs: Optional[List[StrictStr]] = Field(default=None, description="Identifiers of `enforcement: REFERENCE` governance policies to attach to this task and everything nested under it (Enterprise Edition; ignored in the open-source edition).", alias="policyRefs")
     log_level: Optional[Level] = Field(default=None, alias="logLevel")
     allow_failure: Optional[StrictBool] = Field(default=None, alias="allowFailure")
@@ -142,7 +142,7 @@ class Task(BaseModel):
             "retry": obj.get("retry"),
             "timeout": PropertyDuration.from_dict(obj["timeout"]) if obj.get("timeout") is not None else None,
             "disabled": obj.get("disabled"),
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "policyRefs": obj.get("policyRefs"),
             "logLevel": obj.get("logLevel"),
             "allowFailure": obj.get("allowFailure"),

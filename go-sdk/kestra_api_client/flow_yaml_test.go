@@ -499,3 +499,37 @@ func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
 		}
 	}
 }
+
+// Pins that the emitted workerSelector.tags stays a string: a literal list must not be
+// re-read as a YAML sequence.
+func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
+	flow := Flow{
+		Id:        "p",
+		Namespace: "ns",
+		WorkerSelector: &FlowWorkerSelector{
+			Tags:  PtrString(`["gpu"]`),
+			Match: WORKERSELECTORMATCH_ANY.Ptr(),
+		},
+		Tasks: []Task{{
+			Id:                   "t",
+			Type:                 "io.kestra.plugin.core.log.Log",
+			AdditionalProperties: map[string]interface{}{"message": "hi"},
+		}},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v\n%s", err, out)
+	}
+	flowSelector := parsed["workerSelector"].(map[string]interface{})
+	if got := flowSelector["tags"]; got != `["gpu"]` {
+		t.Errorf("flow tags = %#v (%T), want string %q\n%s", got, got, `["gpu"]`, out)
+	}
+	if got := flowSelector["match"]; got != "ANY" {
+		t.Errorf("flow match = %#v, want ANY", got)
+	}
+}

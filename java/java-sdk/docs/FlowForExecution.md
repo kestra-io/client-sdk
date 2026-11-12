@@ -17,7 +17,7 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**MapObjectObject**](MapObjectObject.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
+|**workerSelector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**tasks** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  |
 |**errors** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  [optional] |

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
-**worker_selector** | [**WorkerSelector**](WorkerSelector.md) |  | [optional] 
+**worker_selector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) |  | [optional] 
 **concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **quotas** | [**List[Quota]**](Quota.md) |  | [optional] 
 **sla** | [**List[SLA]**](SLA.md) |  | [optional] 

@@ -27,7 +27,7 @@ type AbstractTrigger struct {
 	When *string `json:"when,omitempty"`
 	Disabled *bool `json:"disabled,omitempty"`
 	// Routing requirements (tags + fallback) for this trigger.
-	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	WorkerSelector *FlowWorkerSelector `json:"workerSelector,omitempty"`
 	// Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition only).
 	PolicyRefs []string `json:"policyRefs,omitempty"`
 	LogLevel *Level `json:"logLevel,omitempty"`
@@ -232,9 +232,9 @@ func (o *AbstractTrigger) SetDisabled(v bool) {
 }
 
 // GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
-func (o *AbstractTrigger) GetWorkerSelector() WorkerSelector {
+func (o *AbstractTrigger) GetWorkerSelector() FlowWorkerSelector {
 	if o == nil || IsNil(o.WorkerSelector) {
-		var ret WorkerSelector
+		var ret FlowWorkerSelector
 		return ret
 	}
 	return *o.WorkerSelector
@@ -242,7 +242,7 @@ func (o *AbstractTrigger) GetWorkerSelector() WorkerSelector {
 
 // GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractTrigger) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+func (o *AbstractTrigger) GetWorkerSelectorOk() (*FlowWorkerSelector, bool) {
 	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
@@ -258,8 +258,8 @@ func (o *AbstractTrigger) HasWorkerSelector() bool {
 	return false
 }
 
-// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
-func (o *AbstractTrigger) SetWorkerSelector(v WorkerSelector) {
+// SetWorkerSelector gets a reference to the given FlowWorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractTrigger) SetWorkerSelector(v FlowWorkerSelector) {
 	o.WorkerSelector = &v
 }
 

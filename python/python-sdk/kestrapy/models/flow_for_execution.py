@@ -21,7 +21,7 @@ from kestrapy.models.input_object import InputObject
 from kestrapy.models.map_object_object import MapObjectObject
 from kestrapy.models.output import Output
 from kestrapy.models.task_for_execution import TaskForExecution
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,7 +40,7 @@ class FlowForExecution(BaseModel):
     draft: StrictBool = Field(description="Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.")
     labels: Optional[MapObjectObject] = Field(default=None, description="Labels as a list of Label (key/value pairs) or as a map of string to string.")
     variables: Optional[Dict[str, Any]] = None
-    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
     deleted: StrictBool
     tasks: Annotated[List[TaskForExecution], Field(min_length=1)]
     errors: Optional[List[TaskForExecution]] = None
@@ -188,7 +188,7 @@ class FlowForExecution(BaseModel):
             "draft": obj.get("draft"),
             "labels": MapObjectObject.from_dict(obj["labels"]) if obj.get("labels") is not None else None,
             "variables": obj.get("variables"),
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "deleted": obj.get("deleted"),
             "tasks": [TaskForExecution.from_dict(_item) for _item in obj["tasks"]] if obj.get("tasks") is not None else None,
             "errors": [TaskForExecution.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,

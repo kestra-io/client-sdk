@@ -29,7 +29,7 @@ type FlowInterface struct {
 	Inputs []InputObject `json:"inputs,omitempty"`
 	Outputs []Output `json:"outputs,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
-	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	WorkerSelector *FlowWorkerSelector `json:"workerSelector,omitempty"`
 	Concurrency *Concurrency `json:"concurrency,omitempty"`
 	Quotas []Quota `json:"quotas,omitempty"`
 	Sla []SLA `json:"sla,omitempty"`
@@ -441,9 +441,9 @@ func (o *FlowInterface) SetVariables(v map[string]interface{}) {
 }
 
 // GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
-func (o *FlowInterface) GetWorkerSelector() WorkerSelector {
+func (o *FlowInterface) GetWorkerSelector() FlowWorkerSelector {
 	if o == nil || IsNil(o.WorkerSelector) {
-		var ret WorkerSelector
+		var ret FlowWorkerSelector
 		return ret
 	}
 	return *o.WorkerSelector
@@ -451,7 +451,7 @@ func (o *FlowInterface) GetWorkerSelector() WorkerSelector {
 
 // GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowInterface) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+func (o *FlowInterface) GetWorkerSelectorOk() (*FlowWorkerSelector, bool) {
 	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
@@ -467,8 +467,8 @@ func (o *FlowInterface) HasWorkerSelector() bool {
 	return false
 }
 
-// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
-func (o *FlowInterface) SetWorkerSelector(v WorkerSelector) {
+// SetWorkerSelector gets a reference to the given FlowWorkerSelector and assigns it to the WorkerSelector field.
+func (o *FlowInterface) SetWorkerSelector(v FlowWorkerSelector) {
 	o.WorkerSelector = &v
 }
 

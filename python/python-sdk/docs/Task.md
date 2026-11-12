@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **retry** | **object** | Retry policy applied when the task fails. | [optional] 
 **timeout** | [**PropertyDuration**](PropertyDuration.md) |  | [optional] 
 **disabled** | **bool** |  | [optional] 
-**worker_selector** | [**WorkerSelector**](WorkerSelector.md) | Routing requirements (tags + fallback) for this task. | [optional] 
+**worker_selector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) | Routing requirements (tags + fallback) for this task. | [optional] 
 **policy_refs** | **List[str]** | Identifiers of &#x60;enforcement: REFERENCE&#x60; governance policies to attach to this task and everything nested under it (Enterprise Edition; ignored in the open-source edition). | [optional] 
 **log_level** | [**Level**](Level.md) |  | [optional] 
 **allow_failure** | **bool** |  | [optional] 
