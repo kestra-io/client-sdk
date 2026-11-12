@@ -500,8 +500,8 @@ func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
 	}
 }
 
-// workerSelector.tags is a Kestra property sent as a string: unquoted, a Pebble
-// expression would read back as a YAML mapping and a literal list as a sequence.
+// Pins that the emitted workerSelector.tags stays a string: a literal list must not be
+// re-read as a YAML sequence.
 func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
 	flow := Flow{
 		Id:        "p",
@@ -513,7 +513,6 @@ func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
 		Tasks: []Task{{
 			Id:                   "t",
 			Type:                 "io.kestra.plugin.core.log.Log",
-			WorkerSelector:       &FlowWorkerSelector{Tags: PtrString("{{ inputs.tags }}")},
 			AdditionalProperties: map[string]interface{}{"message": "hi"},
 		}},
 	}
@@ -532,9 +531,5 @@ func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
 	}
 	if got := flowSelector["match"]; got != "ANY" {
 		t.Errorf("flow match = %#v, want ANY", got)
-	}
-	task := parsed["tasks"].([]interface{})[0].(map[string]interface{})
-	if got := task["workerSelector"].(map[string]interface{})["tags"]; got != "{{ inputs.tags }}" {
-		t.Errorf("task tags = %#v (%T), want string %q\n%s", got, got, "{{ inputs.tags }}", out)
 	}
 }

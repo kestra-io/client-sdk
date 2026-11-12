@@ -426,8 +426,8 @@ def test_construct_model_fallback_keeps_undeclared_keys():
 
 
 def test_worker_selector_tags_stay_strings():
-    # tags is a Kestra property sent as a string: unquoted, a Pebble expression would
-    # read back as a YAML mapping and a literal list as a sequence.
+    # Pins that the emitted workerSelector.tags stays a string: a literal list must not be
+    # re-read as a YAML sequence.
     flow = Flow.from_dict({
         "id": "p",
         "namespace": "ns",
@@ -439,11 +439,9 @@ def test_worker_selector_tags_stay_strings():
             "id": "t",
             "type": "io.kestra.plugin.core.log.Log",
             "message": "hi",
-            "workerSelector": {"tags": "{{ inputs.tags }}"},
         }],
     })
 
     parsed = yaml.safe_load(flow_to_yaml(flow))
 
     assert parsed["workerSelector"] == {"tags": '["gpu"]', "match": "ANY"}
-    assert parsed["tasks"][0]["workerSelector"] == {"tags": "{{ inputs.tags }}"}

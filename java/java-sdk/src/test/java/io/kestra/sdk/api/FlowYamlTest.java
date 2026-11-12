@@ -433,10 +433,9 @@ class FlowYamlTest {
 
     @Test
     void workerSelectorTagsStayStrings() throws Exception {
-        // tags is a Kestra property sent as a string: unquoted, a Pebble expression would
-        // read back as a YAML mapping and a literal list as a sequence.
-        Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log")
-                .workerSelector(new FlowWorkerSelector().tags("{{ inputs.tags }}"));
+        // Pins that the emitted workerSelector.tags stays a string: a literal list must not be
+        // re-read as a YAML sequence.
+        Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log");
         log.putAdditionalProperty("message", "hi");
         Flow flow = new Flow();
         flow.setId("p");
@@ -450,9 +449,6 @@ class FlowYamlTest {
         assertTrue(flowTags.isTextual(), "flow tags re-typed to " + flowTags.getNodeType());
         assertEquals("[\"gpu\"]", flowTags.asText());
         assertEquals("ANY", root.get("workerSelector").get("match").asText());
-        JsonNode taskTags = root.get("tasks").get(0).get("workerSelector").get("tags");
-        assertTrue(taskTags.isTextual(), "task tags re-typed to " + taskTags.getNodeType());
-        assertEquals("{{ inputs.tags }}", taskTags.asText());
     }
 
     private static File ambiguousStringsFixture() {

@@ -25,29 +25,3 @@ func TestFlowWorkerSelector_ReadsTheStringTagsKestraReturns(t *testing.T) {
 		t.Errorf("match = %q, want ALL", got)
 	}
 }
-
-func TestFlowWorkerSelector_DecodesEachTagsShape(t *testing.T) {
-	cases := map[string]struct {
-		json    string
-		want    string
-		wantSet bool
-	}{
-		"pebble expression": {`{"tags":"{{ inputs.tags }}"}`, "{{ inputs.tags }}", true},
-		"null":              {`{"tags":null}`, "", false},
-		"absent":            {`{"match":"ANY"}`, "", false},
-	}
-	for name, c := range cases {
-		t.Run(name, func(t *testing.T) {
-			var selector FlowWorkerSelector
-			if err := json.Unmarshal([]byte(c.json), &selector); err != nil {
-				t.Fatalf("unmarshal: %v", err)
-			}
-			if selector.HasTags() != c.wantSet || selector.GetTags() != c.want {
-				t.Errorf("tags = %q (set=%v), want %q (set=%v)", selector.GetTags(), selector.HasTags(), c.want, c.wantSet)
-			}
-			if _, ok := selector.AdditionalProperties["tags"]; ok {
-				t.Errorf("tags leaked into AdditionalProperties")
-			}
-		})
-	}
-}

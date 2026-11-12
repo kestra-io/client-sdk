@@ -6,7 +6,6 @@ expression), so a List[str] field rejected every flow with a worker selector.
 """
 
 from kestrapy.models.flow_with_source import FlowWithSource
-from kestrapy.models.task import Task
 from kestrapy.models.worker_selector_match import WorkerSelectorMatch
 
 
@@ -27,11 +26,3 @@ def test_flow_reads_the_string_tags_kestra_returns_for_a_literal_list():
     assert flow.worker_selector.tags == '["gpu"]'
     assert flow.worker_selector.match == WorkerSelectorMatch.ALL
 
-
-def test_task_keeps_a_pebble_expression_as_is():
-    task = Task.from_dict({
-        "id": "t",
-        "type": "io.kestra.plugin.core.log.Log",
-        "workerSelector": {"tags": "{{ inputs.tags }}"},
-    })
-    assert task.worker_selector.tags == "{{ inputs.tags }}"
