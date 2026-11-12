@@ -8316,6 +8316,12 @@ paths:
               type: string
         required: true
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewApp 200 response
           content:
@@ -8373,6 +8379,12 @@ paths:
                 type: string
                 format: binary
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewDispatchApp 200 response
           content:
@@ -34940,6 +34952,8 @@ components:
           type: string
         kind:
           $ref: '#/components/schemas/TriggerType'
+        blockedBy:
+          $ref: '#/components/schemas/Blocker'
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
@@ -35839,6 +35853,26 @@ components:
       enum:
       - USER
       - GROUP
+    Blocker:
+      title: What blocks the trigger's flow from running.
+      type: object
+      properties:
+        reason:
+          $ref: '#/components/schemas/Blocker.Reason'
+        ids:
+          title: The ids of what blocks the flow, such as the rejecting policies when the reason is POLICY.
+          type: array
+          items:
+            type: string
+        message:
+          title: The message reported to the user.
+          type: string
+    Blocker.Reason:
+      type: string
+      enum:
+      - UNKNOWN
+      - POLICY
+      - POLICY_CHECK_FAILED
     Blueprint:
       required:
       - deleted
