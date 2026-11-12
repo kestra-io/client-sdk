@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Instance-owner-only are not tenant-scoped.
-  version: 2.0.8
+  version: 2.0.10
 tags:
 - name: Flows
   description: Flows api
@@ -8316,6 +8316,12 @@ paths:
               type: string
         required: true
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewApp 200 response
           content:
@@ -8373,6 +8379,12 @@ paths:
                 type: string
                 format: binary
       responses:
+        '422':
+          description: Invalid app source, the body is an error layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponse'
         '200':
           description: previewDispatchApp 200 response
           content:
@@ -25247,6 +25259,55 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{id}/stored-configuration:
+    get:
+      tags:
+      - Namespaces
+      summary: Get the stored storage and secrets manager settings of a namespace
+      description: Lists each configured key with a marker in place of its value, so an editor can show what is set without reading a credential. Sending the marker back on update keeps that value.
+      operationId: storedConfiguration
+      parameters:
+      - name: id
+        in: path
+        description: The namespace id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: storedConfiguration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamespaceController.ApiStoredConfiguration'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials:
     get:
       tags:
@@ -26471,6 +26532,18 @@ paths:
         required: true
         schema:
           type: string
+      - name: ttl
+        in: header
+        description: The time-to-live of the key, as an ISO-8601 duration (e.g. PT1H)
+        schema:
+          type: string
+          nullable: true
+      - name: description
+        in: header
+        description: The description of the key
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -34879,6 +34952,8 @@ components:
           type: string
         kind:
           $ref: '#/components/schemas/TriggerType'
+        blockedBy:
+          $ref: '#/components/schemas/Blocker'
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
@@ -35190,9 +35265,9 @@ components:
         lessThanOrEqualTo:
           $ref: '#/components/schemas/Property_Double_'
         in:
-          $ref: '#/components/schemas/Property_List_String__'
+          $ref: '#/components/schemas/Property_List_Object__'
         notIn:
-          $ref: '#/components/schemas/Property_List_String__'
+          $ref: '#/components/schemas/Property_List_Object__'
         isNull:
           $ref: '#/components/schemas/Property_Boolean_'
         isNotNull:
@@ -35778,6 +35853,26 @@ components:
       enum:
       - USER
       - GROUP
+    Blocker:
+      title: What blocks the trigger's flow from running.
+      type: object
+      properties:
+        reason:
+          $ref: '#/components/schemas/Blocker.Reason'
+        ids:
+          title: The ids of what blocks the flow, such as the rejecting policies when the reason is POLICY.
+          type: array
+          items:
+            type: string
+        message:
+          title: The message reported to the user.
+          type: string
+    Blocker.Reason:
+      type: string
+      enum:
+      - UNKNOWN
+      - POLICY
+      - POLICY_CHECK_FAILED
     Blueprint:
       required:
       - deleted
@@ -39267,6 +39362,7 @@ components:
       - JSON
     KillSwitch:
       required:
+      - enabled
       - evaluationType
       - name
       - startDate
@@ -39944,6 +40040,17 @@ components:
       properties:
         namespace:
           type: string
+    NamespaceController.ApiStoredConfiguration:
+      type: object
+      properties:
+        storageConfiguration:
+          type: object
+          additionalProperties:
+            type: object
+        secretConfiguration:
+          type: object
+          additionalProperties:
+            type: object
     NamespaceFileRevision:
       type: object
       properties:
@@ -41540,7 +41647,7 @@ components:
       oneOf:
       - type: object
       - type: string
-    Property_List_String__:
+    Property_List_Object__:
       type: object
       properties:
         expression:
@@ -41548,7 +41655,7 @@ components:
         value:
           type: array
           items:
-            type: string
+            type: object
       oneOf:
       - type: object
       - type: string
