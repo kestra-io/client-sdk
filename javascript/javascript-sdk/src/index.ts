@@ -156,7 +156,7 @@ export const featureToSlugMap: Record<string, string> = {
     "auths": "/auth/authentication",
     "banners": "/instance/announcements",
     "cluster": "/instance/maintenance-mode",
-    "instance": "",
+    "instance": "/instance",
     "mcp": "",
     "services": "",
     "policies": "/governance",
