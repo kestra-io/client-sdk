@@ -285,6 +285,7 @@ from kestrapy.models.flow_usage import FlowUsage
 from kestrapy.models.flow_usage_task_usage import FlowUsageTaskUsage
 from kestrapy.models.flow_usage_trigger_usage import FlowUsageTriggerUsage
 from kestrapy.models.flow_with_source import FlowWithSource
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from kestrapy.models.follow_log_event import FollowLogEvent
 from kestrapy.models.forward_support_ticket_request import ForwardSupportTicketRequest
 from kestrapy.models.gate_outcome import GateOutcome

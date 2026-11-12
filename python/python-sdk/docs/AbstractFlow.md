@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **draft** | **bool** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. | 
 **labels** | [**List[Label]**](Label.md) |  | [optional] 
 **variables** | **object** |  | [optional] 
-**worker_selector** | [**WorkerSelector**](WorkerSelector.md) | Routing requirements (tags + fallback) for this flow. | [optional] 
+**worker_selector** | [**FlowWorkerSelector**](FlowWorkerSelector.md) | Routing requirements (tags + fallback) for this flow. | [optional] 
 **deleted** | **bool** |  | 
 
 ## Example

@@ -21,7 +21,7 @@ import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.SLA;
-import io.kestra.sdk.model.WorkerSelector;
+import io.kestra.sdk.model.FlowWorkerSelector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -88,7 +88,7 @@ public class FlowInterface {
   @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
-  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
+  @jakarta.annotation.Nullable  private FlowWorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
   @jakarta.annotation.Nullable  private Concurrency concurrency;
@@ -404,7 +404,7 @@ public class FlowInterface {
     this.variables = variables;
   }
 
-  public FlowInterface workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+  public FlowInterface workerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
     
     this.workerSelector = workerSelector;
     return this;
@@ -417,14 +417,14 @@ public class FlowInterface {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerSelector getWorkerSelector() {
+  public FlowWorkerSelector getWorkerSelector() {
     return workerSelector;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+  public void setWorkerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
     this.workerSelector = workerSelector;
   }
 

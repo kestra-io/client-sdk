@@ -20,7 +20,7 @@ from kestrapy.models.label import Label
 from kestrapy.models.output import Output
 from kestrapy.models.quota import Quota
 from kestrapy.models.sla import SLA
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,7 +40,7 @@ class FlowInterface(BaseModel):
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = None
     variables: Optional[Dict[str, Dict[str, Any]]] = None
-    worker_selector: Optional[WorkerSelector] = Field(default=None, alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, alias="workerSelector")
     concurrency: Optional[Concurrency] = None
     quotas: Optional[List[Quota]] = None
     sla: Optional[List[SLA]] = None
@@ -159,7 +159,7 @@ class FlowInterface(BaseModel):
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
             "variables": obj.get("variables"),
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "concurrency": Concurrency.from_dict(obj["concurrency"]) if obj.get("concurrency") is not None else None,
             "quotas": [Quota.from_dict(_item) for _item in obj["quotas"]] if obj.get("quotas") is not None else None,
             "sla": [SLA.from_dict(_item) for _item in obj["sla"]] if obj.get("sla") is not None else None,
