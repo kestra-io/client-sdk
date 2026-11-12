@@ -27,7 +27,9 @@ public class KillSwitchesApiTest {
         return new KillSwitch()
                 .name(name)
                 .startDate(LocalDateTime.of(2999, 1, 1, 0, 0))
-                .evaluationType(EvaluationType.KILL);
+                .evaluationType(EvaluationType.KILL)
+                // Kestra requires enabled (422 when null); false keeps the switch inert for other tests.
+                .enabled(false);
     }
 
     static void deleteQuietly(String id) {
