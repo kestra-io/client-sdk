@@ -27,7 +27,8 @@ public class KillSwitchesApiTest {
         return new KillSwitch()
                 .name(name)
                 .startDate(LocalDateTime.of(2999, 1, 1, 0, 0))
-                .evaluationType(EvaluationType.KILL);
+                .evaluationType(EvaluationType.KILL)
+                .enabled(true);
     }
 
     static void deleteQuietly(String id) {

@@ -231,7 +231,7 @@ def test_kill_switch_create_search_delete_roundtrip(client):
     ks_name = "ks-" + random_id()[:8]
     with _tolerate_gating("create_kill_switch"):
         created = client.kill_switches.create_kill_switch(
-            KillSwitch(name=ks_name, startDate=start, evaluationType=EvaluationType.KILL)
+            KillSwitch(name=ks_name, startDate=start, evaluationType=EvaluationType.KILL, enabled=True)
         )
     ks_id = created.id
     try:
