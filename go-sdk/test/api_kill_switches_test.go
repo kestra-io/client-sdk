@@ -20,7 +20,10 @@ func TestKillSwitchesAPI_All(t *testing.T) {
 		StartDate:      kestra_api_client.NewLocalDateTime(time.Now().UTC()),
 		EvaluationType: kestra_api_client.EVALUATIONTYPE_PASS,
 		Namespace:      strPtr("io.kestra.sdk"),
-		Enabled:        kestra_api_client.PtrBool(true),
+		// Always send enabled: an omitted value is stored as null, and the
+		// server's kill-switch reload then NPEs and shuts the instance down,
+		// failing whichever test runs next.
+		Enabled: kestra_api_client.PtrBool(false),
 	})
 	require.NoError(t, err, "creating a kill switch as instance owner should succeed")
 	require.NotEmpty(t, created.GetId(), "the server assigns an id")
@@ -39,7 +42,7 @@ func TestKillSwitchesAPI_All(t *testing.T) {
 			StartDate:      created.GetStartDate(),
 			EvaluationType: kestra_api_client.EVALUATIONTYPE_CANCEL,
 			Namespace:      strPtr("io.kestra.sdk"),
-			Enabled:        kestra_api_client.PtrBool(true),
+			Enabled:        kestra_api_client.PtrBool(false),
 		})
 		require.NoError(t, err)
 		require.Equal(t, id, updated.GetId(), "the id is preserved across the update")
