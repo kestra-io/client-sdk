@@ -159,7 +159,7 @@ describe('GroupsApi', () => {
             id: group.id,
             page: 1,
             size: 10,
-            filters: [qf({ field: QF_FIELD.USERNAME, operation: QF_OP.EQUALS, value: user.email })],
+            filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: user.email })],
         });
 
         const results = page?.results ?? [];
