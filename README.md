@@ -378,6 +378,40 @@ pinned by golden vectors in [`test-utils/query-filter-golden.json`](./test-utils
 asserted by every SDK's offline test. (JavaScript support is tracked separately — it lives in the
 `@kestra-io/hey-api-plugin` package.)
 
+## Branches, releases and snapshots
+
+| Branch | Holds | Tests run against | Publishes |
+|---|---|---|---|
+| `main` | SDK for the latest released Kestra MAJOR.MINOR (pinned as `MAIN_KESTRA_LINE` in `.github/actions/compute-version`) | latest patch of that line, e.g. `v2.0.7` | releases, from tags |
+| `next/v<X.Y>` (e.g. `next/v2.1`) | changes that need the upcoming, unreleased Kestra X.Y | `develop` | snapshots, on every push |
+| `releases/v<X.Y>.x` (e.g. `releases/v1.3.x`) | maintenance of an older line | latest patch of that line | releases, from tags |
+
+**Where to target a PR:** `main` if the change works against the released Kestra, `next/v<X.Y>` if it needs an endpoint or behaviour that only exists on Kestra `develop`.
+
+**Releases** are cut by tags on `main` or `releases/*` only, one tag per language (`vX.Y.Z-java`, `vX.Y.Z-python`, `vX.Y.Z-javascript`, `go-sdk/vX.Y.Z`), pushed one at a time: GitHub creates no `push` event when more than three tags arrive in one push. The release workflows refuse a tag that is not reachable from `main` or `releases/*`, and refuse snapshot versions (`-SNAPSHOT`, `.dev`).
+
+**Snapshots** of `next/v<X.Y>` (after its tests pass):
+
+- Java: `io.kestra:kestra-api-client:<X.Y>.0-SNAPSHOT`, from the Maven Central snapshots repository:
+  ```groovy
+  repositories {
+      mavenCentral()
+      maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
+  }
+  ```
+- JavaScript: `npm install @kestra-io/kestra-sdk@snapshot` (versions `<X.Y>.0-SNAPSHOT.<run>`, dist-tag `snapshot`; `latest` is never moved).
+- Python: `pip install --pre "kestrapy==<X.Y>.0.dev*"` (PEP 440 dev releases `<X.Y>.0.dev<run>`, ignored by pip without `--pre`).
+- Go: nothing is published, depend on the branch. The default module proxy rejects branch names containing `/`, so either skip it or pin a commit:
+  ```bash
+  GOPROXY=direct go get github.com/kestra-io/client-sdk/go-sdk/v2@next/v2.1
+  go get github.com/kestra-io/client-sdk/go-sdk/v2@<commit-sha>
+  ```
+  Both resolve to a pseudo-version such as `v2.0.2-0.20261021152846-791a6b78682c`. Never tag `go-sdk/v*` on a `next/*` branch: for Go the tag is the release.
+
+**When Kestra X.Y is released:** squash-merge `next/v<X.Y>` into `main` in a PR that sets `MAIN_KESTRA_LINE` to `X.Y`. Squash, not rebase: `next/v<X.Y>` holds the squashed `main` syncs, which a rebase merge would replay onto `main` a second time. The bump makes `main` test against `vX.Y.<latest>`. Then cut the releases from `main` and delete `next/v<X.Y>`. Create `next/v<X.Y+1>` from `main` once work for the following Kestra starts. If the previous line still needs fixes, create `releases/v<X.Y-1>.x` from the last `main` commit before the merge.
+
+plugin-kestra follows: its `next/v<X.Y>` depends on `io.kestra:kestra-api-client:<X.Y>.0-SNAPSHOT`. Once the stable `<X.Y>.0` Java SDK is on Maven Central (the release workflow goes green before the Central sync), push the bump to `<X.Y>.0` onto plugin-kestra `next/v<X.Y>`, merge that branch into plugin-kestra `main`, then release plugin-kestra as usual.
+
 ## How to update the SDK
 - Generate openapi from Kestra-EE: `./gradlew clean build updateOpenapiVersion -xtest`
 - Move `kestra-ee.yml` from `webserver-ee/build/classes/java/main/META-INF/swagger` to the root of the SDK repository
@@ -385,6 +419,7 @@ asserted by every SDK's offline test. (JavaScript support is tracked separately 
 - Tags can be excluded from every SDK via `tagsToSkip` in `configurations/kestra-openapi-sdk-customizer.json`
 - Create the tests for the added functionality in each SDK tests folder
 - Run tests of all SDKs: `TMP=~/IdeaProjects/client-sdk && cd $TMP/java/java-sdk && chmod 755 gradlew && ./run-tests.sh develop && cd $TMP/go-sdk && bash ./run-tests.sh develop && cd $TMP/javascript && bash ./run-tests.sh develop && cd $TMP/python/python-sdk && bash ./run-tests.sh develop`
+  (`develop` is the Kestra of a `next/*` branch; on `main` pass the latest patch of its line instead, e.g. `v2.0.7`)
 - ⚠ If an existing test fails, you're probably introducing a breaking change (or someone's prior commit did). If that's the case, make sure it's safe to introduce that before merging
 - Commit and make a PR
 
@@ -394,8 +429,9 @@ The per-PR pipelines test each SDK against the Kestra version resolved for the
 branch and only run when that SDK's files change. To catch upstream API
 breaking changes early, `.github/workflows/sdk-freshness-check.yml` runs **every
 day (05:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
-SDK test suites against a Kestra server built from the **latest line**
-(`develop`).
+SDK test suites twice: the newest `next/v<X.Y>` branch (or `main` if there is
+none) against a Kestra server built from the **latest line** (`develop`), and
+`main` against the latest patch of its Kestra line.
 
 The job is **non-blocking**: it only runs on a schedule / manual trigger, never
 on PRs, and must not be added to branch-protection required checks. A red run is

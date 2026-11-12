@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - "releases/v*"
+      - "next/v*"
     # Tag-only release, aligned with terraform-provider-kestra / kestractl.
     # Push a tag like `v1.0.13-javascript` to publish that version to npm.
     # NOTE: the publish job MUST live in this file. npm Trusted Publishing (OIDC)
@@ -26,6 +27,7 @@ on:
     branches:
       - main
       - "releases/v*"
+      - "next/v*"
     paths:
       - "javascript/javascript-sdk/**"
       - "javascript/test_javascript_sdk/**"
@@ -46,6 +48,11 @@ on:
 
 permissions:
   contents: read
+
+# Serializes runs per branch so two close next/* pushes can't publish their snapshots out of order.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/next/') }}
 
 jobs:
   test:
@@ -183,6 +190,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v7
         with:
@@ -201,6 +210,11 @@ jobs:
           MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2 | tr '.' '-')
           echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
           echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
+
+      - name: Check release ref
+        uses: ./.github/actions/check-release-ref
+        with:
+          version: ${{ steps.resolveVersion.outputs.kestra_version }}
 
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
@@ -246,3 +260,51 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
           suffix: ${{ github.ref_name }}
+
+  publish-snapshot:
+    name: Publish prerelease to Npm
+    needs: test
+    # next/v<X.Y> publishes <X.Y>.0-SNAPSHOT.<run> under the `snapshot` dist-tag, never `latest`.
+    # Like publish-release, this job MUST stay in javascript-sdk.yml (npm Trusted Publishing).
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/next/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve prerelease version from branch
+        id: resolveVersion
+        run: |
+          LINE="${GITHUB_REF_NAME#next/v}"
+          if [[ ! "$LINE" =~ ^[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::$GITHUB_REF_NAME does not match next/v<X.Y>"
+            exit 1
+          fi
+          echo "kestra_version=$LINE.0-SNAPSHOT.${{ github.run_number }}" >> $GITHUB_OUTPUT
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Generate SDK
+        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} javascript
+
+      - name: Publish to npm
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public --tag snapshot
+
+      - name: Slack - Notify prerelease failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK prerelease

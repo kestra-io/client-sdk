@@ -625,7 +625,6 @@ __all__ = [
     "TenantControllerSetTenantDefaultDashboardsRequest",
     "TenantInterface",
     "TenantPreferencesSettings",
-    "TenantType",
     "TenantUsage",
     "TestState",
     "TestSuite",
@@ -1310,7 +1309,6 @@ from kestrapy.models.tenant_controller_apps_catalog_config_response import Tenan
 from kestrapy.models.tenant_controller_set_tenant_default_dashboards_request import TenantControllerSetTenantDefaultDashboardsRequest as TenantControllerSetTenantDefaultDashboardsRequest
 from kestrapy.models.tenant_interface import TenantInterface as TenantInterface
 from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings as TenantPreferencesSettings
-from kestrapy.models.tenant_type import TenantType as TenantType
 from kestrapy.models.tenant_usage import TenantUsage as TenantUsage
 from kestrapy.models.test_state import TestState as TestState
 from kestrapy.models.test_suite import TestSuite as TestSuite

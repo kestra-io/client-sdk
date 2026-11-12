@@ -25,7 +25,6 @@ describe('QuotasApi', () => {
             id,
             name: `Quota Tenant ${id}`,
             deleted: false,
-            type: 'DEFAULT',
             quotas: [quota],
         };
         await TenantsAdmin.create(tenant);

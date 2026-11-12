@@ -1,3 +1,4 @@
+import warnings
 from typing import Any, List, Optional
 
 from kestrapy.base_api import BaseApi
@@ -12,6 +13,12 @@ from kestrapy.models.paged_results_assets_controller_api_asset import PagedResul
 from kestrapy.models.paged_results_assets_controller_api_asset_lineage_event import PagedResultsAssetsControllerApiAssetLineageEvent
 from kestrapy.models.paged_results_assets_controller_api_asset_usage import PagedResultsAssetsControllerApiAssetUsage
 from kestrapy.models.query_filter import QueryFilter
+
+_LINEAGE_EVENTS_REMOVED = (
+    "the lineage-event store and its routes were removed in Kestra develop "
+    "(kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works "
+    "against Kestra 2.0.x. Lineage is now served through the asset relation endpoints."
+)
 
 
 class AssetsApi(BaseApi):
@@ -78,6 +85,12 @@ class AssetsApi(BaseApi):
         return self._json_request("DELETE", path, BulkResponse, params=params)
 
     def delete_asset_lineage_events_by_query(self, tenant: str, filters: List[QueryFilter]) -> BulkResponse:
+        """Deprecated: see ``_LINEAGE_EVENTS_REMOVED``."""
+        warnings.warn(
+            f"delete_asset_lineage_events_by_query is deprecated: {_LINEAGE_EVENTS_REMOVED}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         path = self._tenant_path(tenant, "assets", "lineage-events", "by-query")
         params: list = []
         self._append_filter_params(params, filters)
@@ -113,6 +126,12 @@ class AssetsApi(BaseApi):
         sort: Optional[List[str]] = None,
         filters: Optional[List[QueryFilter]] = None,
     ) -> PagedResultsAssetsControllerApiAssetLineageEvent:
+        """Deprecated: see ``_LINEAGE_EVENTS_REMOVED``."""
+        warnings.warn(
+            f"search_asset_lineage_events is deprecated: {_LINEAGE_EVENTS_REMOVED}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         path = self._tenant_path(tenant, "assets", "lineage-events", "search")
         params = list(self._build_query_params(page=page, size=size).items())
         self._append_repeated_param(params, "sort", sort)

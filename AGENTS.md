@@ -31,6 +31,18 @@ This runs the OpenAPI generator, installs npm dependencies, and builds the SDK. 
 - `generation-helpers/` — Custom OpenAPI generator plugins
 - `configurations/` — OpenAPI generator config files
 
+## Branches — Targeting an Unreleased Kestra
+
+- `main` targets the latest released Kestra MAJOR.MINOR (`MAIN_KESTRA_LINE` in `.github/actions/compute-version`); its tests run on the latest patch image of that line (e.g. `v2.0.7`), and releases are cut from it by tags.
+- Work needing an unreleased Kestra (an endpoint or behaviour only on `develop`) goes to `next/v<X.Y>` (e.g. `next/v2.1`); its tests run on the `develop` image, and every push publishes snapshots (Java `<X.Y>.0-SNAPSHOT`, npm `<X.Y>.0-SNAPSHOT.<run>` on the `snapshot` dist-tag, PyPI `<X.Y>.0.dev<run>`). Bring `main` into it regularly through a PR: `next/*` is protected like `main` (PR required, linear history), so branch from `next/v<X.Y>`, `git merge origin/main`, fix the `kestra-ee.yml` conflicts, open the PR against `next/v<X.Y>` and squash-merge it.
+- Never tag a release on `next/*`: the release workflows refuse tags not reachable from `main`/`releases/*`, and Go has no such guard on the registry side (the tag is the release).
+- Once Kestra X.Y is released: merge `next/v<X.Y>` into `main` with **squash and merge** (its history holds the squashed `main` syncs, which a rebase merge would replay onto `main` a second time), set `MAIN_KESTRA_LINE` to `X.Y` in the same PR, then delete the branch.
+- plugin-kestra then bumps `kestra-api-client` from `<X.Y>.0-SNAPSHOT` to the released `<X.Y>.0` on its own `next/v<X.Y>` (only once it is on Maven Central), merges it into its `main` and releases.
+- `releases/v<X.Y>.x` keeps maintaining older lines (tests on that line's latest patch).
+- Local live tests: pass the image tag the branch targets to `run-tests.sh` (`develop` on `next/*`, e.g. `v2.0.7` on `main`).
+
+See README "Branches, releases and snapshots" for how consumers pick snapshots up.
+
 ## Running JavaScript Tests
 
 ```bash

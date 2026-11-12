@@ -55,6 +55,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchAssetLineageEvents_basic", func(t *testing.T) {
+		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 		ctx := context.Background()
 
 		result, err := KestraTestClient().Assets().SearchAssetLineageEvents(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
@@ -64,6 +65,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchAssetLineageEvents_withFilters", func(t *testing.T) {
+		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 		ctx := context.Background()
 
 		filters := []kestra_api_client.SearchFilter{
@@ -359,6 +361,7 @@ description: updated by the sdk
 	})
 
 	t.Run("deleteAssetLineageEventsByQuery_basic", func(t *testing.T) {
+		t.Skip("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
 		ctx := context.Background()
 
 		filters := []kestra_api_client.SearchFilter{

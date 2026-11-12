@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**delete_backfill**](TriggersApi.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 [**delete_backfill_by_ids**](TriggersApi.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers asynchronously
 [**delete_backfill_by_query**](TriggersApi.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for triggers matching query asynchronously
-[**delete_trigger**](TriggersApi.md#delete_trigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete orphan trigger state
-[**delete_triggers_by_ids**](TriggersApi.md#delete_triggers_by_ids) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete orphan trigger state for the given triggers
-[**delete_triggers_by_query**](TriggersApi.md#delete_triggers_by_query) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete orphan trigger state matching the query
+[**delete_trigger**](TriggersApi.md#delete_trigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+[**delete_triggers_by_ids**](TriggersApi.md#delete_triggers_by_ids) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers asynchronously
+[**delete_triggers_by_query**](TriggersApi.md#delete_triggers_by_query) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters asynchronously
 [**disable_trigger_by_id**](TriggersApi.md#disable_trigger_by_id) | **PUT** /api/v1/{tenant}/triggers/set-disabled | Disable/enable a trigger
 [**disabled_triggers_by_ids**](TriggersApi.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers asynchronously
 [**disabled_triggers_by_query**](TriggersApi.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters asynchronously
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 # **delete_trigger**
 > delete_trigger(tenant, namespace, flow_id, trigger_id)
 
-Delete orphan trigger state
+Delete a trigger
 
 ### Example
 
@@ -324,7 +324,7 @@ with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
 
     try:
-        # Delete orphan trigger state
+        # Delete a trigger
         kestra_client.triggers.delete_trigger(tenant, namespace, flow_id, trigger_id)
     except Exception as e:
         print("Exception when calling TriggersApi->delete_trigger: %s\n" % e)
@@ -361,14 +361,14 @@ void (empty response body)
 |-------------|-------------|------------------|
 **200** | deleteTrigger 200 response |  -  |
 **204** | On success |  -  |
-**409** | If the flow still declares the trigger, or the scheduler failed to delete the trigger state |  -  |
+**409** | If the trigger cannot be deleted |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_ids**
 > ApiAsyncOperationResponse delete_triggers_by_ids(tenant, trigger_ids)
 
-Delete orphan trigger state for the given triggers
+Delete given triggers asynchronously
 
 ### Example
 
@@ -392,7 +392,7 @@ with KestraClient(configuration) as kestra_client:
     trigger_controller_api_trigger_id = [kestrapy.TriggerControllerApiTriggerId()] # List[TriggerControllerApiTriggerId] | 
 
     try:
-        # Delete orphan trigger state for the given triggers
+        # Delete given triggers asynchronously
         api_response = kestra_client.triggers.delete_triggers_by_ids(tenant, trigger_controller_api_trigger_id)
         print("The response of TriggersApi->delete_triggers_by_ids:\n")
         pprint(api_response)
@@ -428,14 +428,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | deleteTriggersByIds 200 response |  -  |
-**202** | Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued. |  -  |
+**202** | Accepted |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_triggers_by_query**
 > ApiAsyncOperationResponse delete_triggers_by_query(tenant, request)
 
-Delete orphan trigger state matching the query
+Delete triggers by query parameters asynchronously
 
 ### Example
 
@@ -459,7 +459,7 @@ with KestraClient(configuration) as kestra_client:
     delete_triggers_by_query_request = kestrapy.DeleteTriggersByQueryRequest() # DeleteTriggersByQueryRequest | 
 
     try:
-        # Delete orphan trigger state matching the query
+        # Delete triggers by query parameters asynchronously
         api_response = kestra_client.triggers.delete_triggers_by_query(tenant, delete_triggers_by_query_request)
         print("The response of TriggersApi->delete_triggers_by_query:\n")
         pprint(api_response)
@@ -495,7 +495,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | deleteTriggersByQuery 200 response |  -  |
-**202** | Accepted. Triggers the flow still declares are not deleted, and totalItems is the number of orphan deletes queued. |  -  |
+**202** | Accepted |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
