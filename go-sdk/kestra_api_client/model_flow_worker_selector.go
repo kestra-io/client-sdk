@@ -9,7 +9,6 @@ API version: 2.0.0-SNAPSHOT
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 )
 
@@ -173,12 +172,7 @@ func (o FlowWorkerSelector) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *FlowWorkerSelector) UnmarshalJSON(data []byte) (err error) {
-	// The spec types tags as object-or-string: keep a string as is, and turn an array (or
-	// any other JSON value) into its compact JSON text so both shapes read into Tags.
-	varFlowWorkerSelector := struct {
-		_FlowWorkerSelector
-		Tags json.RawMessage `json:"tags,omitempty"`
-	}{}
+	varFlowWorkerSelector := _FlowWorkerSelector{}
 
 	err = json.Unmarshal(data, &varFlowWorkerSelector)
 
@@ -186,19 +180,7 @@ func (o *FlowWorkerSelector) UnmarshalJSON(data []byte) (err error) {
 		return err
 	}
 
-	*o = FlowWorkerSelector(varFlowWorkerSelector._FlowWorkerSelector)
-	o.Tags = nil
-	if raw := varFlowWorkerSelector.Tags; len(raw) > 0 && string(raw) != "null" {
-		var tags string
-		if err = json.Unmarshal(raw, &tags); err != nil {
-			var compact bytes.Buffer
-			if err = json.Compact(&compact, raw); err != nil {
-				return err
-			}
-			tags = compact.String()
-		}
-		o.Tags = &tags
-	}
+	*o = FlowWorkerSelector(varFlowWorkerSelector)
 
 	additionalProperties := make(map[string]interface{})
 

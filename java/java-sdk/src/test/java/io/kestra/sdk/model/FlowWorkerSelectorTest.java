@@ -29,21 +29,7 @@ class FlowWorkerSelectorTest {
     }
 
     @Test
-    void acceptsAnArrayAsItsJsonText() throws Exception {
-        FlowWorkerSelector selector = mapper.readValue("{\"tags\":[\"gpu\",\"eu\"]}", FlowWorkerSelector.class);
-
-        assertEquals("[\"gpu\",\"eu\"]", selector.getTags());
-    }
-
-    @Test
     void nullTagsStayNull() throws Exception {
         assertNull(mapper.readValue("{\"tags\":null}", FlowWorkerSelector.class).getTags());
-    }
-
-    @Test
-    void writesTagsAsAString() throws Exception {
-        String json = mapper.writeValueAsString(new FlowWorkerSelector().tags("[\"gpu\"]"));
-
-        assertEquals("[\"gpu\"]", mapper.readTree(json).get("tags").asText(), json);
     }
 }

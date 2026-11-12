@@ -9,16 +9,10 @@
 
 package io.kestra.sdk.model;
 
-import java.io.IOException;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.kestra.sdk.model.WorkerQueueFallback;
 import io.kestra.sdk.model.WorkerSelectorMatch;
 
@@ -68,7 +62,6 @@ public class FlowWorkerSelector {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JsonDeserialize(using = TagsDeserializer.class)
   public void setTags(@jakarta.annotation.Nullable String tags) {
     this.tags = tags;
   }
@@ -119,21 +112,6 @@ public class FlowWorkerSelector {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFallback(@jakarta.annotation.Nullable WorkerQueueFallback fallback) {
     this.fallback = fallback;
-  }
-
-  /**
-   * The spec types {@code tags} as object-or-string: keep a string as is, and turn an array (or any
-   * other JSON value) into its JSON text so both shapes read into the same field.
-   */
-  static class TagsDeserializer extends JsonDeserializer<String> {
-    @Override
-    public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-      JsonNode node = p.readValueAsTree();
-      if (node == null || node.isNull()) {
-        return null;
-      }
-      return node.isTextual() ? node.asText() : node.toString();
-    }
   }
 
   @Override

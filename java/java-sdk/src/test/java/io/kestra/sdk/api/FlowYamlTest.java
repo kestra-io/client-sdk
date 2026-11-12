@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Flow;
+import io.kestra.sdk.model.FlowWorkerSelector;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.Type;
+import io.kestra.sdk.model.WorkerSelectorMatch;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -427,6 +429,30 @@ class FlowYamlTest {
         JsonNode t = YAML.readTree(yaml).get("tasks").get(0);
         assertEquals("line1\nline2\n", t.get("message").asText());
         assertEquals("{{ inputs.foo }}", t.get("expr").asText());
+    }
+
+    @Test
+    void workerSelectorTagsStayStrings() throws Exception {
+        // tags is a Kestra property sent as a string: unquoted, a Pebble expression would
+        // read back as a YAML mapping and a literal list as a sequence.
+        Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log")
+                .workerSelector(new FlowWorkerSelector().tags("{{ inputs.tags }}"));
+        log.putAdditionalProperty("message", "hi");
+        Flow flow = new Flow();
+        flow.setId("p");
+        flow.setNamespace("ns");
+        flow.setWorkerSelector(new FlowWorkerSelector().tags("[\"gpu\"]").match(WorkerSelectorMatch.ANY));
+        flow.setTasks(List.of(log));
+
+        JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
+
+        JsonNode flowTags = root.get("workerSelector").get("tags");
+        assertTrue(flowTags.isTextual(), "flow tags re-typed to " + flowTags.getNodeType());
+        assertEquals("[\"gpu\"]", flowTags.asText());
+        assertEquals("ANY", root.get("workerSelector").get("match").asText());
+        JsonNode taskTags = root.get("tasks").get(0).get("workerSelector").get("tags");
+        assertTrue(taskTags.isTextual(), "task tags re-typed to " + taskTags.getNodeType());
+        assertEquals("{{ inputs.tags }}", taskTags.asText());
     }
 
     private static File ambiguousStringsFixture() {

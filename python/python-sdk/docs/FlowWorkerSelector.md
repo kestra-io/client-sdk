@@ -1,6 +1,6 @@
 # FlowWorkerSelector
 
-Routing requirements for a Flow, Task or Trigger. Unlike [WorkerSelector](WorkerSelector.md) (namespace and tenant defaults), `tags` is a Kestra property: a JSON array literal such as `["gpu"]` or a Pebble expression rendered when the job is routed. The server returns it as a string in both cases; a list passed in is stored as its JSON text.
+Routing requirements for a Flow, Task or Trigger. Unlike [WorkerSelector](WorkerSelector.md) (namespace and tenant defaults), `tags` is a Kestra property: a JSON array literal such as `["gpu"]` or a Pebble expression rendered when the job is routed. The server returns it as a string in both cases.
 
 
 ## Properties

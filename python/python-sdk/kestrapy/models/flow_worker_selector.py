@@ -12,7 +12,7 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.worker_queue_fallback import WorkerQueueFallback
 from kestrapy.models.worker_selector_match import WorkerSelectorMatch
@@ -31,14 +31,6 @@ class FlowWorkerSelector(BaseModel):
     fallback: Optional[WorkerQueueFallback] = Field(default=None, description="Strategy when no worker is available. Defaults to FAIL when null.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tags", "match", "fallback"]
-
-    @field_validator("tags", mode="before")
-    @classmethod
-    def tags_as_string(cls, value: Any) -> Any:
-        """The spec types tags as object-or-string: keep a string, turn a list into its JSON text."""
-        if value is None or isinstance(value, str):
-            return value
-        return json.dumps(value, separators=(",", ":"))
 
     model_config = ConfigDict(
         populate_by_name=True,

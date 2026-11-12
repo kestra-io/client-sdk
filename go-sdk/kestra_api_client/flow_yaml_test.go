@@ -499,3 +499,42 @@ func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
 		}
 	}
 }
+
+// workerSelector.tags is a Kestra property sent as a string: unquoted, a Pebble
+// expression would read back as a YAML mapping and a literal list as a sequence.
+func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
+	flow := Flow{
+		Id:        "p",
+		Namespace: "ns",
+		WorkerSelector: &FlowWorkerSelector{
+			Tags:  PtrString(`["gpu"]`),
+			Match: WORKERSELECTORMATCH_ANY.Ptr(),
+		},
+		Tasks: []Task{{
+			Id:                   "t",
+			Type:                 "io.kestra.plugin.core.log.Log",
+			WorkerSelector:       &FlowWorkerSelector{Tags: PtrString("{{ inputs.tags }}")},
+			AdditionalProperties: map[string]interface{}{"message": "hi"},
+		}},
+	}
+	out, err := flowToYAML(flow)
+	if err != nil {
+		t.Fatalf("flowToYAML returned error: %v", err)
+	}
+
+	var parsed map[string]interface{}
+	if err := yaml.Unmarshal([]byte(out), &parsed); err != nil {
+		t.Fatalf("re-parsing YAML failed: %v\n%s", err, out)
+	}
+	flowSelector := parsed["workerSelector"].(map[string]interface{})
+	if got := flowSelector["tags"]; got != `["gpu"]` {
+		t.Errorf("flow tags = %#v (%T), want string %q\n%s", got, got, `["gpu"]`, out)
+	}
+	if got := flowSelector["match"]; got != "ANY" {
+		t.Errorf("flow match = %#v, want ANY", got)
+	}
+	task := parsed["tasks"].([]interface{})[0].(map[string]interface{})
+	if got := task["workerSelector"].(map[string]interface{})["tags"]; got != "{{ inputs.tags }}" {
+		t.Errorf("task tags = %#v (%T), want string %q\n%s", got, got, "{{ inputs.tags }}", out)
+	}
+}

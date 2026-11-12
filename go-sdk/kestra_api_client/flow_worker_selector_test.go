@@ -33,7 +33,6 @@ func TestFlowWorkerSelector_DecodesEachTagsShape(t *testing.T) {
 		wantSet bool
 	}{
 		"pebble expression": {`{"tags":"{{ inputs.tags }}"}`, "{{ inputs.tags }}", true},
-		"array":             {`{"tags":[ "gpu", "eu" ]}`, `["gpu","eu"]`, true},
 		"null":              {`{"tags":null}`, "", false},
 		"absent":            {`{"match":"ANY"}`, "", false},
 	}
@@ -50,17 +49,5 @@ func TestFlowWorkerSelector_DecodesEachTagsShape(t *testing.T) {
 				t.Errorf("tags leaked into AdditionalProperties")
 			}
 		})
-	}
-}
-
-func TestFlowWorkerSelector_MarshalsTagsAsAString(t *testing.T) {
-	selector := NewFlowWorkerSelector()
-	selector.SetTags(`["gpu"]`)
-	body, err := json.Marshal(selector)
-	if err != nil {
-		t.Fatalf("marshal: %v", err)
-	}
-	if string(body) != `{"tags":"[\"gpu\"]"}` {
-		t.Errorf("body = %s", body)
 	}
 }
