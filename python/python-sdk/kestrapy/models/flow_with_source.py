@@ -25,7 +25,7 @@ from kestrapy.models.output import Output
 from kestrapy.models.quota import Quota
 from kestrapy.models.sla import SLA
 from kestrapy.models.task import Task
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -44,7 +44,7 @@ class FlowWithSource(BaseModel):
     draft: StrictBool = Field(description="Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.")
     labels: Optional[List[Label]] = None
     variables: Optional[Dict[str, Any]] = None
-    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
     deleted: StrictBool
     var_finally: Optional[List[Task]] = Field(default=None, alias="finally")
     tasks: Annotated[List[Task], Field(min_length=1)]
@@ -227,7 +227,7 @@ class FlowWithSource(BaseModel):
             "draft": obj.get("draft"),
             "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
             "variables": obj.get("variables"),
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "deleted": obj.get("deleted"),
             "finally": [Task.from_dict(_item) for _item in obj["finally"]] if obj.get("finally") is not None else None,
             "tasks": [Task.from_dict(_item) for _item in obj["tasks"]] if obj.get("tasks") is not None else None,

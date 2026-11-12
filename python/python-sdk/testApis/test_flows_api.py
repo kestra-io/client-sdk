@@ -13,6 +13,7 @@ from kestrapy import (
     QueryFilterField,
     QueryFilterOp,
     StateType,
+    WorkerSelectorMatch,
 )
 from test_helpers import (
     TENANT,
@@ -52,6 +53,31 @@ class TestCreateFlow:
         assert result.disabled is False
         assert result.deleted is False
         assert result.tasks is not None and len(result.tasks) > 0
+
+    def test_worker_selector(self, client):
+        fid = random_id()
+        ns = random_namespace()
+        body = f"""\
+id: {fid}
+namespace: {ns}
+workerSelector:
+  tags:
+    - gpu
+  match: ALL
+tasks:
+  - id: h
+    type: io.kestra.plugin.core.log.Log
+    message: hi
+"""
+        created = client.flows.create_flow(TENANT, body)
+
+        # tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
+        assert created.worker_selector.tags == '["gpu"]'
+        assert created.worker_selector.match == WorkerSelectorMatch.ALL
+        assert created.draft is False
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.worker_selector.tags == '["gpu"]'
 
     @pytest.mark.xfail(
         reason="kestra-ee 2.0 validates Schedule-trigger inputs more strictly and "

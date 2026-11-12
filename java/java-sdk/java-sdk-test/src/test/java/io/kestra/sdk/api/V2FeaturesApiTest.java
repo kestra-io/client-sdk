@@ -95,7 +95,9 @@ public class V2FeaturesApiTest {
                 """.formatted(id, ns));
 
         assertThat(created.getWorkerSelector()).isNotNull();
-        assertThat(created.getWorkerSelector().getTags()).contains("gpu");
+        // tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
+        assertThat(created.getWorkerSelector().getTags()).isEqualTo("[\"gpu\"]");
+        assertThat(created.getWorkerSelector().getMatch()).isEqualTo(WorkerSelectorMatch.ALL);
         // draft is a 2.0 addition and is always present on the payload
         assertThat(created.getDraft()).isNotNull();
         assertThat(created.getDraft()).isFalse();

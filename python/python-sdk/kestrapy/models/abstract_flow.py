@@ -19,7 +19,7 @@ from typing_extensions import Annotated
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.label import Label
 from kestrapy.models.output import Output
-from kestrapy.models.worker_selector import WorkerSelector
+from kestrapy.models.flow_worker_selector import FlowWorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -38,7 +38,7 @@ class AbstractFlow(BaseModel):
     draft: StrictBool = Field(description="Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.")
     labels: Optional[List[Label]] = None
     variables: Optional[Dict[str, Any]] = None
-    worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
+    worker_selector: Optional[FlowWorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this flow.", alias="workerSelector")
     deleted: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "draft", "labels", "variables", "workerSelector", "deleted"]
@@ -150,7 +150,7 @@ class AbstractFlow(BaseModel):
             "draft": obj.get("draft"),
             "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
             "variables": obj.get("variables"),
-            "workerSelector": WorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
+            "workerSelector": FlowWorkerSelector.from_dict(obj["workerSelector"]) if obj.get("workerSelector") is not None else None,
             "deleted": obj.get("deleted")
         })
         # store additional fields in additional_properties

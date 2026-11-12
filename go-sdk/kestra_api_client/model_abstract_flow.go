@@ -35,7 +35,7 @@ type AbstractFlow struct {
 	Labels *MapObjectObject `json:"labels,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
 	// Routing requirements (tags + fallback) for this flow.
-	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	WorkerSelector *FlowWorkerSelector `json:"workerSelector,omitempty"`
 	Deleted bool `json:"deleted"`
 	AdditionalProperties map[string]interface{}
 }
@@ -385,9 +385,9 @@ func (o *AbstractFlow) SetVariables(v map[string]interface{}) {
 }
 
 // GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
-func (o *AbstractFlow) GetWorkerSelector() WorkerSelector {
+func (o *AbstractFlow) GetWorkerSelector() FlowWorkerSelector {
 	if o == nil || IsNil(o.WorkerSelector) {
-		var ret WorkerSelector
+		var ret FlowWorkerSelector
 		return ret
 	}
 	return *o.WorkerSelector
@@ -395,7 +395,7 @@ func (o *AbstractFlow) GetWorkerSelector() WorkerSelector {
 
 // GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractFlow) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+func (o *AbstractFlow) GetWorkerSelectorOk() (*FlowWorkerSelector, bool) {
 	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
@@ -411,8 +411,8 @@ func (o *AbstractFlow) HasWorkerSelector() bool {
 	return false
 }
 
-// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
-func (o *AbstractFlow) SetWorkerSelector(v WorkerSelector) {
+// SetWorkerSelector gets a reference to the given FlowWorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractFlow) SetWorkerSelector(v FlowWorkerSelector) {
 	o.WorkerSelector = &v
 }
 

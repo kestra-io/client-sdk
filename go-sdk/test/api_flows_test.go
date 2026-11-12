@@ -88,6 +88,36 @@ tasks:
 		require.NotNil(t, response)
 	})
 
+	t.Run("createFlowTest_workerSelector", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+
+		body := fmt.Sprintf(`id: %s
+namespace: %s
+workerSelector:
+  tags:
+    - gpu
+  match: ALL
+tasks:
+  - id: h
+    type: io.kestra.plugin.core.log.Log
+    message: hi
+`, flowId, namespace)
+		created, err := KestraTestClient().Flows().CreateFlow(ctx, MAIN_TENANT, body)
+		require.NoError(t, err)
+		// tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
+		selector := created.GetWorkerSelector()
+		require.Equal(t, `["gpu"]`, selector.GetTags())
+		require.Equal(t, kestra_api_client.WORKERSELECTORMATCH_ALL, selector.GetMatch())
+		require.False(t, created.GetDraft())
+
+		fetched, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		fetchedSelector := fetched.GetWorkerSelector()
+		require.Equal(t, `["gpu"]`, fetchedSelector.GetTags())
+	})
+
 	t.Run("createFlowTest_full", func(t *testing.T) {
 		namespace := randomId()
 		flowId := randomId()

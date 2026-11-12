@@ -423,3 +423,25 @@ def test_construct_model_fallback_keeps_undeclared_keys():
     flow = BaseApi._construct_model(payload, FlowWithSource)
     assert flow.updated == datetime(2026, 9, 23, 10, 11, 12, 345000, tzinfo=timezone.utc)
     assert flow.triggers[0].additional_properties["timezone"] == "Europe/Paris"
+
+
+def test_worker_selector_tags_stay_strings():
+    # Pins that the emitted workerSelector.tags stays a string: a literal list must not be
+    # re-read as a YAML sequence.
+    flow = Flow.from_dict({
+        "id": "p",
+        "namespace": "ns",
+        "disabled": False,
+        "deleted": False,
+        "draft": False,
+        "workerSelector": {"tags": '["gpu"]', "match": "ANY"},
+        "tasks": [{
+            "id": "t",
+            "type": "io.kestra.plugin.core.log.Log",
+            "message": "hi",
+        }],
+    })
+
+    parsed = yaml.safe_load(flow_to_yaml(flow))
+
+    assert parsed["workerSelector"] == {"tags": '["gpu"]', "match": "ANY"}

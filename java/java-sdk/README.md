@@ -537,6 +537,7 @@ Class | Method | HTTP request | Description
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
+ - [FlowWorkerSelector](docs/FlowWorkerSelector.md)
  - [FollowLogEvent](docs/FollowLogEvent.md)
  - [ForwardSupportTicketRequest](docs/ForwardSupportTicketRequest.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
