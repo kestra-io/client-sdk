@@ -1708,6 +1708,103 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/instance/versioned-plugins/install-jobs:
+    post:
+      tags:
+      - Plugins
+      summary: Start installing plugin artifacts in the background
+      description: Instance-owner-only. Starts the same installation as POST /versioned-plugins/install, but returns the install job immediately instead of waiting for the artifacts to be downloaded. The job is PENDING until an install slot is free, then RUNNING. The installation carries on whether or not the client stays connected, and is reported in the notifications of the user who started it; follow GET /versioned-plugins/install-jobs/{jobId}/follow for its state and download progress.
+      operationId: startVersionedPluginsInstallJob
+      requestBody:
+        description: List of plugins
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstanceController.ApiPluginListRequest'
+        required: true
+      responses:
+        '202':
+          description: The install job, pending or already running
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginInstallJob'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/instance/versioned-plugins/install-jobs/{jobId}/follow:
+    get:
+      tags:
+      - Plugins
+      summary: Follow a plugin install job
+      description: 'Instance-owner-only. Server-Sent Events stream of a plugin install job started by the current user: its current state first, then each new state as it changes, with the download progress of each artifact about every 3 seconds while it runs. The stream ends once the job has finished. A job whose webserver stops is reported as FAILED about a minute later.'
+      operationId: followVersionedPluginsInstallJob
+      parameters:
+      - name: jobId
+        in: path
+        description: The install job identifier
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '404':
+          description: The install job is unknown, or was started by another user
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
+          description: followVersionedPluginsInstallJob 200 response
+          content:
+            text/event-stream:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_PluginInstallJob_'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/resolve:
     post:
       tags:
@@ -39087,6 +39184,7 @@ components:
       enum:
       - EXECUTION
       - TRIGGER
+      - PLUGIN
     AttributeReference:
       type: object
       properties:
@@ -40989,6 +41087,25 @@ components:
       properties:
         data:
           type: object
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        comment:
+          type: string
+          nullable: true
+        retry:
+          type: string
+          nullable: true
+    Event_PluginInstallJob_:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PluginInstallJob'
         id:
           type: string
           nullable: true
@@ -43101,6 +43218,8 @@ components:
           type: string
           nullable: true
     InstanceController.ApiPluginListRequest:
+      required:
+      - plugins
       type: object
       properties:
         plugins:
