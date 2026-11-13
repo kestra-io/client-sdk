@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **parent_task_run_id** | **str** |  | [optional] 
 **value** | **str** |  | [optional] 
 **attempts** | [**List[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
-**asset_emits** | [**List[AssetsInOut]**](AssetsInOut.md) |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **iteration** | **int** |  | [optional] 
 **dynamic** | **bool** |  | [optional] 

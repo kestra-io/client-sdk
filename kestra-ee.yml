@@ -37876,10 +37876,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TaskRunAttempt'
-        assetEmits:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetsInOut'
         state:
           $ref: '#/components/schemas/State'
         iteration:
@@ -47561,6 +47557,7 @@ components:
         assetEmits:
           type: array
           nullable: true
+          deprecated: true
           items:
             $ref: '#/components/schemas/AssetsInOut'
         state:
