@@ -44355,7 +44355,7 @@ components:
           - type: object
           - type: string
         type:
-          $ref: '#/components/schemas/Type'
+          $ref: '#/components/schemas/OutputType'
         displayName:
           type: string
         required:
@@ -44387,13 +44387,33 @@ components:
         description:
           type: string
         type:
-          $ref: '#/components/schemas/Type'
+          $ref: '#/components/schemas/OutputType'
         displayName:
           type: string
         required:
           type: boolean
         searchable:
           type: boolean
+    OutputType:
+      type: string
+      enum:
+      - STRING
+      - INT
+      - FLOAT
+      - BOOL
+      - DATETIME
+      - DATE
+      - TIME
+      - DURATION
+      - FILE
+      - JSON
+      - ION
+      - URI
+      - SECRET
+      - ARRAY
+      - YAML
+      - ASSET
+      - UNKNOWN
     PageRequest:
       type: object
       properties:
@@ -48132,6 +48152,7 @@ components:
       - FORM
       - REUSABLE_INPUTS
       - TABLE
+      - ASSET
     UnitTest:
       required:
       - assertions
