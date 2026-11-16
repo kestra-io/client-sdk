@@ -44259,6 +44259,9 @@ components:
         referenceId:
           type: string
           nullable: true
+        url:
+          type: string
+          nullable: true
         succeededItems:
           type: integer
           format: int32
