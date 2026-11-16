@@ -16,7 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.output_value import OutputValue
-from kestrapy.models.type import Type
+from kestrapy.models.output_type import OutputType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class Output(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True)]
     description: Optional[StrictStr] = None
     value: Optional[OutputValue] = None
-    type: Type
+    type: OutputType
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     required: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}

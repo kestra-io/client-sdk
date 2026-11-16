@@ -43,6 +43,10 @@
 
 * `REUSABLE_INPUTS` (value: `'REUSABLE_INPUTS'`)
 
+* `TABLE` (value: `'TABLE'`)
+
+* `ASSET` (value: `'ASSET'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

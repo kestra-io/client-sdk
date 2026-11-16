@@ -649,6 +649,7 @@ Class | Method | HTTP request | Description
  - [NodeType](docs/NodeType.md)
  - [Output](docs/Output.md)
  - [OutputControllerTaskOutputInformation](docs/OutputControllerTaskOutputInformation.md)
+ - [OutputType](docs/OutputType.md)
  - [OutputValue](docs/OutputValue.md)
  - [PagedResultsApiGroupSummary](docs/PagedResultsApiGroupSummary.md)
  - [PagedResultsApiLightExecution](docs/PagedResultsApiLightExecution.md)

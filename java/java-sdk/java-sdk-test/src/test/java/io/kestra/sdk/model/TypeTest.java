@@ -11,7 +11,7 @@ class TypeTest {
     @ParameterizedTest
     @ValueSource(strings = {"STRING", "SELECT", "INT", "FLOAT", "BOOL", "DATETIME", "DATE", "TIME",
         "DURATION", "FILE", "JSON", "ION", "URI", "SECRET", "ARRAY", "MULTISELECT", "YAML",
-        "EMAIL", "FORM", "REUSABLE_INPUTS"})
+        "EMAIL", "FORM", "REUSABLE_INPUTS", "TABLE", "ASSET"})
     void fromValue_resolvesEveryInputTypeTheSpecDeclares(String value) {
         // an unmapped value falls through to UNKNOWN_DEFAULT_OPEN_API and re-serializes as that, corrupting the block
         assertThat(Type.fromValue(value)).isNotEqualTo(Type.UNKNOWN_DEFAULT_OPEN_API);

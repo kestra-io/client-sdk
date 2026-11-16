@@ -437,6 +437,7 @@ __all__ = [
     "Origin",
     "Output",
     "OutputControllerTaskOutputInformation",
+    "OutputType",
     "OutputValue",
     "PageRequest",
     "PagedResultsApiGroupSummary",
@@ -1140,6 +1141,7 @@ from kestrapy.models.notification_type import NotificationType as NotificationTy
 from kestrapy.models.origin import Origin as Origin
 from kestrapy.models.output import Output as Output
 from kestrapy.models.output_controller_task_output_information import OutputControllerTaskOutputInformation as OutputControllerTaskOutputInformation
+from kestrapy.models.output_type import OutputType as OutputType
 from kestrapy.models.output_value import OutputValue as OutputValue
 from kestrapy.models.page_request import PageRequest as PageRequest
 from kestrapy.models.paged_results_api_group_summary import PagedResultsApiGroupSummary as PagedResultsApiGroupSummary
