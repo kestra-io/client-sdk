@@ -40520,6 +40520,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryFilter'
+    ChartMetadata:
+      required:
+      - date
+      - executionId
+      - state
+      type: object
+      properties:
+        executionId:
+          type: string
+        date:
+          type: string
+          format: date-time
+        state:
+          type: string
+        rowsRead:
+          type: integer
+          format: int32
+        truncated:
+          type: boolean
     Chart_ChartOption_:
       required:
       - id
@@ -40844,6 +40863,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryFilter.Field'
+        metadata:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ChartMetadata'
     DashboardController.DashboardResponse:
       required:
       - deleted
