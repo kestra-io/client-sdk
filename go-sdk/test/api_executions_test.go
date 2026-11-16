@@ -320,6 +320,57 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.NoError(t, errget2)
 	})
 
+	t.Run("deleteExecutionsByIdsInBackgroundTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		exec1 := createExecution(t, ctx, flowId, namespace)
+		exec2 := createExecution(t, ctx, flowId, namespace)
+		exec3 := createExecution(t, ctx, flowId, namespace)
+
+		res, err := KestraTestClient().Executions().DeleteExecutionsByIdsInBackground(ctx, MAIN_TENANT, []string{exec1.Id, exec3.Id}, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, res.TotalItems)
+		require.EqualValues(t, 2, *res.TotalItems, "only 2 exec should have been queued for deletion")
+		require.NotNil(t, res.OperationId)
+		require.NotEmpty(t, *res.OperationId)
+
+		require.Eventually(t, executionDeleted(ctx, exec1.Id), 30*time.Second, 500*time.Millisecond)
+		require.Eventually(t, executionDeleted(ctx, exec3.Id), 30*time.Second, 500*time.Millisecond)
+		_, errGet2 := KestraTestClient().Executions().Execution(ctx, exec2.Id, MAIN_TENANT)
+		require.NoError(t, errGet2)
+	})
+
+	t.Run("deleteExecutionsByQueryInBackgroundTest", func(t *testing.T) {
+		namespace := randomId()
+		namespaceToDelete := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlow(ctx, flowId, namespaceToDelete)
+		exec1 := createExecution(t, ctx, flowId, namespaceToDelete)
+		exec2 := createExecution(t, ctx, flowId, namespace)
+		exec3 := createExecution(t, ctx, flowId, namespaceToDelete)
+
+		nsFilter := kestra_api_client.SearchFilter{
+			Field:     kestra_api_client.FilterNamespace,
+			Operation: kestra_api_client.OpEquals,
+			Value:     namespaceToDelete,
+		}
+		res, err := KestraTestClient().Executions().DeleteExecutionsByQueryInBackground(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{nsFilter}, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, res.TotalItems)
+		require.EqualValues(t, 2, *res.TotalItems, "only 2 exec should have been queued for deletion")
+		require.NotNil(t, res.OperationId)
+		require.NotEmpty(t, *res.OperationId)
+
+		require.Eventually(t, executionDeleted(ctx, exec1.Id), 30*time.Second, 500*time.Millisecond)
+		require.Eventually(t, executionDeleted(ctx, exec3.Id), 30*time.Second, 500*time.Millisecond)
+		_, errGet2 := KestraTestClient().Executions().Execution(ctx, exec2.Id, MAIN_TENANT)
+		require.NoError(t, errGet2)
+	})
+
 	t.Run("downloadFileFromExecutionTest", func(t *testing.T) {
 		t.Skip("ApiTaskRun model does not include outputs; cannot get file URI from task run")
 	})
@@ -1374,6 +1425,13 @@ func assertResultsContainExecutions(
 
 	// "contains all" (ignores ordering, allows extras)
 	require.Subset(t, actualIds, expectedIds)
+}
+func executionDeleted(ctx context.Context, execId string) func() bool {
+	return func() bool {
+		_, err := KestraTestClient().Executions().Execution(ctx, execId, MAIN_TENANT)
+		var apiErr *kestra_api_client.ApiError
+		return errors.As(err, &apiErr) && apiErr.StatusCode == 404
+	}
 }
 func executionInState(ctx context.Context, execId string, expectedType kestra_api_client.StateType) func() bool {
 	return func() bool {

@@ -478,6 +478,31 @@ public class ExecutionsApiTest {
         assertThat(result.getCount()).isEqualTo(1);
     }
 
+    @Test
+    void deleteExecutionsByIdsInBackground_deletesOnlyTheGivenIds() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String toDelete1 = executeAndWaitForTermination(ns, flowId);
+        String toKeep = executeAndWaitForTermination(ns, flowId);
+        String toDelete2 = executeAndWaitForTermination(ns, flowId);
+
+        ApiAsyncOperationResponse result = api().deleteExecutionsByIdsInBackground(
+                TENANT, List.of(toDelete1, toDelete2), null, null, null, null);
+
+        assertThat(result.getTotalItems()).isEqualTo(2);
+        assertThat(result.getOperationId()).isNotBlank();
+        awaitDeleted(toDelete1);
+        awaitDeleted(toDelete2);
+        assertThat(api().execution(toKeep, TENANT).getId()).isEqualTo(toKeep);
+    }
+
+    private void awaitDeleted(String executionId) {
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() ->
+                assertThatThrownBy(() -> api().execution(executionId, TENANT))
+                        .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.getCode()).isEqualTo(404)));
+    }
+
     // ========================================================================
     // Kill
     // ========================================================================
@@ -711,6 +736,27 @@ public class ExecutionsApiTest {
     void deleteExecutionsByQuery_basic() throws ApiException {
         assertThatCode(() -> api().deleteExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent")), null, null, null, null))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    void deleteExecutionsByQueryInBackground_deletesOnlyTheMatchingExecutions() throws ApiException {
+        String ns = randomId();
+        String otherNs = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        createFlow(logFlowYaml(flowId, otherNs));
+        String toDelete1 = executeAndWaitForTermination(ns, flowId);
+        String toDelete2 = executeAndWaitForTermination(ns, flowId);
+        String toKeep = executeAndWaitForTermination(otherNs, flowId);
+
+        ApiAsyncOperationResponse result = api().deleteExecutionsByQueryInBackground(
+                TENANT, List.of(nsFilter(ns)), null, null, null, null);
+
+        assertThat(result.getTotalItems()).isEqualTo(2);
+        assertThat(result.getOperationId()).isNotBlank();
+        awaitDeleted(toDelete1);
+        awaitDeleted(toDelete2);
+        assertThat(api().execution(toKeep, TENANT).getId()).isEqualTo(toKeep);
     }
 
     // ========================================================================

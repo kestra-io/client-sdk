@@ -21,6 +21,7 @@ from test_helpers import (
     flow_id_filter,
     state_filter,
     labels_filter,
+    log_flow_yaml,
     wait_for_execution,
 )
 
@@ -129,6 +130,24 @@ def _wait_for_state(client, execution_id, target_states, timeout=30):
             return state
         time.sleep(0.5)
     raise TimeoutError(f"Execution {execution_id} did not reach {target_states} within {timeout}s")
+
+
+def _wait_for_deletion(client, execution_id, timeout=30):
+    from kestrapy.exceptions import NotFoundException
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            client.executions.execution(execution_id, TENANT)
+        except NotFoundException:
+            return
+        time.sleep(0.5)
+    raise TimeoutError(f"Execution {execution_id} was not deleted within {timeout}s")
+
+
+def _terminated_execution(client, ns, flow_id):
+    execution_id = create_execution(client, ns, flow_id).id
+    wait_for_execution(client, execution_id)
+    return execution_id
 
 
 # ========================================================================
@@ -403,6 +422,23 @@ class TestDeleteExecution:
 
         result = client.executions.delete_executions_by_ids(TENANT, [execution_id])
         assert result is not None
+
+    def test_delete_executions_by_ids_in_background(self, client):
+        ns, flow_id = random_namespace(), random_id()
+        create_flow(client, log_flow_yaml(flow_id, ns))
+        to_delete_1 = _terminated_execution(client, ns, flow_id)
+        to_keep = _terminated_execution(client, ns, flow_id)
+        to_delete_2 = _terminated_execution(client, ns, flow_id)
+
+        result = client.executions.delete_executions_by_ids_in_background(
+            TENANT, [to_delete_1, to_delete_2],
+        )
+
+        assert result.total_items == 2
+        assert result.operation_id
+        _wait_for_deletion(client, to_delete_1)
+        _wait_for_deletion(client, to_delete_2)
+        assert client.executions.execution(to_keep, TENANT).id == to_keep
 
 
 # ========================================================================
@@ -863,6 +899,24 @@ class TestDeleteByQuery:
     def test_delete_executions_by_query_basic(self, client):
         # Should not raise
         client.executions.delete_executions_by_query(TENANT, [ns_filter("nonexistent")])
+
+    def test_delete_executions_by_query_in_background(self, client):
+        ns, other_ns, flow_id = random_namespace(), random_namespace(), random_id()
+        create_flow(client, log_flow_yaml(flow_id, ns))
+        create_flow(client, log_flow_yaml(flow_id, other_ns))
+        to_delete_1 = _terminated_execution(client, ns, flow_id)
+        to_delete_2 = _terminated_execution(client, ns, flow_id)
+        to_keep = _terminated_execution(client, other_ns, flow_id)
+
+        result = client.executions.delete_executions_by_query_in_background(
+            TENANT, [ns_filter(ns)],
+        )
+
+        assert result.total_items == 2
+        assert result.operation_id
+        _wait_for_deletion(client, to_delete_1)
+        _wait_for_deletion(client, to_delete_2)
+        assert client.executions.execution(to_keep, TENANT).id == to_keep
 
 
 # ========================================================================

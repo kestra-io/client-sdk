@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**create_execution**](ExecutionsApi.md#create_execution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
 [**delete_execution**](ExecutionsApi.md#delete_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
 [**delete_executions_by_ids**](ExecutionsApi.md#delete_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
+[**delete_executions_by_ids_in_background**](ExecutionsApi.md#delete_executions_by_ids_in_background) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions in the background
 [**delete_executions_by_query**](ExecutionsApi.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
+[**delete_executions_by_query_in_background**](ExecutionsApi.md#delete_executions_by_query_in_background) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters in the background
 [**download_file_from_execution**](ExecutionsApi.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**eval_expression**](ExecutionsApi.md#eval_expression) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/eval | Evaluate a variable expression for this execution
 [**eval_task_run_expression**](ExecutionsApi.md#eval_task_run_expression) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/eval/{taskRunId} | Evaluate a variable expression for this taskrun
@@ -290,6 +292,82 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_executions_by_ids_in_background**
+> ApiAsyncOperationResponse delete_executions_by_ids_in_background(tenant, ids, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+
+Delete a list of executions in the background
+
+Runs the deletion in the background (`async=true`): the server answers 202 before the executions are deleted. `total_items` is the number of executions queued for deletion; `operation_id` identifies the background operation, whose progress is reported through a notification.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from pprint import pprint
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+    request_body = ['request_body_example'] # List[str] | The execution id
+    include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
+    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
+    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
+
+    try:
+        # Delete a list of executions in the background
+        api_response = kestra_client.executions.delete_executions_by_ids_in_background(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        print("The response of ExecutionsApi->delete_executions_by_ids_in_background:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->delete_executions_by_ids_in_background: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **ids** | [**List[str]**](str.md)| The execution id | 
+ **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
+ **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
+ **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
+
+### Return type
+
+[**ApiAsyncOperationResponse**](ApiAsyncOperationResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Accepted |  -  |
+**422** | Deleted with errors |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_executions_by_query**
 > BulkResponse delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
 
@@ -361,6 +439,83 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | On success |  -  |
+**422** | Deleted with errors |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_executions_by_query_in_background**
+> ApiAsyncOperationResponse delete_executions_by_query_in_background(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+
+Delete executions filter by query parameters in the background
+
+Runs the deletion in the background (`async=true`): the server answers 202 before the executions are deleted. `total_items` is the number of executions queued for deletion; `operation_id` identifies the background operation, whose progress is reported through a notification.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from pprint import pprint
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test` (optional)
+    include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
+    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
+    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
+
+    try:
+        # Delete executions filter by query parameters in the background
+        api_response = kestra_client.executions.delete_executions_by_query_in_background(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        print("The response of ExecutionsApi->delete_executions_by_query_in_background:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->delete_executions_by_query_in_background: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] 
+ **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
+ **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
+ **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
+
+### Return type
+
+[**ApiAsyncOperationResponse**](ApiAsyncOperationResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Accepted |  -  |
 **422** | Deleted with errors |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -9,6 +9,7 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.ApiAsyncOperationResponse;
 import io.kestra.sdk.model.ApiExecution;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.Execution;
@@ -358,6 +359,54 @@ public class ExecutionsApi extends BaseApi {
                 queryParams("includeNonTerminated", includeNonTerminated,
                         "deleteLogs", deleteLogs, "deleteMetrics", deleteMetrics,
                         "deleteStorage", deleteStorage),
+                filterParams(filters), JSON, null,
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Deletes a list of executions in the background ({@code async=true}).
+     *
+     * <p>The server accepts the request (HTTP 202) and returns before the executions are deleted.
+     * {@code totalItems} is the number of executions queued for deletion; {@code operationId}
+     * identifies the background operation, whose progress is reported through a notification.
+     */
+    public ApiAsyncOperationResponse deleteExecutionsByIdsInBackground(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<String> ids,
+            @jakarta.annotation.Nullable Boolean includeNonTerminated,
+            @jakarta.annotation.Nullable Boolean deleteLogs,
+            @jakarta.annotation.Nullable Boolean deleteMetrics,
+            @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
+        return invoke("DELETE",
+                tenantPath(tenant, "executions", "by-ids"),
+                ids,
+                queryParams("includeNonTerminated", includeNonTerminated,
+                        "deleteLogs", deleteLogs, "deleteMetrics", deleteMetrics,
+                        "deleteStorage", deleteStorage, "async", true),
+                null, JSON, JSON,
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Deletes the executions matching the filters in the background ({@code async=true}).
+     *
+     * <p>The server accepts the request (HTTP 202) and returns before the executions are deleted.
+     * {@code totalItems} is the number of executions queued for deletion; {@code operationId}
+     * identifies the background operation, whose progress is reported through a notification.
+     */
+    public ApiAsyncOperationResponse deleteExecutionsByQueryInBackground(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable List<QueryFilter> filters,
+            @jakarta.annotation.Nullable Boolean includeNonTerminated,
+            @jakarta.annotation.Nullable Boolean deleteLogs,
+            @jakarta.annotation.Nullable Boolean deleteMetrics,
+            @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
+        return invoke("DELETE",
+                tenantPath(tenant, "executions", "by-query"),
+                null,
+                queryParams("includeNonTerminated", includeNonTerminated,
+                        "deleteLogs", deleteLogs, "deleteMetrics", deleteMetrics,
+                        "deleteStorage", deleteStorage, "async", true),
                 filterParams(filters), JSON, null,
                 new TypeReference<>() {});
     }
