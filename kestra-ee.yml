@@ -17247,6 +17247,14 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: async
+        in: query
+        description: Whether to delete in the background, tracked by a notification
+        required: false
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -17268,6 +17276,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
+        '202':
+          description: Accepted, when async is true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAsyncOperationResponse'
         '400':
           description: Validation errors
           content:
@@ -17343,6 +17357,14 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: async
+        in: query
+        description: Whether to delete in the background, tracked by a notification
+        required: false
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -17355,6 +17377,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
+        '202':
+          description: Accepted, when async is true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiAsyncOperationResponse'
         '400':
           description: Validation errors
           content:
