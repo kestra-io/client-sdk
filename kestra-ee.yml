@@ -36454,7 +36454,7 @@ components:
           title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
         assets:
-          $ref: '#/components/schemas/AssetsDeclaration'
+          $ref: '#/components/schemas/TriggerAssetsDeclaration'
     AbstractTriggerForExecution:
       required:
       - id
@@ -47996,6 +47996,21 @@ components:
           allOf:
           - $ref: '#/components/schemas/Duration'
       description: Token caching configuration
+    TriggerAssetsDeclaration:
+      type: object
+      properties:
+        enableAuto:
+          description: Whether to auto-register assets referenced dynamically at runtime that are not statically declared in inputs or outputs.
+          allOf:
+          - $ref: '#/components/schemas/Property_Boolean_'
+        inputs:
+          description: The assets consumed as inputs.
+          allOf:
+          - $ref: '#/components/schemas/Property_List_AssetIdentifier__'
+        outputs:
+          description: The assets produced as outputs.
+          allOf:
+          - $ref: '#/components/schemas/Property_List_Asset__'
     TriggerController.ApiCreateBackfillRequest:
       required:
       - backfill
