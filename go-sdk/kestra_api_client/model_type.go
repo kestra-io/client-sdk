@@ -38,6 +38,8 @@ const (
 	TYPE_EMAIL Type = "EMAIL"
 	TYPE_FORM Type = "FORM"
 	TYPE_REUSABLE_INPUTS Type = "REUSABLE_INPUTS"
+	TYPE_TABLE Type = "TABLE"
+	TYPE_ASSET Type = "ASSET"
 )
 
 // All allowed values of Type enum
@@ -62,6 +64,8 @@ var AllowedTypeEnumValues = []Type{
 	"EMAIL",
 	"FORM",
 	"REUSABLE_INPUTS",
+	"TABLE",
+	"ASSET",
 }
 
 func (v *Type) UnmarshalJSON(src []byte) error {

@@ -21,7 +21,7 @@ type Output struct {
 	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
 	Description *string `json:"description,omitempty"`
 	Value *OutputValue `json:"value,omitempty"`
-	Type Type `json:"type"`
+	Type OutputType `json:"type"`
 	DisplayName *string `json:"displayName,omitempty"`
 	Required *bool `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _Output Output
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOutput(id string, type_ Type) *Output {
+func NewOutput(id string, type_ OutputType) *Output {
 	this := Output{}
 	this.Id = id
 	this.Type = type_
@@ -137,9 +137,9 @@ func (o *Output) SetValue(v OutputValue) {
 }
 
 // GetType returns the Type field value
-func (o *Output) GetType() Type {
+func (o *Output) GetType() OutputType {
 	if o == nil {
-		var ret Type
+		var ret OutputType
 		return ret
 	}
 
@@ -148,7 +148,7 @@ func (o *Output) GetType() Type {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *Output) GetTypeOk() (*Type, bool) {
+func (o *Output) GetTypeOk() (*OutputType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -156,7 +156,7 @@ func (o *Output) GetTypeOk() (*Type, bool) {
 }
 
 // SetType sets field value
-func (o *Output) SetType(v Type) {
+func (o *Output) SetType(v OutputType) {
 	o.Type = v
 }
 

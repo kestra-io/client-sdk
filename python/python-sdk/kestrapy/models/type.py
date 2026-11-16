@@ -41,6 +41,8 @@ class Type(str, Enum):
     EMAIL = 'EMAIL'
     FORM = 'FORM'
     REUSABLE_INPUTS = 'REUSABLE_INPUTS'
+    TABLE = 'TABLE'
+    ASSET = 'ASSET'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.OutputValue;
-import io.kestra.sdk.model.Type;
+import io.kestra.sdk.model.OutputType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -43,7 +43,7 @@ public class Output {
   @jakarta.annotation.Nullable  private OutputValue value;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @jakarta.annotation.Nonnull  private Type type;
+  @jakarta.annotation.Nonnull  private OutputType type;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   @jakarta.annotation.Nullable  private String displayName;
@@ -126,7 +126,7 @@ public class Output {
     this.value = value;
   }
 
-  public Output type(@jakarta.annotation.Nonnull Type type) {
+  public Output type(@jakarta.annotation.Nonnull OutputType type) {
     
     this.type = type;
     return this;
@@ -139,14 +139,14 @@ public class Output {
   @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public Type getType() {
+  public OutputType getType() {
     return type;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@jakarta.annotation.Nonnull Type type) {
+  public void setType(@jakarta.annotation.Nonnull OutputType type) {
     this.type = type;
   }
 

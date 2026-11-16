@@ -39,6 +39,10 @@
 
 * `EMAIL` (value: `"EMAIL"`)
 
+* `TABLE` (value: `"TABLE"`)
+
+* `ASSET` (value: `"ASSET"`)
+
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
 
 

@@ -7,6 +7,7 @@ import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowWorkerSelector;
 import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.OutputType;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.Type;
 import io.kestra.sdk.model.WorkerSelectorMatch;
@@ -358,7 +359,7 @@ class FlowYamlTest {
     void outputValueCanBeBuiltFromAPlainValue() throws Exception {
         Flow flow = buildFlow();
         flow.setOutputs(List.of(
-                new io.kestra.sdk.model.Output().id("o").type(Type.STRING)
+                new io.kestra.sdk.model.Output().id("o").type(OutputType.STRING)
                         .value(io.kestra.sdk.model.OutputValue.of("{{ outputs.log.value }}"))));
         JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
         assertEquals("{{ outputs.log.value }}", root.get("outputs").get(0).get("value").asText());

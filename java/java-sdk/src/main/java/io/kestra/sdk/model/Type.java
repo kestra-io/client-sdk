@@ -62,6 +62,10 @@ public enum Type {
 
   REUSABLE_INPUTS("REUSABLE_INPUTS"),
 
+  TABLE("TABLE"),
+
+  ASSET("ASSET"),
+
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;

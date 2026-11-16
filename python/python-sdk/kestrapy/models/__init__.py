@@ -412,6 +412,7 @@ from kestrapy.models.notification_type import NotificationType
 from kestrapy.models.origin import Origin
 from kestrapy.models.output import Output
 from kestrapy.models.output_controller_task_output_information import OutputControllerTaskOutputInformation
+from kestrapy.models.output_type import OutputType
 from kestrapy.models.output_value import OutputValue
 from kestrapy.models.page_request import PageRequest
 from kestrapy.models.paged_results_api_group_summary import PagedResultsApiGroupSummary

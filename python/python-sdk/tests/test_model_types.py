@@ -1,6 +1,9 @@
 """Pure model decode tests — no live Kestra server required."""
 
+import pytest
+
 from kestrapy.models.type import Type
+from kestrapy.models.output_type import OutputType
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.flow import Flow
 from kestrapy.models.state_type import StateType
@@ -71,3 +74,27 @@ def test_user_permission_reads_every_action_the_server_sends():
 def test_case_event_type_reads_the_approval_and_ticket_events():
     for value in ["APPROVAL_DECIDED", "TICKET_LINKED", "TICKET_UNLINKED"]:
         assert CaseEventType(value).value == value
+
+
+def test_flow_decodes_asset_input_and_output():
+    flow = Flow.from_dict({
+        "id": "f",
+        "namespace": "ns",
+        "disabled": False,
+        "deleted": False,
+        "draft": False,
+        "tasks": [{"id": "t", "type": "io.kestra.plugin.core.log.Log"}],
+        "inputs": [{"id": "vm", "type": "ASSET"}],
+        "outputs": [{"id": "picked", "type": "ASSET", "value": "{{ inputs.vm }}"}],
+    })
+    assert flow.inputs[0].type == Type.ASSET
+    assert flow.outputs[0].type == OutputType.ASSET
+
+
+def test_output_type_refuses_an_input_only_type():
+    with pytest.raises(ValueError):
+        OutputType("SELECT")
+
+
+def test_type_table_value_exists():
+    assert Type("TABLE") == Type.TABLE
