@@ -457,7 +457,7 @@ public class Execution {
     this.trigger = trigger;
   }
 
-  public Execution deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+  public Execution deleted(@jakarta.annotation.Nullable Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -467,8 +467,8 @@ public class Execution {
    * Get deleted
    * @return deleted
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
     return deleted;
@@ -476,12 +476,12 @@ public class Execution {
 
 
   @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public Execution metadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
+  public Execution metadata(@jakarta.annotation.Nullable ExecutionMetadata metadata) {
     
     this.metadata = metadata;
     return this;
@@ -491,8 +491,8 @@ public class Execution {
    * Get metadata
    * @return metadata
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionMetadata getMetadata() {
     return metadata;
@@ -500,8 +500,8 @@ public class Execution {
 
 
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetadata(@jakarta.annotation.Nullable ExecutionMetadata metadata) {
     this.metadata = metadata;
   }
 

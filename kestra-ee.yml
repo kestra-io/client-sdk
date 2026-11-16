@@ -33861,7 +33861,6 @@ components:
       - flowId
       - flowRevision
       - id
-      - metadata
       - namespace
       - originalId
       - state

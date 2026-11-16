@@ -42,8 +42,8 @@ class Execution(BaseModel):
     parent_id: Optional[StrictStr] = Field(default=None, alias="parentId")
     original_id: StrictStr = Field(alias="originalId")
     trigger: Optional[ExecutionTrigger] = None
-    deleted: StrictBool
-    metadata: ExecutionMetadata
+    deleted: Optional[StrictBool] = None
+    metadata: Optional[ExecutionMetadata] = None
     schedule_date: Optional[datetime] = Field(default=None, alias="scheduleDate")
     trace_parent: Optional[StrictStr] = Field(default=None, alias="traceParent")
     fixtures: Optional[List[TaskFixture]] = None
