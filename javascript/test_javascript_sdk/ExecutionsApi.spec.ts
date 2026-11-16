@@ -303,7 +303,7 @@ describe("ExecutionsApi", () => {
         });
 
 
-        expect(resp.count).toBe(2);
+        expect(resp).toMatchObject({ count: 2 });
 
         await expect(
             Executions.execution({
@@ -351,7 +351,7 @@ describe("ExecutionsApi", () => {
             deleteMetrics: false,
             deleteStorage: false,
         });
-        expect(resp.count).toBe(2);
+        expect(resp).toMatchObject({ count: 2 });
 
         await expect(
             Executions.execution({
