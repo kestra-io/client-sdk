@@ -211,7 +211,8 @@ public class KestraClient {
         }
 
         /**
-         * Set the read/response timeout. {@code null} leaves the default (infinite).
+         * Set the read/response timeout. {@code null} (or a zero or negative duration) means no read
+         * timeout, so a hung connection waits forever. Long-running callers should still set one.
          */
         public KestraClientBuilder readTimeout(Duration readTimeout) {
             this.readTimeout = readTimeout;

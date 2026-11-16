@@ -118,22 +118,33 @@ public class ApiClient extends JavaTimeFormatter {
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
 
   private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
-    var connConfig = ConnectionConfig.custom();
-    connConfig.setConnectTimeout(connectMs > 0
-        ? Timeout.ofMilliseconds(connectMs)
-        : Timeout.DISABLED);
     var cm = PoolingHttpClientConnectionManagerBuilder.create()
-        .setDefaultConnectionConfig(connConfig.build())
+        .setDefaultConnectionConfig(connectionConfig(connectMs, readMs))
         .build();
 
-    var reqConfig = RequestConfig.custom();
-    if (readMs > 0) {
-      reqConfig.setResponseTimeout(Timeout.ofMilliseconds(readMs));
-    }
     return HttpClients.custom()
         .setConnectionManager(cm)
-        .setDefaultRequestConfig(reqConfig.build())
+        .setDefaultRequestConfig(requestConfig(readMs))
         .build();
+  }
+
+  // An unset (<= 0) timeout must mean "no limit". HttpCore5 otherwise falls back to a
+  // 3 minute socket timeout, so both the socket and the response timeout are set explicitly.
+  static ConnectionConfig connectionConfig(int connectMs, int readMs) {
+    return ConnectionConfig.custom()
+        .setConnectTimeout(toTimeout(connectMs))
+        .setSocketTimeout(toTimeout(readMs))
+        .build();
+  }
+
+  static RequestConfig requestConfig(int readMs) {
+    return RequestConfig.custom()
+        .setResponseTimeout(toTimeout(readMs))
+        .build();
+  }
+
+  private static Timeout toTimeout(int ms) {
+    return ms > 0 ? Timeout.ofMilliseconds(ms) : Timeout.DISABLED;
   }
 
   private void replaceHttpClient(CloseableHttpClient next) {
