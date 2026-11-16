@@ -39192,17 +39192,6 @@ components:
           description: 'Behavior applied to the task state when a declared asset fails to render, emit, or be persisted (e.g. a lock conflict): FAIL escalates it to FAILED, WARN (default) warns it if it would otherwise succeed, IGNORE leaves the state untouched.'
           allOf:
           - $ref: '#/components/schemas/Property_AssetFailureBehavior_'
-    AssetsInOut:
-      type: object
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetIdentifier'
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Asset'
     AsyncOperationType.ResourceType:
       type: string
       enum:
@@ -47536,6 +47525,7 @@ components:
             type: object
         assets:
           type: array
+          deprecated: true
           items:
             $ref: '#/components/schemas/Asset'
         description:
@@ -47590,10 +47580,6 @@ components:
       - taskId
       type: object
       properties:
-        assets:
-          deprecated: true
-          allOf:
-          - $ref: '#/components/schemas/AssetsInOut'
         id:
           type: string
         executionId:
@@ -47612,12 +47598,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TaskRunAttempt'
-        assetEmits:
-          type: array
-          nullable: true
-          deprecated: true
-          items:
-            $ref: '#/components/schemas/AssetsInOut'
         state:
           $ref: '#/components/schemas/State'
         iteration:
@@ -48112,6 +48092,7 @@ components:
       - SCHEDULE
       - POLLING
       - REALTIME
+      - UNSCHEDULED
     Type:
       type: string
       enum:
