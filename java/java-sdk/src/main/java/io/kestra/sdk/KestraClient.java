@@ -237,7 +237,9 @@ public class KestraClient {
                 apiClient.setConnectTimeout((int) Math.min(connectTimeout.toMillis(), Integer.MAX_VALUE));
             }
             if (readTimeout != null) {
-                apiClient.setReadTimeout((int) Math.min(readTimeout.toMillis(), Integer.MAX_VALUE));
+                // round a positive sub-millisecond duration up to 1ms, 0 would mean no timeout
+                long readMs = readTimeout.isNegative() || readTimeout.isZero() ? 0 : Math.max(1, readTimeout.toMillis());
+                apiClient.setReadTimeout((int) Math.min(readMs, Integer.MAX_VALUE));
             }
 
             return new KestraClient(apiClient);

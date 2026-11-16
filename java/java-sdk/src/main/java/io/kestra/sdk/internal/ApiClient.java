@@ -505,7 +505,7 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the read/response timeout (in milliseconds).
-   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
+   * Zero or a negative value means no timeout (infinite), otherwise the value is at most
    * {@link Integer#MAX_VALUE}.
    * @param readTimeout Read timeout in milliseconds
    * @return API client
