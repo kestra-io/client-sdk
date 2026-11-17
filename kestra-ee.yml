@@ -13748,6 +13748,13 @@ paths:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/CasesController.CaseDateFilter'
+      - name: assignedToMe
+        in: query
+        description: Only the cases assigned to the current user or to one of their groups
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -14023,6 +14030,13 @@ paths:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/CasesController.CaseDateFilter'
+      - name: assignedToMe
+        in: query
+        description: Only the cases assigned to the current user or to one of their groups
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -14088,6 +14102,13 @@ paths:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/CasesController.CaseDateFilter'
+      - name: assignedToMe
+        in: query
+        description: Only the cases assigned to the current user or to one of their groups
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -14440,6 +14461,13 @@ paths:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/CasesController.CaseDateFilter'
+      - name: assignedToMe
+        in: query
+        description: Only the cases assigned to the current user or to one of their groups
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
