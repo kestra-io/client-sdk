@@ -211,7 +211,8 @@ public class KestraClient {
         }
 
         /**
-         * Set the read/response timeout. {@code null} leaves the default (infinite).
+         * Set the read/response timeout. {@code null} (or a zero or negative duration) means no read
+         * timeout, so a hung connection waits forever. Long-running callers should still set one.
          */
         public KestraClientBuilder readTimeout(Duration readTimeout) {
             this.readTimeout = readTimeout;
@@ -236,7 +237,9 @@ public class KestraClient {
                 apiClient.setConnectTimeout((int) Math.min(connectTimeout.toMillis(), Integer.MAX_VALUE));
             }
             if (readTimeout != null) {
-                apiClient.setReadTimeout((int) Math.min(readTimeout.toMillis(), Integer.MAX_VALUE));
+                // round a positive sub-millisecond duration up to 1ms, 0 would mean no timeout
+                long readMs = readTimeout.isNegative() || readTimeout.isZero() ? 0 : Math.max(1, readTimeout.toMillis());
+                apiClient.setReadTimeout((int) Math.min(readMs, Integer.MAX_VALUE));
             }
 
             return new KestraClient(apiClient);
