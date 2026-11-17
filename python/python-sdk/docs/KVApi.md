@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_key_value**
-> set_key_value(namespace, key, tenant, body)
+> set_key_value(namespace, key, tenant, body, ttl=ttl, description=description)
 
 Puts a key-value pair in store
 
@@ -376,10 +376,12 @@ with KestraClient(configuration) as kestra_client:
     key = 'key_example' # str | The key
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The value of the key
+    ttl = 'PT1H' # str | The time-to-live of the key, as an ISO-8601 duration (e.g. PT1H) (optional)
+    description = 'description_example' # str | The description of the key (optional)
 
     try:
         # Puts a key-value pair in store
-        kestra_client.kv.set_key_value(namespace, key, tenant, body)
+        kestra_client.kv.set_key_value(namespace, key, tenant, body, ttl=ttl, description=description)
     except Exception as e:
         print("Exception when calling KVApi->set_key_value: %s\n" % e)
 ```
@@ -395,6 +397,8 @@ Name | Type | Description  | Notes
  **key** | **str**| The key | 
  **tenant** | **str**|  | 
  **body** | **str**| The value of the key | 
+ **ttl** | **str**| The time-to-live of the key, as an ISO-8601 duration (e.g. PT1H) | [optional] 
+ **description** | **str**| The description of the key | [optional] 
 
 ### Return type
 

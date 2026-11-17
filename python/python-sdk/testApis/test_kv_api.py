@@ -70,6 +70,19 @@ def test_set_key_value_overwrite(client):
     assert detail.value == "second"
 
 
+def test_set_key_value_with_ttl_and_description(client):
+    ns = random_namespace()
+    create_flow(client, log_flow_yaml(random_id(), ns))
+
+    client.kv.set_key_value(ns, "ttl_key", TENANT, '"value"', ttl="PT1H", description="a described key")
+
+    result = client.kv.list_all_keys(TENANT, 1, 10, filters=[ns_filter(ns)])
+    entries = [e for e in result.results if e.key == "ttl_key"]
+    assert len(entries) == 1
+    assert entries[0].description == "a described key"
+    assert entries[0].expiration_date is not None
+
+
 def test_key_value_not_found(client):
     with pytest.raises(ApiException):
         client.kv.key_value("nonexistent_ns_" + random_id(), "nonexistent", TENANT)

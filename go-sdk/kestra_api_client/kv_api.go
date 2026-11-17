@@ -2,7 +2,6 @@ package kestra_api_client
 
 import (
 	"context"
-	"net/url"
 )
 
 type KvAPI struct {
@@ -39,9 +38,16 @@ func (a *KvAPI) ListKeysWithInheritance(ctx context.Context, namespace, tenant s
 }
 
 func (a *KvAPI) SetKeyValueWithTTL(ctx context.Context, namespace, key, tenant, body string, ttl *string) error {
-	var params url.Values
+	return a.SetKeyValueWithOptions(ctx, namespace, key, tenant, body, ttl, nil)
+}
+
+func (a *KvAPI) SetKeyValueWithOptions(ctx context.Context, namespace, key, tenant, body string, ttl, description *string) error {
+	headers := map[string]string{}
 	if ttl != nil {
-		params = buildQueryParams("ttl", ttl)
+		headers["ttl"] = *ttl
 	}
-	return a.doVoidText(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, params)
+	if description != nil {
+		headers["description"] = *description
+	}
+	return a.doVoidTextWithHeaders(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, nil, headers)
 }
