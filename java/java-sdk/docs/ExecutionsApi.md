@@ -7,7 +7,9 @@ All URIs are relative to *http://localhost*
 | [**createExecution**](ExecutionsApi.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow |
 | [**deleteExecution**](ExecutionsApi.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution |
 | [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
+| [**deleteExecutionsByIdsInBackground**](ExecutionsApi.md#deleteExecutionsByIdsInBackground) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions in the background |
 | [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
+| [**deleteExecutionsByQueryInBackground**](ExecutionsApi.md#deleteExecutionsByQueryInBackground) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters in the background |
 | [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
 | [**evalExpression**](ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/eval | Evaluate a variable expression for this execution |
 | [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
@@ -296,6 +298,87 @@ public class Example {
 | **422** | Deleted with errors |  -  |
 
 
+## deleteExecutionsByIdsInBackground
+
+> ApiAsyncOperationResponse deleteExecutionsByIdsInBackground(tenant, ids, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+
+Delete a list of executions in the background
+
+Runs the deletion in the background (`async=true`): the server answers 202 before the executions are deleted. `totalItems` is the number of executions queued for deletion; `operationId` identifies the background operation, whose progress is reported through a notification.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        List<String> requestBody = Arrays.asList(); // List<String> | The execution id
+        Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
+        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
+        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
+        try {
+            ApiAsyncOperationResponse result = kestraClient.executions().deleteExecutionsByIdsInBackground(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByIdsInBackground");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The execution id | |
+| **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
+| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
+| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
+
+### Return type
+
+[**ApiAsyncOperationResponse**](ApiAsyncOperationResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Accepted |  -  |
+| **422** | Deleted with errors |  -  |
+
+
 ## deleteExecutionsByQuery
 
 > Object deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
@@ -372,6 +455,87 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | deleteExecutionsByQuery 200 response |  -  |
+
+
+## deleteExecutionsByQueryInBackground
+
+> ApiAsyncOperationResponse deleteExecutionsByQueryInBackground(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+
+Delete executions filter by query parameters in the background
+
+Runs the deletion in the background (`async=true`): the server answers 202 before the executions are deleted. `totalItems` is the number of executions queued for deletion; `operationId` identifies the background operation, whose progress is reported through a notification.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
+        Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
+        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
+        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
+        try {
+            ApiAsyncOperationResponse result = kestraClient.executions().deleteExecutionsByQueryInBackground(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQueryInBackground");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
+| **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
+| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
+| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
+
+### Return type
+
+[**ApiAsyncOperationResponse**](ApiAsyncOperationResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Accepted |  -  |
+| **422** | Deleted with errors |  -  |
 
 
 ## downloadFileFromExecution

@@ -4,6 +4,7 @@ from typing import Any, Dict, Generator, List, Optional
 from urllib3.filepost import encode_multipart_formdata
 
 from kestrapy.base_api import BaseApi
+from kestrapy.models.api_async_operation_response import ApiAsyncOperationResponse
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.execution import Execution
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
@@ -263,6 +264,43 @@ class ExecutionsApi(BaseApi):
         ).items())
         self._append_filter_params(params, filters)
         return self._raw_json_request("DELETE", path, params=params)
+
+    def delete_executions_by_ids_in_background(
+        self,
+        tenant: str,
+        ids: List[str],
+        include_non_terminated: Optional[bool] = None,
+        delete_logs: Optional[bool] = None,
+        delete_metrics: Optional[bool] = None,
+        delete_storage: Optional[bool] = None,
+    ) -> ApiAsyncOperationResponse:
+        """Delete a list of executions in the background (``async=true``); returns before they are deleted."""
+        path = self._tenant_path(tenant, "executions", "by-ids")
+        params = self._build_query_params(
+            includeNonTerminated=include_non_terminated,
+            deleteLogs=delete_logs, deleteMetrics=delete_metrics, deleteStorage=delete_storage,
+            **{"async": True},  # `async` is a Python keyword
+        )
+        return self._json_request("DELETE", path, ApiAsyncOperationResponse, params=params, body=ids)
+
+    def delete_executions_by_query_in_background(
+        self,
+        tenant: str,
+        filters: Optional[List[QueryFilter]] = None,
+        include_non_terminated: Optional[bool] = None,
+        delete_logs: Optional[bool] = None,
+        delete_metrics: Optional[bool] = None,
+        delete_storage: Optional[bool] = None,
+    ) -> ApiAsyncOperationResponse:
+        """Delete the executions matching the filters in the background (``async=true``); returns before they are deleted."""
+        path = self._tenant_path(tenant, "executions", "by-query")
+        params = list(self._build_query_params(
+            includeNonTerminated=include_non_terminated,
+            deleteLogs=delete_logs, deleteMetrics=delete_metrics, deleteStorage=delete_storage,
+            **{"async": True},  # `async` is a Python keyword
+        ).items())
+        self._append_filter_params(params, filters)
+        return self._json_request("DELETE", path, ApiAsyncOperationResponse, params=params)
 
     # ========================================================================
     # Pause / Resume

@@ -343,6 +343,47 @@ func (a *ExecutionsAPI) DeleteExecutionsByQuery(
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "DELETE", path, nil, params)
 }
 
+// DeleteExecutionsByIdsInBackground deletes executions by their IDs in the background (async=true).
+func (a *ExecutionsAPI) DeleteExecutionsByIdsInBackground(
+	ctx context.Context,
+	tenant string,
+	ids []string,
+	includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage *bool,
+) (*ApiAsyncOperationResponse, error) {
+	path := tenantPath(tenant, "executions", "by-ids")
+	params := buildQueryParams(
+		"includeNonTerminated", includeNonTerminated,
+		"deleteLogs", deleteLogs,
+		"deleteMetrics", deleteMetrics,
+		"deleteStorage", deleteStorage,
+		"async", true,
+	)
+
+	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, ids, params)
+}
+
+// DeleteExecutionsByQueryInBackground deletes executions matching the given filters in the background (async=true).
+func (a *ExecutionsAPI) DeleteExecutionsByQueryInBackground(
+	ctx context.Context,
+	tenant string,
+	filters []SearchFilter,
+	includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage *bool,
+) (*ApiAsyncOperationResponse, error) {
+	path := tenantPath(tenant, "executions", "by-query")
+	params := buildQueryParams(
+		"includeNonTerminated", includeNonTerminated,
+		"deleteLogs", deleteLogs,
+		"deleteMetrics", deleteMetrics,
+		"deleteStorage", deleteStorage,
+		"async", true,
+	)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
+
+	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, nil, params)
+}
+
 // ========================================================================
 // Pause / Resume
 // ========================================================================
