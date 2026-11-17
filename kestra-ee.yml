@@ -8416,6 +8416,52 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/ai/usage:
+    get:
+      tags:
+      - AI
+      summary: Get AI usage against the configured limit
+      operationId: usage
+      parameters:
+      - name: providerId
+        in: query
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: usage 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageStatus'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/app-templates:
     get:
       tags:
@@ -36667,6 +36713,54 @@ components:
         properties:
           providerId:
             type: string
+    AiUsageStatus:
+      type: object
+      properties:
+        providerId:
+          type: string
+          nullable: true
+        enabled:
+          type: boolean
+        windowStart:
+          type: string
+          format: date-time
+          nullable: true
+        availableAt:
+          type: string
+          format: date-time
+          nullable: true
+        global:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AiUsageStatus.Axis'
+        user:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/AiUsageStatus.Axis'
+        warningThresholdPercent:
+          type: integer
+          format: int32
+        exceeded:
+          type: boolean
+        warning:
+          type: boolean
+        remainingPercent:
+          type: integer
+          format: int32
+    AiUsageStatus.Axis:
+      type: object
+      properties:
+        weight:
+          type: integer
+          format: int64
+        maxWeight:
+          type: integer
+          format: int64
+        remainingPercent:
+          type: integer
+          format: int32
+        exceeded:
+          type: boolean
     ApiAsyncOperationResponse:
       type: object
       properties:
