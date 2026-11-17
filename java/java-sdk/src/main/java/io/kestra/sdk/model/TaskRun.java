@@ -114,7 +114,7 @@ public class TaskRun {
     this.id = id;
   }
 
-  public TaskRun executionId(@jakarta.annotation.Nonnull String executionId) {
+  public TaskRun executionId(@jakarta.annotation.Nullable String executionId) {
     
     this.executionId = executionId;
     return this;
@@ -124,8 +124,8 @@ public class TaskRun {
    * Get executionId
    * @return executionId
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExecutionId() {
     return executionId;
@@ -133,12 +133,12 @@ public class TaskRun {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExecutionId(@jakarta.annotation.Nonnull String executionId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutionId(@jakarta.annotation.Nullable String executionId) {
     this.executionId = executionId;
   }
 
-  public TaskRun namespace(@jakarta.annotation.Nonnull String namespace) {
+  public TaskRun namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -148,8 +148,8 @@ public class TaskRun {
    * Get namespace
    * @return namespace
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
@@ -157,12 +157,12 @@ public class TaskRun {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public TaskRun flowId(@jakarta.annotation.Nonnull String flowId) {
+  public TaskRun flowId(@jakarta.annotation.Nullable String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -172,8 +172,8 @@ public class TaskRun {
    * Get flowId
    * @return flowId
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
     return flowId;
@@ -181,8 +181,8 @@ public class TaskRun {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = flowId;
   }
 

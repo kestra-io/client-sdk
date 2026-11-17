@@ -43096,10 +43096,7 @@ components:
           $ref: '#/components/schemas/ExecutableTask.SubflowId'
     TaskRun:
       required:
-      - executionId
-      - flowId
       - id
-      - namespace
       - state
       - taskId
       type: object

@@ -25,9 +25,9 @@ class TaskRun(BaseModel):
     TaskRun
     """ # noqa: E501
     id: StrictStr
-    execution_id: StrictStr = Field(alias="executionId")
-    namespace: StrictStr
-    flow_id: StrictStr = Field(alias="flowId")
+    execution_id: Optional[StrictStr] = Field(default=None, alias="executionId")
+    namespace: Optional[StrictStr] = None
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
     task_id: StrictStr = Field(alias="taskId")
     parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
     value: Optional[StrictStr] = None
