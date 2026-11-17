@@ -19,9 +19,16 @@ class KVApi(BaseApi):
         key: str,
         tenant: str,
         body: str,
+        ttl: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> None:
         path = self._tenant_path(tenant, "namespaces", namespace, "kv", key)
-        self._void_request("PUT", path, body=body, content_type=self.TEXT)
+        headers = {}
+        if ttl is not None:
+            headers["ttl"] = ttl
+        if description is not None:
+            headers["description"] = description
+        self._request("PUT", path, body=body, content_type=self.TEXT, headers=headers)
 
     def key_value(
         self,

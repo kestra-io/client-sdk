@@ -95,9 +95,12 @@ class BaseApi:
                  content_type: Optional[str] = None,
                  accept: Optional[str] = None,
                  files: Optional[Dict] = None,
+                 headers: Optional[Dict[str, str]] = None,
                  stream: bool = False) -> requests.Response:
         url = self._base_url + path
-        headers = {}
+        # Copy so a caller-supplied mapping is never mutated by the
+        # Content-Type/Accept defaults below.
+        headers = dict(headers) if headers else {}
         data = None
         json_body = None
 
