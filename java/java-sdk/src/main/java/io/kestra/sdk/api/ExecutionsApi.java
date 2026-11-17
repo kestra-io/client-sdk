@@ -363,13 +363,7 @@ public class ExecutionsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    /**
-     * Deletes a list of executions in the background ({@code async=true}).
-     *
-     * <p>The server accepts the request (HTTP 202) and returns before the executions are deleted.
-     * {@code totalItems} is the number of executions queued for deletion; {@code operationId}
-     * identifies the background operation, whose progress is reported through a notification.
-     */
+    /** Deletes a list of executions in the background ({@code async=true}); returns before they are deleted. */
     public ApiAsyncOperationResponse deleteExecutionsByIdsInBackground(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull List<String> ids,
@@ -387,13 +381,7 @@ public class ExecutionsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    /**
-     * Deletes the executions matching the filters in the background ({@code async=true}).
-     *
-     * <p>The server accepts the request (HTTP 202) and returns before the executions are deleted.
-     * {@code totalItems} is the number of executions queued for deletion; {@code operationId}
-     * identifies the background operation, whose progress is reported through a notification.
-     */
+    /** Deletes the executions matching the filters in the background ({@code async=true}); returns before they are deleted. */
     public ApiAsyncOperationResponse deleteExecutionsByQueryInBackground(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable List<QueryFilter> filters,

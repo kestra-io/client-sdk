@@ -165,7 +165,9 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**createExecution**](docs/ExecutionsApi.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
 *ExecutionsApi* | [**deleteExecution**](docs/ExecutionsApi.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
+*ExecutionsApi* | [**deleteExecutionsByIdsInBackground**](docs/ExecutionsApi.md#deleteExecutionsByIdsInBackground) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions in the background
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
+*ExecutionsApi* | [**deleteExecutionsByQueryInBackground**](docs/ExecutionsApi.md#deleteExecutionsByQueryInBackground) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters in the background
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *ExecutionsApi* | [**evalExpression**](docs/ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 *ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution

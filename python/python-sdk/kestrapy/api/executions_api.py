@@ -274,13 +274,7 @@ class ExecutionsApi(BaseApi):
         delete_metrics: Optional[bool] = None,
         delete_storage: Optional[bool] = None,
     ) -> ApiAsyncOperationResponse:
-        """Delete a list of executions in the background (``async=true``).
-
-        The server accepts the request (HTTP 202) and returns before the executions are
-        deleted. ``total_items`` is the number of executions queued for deletion;
-        ``operation_id`` identifies the background operation, whose progress is reported
-        through a notification.
-        """
+        """Delete a list of executions in the background (``async=true``); returns before they are deleted."""
         path = self._tenant_path(tenant, "executions", "by-ids")
         params = self._build_query_params(
             includeNonTerminated=include_non_terminated,
@@ -298,13 +292,7 @@ class ExecutionsApi(BaseApi):
         delete_metrics: Optional[bool] = None,
         delete_storage: Optional[bool] = None,
     ) -> ApiAsyncOperationResponse:
-        """Delete the executions matching the filters in the background (``async=true``).
-
-        The server accepts the request (HTTP 202) and returns before the executions are
-        deleted. ``total_items`` is the number of executions queued for deletion;
-        ``operation_id`` identifies the background operation, whose progress is reported
-        through a notification.
-        """
+        """Delete the executions matching the filters in the background (``async=true``); returns before they are deleted."""
         path = self._tenant_path(tenant, "executions", "by-query")
         params = list(self._build_query_params(
             includeNonTerminated=include_non_terminated,

@@ -343,10 +343,7 @@ func (a *ExecutionsAPI) DeleteExecutionsByQuery(
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "DELETE", path, nil, params)
 }
 
-// DeleteExecutionsByIdsInBackground deletes multiple executions by their IDs in the
-// background (async=true). The server accepts the request (HTTP 202) and returns before
-// the executions are deleted: TotalItems is the number of executions queued for deletion,
-// OperationId identifies the background operation, reported through a notification.
+// DeleteExecutionsByIdsInBackground deletes executions by their IDs in the background (async=true).
 func (a *ExecutionsAPI) DeleteExecutionsByIdsInBackground(
 	ctx context.Context,
 	tenant string,
@@ -365,10 +362,7 @@ func (a *ExecutionsAPI) DeleteExecutionsByIdsInBackground(
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, ids, params)
 }
 
-// DeleteExecutionsByQueryInBackground deletes executions matching the given filters in
-// the background (async=true). The server accepts the request (HTTP 202) and returns before
-// the executions are deleted: TotalItems is the number of executions queued for deletion,
-// OperationId identifies the background operation, reported through a notification.
+// DeleteExecutionsByQueryInBackground deletes executions matching the given filters in the background (async=true).
 func (a *ExecutionsAPI) DeleteExecutionsByQueryInBackground(
 	ctx context.Context,
 	tenant string,

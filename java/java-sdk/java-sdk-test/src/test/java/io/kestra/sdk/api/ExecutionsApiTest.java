@@ -38,6 +38,12 @@ public class ExecutionsApiTest {
         return executionId;
     }
 
+    private void awaitDeleted(String executionId) {
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() ->
+                assertThatThrownBy(() -> api().execution(executionId, TENANT))
+                        .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.getCode()).isEqualTo(404)));
+    }
+
     static String failingFlowYaml(String id, String ns) {
         return """
                 id: %s
@@ -495,12 +501,6 @@ public class ExecutionsApiTest {
         awaitDeleted(toDelete1);
         awaitDeleted(toDelete2);
         assertThat(api().execution(toKeep, TENANT).getId()).isEqualTo(toKeep);
-    }
-
-    private void awaitDeleted(String executionId) {
-        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() ->
-                assertThatThrownBy(() -> api().execution(executionId, TENANT))
-                        .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.getCode()).isEqualTo(404)));
     }
 
     // ========================================================================
