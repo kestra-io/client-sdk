@@ -95,6 +95,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -104,6 +105,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -980,21 +982,26 @@ paths:
       parameters:
       - name: page
         in: query
+        description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
       - name: size
         in: query
+        description: The current page size
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
       - name: sort
         in: query
+        description: The sort of current page
         explode: false
         schema:
           type: array
@@ -1377,6 +1384,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -1386,6 +1394,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -1493,6 +1502,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -1502,6 +1512,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -5376,6 +5387,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -5385,6 +5397,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -6014,6 +6027,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -6023,6 +6037,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -6608,6 +6623,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -6617,6 +6633,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -8478,6 +8495,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -8487,6 +8505,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -11743,6 +11762,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -11752,6 +11772,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -12037,6 +12058,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -12046,6 +12068,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -12223,13 +12246,6 @@ paths:
       description: Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
       operationId: searchBlueprints
       parameters:
-      - name: sort
-        in: query
-        description: The sort of current page
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -12248,7 +12264,16 @@ paths:
           minimum: 1
           type: integer
           format: int32
-          default: 1
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
       - name: kind
         in: path
         description: The blueprint kind
@@ -12524,18 +12549,12 @@ paths:
       description: Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
       operationId: searchInternalBlueprints
       parameters:
-      - name: sort
-        in: query
-        description: The sort of current page
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -12545,9 +12564,19 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
-          default: 1
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
       - name: source
         in: query
         description: Whether to include the flow source in the response
@@ -16064,7 +16093,7 @@ paths:
           minimum: 1
           type: integer
           format: int32
-          default: 25
+          default: 10
       - name: tenant
         in: path
         required: true
@@ -16160,6 +16189,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -16169,6 +16199,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -16490,13 +16521,6 @@ paths:
           type: integer
           format: int32
           default: 10
-      - name: q
-        in: query
-        description: The filter query
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: sort
         in: query
         description: The sort of current page
@@ -16506,6 +16530,13 @@ paths:
           nullable: true
           items:
             type: string
+      - name: q
+        in: query
+        description: The filter query
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -18926,11 +18957,6 @@ paths:
           nullable: true
           items:
             type: string
-        examples:
-          Sort by start date in ascending order:
-            value: state.startDate:asc
-          Sort by namespace in descending order:
-            value: namespace:desc
       - name: filters
         in: query
         description: 'Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`'
@@ -22777,11 +22803,6 @@ paths:
           nullable: true
           items:
             type: string
-        examples:
-          Sort by namespace in ascending order:
-            value: namespace:asc
-          Sort by flow ID in descending order:
-            value: id:desc
       - name: filters
         in: query
         description: 'Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`'
@@ -23844,6 +23865,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -23852,6 +23874,8 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -24376,6 +24400,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -24385,6 +24410,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -24629,6 +24655,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -24638,6 +24665,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -26006,6 +26034,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -26015,6 +26044,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -26188,6 +26218,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -26197,6 +26228,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -26209,11 +26241,6 @@ paths:
           nullable: true
           items:
             type: string
-        examples:
-          Sort by key in ascending order:
-            value: key:asc
-          Sort by description in descending order:
-            value: description:desc
       - name: filters
         in: query
         description: 'Filters. PHP-style nested query is used - example: `filters[namespace][IN]=company.team`'
@@ -26291,9 +26318,6 @@ paths:
           nullable: true
           items:
             type: string
-        examples:
-          Sort by timestamp in ascending order:
-            value: timestamp:asc
       - name: cursor
         in: query
         description: An opaque cursor token (from a previous response's nextCursor) for cursor-paginated log stores
@@ -27941,6 +27965,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -27950,6 +27975,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -29479,16 +29505,20 @@ paths:
           type: string
       - name: page
         in: query
+        description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
       - name: size
         in: query
+        description: The current page size
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -30906,21 +30936,26 @@ paths:
           type: string
       - name: page
         in: query
+        description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
       - name: size
         in: query
+        description: The current page size
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
       - name: sort
         in: query
+        description: The sort of current page
         explode: false
         schema:
           type: array
@@ -32024,6 +32059,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -32033,6 +32069,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -32328,6 +32365,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -32337,6 +32375,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -32492,12 +32531,22 @@ paths:
       description: Instance-owner-only.
       operationId: searchSecurityIntegration
       parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
       - name: size
         in: query
         description: The current page size
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -32510,14 +32559,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: page
-        in: query
-        description: The current page
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          default: 1
       - name: filters
         in: query
         description: Filters
@@ -32769,6 +32810,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -32778,6 +32820,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -33376,6 +33419,7 @@ paths:
         description: The current page
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -33385,6 +33429,7 @@ paths:
         explode: false
         schema:
           maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 10
@@ -35439,11 +35484,6 @@ paths:
           nullable: true
           items:
             type: string
-        examples:
-          Sort by next evaluation date in ascending order:
-            value: nextEvaluationDate:asc
-          Sort by trigger ID in descending order:
-            value: triggerId:desc
       - name: filters
         in: query
         description: 'Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`'
