@@ -1,6 +1,8 @@
 # FlowWorkerSelector
 
-Routing requirements for a Flow, Task or Trigger. Unlike [WorkerSelector](WorkerSelector.md) (namespace and tenant defaults), `tags` is a Kestra property: a JSON array literal such as `["gpu"]` or a Pebble expression rendered when the job is routed. The server returns it as a string in both cases.
+Routing requirements for a Flow, Task or Trigger. Unlike [WorkerSelector](WorkerSelector.md) (namespace and tenant defaults), `tags` is a Kestra property: a JSON array literal such as `["gpu"]` or a Pebble expression rendered when the job is routed. Kestra 2.0.11+ returns it as a string in both cases.
+
+Works with every Kestra 2.0.x server: Kestra 2.0.0-2.0.10 returns `tags` as a JSON array, which the SDK reads as its JSON text (`["gpu","linux"]`). When a flow is written (`create_flow_from_object` / `update_flow_from_object`), tags holding a JSON array of strings are sent as a YAML sequence, which every 2.0.x server accepts; any other value, such as a Pebble expression, is sent as a string and needs Kestra 2.0.11+.
 
 
 ## Properties

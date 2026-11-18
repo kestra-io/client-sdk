@@ -12,7 +12,7 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.worker_queue_fallback import WorkerQueueFallback
 from kestrapy.models.worker_selector_match import WorkerSelectorMatch
@@ -25,12 +25,38 @@ class FlowWorkerSelector(BaseModel):
     tenant defaults), ``tags`` is a Kestra property: a JSON array literal such as ``["gpu"]``
     or a Pebble expression rendered when the job is routed. The server returns it as a
     string in both cases.
+
+    Kestra before 2.0.11 typed ``tags`` as a plain list: it returns a JSON array and rejects
+    a string. To work with every 2.0.x server, a list is read as its JSON text, and tags
+    holding a JSON array of strings are written back as a list (which 2.0.11+ accepts too).
+    Any other value, such as a Pebble expression, is written as a string.
     """ # noqa: E501
     tags: Optional[StrictStr] = Field(default=None, description="Required tags used to route to a matching Worker Queue, as a JSON array literal (e.g. [\"gpu\"]) or a Pebble expression rendering to the tags. Each tag is an RFC 1123 label, max 63 chars per tag, max 20 tags; a tag rendering to an empty value is ignored.")
     match: Optional[WorkerSelectorMatch] = Field(default=None, description="How selector tags are matched against a Worker Queue's tag set. ALL: queue tags must be a superset of the selector tags. ANY: queue tags must intersect the selector tags. Defaults to ALL when null.")
     fallback: Optional[WorkerQueueFallback] = Field(default=None, description="Strategy when no worker is available. Defaults to FAIL when null.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tags", "match", "fallback"]
+
+    @field_validator("tags", mode="before")
+    @classmethod
+    def tags_as_string(cls, value: Any) -> Any:
+        """Keep a string, and read a list (Kestra before 2.0.11) as its JSON text."""
+        if value is None or isinstance(value, str):
+            return value
+        return json.dumps(value, separators=(",", ":"))
+
+    @staticmethod
+    def _tags_as_list(tags: Optional[str]) -> Any:
+        """Tags holding a JSON array of strings as that list, anything else unchanged."""
+        if not isinstance(tags, str) or not tags.lstrip().startswith("["):
+            return tags
+        try:
+            parsed = json.loads(tags)
+        except ValueError:
+            return tags
+        if isinstance(parsed, list) and all(isinstance(item, str) for item in parsed):
+            return parsed
+        return tags
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +99,8 @@ class FlowWorkerSelector(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        if "tags" in _dict:
+            _dict["tags"] = self._tags_as_list(_dict["tags"])
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():

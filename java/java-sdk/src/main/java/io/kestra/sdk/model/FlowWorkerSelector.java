@@ -9,10 +9,21 @@
 
 package io.kestra.sdk.model;
 
+import java.io.IOException;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.kestra.sdk.model.WorkerQueueFallback;
 import io.kestra.sdk.model.WorkerSelectorMatch;
 
@@ -21,6 +32,11 @@ import io.kestra.sdk.model.WorkerSelectorMatch;
  * tenant defaults), {@code tags} is a Kestra property: either a JSON array literal such as
  * {@code ["gpu"]} or a Pebble expression rendered when the job is routed. The server returns it as a
  * string in both cases.
+ *
+ * <p>Kestra before 2.0.11 typed {@code tags} as a plain list: it returns a JSON array and rejects a
+ * string. To work with every 2.0.x server, an array is read as its JSON text, and tags holding a
+ * JSON array of strings are written back as an array (which 2.0.11+ accepts too). Any other value,
+ * such as a Pebble expression, is written as a string.
  */
 @JsonPropertyOrder({
   FlowWorkerSelector.JSON_PROPERTY_TAGS,
@@ -54,7 +70,7 @@ public class FlowWorkerSelector {
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
+  @JsonSerialize(using = TagsSerializer.class)
   public String getTags() {
     return tags;
   }
@@ -62,6 +78,7 @@ public class FlowWorkerSelector {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonDeserialize(using = TagsDeserializer.class)
   public void setTags(@jakarta.annotation.Nullable String tags) {
     this.tags = tags;
   }
@@ -112,6 +129,57 @@ public class FlowWorkerSelector {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFallback(@jakarta.annotation.Nullable WorkerQueueFallback fallback) {
     this.fallback = fallback;
+  }
+
+  /** Reads a string as is, and an array (Kestra before 2.0.11) as its JSON text. */
+  static class TagsDeserializer extends JsonDeserializer<String> {
+    @Override
+    public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      JsonNode node = p.readValueAsTree();
+      if (node == null || node.isNull()) {
+        return null;
+      }
+      return node.isTextual() ? node.asText() : node.toString();
+    }
+  }
+
+  /** Writes tags holding a JSON array of strings as that array, anything else as a string. */
+  static class TagsSerializer extends JsonSerializer<String> {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @Override
+    public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+      JsonNode array = stringArray(value);
+      if (array == null) {
+        gen.writeString(value);
+        return;
+      }
+      gen.writeStartArray();
+      for (JsonNode item : array) {
+        gen.writeString(item.asText());
+      }
+      gen.writeEndArray();
+    }
+
+    private static JsonNode stringArray(String value) {
+      if (!value.trim().startsWith("[")) {
+        return null;
+      }
+      try {
+        JsonNode node = MAPPER.readTree(value);
+        if (node == null || !node.isArray()) {
+          return null;
+        }
+        for (JsonNode item : node) {
+          if (!item.isTextual()) {
+            return null;
+          }
+        }
+        return node;
+      } catch (IOException e) {
+        return null;
+      }
+    }
   }
 
   @Override

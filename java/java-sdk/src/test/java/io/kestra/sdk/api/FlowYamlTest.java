@@ -432,23 +432,27 @@ class FlowYamlTest {
     }
 
     @Test
-    void workerSelectorTagsStayStrings() throws Exception {
-        // Pins that the emitted workerSelector.tags stays a string: a literal list must not be
-        // re-read as a YAML sequence.
+    void workerSelectorLiteralListTagsAreEmittedAsASequence() throws Exception {
+        // Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too),
+        // so a JSON array literal is emitted as a sequence; a Pebble expression stays a string.
         Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log");
         log.putAdditionalProperty("message", "hi");
+        log.setWorkerSelector(new FlowWorkerSelector().tags("{{ inputs.workers }}"));
         Flow flow = new Flow();
         flow.setId("p");
         flow.setNamespace("ns");
-        flow.setWorkerSelector(new FlowWorkerSelector().tags("[\"gpu\"]").match(WorkerSelectorMatch.ANY));
+        flow.setWorkerSelector(new FlowWorkerSelector().tags("[\"gpu\", \"linux\"]").match(WorkerSelectorMatch.ANY));
         flow.setTasks(List.of(log));
 
         JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));
 
         JsonNode flowTags = root.get("workerSelector").get("tags");
-        assertTrue(flowTags.isTextual(), "flow tags re-typed to " + flowTags.getNodeType());
-        assertEquals("[\"gpu\"]", flowTags.asText());
+        assertTrue(flowTags.isArray(), "flow tags emitted as " + flowTags.getNodeType());
+        assertEquals("[\"gpu\",\"linux\"]", flowTags.toString());
         assertEquals("ANY", root.get("workerSelector").get("match").asText());
+        JsonNode taskTags = root.get("tasks").get(0).get("workerSelector").get("tags");
+        assertTrue(taskTags.isTextual(), "task tags emitted as " + taskTags.getNodeType());
+        assertEquals("{{ inputs.workers }}", taskTags.asText());
     }
 
     private static File ambiguousStringsFixture() {

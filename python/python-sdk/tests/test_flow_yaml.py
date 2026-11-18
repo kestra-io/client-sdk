@@ -425,23 +425,25 @@ def test_construct_model_fallback_keeps_undeclared_keys():
     assert flow.triggers[0].additional_properties["timezone"] == "Europe/Paris"
 
 
-def test_worker_selector_tags_stay_strings():
-    # Pins that the emitted workerSelector.tags stays a string: a literal list must not be
-    # re-read as a YAML sequence.
+def test_worker_selector_literal_list_tags_are_emitted_as_a_sequence():
+    # Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too),
+    # so a JSON array literal is emitted as a sequence; a Pebble expression stays a string.
     flow = Flow.from_dict({
         "id": "p",
         "namespace": "ns",
         "disabled": False,
         "deleted": False,
         "draft": False,
-        "workerSelector": {"tags": '["gpu"]', "match": "ANY"},
+        "workerSelector": {"tags": '["gpu", "linux"]', "match": "ANY"},
         "tasks": [{
             "id": "t",
             "type": "io.kestra.plugin.core.log.Log",
             "message": "hi",
+            "workerSelector": {"tags": "{{ inputs.workers }}"},
         }],
     })
 
     parsed = yaml.safe_load(flow_to_yaml(flow))
 
-    assert parsed["workerSelector"] == {"tags": '["gpu"]', "match": "ANY"}
+    assert parsed["workerSelector"] == {"tags": ["gpu", "linux"], "match": "ANY"}
+    assert parsed["tasks"][0]["workerSelector"] == {"tags": "{{ inputs.workers }}"}

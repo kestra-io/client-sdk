@@ -9,7 +9,9 @@ API version: 2.0.0-SNAPSHOT
 package kestra_api_client
 
 import (
+	"bytes"
 	"encoding/json"
+	"strings"
 )
 
 // checks if the FlowWorkerSelector type satisfies the MappedNullable interface at compile time
@@ -155,7 +157,7 @@ func (o FlowWorkerSelector) MarshalJSON() ([]byte, error) {
 func (o FlowWorkerSelector) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
+		toSerialize["tags"] = flowWorkerSelectorTagsValue(*o.Tags)
 	}
 	if !IsNil(o.Match) {
 		toSerialize["match"] = o.Match
@@ -171,8 +173,28 @@ func (o FlowWorkerSelector) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
+// flowWorkerSelectorTagsValue writes tags holding a JSON array of strings as that array, so
+// Kestra before 2.0.11 (which only accepts a list) reads it too; anything else, such as a
+// Pebble expression, stays a string.
+func flowWorkerSelectorTagsValue(tags string) interface{} {
+	if !strings.HasPrefix(strings.TrimSpace(tags), "[") {
+		return tags
+	}
+	var list []string
+	if err := json.Unmarshal([]byte(tags), &list); err != nil || list == nil {
+		return tags
+	}
+	return list
+}
+
 func (o *FlowWorkerSelector) UnmarshalJSON(data []byte) (err error) {
-	varFlowWorkerSelector := _FlowWorkerSelector{}
+	// Kestra 2.0.11+ returns tags as a string; before 2.0.11 it returns a JSON array.
+	// Keep a string as is, and read an array (or any other JSON value) as its compact
+	// JSON text so both shapes read into Tags.
+	varFlowWorkerSelector := struct {
+		_FlowWorkerSelector
+		Tags json.RawMessage `json:"tags,omitempty"`
+	}{}
 
 	err = json.Unmarshal(data, &varFlowWorkerSelector)
 
@@ -180,7 +202,19 @@ func (o *FlowWorkerSelector) UnmarshalJSON(data []byte) (err error) {
 		return err
 	}
 
-	*o = FlowWorkerSelector(varFlowWorkerSelector)
+	*o = FlowWorkerSelector(varFlowWorkerSelector._FlowWorkerSelector)
+	o.Tags = nil
+	if raw := varFlowWorkerSelector.Tags; len(raw) > 0 && string(raw) != "null" {
+		var tags string
+		if err = json.Unmarshal(raw, &tags); err != nil {
+			var compact bytes.Buffer
+			if err = json.Compact(&compact, raw); err != nil {
+				return err
+			}
+			tags = compact.String()
+		}
+		o.Tags = &tags
+	}
 
 	additionalProperties := make(map[string]interface{})
 

@@ -500,19 +500,20 @@ func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
 	}
 }
 
-// Pins that the emitted workerSelector.tags stays a string: a literal list must not be
-// re-read as a YAML sequence.
-func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
+// Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too), so a
+// JSON array literal is emitted as a sequence; a Pebble expression stays a string.
+func TestFlowToYAML_WorkerSelectorLiteralListTagsAreEmittedAsASequence(t *testing.T) {
 	flow := Flow{
 		Id:        "p",
 		Namespace: "ns",
 		WorkerSelector: &FlowWorkerSelector{
-			Tags:  PtrString(`["gpu"]`),
+			Tags:  PtrString(`["gpu", "linux"]`),
 			Match: WORKERSELECTORMATCH_ANY.Ptr(),
 		},
 		Tasks: []Task{{
 			Id:                   "t",
 			Type:                 "io.kestra.plugin.core.log.Log",
+			WorkerSelector:       &FlowWorkerSelector{Tags: PtrString("{{ inputs.workers }}")},
 			AdditionalProperties: map[string]interface{}{"message": "hi"},
 		}},
 	}
@@ -526,10 +527,14 @@ func TestFlowToYAML_WorkerSelectorTagsStayStrings(t *testing.T) {
 		t.Fatalf("re-parsing YAML failed: %v\n%s", err, out)
 	}
 	flowSelector := parsed["workerSelector"].(map[string]interface{})
-	if got := flowSelector["tags"]; got != `["gpu"]` {
-		t.Errorf("flow tags = %#v (%T), want string %q\n%s", got, got, `["gpu"]`, out)
+	if got, ok := flowSelector["tags"].([]interface{}); !ok || len(got) != 2 || got[0] != "gpu" || got[1] != "linux" {
+		t.Errorf("flow tags = %#v (%T), want sequence [gpu linux]\n%s", flowSelector["tags"], flowSelector["tags"], out)
 	}
 	if got := flowSelector["match"]; got != "ANY" {
 		t.Errorf("flow match = %#v, want ANY", got)
+	}
+	taskSelector := parsed["tasks"].([]interface{})[0].(map[string]interface{})["workerSelector"].(map[string]interface{})
+	if got := taskSelector["tags"]; got != "{{ inputs.workers }}" {
+		t.Errorf("task tags = %#v (%T), want string %q\n%s", got, got, "{{ inputs.workers }}", out)
 	}
 }
