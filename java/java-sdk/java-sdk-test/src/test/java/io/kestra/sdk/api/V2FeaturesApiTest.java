@@ -95,8 +95,9 @@ public class V2FeaturesApiTest {
                 """.formatted(id, ns));
 
         assertThat(created.getWorkerSelector()).isNotNull();
-        // tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
-        assertThat(created.getWorkerSelector().getTags()).isEqualTo("[\"gpu\"]");
+        // Kestra 2.0.11+ returns a literal list as its JSON text, 2.0.0-2.0.10 as an array: both read as a list
+        assertThat(created.getWorkerSelector().getTags()).containsExactly("gpu");
+        assertThat(created.getWorkerSelector().getTagsExpression()).isNull();
         assertThat(created.getWorkerSelector().getMatch()).isEqualTo(WorkerSelectorMatch.ALL);
         // draft is a 2.0 addition and is always present on the payload
         assertThat(created.getDraft()).isNotNull();

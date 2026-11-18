@@ -71,13 +71,15 @@ tasks:
 """
         created = client.flows.create_flow(TENANT, body)
 
-        # tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
-        assert created.worker_selector.tags == '["gpu"]'
+        # Kestra 2.0.11+ returns a literal list as its JSON text, 2.0.0-2.0.10 as an array:
+        # both read as a list
+        assert created.worker_selector.tags == ["gpu"]
+        assert created.worker_selector.tags_expression is None
         assert created.worker_selector.match == WorkerSelectorMatch.ALL
         assert created.draft is False
 
         fetched = client.flows.flow(ns, fid, TENANT)
-        assert fetched.worker_selector.tags == '["gpu"]'
+        assert fetched.worker_selector.tags == ["gpu"]
 
     @pytest.mark.xfail(
         reason="kestra-ee 2.0 validates Schedule-trigger inputs more strictly and "

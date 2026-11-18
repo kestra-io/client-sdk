@@ -20,7 +20,7 @@ import io.kestra.sdk.model.AbstractTriggerForExecution;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
-import io.kestra.sdk.model.FlowWorkerSelector;
+import io.kestra.sdk.model.WorkerSelector;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +84,7 @@ public class FlowForExecution {
   @jakarta.annotation.Nullable  private Object variables;
 
   public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
-  @jakarta.annotation.Nullable  private FlowWorkerSelector workerSelector;
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
@@ -367,7 +367,7 @@ public class FlowForExecution {
     this.variables = variables;
   }
 
-  public FlowForExecution workerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
+  public FlowForExecution workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
     this.workerSelector = workerSelector;
     return this;
@@ -380,14 +380,14 @@ public class FlowForExecution {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FlowWorkerSelector getWorkerSelector() {
+  public WorkerSelector getWorkerSelector() {
     return workerSelector;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerSelector(@jakarta.annotation.Nullable FlowWorkerSelector workerSelector) {
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     this.workerSelector = workerSelector;
   }
 

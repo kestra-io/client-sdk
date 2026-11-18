@@ -35,7 +35,7 @@ type FlowForExecution struct {
 	Labels *MapObjectObject `json:"labels,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
 	// Routing requirements (tags + fallback) for this flow.
-	WorkerSelector *FlowWorkerSelector `json:"workerSelector,omitempty"`
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
 	Deleted bool `json:"deleted"`
 	Tasks []TaskForExecution `json:"tasks"`
 	Errors []TaskForExecution `json:"errors,omitempty"`
@@ -391,9 +391,9 @@ func (o *FlowForExecution) SetVariables(v map[string]interface{}) {
 }
 
 // GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
-func (o *FlowForExecution) GetWorkerSelector() FlowWorkerSelector {
+func (o *FlowForExecution) GetWorkerSelector() WorkerSelector {
 	if o == nil || IsNil(o.WorkerSelector) {
-		var ret FlowWorkerSelector
+		var ret WorkerSelector
 		return ret
 	}
 	return *o.WorkerSelector
@@ -401,7 +401,7 @@ func (o *FlowForExecution) GetWorkerSelector() FlowWorkerSelector {
 
 // GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetWorkerSelectorOk() (*FlowWorkerSelector, bool) {
+func (o *FlowForExecution) GetWorkerSelectorOk() (*WorkerSelector, bool) {
 	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
@@ -417,8 +417,8 @@ func (o *FlowForExecution) HasWorkerSelector() bool {
 	return false
 }
 
-// SetWorkerSelector gets a reference to the given FlowWorkerSelector and assigns it to the WorkerSelector field.
-func (o *FlowForExecution) SetWorkerSelector(v FlowWorkerSelector) {
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *FlowForExecution) SetWorkerSelector(v WorkerSelector) {
 	o.WorkerSelector = &v
 }
 
