@@ -78,7 +78,12 @@ def test_stream_app_events_unknown_is_gated_or_missing(client):
 
 
 def test_preview_dispatch_app_unknown_is_gated_or_missing(client):
-    with pytest.raises((NotFoundException, ForbiddenException, ServiceException, BadRequestException)):
+    # Since v2.0.11 the app source is validated before the app is looked up, so an
+    # image without the apps plugin answers 422 (unknown type) instead of 404.
+    with pytest.raises((
+        NotFoundException, ForbiddenException, ServiceException, BadRequestException,
+        UnprocessableEntityException,
+    )):
         resp = client.apps.preview_dispatch_app(
             f"missing-{random_id()}", TENANT,
             {"__kestra_app_source__": _APP_YAML},
