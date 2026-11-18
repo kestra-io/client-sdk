@@ -78,7 +78,10 @@ def test_stream_app_events_unknown_is_gated_or_missing(client):
 
 
 def test_preview_dispatch_app_unknown_is_gated_or_missing(client):
-    with pytest.raises((NotFoundException, ForbiddenException, ServiceException, BadRequestException)):
+    # An app source Kestra can't parse got a 500 until kestra-ee 7584d8e1e9
+    # (v2.0.11); it now gets a 422 carrying the error layout.
+    with pytest.raises((NotFoundException, ForbiddenException, ServiceException, BadRequestException,
+                        UnprocessableEntityException)):
         resp = client.apps.preview_dispatch_app(
             f"missing-{random_id()}", TENANT,
             {"__kestra_app_source__": _APP_YAML},
