@@ -9,7 +9,14 @@ import contextlib
 
 import pytest
 
-from test_helpers import TENANT, gating, random_id
+from test_helpers import (
+    TENANT,
+    create_flow,
+    gating,
+    log_flow_yaml,
+    random_id,
+    random_namespace,
+)
 from kestrapy.exceptions import (
     BadRequestException,
     ForbiddenException,
@@ -19,11 +26,33 @@ from kestrapy.exceptions import (
 )
 
 
-_APP_YAML = """
-id: sdk-preview-app
+_PREVIEW_MARKDOWN = "# SDK preview app"
+
+# Not a valid app type (Form is a layout block, the only app type is Execution),
+# so Kestra rejects the source while parsing it.
+_INVALID_APP_YAML = """
+id: sdk-invalid-app
 type: io.kestra.plugin.ee.apps.Form
-displayName: SDK preview app
+displayName: SDK invalid app
 """.strip()
+
+
+def _valid_app_yaml(client):
+    ns = random_namespace()
+    flow_id = random_id()
+    create_flow(client, log_flow_yaml(flow_id, ns))
+    return f"""\
+id: sdk-preview-{random_id()}
+type: io.kestra.plugin.ee.apps.Execution
+namespace: {ns}
+flowId: {flow_id}
+displayName: SDK preview app
+layout:
+  - on: OPEN
+    blocks:
+      - type: io.kestra.plugin.ee.apps.core.blocks.Markdown
+        content: "{_PREVIEW_MARKDOWN}"
+"""
 
 _tolerate_gating = gating(allow_404=True, state_codes=(400, 422))
 
@@ -49,18 +78,23 @@ def test_download_file_from_app_execution_unknown_is_gated_or_missing(client):
 
 
 def test_preview_app_renders_layout_or_is_gated(client):
+    source = _valid_app_yaml(client)
     try:
-        result = client.apps.preview_app(TENANT, _APP_YAML)
-    except (ForbiddenException, NotFoundException, BadRequestException, UnprocessableEntityException) as exc:
+        result = client.apps.preview_app(TENANT, source)
+    except (ForbiddenException, NotFoundException) as exc:
         pytest.skip(f"preview_app: not supported on this instance ({exc.status})")
-    except ServiceException as exc:
-        # Preview rendering of a minimal app may be unavailable on this image (500/501).
-        if getattr(exc, "status", None) in (403, 404, 500, 501):
-            pytest.skip(f"preview_app: not supported on this instance ({exc.status})")
-        raise
-    else:
-        # A rendered preview is a JSON object describing the layout.
-        assert isinstance(result, dict)
+    # The preview renders the OPEN layout, so our Markdown block comes back.
+    contents = [b["block"].get("content") for b in result["layout"]["blocks"]]
+    assert _PREVIEW_MARKDOWN in contents
+
+
+def test_preview_app_invalid_source_is_422_with_error_layout(client):
+    # Since v2.0.11 an invalid source is a 422 whose body is an error layout
+    # (v2.0.10 answered 500).
+    with pytest.raises(UnprocessableEntityException) as exc_info:
+        client.apps.preview_app(TENANT, _INVALID_APP_YAML)
+    assert exc_info.value.status == 422
+    assert "Invalid type: io.kestra.plugin.ee.apps.Form" in exc_info.value.body
 
 
 def test_stream_app_events_unknown_is_gated_or_missing(client):
@@ -77,19 +111,21 @@ def test_stream_app_events_unknown_is_gated_or_missing(client):
         resp.close()
 
 
-def test_preview_dispatch_app_unknown_is_gated_or_missing(client):
-    # Since v2.0.11 the app source is validated before the app is looked up, so an
-    # image without the apps plugin answers 422 (unknown type) instead of 404.
-    with pytest.raises((
-        NotFoundException, ForbiddenException, ServiceException, BadRequestException,
-        UnprocessableEntityException,
-    )):
+def test_preview_dispatch_app_invalid_source_is_422_with_error_layout(client):
+    # The endpoint parses the posted source before dispatching; since v2.0.11 an
+    # invalid one is a 422 whose body is the error layout for that dispatch
+    # (v2.0.10 answered 500).
+    dispatch = f"dispatch-{random_id()}"
+    with pytest.raises(UnprocessableEntityException) as exc_info:
         resp = client.apps.preview_dispatch_app(
-            f"missing-{random_id()}", TENANT,
-            {"__kestra_app_source__": _APP_YAML},
+            dispatch, TENANT,
+            {"__kestra_app_source__": _INVALID_APP_YAML},
         )
         with contextlib.suppress(Exception):
             resp.close()
+    assert exc_info.value.status == 422
+    assert f'"dispatch":"{dispatch}"' in exc_info.value.body
+    assert "Invalid type: io.kestra.plugin.ee.apps.Form" in exc_info.value.body
 
 
 def test_dispatch_app_unknown_is_gated_or_missing(client):
