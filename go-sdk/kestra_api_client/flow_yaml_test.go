@@ -501,19 +501,19 @@ func TestFlowToYAML_PlainStringsStayPlain(t *testing.T) {
 }
 
 // Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too), so a
-// JSON array literal is emitted as a sequence; a Pebble expression stays a string.
-func TestFlowToYAML_WorkerSelectorLiteralListTagsAreEmittedAsASequence(t *testing.T) {
+// literal list is emitted as a sequence; a Pebble expression is emitted as a string.
+func TestFlowToYAML_WorkerSelectorTagsAreASequenceAndAnExpressionAString(t *testing.T) {
 	flow := Flow{
 		Id:        "p",
 		Namespace: "ns",
-		WorkerSelector: &FlowWorkerSelector{
-			Tags:  PtrString(`["gpu", "linux"]`),
+		WorkerSelector: &WorkerSelector{
+			Tags:  []string{"gpu", "linux"},
 			Match: WORKERSELECTORMATCH_ANY.Ptr(),
 		},
 		Tasks: []Task{{
 			Id:                   "t",
 			Type:                 "io.kestra.plugin.core.log.Log",
-			WorkerSelector:       &FlowWorkerSelector{Tags: PtrString("{{ inputs.workers }}")},
+			WorkerSelector:       &WorkerSelector{TagsExpression: PtrString("{{ inputs.workers }}")},
 			AdditionalProperties: map[string]interface{}{"message": "hi"},
 		}},
 	}

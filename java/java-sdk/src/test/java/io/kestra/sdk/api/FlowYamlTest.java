@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Flow;
-import io.kestra.sdk.model.FlowWorkerSelector;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.Type;
+import io.kestra.sdk.model.WorkerSelector;
 import io.kestra.sdk.model.WorkerSelectorMatch;
 import org.junit.jupiter.api.Test;
 
@@ -432,16 +432,16 @@ class FlowYamlTest {
     }
 
     @Test
-    void workerSelectorLiteralListTagsAreEmittedAsASequence() throws Exception {
+    void workerSelectorTagsAreASequenceAndAnExpressionAString() throws Exception {
         // Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too),
-        // so a JSON array literal is emitted as a sequence; a Pebble expression stays a string.
+        // so a literal list is emitted as a sequence; a Pebble expression is emitted as a string.
         Task log = new Task().id("t").type("io.kestra.plugin.core.log.Log");
         log.putAdditionalProperty("message", "hi");
-        log.setWorkerSelector(new FlowWorkerSelector().tags("{{ inputs.workers }}"));
+        log.setWorkerSelector(new WorkerSelector().tagsExpression("{{ inputs.workers }}"));
         Flow flow = new Flow();
         flow.setId("p");
         flow.setNamespace("ns");
-        flow.setWorkerSelector(new FlowWorkerSelector().tags("[\"gpu\", \"linux\"]").match(WorkerSelectorMatch.ANY));
+        flow.setWorkerSelector(new WorkerSelector().tags(List.of("gpu", "linux")).match(WorkerSelectorMatch.ANY));
         flow.setTasks(List.of(log));
 
         JsonNode root = YAML.readTree(FlowsApi.flowToYaml(flow));

@@ -427,14 +427,14 @@ def test_construct_model_fallback_keeps_undeclared_keys():
 
 def test_worker_selector_literal_list_tags_are_emitted_as_a_sequence():
     # Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too),
-    # so a JSON array literal is emitted as a sequence; a Pebble expression stays a string.
+    # so a literal list is emitted as a sequence; a Pebble expression is emitted as a string.
     flow = Flow.from_dict({
         "id": "p",
         "namespace": "ns",
         "disabled": False,
         "deleted": False,
         "draft": False,
-        "workerSelector": {"tags": '["gpu", "linux"]', "match": "ANY"},
+        "workerSelector": {"tags": ["gpu", "linux"], "match": "ANY"},
         "tasks": [{
             "id": "t",
             "type": "io.kestra.plugin.core.log.Log",

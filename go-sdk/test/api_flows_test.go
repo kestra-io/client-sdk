@@ -105,16 +105,17 @@ tasks:
 `, flowId, namespace)
 		created, err := KestraTestClient().Flows().CreateFlow(ctx, MAIN_TENANT, body)
 		require.NoError(t, err)
-		// tags is a Pebble-capable property on flows: a literal list comes back as its JSON text
+		// Kestra 2.0.11+ returns a literal list as its JSON text, 2.0.0-2.0.10 as an array: both read as a list
 		selector := created.GetWorkerSelector()
-		require.Equal(t, `["gpu"]`, selector.GetTags())
+		require.Equal(t, []string{"gpu"}, selector.GetTags())
+		require.False(t, selector.HasTagsExpression())
 		require.Equal(t, kestra_api_client.WORKERSELECTORMATCH_ALL, selector.GetMatch())
 		require.False(t, created.GetDraft())
 
 		fetched, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
 		require.NoError(t, err)
 		fetchedSelector := fetched.GetWorkerSelector()
-		require.Equal(t, `["gpu"]`, fetchedSelector.GetTags())
+		require.Equal(t, []string{"gpu"}, fetchedSelector.GetTags())
 	})
 
 	t.Run("createFlowTest_full", func(t *testing.T) {
