@@ -423,3 +423,27 @@ def test_construct_model_fallback_keeps_undeclared_keys():
     flow = BaseApi._construct_model(payload, FlowWithSource)
     assert flow.updated == datetime(2026, 9, 23, 10, 11, 12, 345000, tzinfo=timezone.utc)
     assert flow.triggers[0].additional_properties["timezone"] == "Europe/Paris"
+
+
+def test_worker_selector_literal_list_tags_are_emitted_as_a_sequence():
+    # Kestra before 2.0.11 only accepts a YAML sequence for tags (2.0.11+ accepts one too),
+    # so a literal list is emitted as a sequence; a Pebble expression is emitted as a string.
+    flow = Flow.from_dict({
+        "id": "p",
+        "namespace": "ns",
+        "disabled": False,
+        "deleted": False,
+        "draft": False,
+        "workerSelector": {"tags": ["gpu", "linux"], "match": "ANY"},
+        "tasks": [{
+            "id": "t",
+            "type": "io.kestra.plugin.core.log.Log",
+            "message": "hi",
+            "workerSelector": {"tags": "{{ inputs.workers }}"},
+        }],
+    })
+
+    parsed = yaml.safe_load(flow_to_yaml(flow))
+
+    assert parsed["workerSelector"] == {"tags": ["gpu", "linux"], "match": "ANY"}
+    assert parsed["tasks"][0]["workerSelector"] == {"tags": "{{ inputs.workers }}"}

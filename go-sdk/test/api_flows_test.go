@@ -87,6 +87,37 @@ tasks:
 		require.NotNil(t, response)
 	})
 
+	t.Run("createFlowTest_workerSelector", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+
+		body := fmt.Sprintf(`id: %s
+namespace: %s
+workerSelector:
+  tags:
+    - gpu
+  match: ALL
+tasks:
+  - id: h
+    type: io.kestra.plugin.core.log.Log
+    message: hi
+`, flowId, namespace)
+		created, err := KestraTestClient().Flows().CreateFlow(ctx, MAIN_TENANT, body)
+		require.NoError(t, err)
+		// Kestra 2.0.11+ returns a literal list as its JSON text, 2.0.0-2.0.10 as an array: both read as a list
+		selector := created.GetWorkerSelector()
+		require.Equal(t, []string{"gpu"}, selector.GetTags())
+		require.False(t, selector.HasTagsExpression())
+		require.Equal(t, kestra_api_client.WORKERSELECTORMATCH_ALL, selector.GetMatch())
+		require.False(t, created.GetDraft())
+
+		fetched, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		fetchedSelector := fetched.GetWorkerSelector()
+		require.Equal(t, []string{"gpu"}, fetchedSelector.GetTags())
+	})
+
 	t.Run("createFlowTest_full", func(t *testing.T) {
 		namespace := randomId()
 		flowId := randomId()
