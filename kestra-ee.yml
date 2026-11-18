@@ -5635,6 +5635,7 @@ paths:
       tags:
       - ServiceAccount
       summary: List API tokens for a specific service account
+      description: Instance-owner-only.
       operationId: listApiTokensForServiceAccount
       parameters:
       - name: id
@@ -5677,6 +5678,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Create new API Token for a specific service account
+      description: Instance-owner-only.
       operationId: createApiTokensForServiceAccount
       parameters:
       - name: id
@@ -5727,6 +5729,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Delete an API Token for specific service account and token id
+      description: Instance-owner-only.
       operationId: deleteApiTokenForServiceAccount
       parameters:
       - name: id
