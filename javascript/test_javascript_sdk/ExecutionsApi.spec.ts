@@ -303,6 +303,8 @@ describe("ExecutionsApi", () => {
         });
 
 
+        // Without async the server answers 200 with a BulkResponse; the 202 async shape has no count.
+        if (!("count" in resp)) throw new Error(`expected a BulkResponse, got ${JSON.stringify(resp)}`);
         expect(resp.count).toBe(2);
 
         await expect(
@@ -351,6 +353,8 @@ describe("ExecutionsApi", () => {
             deleteMetrics: false,
             deleteStorage: false,
         });
+        // Without async the server answers 200 with a BulkResponse; the 202 async shape has no count.
+        if (!("count" in resp)) throw new Error(`expected a BulkResponse, got ${JSON.stringify(resp)}`);
         expect(resp.count).toBe(2);
 
         await expect(
