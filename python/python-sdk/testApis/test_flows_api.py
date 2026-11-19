@@ -14,6 +14,8 @@ from kestrapy import (
     QueryFilterOp,
     WorkerSelectorMatch,
 )
+from kestrapy.models.flow import Flow
+from kestrapy.models.worker_selector import WorkerSelector
 from test_helpers import (
     TENANT,
     random_id,
@@ -248,6 +250,31 @@ class TestFlowFromObject:
 
         fetched = client.flows.flow(ns, fid, TENANT)
         assert fetched.tasks[0].additional_properties["message"] == updated_message
+
+    def test_worker_selector_tags_expression_round_trips(self, client):
+        # A Pebble tags expression is sent as a string (Kestra 2.0.11+) and read back as one
+        fid = random_id()
+        ns = random_namespace()
+        flow = Flow.from_dict({
+            "id": fid,
+            "namespace": ns,
+            "disabled": False,
+            "deleted": False,
+            "draft": False,
+            "tasks": [{"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": "hi"}],
+        })
+        flow.worker_selector = WorkerSelector(
+            tags_expression="{{ inputs.workers }}", match=WorkerSelectorMatch.ANY
+        )
+
+        created = client.flows.create_flow_from_object(TENANT, flow)
+        assert created.worker_selector.tags is None
+        assert created.worker_selector.tags_expression == "{{ inputs.workers }}"
+        assert created.worker_selector.match == WorkerSelectorMatch.ANY
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.worker_selector.tags is None
+        assert fetched.worker_selector.tags_expression == "{{ inputs.workers }}"
 
 
 # ========================================================================

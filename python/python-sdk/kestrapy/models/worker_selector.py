@@ -31,6 +31,11 @@ class WorkerSelector(BaseModel):
     list is always read into ``tags`` and any other string into
     ``tags_expression``. On write, ``tags_expression`` is sent as the ``tags``
     string when set (Kestra 2.0.11+ only), otherwise ``tags`` is sent as a list.
+    Should both be set, ``tags_expression`` wins, as in the Java and Go SDKs.
+
+    Namespace and tenant ``default_worker_selector`` also use this class, but there
+    the server takes a plain list: set ``tags`` only, a ``tags_expression`` is
+    rejected.
     """ # noqa: E501
     tags: Optional[Annotated[List[StrictStr], Field(max_length=20)]] = Field(default=None, description="Required tags used to route to a matching Worker Queue. Each tag is an RFC 1123 label: lowercase alphanumerics and hyphens, must start and end with alphanumeric, max 64 chars per tag, max 20 tags.")
     tags_expression: Optional[StrictStr] = Field(default=None, description="Pebble expression rendering to the tags (Flow, Task and Trigger only, Kestra 2.0.11+), e.g. `{{ inputs.workers }}`. Sent as the `tags` string and takes precedence over `tags` when set.")
@@ -100,6 +105,9 @@ class WorkerSelector(BaseModel):
             return cls.model_validate(obj)
 
         tags, tags_expression = _split_tags(obj.get("tags"))
+        # A ``model_dump()`` dict carries the expression under its own key.
+        if obj.get("tags_expression") is not None:
+            tags_expression = obj["tags_expression"]
         _obj = cls.model_validate({
             "tags": tags,
             "tags_expression": tags_expression,
@@ -108,7 +116,7 @@ class WorkerSelector(BaseModel):
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
-            if _key not in cls.__properties:
+            if _key not in cls.__properties and _key != "tags_expression":
                 _obj.additional_properties[_key] = obj.get(_key)
 
         return _obj

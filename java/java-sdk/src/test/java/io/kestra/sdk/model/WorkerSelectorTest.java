@@ -48,6 +48,17 @@ class WorkerSelectorTest {
     }
 
     @Test
+    void readsAListFollowedByTrailingTextAsAnExpression() throws Exception {
+        // Only a string that is exactly the JSON text of a list is a literal list
+        Task task = mapper.readValue(
+            "{\"id\":\"t\",\"type\":\"io.kestra.plugin.core.log.Log\",\"workerSelector\":{\"tags\":\"[\\\"gpu\\\"] {{ x }}\"}}",
+            Task.class);
+
+        assertNull(task.getWorkerSelector().getTags());
+        assertEquals("[\"gpu\"] {{ x }}", task.getWorkerSelector().getTagsExpression());
+    }
+
+    @Test
     void writesTagsAsAListAndAnExpressionAsAString() throws Exception {
         JsonNode list = mapper.valueToTree(new WorkerSelector().tags(List.of("gpu")).match(WorkerSelectorMatch.ANY));
         assertEquals("{\"tags\":[\"gpu\"],\"match\":\"ANY\"}", list.toString());
