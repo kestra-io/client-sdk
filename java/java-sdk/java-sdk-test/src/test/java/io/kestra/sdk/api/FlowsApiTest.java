@@ -267,6 +267,33 @@ public class FlowsApiTest {
         assertThat(fetched.getTasks().get(0).getAdditionalProperty("message")).isEqualTo(updatedMessage);
     }
 
+    @Test
+    void createFlowFromObject_workerSelectorTagsExpression_roundTrips() throws ApiException {
+        // A Pebble tags expression is sent as a string (Kestra 2.0.11+) and read back as one
+        String id = randomId();
+        String ns = randomId();
+        Task task = new Task()
+                .id("hello")
+                .type("io.kestra.plugin.core.log.Log");
+        task.putAdditionalProperty("message", "hi");
+        Flow flow = new Flow();
+        flow.setId(id);
+        flow.setNamespace(ns);
+        flow.setTasks(List.of(task));
+        flow.setWorkerSelector(new WorkerSelector()
+                .tagsExpression("{{ inputs.workers }}")
+                .match(WorkerSelectorMatch.ANY));
+
+        FlowWithSource created = api().createFlowFromObject(TENANT, flow, null);
+        assertThat(created.getWorkerSelector().getTags()).isNull();
+        assertThat(created.getWorkerSelector().getTagsExpression()).isEqualTo("{{ inputs.workers }}");
+        assertThat(created.getWorkerSelector().getMatch()).isEqualTo(WorkerSelectorMatch.ANY);
+
+        FlowWithSource fetched = api().flow(ns, id, TENANT, null, null, null);
+        assertThat(fetched.getWorkerSelector().getTags()).isNull();
+        assertThat(fetched.getWorkerSelector().getTagsExpression()).isEqualTo("{{ inputs.workers }}");
+    }
+
     // ========================================================================
     // CRUD — deleteFlow
     // ========================================================================

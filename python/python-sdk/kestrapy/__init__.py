@@ -310,7 +310,6 @@ __all__ = [
     "FlowUsageTaskUsage",
     "FlowUsageTriggerUsage",
     "FlowWithSource",
-    "FlowWorkerSelector",
     "FollowLogEvent",
     "ForwardSupportTicketRequest",
     "GateOutcome",
@@ -1014,7 +1013,6 @@ from kestrapy.models.flow_usage import FlowUsage as FlowUsage
 from kestrapy.models.flow_usage_task_usage import FlowUsageTaskUsage as FlowUsageTaskUsage
 from kestrapy.models.flow_usage_trigger_usage import FlowUsageTriggerUsage as FlowUsageTriggerUsage
 from kestrapy.models.flow_with_source import FlowWithSource as FlowWithSource
-from kestrapy.models.flow_worker_selector import FlowWorkerSelector as FlowWorkerSelector
 from kestrapy.models.follow_log_event import FollowLogEvent as FollowLogEvent
 from kestrapy.models.forward_support_ticket_request import ForwardSupportTicketRequest as ForwardSupportTicketRequest
 from kestrapy.models.gate_outcome import GateOutcome as GateOutcome
