@@ -8,6 +8,8 @@ import { join } from "path"
 const handWrittenEntryOverrides: Record<string, string> = {
     // Generated Flows operations + createFlowFromObject / updateFlowFromObject / flowToYaml.
     "flows": "src/flows.ts",
+    // Generated Executions operations + async-typed deleteExecutionsByIds/ByQuery overloads and *InBackground variants.
+    "executions": "src/executions.ts",
 }
 
 export const sdkEntries = {

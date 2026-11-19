@@ -14,7 +14,8 @@ This runs the OpenAPI generator, installs npm dependencies, and builds the SDK. 
 
 > **Important:** Everything under `javascript/javascript-sdk/src/openapi/` is **auto-generated** and must not be edited by hand. Changes there will be overwritten on the next `./generate-sdks.sh javascript` run. To fix generated output, modify the generator sources instead:
 >
-> - `javascript/javascript-sdk/heyapi-sdk-plugin/plugin.ts` — custom hey-api plugin that emits the human-friendly SDK wrappers
+> - `@kestra-io/hey-api-plugin` (an external package, wired in `javascript/javascript-sdk/openapi-ts.config.ts` via `defineConfigKestraHeyOptionalTenant`) and `javascript/javascript-sdk/scripts/convert-openapi-sdk-functions.mjs` — emit the human-friendly SDK wrappers
+> - `javascript/javascript-sdk/src/flows.ts` and `src/executions.ts` — hand-written per-subpath overrides (extra helpers, typed overloads) that re-export the generated module; register each in `handWrittenEntryOverrides` in `tsdown.config.ts`
 > - `javascript/javascript-sdk/src/index.ts` — hand-written client setup and interceptors
 
 ## Repository Structure
