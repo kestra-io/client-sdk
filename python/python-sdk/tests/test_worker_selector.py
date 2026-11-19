@@ -58,3 +58,27 @@ def test_expression_round_trips():
     selector = WorkerSelector.from_dict({"tags": "{{ inputs.workers }}"})
 
     assert WorkerSelector.from_dict(selector.to_dict()) == selector
+
+
+def test_reads_a_list_followed_by_trailing_text_as_an_expression():
+    # Only a string that is exactly the JSON text of a list is a literal list
+    selector = _flow({"tags": '["gpu"] {{ x }}'}).worker_selector
+
+    assert selector.tags is None
+    assert selector.tags_expression == '["gpu"] {{ x }}'
+
+
+def test_from_dict_reads_a_model_dump():
+    expression = WorkerSelector.from_dict(
+        WorkerSelector(tags_expression="{{ inputs.workers }}").model_dump()
+    )
+    assert expression.tags is None
+    assert expression.tags_expression == "{{ inputs.workers }}"
+    assert "tags_expression" not in expression.additional_properties
+
+    literal = WorkerSelector.from_dict(
+        WorkerSelector(tags=["gpu"], match=WorkerSelectorMatch.ANY).model_dump()
+    )
+    assert literal.tags == ["gpu"]
+    assert literal.tags_expression is None
+    assert literal.match == WorkerSelectorMatch.ANY
