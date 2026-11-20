@@ -36456,7 +36456,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         revision:
           minimum: 1
@@ -38807,7 +38807,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         id:
           maxLength: 150
@@ -38935,7 +38935,7 @@ components:
           title: 'The namespace of the referenced asset, informational: asset ids are unique per tenant.'
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
           nullable: true
         role:
@@ -39122,7 +39122,7 @@ components:
           title: 'The namespace of the referenced asset, informational: asset ids are unique per tenant.'
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
           nullable: true
         role:
@@ -40068,7 +40068,7 @@ components:
           type: string
         namespace:
           maxLength: 150
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
           nullable: true
         defaultSeverity:
@@ -40391,7 +40391,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         flowId:
           maxLength: 100
@@ -41830,7 +41830,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -41996,7 +41996,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -42377,7 +42377,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -44280,7 +44280,7 @@ components:
       type: object
       properties:
         id:
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         storageIsolation:
           $ref: '#/components/schemas/Isolation'
@@ -44377,7 +44377,7 @@ components:
       type: object
       properties:
         id:
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
     NodeType:
       type: string
@@ -48012,7 +48012,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         flowId:
           maxLength: 100
