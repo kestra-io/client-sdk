@@ -33335,7 +33335,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         revision:
           minimum: 1
@@ -35362,7 +35362,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         id:
           maxLength: 150
@@ -36277,7 +36277,7 @@ components:
           type: string
         namespace:
           maxLength: 150
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
           nullable: true
         defaultSeverity:
@@ -36521,7 +36521,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         flowId:
           maxLength: 100
@@ -37742,7 +37742,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -37869,7 +37869,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -38248,7 +38248,7 @@ components:
           namespace:
             maxLength: 150
             minLength: 1
-            pattern: ^[a-z0-9][a-z0-9._-]*
+            pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
             type: string
           revision:
             minimum: 1
@@ -40062,7 +40062,7 @@ components:
       type: object
       properties:
         id:
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         storageIsolation:
           $ref: '#/components/schemas/Isolation'
@@ -40143,7 +40143,7 @@ components:
       type: object
       properties:
         id:
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
     Notification:
       required:
@@ -43522,7 +43522,7 @@ components:
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
+          pattern: ^[a-z0-9][a-z0-9_-]*(\.[a-z0-9_-]+)*
           type: string
         flowId:
           maxLength: 100
