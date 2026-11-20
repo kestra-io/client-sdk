@@ -24,7 +24,11 @@ var _ MappedNullable = &WorkerSelector{}
 // 2.0.0-2.0.10, and namespace / tenant defaults, use a plain list. To work with every 2.0.x server,
 // a literal list is always read into Tags and any other string into TagsExpression. On write,
 // TagsExpression is sent as the tags string when set (Kestra 2.0.11+ only), otherwise Tags is sent
-// as a list. SetTags and SetTagsExpression clear the other field.
+// as a list. SetTags and SetTagsExpression clear the other field; should both be set (e.g. in a
+// struct literal), TagsExpression wins, as in the Java and Python SDKs.
+//
+// Namespace and tenant DefaultWorkerSelector also use this type, but there the server takes a
+// plain list: set Tags only, a TagsExpression is rejected.
 type WorkerSelector struct {
 	// Required tags used to route to a matching Worker Queue. Each tag is an RFC 1123 label: lowercase alphanumerics and hyphens, must start and end with alphanumeric, max 64 chars per tag, max 20 tags.
 	Tags []string `json:"tags,omitempty"`

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.model.WorkerQueueFallback;
@@ -35,7 +36,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Kestra 2.0.0-2.0.10, and namespace / tenant defaults, use a plain list. To work with every 2.0.x
  * server, a literal list is always read into {@link #getTags()} and any other string into
  * {@link #getTagsExpression()}. On write, {@code tagsExpression} is sent as a string when set (Kestra
- * 2.0.11+ only), otherwise {@code tags} is sent as a list. Setting one clears the other.
+ * 2.0.11+ only), otherwise {@code tags} is sent as a list. Setting one clears the other; should
+ * both ever be set, {@code tagsExpression} wins, as in the Python and Go SDKs.
+ *
+ * <p>Namespace and tenant {@code defaultWorkerSelector} also use this class, but there the server
+ * takes a plain list: use {@link #tags(List)} only, a {@code tagsExpression} is rejected.
  */
 @JsonPropertyOrder({
   WorkerSelector.JSON_PROPERTY_TAGS,
@@ -48,7 +53,10 @@ public class WorkerSelector {
 
   @jakarta.annotation.Nullable  private String tagsExpression;
 
-  private static final ObjectMapper TAGS_MAPPER = new ObjectMapper();
+  // Fails on trailing content, so a string like '["gpu"] x' reads as an expression, as in the
+  // Python and Go SDKs, instead of the list ["gpu"].
+  private static final ObjectMapper TAGS_MAPPER = new ObjectMapper()
+      .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
 
   public static final String JSON_PROPERTY_MATCH = "match";
   @jakarta.annotation.Nullable  private WorkerSelectorMatch match;

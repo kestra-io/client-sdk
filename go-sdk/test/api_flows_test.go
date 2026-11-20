@@ -118,6 +118,39 @@ tasks:
 		require.Equal(t, []string{"gpu"}, fetchedSelector.GetTags())
 	})
 
+	t.Run("createFlowFromObjectTest_workerSelectorTagsExpression", func(t *testing.T) {
+		// A Pebble tags expression is sent as a string (Kestra 2.0.11+) and read back as one
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+
+		selector := kestra_api_client.NewWorkerSelector()
+		selector.SetTagsExpression("{{ inputs.workers }}")
+		selector.SetMatch(kestra_api_client.WORKERSELECTORMATCH_ANY)
+		flow := kestra_api_client.Flow{
+			Id:             flowId,
+			Namespace:      namespace,
+			WorkerSelector: selector,
+			Tasks: []kestra_api_client.Task{{
+				Id:                   "hello",
+				Type:                 "io.kestra.plugin.core.log.Log",
+				AdditionalProperties: map[string]interface{}{"message": "hi"},
+			}},
+		}
+		created, err := KestraTestClient().Flows().CreateFlowFromObject(ctx, MAIN_TENANT, flow, nil)
+		require.NoError(t, err)
+		createdSelector := created.GetWorkerSelector()
+		require.Nil(t, createdSelector.Tags)
+		require.Equal(t, "{{ inputs.workers }}", createdSelector.GetTagsExpression())
+		require.Equal(t, kestra_api_client.WORKERSELECTORMATCH_ANY, createdSelector.GetMatch())
+
+		fetched, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		fetchedSelector := fetched.GetWorkerSelector()
+		require.Nil(t, fetchedSelector.Tags)
+		require.Equal(t, "{{ inputs.workers }}", fetchedSelector.GetTagsExpression())
+	})
+
 	t.Run("createFlowTest_full", func(t *testing.T) {
 		namespace := randomId()
 		flowId := randomId()

@@ -58,6 +58,18 @@ func TestWorkerSelector_ReadsAPebbleExpressionIntoTagsExpression(t *testing.T) {
 	}
 }
 
+// Only a string that is exactly the JSON text of a list is a literal list.
+func TestWorkerSelector_ReadsAListFollowedByTrailingTextAsAnExpression(t *testing.T) {
+	selector := decodeFlowWorkerSelector(t, `{"tags":"[\"gpu\"] {{ x }}"}`)
+
+	if selector.Tags != nil {
+		t.Errorf("tags = %#v, want nil", selector.Tags)
+	}
+	if got := selector.GetTagsExpression(); got != `["gpu"] {{ x }}` {
+		t.Errorf("tagsExpression = %q, want [\"gpu\"] {{ x }}", got)
+	}
+}
+
 func TestWorkerSelector_WritesTagsAsAListAndAnExpressionAsAString(t *testing.T) {
 	cases := []struct {
 		selector WorkerSelector
@@ -65,6 +77,8 @@ func TestWorkerSelector_WritesTagsAsAListAndAnExpressionAsAString(t *testing.T) 
 	}{
 		{WorkerSelector{Tags: []string{"gpu"}, Match: WORKERSELECTORMATCH_ANY.Ptr()}, `{"match":"ANY","tags":["gpu"]}`},
 		{WorkerSelector{TagsExpression: PtrString("{{ inputs.workers }}")}, `{"tags":"{{ inputs.workers }}"}`},
+		// A struct literal can set both: the expression wins, as in the Java and Python SDKs.
+		{WorkerSelector{Tags: []string{"gpu"}, TagsExpression: PtrString("{{ x }}")}, `{"tags":"{{ x }}"}`},
 		{WorkerSelector{}, `{}`},
 	}
 	for _, c := range cases {
