@@ -1,10 +1,10 @@
 // ExecutionsApi.spec.ts
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, expectTypeOf, vi } from "vitest";
 import { randomId } from './_utils.js';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Outputs from '@kestra-io/kestra-sdk/outputs';
-import type { ApiExecution, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
+import type { ApiAsyncOperationResponse, ApiExecution, BulkResponse, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -165,6 +165,22 @@ async function createFlowWithExecution(flowId: string, ns: string) {
         id: flowId,
         wait: true,
     });
+}
+
+// Async deletion is eventually consistent: poll until the execution is gone (404).
+async function expectExecutionEventuallyDeleted(executionId: string) {
+    await vi.waitFor(
+        async () => {
+            let status: number | undefined;
+            try {
+                await Executions.execution({ executionId });
+            } catch (e: any) {
+                status = e?.status;
+            }
+            expect(status).toBe(404);
+        },
+        { timeout: 30_000, interval: 500 },
+    );
 }
 
 async function createFlowWithExecutionFromYaml(flowYaml: string, wait = true) {
@@ -367,6 +383,99 @@ describe("ExecutionsApi", () => {
                 executionId: b.id,
             }),
         ).rejects.toThrow();
+    });
+
+    // --- delete executions in the background (async=true) ---
+    it("delete_executions_by_ids_in_background", async () => {
+        const ns = randomId();
+        const flowId = randomId();
+        const e1 = await createFlowWithExecution(flowId, ns);
+        const e2 = await Executions.createExecution({ namespace: ns, id: flowId, wait: true });
+        const e3 = await Executions.createExecution({ namespace: ns, id: flowId, wait: true });
+
+        const resp = await Executions.deleteExecutionsByIdsInBackground({
+            body: [e1.id, e3.id],
+            includeNonTerminated: true,
+        });
+
+        expect(resp.totalItems).toBe(2);
+        expect(resp.operationId).toBeTruthy();
+        expect(typeof resp.operationId).toBe("string");
+
+        await expectExecutionEventuallyDeleted(e1.id);
+        await expectExecutionEventuallyDeleted(e3.id);
+        expect((await Executions.execution({ executionId: e2.id })).id).toBe(e2.id);
+    });
+
+    it("delete_executions_by_query_in_background", async () => {
+        const ns = randomId();
+        const nsToDelete = randomId();
+        const flowId = randomId();
+        const e1 = await createFlowWithExecution(flowId, nsToDelete);
+        const e2 = await createFlowWithExecution(flowId, ns);
+        const e3 = await Executions.createExecution({ namespace: nsToDelete, id: flowId, wait: true });
+
+        const resp = await Executions.deleteExecutionsByQueryInBackground({
+            filters: [
+                {
+                    field: QF_FIELD.NAMESPACE,
+                    operation: QF_OP.EQUALS,
+                    value: nsToDelete,
+                },
+            ],
+            includeNonTerminated: true,
+        });
+
+        expect(resp.totalItems).toBe(2);
+        expect(resp.operationId).toBeTruthy();
+        expect(typeof resp.operationId).toBe("string");
+
+        await expectExecutionEventuallyDeleted(e1.id);
+        await expectExecutionEventuallyDeleted(e3.id);
+        expect((await Executions.execution({ executionId: e2.id })).id).toBe(e2.id);
+    });
+
+    it("delete_executions_by_ids_with_async_true", async () => {
+        const ns = randomId();
+        const flowId = randomId();
+        const e1 = await createFlowWithExecution(flowId, ns);
+        const e2 = await Executions.createExecution({ namespace: ns, id: flowId, wait: true });
+
+        const resp = await Executions.deleteExecutionsByIds({
+            body: [e1.id],
+            includeNonTerminated: true,
+            async: true,
+        });
+
+        expect(resp.totalItems).toBe(1);
+        expect(typeof resp.operationId).toBe("string");
+        expect(resp.operationId.length).toBeGreaterThan(0);
+
+        await expectExecutionEventuallyDeleted(e1.id);
+        expect((await Executions.execution({ executionId: e2.id })).id).toBe(e2.id);
+    });
+
+    // Type-only: checked by `tsc` (npm run check:types), never run, so nothing hits the server.
+    it("delete_executions_overloads_are_typed_by_async", () => {
+        const typeChecks = () => {
+            const ids = { body: ["id"] };
+            const maybeAsync = Math.random() > 0.5;
+
+            expectTypeOf(Executions.deleteExecutionsByIds(ids)).resolves.toEqualTypeOf<BulkResponse>();
+            expectTypeOf(Executions.deleteExecutionsByIds({ ...ids, async: false })).resolves.toEqualTypeOf<BulkResponse>();
+            expectTypeOf(Executions.deleteExecutionsByIds({ ...ids, async: true })).resolves.toEqualTypeOf<ApiAsyncOperationResponse>();
+            expectTypeOf(Executions.deleteExecutionsByIds({ ...ids, async: maybeAsync })).resolves.toEqualTypeOf<BulkResponse | ApiAsyncOperationResponse>();
+            expectTypeOf(Executions.deleteExecutionsByIdsInBackground(ids)).resolves.toEqualTypeOf<ApiAsyncOperationResponse>();
+
+            expectTypeOf(Executions.deleteExecutionsByQuery()).resolves.toEqualTypeOf<BulkResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQuery({})).resolves.toEqualTypeOf<BulkResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQuery({ async: false })).resolves.toEqualTypeOf<BulkResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQuery({ async: true })).resolves.toEqualTypeOf<ApiAsyncOperationResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQuery({ async: maybeAsync })).resolves.toEqualTypeOf<BulkResponse | ApiAsyncOperationResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQueryInBackground()).resolves.toEqualTypeOf<ApiAsyncOperationResponse>();
+            expectTypeOf(Executions.deleteExecutionsByQueryInBackground({})).resolves.toEqualTypeOf<ApiAsyncOperationResponse>();
+        };
+        expect(typeof typeChecks).toBe("function");
     });
 
     // --- download file from execution ---
