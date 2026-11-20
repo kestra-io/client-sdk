@@ -7632,6 +7632,8 @@ paths:
                     type: array
                   CASE_TEMPLATE:
                     type: array
+                  CONCURRENCY_LIMIT:
+                    type: array
                   SYSTEM_SETTINGS:
                     type: array
                   BANNER:
@@ -7757,6 +7759,8 @@ paths:
                   SECURITY_INTEGRATION:
                     $ref: '#/components/schemas/Map_Action.PermissionScope_'
                   CASE_TEMPLATE:
+                    $ref: '#/components/schemas/Map_Action.PermissionScope_'
+                  CONCURRENCY_LIMIT:
                     $ref: '#/components/schemas/Map_Action.PermissionScope_'
                   SYSTEM_SETTINGS:
                     $ref: '#/components/schemas/Map_Action.PermissionScope_'
@@ -42816,6 +42820,8 @@ components:
               type: array
             CASE_TEMPLATE:
               type: array
+            CONCURRENCY_LIMIT:
+              type: array
             SYSTEM_SETTINGS:
               type: array
             BANNER:
@@ -42911,6 +42917,8 @@ components:
             SECURITY_INTEGRATION:
               type: array
             CASE_TEMPLATE:
+              type: array
+            CONCURRENCY_LIMIT:
               type: array
             SYSTEM_SETTINGS:
               type: array
@@ -46467,6 +46475,7 @@ components:
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
       - CASE_TEMPLATE
+      - CONCURRENCY_LIMIT
       - SYSTEM_SETTINGS
       - BANNER
       - KILL_SWITCH
@@ -46703,6 +46712,8 @@ components:
             SECURITY_INTEGRATION:
               type: array
             CASE_TEMPLATE:
+              type: array
+            CONCURRENCY_LIMIT:
               type: array
             SYSTEM_SETTINGS:
               type: array
