@@ -19,9 +19,9 @@ var _ MappedNullable = &TaskRun{}
 // TaskRun struct for TaskRun
 type TaskRun struct {
 	Id string `json:"id"`
-	ExecutionId string `json:"executionId"`
-	Namespace string `json:"namespace"`
-	FlowId string `json:"flowId"`
+	ExecutionId *string `json:"executionId,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
 	TaskId string `json:"taskId"`
 	ParentTaskRunId *string `json:"parentTaskRunId,omitempty"`
 	Value *string `json:"value,omitempty"`
@@ -40,12 +40,9 @@ type _TaskRun TaskRun
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTaskRun(id string, executionId string, namespace string, flowId string, taskId string, state State) *TaskRun {
+func NewTaskRun(id string, taskId string, state State) *TaskRun {
 	this := TaskRun{}
 	this.Id = id
-	this.ExecutionId = executionId
-	this.Namespace = namespace
-	this.FlowId = flowId
 	this.TaskId = taskId
 	this.State = state
 	return &this
@@ -83,76 +80,97 @@ func (o *TaskRun) SetId(v string) {
 	o.Id = v
 }
 
-// GetExecutionId returns the ExecutionId field value
+// GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
 func (o *TaskRun) GetExecutionId() string {
-	if o == nil {
+	if o == nil || IsNil(o.ExecutionId) {
 		var ret string
 		return ret
 	}
-
-	return o.ExecutionId
+	return *o.ExecutionId
 }
 
-// GetExecutionIdOk returns a tuple with the ExecutionId field value
+// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskRun) GetExecutionIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ExecutionId) {
 		return nil, false
 	}
-	return &o.ExecutionId, true
+	return o.ExecutionId, true
 }
 
-// SetExecutionId sets field value
+// HasExecutionId returns a boolean if a field has been set.
+func (o *TaskRun) HasExecutionId() bool {
+	if o != nil && !IsNil(o.ExecutionId) {
+		return true
+	}
+	return false
+}
+
+// SetExecutionId gets a reference to the given string and assigns it to the ExecutionId field.
 func (o *TaskRun) SetExecutionId(v string) {
-	o.ExecutionId = v
+	o.ExecutionId = &v
 }
 
-// GetNamespace returns the Namespace field value
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *TaskRun) GetNamespace() string {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
-
-	return o.Namespace
+	return *o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskRun) GetNamespaceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
-	return &o.Namespace, true
+	return o.Namespace, true
 }
 
-// SetNamespace sets field value
+// HasNamespace returns a boolean if a field has been set.
+func (o *TaskRun) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
 func (o *TaskRun) SetNamespace(v string) {
-	o.Namespace = v
+	o.Namespace = &v
 }
 
-// GetFlowId returns the FlowId field value
+// GetFlowId returns the FlowId field value if set, zero value otherwise.
 func (o *TaskRun) GetFlowId() string {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		var ret string
 		return ret
 	}
-
-	return o.FlowId
+	return *o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskRun) GetFlowIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		return nil, false
 	}
-	return &o.FlowId, true
+	return o.FlowId, true
 }
 
-// SetFlowId sets field value
+// HasFlowId returns a boolean if a field has been set.
+func (o *TaskRun) HasFlowId() bool {
+	if o != nil && !IsNil(o.FlowId) {
+		return true
+	}
+	return false
+}
+
+// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
 func (o *TaskRun) SetFlowId(v string) {
-	o.FlowId = v
+	o.FlowId = &v
 }
 
 // GetTaskId returns the TaskId field value
@@ -448,9 +466,15 @@ func (o TaskRun) MarshalJSON() ([]byte, error) {
 func (o TaskRun) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["executionId"] = o.ExecutionId
-	toSerialize["namespace"] = o.Namespace
-	toSerialize["flowId"] = o.FlowId
+	if !IsNil(o.ExecutionId) {
+		toSerialize["executionId"] = o.ExecutionId
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.FlowId) {
+		toSerialize["flowId"] = o.FlowId
+	}
 	toSerialize["taskId"] = o.TaskId
 	if !IsNil(o.ParentTaskRunId) {
 		toSerialize["parentTaskRunId"] = o.ParentTaskRunId
@@ -488,9 +512,6 @@ func (o *TaskRun) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"executionId",
-		"namespace",
-		"flowId",
 		"taskId",
 		"state",
 	}
