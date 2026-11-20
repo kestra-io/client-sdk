@@ -5459,7 +5459,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Create a service account
-      description: Instance-owner-only. CReate service account with access to multiple tenants.
+      description: Instance-owner-only. Create service account with access to multiple tenants.
       operationId: createServiceAccount
       requestBody:
         description: The service account
