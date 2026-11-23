@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 import { createRequire } from "module";
-import { dirname, resolve } from "path";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const require = createRequire(import.meta.url);
 
@@ -8,7 +8,8 @@ const require = createRequire(import.meta.url);
 const spawnBin = (pkg, bin, args, stdio) => {
     const pkgJson = require.resolve(`${pkg}/package.json`);
     const { bin: entry } = require(pkgJson);
-    return spawn(process.execPath, [resolve(dirname(pkgJson), entry[bin]), ...args], { stdio });
+    const binPath = fileURLToPath(new URL(entry[bin], pathToFileURL(pkgJson)));
+    return spawn(process.execPath, [binPath, ...args], { stdio });
 };
 
 const openapiTs = spawnBin("@hey-api/openapi-ts", "openapi-ts", ["--watch"], ["inherit", "pipe", "inherit"]);
