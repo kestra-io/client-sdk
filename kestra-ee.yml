@@ -28105,7 +28105,8 @@ paths:
     get:
       tags:
       - Policies
-      summary: 'Search for policies across scopes (without a global grant, restricted to what concerns the caller''s namespaces: INSTANCE and TENANT policies plus NAMESPACE policies on their subtrees and ancestors)'
+      summary: 'Search for policies across scopes (without a global grant, restricted to what concerns the caller''s namespaces: STATIC and INSTANCE and TENANT policies plus NAMESPACE policies on their subtrees and ancestors)'
+      description: The read-only STATIC policies declared in configuration are included when they apply to the tenant.
       operationId: searchPolicies
       parameters:
       - name: tenant
