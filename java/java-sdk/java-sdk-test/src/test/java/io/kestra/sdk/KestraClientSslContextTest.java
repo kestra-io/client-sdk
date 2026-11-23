@@ -41,7 +41,9 @@ class KestraClientSslContextTest {
         var both = startServer(dir.resolve("both.p12"), "dns:localhost,ip:127.0.0.1");
         server = both.server();
         trusting = both.trusting();
-        url = "https://localhost:" + server.getAddress().getPort();
+        // Literal IP: where localhost also resolves to ::1 (CI runners), httpclient retries a failed handshake on
+        // the next address and reports that connect error instead of the SSLHandshakeException.
+        url = "https://127.0.0.1:" + server.getAddress().getPort();
 
         var localhostOnly = startServer(dir.resolve("localhost.p12"), "dns:localhost");
         localhostOnlyServer = localhostOnly.server();
