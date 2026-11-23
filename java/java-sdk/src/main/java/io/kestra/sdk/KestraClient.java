@@ -223,7 +223,8 @@ public class KestraClient {
 
         /**
          * Set the {@link SSLContext} used to trust the server certificate, scoped to this client.
-         * {@code null} (the default) uses the JVM default. Hostname verification stays enabled.
+         * {@code null} (the default) uses the default truststore (cacerts or {@code javax.net.ssl.trustStore}),
+         * not a context installed with {@code SSLContext.setDefault}. Hostname verification stays enabled.
          */
         public KestraClientBuilder sslContext(SSLContext sslContext) {
             this.sslContext = sslContext;

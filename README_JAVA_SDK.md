@@ -63,12 +63,12 @@ Use the `io.kestra.sdk.KestraClient` manually written that gather everything in 
 
 ### Trusting a private CA
 
-By default the client trusts what the JVM trusts. To trust another certificate authority for one client only, without touching the JVM-wide `SSLContext` or truststore, pass an `SSLContext` to the builder:
+By default the client trusts the default truststore (`cacerts` or `javax.net.ssl.trustStore`); a context installed with `SSLContext.setDefault` is not used. To trust another certificate authority for one client only, without touching the JVM-wide `SSLContext` or truststore, pass an `SSLContext` to the builder:
 
 ```java
 KestraClient client = KestraClient.builder()
     .url("https://kestra.internal")
-    .sslContext(sslContext) // null keeps the JVM default
+    .sslContext(sslContext) // null keeps the default truststore
     .build();
 ```
 

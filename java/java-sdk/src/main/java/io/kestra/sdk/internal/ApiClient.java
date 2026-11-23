@@ -504,7 +504,7 @@ public class ApiClient extends JavaTimeFormatter {
    }
 
   /**
-   * @return The custom {@link SSLContext}, or {@code null} for the JVM default
+   * @return The custom {@link SSLContext}, or {@code null} for the default truststore
    */
   public SSLContext getSslContext() {
     return sslContext;
@@ -512,10 +512,11 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the {@link SSLContext} used for HTTPS connections, scoped to this client only. {@code null}
-   * means the JVM default. Hostname verification stays enabled.
+   * means the default truststore (cacerts or {@code javax.net.ssl.trustStore}), not a context installed
+   * with {@code SSLContext.setDefault}. Hostname verification stays enabled.
    * Like the timeout setters, this replaces the underlying HTTP client, including one given through
    * {@link #ApiClient(CloseableHttpClient)} or {@link #setHttpClient}.
-   * @param sslContext SSL context, or null for the JVM default
+   * @param sslContext SSL context, or null for the default truststore
    * @return API client
    */
   public ApiClient setSslContext(SSLContext sslContext) {
