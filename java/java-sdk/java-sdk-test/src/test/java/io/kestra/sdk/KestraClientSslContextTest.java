@@ -13,7 +13,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.TrustManagerFactory;
-import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -21,7 +20,6 @@ import java.nio.file.Path;
 import java.security.KeyStore;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,7 +64,7 @@ class KestraClientSslContextTest {
         assertThat(process.exitValue()).as(new String(process.getInputStream().readAllBytes())).isZero();
 
         var keyStore = KeyStore.getInstance("PKCS12");
-        try (InputStream in = Files.newInputStream(keystore)) {
+        try (var in = Files.newInputStream(keystore)) {
             keyStore.load(in, PASSWORD);
         }
 
@@ -110,7 +108,7 @@ class KestraClientSslContextTest {
     }
 
     private static boolean hasCause(Throwable failure, Class<? extends Throwable> type) {
-        List<Throwable> seen = new ArrayList<>();
+        var seen = new ArrayList<Throwable>();
         for (var t = failure; t != null && !seen.contains(t); t = t.getCause()) {
             seen.add(t);
             if (type.isInstance(t)) {
