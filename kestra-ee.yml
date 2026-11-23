@@ -37657,13 +37657,24 @@ components:
         kind:
           title: The kind of resource; currently always 'flow'.
           type: string
+        tenant:
+          title: The tenant of the resource; an instance-scope policy evaluates the resources of every tenant.
+          type: string
         namespace:
           title: The namespace of the resource.
           type: string
         id:
           title: The id of the resource.
           type: string
-      description: The identity of a resource affected by the evaluated policy.
+      description: The identity of a resource evaluated against the policy.
+    ApiPolicyEvaluation.Status:
+      type: string
+      description: 'The outcome of a policy for one resource: the most severe of its conflicts, violations and mutations, or COMPLIANT when the policy changes and reports nothing.'
+      enum:
+      - CONFLICTING
+      - VIOLATING
+      - MUTATED
+      - COMPLIANT
     ApiPolicyImportResult.Error:
       type: object
       properties:
@@ -45764,11 +45775,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/ApiPolicyEvaluation.Counts'
         total:
-          title: The total number of affected resources across all pages.
+          title: The total number of evaluated resources across all pages.
           type: integer
           format: int64
         results:
-          title: The requested page of affected resources — those the policy would mutate, block, or conflict on.
+          title: The requested page of evaluated resources, those the policy would block, conflict on, or mutate first.
           type: array
           items:
             $ref: '#/components/schemas/PolicyEvaluationResult'
@@ -45777,9 +45788,13 @@ components:
       type: object
       properties:
         resource:
-          title: The identity of the affected resource.
+          title: The identity of the evaluated resource.
           allOf:
           - $ref: '#/components/schemas/ApiPolicyEvaluation.Resource'
+        status:
+          title: The outcome of the policy for the resource.
+          allOf:
+          - $ref: '#/components/schemas/ApiPolicyEvaluation.Status'
         mutations:
           title: The per-property changes the policy would make to the resource.
           type: array
@@ -45795,7 +45810,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PolicyConflict'
-      description: One affected resource with the mutations, violations, and conflicts the policy would produce on it.
+      description: One evaluated resource with its status and the mutations, violations, and conflicts the policy would produce on it.
     PolicyImportResult:
       type: object
       properties:
