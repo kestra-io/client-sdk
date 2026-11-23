@@ -859,3 +859,21 @@ var client = KestraClient.builder()
 
 Both `connectTimeout` and `readTimeout` accept any `java.time.Duration`.
 Pass `Duration.ZERO` (or simply omit the call) to restore the infinite-wait default.
+
+## Trusting a private CA
+
+By default the client trusts the default truststore (`cacerts` or `javax.net.ssl.trustStore`); a context installed with `SSLContext.setDefault` is not used.
+To trust another certificate authority for one client only, without touching the JVM-wide `SSLContext` or truststore, pass an `SSLContext` to the builder:
+
+```java
+import io.kestra.sdk.KestraClient;
+import javax.net.ssl.SSLContext;
+
+var client = KestraClient.builder()
+    .url("https://kestra.internal")
+    .tokenAuth("your-api-token")
+    .sslContext(sslContext)   // null keeps the default truststore
+    .build();
+```
+
+Hostname verification stays enabled. `ApiClient#setSslContext` does the same on an existing client and, like the timeout setters, replaces its underlying HTTP client.

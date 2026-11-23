@@ -61,18 +61,7 @@
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
 Use the `io.kestra.sdk.KestraClient` manually written that gather everything in one client.
 
-### Trusting a private CA
-
-By default the client trusts the default truststore (`cacerts` or `javax.net.ssl.trustStore`); a context installed with `SSLContext.setDefault` is not used. To trust another certificate authority for one client only, without touching the JVM-wide `SSLContext` or truststore, pass an `SSLContext` to the builder:
-
-```java
-KestraClient client = KestraClient.builder()
-    .url("https://kestra.internal")
-    .sslContext(sslContext) // null keeps the default truststore
-    .build();
-```
-
-Hostname verification stays enabled. `ApiClient#setSslContext` does the same on an existing client and, like the timeout setters, replaces its underlying HTTP client.
+To trust a private CA for one client, see [Trusting a private CA](java/java-sdk/README.md#trusting-a-private-ca).
 
 ## Upgrading from 1.3.x to 2.0.x
 
