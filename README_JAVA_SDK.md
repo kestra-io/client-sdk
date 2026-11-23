@@ -61,6 +61,8 @@
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
 Use the `io.kestra.sdk.KestraClient` manually written that gather everything in one client.
 
+To trust a private CA for one client, see [Trusting a private CA](java/java-sdk/README.md#trusting-a-private-ca).
+
 ## Upgrading from 1.3.x to 2.0.x
 
 2.0.x targets Kestra 2.0. Use the 1.3.x SDK against a Kestra 1.3 server.

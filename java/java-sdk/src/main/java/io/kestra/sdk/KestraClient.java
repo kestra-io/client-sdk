@@ -9,6 +9,7 @@ import io.kestra.sdk.api.*;
 import io.kestra.sdk.api.*;
 import io.kestra.sdk.internal.ApiClient;
 
+import javax.net.ssl.SSLContext;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.Objects;
@@ -159,6 +160,7 @@ public class KestraClient {
         private String password;
         private Duration connectTimeout;
         private Duration readTimeout;
+        private SSLContext sslContext;
 
         /**
          * The base URL of the Kestra API.
@@ -219,6 +221,16 @@ public class KestraClient {
             return this;
         }
 
+        /**
+         * Set the {@link SSLContext} used to trust the server certificate, scoped to this client.
+         * {@code null} (the default) uses the default truststore (cacerts or {@code javax.net.ssl.trustStore}),
+         * not a context installed with {@code SSLContext.setDefault}. Hostname verification stays enabled.
+         */
+        public KestraClientBuilder sslContext(SSLContext sslContext) {
+            this.sslContext = sslContext;
+            return this;
+        }
+
         public KestraClient build() {
             ApiClient apiClient = new ApiClient();
             apiClient.setBasePath(url);
@@ -235,6 +247,9 @@ public class KestraClient {
             }
             if (connectTimeout != null) {
                 apiClient.setConnectTimeout((int) Math.min(connectTimeout.toMillis(), Integer.MAX_VALUE));
+            }
+            if (sslContext != null) {
+                apiClient.setSslContext(sslContext);
             }
             if (readTimeout != null) {
                 // round a positive sub-millisecond duration up to 1ms, 0 would mean no timeout
