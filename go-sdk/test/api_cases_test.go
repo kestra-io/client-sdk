@@ -125,7 +125,7 @@ func TestCasesAPI_Lifecycle(t *testing.T) {
 		require.NotNil(t, acked.AcknowledgedAt)
 
 		resolved, err := client.Cases().ResolveCase(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseResolveRequest{
-			Reason: "fixed",
+			Reason: "Fixed",
 			Note:   "resolved by go sdk test",
 		})
 		require.NoError(t, err)
