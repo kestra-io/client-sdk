@@ -48345,17 +48345,25 @@ components:
     TriggerController.ApiCreateBackfillRequest:
       required:
       - backfill
+      - flowId
+      - namespace
+      - triggerId
       type: object
       properties:
         namespace:
+          minLength: 1
           type: string
         flowId:
+          minLength: 1
           type: string
         triggerId:
+          minLength: 1
           type: string
         backfill:
           $ref: '#/components/schemas/TriggerController.ApiCreateBackfillRequest.Backfill'
     TriggerController.ApiCreateBackfillRequest.Backfill:
+      required:
+      - start
       type: object
       properties:
         start:
