@@ -229,7 +229,7 @@ describe('CasesApi', () => {
 
         const result = await Cases.resolve({
             id: created.id ?? '',
-            reason: 'FIXED',
+            reason: 'Fixed',
             note: 'resolved by CasesApi.spec.ts',
         });
         expect(result).toBeDefined();
@@ -301,6 +301,20 @@ describe('CasesApi', () => {
 
         const removed = await Cases.deleteTicket({ id: created.id ?? '' });
         expect(removed.ticket ?? null).toBeNull();
+    });
+
+    it('resolutionRules: returns the reasons and note requirement a case resolves with', async () => {
+        const template = await CasesAdmin.create({
+            name: `tpl_${randomId()}`,
+            namespace: 'cases.test',
+            resolutionReasons: ['Rolled back'],
+            requireResolutionNote: true,
+        });
+        const created = await createCase({ templateId: template.id });
+
+        const rules = await Cases.resolutionRules({ id: created.id ?? '' });
+        expect(rules.resolutionReasons).toEqual(['Rolled back']);
+        expect(rules.requireResolutionNote).toBe(true);
     });
 
     it('setTicket: 404s on a case that does not exist', async () => {
