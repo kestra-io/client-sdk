@@ -16730,6 +16730,52 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/dashboards/charts/state-counts:
+    post:
+      tags:
+      - Dashboards
+      summary: Count the executions of a chart by state
+      operationId: previewChartStateCounts
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardController.PreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: previewChartStateCounts 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardController.ChartStateCounts'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/dashboards/defaults/definitions:
     get:
       tags:
@@ -17197,6 +17243,67 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/state-counts:
+    post:
+      tags:
+      - Dashboards
+      summary: Count the executions of a dashboard chart by state
+      operationId: dashboardChartStateCounts
+      parameters:
+      - name: id
+        in: path
+        description: The dashboard id
+        required: true
+        schema:
+          type: string
+      - name: chartId
+        in: path
+        description: The chart id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The filters to apply, some can override chart definition like labels & namespace
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartFiltersOverrides'
+        required: true
+      responses:
+        '200':
+          description: dashboardChartStateCounts 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardController.ChartStateCounts'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '403':
+          description: Access denied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dependencies:
     get:
       tags:
@@ -41061,6 +41168,16 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/ChartMetadata'
+    DashboardController.ChartStateCounts:
+      required:
+      - counts
+      type: object
+      properties:
+        counts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     DashboardController.DashboardResponse:
       required:
       - deleted
