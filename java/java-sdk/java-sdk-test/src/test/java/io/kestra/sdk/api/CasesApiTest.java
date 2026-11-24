@@ -237,7 +237,7 @@ public class CasesApiTest {
     void resolve_basic() throws ApiException {
         String id = createCase(randomId(), "Resolve me");
 
-        Map<String, Object> result = api().resolve(id, TENANT, "fixed", null);
+        Map<String, Object> result = api().resolve(id, TENANT, "Fixed", null);
 
         assertThat(result.get("status")).isEqualTo("RESOLVED");
     }

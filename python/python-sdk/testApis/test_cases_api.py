@@ -112,7 +112,7 @@ def test_case_lifecycle_transitions(client):
         assert acked.status in ("ACKNOWLEDGED", "INVESTIGATING", "OPEN")
 
         resolved = client.cases.resolve_case(
-            TENANT, created.id, {"reason": "fixed", "note": "handled by sdk test"}
+            TENANT, created.id, {"reason": "Fixed", "note": "handled by sdk test"}
         )
         assert resolved.id == created.id
     finally:
