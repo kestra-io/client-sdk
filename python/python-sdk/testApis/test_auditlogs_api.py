@@ -6,8 +6,11 @@ wrapped in ``_tolerate_gating`` (see AGENTS.md).
 """
 import pytest
 
-from test_helpers import TENANT, gating, random_id
+from test_helpers import TENANT, gating, ns_filter, random_id
 from kestrapy.exceptions import NotFoundException
+from kestrapy.models.query_filter import QueryFilter
+from kestrapy.models.query_filter_field import QueryFilterField
+from kestrapy.models.query_filter_op import QueryFilterOp
 
 _tolerate_gating = gating()
 
@@ -65,8 +68,13 @@ def test_find_audit_log(client):
 
 def test_audit_log_history_unknown_id(client):
     # History is a revision query, not a fetch: an unknown id has no revisions,
-    # so it resolves to an empty result rather than 404 (asserting emptiness is
-    # the real signal — a non-empty history for a random id would be the bug).
+    # so it resolves to an empty page rather than 404 (asserting emptiness is
+    # the real signal: a non-empty history for a random id would be the bug).
+    filters = [
+        QueryFilter(var_field=QueryFilterField.RESOURCES, operation=QueryFilterOp.EQUALS, value={"value": "FLOW"}),
+        QueryFilter(var_field=QueryFilterField.ID, operation=QueryFilterOp.EQUALS, value={"value": random_id()}),
+        ns_filter(random_id()),
+    ]
     with _tolerate_gating("audit_log_history"):
-        result = client.auditlogs.audit_log_history(random_id(), TENANT)
-    assert not result
+        result = client.auditlogs.audit_log_history(TENANT, filters)
+    assert result["results"] == []

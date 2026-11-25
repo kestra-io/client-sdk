@@ -90,9 +90,18 @@ class AuditLogsApi(BaseApi):
         return self._raw_json_request("POST", path, body=body)
 
     def audit_log_history(
-        self, detail_id: str, tenant: str
-    ) -> List[Dict[str, Any]]:
-        """The audit-log entries recorded for a single resource id.
-        GET /api/v1/{tenant}/auditlogs/history/{detailId}."""
-        path = self._tenant_path(tenant, "auditlogs", "history", detail_id)
-        return self._raw_json_request("GET", path)
+        self,
+        tenant: str,
+        filters: List[QueryFilter],
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        """A page of the audit-log entries of one resource. ``filters`` needs ``resources``
+        with one type and ``id``, plus ``namespace`` for a namespaced resource.
+        GET /api/v1/{tenant}/auditlogs/history."""
+        path = self._tenant_path(tenant, "auditlogs", "history")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
+        return self._raw_json_request("GET", path, params=params)
