@@ -11704,19 +11704,51 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
-  /api/v1/{tenant}/auditlogs/history/{detailId}:
+  /api/v1/{tenant}/auditlogs/history:
     get:
       tags:
       - Audit Logs
-      summary: Find all audit logs about a specific resource.
-      operationId: listAuditLogFromResourceId
+      summary: List the audit logs of one resource
+      description: Requires the `resources` filter with the IN or EQUALS operation and a single resource type, and the `id` filter with the EQUALS operation. Add the `namespace` filter with the EQUALS operation for a resource that belongs to a namespace.
+      operationId: listAuditLogHistory
       parameters:
-      - name: detailId
-        in: path
-        description: The resource Id
-        required: true
+      - name: page
+        in: query
+        description: The current page
+        explode: false
         schema:
-          type: string
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/QueryFilter'
       - name: tenant
         in: path
         required: true
@@ -11724,13 +11756,11 @@ paths:
           type: string
       responses:
         '200':
-          description: listAuditLogFromResourceId 200 response
+          description: listAuditLogHistory 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AuditLogController.AuditLogOption'
+                $ref: '#/components/schemas/PagedResults_AuditLogController.AuditLogOption_'
         '401':
           description: Authentication required
           content:
@@ -45021,6 +45051,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditLogController.ApiAuditLogItem'
+        total:
+          type: integer
+          format: int64
+    PagedResults_AuditLogController.AuditLogOption_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLogController.AuditLogOption'
         total:
           type: integer
           format: int64
