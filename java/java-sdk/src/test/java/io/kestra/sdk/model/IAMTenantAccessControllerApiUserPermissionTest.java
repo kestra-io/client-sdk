@@ -11,11 +11,11 @@ class IAMTenantAccessControllerApiUserPermissionTest {
     @Test
     void shouldReadTheResourceAndActionsOfAPermissionTheServerSends() throws Exception {
         IAMTenantAccessControllerApiUserPermission permission = new ApiClient().getObjectMapper().readValue(
-            "{\"resource\":\"CASE\",\"actions\":[\"VIEW\",\"LIST\",\"REVIEW\",\"UPDATE_CONCURRENCY_LIMIT\"]}",
+            "{\"resource\":\"CASE\",\"actions\":[\"VIEW\",\"LIST\",\"REVIEW\",\"LOCK\",\"PROMOTE\",\"UPDATE_CONCURRENCY_LIMIT\"]}",
             IAMTenantAccessControllerApiUserPermission.class
         );
 
         assertEquals(Resource.CASE, permission.getResource());
-        assertEquals(List.of(Action.VIEW, Action.LIST, Action.REVIEW, Action.UPDATE_CONCURRENCY_LIMIT), permission.getActions());
+        assertEquals(List.of(Action.VIEW, Action.LIST, Action.REVIEW, Action.LOCK, Action.PROMOTE, Action.UPDATE_CONCURRENCY_LIMIT), permission.getActions());
     }
 }
