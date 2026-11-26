@@ -157,7 +157,7 @@ public class AssetsApiTest {
                 displayName: Updated %s
                 """.formatted(created.getId(), id));
 
-        var displayName = "Updated %s".formatted(id);
+        String displayName = "Updated %s".formatted(id);
         assertThat(result.getId()).isEqualTo(created.getId());
         assertThat(result.getDisplayName()).isEqualTo(displayName);
         assertThat(api().asset(created.getId(), TENANT, null).getDisplayName()).isEqualTo(displayName);

@@ -826,7 +826,7 @@ public class Example {
 
 Update an existing asset
 
-The asset must already exist (404 otherwise). Fields left out of the body keep their stored value, and metadata is merged key by key.
+The asset must already exist (404 otherwise), and the body must carry the same `id` as the path (422 otherwise). Other fields left out of the body keep their stored value, and metadata is merged key by key.
 
 ### Example
 
