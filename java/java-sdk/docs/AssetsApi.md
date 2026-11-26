@@ -15,6 +15,7 @@ All URIs are relative to *http://localhost*
 | [**searchAssetLineageEvents**](AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events **(deprecated)** |
 | [**searchAssetUsages**](AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages |
 | [**searchAssets**](AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets |
+| [**updateAsset**](AssetsApi.md#updateAsset) | **PUT** /api/v1/{tenant}/assets/{id} | Update an existing asset |
 
 
 
@@ -818,3 +819,78 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | searchAssets 200 response |  -  |
 
+
+## updateAsset
+
+> AssetsControllerApiAsset updateAsset(id, tenant, yamlBody)
+
+Update an existing asset
+
+The asset must already exist (404 otherwise). Fields left out of the body keep their stored value, and metadata is merged key by key.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The ID of the asset
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The asset
+        try {
+            AssetsControllerApiAsset result = kestraClient.assets().updateAsset(id, tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#updateAsset");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the asset | |
+| **tenant** | **String**|  | |
+| **yamlBody** | **String**| The asset | |
+
+### Return type
+
+[**AssetsControllerApiAsset**](AssetsControllerApiAsset.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | updateAsset 200 response |  -  |
+| **404** | Asset not found |  -  |
+| **423** | Asset locked |  -  |

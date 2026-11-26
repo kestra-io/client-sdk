@@ -47,6 +47,17 @@ public class AssetsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    public AssetsControllerApiAsset updateAsset(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String yamlBody) throws ApiException {
+        return invoke("PUT",
+                tenantPath(tenant, "assets", id),
+                yamlBody, null, null,
+                JSON, YAML,
+                new TypeReference<>() {});
+    }
+
     public AssetsControllerApiAsset asset(
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String tenant,

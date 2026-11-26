@@ -147,6 +147,31 @@ public class AssetsApiTest {
     }
 
     @Test
+    void updateAsset_existing() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        AssetsControllerApiAsset result = api().updateAsset(created.getId(), TENANT, """
+                id: %s
+                type: TABLE
+                displayName: Updated %s
+                """.formatted(created.getId(), id));
+
+        var displayName = "Updated %s".formatted(id);
+        assertThat(result.getId()).isEqualTo(created.getId());
+        assertThat(result.getDisplayName()).isEqualTo(displayName);
+        assertThat(api().asset(created.getId(), TENANT, null).getDisplayName()).isEqualTo(displayName);
+    }
+
+    @Test
+    void updateAsset_missingIsNotFound() {
+        String id = randomId();
+
+        assertThatThrownBy(() -> api().updateAsset(id, TENANT, assetYaml(id)))
+                .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.getCode()).isEqualTo(404));
+    }
+
+    @Test
     void deleteAsset_basic() throws ApiException {
         String id = randomId();
         AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
