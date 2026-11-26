@@ -7834,6 +7834,12 @@ paths:
                     $ref: '#/components/schemas/Map_Resource.List_Action__'
                   DEVELOPER:
                     $ref: '#/components/schemas/Map_Resource.List_Action__'
+                  REQUESTER:
+                    $ref: '#/components/schemas/Map_Resource.List_Action__'
+                  APPROVER:
+                    $ref: '#/components/schemas/Map_Resource.List_Action__'
+                  PLATFORM_ENGINEER:
+                    $ref: '#/components/schemas/Map_Resource.List_Action__'
         '401':
           description: Authentication required
           content:
