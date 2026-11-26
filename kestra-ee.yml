@@ -29726,6 +29726,13 @@ paths:
           nullable: true
           items:
             $ref: '#/components/schemas/QueryFilter'
+      - name: pluginType
+        in: query
+        description: Keep only the policies carrying a plugin rule that targets this plugin type, exactly or through a type prefix. Meant for the `REFERENCE` policies a task or trigger can attach with policyRefs.
+        explode: false
+        schema:
+          type: string
+          nullable: true
       responses:
         '200':
           description: searchNamespacePolicies 200 response
