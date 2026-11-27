@@ -2,7 +2,6 @@ package kestra_api_client
 
 import (
 	"context"
-	"net/url"
 )
 
 type KvAPI struct {
@@ -28,7 +27,9 @@ func (a *KvAPI) DeleteKeyValues(ctx context.Context, namespace, tenant string, r
 func (a *KvAPI) ListAllKeys(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsKVEntry, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsKVEntry](&a.baseAPI, ctx, "GET", tenantPath(tenant, "kv"), nil, params)
 }
 
@@ -37,9 +38,16 @@ func (a *KvAPI) ListKeysWithInheritance(ctx context.Context, namespace, tenant s
 }
 
 func (a *KvAPI) SetKeyValueWithTTL(ctx context.Context, namespace, key, tenant, body string, ttl *string) error {
-	var params url.Values
+	return a.SetKeyValueWithOptions(ctx, namespace, key, tenant, body, ttl, nil)
+}
+
+func (a *KvAPI) SetKeyValueWithOptions(ctx context.Context, namespace, key, tenant, body string, ttl, description *string) error {
+	headers := map[string]string{}
 	if ttl != nil {
-		params = buildQueryParams("ttl", ttl)
+		headers["ttl"] = *ttl
 	}
-	return a.doVoidText(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, params)
+	if description != nil {
+		headers["description"] = *description
+	}
+	return a.doVoidTextWithHeaders(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, nil, headers)
 }

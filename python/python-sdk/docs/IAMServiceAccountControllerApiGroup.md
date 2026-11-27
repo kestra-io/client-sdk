@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.iam_service_account_controller_api_group import IAMServiceAccountControllerApiGroup
 
 # TODO update the JSON string below

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.sla_config import SlaConfig
 
 # TODO update the JSON string below

@@ -25,7 +25,9 @@ func (a *NamespacesAPI) DeleteNamespace(ctx context.Context, id, tenant string) 
 func (a *NamespacesAPI) SearchNamespaces(ctx context.Context, tenant string, q *string, page, size *int, sort []string, existing *bool, filters []SearchFilter) (*PagedResultsNamespace, error) {
 	params := buildQueryParams("page", page, "size", size, "existing", existing)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, appendStringFilter(filters, FilterQuery, q))
+	if err := appendFilterParams(params, appendStringFilter(filters, FilterQuery, q)); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsNamespace](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", "search"), nil, params)
 }
 

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.blueprint_controller_flow_blueprint_create_or_update import BlueprintControllerFlowBlueprintCreateOrUpdate
 
 # TODO update the JSON string below

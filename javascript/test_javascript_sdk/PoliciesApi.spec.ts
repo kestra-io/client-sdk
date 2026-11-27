@@ -1,6 +1,6 @@
 // PoliciesApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId } from './_utils.js';
+import { randomId, getSimpleFlowAndId, asText } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Policies from '@kestra-io/kestra-sdk/policies';
 import * as Namespaces from '@kestra-io/kestra-sdk/namespaces';
@@ -216,8 +216,8 @@ describe('PoliciesApi (tenant scope)', () => {
         const id = `test-export-policy-${randomId()}`;
         await Policies.createTenantPolicy({ body: policySource(id) });
 
-        const exported = await Policies.exportTenantPolicies();
-        expect(typeof exported).toBe('string');
+        // The export is declared `format: binary`, so the SDK hands back a Blob.
+        const exported = await asText(await Policies.exportTenantPolicies());
         expect(exported).toContain(id);
     });
 

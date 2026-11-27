@@ -8,7 +8,9 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
     const out = outputPath || absIn.replace(/\.ya?ml$/, ".sanitized.yml");
 
     const raw = await fs.readFile(absIn, "utf8");
-    const spec = yaml.load(raw);
+    // `json: true` keeps the last of a duplicated key instead of throwing: the upstream
+    // spec repeats identical definitions now and then (e.g. Tenant.type in kestra-ee@f86d248).
+    const spec = yaml.load(raw, { json: true });
 
     const absConf = path.resolve(confPath);
     const configuration = JSON.parse(await fs.readFile(absConf, "utf8")) as {

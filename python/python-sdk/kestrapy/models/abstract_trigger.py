@@ -31,7 +31,10 @@ class AbstractTrigger(BaseModel):
     type: Annotated[str, Field(min_length=1, strict=True)]
     version: Optional[StrictStr] = Field(default=None, description="Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). ")
     description: Optional[StrictStr] = None
-    when: StrictStr = Field(description="A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.")
+    # Optional although the 2.0 spec marks it required: the server never returns
+    # `when` when it is unset, and a required field made from_dict() fail on
+    # every real trigger payload (dropping plugin props like `cron` downstream).
+    when: Optional[StrictStr] = Field(default=None, description="A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.")
     disabled: Optional[StrictBool] = False
     worker_selector: Optional[WorkerSelector] = Field(default=None, description="Routing requirements (tags + fallback) for this trigger.", alias="workerSelector")
     policy_refs: Optional[List[StrictStr]] = Field(default=None, description="Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition; ignored in the open-source edition).", alias="policyRefs")

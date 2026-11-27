@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
 
 # TODO update the JSON string below

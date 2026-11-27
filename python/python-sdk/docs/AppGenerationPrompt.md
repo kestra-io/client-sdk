@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.app_generation_prompt import AppGenerationPrompt
 
 # TODO update the JSON string below

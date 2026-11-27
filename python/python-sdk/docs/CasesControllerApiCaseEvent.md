@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.cases_controller_api_case_event import CasesControllerApiCaseEvent
 
 # TODO update the JSON string below

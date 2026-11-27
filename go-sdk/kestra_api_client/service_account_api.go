@@ -40,7 +40,9 @@ func (a *ServiceAccountAPI) PatchServiceAccountSuperAdmin(ctx context.Context, i
 func (a *ServiceAccountAPI) ListServiceAccounts(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail](&a.baseAPI, ctx, "GET", superadminPath("service-accounts"), nil, params)
 }
 

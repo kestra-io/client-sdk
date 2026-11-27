@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin_controller_api_plugin_versions import PluginControllerApiPluginVersions
 
 # TODO update the JSON string below

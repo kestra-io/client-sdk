@@ -222,6 +222,76 @@ public class FlowsApiTest {
     }
 
     // ========================================================================
+    // CRUD — createFlowFromObject / updateFlowFromObject
+    // ========================================================================
+
+    @Test
+    void createThenUpdateFlowFromObject_map() throws ApiException {
+        String id = randomId();
+        String ns = randomId();
+        String message = "Hello {{ flow.id }}\nsecond line";
+
+        // A plain Map with a plugin-specific task property (Log.message).
+        Map<String, Object> task = new java.util.LinkedHashMap<>();
+        task.put("id", "hello");
+        task.put("type", "io.kestra.plugin.core.log.Log");
+        task.put("message", message);
+        Map<String, Object> flow = new java.util.LinkedHashMap<>();
+        flow.put("id", id);
+        flow.put("namespace", ns);
+        flow.put("description", "from_object_description");
+        flow.put("tasks", List.of(task));
+
+        FlowWithSource created = api().createFlowFromObject(TENANT, flow, null);
+        assertThat(created.getId()).isEqualTo(id);
+        assertThat(created.getNamespace()).isEqualTo(ns);
+        assertThat(created.getDescription()).isEqualTo("from_object_description");
+        assertThat(created.getTasks()).hasSize(1);
+        assertThat(created.getTasks().get(0).getType()).isEqualTo("io.kestra.plugin.core.log.Log");
+        // The plugin-specific `message` (expression + multi-line) round-trips from the server.
+        assertThat(created.getTasks().get(0).getAdditionalProperty("message")).isEqualTo(message);
+
+        String updatedMessage = "updated {{ flow.namespace }}";
+        task.put("message", updatedMessage);
+        flow.put("description", "from_object_description_updated");
+        FlowWithSource updated = api().updateFlowFromObject(ns, id, TENANT, flow, null);
+        assertThat(updated.getId()).isEqualTo(id);
+        assertThat(updated.getDescription()).isEqualTo("from_object_description_updated");
+        assertThat(updated.getTasks().get(0).getAdditionalProperty("message")).isEqualTo(updatedMessage);
+        assertThat(updated.getRevision()).isEqualTo(created.getRevision() + 1);
+
+        FlowWithSource fetched = api().flow(ns, id, TENANT, null, null, null);
+        assertThat(fetched.getTasks().get(0).getAdditionalProperty("message")).isEqualTo(updatedMessage);
+    }
+
+    @Test
+    void createFlowFromObject_workerSelectorTagsExpression_roundTrips() throws ApiException {
+        // A Pebble tags expression is sent as a string (Kestra 2.0.11+) and read back as one
+        String id = randomId();
+        String ns = randomId();
+        Task task = new Task()
+                .id("hello")
+                .type("io.kestra.plugin.core.log.Log");
+        task.putAdditionalProperty("message", "hi");
+        Flow flow = new Flow();
+        flow.setId(id);
+        flow.setNamespace(ns);
+        flow.setTasks(List.of(task));
+        flow.setWorkerSelector(new WorkerSelector()
+                .tagsExpression("{{ inputs.workers }}")
+                .match(WorkerSelectorMatch.ANY));
+
+        FlowWithSource created = api().createFlowFromObject(TENANT, flow, null);
+        assertThat(created.getWorkerSelector().getTags()).isNull();
+        assertThat(created.getWorkerSelector().getTagsExpression()).isEqualTo("{{ inputs.workers }}");
+        assertThat(created.getWorkerSelector().getMatch()).isEqualTo(WorkerSelectorMatch.ANY);
+
+        FlowWithSource fetched = api().flow(ns, id, TENANT, null, null, null);
+        assertThat(fetched.getWorkerSelector().getTags()).isNull();
+        assertThat(fetched.getWorkerSelector().getTagsExpression()).isEqualTo("{{ inputs.workers }}");
+    }
+
+    // ========================================================================
     // CRUD — deleteFlow
     // ========================================================================
 

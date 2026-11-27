@@ -15,7 +15,7 @@ All URIs are relative to *http://localhost*
 | [**fileMetadatasFromExecution**](ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
 | [**flowFromExecution**](ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
 | [**flowFromExecutionById**](ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
-| [**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
+| [**followDependenciesExecution**](ExecutionsApi.md#followDependenciesExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
 | [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
 | [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions asynchronously |
 | [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/force-run | Force run an execution |
@@ -28,7 +28,7 @@ All URIs are relative to *http://localhost*
 | [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions asynchronously |
 | [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters asynchronously |
 | [**replayExecution**](ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/replay | Create a new execution from an old one and start it from a specified task run id |
-| [**replayExecutionWithinputs**](ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
+| [**replayExecutionWithInputs**](ExecutionsApi.md#replayExecutionWithInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
 | [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones asynchronously. Keep the flow revision |
 | [**replayExecutionsByQuery**](ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision |
 | [**restartExecution**](ExecutionsApi.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/actions/restart | Restart a new execution from an old one |
@@ -58,7 +58,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, tenant, labels, wait, revision, scheduleDate, breakpoints, kind)
+> ExecutionControllerExecutionResponse createExecution(tenant, namespace, id, labels, wait, revision, scheduleDate, breakpoints, kind)
 
 Create a new execution for a flow
 
@@ -75,7 +75,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -92,7 +92,7 @@ public class Example {
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            ExecutionControllerExecutionResponse result = kestraClient.ExecutionsApi().createExecution(namespace, id, tenant, labels, wait, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = kestraClient.executions().createExecution(tenant, namespace, id, labels, wait, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -110,9 +110,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
 | **wait** | **Boolean**| If the server will wait the end of the execution | [optional] [default to false] |
 | **revision** | **Integer**| The flow revision or latest if null | [optional] |
@@ -160,7 +160,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -173,7 +173,7 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            kestraClient.ExecutionsApi().deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
+            kestraClient.executions().deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecution");
             System.err.println("Status code: " + e.getCode());
@@ -219,7 +219,7 @@ null (empty response body)
 
 ## deleteExecutionsByIds
 
-> BulkResponse deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+> BulkResponse deleteExecutionsByIds(tenant, ids, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
 
 Delete a list of executions
 
@@ -236,7 +236,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -250,7 +250,7 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            BulkResponse result = kestraClient.executions().deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByIds");
@@ -269,7 +269,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The execution id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The execution id | |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
 | **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
 | **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
@@ -315,7 +315,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -329,7 +329,7 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            Object result = kestraClient.ExecutionsApi().deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            Object result = kestraClient.executions().deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQuery");
@@ -393,7 +393,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -404,7 +404,7 @@ public class Example {
         URI path = new URI(); // URI | The internal storage uri
         String tenant = "tenant_example"; // String | 
         try {
-            File result = kestraClient.ExecutionsApi().downloadFileFromExecution(executionId, path, tenant);
+            File result = kestraClient.executions().downloadFileFromExecution(executionId, path, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#downloadFileFromExecution");
@@ -448,7 +448,7 @@ public class Example {
 
 ## evalExpression
 
-> ExecutionControllerEvalResult evalExpression(executionId, tenant, body)
+> ExecutionControllerEvalResult evalExpression(executionId, tenant, expression)
 
 Evaluate a variable expression for this execution
 
@@ -465,7 +465,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -476,7 +476,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The Pebble expression that should be evaluated
         try {
-            ExecutionControllerEvalResult result = kestraClient.ExecutionsApi().evalExpression(executionId, tenant, body);
+            ExecutionControllerEvalResult result = kestraClient.executions().evalExpression(executionId, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#evalExpression");
@@ -496,7 +496,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **body** | **String**| The Pebble expression that should be evaluated | |
+| **expression** | **String**| The Pebble expression that should be evaluated | |
 
 ### Return type
 
@@ -537,7 +537,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -547,7 +547,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            ApiExecution result = kestraClient.ExecutionsApi().execution(executionId, tenant);
+            ApiExecution result = kestraClient.executions().execution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#execution");
@@ -607,7 +607,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -618,7 +618,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
         try {
-            FlowGraph result = kestraClient.ExecutionsApi().executionFlowGraph(executionId, tenant, subflows);
+            FlowGraph result = kestraClient.executions().executionFlowGraph(executionId, tenant, subflows);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#executionFlowGraph");
@@ -679,7 +679,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -690,7 +690,7 @@ public class Example {
         URI path = new URI(); // URI | The internal storage uri
         String tenant = "tenant_example"; // String | 
         try {
-            FileMetas result = kestraClient.ExecutionsApi().fileMetadatasFromExecution(executionId, path, tenant);
+            FileMetas result = kestraClient.executions().fileMetadatasFromExecution(executionId, path, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#fileMetadatasFromExecution");
@@ -734,7 +734,7 @@ public class Example {
 
 ## flowFromExecution
 
-> FlowForExecution flowFromExecution(namespace, flowId, tenant, revision)
+> FlowForExecution flowFromExecution(tenant, namespace, flowId, revision)
 
 Get flow information&#39;s for an execution
 
@@ -751,7 +751,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -763,7 +763,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The flow revision
         try {
-            FlowForExecution result = kestraClient.ExecutionsApi().flowFromExecution(namespace, flowId, tenant, revision);
+            FlowForExecution result = kestraClient.executions().flowFromExecution(tenant, namespace, flowId, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#flowFromExecution");
@@ -781,9 +781,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace of the flow | |
 | **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **revision** | **Integer**| The flow revision | [optional] |
 
 ### Return type
@@ -825,7 +825,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -835,7 +835,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution that you want flow information
         String tenant = "tenant_example"; // String | 
         try {
-            FlowForExecution result = kestraClient.ExecutionsApi().flowFromExecutionById(executionId, tenant);
+            FlowForExecution result = kestraClient.executions().flowFromExecutionById(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#flowFromExecutionById");
@@ -876,9 +876,9 @@ public class Example {
 | **200** | getFlowFromExecutionById 200 response |  -  |
 
 
-## followDependenciesExecutions
+## followDependenciesExecution
 
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, tenant, destinationOnly, expandAll)
+> EventExecutionStatusEvent followDependenciesExecution(executionId, tenant, destinationOnly, expandAll)
 
 Follow all execution dependencies executions
 
@@ -895,7 +895,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -907,10 +907,10 @@ public class Example {
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
         try {
-            EventExecutionStatusEvent result = kestraClient.ExecutionsApi().followDependenciesExecutions(executionId, tenant, destinationOnly, expandAll);
+            EventExecutionStatusEvent result = kestraClient.executions().followDependenciesExecution(executionId, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#followDependenciesExecutions");
+            System.err.println("Exception when calling ExecutionsApi#followDependenciesExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -947,7 +947,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | followDependenciesExecutions 200 response |  -  |
+| **200** | followDependenciesExecution 200 response |  -  |
 
 
 ## followExecution
@@ -969,7 +969,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -979,7 +979,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            EventExecution result = kestraClient.ExecutionsApi().followExecution(executionId, tenant);
+            EventExecution result = kestraClient.executions().followExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#followExecution");
@@ -1022,7 +1022,7 @@ public class Example {
 
 ## forceRunByIds
 
-> Object forceRunByIds(tenant, requestBody)
+> Object forceRunByIds(tenant, ids)
 
 Force run a list of executions asynchronously
 
@@ -1039,7 +1039,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1049,7 +1049,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().forceRunByIds(tenant, requestBody);
+            Object result = kestraClient.executions().forceRunByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#forceRunByIds");
@@ -1068,7 +1068,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1111,7 +1111,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1121,7 +1121,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = kestraClient.ExecutionsApi().forceRunExecution(executionId, tenant);
+            Execution result = kestraClient.executions().forceRunExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#forceRunExecution");
@@ -1182,7 +1182,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1192,7 +1192,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().forceRunExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().forceRunExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#forceRunExecutionsByQuery");
@@ -1253,7 +1253,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1264,7 +1264,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         try {
-            Execution result = kestraClient.ExecutionsApi().killExecution(executionId, tenant, isOnKillCascade);
+            Execution result = kestraClient.executions().killExecution(executionId, tenant, isOnKillCascade);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecution");
@@ -1310,7 +1310,7 @@ public class Example {
 
 ## killExecutionsByIds
 
-> Object killExecutionsByIds(tenant, requestBody)
+> Object killExecutionsByIds(tenant, ids)
 
 Kill a list of executions asynchronously
 
@@ -1327,7 +1327,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1337,7 +1337,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().killExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.executions().killExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecutionsByIds");
@@ -1356,7 +1356,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1399,7 +1399,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1409,7 +1409,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().killExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().killExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecutionsByQuery");
@@ -1452,7 +1452,7 @@ public class Example {
 
 ## latestExecutions
 
-> List&lt;ExecutionControllerLastExecutionResponse&gt; latestExecutions(tenant, executionRepositoryInterfaceFlowFilter)
+> List&lt;ExecutionControllerLastExecutionResponse&gt; latestExecutions(tenant, filters)
 
 Get the latest execution for given flows
 
@@ -1469,7 +1469,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1479,7 +1479,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = Arrays.asList(); // List<ExecutionRepositoryInterfaceFlowFilter> | 
         try {
-            List<ExecutionControllerLastExecutionResponse> result = kestraClient.ExecutionsApi().latestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
+            List<ExecutionControllerLastExecutionResponse> result = kestraClient.executions().latestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#latestExecutions");
@@ -1498,7 +1498,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **executionRepositoryInterfaceFlowFilter** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
+| **filters** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
 
 ### Return type
 
@@ -1539,7 +1539,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1549,7 +1549,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = kestraClient.ExecutionsApi().pauseExecution(executionId, tenant);
+            Execution result = kestraClient.executions().pauseExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecution");
@@ -1593,7 +1593,7 @@ public class Example {
 
 ## pauseExecutionsByIds
 
-> Object pauseExecutionsByIds(tenant, requestBody)
+> Object pauseExecutionsByIds(tenant, ids)
 
 Pause a list of running executions asynchronously
 
@@ -1610,7 +1610,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1620,7 +1620,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().pauseExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.executions().pauseExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByIds");
@@ -1639,7 +1639,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -1682,7 +1682,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1692,7 +1692,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().pauseExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().pauseExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByQuery");
@@ -1753,7 +1753,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1766,7 +1766,7 @@ public class Example {
         Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = kestraClient.ExecutionsApi().replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.executions().replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecution");
@@ -1811,9 +1811,9 @@ public class Example {
 | **409** | if the execution cannot be replayed |  -  |
 
 
-## replayExecutionWithinputs
+## replayExecutionWithInputs
 
-> Execution replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints)
+> Execution replayExecutionWithInputs(executionId, tenant, taskRunId, revision, breakpoints)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1830,7 +1830,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1843,10 +1843,10 @@ public class Example {
         Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = kestraClient.ExecutionsApi().replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.executions().replayExecutionWithInputs(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#replayExecutionWithinputs");
+            System.err.println("Exception when calling ExecutionsApi#replayExecutionWithInputs");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1890,7 +1890,7 @@ public class Example {
 
 ## replayExecutionsByIds
 
-> Object replayExecutionsByIds(tenant, requestBody, latestRevision)
+> Object replayExecutionsByIds(tenant, ids, latestRevision)
 
 Create new executions from old ones asynchronously. Keep the flow revision
 
@@ -1907,7 +1907,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1918,7 +1918,7 @@ public class Example {
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            Object result = kestraClient.ExecutionsApi().replayExecutionsByIds(tenant, requestBody, latestRevision);
+            Object result = kestraClient.executions().replayExecutionsByIds(tenant, requestBody, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionsByIds");
@@ -1937,7 +1937,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 | **latestRevision** | **Boolean**| If latest revision should be used | [optional] [default to false] |
 
 ### Return type
@@ -1981,7 +1981,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -1992,7 +1992,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            Object result = kestraClient.ExecutionsApi().replayExecutionsByQuery(tenant, filters, latestRevision);
+            Object result = kestraClient.executions().replayExecutionsByQuery(tenant, filters, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionsByQuery");
@@ -2054,7 +2054,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2065,7 +2065,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The flow revision to use for new execution
         try {
-            Execution result = kestraClient.ExecutionsApi().restartExecution(executionId, tenant, revision);
+            Execution result = kestraClient.executions().restartExecution(executionId, tenant, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#restartExecution");
@@ -2110,7 +2110,7 @@ public class Example {
 
 ## restartExecutionsByIds
 
-> Object restartExecutionsByIds(tenant, requestBody)
+> Object restartExecutionsByIds(tenant, ids)
 
 Restart a list of executions asynchronously
 
@@ -2127,7 +2127,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2137,7 +2137,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().restartExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.executions().restartExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#restartExecutionsByIds");
@@ -2156,7 +2156,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -2199,7 +2199,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2209,7 +2209,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().restartExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().restartExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#restartExecutionsByQuery");
@@ -2270,7 +2270,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2280,7 +2280,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = kestraClient.ExecutionsApi().resumeExecution(executionId, tenant);
+            Execution result = kestraClient.executions().resumeExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecution");
@@ -2324,7 +2324,7 @@ public class Example {
 
 ## resumeExecutionsByIds
 
-> Object resumeExecutionsByIds(tenant, requestBody)
+> Object resumeExecutionsByIds(tenant, ids)
 
 Resume a list of paused executions asynchronously
 
@@ -2341,7 +2341,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2351,7 +2351,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().resumeExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.executions().resumeExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByIds");
@@ -2370,7 +2370,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -2413,7 +2413,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2423,7 +2423,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().resumeExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().resumeExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByQuery");
@@ -2484,7 +2484,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2497,7 +2497,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            PagedResultsApiLightExecution result = kestraClient.ExecutionsApi().searchExecutions(tenant, page, size, sort, filters);
+            PagedResultsApiLightExecution result = kestraClient.executions().searchExecutions(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutions");
@@ -2543,7 +2543,7 @@ public class Example {
 
 ## searchExecutionsByFlowId
 
-> PagedResultsApiLightExecution searchExecutionsByFlowId(namespace, flowId, tenant, page, size)
+> PagedResultsApiLightExecution searchExecutionsByFlowId(tenant, namespace, flowId, page, size)
 
 Search for executions for a flow
 
@@ -2560,7 +2560,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2573,7 +2573,7 @@ public class Example {
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         try {
-            PagedResultsApiLightExecution result = kestraClient.ExecutionsApi().searchExecutionsByFlowId(namespace, flowId, tenant, page, size);
+            PagedResultsApiLightExecution result = kestraClient.executions().searchExecutionsByFlowId(tenant, namespace, flowId, page, size);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutionsByFlowId");
@@ -2591,9 +2591,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 
@@ -2619,7 +2619,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecution
 
-> Execution setLabelsOnTerminatedExecution(executionId, tenant, label)
+> Execution setLabelsOnTerminatedExecution(executionId, tenant, labels)
 
 Add or update labels of a terminated execution
 
@@ -2636,7 +2636,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2647,7 +2647,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
         try {
-            Execution result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecution(executionId, tenant, label);
+            Execution result = kestraClient.executions().setLabelsOnTerminatedExecution(executionId, tenant, label);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecution");
@@ -2667,7 +2667,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
+| **labels** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
 
 ### Return type
 
@@ -2694,7 +2694,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecutionsByIds
 
-> Object setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest)
+> Object setLabelsOnTerminatedExecutionsByIds(tenant, request)
 
 Set labels on a list of executions asynchronously
 
@@ -2711,7 +2711,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2721,7 +2721,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = new ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
         try {
-            Object result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
+            Object result = kestraClient.executions().setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByIds");
@@ -2740,7 +2740,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **executionControllerSetLabelsByIdsRequest** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | |
+| **request** | [**ExecutionControllerSetLabelsByIdsRequest**](ExecutionControllerSetLabelsByIdsRequest.md)| The request containing a list of labels and a list of executions | |
 
 ### Return type
 
@@ -2766,7 +2766,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecutionsByQuery
 
-> Object setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters)
+> Object setLabelsOnTerminatedExecutionsByQuery(tenant, labels, filters)
 
 Set label on executions filter by query parameters asynchronously
 
@@ -2783,7 +2783,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2794,7 +2794,7 @@ public class Example {
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters);
+            Object result = kestraClient.executions().setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByQuery");
@@ -2813,7 +2813,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
+| **labels** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
@@ -2839,7 +2839,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhook
 
-> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(tenant, namespace, id, key)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2856,7 +2856,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2868,7 +2868,7 @@ public class Example {
         String key = "key_example"; // String | The webhook trigger uid
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhook(namespace, id, key, tenant);
+            WebhookResponse result = kestraClient.executions().triggerExecutionByGetWebhook(tenant, namespace, id, key);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhook");
@@ -2886,10 +2886,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -2913,7 +2913,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhookWithPath
 
-> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByGetWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2930,7 +2930,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -2943,7 +2943,7 @@ public class Example {
         String path = "path_example"; // String | Optional additional path segments
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.executions().triggerExecutionByGetWebhookWithPath(tenant, namespace, id, key, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhookWithPath");
@@ -2961,11 +2961,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -2989,7 +2989,7 @@ public class Example {
 
 ## triggerExecutionByPostWebhookWithPath
 
-> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPostWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by POST webhook trigger
 
@@ -3006,7 +3006,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3019,7 +3019,7 @@ public class Example {
         String path = "path_example"; // String | Optional additional path segments
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.executions().triggerExecutionByPostWebhookWithPath(tenant, namespace, id, key, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPostWebhookWithPath");
@@ -3037,11 +3037,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -3065,7 +3065,7 @@ public class Example {
 
 ## triggerExecutionByPutWebhookWithPath
 
-> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPutWebhookWithPath(tenant, namespace, id, key, path)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3082,7 +3082,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3095,7 +3095,7 @@ public class Example {
         String path = "path_example"; // String | Optional additional path segments
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.executions().triggerExecutionByPutWebhookWithPath(tenant, namespace, id, key, path);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPutWebhookWithPath");
@@ -3113,11 +3113,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
 | **path** | **String**| Optional additional path segments | |
-| **tenant** | **String**|  | |
 
 ### Return type
 
@@ -3158,7 +3158,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3169,7 +3169,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         StateType state = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         try {
-            Execution result = kestraClient.ExecutionsApi().unqueueExecution(executionId, tenant, state);
+            Execution result = kestraClient.executions().unqueueExecution(executionId, tenant, state);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecution");
@@ -3214,7 +3214,7 @@ public class Example {
 
 ## unqueueExecutionsByIds
 
-> Object unqueueExecutionsByIds(state, tenant, requestBody)
+> Object unqueueExecutionsByIds(tenant, state, ids)
 
 Unqueue a list of executions asynchronously
 
@@ -3231,7 +3231,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3242,7 +3242,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().unqueueExecutionsByIds(state, tenant, requestBody);
+            Object result = kestraClient.executions().unqueueExecutionsByIds(tenant, state, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByIds");
@@ -3260,9 +3260,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **state** | [**StateType**](.md)| The new state of the unqueued executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -3288,7 +3288,7 @@ public class Example {
 
 ## unqueueExecutionsByQuery
 
-> Object unqueueExecutionsByQuery(tenant, filters, newState)
+> Object unqueueExecutionsByQuery(tenant, newState, filters)
 
 Unqueue executions filter by query parameters asynchronously
 
@@ -3305,7 +3305,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3316,7 +3316,7 @@ public class Example {
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         StateType newState = StateType.fromValue("CREATED"); // StateType | The new state of the unqueued executions
         try {
-            Object result = kestraClient.ExecutionsApi().unqueueExecutionsByQuery(tenant, filters, newState);
+            Object result = kestraClient.executions().unqueueExecutionsByQuery(tenant, newState, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByQuery");
@@ -3335,8 +3335,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -3378,7 +3378,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3389,7 +3389,7 @@ public class Example {
         StateType status = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = kestraClient.ExecutionsApi().updateExecutionStatus(executionId, status, tenant);
+            Execution result = kestraClient.executions().updateExecutionStatus(executionId, status, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionStatus");
@@ -3434,7 +3434,7 @@ public class Example {
 
 ## updateExecutionsStatusByIds
 
-> Object updateExecutionsStatusByIds(newStatus, tenant, requestBody)
+> Object updateExecutionsStatusByIds(tenant, newStatus, ids)
 
 Change executions state by id asynchronously
 
@@ -3451,7 +3451,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3462,7 +3462,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            Object result = kestraClient.ExecutionsApi().updateExecutionsStatusByIds(newStatus, tenant, requestBody);
+            Object result = kestraClient.executions().updateExecutionsStatusByIds(tenant, newStatus, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByIds");
@@ -3480,9 +3480,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
-| **requestBody** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
+| **ids** | [**List&lt;String&gt;**](String.md)| The list of executions id | |
 
 ### Return type
 
@@ -3508,7 +3508,7 @@ public class Example {
 
 ## updateExecutionsStatusByQuery
 
-> Object updateExecutionsStatusByQuery(newStatus, tenant, filters)
+> Object updateExecutionsStatusByQuery(tenant, newStatus, filters)
 
 Change executions state by query parameters asynchronously
 
@@ -3525,7 +3525,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3536,7 +3536,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            Object result = kestraClient.ExecutionsApi().updateExecutionsStatusByQuery(newStatus, tenant, filters);
+            Object result = kestraClient.executions().updateExecutionsStatusByQuery(tenant, newStatus, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByQuery");
@@ -3554,8 +3554,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
+| **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
@@ -3581,7 +3581,7 @@ public class Example {
 
 ## updateTaskRunState
 
-> Execution updateTaskRunState(executionId, tenant, executionControllerStateRequest)
+> Execution updateTaskRunState(executionId, tenant, request)
 
 Change state for a taskrun in an execution
 
@@ -3598,7 +3598,7 @@ import io.kestra.sdk.api.ExecutionsApi;
 
 public class Example {
     public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
+        String MAIN_TENANT = "main";
 
         KestraClient kestraClient = KestraClient.builder()
         .basicAuth("root@root.com", "Root!1234")
@@ -3609,7 +3609,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ExecutionControllerStateRequest executionControllerStateRequest = new ExecutionControllerStateRequest(); // ExecutionControllerStateRequest | the taskRun id and state to apply
         try {
-            Execution result = kestraClient.ExecutionsApi().updateTaskRunState(executionId, tenant, executionControllerStateRequest);
+            Execution result = kestraClient.executions().updateTaskRunState(executionId, tenant, executionControllerStateRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateTaskRunState");
@@ -3629,7 +3629,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **executionControllerStateRequest** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | |
+| **request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | |
 
 ### Return type
 

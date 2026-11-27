@@ -14,7 +14,9 @@ func (a *TenantsAPI) CreateTenant(ctx context.Context, tenant Tenant) (*Tenant, 
 func (a *TenantsAPI) SearchTenants(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsTenant, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsTenant](&a.baseAPI, ctx, "GET", superadminPath("tenants", "search"), nil, params)
 }
 

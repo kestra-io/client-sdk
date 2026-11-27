@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter
 
 # TODO update the JSON string below

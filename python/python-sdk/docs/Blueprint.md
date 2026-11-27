@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.blueprint import Blueprint
 
 # TODO update the JSON string below

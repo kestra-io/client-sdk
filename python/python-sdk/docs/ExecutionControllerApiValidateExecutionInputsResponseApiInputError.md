@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.execution_controller_api_validate_execution_inputs_response_api_input_error import ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 
 # TODO update the JSON string below

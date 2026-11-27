@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin_ui_module_with_group import PluginUiModuleWithGroup
 
 # TODO update the JSON string below

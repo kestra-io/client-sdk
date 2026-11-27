@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.daily_execution_statistics_duration import DailyExecutionStatisticsDuration
 
 # TODO update the JSON string below

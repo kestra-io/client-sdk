@@ -1,0 +1,20 @@
+{
+  "$comment": [
+    "Shared contract for flow-from-object YAML serialization (PR #459).",
+    "Kestra's server reads flow source with Jackson's YAMLParser (JacksonMapper.ofYaml()),",
+    "a YAML 1.1 reader. Every SDK's flow-to-YAML serializer (Go flow_yaml.go, Python",
+    "flow_yaml.py, JS flow-from-object.ts, Java FlowsApi) must emit each `mustQuote` string",
+    "as a QUOTED scalar (as a map value and as a map key) so it round-trips as the exact",
+    "string, and must leave each `staysPlain` string as a plain scalar. Every SDK's tests",
+    "assert against THIS file so the four hand-written predicates cannot drift: add a case",
+    "here, not to one SDK's test."
+  ],
+  "mustQuote": [
+    "yes", "no", "on", "off", "Yes", "OFF", "YES", "y", "n", "true", "False",
+    "1_000", "12:30", "0755", "0x1F", "1e3", "1E-3", ".inf", "-.Inf", ".NaN",
+    "~", "null", "", "2026-09-23", "1.0", "+1"
+  ],
+  "staysPlain": [
+    "hello world", "company.team", "io.kestra.plugin.core.log.Log", "my-flow"
+  ]
+}

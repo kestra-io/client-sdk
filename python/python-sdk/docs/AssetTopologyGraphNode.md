@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.asset_topology_graph_node import AssetTopologyGraphNode
 
 # TODO update the JSON string below

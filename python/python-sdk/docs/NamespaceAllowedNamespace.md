@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace
 
 # TODO update the JSON string below

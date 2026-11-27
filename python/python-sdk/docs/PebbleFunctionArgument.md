@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.pebble_function_argument import PebbleFunctionArgument
 
 # TODO update the JSON string below

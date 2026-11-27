@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_promote_batch_response import ApiPromoteBatchResponse
 
 # TODO update the JSON string below

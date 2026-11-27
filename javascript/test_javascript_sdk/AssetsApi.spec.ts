@@ -46,7 +46,9 @@ describe('AssetsApi', () => {
         expect(resultSize).toBeLessThanOrEqual(2);
     });
 
-    it('searchAssetLineageEvents: returns a paged result', async () => {
+    // lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the
+    // function disappears from the generated SDK on the next regeneration.
+    it.skip('searchAssetLineageEvents: returns a paged result', async () => {
         const result = await Assets.searchAssetLineageEvents({ page: 1, size: 10 });
         expect(result).toBeDefined();
         expect(result.results).toBeDefined();
@@ -103,6 +105,15 @@ describe('AssetsApi', () => {
 
         const result = await Assets.assetDependencies({ id: created.id ?? "" });
         expect(result).toBeDefined();
+    });
+
+    it('lockAsset: a zero or negative ttl is rejected', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        const assetId = created.id ?? "";
+
+        await expect(Assets.lockAsset({ id: assetId, ttl: 'PT0S' })).rejects.toThrow();
+        await expect(Assets.lockAsset({ id: assetId, ttl: '-PT5M' })).rejects.toThrow();
     });
 
     it('lockAsset + unlockAsset: manually locks then unlocks an asset', async () => {

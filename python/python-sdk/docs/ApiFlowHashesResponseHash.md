@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_flow_hashes_response_hash import ApiFlowHashesResponseHash
 
 # TODO update the JSON string below

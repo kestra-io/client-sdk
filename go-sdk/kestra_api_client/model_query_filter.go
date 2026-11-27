@@ -16,9 +16,11 @@ var _ MappedNullable = &QueryFilter{}
 
 // QueryFilter struct for QueryFilter
 type QueryFilter struct {
-	Field                *QueryFilterField `json:"field,omitempty"`
-	Operation            *QueryFilterOp    `json:"operation,omitempty"`
-	Value                any               `json:"value,omitempty"`
+	Field                *QueryFilterField   `json:"field,omitempty"`
+	Operation            *QueryFilterOp      `json:"operation,omitempty"`
+	Value                any                 `json:"value,omitempty"`
+	Logical              *QueryFilterLogical `json:"logical,omitempty"`
+	Children             []QueryFilter       `json:"children,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -137,6 +139,70 @@ func (o *QueryFilter) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
+// GetLogical returns the Logical field value if set, zero value otherwise.
+func (o *QueryFilter) GetLogical() QueryFilterLogical {
+	if o == nil || IsNil(o.Logical) {
+		var ret QueryFilterLogical
+		return ret
+	}
+	return *o.Logical
+}
+
+// GetLogicalOk returns a tuple with the Logical field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryFilter) GetLogicalOk() (*QueryFilterLogical, bool) {
+	if o == nil || IsNil(o.Logical) {
+		return nil, false
+	}
+	return o.Logical, true
+}
+
+// HasLogical returns a boolean if a field has been set.
+func (o *QueryFilter) HasLogical() bool {
+	if o != nil && !IsNil(o.Logical) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogical gets a reference to the given QueryFilterLogical and assigns it to the Logical field.
+func (o *QueryFilter) SetLogical(v QueryFilterLogical) {
+	o.Logical = &v
+}
+
+// GetChildren returns the Children field value if set, zero value otherwise.
+func (o *QueryFilter) GetChildren() []QueryFilter {
+	if o == nil || IsNil(o.Children) {
+		var ret []QueryFilter
+		return ret
+	}
+	return o.Children
+}
+
+// GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryFilter) GetChildrenOk() ([]QueryFilter, bool) {
+	if o == nil || IsNil(o.Children) {
+		return nil, false
+	}
+	return o.Children, true
+}
+
+// HasChildren returns a boolean if a field has been set.
+func (o *QueryFilter) HasChildren() bool {
+	if o != nil && !IsNil(o.Children) {
+		return true
+	}
+
+	return false
+}
+
+// SetChildren gets a reference to the given []QueryFilter and assigns it to the Children field.
+func (o *QueryFilter) SetChildren(v []QueryFilter) {
+	o.Children = v
+}
+
 func (o QueryFilter) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -155,6 +221,12 @@ func (o QueryFilter) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.Logical) {
+		toSerialize["logical"] = o.Logical
+	}
+	if !IsNil(o.Children) {
+		toSerialize["children"] = o.Children
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -181,6 +253,8 @@ func (o *QueryFilter) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "field")
 		delete(additionalProperties, "operation")
 		delete(additionalProperties, "value")
+		delete(additionalProperties, "logical")
+		delete(additionalProperties, "children")
 		o.AdditionalProperties = additionalProperties
 	}
 

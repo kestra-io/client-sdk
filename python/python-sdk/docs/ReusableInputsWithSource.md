@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.reusable_inputs_with_source import ReusableInputsWithSource
 
 # TODO update the JSON string below

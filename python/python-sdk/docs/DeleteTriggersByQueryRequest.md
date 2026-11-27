@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest
 
 # TODO update the JSON string below

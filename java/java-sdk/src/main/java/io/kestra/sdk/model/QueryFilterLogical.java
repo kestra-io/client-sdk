@@ -18,21 +18,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Gets or Sets TenantType
+ * Logical connector for a group of {@link QueryFilter} children (complex AND/OR filters).
  */
-public enum TenantType {
+public enum QueryFilterLogical {
 
-  DEFAULT("DEFAULT"),
+  AND("and"),
 
-  INFRASTRUCTURE("INFRASTRUCTURE"),
-
-  UNKNOWN("UNKNOWN"),
-
-  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+  OR("or");
 
   private String value;
 
-  TenantType(String value) {
+  QueryFilterLogical(String value) {
     this.value = value;
   }
 
@@ -47,12 +43,12 @@ public enum TenantType {
   }
 
   @JsonCreator
-  public static TenantType fromValue(String value) {
-    for (TenantType b : TenantType.values()) {
+  public static QueryFilterLogical fromValue(String value) {
+    for (QueryFilterLogical b : QueryFilterLogical.values()) {
       if (b.value.equals(value)) {
         return b;
       }
     }
-    return UNKNOWN_DEFAULT_OPEN_API;
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }

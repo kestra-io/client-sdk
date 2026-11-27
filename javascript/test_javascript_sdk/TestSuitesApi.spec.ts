@@ -218,7 +218,8 @@ describe('TestSuitesApiTest', () => {
         expect(vr?.warnings ?? []).toHaveLength(0);
         expect(vr?.infos ?? []).toHaveLength(0);
         expect(vr?.deprecationPaths ?? []).toHaveLength(0);
-        expect(vr?.constraints ?? null).toBeNull();
+        // null on older servers, "" since kestra#19999 derives it from `errors`.
+        expect(vr?.constraints ?? '').toBe('');
     });
 
     it('validateTestSuiteTest_invalid', async () => {

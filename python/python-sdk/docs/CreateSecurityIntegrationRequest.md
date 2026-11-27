@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 
 # TODO update the JSON string below

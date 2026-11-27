@@ -21,7 +21,7 @@ The SDK is organized into domain-specific modules (e.g. `flows`, `executions`, `
 | --- | --- |
 | `@kestra-io/kestra-sdk` | `useClient` / `configureClient` / `setMockClient`, and every generated **type** |
 | `@kestra-io/kestra-sdk/client` | the shared HTTP client |
-| `@kestra-io/kestra-sdk/<module>` | the operations of one module, e.g. `/flows`, `/executions` |
+| `@kestra-io/kestra-sdk/<module>` | the operations of one module, e.g. `/flows`, `/executions` (`/flows` also carries the hand-written `createFlowFromObject` / `updateFlowFromObject` / `flowToYaml`) |
 | `@kestra-io/kestra-sdk/all` | every operation at once — named exports, plus the namespace as `default` |
 
 The root entry exports no operations. Reach an operation through its module (the tree-shakeable
@@ -29,23 +29,26 @@ form used throughout this guide), or through `/all` if one import is preferable 
 
 ### Configure the client
 
-Import and configure the shared HTTP client once, at the entry point of your application:
+Configure the shared HTTP client once, at the entry point of your application.
+`configureClient` also installs the SDK's body/query serializers and error interceptors:
 
 ```ts
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureClient } from "@kestra-io/kestra-sdk";
 
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
     auth: () => "<username>:<password>",
 });
 ```
 
-For token-based authentication, pass the token directly:
+For token-based authentication (service-account API token / JWT), return the token only for
+the `bearer` scheme. Every operation declares both `bearer` and `basic` security, and the
+`basic` pass would otherwise overwrite the header with `Basic base64(<token>)`:
 
 ```ts
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
-    auth: () => "<your-api-token>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
+    auth: (auth) => (auth.scheme === "bearer" ? "<your-api-token>" : undefined),
 });
 ```
 
@@ -102,18 +105,31 @@ import * as WorkerAuthAPI           from "@kestra-io/kestra-sdk/worker-auth";
 import * as WorkerGroupsAPI         from "@kestra-io/kestra-sdk/worker-groups";
 ```
 
+### Enterprise-only routes
+
+A 404 on a route that only exists in Kestra EE throws `EnterpriseFeatureError`
+(feature unavailable on this server) or `SdkVersionMismatchError` (server is EE
+but doesn't have this route — likely an SDK/server version mismatch), both
+exported from `@kestra-io/kestra-sdk`.
+
+`EnterpriseFeatureError` carries `feature`, `docsUrl` and `contactSalesUrl` so
+you can render your own "upgrade to unlock X" message. The two URLs are
+UTM-tagged (`utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error`,
+with the feature key in `utm_content`); strip the query string if you'd rather
+not pass it through.
+
 ### Example: a flow lifecycle
 
 Configure the client once (see [Configure the client](#configure-the-client)), pick a tenant, then
 call the domain modules:
 
 ```ts
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureClient } from "@kestra-io/kestra-sdk";
 import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
 import * as ExecutionsAPI from "@kestra-io/kestra-sdk/executions";
 
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
+configureClient({
+    baseUrl: "https://<your-kestra-host>",
     auth: () => "root@root.com:Root!1234",
 });
 
@@ -157,3 +173,79 @@ const execution = await ExecutionsAPI.createExecution({
 console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
 ```
 <!-- /snippet -->
+
+## Create or update a flow from an object
+
+The flow-write endpoints only accept YAML source. `createFlowFromObject` / `updateFlowFromObject`
+take a flow as a plain object (or the typed `Flow` model), serialize it to YAML client-side and call
+`createFlow` / `updateFlow`. They live on the `/flows` subpath with the other flow operations
+(`flowToYaml` is exported there too, if you only want the YAML):
+
+```typescript
+import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
+
+const created = await FlowsAPI.createFlowFromObject({
+  tenant,
+  flow: {
+    id: "hello_from_object",
+    namespace: "company.team",
+    tasks: [
+      {
+        id: "hello",
+        type: "io.kestra.plugin.core.log.Log",
+        // Plugin-specific properties are carried through verbatim.
+        message: "Hello {{ flow.id }}!",
+      },
+    ],
+  },
+});
+
+await FlowsAPI.updateFlowFromObject({
+  tenant,
+  namespace: created.namespace,
+  id: created.id,
+  flow: { ...created, description: "Updated from an object" },
+});
+```
+
+Server-managed fields (`revision`, `deleted`, `draft`, `tenantId`, `source`, `updated`) are stripped
+from the serialized source, and `null` fields are omitted. `draft` is passed as a parameter, not in
+`flow`.
+
+## Complex queries (AND / OR filters)
+
+Every `*ByQuery` / search endpoint accepts grouped filters. Build them as typed `QueryFilter`
+objects — a **leaf** is `{ field, operation, value }`; a **group** is `{ logical: 'and' | 'or',
+children: [...] }` (one level of nesting):
+
+```typescript
+import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
+
+// namespace = company.team AND (labels.tier = gold OR labels.tier = silver)
+const flows = await FlowsAPI.searchFlows({
+  filters: [
+    {
+      logical: "and",
+      children: [
+        { field: "namespace", operation: "EQUALS", value: "company.team" },
+        {
+          logical: "or",
+          children: [
+            { field: "labels", operation: "EQUALS", value: { tier: "gold" } },
+            { field: "labels", operation: "EQUALS", value: { tier: "silver" } },
+          ],
+        },
+      ],
+    },
+  ],
+});
+```
+
+- **Backward compatible:** a flat `QueryFilter[]` serializes to the same `filters[field][OP]=value`
+  wire format as before.
+- The serialization lives in the shared `@kestra-io/hey-api-plugin` `querySerializer` (also used by
+  the Kestra UI SDKs), so JS has no separate `where/and/or` DSL — build the objects directly; the
+  types give you autocompletion.
+- Notes vs. the other SDKs' DSLs (all backend-valid): an explicit top-level `{ logical: 'and' }`
+  group of leaves serializes to `filters[and][0]...` rather than the flattened bare form (a flat
+  array stays flat); a single-child group and an empty group are not normalized away.

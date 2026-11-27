@@ -349,6 +349,13 @@ public class TestUtils {
                 .value(executionId);
     }
 
+    public static QueryFilter taskIdFilter(String taskId) {
+        return new QueryFilter()
+                .field(QueryFilterField.TASK_ID)
+                .operation(QueryFilterOp.EQUALS)
+                .value(taskId);
+    }
+
     public static QueryFilter typeFilter(String type) {
         return new QueryFilter()
                 .field(QueryFilterField.TYPE)

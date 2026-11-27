@@ -48,7 +48,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_TASK_ID,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_EXECUTION_ID,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_EXECUTION_STATE,
-  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_CASE_ID
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_CASE_ID,
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_DEDUPLICATION_KEY
 })
 @JsonTypeName("CasesController.CaseFromTaskRequest")
 public class CasesControllerCaseFromTaskRequest {
@@ -105,6 +106,9 @@ public class CasesControllerCaseFromTaskRequest {
 
   public static final String JSON_PROPERTY_CASE_ID = "caseId";
   @jakarta.annotation.Nullable  private String caseId;
+
+  public static final String JSON_PROPERTY_DEDUPLICATION_KEY = "deduplicationKey";
+  @jakarta.annotation.Nullable  private String deduplicationKey;
 
   public CasesControllerCaseFromTaskRequest() {
   }
@@ -565,6 +569,30 @@ public class CasesControllerCaseFromTaskRequest {
     this.caseId = caseId;
   }
 
+  public CasesControllerCaseFromTaskRequest deduplicationKey(@jakarta.annotation.Nullable String deduplicationKey) {
+
+    this.deduplicationKey = deduplicationKey;
+    return this;
+  }
+
+  /**
+   * With linkMatchingExecutions, attaches the execution to the tenant's active case created with the same key instead of matching on the flow and task. Must not be blank when set.
+   * @return deduplicationKey
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEDUPLICATION_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDeduplicationKey() {
+    return deduplicationKey;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEDUPLICATION_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeduplicationKey(@jakarta.annotation.Nullable String deduplicationKey) {
+    this.deduplicationKey = deduplicationKey;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -591,12 +619,13 @@ public class CasesControllerCaseFromTaskRequest {
         Objects.equals(this.taskId, casesControllerCaseFromTaskRequest.taskId) &&
         Objects.equals(this.executionId, casesControllerCaseFromTaskRequest.executionId) &&
         Objects.equals(this.executionState, casesControllerCaseFromTaskRequest.executionState) &&
-        Objects.equals(this.caseId, casesControllerCaseFromTaskRequest.caseId);
+        Objects.equals(this.caseId, casesControllerCaseFromTaskRequest.caseId) &&
+        Objects.equals(this.deduplicationKey, casesControllerCaseFromTaskRequest.deduplicationKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, actions, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState, caseId);
+    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, actions, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState, caseId, deduplicationKey);
   }
 
   @Override
@@ -621,6 +650,7 @@ public class CasesControllerCaseFromTaskRequest {
     sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
     sb.append("    executionState: ").append(toIndentedString(executionState)).append("\n");
     sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
+    sb.append("    deduplicationKey: ").append(toIndentedString(deduplicationKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

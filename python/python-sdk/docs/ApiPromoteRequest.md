@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_promote_request import ApiPromoteRequest
 
 # TODO update the JSON string below

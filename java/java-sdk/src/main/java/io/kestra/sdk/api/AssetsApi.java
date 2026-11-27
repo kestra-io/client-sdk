@@ -134,6 +134,12 @@ public class AssetsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    /**
+     * @deprecated the lineage-event store and its routes were removed in Kestra develop
+     * (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
+     * against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
+     */
+    @Deprecated
     public BulkResponse deleteAssetLineageEventsByQuery(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
@@ -174,6 +180,12 @@ public class AssetsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    /**
+     * @deprecated the lineage-event store and its routes were removed in Kestra develop
+     * (kestra-ee 091e7d441, after 2.0.x); the route now answers 403 there. It still works
+     * against Kestra 2.0.x. Lineage is now served through the asset relation endpoints.
+     */
+    @Deprecated
     public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,

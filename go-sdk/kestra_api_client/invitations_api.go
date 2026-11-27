@@ -41,6 +41,8 @@ func (a *InvitationsAPI) SearchInvitations(ctx context.Context, tenant string, p
 		params.Set("status", string(*status))
 	}
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[*PagedResultsIAMInvitationControllerApiInvitationDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "invitations", "search"), nil, params)
 }

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace
 
 # TODO update the JSON string below

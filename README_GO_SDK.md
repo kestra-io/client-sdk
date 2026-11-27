@@ -96,3 +96,34 @@ would never be resolved by `go get` — so the per-language suffix convention
 deliberately does not apply here. The version is always the bare semver after the
 `go-sdk/` prefix.
 
+## Complex queries (AND / OR filters)
+
+Every `*ByQuery` / search endpoint accepts grouped filters. Build them with the `query`
+DSL instead of hand-encoding `filters[...]` strings:
+
+```go
+import kestra "github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
+
+filters := kestra.Where(
+    kestra.And(
+        kestra.Eq(kestra.FilterNamespace, "company.team"),
+        kestra.Or(
+            kestra.Eq(kestra.FilterState, "SUCCESS"),
+            kestra.Eq(kestra.FilterState, "WARNING"),
+        ),
+    ),
+)
+// filters is a []SearchFilter — pass it to the search / *ByQuery calls that accept filters.
+```
+
+- Helpers: `Where`, `And`, `Or`, `Eq`, `NotEq`, `In`, `NotIn`, `Contains`, `StartsWith`,
+  `EndsWith`, `Regex`, `Prefix`, `Gt`, `Gte`, `Lt`, `Lte`, and the generic `FilterBy(field, op, value)`
+  (named `FilterBy` rather than `Filter` because `Filter` is an existing model type).
+- **Backward compatible:** a plain `[]SearchFilter` (or `Where(And(...leaves))`) serializes to the
+  same flat `filters[field][OP]=value` wire format as before.
+- Nesting is **one level deep** (an `And` containing an `Or`, or vice-versa). This is a client-side
+  cap, not a server limit — the Kestra backend accepts deeper trees (default `maxDepth 3` /
+  `maxWidth 20`, and the UI itself caps at 2). A tree deeper than one level (or a structurally
+  invalid one) is reported as an error from the search / `*ByQuery` method's existing `error` return
+  — the DSL and serializer never panic.
+

@@ -23,10 +23,12 @@ Name | Type | Description | Notes
 **execution_id** | **str** |  | [optional] 
 **execution_state** | **str** |  | [optional] 
 **case_id** | **str** |  | [optional] 
+**deduplication_key** | **str** |  | [optional] 
 
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.cases_controller_case_from_task_request import CasesControllerCaseFromTaskRequest
 
 # TODO update the JSON string below

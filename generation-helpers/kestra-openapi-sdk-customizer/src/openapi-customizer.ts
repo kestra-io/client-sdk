@@ -239,6 +239,9 @@ export function sanitizeOpenAPI(
     //     every SCIM call returns 401. TODO: fix at the source (Kestra EE) and drop this.
     addMissingScimSecurity(spec)
 
+    // 14) Give back a YAML body to operations whose requestBody lost its `content`.
+    restoreContentlessYamlRequestBodies(spec)
+
     return counters;
 }
 
@@ -571,6 +574,13 @@ export function unwrapSseEventResponses(spec: any): number {
                 const sseContent = (resp as any).content?.["text/event-stream"];
                 if (!sseContent) continue;
 
+                // Since kestra-ee@f86d248 the spec types the stream as an array of events;
+                // each `data:` frame still carries a single item, so drop the array.
+                if (sseContent.schema?.type === "array" && sseContent.schema.items) {
+                    sseContent.schema = sseContent.schema.items;
+                    unwrapped += 1;
+                }
+
                 const ref: string | undefined = sseContent.schema?.["$ref"];
                 if (!ref) continue;
 
@@ -624,4 +634,42 @@ export function fixMisclassifiedPathParams(spec: any): number {
     }
 
     return fixed;
+}
+
+/**
+ * Restore the YAML request body of operations whose `requestBody` carries a description
+ * but no `content` — an upstream emitter bug that would drop the body from the SDK.
+ *
+ * Seen on `updateFlowsInNamespace` in kestra-ee@f86d248: the endpoint still takes a
+ * multi-document YAML source, but the spec only kept the requestBody description, so
+ * the generated wrapper exposes no `body` parameter at all and the call sends nothing.
+ * TODO: fix at the source (Kestra EE) and drop this.
+ */
+export function restoreContentlessYamlRequestBodies(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    let restored = 0;
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            const body = op?.requestBody;
+            if (!body || typeof body !== "object") continue;
+            if (body.content && Object.keys(body.content).length > 0) continue;
+
+            // Same shape as the sibling flow-source endpoints (createFlow, updateFlow).
+            body.content = {
+                "application/x-yaml": { schema: { type: "string" } },
+                "application/yaml": { schema: { type: "string" } },
+            };
+            body.required = true;
+            restored += 1;
+            console.warn(`restoreContentlessYamlRequestBodies: ${op.operationId} (${method.toUpperCase()} ${path}) had a requestBody without content`);
+        }
+    }
+
+    return restored;
 }

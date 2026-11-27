@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.metric_tag import MetricTag
 
 # TODO update the JSON string below

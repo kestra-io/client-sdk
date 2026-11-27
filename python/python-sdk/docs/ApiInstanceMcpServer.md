@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_instance_mcp_server import ApiInstanceMcpServer
 
 # TODO update the JSON string below

@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.follow_log_event import FollowLogEvent
 
 # TODO update the JSON string below

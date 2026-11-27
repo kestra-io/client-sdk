@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.cursor_or_offset_paged_results_log_entry import CursorOrOffsetPagedResultsLogEntry
 
 # TODO update the JSON string below

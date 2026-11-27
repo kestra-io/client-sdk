@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.assertion_run_error import AssertionRunError
 
 # TODO update the JSON string below

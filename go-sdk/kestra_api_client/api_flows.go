@@ -597,7 +597,9 @@ func (a *FlowsAPIService) DeleteFlowsByQueryExecute(r ApiDeleteFlowsByQueryReque
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -961,7 +963,9 @@ func (a *FlowsAPIService) DisableFlowsByQueryExecute(r ApiDisableFlowsByQueryReq
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1201,7 +1205,9 @@ func (a *FlowsAPIService) EnableFlowsByQueryExecute(r ApiEnableFlowsByQueryReque
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1441,7 +1447,9 @@ func (a *FlowsAPIService) ExportFlowsByQueryExecute(r ApiExportFlowsByQueryReque
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2948,7 +2956,9 @@ func (a *FlowsAPIService) SearchFlowsExecute(r ApiSearchFlowsRequest) (*PagedRes
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

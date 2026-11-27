@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.source_search_replace_preview_response_flow_matches import SourceSearchReplacePreviewResponseFlowMatches
 
 # TODO update the JSON string below

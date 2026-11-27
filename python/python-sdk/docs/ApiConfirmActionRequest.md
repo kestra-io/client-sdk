@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_confirm_action_request import ApiConfirmActionRequest
 
 # TODO update the JSON string below

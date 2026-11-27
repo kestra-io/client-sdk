@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.expression_context_categories import ExpressionContextCategories
 
 # TODO update the JSON string below

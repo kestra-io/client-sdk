@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.group_identifier import GroupIdentifier
 
 # TODO update the JSON string below

@@ -231,7 +231,8 @@ def test_kill_switch_create_search_delete_roundtrip(client):
     ks_name = "ks-" + random_id()[:8]
     with _tolerate_gating("create_kill_switch"):
         created = client.kill_switches.create_kill_switch(
-            KillSwitch(name=ks_name, startDate=start, evaluationType=EvaluationType.KILL)
+            # Kestra requires enabled (422 when null); False keeps the switch inert for other tests.
+            KillSwitch(name=ks_name, startDate=start, evaluationType=EvaluationType.KILL, enabled=False)
         )
     ks_id = created.id
     try:
@@ -259,7 +260,8 @@ def test_validate_instance_policy_reports_constraints_on_garbage(client):
         outcome = client.policies.validate_instance_policy("id: not-a-real-policy")
     assert outcome is not None
     # The validation outcome always carries its positional index; a malformed
-    # source populates `constraints`, a valid one leaves it None.
+    # source populates `constraints`, a valid one leaves it None (or "" since
+    # kestra#19999 derives it from the new `errors` list).
     assert outcome.index is not None
 
 

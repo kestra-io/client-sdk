@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.worker_group_controller_api_worker_group_worker_list import WorkerGroupControllerApiWorkerGroupWorkerList
 
 # TODO update the JSON string below

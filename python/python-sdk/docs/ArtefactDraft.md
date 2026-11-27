@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.artefact_draft import ArtefactDraft
 
 # TODO update the JSON string below

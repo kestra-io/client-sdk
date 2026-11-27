@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_patch_instance_owner_request import ApiPatchInstanceOwnerRequest
 
 # TODO update the JSON string below

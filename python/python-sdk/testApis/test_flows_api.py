@@ -12,7 +12,10 @@ from kestrapy import (
     QueryFilter,
     QueryFilterField,
     QueryFilterOp,
+    WorkerSelectorMatch,
 )
+from kestrapy.models.flow import Flow
+from kestrapy.models.worker_selector import WorkerSelector
 from test_helpers import (
     TENANT,
     random_id,
@@ -51,6 +54,33 @@ class TestCreateFlow:
         assert result.disabled is False
         assert result.deleted is False
         assert result.tasks is not None and len(result.tasks) > 0
+
+    def test_worker_selector(self, client):
+        fid = random_id()
+        ns = random_namespace()
+        body = f"""\
+id: {fid}
+namespace: {ns}
+workerSelector:
+  tags:
+    - gpu
+  match: ALL
+tasks:
+  - id: h
+    type: io.kestra.plugin.core.log.Log
+    message: hi
+"""
+        created = client.flows.create_flow(TENANT, body)
+
+        # Kestra 2.0.11+ returns a literal list as its JSON text, 2.0.0-2.0.10 as an array:
+        # both read as a list
+        assert created.worker_selector.tags == ["gpu"]
+        assert created.worker_selector.tags_expression is None
+        assert created.worker_selector.match == WorkerSelectorMatch.ALL
+        assert created.draft is False
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.worker_selector.tags == ["gpu"]
 
     @pytest.mark.xfail(
         reason="kestra-ee 2.0 validates Schedule-trigger inputs more strictly and "
@@ -180,6 +210,71 @@ class TestUpdateFlow:
 
         updated = client.flows.update_flow(ns, fid, TENANT, two_task_flow_yaml(fid, ns))
         assert len(updated.tasks) == 2
+
+
+# ========================================================================
+# CRUD -- createFlowFromObject / updateFlowFromObject
+# ========================================================================
+
+
+class TestFlowFromObject:
+    def test_create_then_update_from_dict(self, client):
+        fid = random_id()
+        ns = random_namespace()
+        message = "Hello {{ flow.id }}\nsecond line"
+        flow = {
+            "id": fid,
+            "namespace": ns,
+            "description": "from_object_description",
+            "tasks": [
+                {"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": message},
+            ],
+        }
+
+        created = client.flows.create_flow_from_object(TENANT, flow)
+        assert created.id == fid
+        assert created.namespace == ns
+        assert created.description == "from_object_description"
+        assert created.tasks[0].type == "io.kestra.plugin.core.log.Log"
+        # The plugin-specific `message` (expression + multi-line) round-trips from the server.
+        assert created.tasks[0].additional_properties["message"] == message
+
+        updated_message = "updated {{ flow.namespace }}"
+        flow["description"] = "from_object_description_updated"
+        flow["tasks"][0]["message"] = updated_message
+        updated = client.flows.update_flow_from_object(ns, fid, TENANT, flow)
+        assert updated.id == fid
+        assert updated.description == "from_object_description_updated"
+        assert updated.tasks[0].additional_properties["message"] == updated_message
+        assert updated.revision == created.revision + 1
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.tasks[0].additional_properties["message"] == updated_message
+
+    def test_worker_selector_tags_expression_round_trips(self, client):
+        # A Pebble tags expression is sent as a string (Kestra 2.0.11+) and read back as one
+        fid = random_id()
+        ns = random_namespace()
+        flow = Flow.from_dict({
+            "id": fid,
+            "namespace": ns,
+            "disabled": False,
+            "deleted": False,
+            "draft": False,
+            "tasks": [{"id": "hello", "type": "io.kestra.plugin.core.log.Log", "message": "hi"}],
+        })
+        flow.worker_selector = WorkerSelector(
+            tags_expression="{{ inputs.workers }}", match=WorkerSelectorMatch.ANY
+        )
+
+        created = client.flows.create_flow_from_object(TENANT, flow)
+        assert created.worker_selector.tags is None
+        assert created.worker_selector.tags_expression == "{{ inputs.workers }}"
+        assert created.worker_selector.match == WorkerSelectorMatch.ANY
+
+        fetched = client.flows.flow(ns, fid, TENANT)
+        assert fetched.worker_selector.tags is None
+        assert fetched.worker_selector.tags_expression == "{{ inputs.workers }}"
 
 
 # ========================================================================

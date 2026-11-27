@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
 
 # TODO update the JSON string below

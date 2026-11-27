@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.service_instance_timestamped_event import ServiceInstanceTimestampedEvent
 
 # TODO update the JSON string below

@@ -29,7 +29,6 @@ def main() -> None:
     patch(SDK_ROOT / "setup.py", r'^VERSION = ".*"$', f'VERSION = "{version}"')
     patch(SDK_ROOT / "kestrapy" / "__init__.py", r'^__version__ = ".*"$', f'__version__ = "{version}"')
     patch(SDK_ROOT / "kestrapy" / "configuration.py", r'SDK Package Version: [^"]*', f'SDK Package Version: {version}')
-    patch(SDK_ROOT / "README.md", r'^- Package version: .*$', f'- Package version: {version}')
 
 
 if __name__ == "__main__":

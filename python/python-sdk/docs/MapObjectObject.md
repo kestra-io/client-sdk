@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.map_object_object import MapObjectObject
 
 # TODO update the JSON string below

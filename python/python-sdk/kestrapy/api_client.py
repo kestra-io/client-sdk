@@ -26,6 +26,7 @@ from kestrapy.configuration import Configuration
 from kestrapy.api_response import ApiResponse, T as ApiResponseT
 import kestrapy.models
 from kestrapy.models import QueryFilter
+from kestrapy.query_filter import append_filter_params
 from kestrapy import rest
 from kestrapy.exceptions import (
     ApiValueError,
@@ -493,42 +494,22 @@ class ApiClient:
         if collection_formats is None:
             collection_formats = {}
         for k, v in params.items() if isinstance(params, dict) else params:
-            # Special handling for QueryFilter-like 'filters' parameter
+            # Complex query-filter serialization (issue #246): delegate to the
+            # shared recursive serializer (kestrapy.query_filter) so AND/OR +
+            # nested groups reach the wire and duplicate keys / emission order
+            # survive. Model instances are normalized to dicts first; the shared
+            # serializer understands both QueryFilter instances and dicts.
             if k == 'filters' and isinstance(v, list):
-                # v is expected to be a list of QueryFilter model instances or dicts
                 if not v:
                     continue
                 first = v[0]
-                # if first is not a QueryFilter or dict-like, raise
                 if not isinstance(first, (QueryFilter, dict)) and not hasattr(first, 'to_dict'):
                     raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
-
-                for elem in v:
-                    # allow either model instances or dicts
-                    if isinstance(elem, QueryFilter) or hasattr(elem, 'to_dict'):
-                        elem_dict = self.sanitize_for_serialization(elem)
-                    elif isinstance(elem, dict):
-                        elem_dict = elem
-                    else:
-                        raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
-
-                    _raw_field = elem_dict.get('field')
-                    operation = elem_dict.get('operation')
-                    if _raw_field is None or operation is None:
-                        raise ApiValueError('Filter elements must contain field and operation')
-
-                    field = 'q' if str(_raw_field).lower() == 'query' else str(_raw_field)
-                    value = elem_dict.get('value')
-                    # unwrap common {'value': actual} shape
-                    if isinstance(value, dict) and 'value' in value:
-                        value = value.get('value')
-
-                    # Expand dict/map values for any field
-                    if isinstance(value, dict):
-                        for entry_k, entry_v in value.items():
-                            new_params.append((f"filters[{self._to_camel_case(field)}][{operation}][{entry_k}]", entry_v))
-                    else:
-                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", value))
+                nodes = [
+                    elem if isinstance(elem, dict) else self.sanitize_for_serialization(elem)
+                    for elem in v
+                ]
+                append_filter_params(new_params, nodes)
                 continue
             if k in collection_formats:
                 collection_format = collection_formats[k]
@@ -566,40 +547,23 @@ class ApiClient:
                 v = str(v)
             if isinstance(v, dict):
                 v = json.dumps(v)
-            # Special handling for QueryFilter-like 'filters' parameter
+            # Complex query-filter serialization (issue #246): delegate to the
+            # shared recursive serializer, then percent-encode each value (keys
+            # stay raw, matching the previous behaviour of this url-query path).
             if k == 'filters' and isinstance(v, list):
                 if not v:
                     continue
                 first = v[0]
                 if not isinstance(first, (QueryFilter, dict)) and not hasattr(first, 'to_dict'):
                     raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
-
-                for elem in v:
-                    # allow either model instances or dicts
-                    if isinstance(elem, QueryFilter) or hasattr(elem, 'to_dict'):
-                        elem_dict = self.sanitize_for_serialization(elem)
-                    elif isinstance(elem, dict):
-                        elem_dict = elem
-                    else:
-                        raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
-
-                    _raw_field = elem_dict.get('field')
-                    operation = elem_dict.get('operation')
-                    if _raw_field is None or operation is None:
-                        raise ApiValueError('Filter elements must contain field and operation')
-
-                    field = 'q' if str(_raw_field).lower() == 'query' else str(_raw_field)
-                    value = elem_dict.get('value')
-                    # unwrap common {'value': actual} shape
-                    if isinstance(value, dict) and 'value' in value:
-                        value = value.get('value')
-
-                    # Expand dict/map values for any field
-                    if isinstance(value, dict):
-                        for entry_k, entry_v in value.items():
-                            new_params.append((f"filters[{self._to_camel_case(field)}][{operation}][{entry_k}]", quote(str(entry_v))))
-                    else:
-                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", quote(str(value))))
+                nodes = [
+                    elem if isinstance(elem, dict) else self.sanitize_for_serialization(elem)
+                    for elem in v
+                ]
+                filter_pairs: List[Tuple[str, str]] = []
+                append_filter_params(filter_pairs, nodes)
+                for fk, fv in filter_pairs:
+                    new_params.append((fk, quote(str(fv))))
                 continue
             if k in collection_formats:
                 collection_format = collection_formats[k]

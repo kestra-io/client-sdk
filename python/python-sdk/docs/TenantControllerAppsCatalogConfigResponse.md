@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.tenant_controller_apps_catalog_config_response import TenantControllerAppsCatalogConfigResponse
 
 # TODO update the JSON string below

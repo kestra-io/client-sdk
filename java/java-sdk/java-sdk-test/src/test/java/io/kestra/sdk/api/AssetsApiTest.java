@@ -38,6 +38,7 @@ public class AssetsApiTest {
     }
 
     @Test
+    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
     void searchAssetLineageEvents_basic() throws ApiException {
         PagedResultsAssetsControllerApiAssetLineageEvent result =
                 api().searchAssetLineageEvents(TENANT, 1, 10, null, null);
@@ -86,6 +87,7 @@ public class AssetsApiTest {
     }
 
     @Test
+    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
     void searchAssetLineageEvents_withFilters() throws ApiException {
         PagedResultsAssetsControllerApiAssetLineageEvent result =
                 api().searchAssetLineageEvents(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
@@ -312,6 +314,7 @@ public class AssetsApiTest {
     }
 
     @Test
+    @Disabled("lineage-events routes were removed in Kestra develop (kestra-ee 091e7d441); the deprecated method only works against 2.0.x")
     void deleteAssetLineageEventsByQuery_basic() throws ApiException {
         QueryFilter filter = nsFilter("nonexistent");
 

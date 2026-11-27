@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.abstract_trigger_for_execution import AbstractTriggerForExecution
 
 # TODO update the JSON string below

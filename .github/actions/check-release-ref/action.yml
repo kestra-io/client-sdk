@@ -1,0 +1,28 @@
+name: Check release ref
+description: Refuses snapshot versions and release tags not reachable from main or a releases/* branch (needs a fetch-depth 0 checkout)
+
+inputs:
+  version:
+    description: The version resolved from the release tag
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check release version and tag
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+      run: |
+        if [[ "$VERSION" =~ SNAPSHOT|snapshot|\.dev ]]; then
+          echo "::error::$VERSION is a snapshot version: snapshots are published from next/* pushes, never from a tag"
+          exit 1
+        fi
+        for branch in $(git for-each-ref --format='%(refname)' refs/remotes/origin/main 'refs/remotes/origin/releases/*'); do
+          if git merge-base --is-ancestor "$GITHUB_SHA" "$branch"; then
+            echo "$GITHUB_REF_NAME is reachable from ${branch#refs/remotes/origin/}"
+            exit 0
+          fi
+        done
+        echo "::error::$GITHUB_REF_NAME is not reachable from main or a releases/* branch: releases are only cut from those"
+        exit 1

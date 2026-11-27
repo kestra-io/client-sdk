@@ -322,7 +322,9 @@ func (a *TriggersAPIService) DeleteBackfillByQueryExecute(r ApiDeleteBackfillByQ
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -942,7 +944,9 @@ func (a *TriggersAPIService) DisabledTriggersByQueryExecute(r ApiDisabledTrigger
 	}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "disabled", r.disabled, "form", "")
 	// to determine the Content-Type header
@@ -1064,7 +1068,9 @@ func (a *TriggersAPIService) ExportTriggersExecute(r ApiExportTriggersRequest) (
 		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+		return localVarReturnValue, nil, err
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1422,7 +1428,9 @@ func (a *TriggersAPIService) PauseBackfillByQueryExecute(r ApiPauseBackfillByQue
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1717,7 +1725,9 @@ func (a *TriggersAPIService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2265,7 +2275,9 @@ func (a *TriggersAPIService) UnlockTriggersByQueryExecute(r ApiUnlockTriggersByQ
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2624,7 +2636,9 @@ func (a *TriggersAPIService) UnpauseBackfillByQueryExecute(r ApiUnpauseBackfillB
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+			return localVarReturnValue, nil, err
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

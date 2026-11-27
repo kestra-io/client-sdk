@@ -45,8 +45,9 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
     execution_id: Optional[StrictStr] = Field(default=None, alias="executionId")
     execution_state: Optional[StrictStr] = Field(default=None, alias="executionState")
     case_id: Optional[StrictStr] = Field(default=None, alias="caseId")
+    deduplication_key: Optional[StrictStr] = Field(default=None, alias="deduplicationKey")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId"]
+    __properties: ClassVar[List[str]] = ["namespace", "title", "description", "severity", "status", "sla", "assignees", "watchers", "labels", "assetIds", "actions", "linkMatchingExecutions", "flowNamespace", "flowId", "taskId", "executionId", "executionState", "caseId", "deduplicationKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -182,6 +183,11 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
         if self.case_id is None and "case_id" in self.model_fields_set:
             _dict['caseId'] = None
 
+        # set to None if deduplication_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.deduplication_key is None and "deduplication_key" in self.model_fields_set:
+            _dict['deduplicationKey'] = None
+
         return _dict
 
     @classmethod
@@ -211,7 +217,8 @@ class CasesControllerCaseFromTaskRequest(BaseModel):
             "taskId": obj.get("taskId"),
             "executionId": obj.get("executionId"),
             "executionState": obj.get("executionState"),
-            "caseId": obj.get("caseId")
+            "caseId": obj.get("caseId"),
+            "deduplicationKey": obj.get("deduplicationKey")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

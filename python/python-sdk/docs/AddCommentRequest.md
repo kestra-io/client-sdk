@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.add_comment_request import AddCommentRequest
 
 # TODO update the JSON string below

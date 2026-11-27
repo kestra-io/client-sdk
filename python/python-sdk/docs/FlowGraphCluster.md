@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.flow_graph_cluster import FlowGraphCluster
 
 # TODO update the JSON string below

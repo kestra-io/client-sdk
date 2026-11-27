@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.plugin import Plugin
 
 # TODO update the JSON string below

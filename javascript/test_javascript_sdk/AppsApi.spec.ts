@@ -129,6 +129,8 @@ describe('AppsApi', () => {
     it('searchAppsFromCatalog: returns catalog apps', async () => {
         const result = await Apps.searchAppsFromCatalog({ page: 1, size: 10 });
         expect(result).toBeDefined();
+        expect(Array.isArray(result.results)).toBe(true);
+        expect(typeof result.total).toBe('number');
     });
 
     it('bulkDeleteApps: bulk deletes by UIDs', async () => {

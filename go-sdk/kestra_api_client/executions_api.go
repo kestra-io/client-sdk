@@ -88,7 +88,9 @@ func (a *ExecutionsAPI) SearchExecutions(
 	path := tenantPath(tenant, "executions", "search")
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	result, err := doJSON[PagedResultsApiLightExecution](&a.baseAPI, ctx, "GET", path, nil, params)
 	if err != nil {
@@ -271,7 +273,9 @@ func (a *ExecutionsAPI) KillExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "kill", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, nil, params)
 }
@@ -332,7 +336,9 @@ func (a *ExecutionsAPI) DeleteExecutionsByQuery(
 		"deleteMetrics", deleteMetrics,
 		"deleteStorage", deleteStorage,
 	)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "DELETE", path, nil, params)
 }
@@ -370,7 +376,9 @@ func (a *ExecutionsAPI) PauseExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "pause", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -415,7 +423,9 @@ func (a *ExecutionsAPI) ResumeExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "resume", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -458,7 +468,9 @@ func (a *ExecutionsAPI) RestartExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "restart", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -538,7 +550,9 @@ func (a *ExecutionsAPI) ReplayExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "replay", "by-query")
 	params := buildQueryParams("latestRevision", latestRevision)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -576,7 +590,9 @@ func (a *ExecutionsAPI) ForceRunExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "force-run", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -622,7 +638,9 @@ func (a *ExecutionsAPI) UnqueueExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "unqueue", "by-query")
 	params := buildQueryParams("newState", newState)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -665,7 +683,9 @@ func (a *ExecutionsAPI) SetLabelsOnTerminatedExecutionsByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "labels", "by-query")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, labels, params)
 }
@@ -708,7 +728,9 @@ func (a *ExecutionsAPI) UpdateExecutionsStatusByQuery(
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "change-status", "by-query")
 	params := buildQueryParams("newStatus", newStatus)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
@@ -833,7 +855,9 @@ func (a *ExecutionsAPI) FindDistinctExecutionFieldValues(
 ) ([]string, error) {
 	path := tenantPath(tenant, "executions", "distinct-field-values")
 	params := buildQueryParams("field", field, "size", size)
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[[]string](&a.baseAPI, ctx, "GET", path, nil, params)
 }
 
@@ -846,7 +870,9 @@ func (a *ExecutionsAPI) ExportExecutionsByQueryToCsv(
 ) (string, error) {
 	path := tenantPath(tenant, "executions", "export", "by-query", "csv")
 	params := url.Values{}
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return "", err
+	}
 	return a.doText(ctx, "GET", path, params, contentCSV)
 }
 

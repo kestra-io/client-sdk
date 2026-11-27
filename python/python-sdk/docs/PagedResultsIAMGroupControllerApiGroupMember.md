@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
 
 # TODO update the JSON string below

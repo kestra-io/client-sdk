@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail
 
 # TODO update the JSON string below

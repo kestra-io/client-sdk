@@ -820,7 +820,9 @@ func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSec
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	if err := addFilterQueryParams(localVarQueryParams, *r.filters); err != nil {
+		return localVarReturnValue, nil, err
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

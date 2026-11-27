@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.QueryFilterField;
+import io.kestra.sdk.model.QueryFilterLogical;
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +32,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
 import org.apache.hc.core5.util.Timeout;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
@@ -52,6 +54,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -77,6 +80,7 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.Paths;
 import java.lang.reflect.Type;
 import java.net.URI;
+import javax.net.ssl.SSLContext;
 
 import java.text.DateFormat;
 
@@ -107,6 +111,8 @@ public class ApiClient extends JavaTimeFormatter {
 
   protected Map<String, Authentication> authentications;
 
+  private SSLContext sslContext;
+
   protected ThreadLocal<Integer> lastStatusCode = new ThreadLocal<>();
   protected ThreadLocal<Map<String, List<String>>> lastResponseHeaders = new ThreadLocal<>();
 
@@ -115,23 +121,38 @@ public class ApiClient extends JavaTimeFormatter {
   // Methods that can have a request body
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
 
-  private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
-    var connConfig = ConnectionConfig.custom();
-    connConfig.setConnectTimeout(connectMs > 0
-        ? Timeout.ofMilliseconds(connectMs)
-        : Timeout.DISABLED);
-    var cm = PoolingHttpClientConnectionManagerBuilder.create()
-        .setDefaultConnectionConfig(connConfig.build())
-        .build();
-
-    var reqConfig = RequestConfig.custom();
-    if (readMs > 0) {
-      reqConfig.setResponseTimeout(Timeout.ofMilliseconds(readMs));
+  private static CloseableHttpClient buildHttpClient(int connectMs, int readMs, SSLContext sslContext) {
+    var cmBuilder = PoolingHttpClientConnectionManagerBuilder.create()
+        .setDefaultConnectionConfig(connectionConfig(connectMs, readMs));
+    if (sslContext != null) {
+      // httpclient5 5.2.1 has no TlsSocketStrategy; the default (strict) hostname verifier is kept
+      cmBuilder.setSSLSocketFactory(SSLConnectionSocketFactoryBuilder.create().setSslContext(sslContext).build());
     }
+    var cm = cmBuilder.build();
+
     return HttpClients.custom()
         .setConnectionManager(cm)
-        .setDefaultRequestConfig(reqConfig.build())
+        .setDefaultRequestConfig(requestConfig(readMs))
         .build();
+  }
+
+  // An unset (<= 0) timeout must mean "no limit". HttpCore5 otherwise falls back to a
+  // 3 minute socket timeout, so both the socket and the response timeout are set explicitly.
+  static ConnectionConfig connectionConfig(int connectMs, int readMs) {
+    return ConnectionConfig.custom()
+        .setConnectTimeout(toTimeout(connectMs))
+        .setSocketTimeout(toTimeout(readMs))
+        .build();
+  }
+
+  static RequestConfig requestConfig(int readMs) {
+    return RequestConfig.custom()
+        .setResponseTimeout(toTimeout(readMs))
+        .build();
+  }
+
+  private static Timeout toTimeout(int ms) {
+    return ms > 0 ? Timeout.ofMilliseconds(ms) : Timeout.DISABLED;
   }
 
   private void replaceHttpClient(CloseableHttpClient next) {
@@ -171,7 +192,7 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   public ApiClient() {
-    this(buildHttpClient(0, 0));
+    this(buildHttpClient(0, 0, null));
   }
 
   public static DateFormat buildDefaultDateFormat() {
@@ -478,9 +499,31 @@ public class ApiClient extends JavaTimeFormatter {
    */
    public ApiClient setConnectTimeout(int connectionTimeout) {
      this.connectionTimeout = connectionTimeout;
-     replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
+     replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout, this.sslContext));
      return this;
    }
+
+  /**
+   * @return The custom {@link SSLContext}, or {@code null} for the default truststore
+   */
+  public SSLContext getSslContext() {
+    return sslContext;
+  }
+
+  /**
+   * Set the {@link SSLContext} used for HTTPS connections, scoped to this client only. {@code null}
+   * means the default truststore (cacerts or {@code javax.net.ssl.trustStore}), not a context installed
+   * with {@code SSLContext.setDefault}. Hostname verification stays enabled.
+   * Like the timeout setters, this replaces the underlying HTTP client, including one given through
+   * {@link #ApiClient(CloseableHttpClient)} or {@link #setHttpClient}.
+   * @param sslContext SSL context, or null for the default truststore
+   * @return API client
+   */
+  public ApiClient setSslContext(SSLContext sslContext) {
+    this.sslContext = sslContext;
+    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout, this.sslContext));
+    return this;
+  }
 
   /**
    * Read/response timeout (in milliseconds).
@@ -492,14 +535,14 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the read/response timeout (in milliseconds).
-   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
+   * Zero or a negative value means no timeout (infinite), otherwise the value is at most
    * {@link Integer#MAX_VALUE}.
    * @param readTimeout Read timeout in milliseconds
    * @return API client
    */
   public ApiClient setReadTimeout(int readTimeout) {
     this.readTimeout = readTimeout;
-    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
+    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout, this.sslContext));
     return this;
   }
 
@@ -643,27 +686,7 @@ public class ApiClient extends JavaTimeFormatter {
     }
 
     if (value.stream().findFirst().get() instanceof QueryFilter) {
-        for (Object o : value) {
-            if (o instanceof QueryFilter queryFilter) {
-                String baseFilterQuery = "filters[" +
-                    filterFieldName(queryFilter.getField().toString()) +
-                    "][" +
-                    queryFilter.getOperation() +
-                    "]";
-
-                if (queryFilter.getValue() instanceof Map<?, ?> mapValue) {
-                    for (Entry<?, ?> entry : mapValue.entrySet()) {
-                        params.add(new Pair(baseFilterQuery + "[" +
-                            entry.getKey() +
-                            "]", convertValueToString(entry.getValue())));
-                    }
-                } else {
-                    params.add(new Pair(baseFilterQuery, convertValueToString(queryFilter.getValue())));
-                }
-            } else {
-                throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
-            }
-        }
+        appendQueryFilters(params, value);
         return params;
     }
 
@@ -699,7 +722,201 @@ public class ApiClient extends JavaTimeFormatter {
     return params;
   }
 
+  /**
+   * Serializes a collection of {@link QueryFilter} (leaves and one-level AND/OR groups) into
+   * ordered query-string {@code Pair}s, following the shared complex-filter algorithm
+   * (issue #246). Values are percent-encoded, matching the rest of {@code parameterToPairs}.
+   *
+   * @param params the list to append the produced pairs to (order is preserved).
+   * @param value  the top-level filter collection (implicit AND of its elements).
+   */
+  public void appendQueryFilters(List<Pair> params, Collection<?> value) {
+    params.addAll(collectFilterPairs(value, true));
+  }
+
+  /**
+   * Core of the complex-filter serializer. Produces the ordered raw pairs; when {@code escape}
+   * is {@code true} the values are percent-encoded exactly as the legacy leaf path did, when
+   * {@code false} the values are left verbatim (used by the offline golden test, whose expected
+   * vectors are un-encoded). Package-private so the offline test can assert the pre-escape layer.
+   */
+  List<Pair> collectFilterPairs(Collection<?> value, boolean escape) {
+    List<Pair> params = new ArrayList<Pair>();
+
+    // Validate and normalize: drop empty groups, flatten single-child groups.
+    List<QueryFilter> filters = new ArrayList<QueryFilter>();
+    for (Object o : value) {
+      if (o instanceof QueryFilter queryFilter) {
+        QueryFilter normalized = normalizeFilter(queryFilter);
+        if (normalized != null) {
+          filters.add(normalized);
+        }
+      } else {
+        throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
+      }
+    }
+
+    if (filters.isEmpty()) {
+      return params;
+    }
+
+    // Determine (topLogical, units): a single top-level group is promoted to top level.
+    // A group with no explicit logical defaults to AND (unified cross-SDK rule),
+    // so getLogical() being null never NPEs.
+    QueryFilterLogical topLogical;
+    List<QueryFilter> units;
+    if (filters.size() == 1 && isGroupNode(filters.get(0))) {
+      QueryFilter group = filters.get(0);
+      topLogical = logicalOrAnd(group);
+      units = group.getChildren() == null ? new ArrayList<QueryFilter>() : group.getChildren();
+    } else {
+      topLogical = QueryFilterLogical.AND;
+      units = filters;
+    }
+
+    // Flat (backward-compatible) form: top-level AND of leaves -> bare filters[field][OP].
+    boolean allLeaves = true;
+    for (QueryFilter unit : units) {
+      if (isGroupNode(unit)) {
+        allLeaves = false;
+        break;
+      }
+    }
+    if (topLogical == QueryFilterLogical.AND && allLeaves) {
+      for (QueryFilter leaf : units) {
+        params.addAll(emitLeaf("filters", leaf, escape));
+      }
+      return params;
+    }
+
+    // Grouped form: filters[<logical>][i]...
+    for (int i = 0; i < units.size(); i++) {
+      QueryFilter unit = units.get(i);
+      String unitPrefix = "filters[" + topLogical.getValue() + "][" + i + "]";
+      if (!isGroupNode(unit)) {
+        params.addAll(emitLeaf(unitPrefix, unit, escape));
+      } else {
+        List<QueryFilter> children = unit.getChildren() == null ? new ArrayList<QueryFilter>() : unit.getChildren();
+        String unitLogical = logicalOrAnd(unit).getValue();
+        for (int j = 0; j < children.size(); j++) {
+          QueryFilter child = children.get(j);
+          if (isGroupNode(child)) {
+            throw new ApiException(400, "nested groups are limited to one level; flatten the inner group");
+          }
+          params.addAll(emitLeaf(unitPrefix + "[" + unitLogical + "][" + j + "]", child, escape));
+        }
+      }
+    }
+    return params;
+  }
+
+  /**
+   * Recursively drops empty groups and flattens single-child groups. Leaves are returned as-is.
+   * Throws when a node is ambiguously both a leaf (has {@code field}) and a group.
+   */
+  private QueryFilter normalizeFilter(QueryFilter f) {
+    if (f == null) {
+      return null;
+    }
+    if (!isGroupNode(f)) {
+      // leaf (isGroupNode throws if the node is both a leaf and a group)
+      return f;
+    }
+    List<QueryFilter> normalizedChildren = new ArrayList<QueryFilter>();
+    if (f.getChildren() != null) {
+      for (QueryFilter child : f.getChildren()) {
+        QueryFilter normalized = normalizeFilter(child);
+        if (normalized != null) {
+          normalizedChildren.add(normalized);
+        }
+      }
+    }
+    if (normalizedChildren.isEmpty()) {
+      return null;
+    }
+    if (normalizedChildren.size() == 1) {
+      return normalizedChildren.get(0);
+    }
+    return new QueryFilter().logical(f.getLogical()).children(normalizedChildren);
+  }
+
+  /**
+   * Classifies a node as group ({@code true}) or leaf ({@code false}); throws when the node is
+   * both (has a {@code field} and {@code logical}/{@code children}).
+   */
+  private static boolean isGroupNode(QueryFilter f) {
+    boolean leaf = f.getField() != null;
+    boolean group = f.getLogical() != null || (f.getChildren() != null && !f.getChildren().isEmpty());
+    if (leaf && group) {
+      throw new ApiException(400, "a filter node cannot be both a leaf and a group");
+    }
+    return group;
+  }
+
+  /**
+   * A group's logical combinator, defaulting to AND when unset (unified cross-SDK rule). A group
+   * built with children but no explicit logical (via the DSL or JSON deserialization) is an
+   * implicit AND rather than an NPE.
+   */
+  private static QueryFilterLogical logicalOrAnd(QueryFilter f) {
+    return f.getLogical() != null ? f.getLogical() : QueryFilterLogical.AND;
+  }
+
+  /**
+   * Emits a single leaf filter under {@code prefix}. Generalization of the legacy leaf emission
+   * (keeps {@code filterFieldName}, the map-value branch and {@code convertValueToString}).
+   */
+  private List<Pair> emitLeaf(String prefix, QueryFilter f) {
+    return emitLeaf(prefix, f, true);
+  }
+
+  private List<Pair> emitLeaf(String prefix, QueryFilter f, boolean escape) {
+    if (f.getLogical() != null || (f.getChildren() != null && !f.getChildren().isEmpty())) {
+      throw new ApiException(400, "a filter node cannot be both a leaf and a group");
+    }
+    if (f.getField() == null) {
+      throw new ApiException(400, "a leaf filter requires a field");
+    }
+    List<Pair> params = new ArrayList<Pair>();
+    String baseFilterQuery = prefix + "[" +
+        filterFieldName(f.getField().toString()) +
+        "][" +
+        f.getOperation() +
+        "]";
+
+    if (f.getValue() instanceof Map<?, ?> mapValue) {
+      // sort keys for deterministic output
+      TreeMap<String, Object> sorted = new TreeMap<String, Object>();
+      for (Entry<?, ?> entry : mapValue.entrySet()) {
+        sorted.put(String.valueOf(entry.getKey()), entry.getValue());
+      }
+      for (Entry<String, Object> entry : sorted.entrySet()) {
+        params.add(new Pair(baseFilterQuery + "[" + entry.getKey() + "]",
+            escape ? convertValueToString(entry.getValue()) : rawValueToString(entry.getValue())));
+      }
+    } else {
+      params.add(new Pair(baseFilterQuery,
+          escape ? convertValueToString(f.getValue()) : rawValueToString(f.getValue())));
+    }
+    return params;
+  }
+
+  private static String rawValueToString(Object value) {
+    // A valueless leaf serializes to an empty string, matching the UI encoder and
+    // the Go/Python serializers (rather than throwing an NPE on value.toString()).
+    if (value == null) {
+      return "";
+    }
+    if (value instanceof List<?> list) {
+      return list.stream().map(item -> item == null ? "" : item.toString()).collect(Collectors.joining(","));
+    }
+    return value.toString();
+  }
+
     private String convertValueToString(Object value){
+        if (value == null) {
+            return "";
+        }
         // Filter values land in the query string via buildUrl, which escapes only the
         // parameter *name* and takes the value as already-escaped. Escape here, or any
         // value holding a space, '&', '=' or '#' produces a malformed URI. A multi-value
@@ -845,7 +1062,8 @@ public class ApiClient extends JavaTimeFormatter {
         throw new ApiException(e);
       }
     } else if (mimeType.equals(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
-      MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
+      MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create()
+          .setMimeSubtype("form-data");
       for (Entry<String, Object> paramEntry : formParams.entrySet()) {
         Object value = paramEntry.getValue();
         if (value instanceof File) {
@@ -1158,9 +1376,14 @@ public class ApiClient extends JavaTimeFormatter {
     context.setCookieStore(store);
 
     ContentType contentTypeObj = getContentType(contentType);
-    if (body != null || !formParams.isEmpty()) {
+    boolean isMultipart = contentTypeObj != null
+        && contentTypeObj.getMimeType().equals(ContentType.MULTIPART_FORM_DATA.getMimeType());
+    if (body != null || !formParams.isEmpty() || isMultipart) {
       if (isBodyAllowed(method)) {
-        // Add entity if we have content and a valid method
+        // Add entity if we have content and a valid method. A multipart request is
+        // serialized even with no form params: some endpoints (e.g. replay-with-inputs)
+        // require a well-formed empty multipart body (with a boundary), which the server
+        // binds — an empty text body is rejected with "Required Body not specified".
         builder.setEntity(serialize(body, formParams, contentTypeObj));
       } else {
         throw new ApiException("method " + method + " does not support a request body");

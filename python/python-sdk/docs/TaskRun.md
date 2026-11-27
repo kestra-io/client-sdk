@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.task_run import TaskRun
 
 # TODO update the JSON string below

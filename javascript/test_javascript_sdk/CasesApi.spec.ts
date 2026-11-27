@@ -297,8 +297,10 @@ describe('CasesApi', () => {
         const { id, namespace, flowId } = await createCaseWithFlow();
         await Cases.attachAction({ id, label: 'remediate', namespace, flowId });
 
+        // The endpoint answers a typed {executionId, caseId} pair, not a string map.
         const result = await Cases.runAction({ id, namespace, flowId });
-        expect(result).toBeDefined();
+        expect(result.caseId).toBe(id);
+        expect(result.executionId).toBeTruthy();
     });
 
     // ---------- assets ----------

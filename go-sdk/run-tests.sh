@@ -45,7 +45,18 @@ for KESTRA_VERSION in $versions; do
   log_and_run sh -c 'go build ./...'
 
   echo "start tests"
-  log_and_run sh -c 'go test ./...'
+  log_and_run sh -c 'go test ./...' || {
+     rc=$?
+     echo "go tests failed (rc=$rc). Dumping Kestra container diagnostics:"
+     # Diagnostics are best-effort: under `set -e` a failing command here would
+     # abort before the logs are printed.
+     docker compose -f docker-compose-ci.yml ps -a || true
+     # ExitCode=137 + OOMKilled=true = cgroup memory kill; distinguishes it from a JVM crash.
+     docker inspect go-sdk-test-kestra \
+       --format 'kestra: OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}} Restarts={{.RestartCount}}' || true
+     docker compose -f docker-compose-ci.yml logs --no-color --timestamps --tail=500 || true
+     exit "$rc"
+  }
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.flow_topology_graph import FlowTopologyGraph
 
 # TODO update the JSON string below

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.api_secret_list_response_api_secret_meta import ApiSecretListResponseApiSecretMeta
 
 # TODO update the JSON string below

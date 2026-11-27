@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.paged_results_reusable_inputs_with_source import PagedResultsReusableInputsWithSource
 
 # TODO update the JSON string below

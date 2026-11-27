@@ -15,17 +15,15 @@ Method | HTTP request | Description
 [**list_api_tokens_for_service_account**](ServiceAccountApi.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**list_api_tokens_for_service_account_with_tenant**](ServiceAccountApi.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**list_service_accounts**](ServiceAccountApi.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Instance-owner-only. 
-[**list_service_accounts_for_tenant**](ServiceAccountApi.md#list_service_accounts_for_tenant) | **GET** /api/v1/{tenant}/service-accounts | List service accounts for the given tenant
 [**patch_service_account_details**](ServiceAccountApi.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 [**patch_service_account_instance_owner**](ServiceAccountApi.md#patch_service_account_instance_owner) | **PATCH** /api/v1/service-accounts/{id}/instanceowner | Update service account instance-owner privileges
-[**patch_service_account_instance_owner_legacy**](ServiceAccountApi.md#patch_service_account_instance_owner_legacy) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account instance-owner privileges (deprecated)
 [**service_account**](ServiceAccountApi.md#service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
 [**service_account_for_tenant**](ServiceAccountApi.md#service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 [**update_service_account**](ServiceAccountApi.md#update_service_account) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 
 
 # **create_api_tokens_for_service_account**
-> object create_api_tokens_for_service_account(id, create_api_token_request)
+> object create_api_tokens_for_service_account(id, request)
 
 Create new API Token for a specific service account
 
@@ -35,6 +33,8 @@ Create new API Token for a specific service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -50,7 +50,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = kestra_client.ServiceAccountApi.create_api_tokens_for_service_account(id, create_api_token_request)
+        api_response = kestra_client.service_account.create_api_tokens_for_service_account(id, create_api_token_request)
         print("The response of ServiceAccountApi->create_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -65,7 +65,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_service_account_with_tenant**
-> object create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+> object create_api_tokens_for_service_account_with_tenant(id, tenant, request)
 
 Create new API Token for a specific service account
 
@@ -99,6 +99,8 @@ Create new API Token for a specific service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -115,7 +117,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = kestra_client.ServiceAccountApi.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+        api_response = kestra_client.service_account.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
         print("The response of ServiceAccountApi->create_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -131,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
  **tenant** | **str**|  | 
- **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+ **request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
 
 ### Return type
 
@@ -155,7 +157,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_service_account**
-> IAMServiceAccountControllerApiServiceAccountDetail create_service_account(iam_service_account_controller_api_create_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountDetail create_service_account(request)
 
 Create a service account
 
@@ -167,6 +169,8 @@ Instance-owner-only. CReate service account with access to multiple tenants.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -181,7 +185,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a service account
-        api_response = kestra_client.ServiceAccountApi.create_service_account(iam_service_account_controller_api_create_service_account_request)
+        api_response = kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request)
         print("The response of ServiceAccountApi->create_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -195,7 +199,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_service_account_controller_api_create_service_account_request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | 
+ **request** | [**IAMServiceAccountControllerApiCreateServiceAccountRequest**](IAMServiceAccountControllerApiCreateServiceAccountRequest.md)| The service account | 
 
 ### Return type
 
@@ -219,7 +223,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_service_account_for_tenant**
-> IAMServiceAccountControllerApiServiceAccountResponse create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountResponse create_service_account_for_tenant(tenant, request)
 
 Create a service account for the given tenant
 
@@ -229,6 +233,8 @@ Create a service account for the given tenant
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -244,7 +250,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a service account for the given tenant
-        api_response = kestra_client.ServiceAccountApi.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
+        api_response = kestra_client.service_account.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
         print("The response of ServiceAccountApi->create_service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -259,7 +265,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **iam_service_account_controller_api_service_account_request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | 
+ **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The service account | 
 
 ### Return type
 
@@ -294,6 +300,7 @@ Delete an API Token for specific service account and token id
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -309,7 +316,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = kestra_client.ServiceAccountApi.delete_api_token_for_service_account(id, token_id)
+        api_response = kestra_client.service_account.delete_api_token_for_service_account(id, token_id)
         print("The response of ServiceAccountApi->delete_api_token_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -358,6 +365,7 @@ Delete an API Token for specific service account and token id
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -374,7 +382,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = kestra_client.ServiceAccountApi.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
+        api_response = kestra_client.service_account.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
         print("The response of ServiceAccountApi->delete_api_token_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -440,7 +448,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a service account
-        kestra_client.ServiceAccountApi.delete_service_account(id)
+        kestra_client.service_account.delete_service_account(id)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->delete_service_account: %s\n" % e)
 ```
@@ -502,7 +510,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a service account
-        kestra_client.ServiceAccountApi.delete_service_account_for_tenant(id, tenant)
+        kestra_client.service_account.delete_service_account_for_tenant(id, tenant)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->delete_service_account_for_tenant: %s\n" % e)
 ```
@@ -550,6 +558,7 @@ List API tokens for a specific service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -564,7 +573,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = kestra_client.ServiceAccountApi.list_api_tokens_for_service_account(id)
+        api_response = kestra_client.service_account.list_api_tokens_for_service_account(id)
         print("The response of ServiceAccountApi->list_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -612,6 +621,7 @@ List API tokens for a specific service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -627,7 +637,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = kestra_client.ServiceAccountApi.list_api_tokens_for_service_account_with_tenant(id, tenant)
+        api_response = kestra_client.service_account.list_api_tokens_for_service_account_with_tenant(id, tenant)
         print("The response of ServiceAccountApi->list_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -676,6 +686,8 @@ List service accounts. Instance-owner-only.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -693,7 +705,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List service accounts. Instance-owner-only. 
-        api_response = kestra_client.ServiceAccountApi.list_service_accounts(page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.service_account.list_service_accounts(page=page, size=size, sort=sort, filters=filters)
         print("The response of ServiceAccountApi->list_service_accounts:\n")
         pprint(api_response)
     except Exception as e:
@@ -734,78 +746,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_service_accounts_for_tenant**
-> PagedResultsIAMTenantAccessControllerApiUserTenantAccess list_service_accounts_for_tenant(tenant, page=page, size=size, sort=sort, filters=filters)
-
-List service accounts for the given tenant
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    tenant = 'tenant_example' # str | 
-    page = 1 # int | The current page (optional) (default to 1)
-    size = 10 # int | The current page size (optional) (default to 10)
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-
-    try:
-        # List service accounts for the given tenant
-        api_response = kestra_client.ServiceAccountApi.list_service_accounts_for_tenant(tenant, page=page, size=size, sort=sort, filters=filters)
-        print("The response of ServiceAccountApi->list_service_accounts_for_tenant:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ServiceAccountApi->list_service_accounts_for_tenant: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
- **page** | **int**| The current page | [optional] [default to 1]
- **size** | **int**| The current page size | [optional] [default to 10]
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
-
-### Return type
-
-[**PagedResultsIAMTenantAccessControllerApiUserTenantAccess**](PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | listServiceAccountsForTenant 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_service_account_details**
-> IAMServiceAccountControllerApiServiceAccountDetail patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountDetail patch_service_account_details(id, request)
 
 Update service account details
 
@@ -817,6 +760,8 @@ Instance-owner-only. Updates the details of a service account.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -832,7 +777,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update service account details
-        api_response = kestra_client.ServiceAccountApi.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
+        api_response = kestra_client.service_account.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
         print("The response of ServiceAccountApi->patch_service_account_details:\n")
         pprint(api_response)
     except Exception as e:
@@ -847,7 +792,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The service account id | 
- **iam_service_account_controller_api_patch_service_account_request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | 
+ **request** | [**IAMServiceAccountControllerApiPatchServiceAccountRequest**](IAMServiceAccountControllerApiPatchServiceAccountRequest.md)| The service account details | 
 
 ### Return type
 
@@ -871,7 +816,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_service_account_instance_owner**
-> patch_service_account_instance_owner(id, api_patch_instance_owner_request)
+> patch_service_account_instance_owner(id, request)
 
 Update service account instance-owner privileges
 
@@ -883,6 +828,7 @@ Instance-owner-only. Updates whether a service account is an instance owner.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -898,7 +844,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update service account instance-owner privileges
-        kestra_client.ServiceAccountApi.patch_service_account_instance_owner(id, api_patch_instance_owner_request)
+        kestra_client.service_account.patch_service_account_instance_owner(id, api_patch_instance_owner_request)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->patch_service_account_instance_owner: %s\n" % e)
 ```
@@ -911,7 +857,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
- **api_patch_instance_owner_request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
+ **request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
 
 ### Return type
 
@@ -935,70 +881,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **patch_service_account_instance_owner_legacy**
-> patch_service_account_instance_owner_legacy(id, api_patch_super_admin_request)
-
-Update service account instance-owner privileges (deprecated)
-
-Deprecated: use PATCH service-accounts/{id}/instanceowner instead.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-    api_patch_super_admin_request = kestrapy.ApiPatchSuperAdminRequest() # ApiPatchSuperAdminRequest | 
-
-    try:
-        # Update service account instance-owner privileges (deprecated)
-        kestra_client.ServiceAccountApi.patch_service_account_instance_owner_legacy(id, api_patch_super_admin_request)
-    except Exception as e:
-        print("Exception when calling ServiceAccountApi->patch_service_account_instance_owner_legacy: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
- **api_patch_super_admin_request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Service account successfully updated |  -  |
-**404** | Service account not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **service_account**
 > IAMServiceAccountControllerApiServiceAccountDetail service_account(id)
@@ -1013,6 +895,7 @@ Instance-owner-only. Get user account details.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1027,7 +910,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a service account
-        api_response = kestra_client.ServiceAccountApi.service_account(id)
+        api_response = kestra_client.service_account.service_account(id)
         print("The response of ServiceAccountApi->service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -1076,6 +959,7 @@ Retrieve a service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1091,7 +975,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a service account
-        api_response = kestra_client.ServiceAccountApi.service_account_for_tenant(id, tenant)
+        api_response = kestra_client.service_account.service_account_for_tenant(id, tenant)
         print("The response of ServiceAccountApi->service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -1131,7 +1015,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_service_account**
-> IAMServiceAccountControllerApiServiceAccountResponse update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
+> IAMServiceAccountControllerApiServiceAccountResponse update_service_account(id, tenant, request)
 
 Update a user service account
 
@@ -1141,6 +1025,8 @@ Update a user service account
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
+import kestrapy
+from pprint import pprint
 from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
@@ -1157,7 +1043,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user service account
-        api_response = kestra_client.ServiceAccountApi.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
+        api_response = kestra_client.service_account.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
         print("The response of ServiceAccountApi->update_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -1173,7 +1059,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The user id | 
  **tenant** | **str**|  | 
- **iam_service_account_controller_api_service_account_request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | 
+ **request** | [**IAMServiceAccountControllerApiServiceAccountRequest**](IAMServiceAccountControllerApiServiceAccountRequest.md)| The user | 
 
 ### Return type
 

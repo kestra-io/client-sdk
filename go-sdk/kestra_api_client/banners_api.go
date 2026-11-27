@@ -13,7 +13,9 @@ type BannersAPI struct {
 // filter format; pass nil to list them all.
 func (a *BannersAPI) SearchBanners(ctx context.Context, filters []SearchFilter) ([]Banner, error) {
 	params := buildQueryParams()
-	appendFilterParams(params, filters)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
 	return doJSON[[]Banner](&a.baseAPI, ctx, "GET", superadminPath("banners", "search"), nil, params)
 }
 

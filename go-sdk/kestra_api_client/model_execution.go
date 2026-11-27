@@ -32,8 +32,8 @@ type Execution struct {
 	ParentId *string `json:"parentId,omitempty"`
 	OriginalId string `json:"originalId"`
 	Trigger *ExecutionTrigger `json:"trigger,omitempty"`
-	Deleted bool `json:"deleted"`
-	Metadata ExecutionMetadata `json:"metadata"`
+	Deleted *bool `json:"deleted,omitempty"`
+	Metadata *ExecutionMetadata `json:"metadata,omitempty"`
 	ScheduleDate NullableTime `json:"scheduleDate,omitempty"`
 	TraceParent *string `json:"traceParent,omitempty"`
 	Fixtures []TaskFixture `json:"fixtures,omitempty"`
@@ -49,7 +49,7 @@ type _Execution Execution
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecution(id string, namespace string, flowId string, flowRevision int32, state State, originalId string, deleted bool, metadata ExecutionMetadata) *Execution {
+func NewExecution(id string, namespace string, flowId string, flowRevision int32, state State, originalId string) *Execution {
 	this := Execution{}
 	this.Id = id
 	this.Namespace = namespace
@@ -57,8 +57,6 @@ func NewExecution(id string, namespace string, flowId string, flowRevision int32
 	this.FlowRevision = flowRevision
 	this.State = state
 	this.OriginalId = originalId
-	this.Deleted = deleted
-	this.Metadata = metadata
 	return &this
 }
 
@@ -438,54 +436,67 @@ func (o *Execution) SetTrigger(v ExecutionTrigger) {
 	o.Trigger = &v
 }
 
-// GetDeleted returns the Deleted field value
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
 func (o *Execution) GetDeleted() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Deleted) {
 		var ret bool
 		return ret
 	}
-
-	return o.Deleted
+	return *o.Deleted
 }
 
-// GetDeletedOk returns a tuple with the Deleted field value
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetDeletedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Deleted) {
 		return nil, false
 	}
-	return &o.Deleted, true
+	return o.Deleted, true
 }
 
-// SetDeleted sets field value
+// HasDeleted returns a boolean if a field has been set.
+func (o *Execution) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
 func (o *Execution) SetDeleted(v bool) {
-	o.Deleted = v
+	o.Deleted = &v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Execution) GetMetadata() ExecutionMetadata {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ExecutionMetadata
 		return ret
 	}
-
-	return o.Metadata
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetMetadataOk() (*ExecutionMetadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *Execution) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+	return false
+}
+
+// SetMetadata gets a reference to the given ExecutionMetadata and assigns it to the Metadata field.
 func (o *Execution) SetMetadata(v ExecutionMetadata) {
-	o.Metadata = v
+	o.Metadata = &v
 }
-
 // GetScheduleDate returns the ScheduleDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Execution) GetScheduleDate() time.Time {
 	if o == nil || IsNil(o.ScheduleDate.Get()) {
@@ -747,8 +758,12 @@ func (o Execution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Trigger) {
 		toSerialize["trigger"] = o.Trigger
 	}
-	toSerialize["deleted"] = o.Deleted
-	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if o.ScheduleDate.IsSet() {
 		toSerialize["scheduleDate"] = o.ScheduleDate.Get()
 	}
@@ -786,8 +801,6 @@ func (o *Execution) UnmarshalJSON(data []byte) (err error) {
 		"flowRevision",
 		"state",
 		"originalId",
-		"deleted",
-		"metadata",
 	}
 
 	allProperties := make(map[string]interface{})

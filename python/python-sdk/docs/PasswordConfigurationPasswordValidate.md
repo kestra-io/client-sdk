@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
+import kestrapy
 from kestrapy.models.password_configuration_password_validate import PasswordConfigurationPasswordValidate
 
 # TODO update the JSON string below

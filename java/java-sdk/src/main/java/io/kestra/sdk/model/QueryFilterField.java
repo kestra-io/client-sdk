@@ -78,6 +78,8 @@ public enum QueryFilterField {
   
   TASK_RUN_ID("TASK_RUN_ID"),
   
+  ATTEMPT_NUMBER("ATTEMPT_NUMBER"),
+  
   CHILD_FILTER("CHILD_FILTER"),
   
   WORKER_ID("WORKER_ID"),

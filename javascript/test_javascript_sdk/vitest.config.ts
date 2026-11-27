@@ -24,6 +24,7 @@ export default defineConfig({
         alias: {
             ...fullPathSdkEntries,
             "@kestra-io/kestra-sdk/client": join(sdkSrc, "src/openapi/client.gen.ts"),
+            "@kestra-io/kestra-sdk/all": join(sdkSrc, "src/all.ts"),
             "@kestra-io/kestra-sdk": join(sdkSrc, "src/index.ts"),
         },
     },
