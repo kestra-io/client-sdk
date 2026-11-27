@@ -33861,7 +33861,6 @@ components:
       - flowId
       - flowRevision
       - id
-      - metadata
       - namespace
       - originalId
       - state
@@ -37144,11 +37143,9 @@ components:
           nullable: true
     Execution:
       required:
-      - deleted
       - flowId
       - flowRevision
       - id
-      - metadata
       - namespace
       - originalId
       - state
@@ -43099,10 +43096,7 @@ components:
           $ref: '#/components/schemas/ExecutableTask.SubflowId'
     TaskRun:
       required:
-      - executionId
-      - flowId
       - id
-      - namespace
       - state
       - taskId
       type: object
