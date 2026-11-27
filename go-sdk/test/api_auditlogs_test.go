@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -42,12 +43,19 @@ func TestAuditLogsAPI(t *testing.T) {
 	})
 
 	t.Run("diffFindHistoryNeedAnExistingEntry", func(t *testing.T) {
-		// {id}/diff, find and history/{detailId} resolve a specific audit-log
+		// {id}/diff, find and history resolve a specific audit-log
 		// entry; a fresh instance may have none and the feature may be off.
-		res, err := client.AuditLogs().AuditLogHistory(ctx, "missing-"+randomId(), MAIN_TENANT)
+		filters := []kestra_api_client.SearchFilter{
+			{Field: kestra_api_client.FilterResources, Operation: kestra_api_client.OpEquals, Value: "FLOW"},
+			{Field: kestra_api_client.FilterId, Operation: kestra_api_client.OpEquals, Value: "missing-" + randomId()},
+			{Field: kestra_api_client.FilterNamespace, Operation: kestra_api_client.OpEquals, Value: randomId()},
+		}
+		res, err := client.AuditLogs().AuditLogHistory(ctx, MAIN_TENANT, &page, &size, nil, filters)
 		if skipIfGated(t, err, "the AUDITLOG feature") != nil {
 			require.NoError(t, err)
-			require.NotNil(t, res)
+			results, ok := res["results"]
+			require.True(t, ok, "an audit-log page carries a results array")
+			require.Empty(t, results, "an unknown id has no history")
 		}
 	})
 }

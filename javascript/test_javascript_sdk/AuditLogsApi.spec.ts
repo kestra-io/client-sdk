@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import * as AuditLogs from '@kestra-io/kestra-sdk/audit-logs';
+import { randomId } from './_utils.js';
 
 describe('AuditLogsApi', () => {
     it('searchAuditLogs: returns a paged result', async () => {
@@ -51,12 +52,15 @@ describe('AuditLogsApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('listAuditLogFromResourceId: lists audit logs for a resource', async () => {
-        // Get a real resource id from audit log search results
-        const search = await AuditLogs.searchAuditLogs({ page: 1, size: 1 });
-        const detailId = (search as any).results?.[0]?.auditLog?.detail?.id ?? 'unknown-resource';
-        const result = await AuditLogs.listAuditLogFromResourceId({ detailId });
-        expect(result).toBeDefined();
+    it('listAuditLogHistory: an unknown flow has an empty history', async () => {
+        const result = await AuditLogs.listAuditLogHistory({
+            filters: [
+                { field: 'resources', operation: 'EQUALS', value: 'FLOW' },
+                { field: 'id', operation: 'EQUALS', value: `missing-${randomId()}` },
+                { field: 'namespace', operation: 'EQUALS', value: randomId() },
+            ],
+        });
+        expect(result.results).toEqual([]);
     });
 
     it('resourceDiffFromAuditLog: retrieves diff for an audit log', async () => {

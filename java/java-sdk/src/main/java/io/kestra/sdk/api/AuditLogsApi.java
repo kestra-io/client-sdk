@@ -86,12 +86,19 @@ public class AuditLogsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public List<Map<String, Object>> getAuditLogHistory(
+    /** Requires a {@code RESOURCES} filter with one type and an {@code ID} filter, plus {@code NAMESPACE} for a namespaced resource. */
+    public Map<String, Object> getAuditLogHistory(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull String detailId) throws ApiException {
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<String> sort,
+            @jakarta.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+        List<Pair> collectionParams = new ArrayList<>();
+        collectionParams.addAll(csvParams("sort", sort));
+        collectionParams.addAll(filterParams(filters));
         return invoke("GET",
-                tenantPath(tenant, "auditlogs", "history", detailId),
-                null, null, null,
+                tenantPath(tenant, "auditlogs", "history"),
+                null, queryParams("page", page, "size", size), collectionParams,
                 JSON, null,
                 new TypeReference<>() {});
     }
