@@ -11,9 +11,14 @@ type ReusableInputsAPI struct {
 
 // ListReusableInputs lists the blocks visible from a namespace, resolving
 // namespace inheritance: blocks defined in parent namespaces are included.
-// Without allowDraft, only the blocks an execution can use are listed, each as
-// the revision it would run.
-func (a *ReusableInputsAPI) ListReusableInputs(ctx context.Context, namespace, tenant string, page, size *int, allowDraft *bool) (*PagedResultsReusableInputsWithSource, error) {
+func (a *ReusableInputsAPI) ListReusableInputs(ctx context.Context, namespace, tenant string, page, size *int) (*PagedResultsReusableInputsWithSource, error) {
+	return a.ListReusableInputsWithDraft(ctx, namespace, tenant, page, size, nil)
+}
+
+// ListReusableInputsWithDraft is ListReusableInputs with allowDraft. Without
+// allowDraft, only the blocks an execution can use are listed, each as the
+// revision it would run.
+func (a *ReusableInputsAPI) ListReusableInputsWithDraft(ctx context.Context, namespace, tenant string, page, size *int, allowDraft *bool) (*PagedResultsReusableInputsWithSource, error) {
 	path := tenantPath(tenant, "namespaces", namespace, "reusable-inputs")
 	params := buildQueryParams("page", page, "size", size, "allowDraft", allowDraft)
 	result, err := doJSON[PagedResultsReusableInputsWithSource](&a.baseAPI, ctx, "GET", path, nil, params)
@@ -24,10 +29,15 @@ func (a *ReusableInputsAPI) ListReusableInputs(ctx context.Context, namespace, t
 }
 
 // ReusableInputs retrieves a single block, resolving namespace inheritance: the
-// closest namespace defining it wins. Without allowDraft, a nil revision returns
-// the revision an execution would use, the latest that isn't a draft; a block
-// with only drafts fails with a 422.
-func (a *ReusableInputsAPI) ReusableInputs(ctx context.Context, namespace, id, tenant string, revision *int, allowDraft *bool) (*ReusableInputsWithSource, error) {
+// closest namespace defining it wins.
+func (a *ReusableInputsAPI) ReusableInputs(ctx context.Context, namespace, id, tenant string, revision *int) (*ReusableInputsWithSource, error) {
+	return a.ReusableInputsWithDraft(ctx, namespace, id, tenant, revision, nil)
+}
+
+// ReusableInputsWithDraft is ReusableInputs with allowDraft. Without
+// allowDraft, a nil revision returns the revision an execution would use, the
+// latest that isn't a draft; a block with only drafts fails with a 422.
+func (a *ReusableInputsAPI) ReusableInputsWithDraft(ctx context.Context, namespace, id, tenant string, revision *int, allowDraft *bool) (*ReusableInputsWithSource, error) {
 	path := tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id)
 	params := buildQueryParams("revision", revision, "allowDraft", allowDraft)
 	result, err := doJSON[ReusableInputsWithSource](&a.baseAPI, ctx, "GET", path, nil, params)
@@ -51,9 +61,14 @@ func (a *ReusableInputsAPI) ListReusableInputsRevisions(ctx context.Context, nam
 
 // CreateOrUpdateReusableInputs creates or updates a block from its YAML source.
 // failIfExists rejects an existing block with a 409 instead of updating it.
-// draft saves the revision as a draft, which executions skip and which may be
-// invalid.
-func (a *ReusableInputsAPI) CreateOrUpdateReusableInputs(ctx context.Context, namespace, id, tenant, yamlBody string, failIfExists, draft *bool) (*ReusableInputsWithSource, error) {
+func (a *ReusableInputsAPI) CreateOrUpdateReusableInputs(ctx context.Context, namespace, id, tenant, yamlBody string, failIfExists *bool) (*ReusableInputsWithSource, error) {
+	return a.CreateOrUpdateReusableInputsWithDraft(ctx, namespace, id, tenant, yamlBody, failIfExists, nil)
+}
+
+// CreateOrUpdateReusableInputsWithDraft is CreateOrUpdateReusableInputs with
+// draft, which saves the revision as a draft that executions skip and that may
+// be invalid.
+func (a *ReusableInputsAPI) CreateOrUpdateReusableInputsWithDraft(ctx context.Context, namespace, id, tenant, yamlBody string, failIfExists, draft *bool) (*ReusableInputsWithSource, error) {
 	path := tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id)
 	params := buildQueryParams("failIfExists", failIfExists, "draft", draft)
 	result, err := doJSONWithYAMLBody[ReusableInputsWithSource](&a.baseAPI, ctx, "PUT", path, yamlBody, params)

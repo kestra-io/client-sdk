@@ -97,6 +97,15 @@ func (a *AssetsAPI) DeleteAssetsByQuery(ctx context.Context, tenant string, filt
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "by-query"), nil, params)
 }
 
+// Deprecated: removed in Kestra 2.1, use SearchAssetUsages / DeleteAssetUsagesByQuery.
+func (a *AssetsAPI) DeleteAssetLineageEventsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
+	params := buildQueryParams()
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "lineage-events", "by-query"), nil, params)
+}
+
 func (a *AssetsAPI) DeleteAssetUsagesByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	params := buildQueryParams()
 	if err := appendFilterParams(params, filters); err != nil {
@@ -112,6 +121,16 @@ func (a *AssetsAPI) SearchAssets(ctx context.Context, tenant string, page, size 
 		return nil, err
 	}
 	return doJSON[*PagedResultsAssetsControllerApiAsset](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "search"), nil, params)
+}
+
+// Deprecated: removed in Kestra 2.1, use SearchAssetUsages / DeleteAssetUsagesByQuery.
+func (a *AssetsAPI) SearchAssetLineageEvents(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetLineageEvent, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
+	return doJSON[*PagedResultsAssetsControllerApiAssetLineageEvent](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "lineage-events", "search"), nil, params)
 }
 
 func (a *AssetsAPI) SearchAssetUsages(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetUsage, error) {

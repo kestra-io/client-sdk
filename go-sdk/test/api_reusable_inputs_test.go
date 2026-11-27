@@ -35,7 +35,7 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		id := randomId()
 
 		source := reusableInputsSource(namespace, id)
-		created, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, nil, nil)
+		created, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, nil)
 		require.NoError(t, err)
 		require.Equal(t, id, created.GetId())
 		require.Equal(t, namespace, created.GetNamespace())
@@ -55,10 +55,10 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		id := randomId()
 		source := reusableInputsSource(namespace, id)
 
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, nil)
 		require.NoError(t, err)
 
-		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, kestra_api_client.PtrBool(true), nil)
+		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, kestra_api_client.PtrBool(true))
 		var apiErr *kestra_api_client.ApiError
 		require.ErrorAs(t, err, &apiErr, "failIfExists should reject an existing block")
 		require.Equal(t, 409, apiErr.StatusCode)
@@ -68,10 +68,10 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
 
-		found, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, nil)
+		found, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		require.NoError(t, err)
 		require.Equal(t, id, found.GetId())
 		require.Len(t, found.GetInputs(), 2)
@@ -84,14 +84,14 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		parent := randomId()
 		child := parent + ".child"
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, parent, id, MAIN_TENANT, reusableInputsSource(parent, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, parent, id, MAIN_TENANT, reusableInputsSource(parent, id), nil)
 		require.NoError(t, err)
 
-		inherited, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, child, id, MAIN_TENANT, nil, nil)
+		inherited, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, child, id, MAIN_TENANT, nil)
 		require.NoError(t, err)
 		require.Equal(t, parent, inherited.GetNamespace())
 
-		listed, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, child, MAIN_TENANT, nil, nil, nil)
+		listed, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, child, MAIN_TENANT, nil, nil)
 		require.NoError(t, err)
 		require.Equal(t, int64(1), listed.GetTotal())
 		require.Equal(t, id, listed.GetResults()[0].GetId())
@@ -102,15 +102,15 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		namespace := randomId()
 		for i := 0; i < 3; i++ {
 			id := randomId()
-			_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+			_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 			require.NoError(t, err)
 		}
 
-		all, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, nil, nil, nil)
+		all, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, nil, nil)
 		require.NoError(t, err)
 		require.Equal(t, int64(3), all.GetTotal())
 
-		firstPage, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(2), nil)
+		firstPage, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(2))
 		require.NoError(t, err)
 		require.Equal(t, int64(3), firstPage.GetTotal())
 		require.Len(t, firstPage.GetResults(), 2)
@@ -120,7 +120,7 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
 
 		updated := fmt.Sprintf(`id: %s
@@ -130,7 +130,7 @@ inputs:
   - id: name
     type: STRING
 `, id, namespace)
-		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, updated, nil, nil)
+		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, updated, nil)
 		require.NoError(t, err)
 
 		revisions, err := KestraTestClient().ReusableInputs().ListReusableInputsRevisions(ctx, namespace, id, MAIN_TENANT)
@@ -139,14 +139,14 @@ inputs:
 		require.Equal(t, int32(1), revisions[0].GetRevision(), "revisions come back oldest first")
 		require.Equal(t, int32(2), revisions[1].GetRevision())
 
-		latest, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, nil)
+		latest, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		require.NoError(t, err)
 		require.Equal(t, "updated inputs", latest.GetDescription())
 		require.Equal(t, int32(2), latest.GetRevision())
 		require.Equal(t, updated, latest.GetSource())
 		require.Equal(t, kestra_api_client.PtrBool(true), latest.Last)
 
-		first, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, kestra_api_client.PtrInt(1), nil)
+		first, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, kestra_api_client.PtrInt(1))
 		require.NoError(t, err)
 		require.Equal(t, "shared inputs", first.GetDescription())
 		require.Equal(t, int32(1), first.GetRevision())
@@ -157,12 +157,12 @@ inputs:
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
 
 		require.NoError(t, KestraTestClient().ReusableInputs().DeleteReusableInputs(ctx, namespace, id, MAIN_TENANT))
 
-		_, err = KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, nil)
+		_, err = KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		var apiErr *kestra_api_client.ApiError
 		require.ErrorAs(t, err, &apiErr)
 		require.Equal(t, 404, apiErr.StatusCode)
@@ -172,10 +172,10 @@ inputs:
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		published, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		published, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
 
-		draft, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, inProgressSource(namespace, id), nil, kestra_api_client.PtrBool(true))
+		draft, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputsWithDraft(ctx, namespace, id, MAIN_TENANT, inProgressSource(namespace, id), nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 
 		require.Equal(t, kestra_api_client.PtrBool(false), published.Draft)
@@ -189,17 +189,17 @@ inputs:
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
-		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, inProgressSource(namespace, id), nil, kestra_api_client.PtrBool(true))
+		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputsWithDraft(ctx, namespace, id, MAIN_TENANT, inProgressSource(namespace, id), nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 
-		forExecution, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, nil)
+		forExecution, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		require.NoError(t, err)
 		require.Equal(t, int32(1), forExecution.GetRevision())
 		require.False(t, forExecution.GetDraft())
 
-		latest, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, kestra_api_client.PtrBool(true))
+		latest, err := KestraTestClient().ReusableInputs().ReusableInputsWithDraft(ctx, namespace, id, MAIN_TENANT, nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 		require.Equal(t, int32(2), latest.GetRevision())
 		require.True(t, latest.GetDraft())
@@ -210,15 +210,15 @@ inputs:
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, kestra_api_client.PtrBool(true))
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputsWithDraft(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 
-		_, err = KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, nil)
+		_, err = KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		var apiErr *kestra_api_client.ApiError
 		require.ErrorAs(t, err, &apiErr)
 		require.Equal(t, 422, apiErr.StatusCode)
 
-		latest, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil, kestra_api_client.PtrBool(true))
+		latest, err := KestraTestClient().ReusableInputs().ReusableInputsWithDraft(ctx, namespace, id, MAIN_TENANT, nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 		require.True(t, latest.GetDraft())
 	})
@@ -228,20 +228,20 @@ inputs:
 		namespace := randomId()
 		published := randomId()
 		draftsOnly := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, published, MAIN_TENANT, reusableInputsSource(namespace, published), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, published, MAIN_TENANT, reusableInputsSource(namespace, published), nil)
 		require.NoError(t, err)
-		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, published, MAIN_TENANT, inProgressSource(namespace, published), nil, kestra_api_client.PtrBool(true))
+		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputsWithDraft(ctx, namespace, published, MAIN_TENANT, inProgressSource(namespace, published), nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
-		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, draftsOnly, MAIN_TENANT, reusableInputsSource(namespace, draftsOnly), nil, kestra_api_client.PtrBool(true))
+		_, err = KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputsWithDraft(ctx, namespace, draftsOnly, MAIN_TENANT, reusableInputsSource(namespace, draftsOnly), nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 
-		forExecution, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, nil, nil, nil)
+		forExecution, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, nil, nil)
 		require.NoError(t, err)
 		require.Len(t, forExecution.GetResults(), 1)
 		require.Equal(t, published, forExecution.GetResults()[0].GetId())
 		require.Equal(t, int32(1), forExecution.GetResults()[0].GetRevision())
 
-		withDrafts, err := KestraTestClient().ReusableInputs().ListReusableInputs(ctx, namespace, MAIN_TENANT, nil, nil, kestra_api_client.PtrBool(true))
+		withDrafts, err := KestraTestClient().ReusableInputs().ListReusableInputsWithDraft(ctx, namespace, MAIN_TENANT, nil, nil, kestra_api_client.PtrBool(true))
 		require.NoError(t, err)
 		drafts := map[string]bool{}
 		for _, block := range withDrafts.GetResults() {
@@ -254,7 +254,7 @@ inputs:
 		ctx := context.Background()
 		namespace := randomId()
 		id := randomId()
-		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil, nil)
+		_, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
 		require.NoError(t, err)
 
 		namespaces, err := KestraTestClient().ReusableInputs().ListReusableInputsNamespaces(ctx, MAIN_TENANT)
