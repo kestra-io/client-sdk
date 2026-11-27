@@ -41,9 +41,8 @@ const restoreNotificationsSecurity = (
     operation.security = [{ bearerAuth: [] }, { basicAuth: [] }];
 };
 
-// KVController reads `ttl` and `description` straight off the request headers,
-// so the published spec does not declare them; declare them here so the
-// generated `setKeyValue` accepts both.
+// Specs before 2.1 do not declare the `ttl` and `description` headers KVController reads.
+// From 2.1 the spec declares both and this adds nothing, drop it once 2.0 is no longer released.
 const KV_SET_HEADERS = [
     { name: "ttl", description: "How long the key lives, as an ISO-8601 duration (e.g. PT1H)" },
     { name: "description", description: "The description of the key" },
