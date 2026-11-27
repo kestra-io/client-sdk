@@ -9,6 +9,7 @@ import io.kestra.sdk.api.*;
 import io.kestra.sdk.api.*;
 import io.kestra.sdk.internal.ApiClient;
 
+import javax.net.ssl.SSLContext;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.Objects;
@@ -159,6 +160,7 @@ public class KestraClient {
         private String password;
         private Duration connectTimeout;
         private Duration readTimeout;
+        private SSLContext sslContext;
 
         /**
          * The base URL of the Kestra API.
@@ -211,10 +213,21 @@ public class KestraClient {
         }
 
         /**
-         * Set the read/response timeout. {@code null} leaves the default (infinite).
+         * Set the read/response timeout. {@code null} (or a zero or negative duration) means no read
+         * timeout, so a hung connection waits forever. Long-running callers should still set one.
          */
         public KestraClientBuilder readTimeout(Duration readTimeout) {
             this.readTimeout = readTimeout;
+            return this;
+        }
+
+        /**
+         * Set the {@link SSLContext} used to trust the server certificate, scoped to this client.
+         * {@code null} (the default) uses the default truststore (cacerts or {@code javax.net.ssl.trustStore}),
+         * not a context installed with {@code SSLContext.setDefault}. Hostname verification stays enabled.
+         */
+        public KestraClientBuilder sslContext(SSLContext sslContext) {
+            this.sslContext = sslContext;
             return this;
         }
 
@@ -235,8 +248,13 @@ public class KestraClient {
             if (connectTimeout != null) {
                 apiClient.setConnectTimeout((int) Math.min(connectTimeout.toMillis(), Integer.MAX_VALUE));
             }
+            if (sslContext != null) {
+                apiClient.setSslContext(sslContext);
+            }
             if (readTimeout != null) {
-                apiClient.setReadTimeout((int) Math.min(readTimeout.toMillis(), Integer.MAX_VALUE));
+                // round a positive sub-millisecond duration up to 1ms, 0 would mean no timeout
+                long readMs = readTimeout.isNegative() || readTimeout.isZero() ? 0 : Math.max(1, readTimeout.toMillis());
+                apiClient.setReadTimeout((int) Math.min(readMs, Integer.MAX_VALUE));
             }
 
             return new KestraClient(apiClient);

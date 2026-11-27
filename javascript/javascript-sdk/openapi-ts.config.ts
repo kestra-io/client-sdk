@@ -41,6 +41,23 @@ const restoreNotificationsSecurity = (
     operation.security = [{ bearerAuth: [] }, { basicAuth: [] }];
 };
 
+// Specs before 2.1 do not declare the `ttl` and `description` headers KVController reads.
+// From 2.1 the spec declares both and this adds nothing, drop it once 2.0 is no longer released.
+const KV_SET_HEADERS = [
+    { name: "ttl", description: "How long the key lives, as an ISO-8601 duration (e.g. PT1H)" },
+    { name: "description", description: "The description of the key" },
+];
+
+const addKvSetHeaders = (_method: string, _path: string, operation: any): void => {
+    if (operation?.operationId !== "setKeyValue") return;
+    operation.parameters ??= [];
+    for (const { name, description } of KV_SET_HEADERS) {
+        const declared = operation.parameters.some((p: any) => p?.in === "header" && p?.name === name);
+        if (declared) continue;
+        operation.parameters.push({ name, in: "header", description, required: false, schema: { type: "string" } });
+    }
+};
+
 const generateHash = (str: string) => {
     let hash = 0;
     for (const char of str) {
@@ -61,6 +78,7 @@ export default {
                 normalizeYamlRequestBodyMediaType(method, path, operation);
                 fixYamlSourceRequestBodyContentType(method, path, operation);
                 restoreNotificationsSecurity(method, path, operation);
+                addKvSetHeaders(method, path, operation);
             },
         },
     },
