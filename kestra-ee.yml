@@ -35118,14 +35118,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiAuth'
+      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
@@ -43682,17 +43682,25 @@ components:
     TriggerController.ApiCreateBackfillRequest:
       required:
       - backfill
+      - flowId
+      - namespace
+      - triggerId
       type: object
       properties:
         namespace:
+          minLength: 1
           type: string
         flowId:
+          minLength: 1
           type: string
         triggerId:
+          minLength: 1
           type: string
         backfill:
           $ref: '#/components/schemas/TriggerController.ApiCreateBackfillRequest.Backfill'
     TriggerController.ApiCreateBackfillRequest.Backfill:
+      required:
+      - start
       type: object
       properties:
         start:
