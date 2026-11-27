@@ -53,6 +53,8 @@ const (
 	FilterExisting  SearchFilterField = "existing"
 	FilterKey       SearchFilterField = "key"
 	FilterResource  SearchFilterField = "resource"
+	FilterResources SearchFilterField = "resources"
+	FilterId        SearchFilterField = "id"
 
 	FilterTags          SearchFilterField = "tags"
 	FilterTaskRunId     SearchFilterField = "taskRunId"

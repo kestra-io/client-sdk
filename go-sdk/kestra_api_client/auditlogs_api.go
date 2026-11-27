@@ -72,8 +72,14 @@ func (a *AuditLogsAPI) FindAuditLog(ctx context.Context, tenant string, body int
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "auditlogs", "find"), body, nil)
 }
 
-// AuditLogHistory lists the audit-log entries recorded for a single resource id.
-// Backs GET /api/v1/{tenant}/auditlogs/history/{detailId}.
-func (a *AuditLogsAPI) AuditLogHistory(ctx context.Context, detailId, tenant string) ([]map[string]interface{}, error) {
-	return doJSON[[]map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "auditlogs", "history", detailId), nil, nil)
+// AuditLogHistory returns a page of the audit-log entries of one resource. The
+// filters need FilterResources with one type and FilterId, plus FilterNamespace
+// for a namespaced resource. Backs GET /api/v1/{tenant}/auditlogs/history.
+func (a *AuditLogsAPI) AuditLogHistory(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (map[string]interface{}, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	if err := appendFilterParams(params, filters); err != nil {
+		return nil, err
+	}
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "auditlogs", "history"), nil, params)
 }
