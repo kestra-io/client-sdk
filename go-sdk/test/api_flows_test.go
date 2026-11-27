@@ -678,7 +678,7 @@ tasks:
 		size := 1000
 		var found *kestra_api_client.ConcurrencyLimit
 		require.Eventually(t, func() bool {
-			result, err := KestraTestClient().Flows().SearchConcurrencyLimits(ctx, MAIN_TENANT, nil, &size)
+			result, err := KestraTestClient().Flows().SearchConcurrencyLimitsWithPaging(ctx, MAIN_TENANT, nil, &size)
 			if err != nil {
 				return false
 			}

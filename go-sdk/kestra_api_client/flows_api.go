@@ -379,7 +379,12 @@ func (a *FlowsAPI) TaskFromFlow(ctx context.Context, namespace, id, taskId, tena
 // SearchConcurrencyLimits searches for the flow, namespace and tenant concurrency limits of a tenant.
 // Each result carries the number of running and queued executions. A namespace limit has an empty
 // FlowId, and the tenant limit has both an empty Namespace and FlowId.
-func (a *FlowsAPI) SearchConcurrencyLimits(ctx context.Context, tenant string, page, size *int) (*PagedResultsConcurrencyLimit, error) {
+func (a *FlowsAPI) SearchConcurrencyLimits(ctx context.Context, tenant string) (*PagedResultsConcurrencyLimit, error) {
+	return a.SearchConcurrencyLimitsWithPaging(ctx, tenant, nil, nil)
+}
+
+// SearchConcurrencyLimitsWithPaging is SearchConcurrencyLimits with page and size.
+func (a *FlowsAPI) SearchConcurrencyLimitsWithPaging(ctx context.Context, tenant string, page, size *int) (*PagedResultsConcurrencyLimit, error) {
 	path := tenantPath(tenant, "concurrency-limit", "search")
 	params := buildQueryParams("page", page, "size", size)
 	result, err := doJSON[PagedResultsConcurrencyLimit](&a.baseAPI, ctx, "GET", path, nil, params)
