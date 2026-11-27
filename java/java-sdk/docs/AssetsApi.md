@@ -893,4 +893,5 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | updateAsset 200 response |  -  |
 | **404** | Asset not found |  -  |
+| **422** | Body `id` does not match the path `id` |  -  |
 | **423** | Asset locked |  -  |

@@ -5,6 +5,7 @@ import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -149,18 +150,29 @@ public class AssetsApiTest {
     @Test
     void updateAsset_existing() throws ApiException {
         String id = randomId();
-        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        api().createAsset(TENANT, """
+                id: %s
+                type: TABLE
+                description: kept
+                metadata:
+                  a: 1
+                """.formatted(id));
 
-        AssetsControllerApiAsset result = api().updateAsset(created.getId(), TENANT, """
+        AssetsControllerApiAsset result = api().updateAsset(id, TENANT, """
                 id: %s
                 type: TABLE
                 displayName: Updated %s
-                """.formatted(created.getId(), id));
+                metadata:
+                  b: 2
+                """.formatted(id, id));
 
         String displayName = "Updated %s".formatted(id);
-        assertThat(result.getId()).isEqualTo(created.getId());
-        assertThat(result.getDisplayName()).isEqualTo(displayName);
-        assertThat(api().asset(created.getId(), TENANT, null).getDisplayName()).isEqualTo(displayName);
+        for (AssetsControllerApiAsset asset : List.of(result, api().asset(id, TENANT, null))) {
+            assertThat(asset.getId()).isEqualTo(id);
+            assertThat(asset.getDisplayName()).isEqualTo(displayName);
+            assertThat(asset.getDescription()).isEqualTo("kept");
+            assertThat(asset.getMetadata()).containsExactlyInAnyOrderEntriesOf(Map.of("a", 1, "b", 2));
+        }
     }
 
     @Test
