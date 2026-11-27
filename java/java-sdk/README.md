@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *AssetsApi* | [**searchAssetLineageEvents**](docs/AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events
 *AssetsApi* | [**searchAssetUsages**](docs/AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages
 *AssetsApi* | [**searchAssets**](docs/AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets
+*AssetsApi* | [**updateAsset**](docs/AssetsApi.md#updateAsset) | **PUT** /api/v1/{tenant}/assets/{id} | Update an existing asset
 *BlueprintsApi* | [**blueprint**](docs/BlueprintsApi.md#blueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
 *BlueprintsApi* | [**blueprintGraph**](docs/BlueprintsApi.md#blueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
 *BlueprintsApi* | [**blueprintSource**](docs/BlueprintsApi.md#blueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code

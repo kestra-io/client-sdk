@@ -34,6 +34,10 @@ class AssetsApi(BaseApi):
         params = self._build_query_params(allowDeleted=allow_deleted)
         return self._json_request("GET", path, AssetsControllerApiAsset, params=params)
 
+    def update_asset(self, id: str, tenant: str, yaml_body: str) -> AssetsControllerApiAsset:
+        path = self._tenant_path(tenant, "assets", id)
+        return self._json_request("PUT", path, AssetsControllerApiAsset, body=yaml_body, content_type=self.YAML)
+
     def delete_asset(self, id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "assets", id)
         self._void_request("DELETE", path)
