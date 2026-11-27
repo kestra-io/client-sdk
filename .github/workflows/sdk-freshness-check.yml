@@ -35,7 +35,7 @@ jobs:
       - id: find
         run: |
           branch=$(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}" 'refs/heads/next/v*' \
-            | sed 's|.*refs/heads/||' | sort -V | tail -1)
+            | sed 's|.*refs/heads/||' | { grep -E '^next/v[0-9]+\.[0-9]+$' || true; } | sort -V | tail -1)
           echo "branch=${branch}" >> $GITHUB_OUTPUT
           echo "targets=$([ -n "$branch" ] && echo '["next","main"]' || echo '["main"]')" >> $GITHUB_OUTPUT
 
