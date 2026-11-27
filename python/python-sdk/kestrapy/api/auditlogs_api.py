@@ -93,12 +93,14 @@ class AuditLogsApi(BaseApi):
         self,
         tenant: str,
         filters: List[QueryFilter],
+        *,
         page: Optional[int] = None,
         size: Optional[int] = None,
         sort: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """A page of the audit-log entries of one resource. ``filters`` needs ``resources``
         with one type and ``id``, plus ``namespace`` for a namespaced resource.
+        ``page``, ``size`` and ``sort`` are keyword-only, since the required ``filters`` cannot follow them.
         GET /api/v1/{tenant}/auditlogs/history."""
         path = self._tenant_path(tenant, "auditlogs", "history")
         params = list(self._build_query_params(page=page, size=size).items())

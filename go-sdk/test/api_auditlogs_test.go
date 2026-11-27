@@ -53,7 +53,9 @@ func TestAuditLogsAPI(t *testing.T) {
 		res, err := client.AuditLogs().AuditLogHistory(ctx, MAIN_TENANT, &page, &size, nil, filters)
 		if skipIfGated(t, err, "the AUDITLOG feature") != nil {
 			require.NoError(t, err)
-			require.Empty(t, res["results"], "an unknown id has no history")
+			results, ok := res["results"]
+			require.True(t, ok, "an audit-log page carries a results array")
+			require.Empty(t, results, "an unknown id has no history")
 		}
 	})
 }
