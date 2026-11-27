@@ -151,6 +151,40 @@ def test_asset_get_by_id(client):
     assert result.id == created.id
 
 
+def test_update_asset_existing(client):
+    asset_id = random_id()
+    client.assets.create_asset(tenant=TENANT, yaml_body=(
+        f"id: {asset_id}\n"
+        "type: TABLE\n"
+        "description: kept\n"
+        "metadata:\n"
+        "  a: 1\n"
+    ))
+
+    result = client.assets.update_asset(id=asset_id, tenant=TENANT, yaml_body=(
+        f"id: {asset_id}\n"
+        "type: TABLE\n"
+        f"displayName: Updated {asset_id}\n"
+        "metadata:\n"
+        "  b: 2\n"
+    ))
+
+    stored = client.assets.asset(id=asset_id, tenant=TENANT)
+    for asset in (result, stored):
+        assert asset.display_name == f"Updated {asset_id}"
+        assert asset.description == "kept"
+        assert asset.metadata == {"a": 1, "b": 2}
+
+
+def test_update_asset_missing_is_not_found(client):
+    asset_id = random_id()
+
+    with pytest.raises(ApiException) as exc_info:
+        client.assets.update_asset(id=asset_id, tenant=TENANT, yaml_body=asset_yaml(asset_id))
+
+    assert exc_info.value.status == 404
+
+
 def test_delete_asset_basic(client):
     asset_id = random_id()
     created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
